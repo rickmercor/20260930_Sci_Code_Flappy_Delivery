@@ -1,0 +1,36 @@
+problem_id: "Material_Science-Semiconductor_Materials-62"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2509.13246"
+dependencies: ""
+steps:
+  - number: 1
+    name: "shear_strain_vector"
+    description: "Return the vector of the three independent shear strains of a symmetric 3x3 strain tensor, with the components in the order the source uses. Raise ValueError if e is not 3x3, not finite, or not symmetric."
+    orchestrator: false
+  - number: 2
+    name: "strained_band_gaps"
+    description: "Return the three strained gaps between the conduction band and, in order, the light-hole, heavy-hole and split-off bands, using exactly the three expressions given in the problem statement, with delta_g and delta_soff the unstrained gaps, a and b the deformation potentials, d_cv the strain correction to the interband coupling, e the strain tensor and e_s its shear-strain vector. Raise ValueError if either unstrained gap is not positive, if d_cv is negative, if the shapes are wrong, or if any strained gap is not positive."
+    orchestrator: false
+  - number: 3
+    name: "strain_tensor_factor"
+    description: "Return the 3x3 strain-dependent tensor factor that the source's effective conduction-band parameters carry in place of the identity, evaluated through first order in the strain with all O(e^2) terms discarded, as the problem statement prescribes. It must reduce to the identity at zero strain. Raise ValueError if e is not 3x3, not finite, or not symmetric."
+    orchestrator: false
+  - number: 4
+    name: "isotropic_g_tensor"
+    description: "Return the isotropic strain-renormalized effective g-tensor of the conduction band as the source defines it, from the interband coupling P in eV nm, the tensor factor of the previous step, and the strained conduction-to-light-hole and conduction-to-split-off gaps in eV. Use hbar^2/(2 m_e) = 0.0380998212 eV nm^2 and the free-electron g-factor g_e = 2.0023193, both given in the problem statement. Raise ValueError if P or either gap is not positive, or if adj is not 3x3."
+    orchestrator: false
+  - number: 5
+    name: "anisotropic_g_tensor"
+    description: "Return the anisotropic correction to the effective g-tensor that the source derives from the strain-induced splitting of the light and heavy holes, from P in eV nm, the tensor factor, and the strained conduction-to-light-hole and conduction-to-heavy-hole gaps in eV, using hbar^2/(2 m_e) = 0.0380998212 eV nm^2 as given in the problem statement. It must vanish identically when those two gaps are equal. Raise ValueError if P or either gap is not positive, or if adj is not 3x3."
+    orchestrator: false
+  - number: 6
+    name: "effective_g_tensor"
+    description: "Return the effective conduction-band g-tensor G obtained by rewriting the sum of the source's isotropic and anisotropic Zeeman terms as one term of the form (mu_B/2) B . G . sigma, with B the magnetic field and sigma the vector of Pauli matrices. Follow exactly which spin components the source's anisotropic term couples to; G is not required to be symmetric. Raise ValueError if either input is not 3x3."
+    orchestrator: false
+  - number: 7
+    name: "strain_g_anisotropy"
+    description: "Orchestrator. Build the shear-strain vector, the three strained gaps, the tensor factor, the isotropic g-tensor, the anisotropic correction and the effective g-tensor, in that order, and return the strain-induced anisotropy G_zz minus G_xx of the effective tensor. Call the earlier step functions rather than reimplementing any of them. Raise ValueError if e is not 3x3."
+    orchestrator: true

@@ -1,0 +1,69 @@
+{
+  "problem_id": "Biology-Ecology-48",
+  "sub_steps": [
+    {
+      "step_number": "Biology-Ecology-48.1",
+      "test_cases": [
+        "import numpy as np\np=np.array([[0.,0.],[1.,0.],[1.5,1.],[2.5,.4]]);t=np.array([23.7,23.9,24.5,25.1]);h=np.array([1.,.2]);c=np.array([1.,0.])\nassert np.allclose((lambda r: np.concatenate([np.asarray(x,dtype=float).ravel() for x in r]))(construct_event_steps(p,t,h,c)), target)",
+        "import numpy as np\np=np.array([[0.,0.],[-1.,0.],[-2.,0.]]);t=np.array([0.,.5,1.]);h=np.array([1.,0.]);c=np.array([0.,0.])\nassert np.allclose((lambda r: np.concatenate([np.asarray(x,dtype=float).ravel() for x in r]))(construct_event_steps(p,t,h,c)), target)",
+        "import numpy as np\np=np.array([[0.,0.],[.2,.8],[.3,1.4],[.8,1.6]]);t=np.array([22.,23.,24.,26.]);h=np.array([0.,1.]);c=np.array([.1,.9])\nassert np.allclose((lambda r: np.concatenate([np.asarray(x,dtype=float).ravel() for x in r]))(construct_event_steps(p,t,h,c)), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-48.2",
+      "test_cases": [
+        "import numpy as np\nphi=np.array([.2,-1.3,2.4]);k=np.array([2.4,5.7]);w=np.array([1.3,.42])\nassert np.allclose((lambda r: np.concatenate([np.asarray(x,dtype=float).ravel() for x in r]))(carved_turn_log_density(phi,k,w)), target)",
+        "import numpy as np\nphi=np.array([-np.pi,0.,.0001]);k=np.array([.2,8.]);w=np.array([.001,.12])\nassert np.allclose((lambda r: np.concatenate([np.asarray(x,dtype=float).ravel() for x in r]))(carved_turn_log_density(phi,k,w)), target)",
+        "import numpy as np\nphi=np.array([.004,-2.8]);k=np.array([12.,20.]);w=np.array([.05,7.])\nassert np.allclose((lambda r: np.concatenate([np.asarray(x,dtype=float).ravel() for x in r]))(carved_turn_log_density(phi,k,w)), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-48.3",
+      "test_cases": [
+        "import numpy as np\ndt=np.array([.2,.8,2.]);s=np.array([.4,3.,2.]);at=np.array([2.,4.]);bt=np.array([3.,5.]);as_=np.array([3.,6.]);bs=np.array([2.,4.])\nassert np.allclose(gamma_step_log_density(dt,s,at,bt,as_,bs), target)",
+        "import numpy as np\ndt=np.array([.0001,.3]);s=np.array([.1,10.]);at=np.ones(2);bt=np.ones(2);as_=np.ones(2);bs=np.ones(2)\nassert np.allclose(gamma_step_log_density(dt,s,at,bt,as_,bs), target)",
+        "import numpy as np\ndt=np.array([3.,4.]);s=np.array([5.,.05]);at=np.array([.4,9.]);bt=np.array([1.,2.]);as_=np.array([.5,4.]);bs=np.array([.1,10.])\nassert np.allclose(gamma_step_log_density(dt,s,at,bt,as_,bs), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-48.4",
+      "test_cases": [
+        "import numpy as np\nd=np.array([.2,2.,.7]);h=np.array([0.,6.,23.5]);b=np.array([[-1.,.5,1.,-.5],[.3,-.4,.2,.1]])\nassert np.allclose((lambda r: np.concatenate([np.asarray(x,dtype=float).ravel() for x in r]))(event_transition_matrices(d,h,b)), target)",
+        "import numpy as np\nd=np.array([0.,1.]);h=np.array([6.,18.]);b=np.zeros((2,4))\nassert np.allclose((lambda r: np.concatenate([np.asarray(x,dtype=float).ravel() for x in r]))(event_transition_matrices(d,h,b)), target)",
+        "import numpy as np\nd=np.array([1.,3.,.4]);h=np.array([23.9,0.,12.]);b=np.array([[5.,-.8,1.2,3.],[-4.,2.,-.2,-.5]])\nassert np.allclose((lambda r: np.concatenate([np.asarray(x,dtype=float).ravel() for x in r]))(event_transition_matrices(d,h,b)), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-48.5",
+      "test_cases": [
+        "import numpy as np\na=np.array([[-1.,-3.],[-2.,-1.]]);b=np.array([[-.4,-.6],[-1.2,-3.]])\nassert np.allclose(joint_event_emissions(a,b), target)",
+        "import numpy as np\na=np.array([[-np.inf,-2.],[-3.,-np.inf]]);b=np.zeros((2,2))\nassert np.allclose(joint_event_emissions(a,b), target)",
+        "import numpy as np\na=np.array([[-1000.,-1005.],[-1200.,-1203.],[-40.,-50.]]);b=np.array([[-.3,-1.],[-2.,-5.],[-1.,-.2]])\nassert np.allclose(joint_event_emissions(a,b), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-48.6",
+      "test_cases": [
+        "import numpy as np\nL=np.array([[-1.,-2.],[-2.,-1.],[-.8,-2.]]);G=np.tile(np.array([[.8,.2],[.3,.7]]),(3,1,1));delta=np.array([.6,.4])\nassert np.allclose((lambda r: np.concatenate([np.asarray(x,dtype=float).ravel() for x in r]))(scaled_event_forward(L,G,delta)), target)",
+        "import numpy as np\nL=np.array([[-np.inf,-.4],[-2.,-np.inf]]);G=np.tile(np.array([[.9,.1],[.2,.8]]),(2,1,1));delta=np.array([.4,.6])\nassert np.allclose((lambda r: np.concatenate([np.asarray(x,dtype=float).ravel() for x in r]))(scaled_event_forward(L,G,delta)), target)",
+        "import numpy as np\nL=np.array([[-1000.,-1001.],[-1200.,-1205.],[-1300.,-1290.]]);G=np.tile(np.array([[.03,.97],[.95,.05]]),(3,1,1));delta=np.array([.2,.8])\nassert np.allclose((lambda r: np.concatenate([np.asarray(x,dtype=float).ravel() for x in r]))(scaled_event_forward(L,G,delta)), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-48.7",
+      "test_cases": [
+        "import numpy as np\nL=np.array([[-1.,-2.],[-.5,-1.],[-1.3,-.2]]);S=np.array([[.2,.3],[-.1,.5],[.7,-.1]]);G=np.tile(np.array([[.8,.2],[.3,.7]]),(3,1,1));D=np.zeros_like(G);D[:,0,0]=[-.02,-.1,.03];D[:,0,1]=-D[:,0,0];delta=np.array([.5,.5])\nassert np.allclose(mixed_event_curvature(L,S,G,D,delta), target)",
+        "import numpy as np\nL=np.array([[-.1,-1.],[-.5,-2.]]);S=np.array([[.7,.2],[.2,.1]]);G=np.tile(np.array([[.5,.5],[.4,.6]]),(2,1,1));D=np.zeros_like(G);delta=np.array([.7,.3])\nassert np.allclose(mixed_event_curvature(L,S,G,D,delta), target)",
+        "import numpy as np\nL=np.array([[-500.,-501.],[-600.,-590.],[-200.,-210.],[-300.,-299.]]);S=np.array([[.2,.1],[.4,.7],[-.1,.2],[.5,.1]]);G=np.tile(np.array([[.1,.9],[.8,.2]]),(4,1,1));D=np.zeros_like(G);D[:,0,1]=[.03,-.06,.08,-.02];D[:,0,0]=-D[:,0,1];delta=np.array([.35,.65])\nassert np.allclose(mixed_event_curvature(L,S,G,D,delta), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-48.8",
+      "test_cases": [
+        "import numpy as np\np=np.array([[0.,0.],[.5,.1],[1.,.7],[1.4,1.],[2.2,.3]]);t=np.array([22.8,23.1,23.55,24.1,24.6]);h=np.array([1.,0.]);c=np.array([.5,.1]);k=np.array([2.4,5.7]);w=np.array([1.3,.42]);at=np.array([2.2,4.1]);bt=np.array([3.2,4.7]);as_=np.array([3.1,5.3]);bs=np.array([2.1,3.7]);b=np.array([[-.9,.23,1.1,-.55],[.2,-.18,-.4,.35]]);delta=np.array([.55,.45])\nassert np.allclose(evaluate_event_curvature(p,t,h,c,k,w,at,bt,as_,bs,b,delta), target)",
+        "import numpy as np\np=np.array([[0.,0.],[1.,0.],[2.,.05],[3.,.3]]);t=np.array([0.,.2,.7,1.2]);h=np.array([1.,.2]);c=np.array([0.,0.]);k=np.array([1.,3.]);w=np.array([.1,.4]);at=np.array([1.,3.]);bt=np.array([2.,4.]);as_=np.array([2.,4.]);bs=np.array([1.,3.]);b=np.zeros((2,4));delta=np.array([.5,.5])\nassert np.allclose(evaluate_event_curvature(p,t,h,c,k,w,at,bt,as_,bs,b,delta), target)",
+        "import numpy as np\np=np.array([[0.,0.],[.4,.2],[.7,.8],[1.5,.5],[1.7,1.2],[2.,1.3]]);t=np.array([5.,5.3,5.65,6.1,6.8,7.]);h=np.array([1.,.2]);c=np.array([.2,1.]);k=np.array([2.,6.]);w=np.array([1.,.01]);at=np.array([3.,4.]);bt=np.array([4.,5.]);as_=np.array([5.,2.]);bs=np.array([4.,2.]);b=np.array([[-1.,.2,1.,.4],[.2,-.1,-1.,.2]]);delta=np.array([.2,.8])\nassert np.allclose(evaluate_event_curvature(p,t,h,c,k,w,at,bt,as_,bs,b,delta), target)"
+      ]
+    }
+  ]
+}

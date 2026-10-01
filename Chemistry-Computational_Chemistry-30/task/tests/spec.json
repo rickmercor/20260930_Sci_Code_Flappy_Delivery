@@ -1,0 +1,79 @@
+{
+  "problem_id": "Chemistry-Computational_Chemistry-30",
+  "sub_steps": [
+    {
+      "step_number": "Chemistry-Computational_Chemistry-30.1",
+      "test_cases": [
+        "import numpy as np\ns = np.array([6., 6e7, 7.5e5, 30., 25.6, 120., 2.953, 2.912])\nassert np.allclose(prepare_inputs(s, 1.0), target)",
+        "import numpy as np\ns = np.array([10., 2e7, 1e5, 10., 30., 50., 2.8, 2.8])\nassert np.allclose(prepare_inputs(s, 1.0), target)",
+        "import numpy as np\ns = np.array([1., 1e6, 2e4, 0.1, 10., 1., 1.9, 1.7])\nassert np.allclose(prepare_inputs(s, 999.0), target)",
+        "import numpy as np\ns = np.array([6., 6e7, 7.5e5, 30., 25.6, 120., 2.953, 2.912])\ndef _expect_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1\n    raise AssertionError(\"Expected ValueError for invalid input\")\nassert np.allclose(_expect_value_error(prepare_inputs, s, 10.0), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-30.2",
+      "test_cases": [
+        "assert np.allclose(population_generator(6e-9, 6e7, 7.5e5, 30., 5e-6, 4.0), target)",
+        "assert np.allclose(population_generator(6e-9, 6e7, 7.5e5, 30., 0., 8.333333333333334), target)",
+        "assert np.allclose(population_generator(0.2, 2., 3., 0.5, 0.1, 0.), target)",
+        "def _expect_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1\n    raise AssertionError(\"Expected ValueError for invalid input\")\nassert np.allclose(_expect_value_error(population_generator, 6e-9, 6e7, 7.5e5, 30., -0.1, 1.), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-30.3",
+      "test_cases": [
+        "assert np.allclose(tail_coefficients(6e-9, 6e7, 7.5e5, 30., 1.0/0.120), target)",
+        "assert np.allclose(tail_coefficients(0.1, 2., 3., 0.5, 0.01), target)",
+        "assert np.allclose(tail_coefficients(6e-9, 6e7, 7.5e5, 1e-6, 1.0), target)",
+        "def _expect_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1\n    raise AssertionError(\"Expected ValueError for invalid input\")\nassert np.allclose(_expect_value_error(tail_coefficients, 0.1, 2., 3., 0.5, 3.5), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-30.4",
+      "test_cases": [
+        "assert np.allclose(admissible_point(750019.1987918274, 1.0/.12, 1., .0256, .041, 2e-5), target)",
+        "assert np.allclose(admissible_point(10., 3., 1., .0256, 0., .2), target)",
+        "assert np.allclose(admissible_point(10., 1., 1., .0256, .04, 0.), target)",
+        "assert np.allclose(admissible_point(750019.1987918274, 1.0/.12, 1., .0256, .041, 1.), target)",
+        "def _expect_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1\n    raise AssertionError(\"Expected ValueError for invalid input\")\nassert np.allclose(_expect_value_error(admissible_point, 10., 3., 1., .0256, -.01, .2), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-30.5",
+      "test_cases": [
+        "import numpy as np\nm = np.array([[-1/6e-9-6e7,7.5e5,3.75],[6e7,-750030.,.00015],[0.,30.,-7.75015]])\nassert np.allclose(slow_mode(m), target)",
+        "import numpy as np\nm = np.array([[-1/6e-9-6e7,7.5e5,0.],[6e7,-750030.,0.],[0.,30.,-1/.12]])\nassert np.allclose(slow_mode(m), target)",
+        "import numpy as np\nm = np.diag([-3.,-2.,-1.])\nassert np.allclose(slow_mode(m), target)",
+        "import numpy as np\nm = np.diag([-3.,-2.,0.])\ndef _expect_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1\n    raise AssertionError(\"Expected ValueError for invalid input\")\nassert np.allclose(_expect_value_error(slow_mode, m), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-30.6",
+      "test_cases": [
+        "assert np.allclose(kinetic_bounds(750019.1987918274, 1/.12, 1., .0256, .041), target)",
+        "assert np.allclose(kinetic_bounds(2., 3., 1., .0256, 0.), target)",
+        "assert np.allclose(kinetic_bounds(1., 3., 1., .05, .02), target)",
+        "def _expect_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1\n    raise AssertionError(\"Expected ValueError for invalid input\")\nassert np.allclose(_expect_value_error(kinetic_bounds, 10., 1., 1., .0256, .041), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-30.7",
+      "test_cases": [
+        "import numpy as np\nt = np.array([.0256,.0300])\nz = 4e-5*np.exp(-.041/t)\nassert np.allclose(thermal_identification(t,z), target)",
+        "import numpy as np\nt = np.array([.02,.04])\nz = np.array([.2,.2])\nassert np.allclose(thermal_identification(t,z), target)",
+        "import numpy as np\nt = np.array([.04,.02])\nz = .5*np.exp(-.2/t)\nassert np.allclose(thermal_identification(t,z), target)",
+        "import numpy as np\nt = np.array([.0256,.0256])\nz = np.array([.001,.001])\ndef _expect_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1\n    raise AssertionError(\"Expected ValueError for invalid input\")\nassert np.allclose(_expect_value_error(thermal_identification, t,z), target)",
+        "import numpy as np\nt = np.array([.02,.04])\nz = np.array([0.,0.])\ndef _expect_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1\n    raise AssertionError(\"Expected ValueError for invalid input\")\nassert np.allclose(_expect_value_error(thermal_identification, t,z), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-30.8",
+      "test_cases": [
+        "assert np.allclose(solve_triplet_bound(None,1.0), target)",
+        "import numpy as np\ns=np.array([6.,6e7,7.5e5,30.,25.6,120.,2.912,2.912])\nassert np.allclose(solve_triplet_bound(s,1.0), target)",
+        "assert np.allclose(solve_triplet_bound(None,8.0), target)",
+        "def _expect_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1\n    raise AssertionError(\"Expected ValueError for invalid input\")\nassert np.allclose(_expect_value_error(solve_triplet_bound, None,9.0), target)"
+      ]
+    }
+  ]
+}

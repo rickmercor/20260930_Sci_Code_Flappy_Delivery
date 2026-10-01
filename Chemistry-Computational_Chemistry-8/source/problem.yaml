@@ -1,0 +1,40 @@
+problem_id: "Chemistry-Computational_Chemistry-8"
+subject: "chemistry"
+subject_area: "Computational Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.48550/arXiv.2608.24378"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_compute_bond_kinetic_prefactors"
+    description: "Return, for every backbone bond of a chain that is either tethered at one end or free, the frequency prefactor of its transition-state rupture rate when bond lengths are measured in units of the equilibrium bond length."
+    orchestrator: false
+  - number: 2
+    name: "02_build_bending_kernel"
+    description: "Tabulate the logarithm of the orientational coupling at every link of a possibly heterogeneous chain, on a Gauss-Legendre grid of polar angles measured from the force direction, after integrating out relative azimuth."
+    orchestrator: false
+  - number: 3
+    name: "03_compute_intact_bond_weights"
+    description: "For every bond of a Morse chain under constant tension, integrate its Boltzmann weight over the intact range of reduced bond lengths at each polar angle of a Gauss-Legendre grid, and return the natural logarithm."
+    orchestrator: false
+  - number: 4
+    name: "04_compute_angular_weights"
+    description: "Propagate normalized forward and backward orientational messages through the link-specific log kernels of a chain and return, for every bond, the angular weight imposed by the rest of the intact chain."
+    orchestrator: false
+  - number: 5
+    name: "05_evaluate_bond_pmf"
+    description: "Evaluate the potential of mean force and its first two reduced-length derivatives for one bond of a tensioned Morse chain, given the angular weight imposed by the rest of the intact chain."
+    orchestrator: false
+  - number: 6
+    name: "06_locate_pmf_stationary_points"
+    description: "For every bond of a tensioned chain, locate the bonded minimum and the barrier top of its bond-length potential of mean force from the angular weight imposed by the rest of the chain."
+    orchestrator: false
+  - number: 7
+    name: "07_compute_bond_scission_rates"
+    description: "Convert each bond's tabulated potential of mean force into its bond-resolved transition-state rupture rate, with the dividing surface at the bond's rupture threshold and the intact basin below it."
+    orchestrator: false
+  - number: 8
+    name: "08_predict_tethered_scission_lifetime"
+    description: "Infer both the bending stiffness and the equilibrium bond angle of a Morse chain from its free-strand lifetime and terminal-scission fraction, then predict its tethered lifetime at another force. Orchestrator: yes; In each trial pair and the prediction, use all seven preceding reference steps to build prefactors, propagate the angular statistics, converge the bond-specific dividing surfaces, evaluate the PMFs and sum the bond-resolved rates."
+    orchestrator: true

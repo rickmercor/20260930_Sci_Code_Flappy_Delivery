@@ -1,0 +1,40 @@
+problem_id: "Chemistry-Quantum_Chemistry-22"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2601.01641"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_intrinsic_orbitals.py"
+    description: "Construct the complete, symmetrically orthogonalized intrinsic atomic orbital basis from a fixed occupied reference and a nonorthogonal minimal basis."
+    orchestrator: false
+  - number: 2
+    name: "02_thermal_reference.py"
+    description: "Calculate a spin-restricted thermal reference density at a prescribed mean total electron number."
+    orchestrator: false
+  - number: 3
+    name: "03_bath_projectors.py"
+    description: "Return gauge-independent EVB and order-two valence MEB projectors for a two-orbital impurity."
+    orchestrator: false
+  - number: 4
+    name: "04_embedded_operators.py"
+    description: "Project the interacting spatial-orbital Hamiltonian into an impurity-plus-bath space and construct full-Fock number operators."
+    orchestrator: false
+  - number: 5
+    name: "05_thermal_response.py"
+    description: "Evaluate interacting thermal means, impurity charge variance and the analytic response to two chemical potentials."
+    orchestrator: false
+  - number: 6
+    name: "06_match_numbers.py"
+    description: "Solve simultaneous grand-canonical total and impurity number constraints using analytic thermal response."
+    orchestrator: false
+  - number: 7
+    name: "07_compare_baths.py"
+    description: "Compare interacting impurity variances using separate EVB and MEB number-matched ensembles."
+    orchestrator: false
+  - number: 8
+    name: "08_charge_variance_difference.py"
+    description: "Orchestrate the complete fixed-reference IAO plus finite-temperature interacting-bath variance comparison."
+    orchestrator: true

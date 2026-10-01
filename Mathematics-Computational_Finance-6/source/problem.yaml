@@ -1,0 +1,40 @@
+problem_id: "Mathematics-Computational_Finance-6"
+subject: "mathematics"
+subject_area: "Computational Finance"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1137/25m1815614"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_lift_parameters"
+    description: "Builds the discrete lift weights and mean-reversion speeds that approximate the rough-volatility kernel of the lifted Heston model from the Hurst exponent and the number of lift factors."
+    orchestrator: false
+  - number: 2
+    name: "02_state_matrix"
+    description: "Assembles the linear state matrix that governs the joint evolution of the lifted variance factors from the mean-reversion strength, the lift weights, and the mean-reversion speeds."
+    orchestrator: false
+  - number: 3
+    name: "03_conditional_mean"
+    description: "Computes the conditional mean of the integrated variance over a time step and the per-factor conditional mean vector of the lifted state, by integrating the linear forcing equation and exponentiating the state matrix."
+    orchestrator: false
+  - number: 4
+    name: "04_cross_moment"
+    description: "Computes the conditional cross-moment between the integrated variance and the driving noise over a time step, together with the per-factor cross-moment vector, from the defining covariance integral."
+    orchestrator: false
+  - number: 5
+    name: "05_projection_slope"
+    description: "Forms the unconstrained conditional projection slope together with the feasibility metrics that decide whether the positivity requirement forces a constrained fallback."
+    orchestrator: false
+  - number: 6
+    name: "06_constrained_slope"
+    description: "Selects the slope actually used for the inverse-Gaussian draw, returning the unconstrained projection slope when it satisfies the positivity requirement and the constrained fallback otherwise."
+    orchestrator: false
+  - number: 7
+    name: "07_simulate_step"
+    description: "Advances the lifted-Heston state by one time step: draws the variance increment from the inverse-Gaussian family with the full two-root transform, then updates the factor vector and the variance level."
+    orchestrator: false
+  - number: 8
+    name: "08_run_clp_march"
+    description: "Chains the lift construction, state matrix, conditional mean, cross moment, projection slope, constrained slope, and one-step simulation of the preceding steps into the complete lifted-Heston march at the requested configuration, and returns the accumulated variance increment over the horizon."
+    orchestrator: true

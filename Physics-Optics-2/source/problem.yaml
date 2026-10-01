@@ -1,0 +1,40 @@
+problem_id: "Physics-Optics-2"
+subject: "physics"
+subject_area: "Optics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2605.09117"
+dependencies: ""
+steps:
+  - number: 1
+    name: "prepare_transport"
+    description: "Compute the discrete target masses and the importance observable for one pixel."
+    orchestrator: false
+  - number: 2
+    name: "compose_proposal"
+    description: "Compute the full local/global proposal transition matrix."
+    orchestrator: false
+  - number: 3
+    name: "compute_acceptance"
+    description: "Compute the Metropolis\u2013Hastings acceptance probabilities for the complete proposal."
+    orchestrator: false
+  - number: 4
+    name: "compute_rejection_moments"
+    description: "Compute the statewise acceptance mean and second rejection-probability moment."
+    orchestrator: false
+  - number: 5
+    name: "compute_stopped_weights"
+    description: "Compute the conditional mean of the operational vanilla holding weight at each cell."
+    orchestrator: false
+  - number: 6
+    name: "compute_tour_law"
+    description: "Compute the stationary cell probabilities of the accepted-tour sequence."
+    orchestrator: false
+  - number: 7
+    name: "reconstruct_radiances"
+    description: "Compute the exact pixel radiance and long-run vanilla radiance for the finite transport model."
+    orchestrator: false
+  - number: 8
+    name: "compute_radiance_distortion"
+    description: "Compute the signed long-run percentage radiance distortion (final orchestrator)."
+    orchestrator: true

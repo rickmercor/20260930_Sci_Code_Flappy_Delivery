@@ -1,0 +1,48 @@
+problem_id: "Biology-Biochemistry-21"
+subject: "biology"
+subject_area: "Biochemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1371/journal.pcbi.1014642"
+dependencies: ""
+steps:
+  - number: 1
+    name: "Kinetic Factors"
+    description: "Calculate source-defined kinetic factors for the enzyme panel."
+    orchestrator: false
+  - number: 2
+    name: "Growth Response"
+    description: "Calculate double-graded enzyme and metabolite responses."
+    orchestrator: false
+  - number: 3
+    name: "Enzyme Profiles"
+    description: "Construct condition-specific enzyme abundances for one design."
+    orchestrator: false
+  - number: 4
+    name: "Flux Sums"
+    description: "Calculate metabolite flux-sums from an irreversible flux vector."
+    orchestrator: false
+  - number: 5
+    name: "Kineflux State"
+    description: "Infer one steady flux state with the flux-sum/logit capacity model."
+    orchestrator: false
+  - number: 6
+    name: "Shared Thermodynamic Fit"
+    description: "Fit one thermodynamic uncertainty state across all conditions."
+    orchestrator: false
+  - number: 7
+    name: "Design Record"
+    description: "Evaluate every condition for one biochemical design."
+    orchestrator: false
+  - number: 8
+    name: "Evaluate Panel"
+    description: "Evaluate every biochemical design in row order."
+    orchestrator: false
+  - number: 9
+    name: "Select Design"
+    description: "Select the best eligible design and its eligible runner-up."
+    orchestrator: false
+  - number: 10
+    name: "Run Benchmark"
+    description: "Run the complete biochemical design benchmark."
+    orchestrator: true

@@ -1,0 +1,44 @@
+problem_id: "Material_Science-Semiconductor_Materials-55"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1038/s41524-026-02267-8"
+dependencies: ""
+steps:
+  - number: 1
+    name: "mass_weighted_displacement"
+    description: "Reduce the displaced defect cluster to the single mass-weighted coordinate offset that couples the electronic transition to the lattice."
+    orchestrator: false
+  - number: 2
+    name: "configuration_coordinate_parameters"
+    description: "Turn three total energies and the coordinate offset into the zero-phonon line energy, the relaxation energy and the effective vibrational quantum."
+    orchestrator: false
+  - number: 3
+    name: "electron_phonon_coupling"
+    description: "Convert the coordinate offset and the vibrational quantum into the dimensionless electron-phonon coupling strength and the Debye-Waller factor."
+    orchestrator: false
+  - number: 4
+    name: "dipole_transition_rate"
+    description: "Evaluate the purely electronic electric-dipole emission rate of the defect radiating inside the dielectric host."
+    orchestrator: false
+  - number: 5
+    name: "radiative_rate_partition"
+    description: "Split the electronic dipole rate into the phonon-corrected total radiative rate, the zero-phonon line rate and the sideband rate."
+    orchestrator: false
+  - number: 6
+    name: "coordinate_matrix_element"
+    description: "Evaluate the squared generalised configuration-coordinate matrix element out of each thermally populated excited-state vibrational level into the energy-conserving ground-state level."
+    orchestrator: false
+  - number: 7
+    name: "multiphonon_rate"
+    description: "Collapse the thermally averaged golden-rule sum at the energy-conserving levels and return the nonradiative multiphonon transition rate at a given lattice temperature."
+    orchestrator: false
+  - number: 8
+    name: "radiative_efficiency"
+    description: "Run the whole vibronic chain at a given lattice temperature and report the radiative quantum efficiency of the centre as a percentage."
+    orchestrator: false
+  - number: 9
+    name: "thermal_quenching_temperature"
+    description: "Find the lattice temperature at which the radiative quantum efficiency of the centre has fallen to a given fraction of its zero-temperature value."
+    orchestrator: true

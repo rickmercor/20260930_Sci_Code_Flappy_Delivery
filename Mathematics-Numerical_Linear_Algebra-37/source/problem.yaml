@@ -1,0 +1,44 @@
+problem_id: "Mathematics-Numerical_Linear_Algebra-37"
+subject: "mathematics"
+subject_area: "Numerical Linear Algebra"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2606.24190"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_difference_potential_matrix"
+    description: "Construct the central difference potential by sampling it on the tensor product of a spatial grid and a grid in the dual variable. The potential is supplied as a callable and must be evaluated directly at the shifted arguments. Raise ValueError for a non-callable potential, for grids that are not one-dimensional, for empty grids, for grids containing non-finite entries, and for a potential that does not broadcast elementwise over its argument."
+    orchestrator: false
+  - number: 2
+    name: "02_separation_factors"
+    description: "Compute the separable expansion of a sampled central difference potential and return its factors packed as a single array. Determine the number of retained terms as the count of singular values strictly exceeding rtol times the largest one, distribute each retained singular value symmetrically as its square root between the two factors, and fix the residual sign freedom by requiring that, in each spatial factor column, the first entry whose magnitude exceeds 1e-12 times that column's largest magnitude be positive, applying the same flip to the matching dual factor column. Return the spatial factors stacked above the dual factors. Raise ValueError if the input is not a non-empty two-dimensional array, if it contains non-finite entries, or if rtol does not satisfy 0 < rtol < 1."
+    orchestrator: false
+  - number: 3
+    name: "03_spectral_derivative_matrix"
+    description: "Build the differentiation matrix that acts on values sampled at n_points equispaced nodes covering one period, with the left endpoint included and the right endpoint excluded, so that the matrix returned differentiates the periodic interpolant of a real-valued function exactly. Raise ValueError if n_points is not an integer, if it is smaller than two, or if the period is not a finite positive real number."
+    orchestrator: false
+  - number: 4
+    name: "04_initial_low_rank_state"
+    description: "Project sampled initial data onto the fixed-rank manifold and return the resulting factors packed as a single array. Retain the leading rank terms of the truncated singular value decomposition, keep the coefficient matrix as the diagonal matrix of retained singular values, and fix the sign freedom by requiring that, in each left factor column, the earliest entry whose magnitude is within a relative 1e-9 of that column's largest magnitude be positive, applying the same flip to the matching right factor column. Return the left factors stacked above the coefficient matrix, stacked above the right factors. Raise ValueError if f_grid is not a non-empty two-dimensional array, if it contains non-finite entries, if rank is not an integer lying between one and the smaller grid dimension, or if the retained singular value at the truncation is no larger than 1e-14 times the leading one."
+    orchestrator: false
+  - number: 5
+    name: "05_wigner_rhs"
+    description: "Evaluate the right-hand side of the Wigner equation (hbar = m = 1) at a packed low-rank state, for a potential supplied only through the separation factors of its central difference potential, and return it as a dense array on the phase-space grid. The state arrives packed as left factors, coefficient matrix and right factors stacked in that order. The factors arrive packed as returned by the separation step: the spatial factors sampled at the spatial nodes, stacked above the dual factors sampled at the nodes of the grid dual to the wave-vector grid. For Nk wave-vector nodes with spacing dk, the dual nodes are y_m = 2*pi*m/(Nk*dk) for the integers m from -floor(Nk/2) to Nk - floor(Nk/2) - 1, in increasing order. For even Nk the unpaired dual node m = -Nk/2 contributes nothing, and the returned array is the real part of the result. Take the spatial derivative with the supplied differentiation operator. Raise ValueError if the state is not two-dimensional, if the grids are not non-empty one-dimensional arrays, if the state's row count does not equal the spatial grid size plus the rank plus the wave-vector grid size, if the differentiation operator is not square and matched to the spatial grid, if the factors are not a two-dimensional array whose row count equals the spatial grid size plus the wave-vector grid size, or if any input contains non-finite entries."
+    orchestrator: false
+  - number: 6
+    name: "06_projector_splitting_step"
+    description: "Apply one practical projector-splitting calculation to a packed low-rank state given a prescribed increment array, and return the updated packed state in the same layout. Both orthonormal factorisations must be resolved to a unique convention by requiring the diagonal of the triangular factor to be non-negative, transferring any sign change to the orthonormal factor. Raise ValueError if the state or increment is not two-dimensional, if the state's row count does not equal the increment's row count plus the rank plus the increment's column count, if any input contains non-finite entries, or if either matrix being factorised has collapsed to rounding error, meaning its largest singular value is at most 1e-13 times the sum of the Frobenius norms of the two terms forming it, or has lost full column rank, meaning its smallest singular value is at most 1e-15 times its largest."
+    orchestrator: false
+  - number: 7
+    name: "07_two_stage_tableau"
+    description: "Given the final weight assigned to the first stage, recover the tableau with that first weight among the admissible tableaux of the robust two-stage construction, and return it as the stage abscissa followed by the two final weights. A tableau is admissible only if its internal stage is evaluated inside the step it belongs to, strictly after the start of the step and no later than its end. Raise ValueError if b1 is not given as an integer or floating-point number (a string such as \"0\" must be rejected, not converted), if it is not finite, or if no admissible tableau has that first weight."
+    orchestrator: false
+  - number: 8
+    name: "08_robust_psrk_step"
+    description: "Advance a packed low-rank state by one time step of the robust two-stage construction, using the tableau recovered from the supplied first-stage weight and the right-hand side of the preceding step for the potential given by the separation factors. Raise ValueError if the state is not two-dimensional, if the grids are not non-empty one-dimensional arrays, if the state's row count does not equal the spatial grid size plus the rank plus the wave-vector grid size, if the differentiation operator is not square and matched to the spatial grid, if h is not a finite positive real number, if any input contains non-finite entries, if the supplied weight admits no tableau, or if an evaluation of the right-hand side or an application of the practical splitting calculation raises."
+    orchestrator: false
+  - number: 9
+    name: "09_wigner_dlra_target"
+    description: "Run the complete pipeline end to end and return the single scalar it targets. Build the periodic phase-space grid from the node count and half-width, sample the harmonic difference potential on the spatial grid and on the grid dual to the wave-vector grid, as the right-hand-side step defines it, verify through the earlier steps that it has the separation rank the potential implies and that the recovered factors reproduce it, use those factors for the potential term throughout, confirm that the supplied first-stage weight admits a tableau, form the initial low-rank state from the rotated squeezed Gaussian, advance it by the requested number of uniform steps, and evaluate the reconstruction at the requested phase-space point. Raise ValueError if the node count, rank or step count is not a positive integer, if any real parameter is not finite, if the half-width or final time is not positive, if the supplied first-stage weight admits no tableau, if the difference potential does not have that separation rank, or if the evaluation point does not lie on the grid."
+    orchestrator: true

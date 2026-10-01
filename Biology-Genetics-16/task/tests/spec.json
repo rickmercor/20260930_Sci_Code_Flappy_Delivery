@@ -1,0 +1,85 @@
+{
+  "problem_id": "Biology-Genetics-16",
+  "sub_steps": [
+    {
+      "step_number": "Biology-Genetics-16.1",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(simulate_base_population(10, 2000, 0.90, 0.15, 0.85, 2043), target)",
+        "import numpy as np\nassert np.allclose(simulate_base_population(4, 50, 0.0, 0.45, 0.55, 7), target)",
+        "import numpy as np\nassert np.allclose(simulate_base_population(2, 2, 0.999, 0.02, 0.98, 0), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-16.2",
+      "test_cases": [
+        "import numpy as np\nrng = np.random.default_rng(2043)\nZ = rng.standard_normal((4000, 10))\nX = np.empty_like(Z); X[:, 0] = Z[:, 0]\ns = np.sqrt(1 - 0.90 ** 2)\nfor i in range(1, 10):\n    X[:, i] = 0.90 * X[:, i - 1] + s * Z[:, i]\nthr = np.array([ 1.0364334,  0.7461852,  0.5084881,  0.2967378,  0.0976349,\n                -0.0976349, -0.2967378, -0.5084881, -0.7461852, -1.0364334])\nH = (X > thr[None, :]).astype(int)\nassert np.allclose(individual_diversity_matrix(H), target)",
+        "import numpy as np\nH = np.array([[1, 1], [1, 1], [0, 0], [0, 0], [1, 1], [0, 0]], dtype=int)\nassert np.allclose(individual_diversity_matrix(H), target)",
+        "import numpy as np\nH = np.array([[1, 0], [1, 0], [1, 1], [1, 1], [1, 0], [1, 1]], dtype=int)\nassert np.allclose(individual_diversity_matrix(H), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-16.3",
+      "test_cases": [
+        "import numpy as np\nrates = np.full(9, 0.05)\nassert np.allclose(pairwise_recombination_matrix(rates), target)",
+        "import numpy as np\nrates = np.zeros(4)\nassert np.allclose(pairwise_recombination_matrix(rates), target)",
+        "import numpy as np\nrates = np.array([0.001, 0.4999, 0.25, 0.02])\nassert np.allclose(pairwise_recombination_matrix(rates), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-16.4",
+      "test_cases": [
+        "import numpy as np\nrng = np.random.default_rng(2043)\nZ = rng.standard_normal((4000, 10))\nX = np.empty_like(Z); X[:, 0] = Z[:, 0]\ns = np.sqrt(1 - 0.90 ** 2)\nfor i in range(1, 10):\n    X[:, i] = 0.90 * X[:, i - 1] + s * Z[:, i]\nthr = np.array([ 1.0364334,  0.7461852,  0.5084881,  0.2967378,  0.0976349,\n                -0.0976349, -0.2967378, -0.5084881, -0.7461852, -1.0364334])\nH = (X > thr[None, :]).astype(int)\nd = np.concatenate([[0.0], np.cumsum(-0.5 * np.log1p(-2.0 * np.full(9, 0.05)))])\nR = 0.5 * (1.0 - np.exp(-2.0 * np.abs(d[:, None] - d[None, :])))\nassert np.allclose(weighted_base_diversity_matrix(H, R), target)",
+        "import numpy as np\nH = np.array([[1, 1], [0, 1], [1, 0], [0, 0], [1, 1], [0, 0]], dtype=int)\nR = np.zeros((2, 2))\nassert np.allclose(weighted_base_diversity_matrix(H, R), target)",
+        "import numpy as np\nH = np.array([[1, 0], [0, 1], [0, 1], [1, 0], [1, 0], [0, 1], [0, 1], [1, 0]], dtype=int)\nR = np.array([[0.0, 0.02], [0.02, 0.0]])\nassert np.allclose(weighted_base_diversity_matrix(H, R), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-16.5",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose([variance_effective_size(n, 6.0) for n in (2000, 1200, 700, 400, 250, 150)], target)",
+        "import numpy as np\nassert np.allclose(variance_effective_size(500, 2.0), target)",
+        "import numpy as np\nassert np.allclose(variance_effective_size(1, 0.0), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-16.6",
+      "test_cases": [
+        "import numpy as np\nrng = np.random.default_rng(2043)\nZ = rng.standard_normal((4000, 10))\nX = np.empty_like(Z); X[:, 0] = Z[:, 0]\ns = np.sqrt(1 - 0.90 ** 2)\nfor i in range(1, 10):\n    X[:, i] = 0.90 * X[:, i - 1] + s * Z[:, i]\nthr = np.array([ 1.0364334,  0.7461852,  0.5084881,  0.2967378,  0.0976349,\n                -0.0976349, -0.2967378, -0.5084881, -0.7461852, -1.0364334])\nH = (X > thr[None, :]).astype(float)\nd = np.concatenate([[0.0], np.cumsum(-0.5 * np.log1p(-2.0 * np.full(9, 0.05)))])\nR = 0.5 * (1.0 - np.exp(-2.0 * np.abs(d[:, None] - d[None, :])))\np = H.mean(axis=0, keepdims=True)\na, b = H[0::2] - p, H[1::2] - p\nn = a.shape[0]\nLg = 0.25 * (a.T @ a + b.T @ b) / n\nLx = 0.25 * (a.T @ b + b.T @ a) / n\nL = Lg + (R / (1.0 - R)) * Lx\nassert np.allclose(expected_change_operator(L, R, 2, 50.0, 2000.0), target)",
+        "import numpy as np\nrng = np.random.default_rng(2043)\nZ = rng.standard_normal((4000, 10))\nX = np.empty_like(Z); X[:, 0] = Z[:, 0]\ns = np.sqrt(1 - 0.90 ** 2)\nfor i in range(1, 10):\n    X[:, i] = 0.90 * X[:, i - 1] + s * Z[:, i]\nthr = np.array([ 1.0364334,  0.7461852,  0.5084881,  0.2967378,  0.0976349,\n                -0.0976349, -0.2967378, -0.5084881, -0.7461852, -1.0364334])\nH = (X > thr[None, :]).astype(float)\nd = np.concatenate([[0.0], np.cumsum(-0.5 * np.log1p(-2.0 * np.full(9, 0.05)))])\nR = 0.5 * (1.0 - np.exp(-2.0 * np.abs(d[:, None] - d[None, :])))\np = H.mean(axis=0, keepdims=True)\na, b = H[0::2] - p, H[1::2] - p\nn = a.shape[0]\nLg = 0.25 * (a.T @ a + b.T @ b) / n\nLx = 0.25 * (a.T @ b + b.T @ a) / n\nL = Lg + (R / (1.0 - R)) * Lx\nassert np.allclose(expected_change_operator(L, R, 1, 50.0, 150.0), target)",
+        "import numpy as np\nL = np.array([[0.12, 0.05], [0.05, 0.10]])\nR = np.array([[0.0, 0.02], [0.02, 0.0]])\nassert np.allclose(expected_change_operator(L, R, 25, 0.75, 40.0), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-16.7",
+      "test_cases": [
+        "import numpy as np\nrng = np.random.default_rng(2043)\nZ = rng.standard_normal((4000, 10))\nX = np.empty_like(Z); X[:, 0] = Z[:, 0]\ns = np.sqrt(1 - 0.90 ** 2)\nfor i in range(1, 10):\n    X[:, i] = 0.90 * X[:, i - 1] + s * Z[:, i]\nthr = np.array([ 1.0364334,  0.7461852,  0.5084881,  0.2967378,  0.0976349,\n                -0.0976349, -0.2967378, -0.5084881, -0.7461852, -1.0364334])\nH = (X > thr[None, :]).astype(float)\nd = np.concatenate([[0.0], np.cumsum(-0.5 * np.log1p(-2.0 * np.full(9, 0.05)))])\nR = 0.5 * (1.0 - np.exp(-2.0 * np.abs(d[:, None] - d[None, :])))\np = H.mean(axis=0, keepdims=True)\na, b = H[0::2] - p, H[1::2] - p\nn = a.shape[0]\nLg = 0.25 * (a.T @ a + b.T @ b) / n\nLx = 0.25 * (a.T @ b + b.T @ a) / n\nL = Lg + (R / (1.0 - R)) * Lx\nassert np.allclose(drift_covariance_matrix(L, R, 2, 50.0, 150.0, 75.0), target)",
+        "import numpy as np\nrng = np.random.default_rng(2043)\nZ = rng.standard_normal((4000, 10))\nX = np.empty_like(Z); X[:, 0] = Z[:, 0]\ns = np.sqrt(1 - 0.90 ** 2)\nfor i in range(1, 10):\n    X[:, i] = 0.90 * X[:, i - 1] + s * Z[:, i]\nthr = np.array([ 1.0364334,  0.7461852,  0.5084881,  0.2967378,  0.0976349,\n                -0.0976349, -0.2967378, -0.5084881, -0.7461852, -1.0364334])\nH = (X > thr[None, :]).astype(float)\nd = np.concatenate([[0.0], np.cumsum(-0.5 * np.log1p(-2.0 * np.full(9, 0.05)))])\nR = 0.5 * (1.0 - np.exp(-2.0 * np.abs(d[:, None] - d[None, :])))\np = H.mean(axis=0, keepdims=True)\na, b = H[0::2] - p, H[1::2] - p\nn = a.shape[0]\nLg = 0.25 * (a.T @ a + b.T @ b) / n\nLx = 0.25 * (a.T @ b + b.T @ a) / n\nL = Lg + (R / (1.0 - R)) * Lx\nassert np.allclose(drift_covariance_matrix(L, R, 1, 50.0, 2000.0, 1000.0), target)",
+        "import numpy as np\nL = np.array([[0.12, 0.05], [0.05, 0.10]])\nR = np.zeros((2, 2))\nassert np.allclose(drift_covariance_matrix(L, R, 4, 0.6, 0.8, 0.5), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-16.8",
+      "test_cases": [
+        "import numpy as np\ndp = np.array([-0.082062, -0.103579, -0.097155, -0.076363, -0.043564, 0.011792, 0.034409, 0.081252, 0.069469, 0.064476])\nd = np.array([0.066508, 0.092087, 0.108340, 0.123244, 0.128911, 0.125736, 0.124076, 0.107344, 0.086860, 0.062986])\nL = np.diag(d) + 0.01 * (np.ones((10, 10)) - np.eye(10))\nassert np.allclose(genic_variance_from_change(dp, L), target)",
+        "import numpy as np\ndp = np.zeros(3)\nL = np.diag([0.1, 0.2, 0.05])\nassert np.allclose(genic_variance_from_change(dp, L), target)",
+        "import numpy as np\ndp = np.array([0.02, 0.0, -0.01])\nL = np.diag([0.1, 0.0, 0.05])\nassert np.allclose(genic_variance_from_change(dp, L), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-16.9",
+      "test_cases": [
+        "import numpy as np\nY = np.array([\n [-0.080508, -0.088382, -0.092691, -0.079427, -0.029581,  0.007478,  0.057723,  0.081924,  0.063215,  0.058229],\n [-0.087222, -0.098856, -0.084800, -0.045451, -0.039817, -0.008562,  0.026788,  0.041907,  0.049555,  0.057158],\n [-0.104796, -0.131458, -0.065336, -0.087962, -0.065417, -0.008970,  0.015046,  0.058879,  0.065851,  0.072945],\n [-0.076533, -0.060456, -0.062452, -0.045712, -0.024884,  0.022225,  0.068221,  0.082374,  0.104465,  0.091738],\n [-0.063602, -0.083285, -0.104352, -0.102128, -0.025376,  0.053171,  0.009892,  0.118097,  0.088889,  0.056976],\n [-0.079714, -0.159038, -0.173297, -0.097500, -0.076308,  0.005407,  0.028781,  0.104331,  0.044838,  0.049813]])\nrng = np.random.default_rng(2043)\nZ = rng.standard_normal((4000, 10))\nX = np.empty_like(Z); X[:, 0] = Z[:, 0]\ns = np.sqrt(1 - 0.90 ** 2)\nfor i in range(1, 10):\n    X[:, i] = 0.90 * X[:, i - 1] + s * Z[:, i]\nthr = np.array([ 1.0364334,  0.7461852,  0.5084881,  0.2967378,  0.0976349,\n                -0.0976349, -0.2967378, -0.5084881, -0.7461852, -1.0364334])\nH = (X > thr[None, :]).astype(float)\nd = np.concatenate([[0.0], np.cumsum(-0.5 * np.log1p(-2.0 * np.full(9, 0.05)))])\nR = 0.5 * (1.0 - np.exp(-2.0 * np.abs(d[:, None] - d[None, :])))\np = H.mean(axis=0)\na, b = H[0::2] - p[None, :], H[1::2] - p[None, :]\nLg = 0.25 * (a.T @ a + b.T @ b) / a.shape[0]\nLx = 0.25 * (a.T @ b + b.T @ a) / a.shape[0]\nLt = Lg + (R / (1.0 - R)) * Lx\ncensus = [2000, 1200, 700, 400, 250, 150]\nops, cov = [], []\nfor N in census:\n    ne, nE = float(N), 4.0 * N / (2.0 + 6.0)\n    f0, dr = 1.0 - 1.0 / (2.0 * 50.0), 1.0 - 1.0 / (2.0 * ne)\n    Nt = [((1.0 - R) ** t) * f0 * (dr ** (t - 1)) for t in (1, 2)]\n    Lm = sum(n_t * Lt for n_t in Nt)\n    Dm = Lt * sum(((1.0 - R) / nE) * n_t for n_t in Nt)\n    ops.append(Lm); cov.append(Dm)\nx = 2.0 * p - 1.0\nassert np.allclose(average_effect_scale(Y, ops, cov, x), target)",
+        "import numpy as np\nY = np.array([\n [-0.080508, -0.088382, -0.092691, -0.079427, -0.029581,  0.007478,  0.057723,  0.081924,  0.063215,  0.058229],\n [-0.087222, -0.098856, -0.084800, -0.045451, -0.039817, -0.008562,  0.026788,  0.041907,  0.049555,  0.057158],\n [-0.104796, -0.131458, -0.065336, -0.087962, -0.065417, -0.008970,  0.015046,  0.058879,  0.065851,  0.072945],\n [-0.076533, -0.060456, -0.062452, -0.045712, -0.024884,  0.022225,  0.068221,  0.082374,  0.104465,  0.091738],\n [-0.063602, -0.083285, -0.104352, -0.102128, -0.025376,  0.053171,  0.009892,  0.118097,  0.088889,  0.056976],\n [-0.079714, -0.159038, -0.173297, -0.097500, -0.076308,  0.005407,  0.028781,  0.104331,  0.044838,  0.049813]])\nrng = np.random.default_rng(2043)\nZ = rng.standard_normal((4000, 10))\nX = np.empty_like(Z); X[:, 0] = Z[:, 0]\ns = np.sqrt(1 - 0.90 ** 2)\nfor i in range(1, 10):\n    X[:, i] = 0.90 * X[:, i - 1] + s * Z[:, i]\nthr = np.array([ 1.0364334,  0.7461852,  0.5084881,  0.2967378,  0.0976349,\n                -0.0976349, -0.2967378, -0.5084881, -0.7461852, -1.0364334])\nH = (X > thr[None, :]).astype(float)\nd = np.concatenate([[0.0], np.cumsum(-0.5 * np.log1p(-2.0 * np.full(9, 0.05)))])\nR = 0.5 * (1.0 - np.exp(-2.0 * np.abs(d[:, None] - d[None, :])))\np = H.mean(axis=0)\na, b = H[0::2] - p[None, :], H[1::2] - p[None, :]\nLg = 0.25 * (a.T @ a + b.T @ b) / a.shape[0]\nLx = 0.25 * (a.T @ b + b.T @ a) / a.shape[0]\nLt = Lg + (R / (1.0 - R)) * Lx\ncensus = [2000, 1200, 700, 400, 250, 150]\nops, cov = [], []\nfor N in census:\n    ne, nE = float(N), 4.0 * N / (2.0 + 6.0)\n    f0, dr = 1.0 - 1.0 / (2.0 * 50.0), 1.0 - 1.0 / (2.0 * ne)\n    Nt = [((1.0 - R) ** t) * f0 * (dr ** (t - 1)) for t in (1, 2)]\n    Lm = sum(n_t * Lt for n_t in Nt)\n    Dm = Lt * sum(((1.0 - R) / nE) * n_t for n_t in Nt)\n    ops.append(Lm); cov.append(Dm)\nx = 2.0 * p - 1.0\nassert np.allclose(average_effect_scale(Y[:1], ops[:1], cov[:1], x), target)",
+        "import numpy as np\nY = np.array([[0.02, -0.02],\n              [0.08, -0.08]])\nL1 = np.array([[0.10, 0.02], [0.02, 0.10]])\nops = [L1, L1]\ncov = [np.array([[1e-5, 0.0], [0.0, 1e-5]]), np.array([[1e-2, 0.0], [0.0, 1e-2]])]\nx = np.array([0.5, -0.5])\nassert np.allclose(average_effect_scale(Y, ops, cov, x), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-16.10",
+      "test_cases": [
+        "import numpy as np\nY = np.array([\n [-0.080508, -0.088382, -0.092691, -0.079427, -0.029581,  0.007478,  0.057723,  0.081924,  0.063215,  0.058229],\n [-0.087222, -0.098856, -0.084800, -0.045451, -0.039817, -0.008562,  0.026788,  0.041907,  0.049555,  0.057158],\n [-0.104796, -0.131458, -0.065336, -0.087962, -0.065417, -0.008970,  0.015046,  0.058879,  0.065851,  0.072945],\n [-0.076533, -0.060456, -0.062452, -0.045712, -0.024884,  0.022225,  0.068221,  0.082374,  0.104465,  0.091738],\n [-0.063602, -0.083285, -0.104352, -0.102128, -0.025376,  0.053171,  0.009892,  0.118097,  0.088889,  0.056976],\n [-0.079714, -0.159038, -0.173297, -0.097500, -0.076308,  0.005407,  0.028781,  0.104331,  0.044838,  0.049813]])\ncensus = [2000, 1200, 700, 400, 250, 150]\nrates = np.full(9, 0.05)\nspec = {\"n_loci\": 10, \"n_individuals\": 2000, \"rho\": 0.90,\n        \"p_low\": 0.15, \"p_high\": 0.85, \"seed\": 2043}\nassert np.allclose(additive_genetic_variance_for_fitness(Y, census, 50.0, rates, 2, 6.0, spec), target)",
+        "import numpy as np\nY = np.array([\n [-0.080508, -0.088382, -0.092691, -0.079427, -0.029581,  0.007478,  0.057723,  0.081924,  0.063215,  0.058229],\n [-0.087222, -0.098856, -0.084800, -0.045451, -0.039817, -0.008562,  0.026788,  0.041907,  0.049555,  0.057158],\n [-0.104796, -0.131458, -0.065336, -0.087962, -0.065417, -0.008970,  0.015046,  0.058879,  0.065851,  0.072945],\n [-0.076533, -0.060456, -0.062452, -0.045712, -0.024884,  0.022225,  0.068221,  0.082374,  0.104465,  0.091738],\n [-0.063602, -0.083285, -0.104352, -0.102128, -0.025376,  0.053171,  0.009892,  0.118097,  0.088889,  0.056976],\n [-0.079714, -0.159038, -0.173297, -0.097500, -0.076308,  0.005407,  0.028781,  0.104331,  0.044838,  0.049813]])\ncensus = [2000, 1200, 700, 400, 250, 150]\nrates = np.full(9, 0.05)\nspec = {\"n_loci\": 10, \"n_individuals\": 2000, \"rho\": 0.90,\n        \"p_low\": 0.15, \"p_high\": 0.85, \"seed\": 2043}\nassert np.allclose(additive_genetic_variance_for_fitness(Y, census, 50.0, rates, 1, 2.0, spec), target)",
+        "import numpy as np\nY = np.array([\n [-0.080508, -0.088382, -0.092691, -0.079427, -0.029581,  0.007478,  0.057723,  0.081924,  0.063215,  0.058229],\n [-0.087222, -0.098856, -0.084800, -0.045451, -0.039817, -0.008562,  0.026788,  0.041907,  0.049555,  0.057158],\n [-0.104796, -0.131458, -0.065336, -0.087962, -0.065417, -0.008970,  0.015046,  0.058879,  0.065851,  0.072945],\n [-0.076533, -0.060456, -0.062452, -0.045712, -0.024884,  0.022225,  0.068221,  0.082374,  0.104465,  0.091738],\n [-0.063602, -0.083285, -0.104352, -0.102128, -0.025376,  0.053171,  0.009892,  0.118097,  0.088889,  0.056976],\n [-0.079714, -0.159038, -0.173297, -0.097500, -0.076308,  0.005407,  0.028781,  0.104331,  0.044838,  0.049813]])\ncensus = [2000, 1200, 700, 400, 250, 150]\nrates = np.full(9, 0.05)\nspec = {\"n_loci\": 10, \"n_individuals\": 2000, \"rho\": 0.90,\n        \"p_low\": 0.15, \"p_high\": 0.85, \"seed\": 2043}\nassert np.allclose(additive_genetic_variance_for_fitness(Y[5:], [150], 50.0, rates, 2, 6.0, spec), target)"
+      ]
+    }
+  ]
+}

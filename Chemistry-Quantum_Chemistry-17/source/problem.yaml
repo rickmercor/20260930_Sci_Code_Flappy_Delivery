@@ -1,0 +1,40 @@
+problem_id: "Chemistry-Quantum_Chemistry-17"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1021/acs.jctc.5c00778"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_pair_occupations"
+    description: "Enumerate the paired determinant space."
+    orchestrator: false
+  - number: 2
+    name: "02_doci_matrix"
+    description: "Project the factorized electronic Hamiltonian into the paired determinant basis."
+    orchestrator: false
+  - number: 3
+    name: "03_doci_orbital_response"
+    description: "Evaluate the DOCI ground-state energy and its relaxed orbital gradient and Hessian."
+    orchestrator: false
+  - number: 4
+    name: "04_relax_doci_trial"
+    description: "Construct a DOCI trial by a fixed number of damped orbital-relaxation updates."
+    orchestrator: false
+  - number: 5
+    name: "05_advance_walker"
+    description: "Advance an unrestricted walker through one force-biased imaginary-time step with a selected DOCI trial, retaining mixed estimators and the determinant normalization."
+    orchestrator: false
+  - number: 6
+    name: "06_phaseless_weight"
+    description: "Update the positive importance weight using the physical overlap phase."
+    orchestrator: false
+  - number: 7
+    name: "07_projection_block"
+    description: "Replay a finite orbital-relaxed DOCI-guided phaseless projection block."
+    orchestrator: false
+  - number: 8
+    name: "08_solve_doci_projection"
+    description: "Return the finite-block mixed-energy increment relative to the orbital-relaxed DOCI trial."
+    orchestrator: true

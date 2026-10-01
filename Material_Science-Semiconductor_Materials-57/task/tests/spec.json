@@ -1,0 +1,89 @@
+{
+  "problem_id": "Material_Science-Semiconductor_Materials-57",
+  "sub_steps": [
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-57.1",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(lattice_mismatch(4.127, 1, 4.19, 1), target)",
+        "import numpy as np\nassert np.allclose(lattice_mismatch(4.19, 1, 4.19, 1), target)",
+        "import numpy as np\nassert np.allclose(lattice_mismatch(3.33, 2, 4.19, 1), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-57.2",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(binding_energy(-180.243, -100.0, -80.0, 0.02, 15.21), target)",
+        "import numpy as np\nassert np.allclose(binding_energy(-100.0, -50.0, -50.0, 0.0, 10.0), target)",
+        "import numpy as np\nassert np.allclose(binding_energy(-10.0, -4.0, -5.0, -0.1, 2.0), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-57.3",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(schottky_barriers(0.05, 0.58), target)",
+        "import numpy as np\nassert np.allclose(schottky_barriers(-0.2, -0.1), target)",
+        "import numpy as np\nassert np.allclose(schottky_barriers(0.0, 0.0), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-57.4",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(terminal_potentials(-0.2, 0.0), target)",
+        "import numpy as np\nassert np.allclose(terminal_potentials(0.2, 0.0), target)",
+        "import numpy as np\nassert np.allclose(terminal_potentials(-0.2, 0.75), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-57.5",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(gated_band_edges(0.05, 0.58, 0.1), target)",
+        "import numpy as np\nassert np.allclose(gated_band_edges(0.05, 0.58, 0.0), target)",
+        "import numpy as np\nassert np.allclose(gated_band_edges(0.05, 0.58, -0.1), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-57.6",
+      "test_cases": [
+        "import numpy as np; E=np.linspace(-1.0,1.0,21)\nassert np.allclose(threshold_spectra(E.copy(), 0.05, 0.58), target)",
+        "import numpy as np\nassert np.allclose(threshold_spectra(np.linspace(-0.5,0.5,11), -0.4, 0.4), target)",
+        "import numpy as np\nassert np.allclose(threshold_spectra(np.array([-1.0,0.0,1.0]), 0.0, 0.0), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-57.7",
+      "test_cases": [
+        "import numpy as np; E=np.linspace(-1.5,1.5,401); T=np.vstack([(E<=0.05).astype(float),(E>=0.58).astype(float)])\nassert np.allclose(landauer_spin_currents(E.copy(), T.copy(), 0.1, -0.1, 300.0, 4300.0), target)",
+        "import numpy as np; E=np.linspace(-1.0,1.0,201); T=np.vstack([np.ones_like(E), np.ones_like(E)])\nassert np.allclose(landauer_spin_currents(E.copy(), T.copy(), 0.0, 0.0, 300.0, 4300.0), target)",
+        "import numpy as np; E=np.linspace(-1.5,1.5,401); T=np.vstack([np.zeros_like(E),(E>=0.05).astype(float)])\nassert np.allclose(landauer_spin_currents(E.copy(), T.copy(), -0.1, 0.1, 300.0, 4300.0), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-57.8",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(spin_filtering_efficiency(230.0, 1e-4), target)",
+        "import numpy as np\nassert np.allclose(spin_filtering_efficiency(10.0, -2.0), target)",
+        "import numpy as np\nassert np.allclose(spin_filtering_efficiency(1.0, 1.0), target)",
+        "import numpy as np\nassert np.allclose(spin_filtering_efficiency(0.004833260464177144, 7.206820836771062), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-57.9",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(decade_swing(0.20, 0.32, -230.14140927397327, -7.206820836770518), target)",
+        "import numpy as np\nassert np.allclose(decade_swing(0.0, 0.060, 1.0, 0.1), target)",
+        "import numpy as np\nassert np.allclose(decade_swing(0.0, 0.060, 0.1, 1.0), target)",
+        "import numpy as np\nassert np.allclose(decade_swing(0.060, 0.0, 1.0, 0.1), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-57.10",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(orchestrate_device_swing(), target)",
+        "import numpy as np\nassert np.allclose(orchestrate_device_swing(V_g1=0.18, V_g2=0.30), target)",
+        "import numpy as np\nassert np.allclose(orchestrate_device_swing(temperature_K=200.0), target)",
+        "import numpy as np\nassert np.allclose(orchestrate_device_swing(E_vbm_up=0.0), target)",
+        "import numpy as np\nassert np.allclose(orchestrate_device_swing(E_vbm_up=-0.58, E_cbm_down=-0.05, V_b=0.2, V_g1=-0.32, V_g2=-0.20), target)"
+      ]
+    }
+  ]
+}

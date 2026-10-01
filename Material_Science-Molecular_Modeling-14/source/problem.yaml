@@ -1,0 +1,40 @@
+problem_id: "Material_Science-Molecular_Modeling-14"
+subject: "materials"
+subject_area: "Molecular Modeling"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2606.13434"
+dependencies: ""
+steps:
+  - number: 1
+    name: "layer_geometry"
+    description: "Build the rotated geometry of the three graphene layers for a given angle triple: per layer, the Bravais matrix, the reciprocal matrix, the two Dirac points and the B-sublattice offset, packed row-wise as [A (4, row-major), B (4, row-major), K (2), K' (2), tau_B (2)], using the source's base lattice conventions with lattice constant a = 1.42 sqrt(3)."
+    orchestrator: false
+  - number: 2
+    name: "cell_reduce"
+    description: "Reduce a batch of momentum vectors into the reciprocal unit cell of a layer exactly by the source's reduction map for its truncation criterion."
+    orchestrator: false
+  - number: 3
+    name: "wl_dof"
+    description: "Enumerate the reciprocal degrees of freedom that survive the source's W and L truncations for a base momentum q: for each layer j the pairs of reciprocal vectors of the other two layers (in increasing layer order), with integer coordinates scanned over [-nmax, nmax]^2 in ascending lexicographic order, layer-major. Which distances the two criteria test, how the shifted momentum is prepared before the W test, and how the reference Dirac point is chosen, follow the source."
+    orchestrator: false
+  - number: 4
+    name: "bump_gtau"
+    description: "Evaluate the source's smoothly truncated compactly supported bump function of width delta and cutoff tau on an array of radii, exactly as the source defines it, including both plateau regions."
+    orchestrator: false
+  - number: 5
+    name: "intralayer_block"
+    description: "Evaluate the 2x2 intralayer Bloch block of one layer at an effective momentum, from the declared hopping functions: amplitude t1 = -1 on the Bravais steps (0,0), (-1,0), (-1,1) from sublattice A to B; t2 = 0.15 on the steps (1,0), (0,1), (1,-1) and their negatives within each sublattice; t3 = 0.08 on the A-to-B steps (0,1), (-2,1), (0,-1); t4 = 0.05 on the A-to-B steps (2,-1), (-2,0), (1,1); each with its Hermitian partner. The Bloch phase convention and the real-space truncation of the hop sum at radius tau follow the source. The last axis stacks real and imaginary parts."
+    orchestrator: false
+  - number: 6
+    name: "assemble_hamiltonian"
+    description: "Assemble the Hermitian reciprocal Hamiltonian on the truncated degrees of freedom: intralayer blocks on the diagonal at the shifted momenta, and interlayer couplings only between the layer pairs the source admits, subject to the source's matching condition on the third layer's reciprocal vector, with the source's normalization and sublattice phase factors, the declared interlayer coupling h(xi) = 0.045 exp(-0.1 |xi|^2) evaluated at the momentum the source prescribes, and tapered by the source's bump with tau = 3.0, delta = 0.6. The last axis stacks real and imaginary parts."
+    orchestrator: false
+  - number: 7
+    name: "kpm_ldos"
+    description: "Evaluate the momentum local density of states at the base momentum through the source's kernel polynomial approximation of the delta function at polynomial order P and scaling s: Chebyshev moments of the scaled Hamiltonian on the zero-reciprocal-vector unit vectors of each layer, damped by the source's kernel coefficients, reconstructed with the source's normalization, and averaged over layers and sublattices as the source defines the momentum LDoS."
+    orchestrator: false
+  - number: 8
+    name: "ttg_audit"
+    description: "Run the full pipeline on the two declared trilayer configurations and report per configuration: the number of surviving reciprocal degrees of freedom; the Hamiltonian dimension; the Hermiticity residual of the assembled matrix; the momentum LDoS at the three declared energies at polynomial order P; and the largest eigenvalue of the assembled Hamiltonian. Assemble by calling the earlier sub-problem functions."
+    orchestrator: true

@@ -1,0 +1,36 @@
+problem_id: "Physics-Optics-18"
+subject: "physics"
+subject_area: "Optics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2606.24643"
+dependencies: ""
+steps:
+  - number: 1
+    name: "qssf_dispersion_propagator"
+    description: "Evaluate the dispersion symbol and its linear half-step propagator on the supplied angular-frequency grid, and find the unique real center prescribed by the dispersion\u2013nonlinear-offset window rule. Return all three quantities as the documented numerical array."
+    orchestrator: false
+  - number: 2
+    name: "qssf_coupled_step"
+    description: "Advance the classical envelope and both quantum Bogoliubov maps in one coupled QSSF step, using the prescribed frozen field and the distinct annihilation and creation Fourier bases."
+    orchestrator: false
+  - number: 3
+    name: "qssf_symplecticity_check"
+    description: "Compute both normalized Frobenius residuals of the bosonic canonical relations. Return diagnostic errors for canonical or noncanonical finite matrix pairs without imposing a physicality threshold in this diagnostic routine."
+    orchestrator: false
+  - number: 4
+    name: "qssf_second_moments"
+    description: "Select the requested output modes while retaining every input vacuum channel. Construct their normal and anomalous moments and the real grouped-quadrature covariance, validating the canonical map and the window indices."
+    orchestrator: false
+  - number: 5
+    name: "qssf_williamson_decomposition"
+    description: "Construct a real canonical coordinate map that diagonalizes the reduced covariance. Retain every symplectic mode, including degenerate modes; accept equivalent choices of canonical basis."
+    orchestrator: false
+  - number: 6
+    name: "qssf_williamson_entropy"
+    description: "Validate the actual covariance's physicality and the supplied canonical coordinates at their respective tolerances, then evaluate entropy, purity and effective occupied mode number."
+    orchestrator: false
+  - number: 7
+    name: "qssf_full_simulation"
+    description: "Compose all six preceding functions to propagate the coupled state, validate its commutators and Williamson coordinates, and return the selected spectral-band diagnostic."
+    orchestrator: true

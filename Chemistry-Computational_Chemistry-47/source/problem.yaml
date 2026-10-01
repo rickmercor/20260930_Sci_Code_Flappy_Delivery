@@ -1,0 +1,40 @@
+problem_id: "Chemistry-Computational_Chemistry-47"
+subject: "chemistry"
+subject_area: "Computational Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1038/s42004-025-01839-x"
+dependencies: ""
+steps:
+  - number: 1
+    name: "hsqc_cost_matrices"
+    description: "Construct the source-protocol pairwise HSQC separation and assignment-cost matrices from two active peak sets."
+    orchestrator: false
+  - number: 2
+    name: "modified_hungarian_distance"
+    description: "Reduce the pairwise separation and cost matrices to the source-defined assignment distance and within-range fraction."
+    orchestrator: false
+  - number: 3
+    name: "rank_hsqc_library"
+    description: "Return the source-defined direct ordering and aligned spectral signal in original candidate order."
+    orchestrator: false
+  - number: 4
+    name: "build_hsqc_network"
+    description: "Build the source-filtered library graph from pair records and return canonical weighted edges."
+    orchestrator: false
+  - number: 5
+    name: "insert_query_node"
+    description: "Determine the query neighbors and whether the source connectivity condition permits reranking."
+    orchestrator: false
+  - number: 6
+    name: "product_weighted_resource_allocation"
+    description: "Evaluate the source-defined weighted resource-allocation signal from the inserted query to every library candidate."
+    orchestrator: false
+  - number: 7
+    name: "network_corrected_scores"
+    description: "Combine spectral-distance and network evidence under the source-defined correction."
+    orchestrator: false
+  - number: 8
+    name: "hsqc_retrieval_gain"
+    description: "Compose the seven preceding public functions into the source-protocol HSQC retrieval audit."
+    orchestrator: true

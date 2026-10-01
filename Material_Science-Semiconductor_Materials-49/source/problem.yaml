@@ -1,0 +1,56 @@
+problem_id: "Material_Science-Semiconductor_Materials-49"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1063/5.0331796"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_effective_ionization_parameters"
+    description: "Collapse the separate electron and hole ionization coefficients into one effective pair."
+    orchestrator: false
+  - number: 2
+    name: "02_ionization_dimensionless_group"
+    description: "Form the dimensionless group that controls the breakdown condition."
+    orchestrator: false
+  - number: 3
+    name: "03_avalanche_zeta"
+    description: "Solve the breakdown condition exactly for its dimensionless field variable."
+    orchestrator: false
+  - number: 4
+    name: "04_critical_field"
+    description: "Convert the dimensionless field variable into the peak field at breakdown."
+    orchestrator: false
+  - number: 5
+    name: "05_punchthrough_field_ratio"
+    description: "Field ratio at the punch-through design that makes the constant-mobility, complete-ionisation drift resistance stationary."
+    orchestrator: false
+  - number: 6
+    name: "06_punchthrough_depletion_width"
+    description: "Drift thickness of the trapezoidal punch-through design."
+    orchestrator: false
+  - number: 7
+    name: "07_punchthrough_breakdown_voltage"
+    description: "Blocking voltage supported by the trapezoidal profile."
+    orchestrator: false
+  - number: 8
+    name: "08_field_ratio_at_rating"
+    description: "Terminal to peak field ratio forced on the punch-through drift layer by its voltage rating."
+    orchestrator: false
+  - number: 9
+    name: "09_free_electron_density"
+    description: "Free electron density in the neutral on-state drift layer under incomplete donor ionisation."
+    orchestrator: false
+  - number: 10
+    name: "10_drift_electron_mobility"
+    description: "Doping dependent electron mobility of the 4H-SiC drift layer at room temperature."
+    orchestrator: false
+  - number: 11
+    name: "11_two_carrier_critical_field"
+    description: "Critical field at avalanche breakdown with the electron and hole ionisation coefficients kept separate."
+    orchestrator: false
+  - number: 12
+    name: "12_minimum_specific_on_resistance"
+    description: "Minimum drift specific on-resistance of the optimised punch-through design with the two carrier coefficients kept separate."
+    orchestrator: true

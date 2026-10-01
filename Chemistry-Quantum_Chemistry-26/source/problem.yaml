@@ -1,0 +1,40 @@
+problem_id: "Chemistry-Quantum_Chemistry-26"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1063/5.0321278"
+dependencies: ""
+steps:
+  - number: 1
+    name: "compute_one_electron_integrals"
+    description: "Compute the overlap, kinetic-energy and nuclear-attraction matrices of a molecule over contracted Cartesian s- and p-type Gaussian basis functions."
+    orchestrator: false
+  - number: 2
+    name: "compute_electron_repulsion_integrals"
+    description: "Compute the full four-index tensor of electron-repulsion integrals, in chemists' notation, over contracted Cartesian s- and p-type Gaussian basis functions."
+    orchestrator: false
+  - number: 3
+    name: "solve_restricted_hartree_fock"
+    description: "Solve the closed-shell restricted Hartree-Fock (Roothaan-Hall) equations self-consistently and return the total energy, the canonical orbital energies and the orbital coefficients."
+    orchestrator: false
+  - number: 4
+    name: "compute_flow_regularized_weight"
+    description: "Evaluate, elementwise, the flow-parameter-dependent energy-denominator weight that multiplies each two-electron-integral product in the static self-energy of the flow-regularised quasiparticle self-consistent second-order Green's-function method (the source method)."
+    orchestrator: false
+  - number: 5
+    name: "compute_static_self_energy"
+    description: "Build the flow-regularised second-order static self-energy matrix of the source method for a closed-shell reference, in its spin-integrated, spin-component-scaled form over spatial molecular orbitals."
+    orchestrator: false
+  - number: 6
+    name: "build_quasiparticle_fock"
+    description: "Assemble the total quasiparticle Fock matrix of the source method in the atomic-orbital basis from the current orbitals and quasiparticle energies."
+    orchestrator: false
+  - number: 7
+    name: "iterate_quasiparticle_self_consistency"
+    description: "Iterate the source method's quasiparticle equations to self-consistency and return the converged quasiparticle energies and orbitals."
+    orchestrator: false
+  - number: 8
+    name: "compute_homo_quasiparticle_energy"
+    description: "Compute the self-consistent highest-occupied quasiparticle energy of a closed-shell molecule with one of the source method's published parametrisations, starting from the atomic geometry and basis."
+    orchestrator: true

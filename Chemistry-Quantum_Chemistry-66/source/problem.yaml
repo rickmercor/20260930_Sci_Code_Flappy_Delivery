@@ -1,0 +1,44 @@
+problem_id: "Chemistry-Quantum_Chemistry-66"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2606.04285"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_Symmetric eigensystem"
+    description: "Compute every eigenvalue and eigenvector of a real\n\nsymmetric matrix. This is a standard routine from numerical linear\n\nalgebra. Later steps use it as a building block for the larger,\n\npaper-specific calculations. It is not itself part of the physics being\n\nmodeled."
+    orchestrator: false
+  - number: 2
+    name: "02_Direct RPA excitation energies"
+    description: "Solve the closed-shell direct RPA response problem in\n\nthe spin-orbital basis, with the Hartree kernel only. Include every\n\nsame-spin occupied-to-virtual excitation. Return the excitation\n\nenergies together with their forward (X) and backward (Y) amplitudes."
+    orchestrator: false
+  - number: 3
+    name: "03_GW effective integrals"
+    description: "Combine the direct-RPA excitation amplitudes with the\n\nbare Coulomb integrals to form the GW effective integral between every\n\npair of active spin-orbitals and every excitation. This quantity is the\n\nbasic coupling unit from which every later step is built."
+    orchestrator: false
+  - number: 4
+    name: "04_ADC-GW effective Hamiltonian (tier 1)"
+    description: "Assemble the smallest effective Hamiltonian of the\n\nalgebraic-diagrammatic construction (ADC) hierarchy used in this task.\n\nIt has one reference row and column for a single probed orbital, plus\n\nevery two-hole-one-particle and two-particle-one-hole configuration\n\nbuilt from the active space. This tier reproduces plain one-shot GW\n\nexactly. The paper states that it \"does not introduce any additional\n\nterms\" beyond conventional GW."
+    orchestrator: false
+  - number: 5
+    name: "05_ADC-2SOSEX effective Hamiltonian (tier 2)"
+    description: "Add a second coupling term to the tier-1 (ADC-GW)\n\nmatrix. The paper states that, with this term included, the resulting\n\nscheme is exactly equivalent to a self-energy already published by a\n\ndifferent group (GW+2SOSEX made positive semi-definite). This term is\n\ntherefore not new physics. It is still a paper-specific formula that\n\nmust be implemented correctly: two sums with similar-looking factors\n\nbut different energy denominators."
+    orchestrator: false
+  - number: 6
+    name: "06_ADC(3)-G3W2 effective Hamiltonian (tier 3)"
+    description: "Add the first new correction of this paper to the\n\ntier-2 matrix. This is a symmetrized diagonal-block correction. It\n\ncouples different two-hole-one-particle configurations to one another,\n\nand separately it couples different two-particle-one-hole\n\nconfigurations to one another. It does not only couple configurations\n\nto the reference orbital."
+    orchestrator: false
+  - number: 7
+    name: "07_ADC-G3W2 third coupling term (tier 4, part 1)"
+    description: "Add the third and most complex coupling correction\n\nbetween the reference orbital and every two-hole-one-particle or\n\ntwo-particle-one-hole configuration. This correction, together with the\n\nnew block of configurations added in the next step, completes the full\n\ntheory."
+    orchestrator: false
+  - number: 8
+    name: "08_Three-hole-two-particle block (tier 4, part 2)"
+    description: "Extend the effective Hamiltonian with a new class of\n\nconfiguration. Each new configuration is one hole (or particle) orbital\n\ntogether with two simultaneous excitations at once. The new\n\nconfigurations couple back to the ordinary two-hole-one-particle (or\n\ntwo-particle-one-hole) configurations. This block completes the full\n\nADC-G3W2 theory."
+    orchestrator: false
+  - number: 9
+    name: "09_ADC-G3W2 ionization potential"
+    description: "Combine every earlier step into the full pipeline and\n\nreport the final answer. The final answer is the ionization potential\n\nof one named orbital at the full ADC-G3W2 level of theory."
+    orchestrator: true

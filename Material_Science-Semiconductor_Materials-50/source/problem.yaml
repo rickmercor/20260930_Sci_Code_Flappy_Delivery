@@ -1,0 +1,44 @@
+problem_id: "Material_Science-Semiconductor_Materials-50"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1103/56y9-s71s"
+dependencies: ""
+steps:
+  - number: 1
+    name: "exciton_units"
+    description: "Effective-mass description of a Wannier-Mott exciton in a one-dimensional semiconductor.\n\nThe relative electron-hole motion along the chain axis has the kinetic energy\n\n-(hbar^2 / 2 mu) d^2/dz^2 with the interband reduced mass 1 / mu = 1 / m_c + 1 / m_v.\n\nWith mu in units of the free-electron mass m, the natural excitonic units are the\n\nexciton Rydberg and the exciton Bohr radius,"
+    orchestrator: false
+  - number: 2
+    name: "bare_potential_fourier"
+    description: "Averaged bare Coulomb interaction of a quasi-one-dimensional wire in Fourier space.\n\nThe wire is a cylinder of radius R along z; the induced charge is distributed laterally\n\nwith a normalised distribution f(rho), and the one-dimensional interaction is the\n\nelectrostatic potential of a point charge averaged over f. In terms of the longitudinal\n\nwave number q this average of the Helmholtz Green's function K_0(|q| rho) gives, with\n\nN_f the normalisation of f,"
+    orchestrator: false
+  - number: 3
+    name: "nonlocal_form_factor"
+    description: "Nonlocality form factor of the one-dimensional screening response. Averaging the\n\nlateral integral equation for the potential over the induced-charge distribution f gives\n\nthe screened interaction V(q) = V_bare(q) / [1 + alpha_1D q^2 chi(q) V_bare(q)], where the\n\nform factor chi(q) measures how the Green's function K_0(|q| |rho - rho'|) couples\n\ndifferent lateral positions. In the local treatment the kernel is replaced by its value\n\nat the wire axis and chi reduces to the normalisation N_f of the distribution (4 for the\n\nribbon, whose four edges carry the charge, and 1 otherwise). The partially nonlocal\n\ntreatment replaces the unknown lateral potential in the denominator by its lateral\n\naverage and evaluates the remaining double integral over f analytically:"
+    orchestrator: false
+  - number: 4
+    name: "dielectric_function"
+    description: "Effective one-dimensional dielectric function. With the averaged bare interaction\n\nV_bare(q) and the form factor chi(q) the screening of a quasi-1D semiconductor with\n\nstatic polarizability alpha_1D (units of length squared) is"
+    orchestrator: false
+  - number: 5
+    name: "screened_potential_fourier"
+    description: "Statically screened one-dimensional electron-hole interaction in Fourier space,"
+    orchestrator: false
+  - number: 6
+    name: "variational_kernel_integral"
+    description: "Momentum-space expectation value of the screened interaction in the variational exciton\n\nstate. The trial function has the shape of the one-dimensional hydrogen ground state with\n\nthe exciton Bohr radius divided by the variational parameter lambda,"
+    orchestrator: false
+  - number: 7
+    name: "variational_binding_energy"
+    description: "Variational binding energy as a function of the variational parameter. The kinetic\n\nenergy of the trial state is R_exc lambda^2 (the 1D hydrogen value scaled by lambda^2)\n\nand the potential energy is -R_exc lambda (4 / pi) I(lambda), so the binding energy,\n\ndefined as the gap minus the lowest pair energy, is"
+    orchestrator: false
+  - number: 8
+    name: "optimise_exciton"
+    description: "Variational optimum. The exciton binding energy is the maximum of E_B(lambda) over the\n\nvariational parameter; the optimum lambda_0 gives the average electron-hole separation\n\nr_B = 3 a_exc / (2 lambda_0). E_B(lambda) is smooth and unimodal on the physical range, so\n\na bounded scalar maximisation (golden-section / Brent) on a fixed interval is sufficient;\n\nthe default bounds 0.02 <= lambda <= 3 cover excitons from very extended to strongly\n\ncompressed. Because E_B is stationary at the optimum, the binding energy is insensitive to\n\nthe last digits of lambda_0, whereas lambda_0 and r_B themselves are determined to about\n\nsix significant figures. Invalid bounds (lower >= upper or lower <= 0) are rejected."
+    orchestrator: false
+  - number: 9
+    name: "nonlocality_correction"
+    description: "Final orchestrator. The chain is: excitonic units from the reduced mass (step 1); the\n\naveraged bare interaction of the chosen lateral distribution (step 2); the local form\n\nfactor N_f and the partially nonlocal form factor (step 3); the dielectric function and\n\nthe screened interaction (steps 4 and 5); the kernel integral and the variational energy\n\n(steps 6 and 7); and the bounded maximisation over lambda (step 8). The orchestrator calls\n\nevery earlier step directly. It obtains the excitonic units, evaluates the bare\n\ninteraction, the nonlocal form factor, the dielectric function and the screened\n\ninteraction at a reference wave vector and verifies the defining relations\n\neps = 1 + alpha_1D q^2 chi V_bare and V eps = V_bare, runs the optimisation twice for the\n\nsame wire, once with the local form factor and once with the partially nonlocal one,\n\ncross-checks each returned radius against the units through r_B lambda_0 = 3 a_exc / 2,\n\nre-evaluates the kernel integral and the variational energy at each returned lambda_0\n\nagainst the optimiser energy, and returns the nonlocality correction to the exciton\n\nbinding energy"
+    orchestrator: true

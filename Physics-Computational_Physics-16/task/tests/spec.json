@@ -1,0 +1,62 @@
+{
+  "problem_id": "Physics-Computational_Physics-16",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Computational_Physics-16.1",
+      "test_cases": [
+        "import numpy as np\np = np.array([.027, .158, .339, .305, .133, .038])\nalpha = np.array([.033, .219, .196, .395, .115, .042])\ndecay = np.array([.0124, .0305, .111, .301, 1.14, 3.01])\n\ndef pack(fn, p, beta, alpha):\n    mean, second = fn(p.copy(), beta, alpha.copy())\n    assert np.shape(mean) == (7,) and np.shape(second) == (7, 7)\n    return np.concatenate((np.asarray(mean), np.asarray(second).ravel()))\nassert np.allclose(pack(compute_fission_moments, p, .0065, alpha), target)",
+        "import numpy as np\np = np.array([.027, .158, .339, .305, .133, .038])\nalpha = np.array([.033, .219, .196, .395, .115, .042])\ndecay = np.array([.0124, .0305, .111, .301, 1.14, 3.01])\n\ndef pack(fn, p, beta, alpha):\n    mean, second = fn(p.copy(), beta, alpha.copy())\n    assert np.shape(mean) == (7,) and np.shape(second) == (7, 7)\n    return np.concatenate((np.asarray(mean), np.asarray(second).ravel()))\n\np = np.array([0., 0., 1.])\nassert np.allclose(pack(compute_fission_moments, p, 0., alpha), target)",
+        "import numpy as np\np = np.array([.027, .158, .339, .305, .133, .038])\nalpha = np.array([.033, .219, .196, .395, .115, .042])\ndecay = np.array([.0124, .0305, .111, .301, 1.14, 3.01])\n\ndef pack(fn, p, beta, alpha):\n    mean, second = fn(p.copy(), beta, alpha.copy())\n    assert np.shape(mean) == (7,) and np.shape(second) == (7, 7)\n    return np.concatenate((np.asarray(mean), np.asarray(second).ravel()))\n\np = np.array([.25, 0., .75])\nalpha = np.array([1., 0., 0., 0., 0., 0.])\nassert np.allclose(pack(compute_fission_moments, p, .1, alpha), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Computational_Physics-16.2",
+      "test_cases": [
+        "import numpy as np\np = np.array([.027, .158, .339, .305, .133, .038])\nalpha = np.array([.033, .219, .196, .395, .115, .042])\ndecay = np.array([.0124, .0305, .111, .301, 1.14, 3.01])\nassert np.allclose(build_mean_drift(-.005, 10., 15., .001, .0065, alpha.copy(), decay.copy()), target)",
+        "import numpy as np\np = np.array([.027, .158, .339, .305, .133, .038])\nalpha = np.array([.033, .219, .196, .395, .115, .042])\ndecay = np.array([.0124, .0305, .111, .301, 1.14, 3.01])\nassert np.allclose(build_mean_drift(0., float(\"inf\"), float(\"inf\"), .001, 0., alpha.copy(), decay.copy()), target)",
+        "import numpy as np\np = np.array([.027, .158, .339, .305, .133, .038])\nalpha = np.array([.033, .219, .196, .395, .115, .042])\ndecay = np.array([.0124, .0305, .111, .301, 1.14, 3.01])\n\ndecay = np.zeros(6)\nassert np.allclose(build_mean_drift(.003, 2., 4., .002, .01, alpha.copy(), decay.copy()), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Computational_Physics-16.3",
+      "test_cases": [
+        "import numpy as np\np = np.array([.027, .158, .339, .305, .133, .038])\nalpha = np.array([.033, .219, .196, .395, .115, .042])\ndecay = np.array([.0124, .0305, .111, .301, 1.14, 3.01])\n\nmean = np.arange(1., 14.)\nfission_mean = np.r_[1.473, alpha * .0065 * 2.473 / .9935]\nfission_second = np.outer(fission_mean, fission_mean)\nfission_second[0, 0] = p @ (np.arange(6) - 1.) ** 2\nfission_second[np.arange(1, 7), np.arange(1, 7)] += fission_mean[1:]\nassert np.allclose(build_jump_noise(mean.copy(), 401.7, 608.3, 8800., 10., 15., decay.copy(), fission_second.copy()), target)",
+        "import numpy as np\np = np.array([.027, .158, .339, .305, .133, .038])\nalpha = np.array([.033, .219, .196, .395, .115, .042])\ndecay = np.array([.0124, .0305, .111, .301, 1.14, 3.01])\n\nmean = np.arange(1., 14.)\nfission_mean = np.r_[1.473, alpha * .0065 * 2.473 / .9935]\nfission_second = np.outer(fission_mean, fission_mean)\nfission_second[0, 0] = p @ (np.arange(6) - 1.) ** 2\nfission_second[np.arange(1, 7), np.arange(1, 7)] += fission_mean[1:]\n\nmean = np.zeros(13)\nassert np.allclose(build_jump_noise(mean.copy(), 401.7, 608.3, 8800., 10., 15., decay.copy(), fission_second.copy()), target)",
+        "import numpy as np\np = np.array([.027, .158, .339, .305, .133, .038])\nalpha = np.array([.033, .219, .196, .395, .115, .042])\ndecay = np.array([.0124, .0305, .111, .301, 1.14, 3.01])\n\nmean = np.arange(1., 14.)\nfission_mean = np.r_[1.473, alpha * .0065 * 2.473 / .9935]\nfission_second = np.outer(fission_mean, fission_mean)\nfission_second[0, 0] = p @ (np.arange(6) - 1.) ** 2\nfission_second[np.arange(1, 7), np.arange(1, 7)] += fission_mean[1:]\n\nmean[0] = 0.\ndecay = np.zeros(6)\nassert np.allclose(build_jump_noise(mean.copy(), 0., 0., 0., 2., 4., decay.copy(), fission_second.copy()), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Computational_Physics-16.4",
+      "test_cases": [
+        "import numpy as np\nmean = np.arange(1., 14.)\nassert np.allclose(build_sde_noise(mean.copy(), 401.7, 608.3, 3.393), target)",
+        "import numpy as np\nmean = np.r_[0., np.ones(12)]\nassert np.allclose(build_sde_noise(mean.copy(), 401.7, 608.3, 3.393), target)",
+        "import numpy as np\nmean = np.r_[10., np.zeros(12)]\nassert np.allclose(build_sde_noise(mean.copy(), 0., 2., 0.), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Computational_Physics-16.5",
+      "test_cases": [
+        "import numpy as np\np = np.array([.027, .158, .339, .305, .133, .038])\nalpha = np.array([.033, .219, .196, .395, .115, .042])\ndecay = np.array([.0124, .0305, .111, .301, 1.14, 3.01])\nrho_s = np.array([-.01, .006, 10.])\ntc_s = np.array([1000., 10., 5.])\nte_s = np.array([1000., 15., 5.])\n\nmean = np.arange(1., 14.)\nfission_mean = np.r_[1.473, alpha * .0065 * 2.473 / .9935]\nfission_second = np.outer(fission_mean, fission_mean)\nfission_second[0, 0] = p @ (np.arange(6) - 1.) ** 2\nfission_second[np.arange(1, 7), np.arange(1, 7)] += fission_mean[1:]\n\nstate = np.r_[mean, np.eye(13).ravel(), (2*np.eye(13)).ravel()]\nassert np.allclose(evaluate_moment_rhs(2., state.copy(), fission_mean.copy(), fission_second.copy(), .001, .0065, 8800., alpha.copy(), decay.copy(), rho_s.copy(), tc_s.copy(), te_s.copy()), target)",
+        "import numpy as np\np = np.array([.027, .158, .339, .305, .133, .038])\nalpha = np.array([.033, .219, .196, .395, .115, .042])\ndecay = np.array([.0124, .0305, .111, .301, 1.14, 3.01])\nrho_s = np.array([-.01, .006, 10.])\ntc_s = np.array([1000., 10., 5.])\nte_s = np.array([1000., 15., 5.])\n\nmean = np.arange(1., 14.)\nfission_mean = np.r_[1.473, alpha * .0065 * 2.473 / .9935]\nfission_second = np.outer(fission_mean, fission_mean)\nfission_second[0, 0] = p @ (np.arange(6) - 1.) ** 2\nfission_second[np.arange(1, 7), np.arange(1, 7)] += fission_mean[1:]\n\nstate = np.zeros(351)\nassert np.allclose(evaluate_moment_rhs(0., state.copy(), fission_mean.copy(), fission_second.copy(), .001, .0065, 8800., alpha.copy(), decay.copy(), rho_s.copy(), tc_s.copy(), te_s.copy()), target)",
+        "import numpy as np\np = np.array([.027, .158, .339, .305, .133, .038])\nalpha = np.array([.033, .219, .196, .395, .115, .042])\ndecay = np.array([.0124, .0305, .111, .301, 1.14, 3.01])\nrho_s = np.array([-.004, .002, 4.])\ntc_s = np.array([50., 50., 1.])\nte_s = np.array([200., 20., 8.])\n\nmean = np.arange(1., 14.)\nfission_mean = np.r_[1.473, alpha * .0065 * 2.473 / .9935]\nfission_second = np.outer(fission_mean, fission_mean)\nfission_second[0, 0] = p @ (np.arange(6) - 1.) ** 2\nfission_second[np.arange(1, 7), np.arange(1, 7)] += fission_mean[1:]\n\nv = np.arange(1., 14.) / 13\nstate = np.r_[mean, np.outer(v,v).ravel(), (np.eye(13)+np.outer(v,v)).ravel()]\nassert np.allclose(evaluate_moment_rhs(12., state.copy(), fission_mean.copy(), fission_second.copy(), .001, .0065, 8800., alpha.copy(), decay.copy(), rho_s.copy(), tc_s.copy(), te_s.copy()), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Computational_Physics-16.6",
+      "test_cases": [
+        "import numpy as np\np = np.array([.027, .158, .339, .305, .133, .038])\nalpha = np.array([.033, .219, .196, .395, .115, .042])\ndecay = np.array([.0124, .0305, .111, .301, 1.14, 3.01])\nrho_s = np.array([-.01, .006, 10.])\ntc_s = np.array([1000., 10., 5.])\nte_s = np.array([1000., 15., 5.])\n\ndef pack(fn, t, p, generation_time, beta, source, alpha, decay, rho_s, tc_s, te_s):\n    jump, sde = fn(t, p.copy(), generation_time, beta, source, alpha.copy(), decay.copy(), rho_s.copy(), tc_s.copy(), te_s.copy())\n    assert np.shape(jump) == (13,13) and np.shape(sde) == (13,13)\n    return tuple(10.0 * float(x) for x in np.concatenate((np.asarray(jump).ravel(), np.asarray(sde).ravel())))\nassert np.allclose(pack(propagate_moments, .05, p, .001, .0065, 8800., alpha, decay, rho_s, tc_s, te_s), target)",
+        "import numpy as np\np = np.array([.027, .158, .339, .305, .133, .038])\nalpha = np.array([.033, .219, .196, .395, .115, .042])\ndecay = np.array([.0124, .0305, .111, .301, 1.14, 3.01])\nrho_s = np.array([-.01, .006, 10.])\ntc_s = np.array([1000., 10., 5.])\nte_s = np.array([1000., 15., 5.])\n\ndef pack(fn, t, p, generation_time, beta, source, alpha, decay, rho_s, tc_s, te_s):\n    jump, sde = fn(t, p.copy(), generation_time, beta, source, alpha.copy(), decay.copy(), rho_s.copy(), tc_s.copy(), te_s.copy())\n    assert np.shape(jump) == (13,13) and np.shape(sde) == (13,13)\n    return tuple(10.0 * float(x) for x in np.concatenate((np.asarray(jump).ravel(), np.asarray(sde).ravel())))\nassert np.allclose(pack(propagate_moments, 0., p, .001, .0065, 8800., alpha, decay, rho_s, tc_s, te_s), target)",
+        "import numpy as np\np = np.array([.027, .158, .339, .305, .133, .038])\nalpha = np.array([.033, .219, .196, .395, .115, .042])\ndecay = np.array([.0124, .0305, .111, .301, 1.14, 3.01])\nrho_s = np.array([-.01, .006, 10.])\ntc_s = np.array([1000., 10., 5.])\nte_s = np.array([1000., 15., 5.])\n\ndef pack(fn, t, p, generation_time, beta, source, alpha, decay, rho_s, tc_s, te_s):\n    jump, sde = fn(t, p.copy(), generation_time, beta, source, alpha.copy(), decay.copy(), rho_s.copy(), tc_s.copy(), te_s.copy())\n    assert np.shape(jump) == (13,13) and np.shape(sde) == (13,13)\n    return tuple(10.0 * float(x) for x in np.concatenate((np.asarray(jump).ravel(), np.asarray(sde).ravel())))\nassert np.allclose(pack(propagate_moments, 5.5, p, .001, .0065, 8800., alpha, decay, rho_s, tc_s, te_s), target)",
+        "import numpy as np\np = np.array([.027, .158, .339, .305, .133, .038])\nalpha = np.array([.033, .219, .196, .395, .115, .042])\ndecay = np.array([.0124, .0305, .111, .301, 1.14, 3.01])\nrho_s = np.array([-.01, .006, 10.])\ntc_s = np.array([1000., 10., 5.])\nte_s = np.array([1000., 15., 5.])\n\ndef check(fn):\n    try:\n        fn(-1., p.copy(), .001, .0065, 8800., alpha.copy(), decay.copy(), rho_s.copy(), tc_s.copy(), te_s.copy())\n    except ValueError:\n        return 1\n    return 0\nassert np.allclose(check(propagate_moments), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Computational_Physics-16.7",
+      "test_cases": [
+        "import numpy as np\np = np.array([.027, .158, .339, .305, .133, .038])\nalpha = np.array([.033, .219, .196, .395, .115, .042])\ndecay = np.array([.0124, .0305, .111, .301, 1.14, 3.01])\nrho_s = np.array([-.01, .006, 10.])\ntc_s = np.array([1000., 10., 5.])\nte_s = np.array([1000., 15., 5.])\nassert np.allclose(calculate_variance_shortfall(8., p.copy(), .001, .0065, 8800., alpha.copy(), decay.copy(), rho_s.copy(), tc_s.copy(), te_s.copy(), 1), target)",
+        "import numpy as np\np = np.array([.027, .158, .339, .305, .133, .038])\nalpha = np.array([.033, .219, .196, .395, .115, .042])\ndecay = np.array([.0124, .0305, .111, .301, 1.14, 3.01])\nrho_s = np.array([-.01, .006, 10.])\ntc_s = np.array([1000., 10., 5.])\nte_s = np.array([1000., 15., 5.])\nassert np.allclose(calculate_variance_shortfall(5., p.copy(), .001, .0065, 8800., alpha.copy(), decay.copy(), rho_s.copy(), tc_s.copy(), te_s.copy(), 4), target)",
+        "import numpy as np\np = np.array([.027, .158, .339, .305, .133, .038])\nalpha = np.array([.033, .219, .196, .395, .115, .042])\ndecay = np.array([.0124, .0305, .111, .301, 1.14, 3.01])\nrho_s = np.array([-.004, .002, 4.])\ntc_s = np.array([50., 50., 1.])\nte_s = np.array([200., 20., 8.])\nassert np.allclose(calculate_variance_shortfall(.5, p.copy(), .002, .0065, 12000., alpha.copy(), decay.copy(), rho_s.copy(), tc_s.copy(), te_s.copy(), 6), target)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+problem_id: "Physics-Astrophysics-8"
+subject: "physics"
+subject_area: "Astrophysics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2606.24971"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_compose_detector_response"
+    description: "Compose the detector response of the scintillator array from its redistribution and resolution operators."
+    orchestrator: false
+  - number: 2
+    name: "02_build_background_reference"
+    description: "Build the fixed background expectation that the reference iteration folds into its forward model."
+    orchestrator: false
+  - number: 3
+    name: "03_run_richardson_lucy_iterates"
+    description: "Run the background-aware Richardson-Lucy iteration on the signal run and keep every iterate."
+    orchestrator: false
+  - number: 4
+    name: "04_select_reference_iteration"
+    description: "Select the Richardson-Lucy iterate that serves as the reference of the empirical prior."
+    orchestrator: false
+  - number: 5
+    name: "05_build_prior_centre_and_width"
+    description: "Turn the selected Richardson-Lucy iterate into the centre and the bin-wise width of the empirical prior."
+    orchestrator: false
+  - number: 6
+    name: "06_draw_prior_spectra"
+    description: "Generate resolution-limited draws of the empirical prior from supplied standard-normal and uniform variates."
+    orchestrator: false
+  - number: 7
+    name: "07_build_global_rank_envelope"
+    description: "Summarise a set of spectral draws by their mean curve and a simultaneous global rank-envelope band."
+    orchestrator: false
+  - number: 8
+    name: "08_orchestrate_prior_diagnostic"
+    description: "Run the whole empirical-prior construction for one excitation-energy bin and reduce it to the scalars that measure how the prior sits against the truth."
+    orchestrator: true

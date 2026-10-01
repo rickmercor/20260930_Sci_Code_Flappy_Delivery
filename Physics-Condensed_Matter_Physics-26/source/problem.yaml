@@ -1,0 +1,36 @@
+problem_id: "Physics-Condensed_Matter_Physics-26"
+subject: "physics"
+subject_area: "Condensed Matter Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: " https://doi.org/10.48550/arXiv.2605.28382"
+dependencies: ""
+steps:
+  - number: 1
+    name: "compute_dimensionless_groups"
+    description: "Derive the four dimensionless groups and the dimensionless elapsed time that control the transverse heat problem and the thermomechanical coupling of a laser-heated photoresponsive beam."
+    orchestrator: false
+  - number: 2
+    name: "solve_transverse_eigenbasis"
+    description: "Solve the transverse (cross-sectional) Robin eigenvalue problem for a beam cooled by Newton convection on both faces, for both eigenfunction parities at once, and return every eigenpair merged into a single array ordered by increasing eigenvalue."
+    orchestrator: false
+  - number: 3
+    name: "project_heat_source_onto_modes"
+    description: "Project the laser's dimensionless intensity profile onto every transverse eigenmode returned by the eigenbasis step, using whichever physical direction is relevant to that mode's own parity."
+    orchestrator: false
+  - number: 4
+    name: "compute_cross_sectional_moment_weights"
+    description: "Compute the cross-sectional moment-arm weight for every transverse eigenmode, using whichever physical averaging is relevant to that mode's own parity."
+    orchestrator: false
+  - number: 5
+    name: "compute_transient_modal_temperatures"
+    description: "Assemble the transient modal temperature amplitude for every combination of a depth (odd-parity) mode and a lateral (even-parity) mode, at a given elapsed time."
+    orchestrator: false
+  - number: 6
+    name: "assemble_thermal_moment"
+    description: "Assemble the total transient thermal moment M2(t), the first moment of the dimensionless inner temperature field about the beam's mid-plane, from the per-mode moment-arm weights and the transient modal temperature amplitudes."
+    orchestrator: false
+  - number: 7
+    name: "compute_fold_angle"
+    description: "Orchestrator: compute the light-induced fold angle of a free-ended photoresponsive thermoelastic beam from its dimensional material, geometric and laser parameters."
+    orchestrator: true

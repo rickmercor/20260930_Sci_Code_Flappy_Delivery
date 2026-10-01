@@ -1,0 +1,40 @@
+problem_id: "Biology-Biochemistry-26"
+subject: "biology"
+subject_area: "Biochemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1371/journal.pcbi.1014709"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_reduce_finite_topology.py"
+    description: "Reduce a finite simplicial filtration to dimension-wise total finite persistence."
+    orchestrator: false
+  - number: 2
+    name: "02_evaluate_morphometric_state.py"
+    description: "Evaluate overlap-penalized morphometric solvation energies for aligned states."
+    orchestrator: false
+  - number: 3
+    name: "03_compose_candidate_energies.py"
+    description: "Compose baseline and mixed geometric-topological energy vectors in supplied candidate order."
+    orchestrator: false
+  - number: 4
+    name: "04_replay_state_search.py"
+    description: "Replay aligned symmetric-proposal searches and return the earliest minimum-energy state visited by every run."
+    orchestrator: false
+  - number: 5
+    name: "05_measure_assembly_distance.py"
+    description: "Evaluate the source-defined ordered multi-subunit assembly distance from rigid frames."
+    orchestrator: false
+  - number: 6
+    name: "06_certify_benchmark_setup.py"
+    description: "Convert one setup's replay representatives into success bounds and a catalogue-wide soundness flag."
+    orchestrator: false
+  - number: 7
+    name: "07_select_robust_candidate.py"
+    description: "Apply the cross-panel soundness and interval gate, then select the maximin eligible candidate"
+    orchestrator: false
+  - number: 8
+    name: "08_solve_assembly_panel.py"
+    description: "Orchestrate all preceding computations for an in-memory assembly-panel fixture and return its selected score."
+    orchestrator: true

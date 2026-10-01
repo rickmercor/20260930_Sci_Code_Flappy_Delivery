@@ -1,0 +1,44 @@
+problem_id: "Physics-Quantum_Information_Computing-21"
+subject: "physics"
+subject_area: "Quantum Information / Computing"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2609.10291"
+dependencies: ""
+steps:
+  - number: 1
+    name: "averaged_lindblad_evolution"
+    description: "Evolve the deterministic averaged state of an open quantum system forward in time by exact propagation of its (time-independent) Lindblad generator, via the matrix exponential of the generator's vectorized superoperator.\n\n\n\nThis averaged, noise-free evolution is the building block that a maximum-contrast parameter estimator for continuously monitored open quantum systems evaluates repeatedly at trial parameter values. Using the exact propagator, rather than a finite-step discretization, keeps every evaluated state exactly trace preserving and positive semidefinite, and matches how the deterministic averaged dynamics entering the contrast function are evaluated."
+    orchestrator: false
+  - number: 2
+    name: "simulate_averaged_observation_data"
+    description: "Simulate the observation record produced by continuously monitoring a qutrit whose true Hamiltonian and jump operator are fixed multiples of two seeded generators, and average the resulting noisy increments across many independent trajectories.\n\nWhat is physically recorded is the continuous measurement current, whose increments are set by the conditional state: that conditional state follows a nonlinear stochastic master equation driven by measurement back-action, not a deterministic drift with additive noise on top. Each trajectory is simulated by Euler-Maruyama stepping of this nonlinear equation on a fine sub-grid, with the resulting state projected back onto the physical set after every fine step (Hermitian part taken, negative eigenvalues clipped to zero, rescaled to unit trace) to prevent the finite-step update from leaving that set, each fine observation increment formed from the state at the start of its sub-step, and the fine increments aggregated onto the coarser observation grid. This averaged data is what a maximum-contrast estimator for continuously monitored open quantum systems uses to reconstruct the unknown Hamiltonian and jump-operator scales."
+    orchestrator: false
+  - number: 3
+    name: "discrete_contrast_estimator"
+    description: "Reconstruct the unknown Hamiltonian and jump-operator scale factors of a continuously monitored qutrit from averaged observation data, by maximizing a discrete contrast function built from the deterministic averaged dynamics evaluated at a trial parameter.\n\n\n\nThe maximization follows the source paper's own prescribed numerical procedure: the contrast is first evaluated on a uniform grid over the whole bounded parameter space, grid points that are local-maximum candidates (no neighbor scores higher) are selected as well-separated starting points, and each selected candidate is then refined by a bounded Gauss-Newton-type local optimization (equivalently, a bounded nonlinear least-squares fit, since maximizing this contrast is exactly the same as minimizing a weighted sum of squared residuals between the trial drift and the data), with the best-scoring refined candidate reported as the estimate. This combination is required because the contrast surface is not globally well-behaved: a single local run from one starting point can converge to a poor local optimum."
+    orchestrator: false
+  - number: 4
+    name: "channel_from_lindbladian"
+    description: "Build a completely positive trace preserving quantum channel from a fitted Hamiltonian and jump-operator scale pair, by exponentiating the resulting Lindblad generator over a fixed time and extracting Kraus operators from the resulting Choi matrix.\n\n\n\nThis turns a statistically fitted open-system generator into an object, a quantum channel, that can be composed with other channels, for example placed in a coherent switch with a second, independently specified channel."
+    orchestrator: false
+  - number: 5
+    name: "entanglement_negativity"
+    description: "Compute the entanglement negativity of a bipartite density matrix across a given bipartition, from the trace norm of its partial transpose.\n\n\n\nNegativity vanishes on every state with a positive partial transpose, so a nonzero value certifies entanglement, and it is used here to compare the outputs of different causal-order configurations of two channels."
+    orchestrator: false
+  - number: 6
+    name: "quantum_switch_output"
+    description: "Place an estimated single-qutrit channel and a given two-qutrit Weyl-noise depolarizing channel in a quantum switch with a fixed inserted local unitary, and return the postselected output branch with the larger entanglement negativity, normalized to a valid density matrix.\n\n\n\nA quantum switch coherently controls the order in which two channels act, rather than applying them in a fixed sequence, and postselecting on the control outcome can leave more entanglement in the output than either fixed order or any classical mixture of the two fixed orders."
+    orchestrator: false
+  - number: 7
+    name: "symmetric_extension_sdp_solve"
+    description: "Solve, for a bipartite state, the homogeneous semidefinite program that directly certifies the level-k symmetric-extension entanglement measure, in an unnormalized extension variable, by consensus ADMM.\n\n\n\nStates admitting a symmetric, partial-transpose-positive extension form a hierarchy of outer approximations to the separable states, refined by the number of extension copies. Writing the measure's own defining domination constraint rho <= (1+t)*sigma in terms of the unnormalized variable omega' := (1+t)*omega removes the bilinear coupling between the scalar t and the extension variable, so the whole problem becomes a single linear-objective semidefinite program in omega' alone, with no outer search over t needed: minimizing Tr(omega') directly returns 1+t at the optimum. Consensus ADMM solves this by alternately projecting a shared candidate onto every constraint set in turn (positive semidefiniteness, every partial-transpose positivity, permutation symmetry, and the domination constraint against the given state) and tracking the constraint-wise disagreement at every cycle, giving a real, per-constraint convergence record rather than a single residual."
+    orchestrator: false
+  - number: 8
+    name: "compute_Ek"
+    description: "Compute the level-k symmetric-extension entanglement measure of a bipartite state from the converged solution of its homogeneous semidefinite program.\n\n\n\nBecause the domination constraint of the measure's defining program becomes linear once written in the unnormalized extension variable omega' := (1+t)*omega, the trace of the converged solution directly recovers 1+t, so the measure itself is simply Tr(omega') - 1; no outer search over the threshold t is needed."
+    orchestrator: false
+  - number: 9
+    name: "full_certified_switch_pipeline"
+    description: "Orchestrator: run the full three-stage pipeline end to end. Estimate a qutrit's Hamiltonian and jump-operator scale from simulated continuous monitoring, build the resulting channel, run it against a given channel through a quantum switch, and certify the entanglement of the best postselected output with a symmetric-extension measure.\n\n\n\nThis combines three independent techniques, a continuous-monitoring parameter estimator, a causal-order quantum switch, and a symmetric-extension entanglement hierarchy, into a single deterministic numerical pipeline."
+    orchestrator: true

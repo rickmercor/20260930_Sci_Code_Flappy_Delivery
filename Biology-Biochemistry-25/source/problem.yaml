@@ -1,0 +1,40 @@
+problem_id: "Biology-Biochemistry-25"
+subject: "biology"
+subject_area: "Biochemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1371/journal.pcbi.1013493"
+dependencies: ""
+steps:
+  - number: 1
+    name: "compute_tst_rates"
+    description: "Compute the microscopic transition-state-theory rate constants associated with a specified enzyme kinetic mechanism from its state free energies. The calculation must use the thermodynamic barrier between the initial state and transition state for each elementary transition and the common transition-state-theory prefactor. Support both the four-state mechanism containing k1, k\u22121, and k2 and the extended mechanism containing the additional k\u22122 and k3 transitions."
+    orchestrator: false
+  - number: 2
+    name: "compute_kinetic_observables"
+    description: "Map microscopic rate constants to the macroscopic kinetic observables used in the benchmark: kcat, KM, catalytic efficiency kcat/KM, and KD. The mapping must depend on whether the supplied rates describe the simple or extended catalytic cycle."
+    orchestrator: false
+  - number: 3
+    name: "build_additive_double_energies"
+    description: "Construct the microscopic free-energy configurations of all specified double mutants by combining the free-energy perturbations of two single mutants under the additive microscopic null model. Preserve the wild-type reference energies and generate one deterministic configuration for every requested mutant pair."
+    orchestrator: false
+  - number: 4
+    name: "compute_single_fold_changes"
+    description: "Normalize the kinetic observables of each single mutant by the corresponding wild-type kinetic observables to obtain dimensionless single-mutant fold changes. Return the fold changes for kcat, KM, catalytic efficiency, and KD using a fixed wild-type reference.\t"
+    orchestrator: false
+  - number: 5
+    name: "compute_pair_interactions"
+    description: "Compute the macroscopic interaction factor for each double-mutant pair by comparing its kinetic observable obtained from the additive microscopic model with the conventional multiplicative null prediction constructed from the two single-mutant fold changes."
+    orchestrator: false
+  - number: 6
+    name: "classify_epistasis"
+    description: "Determine the number and prevalence of significant double-mutant interactions from a vector of macroscopic interaction factors using the fixed 1.5-fold significance criterion. Separate significant interactions into positive and negative classes and report their aggregate counts and prevalence."
+    orchestrator: false
+  - number: 7
+    name: "compute_complexity_ratio"
+    description: "Quantify the amplification of significant catalytic-efficiency epistasis produced by increasing the kinetic-cycle complexity. Given the significant-interaction prevalences obtained independently for the simple and extended mechanisms, return their dimensionless prevalence ratio."
+    orchestrator: false
+  - number: 8
+    name: "resolve_kinetic_complexity_ratio"
+    description: "Integrate the complete mechanistic workflow for both catalytic-cycle representations and return the deterministic amplification ratio of significant catalytic-efficiency epistasis. The integration must use the same wild-type energetic reference, mutation perturbations, pair construction, significance threshold, and pair ordering for both mechanisms so that their prevalence comparison isolates the effect of kinetic-cycle complexity."
+    orchestrator: true

@@ -1,0 +1,44 @@
+problem_id: "Biology-Ecology-41"
+subject: "biology"
+subject_area: "Ecology"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1038/s41467-025-64975-x"
+dependencies: ""
+steps:
+  - number: 1
+    name: "network_summary"
+    description: "Compute basic structural invariants of a network adjacency matrix that are used to parameterize the sentinel calculation."
+    orchestrator: false
+  - number: 2
+    name: "double_well_states"
+    description: "Compute the equilibrium-proxy node states of the coupled double-well network model across a control-parameter sweep."
+    orchestrator: false
+  - number: 3
+    name: "network_average"
+    description: "Compute the global equilibrium activity curve from a matrix of node states."
+    orchestrator: false
+  - number: 4
+    name: "sentinel_error"
+    description: "Evaluate the approximation error of a fixed sentinel node set over a complete state sweep."
+    orchestrator: false
+  - number: 5
+    name: "select_sentinels"
+    description: "Select a small sentinel node set that minimizes approximation error over a training sweep."
+    orchestrator: false
+  - number: 6
+    name: "sis_states"
+    description: "Compute the equilibrium-proxy node states of the deterministic SIS network model across an infection-rate sweep."
+    orchestrator: false
+  - number: 7
+    name: "transfer_error"
+    description: "Evaluate the previously selected sentinel set on a second network dynamics model."
+    orchestrator: false
+  - number: 8
+    name: "transfer_penalty"
+    description: "Combine the training and test approximation errors into a dimensionless transfer-penalty ratio."
+    orchestrator: false
+  - number: 9
+    name: "sentinel_transfer_pipeline"
+    description: "Compute the complete sentinel-node transfer diagnostic for a network and two nonlinear dynamics sweeps."
+    orchestrator: true

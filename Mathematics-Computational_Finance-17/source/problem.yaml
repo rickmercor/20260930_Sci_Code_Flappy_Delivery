@@ -1,0 +1,48 @@
+problem_id: "Mathematics-Computational_Finance-17"
+subject: "mathematics"
+subject_area: "Computational Finance"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2606.27335"
+dependencies: ""
+steps:
+  - number: 1
+    name: "Riccati interval advance"
+    description: "Advance the variance exponent of the joint characteristic function of log-spot and variance across one interval on which the volatility of variance and the correlation are constant, and return both the value the exponent reaches and its integral over the interval. Every exponent used later in the pipeline is assembled from calls to this step, so an error here propagates everywhere downstream."
+    orchestrator: false
+  - number: 2
+    name: "Characteristic exponents"
+    description: "Return the two exponents of the joint characteristic function of log-spot and variance for one step of the time-inhomogeneous model, starting from a general complex coefficient on the terminal variance. The step may span any of the parameter breakpoints, and the domestic and foreign rates move continuously in calendar time rather than being constant."
+    orchestrator: false
+  - number: 3
+    name: "Simpson frequency rule"
+    description: "Build the quadrature rule used for every frequency integral in the pipeline: a composite Simpson rule on a symmetric interval about the origin, returned as nodes and weights together because every later step consumes them as a pair."
+    orchestrator: false
+  - number: 4
+    name: "Truncated payoff prefactors"
+    description: "Return the damped Fourier transform of the amount the early-exercise decomposition collects on the exercise region, cut off sharply at a given exercise level. The amount is what accrues to the holder of a contract paying K \u2212 S at delivery, per unit strike and per unit time, while the state sits where immediate delivery is optimal."
+    orchestrator: false
+  - number: 5
+    name: "Exercise surface coefficients"
+    description: "Return the intercept and the slope, in the variance, of the supplied exercise-surface iterate at one date in the delivery window. The pipeline only ever needs the surface at one date at a time, and because the surface is affine in the variance those two numbers describe it completely."
+    orchestrator: false
+  - number: 6
+    name: "Spot-weighted variance exponents"
+    description: "Return the exponents of the transform of the variance at a fixing date, taken in the measure that weights every path by the spot at that date, discounted on the foreign curve and normalised so the weights average to one. A contract whose strike is set at the fixing date in proportion to the spot values everything after that date per unit of the fixing-date spot, and this step supplies the average over the fixing-date variance that such a valuation needs."
+    orchestrator: false
+  - number: 7
+    name: "Forward-start kernel"
+    description: "Return the damped Fourier transform, in the log-moneyness at the fixing date, of the exercise-region expectation at one date in the delivery window, seen from time 0 for a contract whose strike is set at the fixing date. The inversion step turns this object back into an expectation, and this is where the transform of the truncated amount, the characteristic function after fixing and the average over the fixing-date variance come together."
+    orchestrator: false
+  - number: 8
+    name: "Exercise region expectation"
+    description: "Turn a damped transform back into the expectation it encodes, at one value of the log-moneyness, by summing the kernel against the frequency rule. The result is real, because the function being recovered is real."
+    orchestrator: false
+  - number: 9
+    name: "Premium time rule"
+    description: "Build the time rule for the early-exercise premium: the dates at which the exercise-region expectation is evaluated and the weights that combine them, with the domestic discounting from the fixing date already folded into the weights."
+    orchestrator: false
+  - number: 10
+    name: "Forward-start flexible forward value"
+    description: "Chain the earlier steps into one evaluation of the forward-starting flexible forward on the supplied exercise-surface iterate, and return its value at time 0 in domestic pips."
+    orchestrator: true

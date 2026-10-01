@@ -1,0 +1,40 @@
+problem_id: "Biology-Genetics-7"
+subject: "biology"
+subject_area: "Genetics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2604.07566"
+dependencies: ""
+steps:
+  - number: 1
+    name: "Step 01_allele_orientations"
+    description: "Return major-allele and normal/risk-allele recodings as a (4, p) array."
+    orchestrator: false
+  - number: 2
+    name: "Step 02_rivw_slope"
+    description: "Rerandomized IVW slope on S_lambda using Rao-Blackwell exposure effects."
+    orchestrator: false
+  - number: 3
+    name: "Step 03_mei_z_score"
+    description: "One-coding modified Egger intercept z-score."
+    orchestrator: false
+  - number: 4
+    name: "Step 04_mei_combined_stat"
+    description: "Combined MEI statistic over the two allele codings."
+    orchestrator: false
+  - number: 5
+    name: "Step 05_adaptive_alasso_weights"
+    description: "Adaptive lasso weights from median-ratio residuals."
+    orchestrator: false
+  - number: 6
+    name: "Step 06_alasso_valid_flags"
+    description: "MR-ALasso valid-instrument flags after coordinate descent."
+    orchestrator: false
+  - number: 7
+    name: "Step 07_ratio_invse_weights"
+    description: "Two-sample Wald ratios and inverse-standard-error weights."
+    orchestrator: false
+  - number: 8
+    name: "Step 08_mr_quantile_ace"
+    description: "MEI-gated ALasso valid set followed by MR-Quantile."
+    orchestrator: true

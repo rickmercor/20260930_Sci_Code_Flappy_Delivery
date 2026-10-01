@@ -1,0 +1,48 @@
+problem_id: "Physics-Condensed_Matter_Physics-32"
+subject: "physics"
+subject_area: "Condensed Matter Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1103/pwkc-lqq6"
+dependencies: "import numpy as np\nimport math"
+steps:
+  - number: 1
+    name: "extended_ssh_hamiltonian"
+    description: "Build the single-particle Hamiltonian matrix of the extended Su-Schrieffer-Heeger chain in real space."
+    orchestrator: false
+  - number: 2
+    name: "fermi_correlation_matrix"
+    description: "Compute the single-particle correlation matrix of a free-fermion thermal state at any inverse temperature, including zero temperature."
+    orchestrator: false
+  - number: 3
+    name: "log_partition_function"
+    description: "Compute the logarithm of the grand-canonical partition function of free fermions from their single-particle energies."
+    orchestrator: false
+  - number: 4
+    name: "bloch_hamiltonian"
+    description: "Evaluate the two-band Bloch Hamiltonian of the translation-invariant extended SSH chain at a crystal momentum."
+    orchestrator: false
+  - number: 5
+    name: "global_twist_expectation"
+    description: "Evaluate the thermal expectation value of the many-body twist (large-gauge translation) operator of the periodic SSH chain in logarithmic polar form."
+    orchestrator: false
+  - number: 6
+    name: "diagonal_twist_expectation"
+    description: "Evaluate the thermal expectation value of an operator diagonal in site occupations, exp(i sum_i theta_i n_i), from the single-particle correlation matrix of a Gaussian state."
+    orchestrator: false
+  - number: 7
+    name: "local_twist_phases"
+    description: "Construct the site phases of the local twist operators that act within a unit cell, across a bond, or along the next-nearest-neighbour link of the SSH chain."
+    orchestrator: false
+  - number: 8
+    name: "local_indicators"
+    description: "Compute the local topological indicators of the extended SSH chain at nonzero temperature from centre-of-chain twist expectation values."
+    orchestrator: false
+  - number: 9
+    name: "bloch_local_indicators"
+    description: "Compute the local topological indicators of a very long periodic extended SSH chain without forming any matrix of the size of the chain."
+    orchestrator: false
+  - number: 10
+    name: "twist_crossing_beta"
+    description: "Find the inverse temperature at which the modulus of the global twist expectation value falls to a prescribed small value, and confirm the topological sector locally."
+    orchestrator: true

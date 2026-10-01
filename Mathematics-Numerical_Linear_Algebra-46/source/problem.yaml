@@ -1,0 +1,40 @@
+problem_id: "Mathematics-Numerical_Linear_Algebra-46"
+subject: "mathematics"
+subject_area: "Numerical Linear Algebra"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2604.09215"
+dependencies: ""
+steps:
+  - number: 1
+    name: " 01_compute_critical_driving_force"
+    description: "Calibrate the bond fracture energy of a spherical-kernel nonlocal model against Griffith's energy release rate and return the resulting normalization constant and critical crack driving force."
+    orchestrator: false
+  - number: 2
+    name: "02_build_bond_family"
+    description: "Build the reference lattice of material points, every ordered bond inside the horizon, and the normalized kernel weight carried by each bond."
+    orchestrator: false
+  - number: 3
+    name: "03_assemble_nodal_deformation_gradients"
+    description: "Recover nodal deformation gradients by degraded reproducing-kernel fits on truncated neighborhoods, with selectable polynomial enrichment and nonuniform quadrature volumes."
+    orchestrator: false
+  - number: 4
+    name: "04_compute_bond_deformation_gradients"
+    description: "Build the bond-associated deformation gradient of every bond from the two nodal gradients at its ends and the bond's own current image."
+    orchestrator: false
+  - number: 5
+    name: "05_compute_crack_driving_force"
+    description: "Evaluate the principal-stress crack driving force of every bond from its bond-associated deformation gradient for a Saint Venant-Kirchhoff material."
+    orchestrator: false
+  - number: 6
+    name: "06_update_bond_phase_field"
+    description: "Advance each bond's history variable, evaluate its closed-form phase field, and convert the phase field into the delayed kinematic weight used by the shape tensor."
+    orchestrator: false
+  - number: 7
+    name: "07_run_separation_history"
+    description: "Drive a lattice block through a sequence of rigid mixed-mode separations of its two halves and return every bond's history, phase field and kinematic weight after the last state."
+    orchestrator: false
+  - number: 8
+    name: "08_estimate_flank_conditioning"
+    description: "Compose every earlier step to obtain the spectral condition number of the kinematically degraded shape tensor at a probe node after a separation history."
+    orchestrator: true

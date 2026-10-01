@@ -1,0 +1,40 @@
+problem_id: "Physics-Optics-37"
+subject: "physics"
+subject_area: "Optics"
+difficulty: "difficult"
+answer_type: "vector"
+paper_doi: "10.48550/arXiv.2607.03521"
+dependencies: ""
+steps:
+  - number: 1
+    name: "PadeCoeff"
+    description: "Construct the partial-fraction coefficients of the normalized [P/P] approximation to the forward-envelope exponential for dimensionless t=k0*delta_z. Return arrays b and d with shapes (P,) and (P+1,). The represented rational function, not a particular ordering of its matched terms, defines the answer. Include the identity limit at t=0; invalid inputs or a numerically unresolved finite representation raise ValueError as specified in the Signature."
+    orchestrator: false
+  - number: 2
+    name: "build_modulation_matrix"
+    description: "Construct the (ny,ny) CSC matrix representing multiplication by the positive index-squared profile (C+B*cos(k_mod*x))**2 on the periodic Fourier grid. Here mx is the integer Fourier shift associated with k_mod. Include the diagonal and shifts +/-mx and +/-2*mx, wrapping indices modulo ny and adding all coincident contributions. The Signature is a neutral sparse-matrix stub; the computation belongs in Gold."
+    orchestrator: false
+  - number: 3
+    name: "wjsolver"
+    description: "For each second-axis wavenumber, solve (I+bj*X_column)@Wj[:,column]=U[:,column], where X_column=M_tilde-I-diag((kx**2+ky[column]**2)/k0**2) and M_tilde is the positive index-squared multiplication matrix from Step 2. Return the complex auxiliary field and one reusable factor per column. Reuse a supplied cache only when the pole, grid, and material are unchanged; the right-hand side may change. Use a new cache when any operator input changes."
+    orchestrator: false
+  - number: 4
+    name: "apply_pade"
+    description: "```\nApply one rational propagation increment to the centered Fourier envelope: d[0]*U plus the sum of d[j+1] times the auxiliary field for pole b[j]. Every auxiliary solve uses the same original U. Return the updated field and one factor list per pole in the current pole order. Reuse a cache only for unchanged ordered poles, grid, and material; the right-hand side may change. Pass None after changing the operator inputs or permuting coefficients.\n```"
+    orchestrator: false
+  - number: 5
+    name: "radial_angular_power"
+    description: "Convert the centered Fourier field into radial-bin centers, peak-radial-PSD-normalized density per polar angle, and polar bin-center angles. Use uniform radial bins on [0,K], where K=min(max(abs(kx)),max(abs(ky)),k0), and discard samples above K before accumulating their powers. Bins are left-closed and right-open except that the final edge is included. Return three numeric arrays of length nbins, with zero density for a zero retained field."
+    orchestrator: false
+  - number: 6
+    name: "initial_fourier_transform"
+    description: "Transform a square centered physical field into its unnormalized centered two-dimensional Fourier field and the matching angular-wavenumber axes. Use fftshift(fft2(ifftshift(U0))), with spacings dx and dy assigned to array axes zero and one. Return (U,kx,ky), preserving complex amplitudes and the center-origin convention."
+    orchestrator: false
+  - number: 7
+    name: "propagate_and_angular_power"
+    description: "Run the field-propagation and angular-density pipeline to exactly zlength. Form the centered initial transform, take floor(zlength/h) nominal increments, and apply any positive remainder using its own coefficients and fresh factors. Zero distance returns the initial Fourier field without marching. Return the seven outputs in the Signature: Fourier field, Cartesian peak-normalized power, both frequency axes, radial centers, angular density, and polar angles. Leave plotting disabled unless explicitly requested. This step is not the final orchestrator of the scalar task."
+    orchestrator: false
+  - number: 8
+    name: "wide_angle_power_fraction"
+    description: "Run the complete propagation and angular-density pipeline with plotting disabled, then return one dimensionless float: the fraction of retained annular power in bins whose polar center angle is at least theta_min. Recover common-scale annular powers by multiplying the angular density by each angular-bin width. Divide the selected-bin sum by the total retained-bin sum. Return 0.0 when retained power is zero. The cutoff defaults to pi/6 and must be a finite real scalar in [0,pi/2]. This is the final orchestrator of the scalar task.\t"
+    orchestrator: true

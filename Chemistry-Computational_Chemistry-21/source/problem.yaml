@@ -1,0 +1,40 @@
+problem_id: "Chemistry-Computational_Chemistry-21"
+subject: "chemistry"
+subject_area: "Computational Chemistry"
+difficulty: "medium"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2601.02985"
+dependencies: ""
+steps:
+  - number: 1
+    name: "Two-electron ground state of the asymmetric Hubbard dimer."
+    description: "Return the exact ground-state energy of the two-electron\n\nasymmetric Hubbard dimer, its site-0 occupation, and the static response of\n\nthat occupation to the potential difference."
+    orchestrator: false
+  - number: 2
+    name: "Kohn-Sham inversion for the N-centered ensemble of the dimer."
+    description: "For a given ensemble site-0 occupation and set of ensemble\n\nweights, return the Kohn-Sham potential difference that reproduces that\n\noccupation in the N-centered ensemble, together with the Kohn-Sham ensemble\n\nresponse and the Kohn-Sham Fukui functions."
+    orchestrator: false
+  - number: 3
+    name: "N-centered ensemble exact-exchange Hartree-exchange potential."
+    description: "Return the ensemble exact-exchange Hartree-exchange\n\npotential of the N-centered dimer ensemble at a given site-0 occupation and\n\nset of weights, and its derivatives with respect to both weights at fixed\n\noccupation."
+    orchestrator: false
+  - number: 4
+    name: "N-centered ensemble second-order correlation potential."
+    description: "Return the second-order (PT2) correlation potential of the\n\nN-centered dimer ensemble at a given site-0 occupation and set of weights,\n\nand its derivatives with respect to both weights at fixed occupation."
+    orchestrator: false
+  - number: 5
+    name: "Exact ground-state Hxc potential and kernel of the dimer."
+    description: "Return the exact zero-weight Hxc ingredients of the dimer:\n\nthe ground-state site-0 occupation, the interacting response, the Hxc\n\nkernel, and the Hartree-exchange and correlation potentials at that\n\noccupation."
+    orchestrator: false
+  - number: 6
+    name: "Weight derivatives of the Hxc potential under PT2-level double scaling."
+    description: "Approximate the zero-weight derivatives of the N-centered\n\nensemble Hxc potential with respect to the two ensemble weights, using the\n\npublished double-scaling approximation at the second-order (PT2) level."
+    orchestrator: false
+  - number: 7
+    name: "Fukui function from the zero-weight N-centered ensemble relation."
+    description: "Given the zero-weight derivative of the ensemble Hxc\n\npotential for one branch, return the corresponding site-0 Fukui function of\n\nthe two-electron dimer. Use the exact relation of the published N-centered\n\nensemble formulation in its zero-weight limit, with every other ingredient\n\nexact."
+    orchestrator: false
+  - number: 8
+    name: "PT2 double-scaled Fukui function of the dimer (orchestrator)."
+    description: "Final orchestrator. Evaluate a site-0 Fukui function of the\n\ntwo-electron dimer from the zero-weight N-centered ensemble relation, with the\n\nweight derivative of the ensemble Hxc potential taken from the PT2-level\n\ndouble-scaling approximation."
+    orchestrator: true

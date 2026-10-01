@@ -1,0 +1,141 @@
+{
+  "problem_id": "Physics-Particle_Physics-35",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Particle_Physics-35.1",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose([round(v, 12) for v in channel_geometry(0.13957, 0.493677, 0.0, -0.60)], target)",
+        "import numpy as np\nassert np.allclose([round(v, 12) for v in channel_geometry(0.13957, 0.493677, 0.0, 0.0)], target)",
+        "import numpy as np\nassert np.allclose([round(v, 12) for v in channel_geometry(0.5, 0.5000001, -1.25, -3.5)], target)",
+        "import numpy as np\nassert np.allclose([round(v, 12) for v in channel_geometry(1e-06, 1000.0, 0.0, -1.0)], target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: channel_geometry(0.13957, 0.493677, np.complex64(.1 + .2j), -0.60)), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: channel_geometry(0.13957, 0.493677, 0.0, np.complex64(.1 + .2j))), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: channel_geometry(np.complex64(.1 + .2j), 0.493677, 0.0, -0.60)), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: channel_geometry(0.13957, 1e200, 0.0, -0.60)), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: channel_geometry(0.493677, 0.13957, 0.0, -0.60)), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: channel_geometry(-0.13957, 0.493677, 0.0, -0.60)), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: channel_geometry(0.13957, 0.493677, float('nan'), -0.60)), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-35.2",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose((lambda v: [round(v.real, 12), round(v.imag, 12), int(abs(v) > 1.0)])(threshold_branch_map(1.15 + 0.12j, 4 * 0.13957**2, 4 * 0.493677**2, '22')), target)",
+        "import numpy as np\nassert np.allclose((lambda v: [round(v.real, 12), round(v.imag, 12), int(abs(v) < 1.0)])(threshold_branch_map(0.55 + 0.18j, 4 * 0.13957**2, 4 * 0.493677**2, '21')), target)",
+        "import numpy as np\nassert np.allclose((lambda v: [round(v.real, 12), round(v.imag, 12)])(threshold_branch_map((0.452 - 0.271j)**2, 4 * 0.13957**2, 4 * 0.493677**2, '21')), target)",
+        "import numpy as np\nassert np.allclose((lambda a, b: [round((a + b).real, 12), round((a + b).imag, 12), int(abs(a + b) <= 1e-12)])(threshold_branch_map(0.55 + 0.18j, 4 * 0.13957**2, 4 * 0.493677**2, '21'), threshold_branch_map(0.55 + 0.18j, 4 * 0.13957**2, 4 * 0.493677**2, '11')), target)",
+        "import numpy as np\nassert np.allclose((lambda v: [round(v.real, 12), round(v.imag, 12), round(abs(v), 12)])(threshold_branch_map(4 * 0.493677**2, 4 * 0.13957**2, 4 * 0.493677**2, '11')), target)",
+        "import numpy as np\nassert np.allclose((lambda v: [round(v.real, 12), round(v.imag, 12)])(threshold_branch_map(4 * 0.13957**2, 4 * 0.13957**2, 4 * 0.493677**2, '11')), target)",
+        "import numpy as np\nassert np.allclose((lambda v: [round(v.real, 12), round(v.imag, 12)])(threshold_branch_map(0.0, 4 * 0.13957**2, 4 * 0.493677**2, '21')), target)",
+        "import numpy as np\nassert np.allclose((lambda v: [round(v.real, 12), round(v.imag, 12)])(threshold_branch_map(-0.60, 4 * 0.13957**2, 4 * 0.493677**2, '11')), target)",
+        "import numpy as np\nassert np.allclose([(lambda v: [round(v.real, 12), round(v.imag, 12)])(threshold_branch_map(-1e308, 1e-308, 1e308, label)) for label in ('21', '22', '12')], target)",
+        "import numpy as np\nassert np.allclose((lambda v: [round(v.real, 12), round(v.imag, 12)])(threshold_branch_map(-1e308, 1e-308, 1e308, '11')), target)",
+        "import numpy as np\nassert np.allclose((lambda v: [round(v.real, 12), round(v.imag, 12)])(threshold_branch_map(-1e308, 1e-308, 1e308, '22')), target)",
+        "import numpy as np\nassert np.allclose([(lambda v: [round(v.real, 12), round(v.imag, 12)])(threshold_branch_map(s, 0.1, 1.0, '11')) for s in (1.0, complex(1.0, 0.0), complex(1.0, -0.0), np.complex128(1.0))], target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: threshold_branch_map(0.2, 1.0, 1.0, '11')), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: threshold_branch_map(0.2, 0.1, 1.0, '13')), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: threshold_branch_map(float('nan'), 0.1, 1.0, '11')), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: threshold_branch_map(0.1, 0.1, 1.0, '22')), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: threshold_branch_map(0.2, np.complex64(.1 + .2j), 1.0, '11')), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: threshold_branch_map(0.2, 0.1, 1.0, 11)), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-35.3",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose((lambda v: [round(v.real, 12), round(v.imag, 12), int(abs(v) <= 1e-12)])(leftcut_map(0.373912015154, -0.144301069324, 0.373912015154)), target)",
+        "import numpy as np\nassert np.allclose((lambda v: [round(v.real, 12), round(v.imag, 12)])(leftcut_map(0.125, -0.144301069324, 0.373912015154)), target)",
+        "import numpy as np\nassert np.allclose((lambda v: [round(v.real, 12), round(v.imag, 12)])(leftcut_map(0.21 + 0.17j, -0.144301069324, 0.373912015154)), target)",
+        "import numpy as np\nassert np.allclose((lambda v: [round(v.real, 12), round(v.imag, 12), round(abs(v), 12)])(leftcut_map(-0.144301069324, -0.144301069324, 0.373912015154)), target)",
+        "import numpy as np\nassert np.allclose((lambda v: [round(v.real, 12), round(v.imag, 12)])(leftcut_map(1.0, -0.144301069324, 0.373912015154)), target)",
+        "import numpy as np\nassert np.allclose([(lambda v: [round(v.real, 12), round(v.imag, 12)])(leftcut_map(complex(-1.0, zero), 0.0, 0.5)) for zero in (0.0, -0.0)], target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: leftcut_map(0.2, -0.1, -0.1)), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: leftcut_map(complex(float('inf'), 0.0), -0.1, 0.3)), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: leftcut_map(0.2, float('nan'), 0.3)), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: leftcut_map(2.0, 2.0, 0.5)), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-35.4",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose([round(v.real, 12), round(v.imag, 12)] if (v := bounded_variable(1.15 + 0.12j, 4 * 0.13957**2, 4 * 0.493677**2, 0.0, -0.60, '22')) is not None else None, target)",
+        "import numpy as np\nassert np.allclose([round(v.real, 12), round(v.imag, 12)] if (v := bounded_variable(0.55 + 0.18j, 4 * 0.13957**2, 4 * 0.493677**2, 0.0, -0.60, '21')) is not None else None, target)",
+        "import numpy as np\nassert np.allclose([round(v.real, 12), round(v.imag, 12)] if (v := bounded_variable(0.20, 4 * 0.13957**2, 4 * 0.493677**2, 0.0, -0.60, '11')) is not None else None, target)",
+        "import numpy as np\nassert np.allclose([round(v.real, 12), round(v.imag, 12)] if (v := bounded_variable(0.20, 4 * 0.13957**2, 4 * 0.493677**2, 0.0, -0.60, '22')) is not None else None, target)",
+        "import numpy as np\nassert np.allclose([round(v.real, 12), round(v.imag, 12)] if (v := bounded_variable(2.0, 4 * 0.13957**2, 4 * 0.493677**2, 0.0, -0.60, '11')) is not None else None, target)",
+        "import numpy as np\nassert np.allclose([round(v.real, 12), round(v.imag, 12)] if (v := bounded_variable(-2.0, 4 * 0.13957**2, 4 * 0.493677**2, 0.0, -0.60, '22')) is not None else None, target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: bounded_variable(0.2, 0.1, 1.0, 0.0, 1e200, '11')), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: bounded_variable(0.2, 0.1, 1.0, 0.0, -1e308, '11')), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: bounded_variable(0.2, 0.1, 1.0, .1j, -0.60, '11')), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: bounded_variable(0.2, 0.1, 1.0, 0.0, np.complex64(.1 + .2j), '11')), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: bounded_variable(2.734375, 4.0, 6.25, 0.0, 2.734375, '22')), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: bounded_variable(0.1, 0.1, 1.0, 0.0, -0.60, '22')), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: bounded_variable(float('nan'), 4 * 0.13957**2, 4 * 0.493677**2, 0.0, -0.60, '11')), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: bounded_variable(0.2, 4 * 0.13957**2, 4 * 0.493677**2, 0.0, -0.60, '13')), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: bounded_variable(0.2, 4 * 0.13957**2, 4 * 0.493677**2, 4 * 0.13957**2, 4 * 0.13957**2, '11')), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-35.5",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose([round(v.real, 12), round(v.imag, 12)] if (v := pole_factor(0.18 + 0.07j, [-0.349147 - 0.529787j])) is not None else None, target)",
+        "import numpy as np\npoles = [-0.349147 - 0.529787j, -0.011982 - 0.923045j, 0.290692 - 1.144733j]\nassert np.allclose([round(v.real, 12), round(v.imag, 12)] if (v := pole_factor(-0.22 + 0.31j, poles)) is not None else None, target)",
+        "import numpy as np\npoles = [-0.349147 - 0.529787j, -0.011982 - 0.923045j, 0.290692 - 1.144733j]\nassert np.allclose([[round(v.real, 12), round(v.imag, 12)] for v in [pole_factor(0.41 - 0.16j, poles), pole_factor(0.41 - 0.16j, list(reversed(poles)))]], target)",
+        "import numpy as np\nassert np.allclose([[round(v.real, 12), round(v.imag, 12)] for v in (pole_factor(0.0, [1e-160, 1e160]), pole_factor(0.0, [1e160, 1e-160]))], target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: pole_factor(0.0, [1e-200])), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: pole_factor(0.0, [1e200])), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: pole_factor(0.0, [1e-160])), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: pole_factor(0.0, [1e160, 1e160])), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: pole_factor(0.1 + 0.2j, [])), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: pole_factor(-0.349147 - 0.529787j, [-0.349147 - 0.529787j])), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: pole_factor(-0.349147 + 0.529787j, [-0.349147 - 0.529787j])), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: pole_factor(float('inf'), [-0.349147 - 0.529787j])), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: pole_factor(0.1 + 0.2j, -0.349147 - 0.529787j)), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-35.6",
+      "test_cases": [
+        "import numpy as np\npoles = [(0.452 - 0.271j, '21'), (0.998 - 0.029j, '21'), (0.981 - 0.043j, '22')]\ncoefficients = [0.462, -0.236, 0.559, -0.706, 0.228, -0.510, -0.147, 1.088, -0.526, 1.578, -0.268, 0.533]\nlower = 4 * 0.13957**2\nupper = 4 * 0.493677**2\nassert np.allclose([round(v.real, 12), round(v.imag, 12)] if (v := form_factor(1.15 + 0.12j, '22', lower, upper, 0.0, -0.60, poles, coefficients)) is not None else None, target)",
+        "import numpy as np\npoles = [(0.452 - 0.271j, '21'), (0.998 - 0.029j, '21'), (0.981 - 0.043j, '22')]\ncoefficients = [0.462, -0.236, 0.559, -0.706, 0.228, -0.510, -0.147, 1.088, -0.526, 1.578, -0.268, 0.533]\nlower = 4 * 0.13957**2\nupper = 4 * 0.493677**2\nassert np.allclose([round(v.real, 12), round(v.imag, 12)] if (v := form_factor(0.55 + 0.18j, '21', lower, upper, 0.0, -0.60, poles, coefficients)) is not None else None, target)",
+        "import numpy as np\npoles = [(0.452 - 0.271j, '21')]\ncoefficients = [1.0]\nlower = 4 * 0.13957**2\nupper = 4 * 0.493677**2\nassert np.allclose([round(v.real, 12), round(v.imag, 12)] if (v := form_factor(-0.60, '11', lower, upper, 0.0, -0.60, poles, coefficients)) is not None else None, target)",
+        "import numpy as np\npoles = [(0.452 - 0.271j, '21'), (0.981 - 0.043j, '22')]\ncoefficients = [0.0, 0.0, 1.0]\nlower = 4 * 0.13957**2\nupper = 4 * 0.493677**2\nassert np.allclose([round(v.real, 12), round(v.imag, 12)] if (v := form_factor(2.0 + 0.3j, '12', lower, upper, 0.0, -0.60, poles, coefficients)) is not None else None, target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: form_factor(0.2, '11', 0.1, 1.0, 0.0, 1e200, [(.5 - .1j, '21')], [1.0])), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: form_factor(0.2, '11', 0.1, 1.0, 0.0, -1e308, [(.5 - .1j, '21')], [1.0])), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: form_factor(0.2, '11', 0.1, 1.0, .1j, -0.60, [(.5 - .1j, '21')], [1.0])), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: form_factor(0.2, '11', 0.1, 1.0, 0.0, np.complex64(.1 + .2j), [(.5 - .1j, '21')], [1.0])), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: form_factor(2.734375, '22', 4.0, 6.25, 0.0, 2.734375, [(.5 - .1j, '21')], [1.0])), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: form_factor(0.1, '22', 0.1, 1.0, 0.0, -0.60, [(.5 - .1j, '21')], [1.0])), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: form_factor(0.2, '11', 0.1, 1.0, 0.0, -0.60, [(1e200 - .1j, '21')], [1.0])), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: form_factor(float('nan'), '11', 0.1, 1.0, 0.0, -0.60, [(.5 - .1j, '21')], [1.0])), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: form_factor(0.2, '11', 1.0, 1.0, 0.0, -0.60, [(.5 - .1j, '21')], [1.0])), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: form_factor(0.2, '11', 0.1, 1.0, 0.0, -0.60, [(.5 - .1j, '13')], [1.0])), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: form_factor(0.2, '11', 0.1, 1.0, 0.0, -0.60, [(.5 - .1j, '21', 3)], [1.0])), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: form_factor(0.2, '11', 0.1, 1.0, 0.0, -0.60, [(.5 - .1j, '21')], [1.0, float('inf')])), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: form_factor(0.2, '11', 0.1, 1.0, 0.0, -0.60, [(.5 - .1j, '21')], [])), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-35.7",
+      "test_cases": [
+        "import numpy as np\npoles = [(0.452 - 0.271j, '21'), (0.998 - 0.029j, '21'), (0.981 - 0.043j, '22')]\ncoefficients = [0.462, -0.236, 0.559, -0.706, 0.228, -0.510, -0.147, 1.088, -0.526, 1.578, -0.268, 0.533]\nevaluations = [(1.15 + 0.12j, '22'), (0.55 + 0.18j, '21')]\nassert np.allclose(round(run_pipeline(0.13957, 0.493677, 0.0, -0.60, poles, coefficients, evaluations), 12), target)",
+        "import numpy as np\npoles = [(0.452 - 0.271j, '21')]\ncoefficients = [1.0]\nevaluations = [(-0.60, '11')]\nassert np.allclose(round(run_pipeline(0.13957, 0.493677, 0.0, -0.60, poles, coefficients, evaluations), 12), target)",
+        "import numpy as np\npoles = [(0.452 - 0.271j, '21'), (0.981 - 0.043j, '22')]\ncoefficients = [0.0, 0.0, 1.0]\nevaluations = [(2.0 + 0.3j, '12'), (0.2 + 0.1j, '11'), (0.8 - 0.2j, '22')]\nassert np.allclose(round(run_pipeline(0.13957, 0.493677, 0.0, -0.60, poles, coefficients, evaluations), 12), target)",
+        "import numpy as np\npoles = [(0.452 - 0.271j, '21'), (0.998 - 0.029j, '21'), (0.981 - 0.043j, '22')]\ncoefficients = [0.462, -0.236, 0.559, -0.706, 0.228, -0.510, -0.147, 1.088, -0.526, 1.578, -0.268, 0.533]\nevaluations = [(-3.50 + 0.20j, '22'), (-0.75 - 0.16j, '12')]\nassert np.allclose(round(run_pipeline(0.13957, 0.493677, 0.0, -0.60, poles, coefficients, evaluations), 6), target)",
+        "import numpy as np\npoles = [(0.452 - 0.271j, '21')]\ncoefficients = [0.5, -0.25]\nevaluations = [(0.3 + 0.2j, '21'), (0.3 + 0.2j, '21')]\nassert np.allclose(round(run_pipeline(1e-06, 1000.0, 0.0, -1.0, poles, coefficients, evaluations), 8), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: run_pipeline(1.0, 1.25, 0.0, 2.734375, [(.5 - .1j, '21')], [1.0], [(2.734375, '22')])), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: run_pipeline(0.13957, 0.493677, np.complex64(.1 + .2j), -0.60, [(.5 - .1j, '21')], [1.0], [(0.2, '11')])), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: run_pipeline(0.13957, 0.493677, 0.0, 1e200, [(.5 - .1j, '21')], [1.0], [(0.2, '11')])), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: run_pipeline(0.13957, 0.493677, 0.0, -0.60, [(.5 - .1j, '21')], [1e200], [(0.2, '11')])), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: run_pipeline(0.13957, 0.493677, 0.0, -1e308, [(.5 - .1j, '21')], [1.0], [(0.2, '11')])), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: run_pipeline(1.0, 1.25, 0.0, -0.60, [(.5 - .1j, '21')], [1.0], [(4.0, '22')])), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: run_pipeline(-0.13957, 0.493677, 0.0, -0.60, [(.5 - .1j, '21')], [1.0], [(0.2, '11')])), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: run_pipeline(0.493677, 0.13957, 0.0, -0.60, [(.5 - .1j, '21')], [1.0], [(0.2, '11')])), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: run_pipeline(0.13957, 0.493677, 0.0, -0.60, [(.5 - .1j, '21')], [1.0], [])), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: run_pipeline(0.13957, 0.493677, 0.0, -0.60, [(.5 - .1j, '13')], [1.0], [(0.2, '11')])), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: run_pipeline(0.13957, 0.493677, 0.0, -0.60, [(.5 - .1j, '21')], [1.0], [(float('nan'), '11')])), target)",
+        "import numpy as np\ndef status(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(status(lambda: run_pipeline(0.2, 0.5, 0.0, -0.60, [(0.5 - 0.1j, '21')], [1.0], [((0.5 - 0.1j)**2, '21')])), target)"
+      ]
+    }
+  ]
+}

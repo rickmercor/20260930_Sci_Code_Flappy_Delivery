@@ -1,0 +1,44 @@
+problem_id: "Material_Science-Semiconductor_Materials-60"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "medium"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1038/s41524-026-02283-8"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_band_structure"
+    description: "Diagonalize the periodic two-orbital Bloch Hamiltonian and its derivatives."
+    orchestrator: false
+  - number: 2
+    name: "02_density_vertices"
+    description: "Evaluate point-orbital density vertices in the cell-periodic orbital gauge."
+    orchestrator: false
+  - number: 3
+    name: "03_static_polarizability"
+    description: "Compute the static independent-particle polarizability, including both band directions."
+    orchestrator: false
+  - number: 4
+    name: "04_screened_interaction"
+    description: "Invert the symmetrized microscopic dielectric matrix at nonsingular momentum."
+    orchestrator: false
+  - number: 5
+    name: "05_gamma_interaction"
+    description: "Regularize the zero-transfer cell by a circular microscopic head average."
+    orchestrator: false
+  - number: 6
+    name: "06_exciton_hamiltonian"
+    description: "Assemble the direct Tamm-Dancoff exciton Hamiltonian on the supplied k-grid."
+    orchestrator: false
+  - number: 7
+    name: "07_optical_dipole"
+    description: "Compute interband dipoles with the intracell position contribution to velocity."
+    orchestrator: false
+  - number: 8
+    name: "08_spectral_fraction"
+    description: "Integrate the normalized exciton oscillator measure over an energy window."
+    orchestrator: false
+  - number: 9
+    name: "09_solve"
+    description: "Return the exciton oscillator fraction for the supplied semiconductor model."
+    orchestrator: true

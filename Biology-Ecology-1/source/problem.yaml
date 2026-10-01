@@ -1,0 +1,40 @@
+problem_id: "Biology-Ecology-1"
+subject: "biology"
+subject_area: "Ecology"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1371/journal.pcbi.1013742"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_polynomial_test_functions.py"
+    description: "Evaluate a family of sup-norm-normalized piecewise-polynomial test functions and their exact first derivatives on a uniform grid."
+    orchestrator: false
+  - number: 2
+    name: "02_simulate_age_structured.py"
+    description: "Compute the exact solution of a linear McKendrick\u2013von Foerster age-structured model, whose mortality and fecundity are linear combinations of library functions, at the midpoints of the age classes."
+    orchestrator: false
+  - number: 3
+    name: "03_add_lognormal_noise.py"
+    description: "Corrupt a population density with seeded multiplicative log-normal noise whose strength is specified by the expected noise-to-signal ratio."
+    orchestrator: false
+  - number: 4
+    name: "04_assemble_weak_system.py"
+    description: "Assemble the stacked weak-form linear system that couples the transport PDE with the total-population ODE for learning mortality and fecundity terms of an age-structured model with known aging speed."
+    orchestrator: false
+  - number: 5
+    name: "05_mstls_sparse_regression.py"
+    description: "Solve a sparse regression problem with modified sequential-thresholding least squares (MSTLS) and select the sparsity threshold by minimizing a fit-plus-sparsity loss over a grid."
+    orchestrator: false
+  - number: 6
+    name: "06_boundary_bagging_regression.py"
+    description: "Identify source and boundary (birth) coefficients from a stacked PDE/ODE weak-form system, using a cross-validated boundary-term selection that corrects the PDE-dominated joint sparse regression."
+    orchestrator: false
+  - number: 7
+    name: "07_prediction_error.py"
+    description: "Measure the out-of-sample prediction error of a learned age-structured model by solving it exactly and comparing with the true density over the testing interval."
+    orchestrator: false
+  - number: 8
+    name: "08_wsindy_prediction_pipeline.py"
+    description: "Run the complete weak-form sparse identification pipeline on a noisy synthetic age-structured population and return the prediction error of the learned model."
+    orchestrator: true

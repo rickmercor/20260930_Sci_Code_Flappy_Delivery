@@ -1,0 +1,44 @@
+problem_id: "Mathematics-Computational_Mechanics-28"
+subject: "mathematics"
+subject_area: "Computational Mechanics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2608.26810"
+dependencies: ""
+steps:
+  - number: 1
+    name: "ice_strength"
+    description: "Return the source's empirical ice strength from the ice thickness and concentration. It is proportional to the thickness and depends exponentially on how far the concentration falls short of full cover, with the two material constants supplied as arguments. Recover the exact relation from the paper. Raise ValueError on a negative thickness, on a concentration outside [0, 1], or on a non-positive material constant."
+    orchestrator: false
+  - number: 2
+    name: "effective_deformation"
+    description: "Return the source's effective deformation rate for a stack of two-dimensional strain-rate tensors. It combines a regularisation floor, a term built from the TRACE-FREE part of the strain rate weighted by the yield-curve eccentricity, and a term built from the trace, all under a square root. The numerical factor on the trace-free term, the power of the eccentricity that multiplies it, and the fact that this term uses the trace-free part rather than the full tensor are the source's conventions; recover them from the paper. Note that the medium is two-dimensional, so the trace-free part is formed accordingly. Raise ValueError unless the input is a stack of 2x2 tensors and the floor and eccentricity are positive."
+    orchestrator: false
+  - number: 3
+    name: "vp_viscosities"
+    description: "Return the source's two nonlinear viscosities, stacked with the bulk one first and the shear one second. The bulk viscosity is the ice strength divided by the effective deformation rate times a numerical factor, and the shear viscosity follows from it through the yield-curve eccentricity. Both the numerical factor and the power of the eccentricity, including whether it multiplies or divides, are the source's conventions; recover them from the paper. Raise ValueError on a non-positive effective deformation rate or eccentricity."
+    orchestrator: false
+  - number: 4
+    name: "vp_stress"
+    description: "Return the source's viscous-plastic stress for a stack of strain-rate tensors. It is built from the two viscosities of the previous sub-problem acting on the strain rate and on its trace, together with an isotropic pressure contribution proportional to the ice strength. Which viscosity multiplies the strain rate directly, which combination multiplies the trace, and the numerical factor carried by the pressure term are the source's conventions; recover them from the paper. Assemble by calling the earlier sub-problem functions."
+    orchestrator: false
+  - number: 5
+    name: "ldg_numerical_fluxes"
+    description: "Return the source's two Local Discontinuous Galerkin numerical fluxes on one face, the velocity flux first and the traction flux second. On an interior face each is built from the average across the face plus a term in the jump, and the traction flux carries an additional penalty on the velocity jump. The sign that the flux parameter carries in each of the two fluxes is the source's convention and the two are NOT the same; recover it from the paper. Take the jump of a quantity as its value in the element owning the given outward normal minus its value in the neighbour. On a boundary face the no-slip condition fixes the velocity flux and the traction flux is the element traction corrected by a term in the velocity whose coefficient the source states. Raise ValueError unless the flux parameters satisfy the source's admissible ranges."
+    orchestrator: false
+  - number: 6
+    name: "ldg_strain"
+    description: "Recover the element-wise strain rate on a uniform nx by nx quadrilateral mesh of the square domain from the source's mixed formulation. Because the stress and strain spaces are element-constant, the volume term of that equation vanishes and each element's strain rate is determined entirely by the velocity fluxes on its four faces: integrate the symmetric part of the outer product of the velocity flux with the outward normal over the element boundary and divide by the element area. Velocities are bilinear on each element with the four nodal values ordered anticlockwise from the lower-left corner; integrate each face with two-point Gauss-Legendre quadrature. Raise ValueError unless nx and the element size are positive. Assemble by calling the earlier sub-problem functions."
+    orchestrator: false
+  - number: 7
+    name: "ldg_divergence"
+    description: "Return the weak stress-divergence term of the source's momentum equation, tested against every velocity basis function on every element. It combines a volume contribution pairing the element stress with the gradient of the test function and a boundary contribution pairing the traction flux with the test function on each face. The sign each contribution carries follows from integrating the divergence by parts once; recover the arrangement from the paper. Use two-point Gauss-Legendre quadrature on the faces and the tensor-product two-by-two rule in the element. Raise ValueError unless nx and the element size are positive. Assemble by calling the earlier sub-problem functions."
+    orchestrator: false
+  - number: 8
+    name: "mevp_subcycle"
+    description: "Advance the source's modified elastic-viscous-plastic system by ONE sub-iteration and return the new nodal velocity, the new element stress and the viscous-plastic stress target that the stress relaxes towards, flattened and concatenated in that order. The stress is relaxed towards the target evaluated at the CURRENT velocity, with the relaxation weight set by the first stabilisation parameter. The velocity is then updated from the momentum equation, which carries two separate inertia terms, one referred to the previous sub-iteration and weighted by the second stabilisation parameter and one referred to the previous physical time level, together with the stress divergence evaluated at the NEW stress and the given forcing. The exact weights, and which state the stress target and the stress divergence are evaluated at, are the source's conventions; recover them from the paper. The velocity that enters the traction fluxes of that divergence, including the velocity-jump penalty, is taken at the PREVIOUS sub-iterate, so every velocity update is an element-local mass-matrix solve as the problem statement's direct local solves require. The stress closure is evaluated with the source's viscous regularisation threshold 2e-9 per second and yield-curve eccentricity 2. Raise ValueError on a non-positive stabilisation parameter or time step. Assemble by calling the earlier sub-problem functions."
+    orchestrator: false
+  - number: 9
+    name: "sea_ice_audit"
+    description: "Run the source's scheme on the three declared configurations and return one row each. A configuration is (nx, field index v, wind speed): (3, 1, 8.0), (3, 2, 11.0) and (4, 1, 9.5). The domain is the square of side 512 km. Element (i, j) carries thickness 0.3 + 0.05 sin((3+v) pi xc) cos((2+v) pi yc) and concentration 0.90 + 0.05 sin((2+v) pi (xc+yc)) with xc, yc the element-centre coordinates divided by the domain side. The forcing at each velocity node is the source's external force: the concentration-weighted sum of an air drag and an ocean drag, each quadratic in the velocity of the driving fluid RELATIVE to the ice, plus a Coriolis term proportional to the ice density, the local thickness and the Coriolis parameter that acts on the ocean velocity minus the ice velocity; use each element's thickness and concentration at all four of its nodes, with air velocity wind*[sin(pi x) cos(pi y) + 0.8 (x - 0.5), -cos(pi x) sin(pi y) + 0.8 (y - 0.5)] and ocean velocity 0.01*[2y - 1, -2x + 1] at normalised coordinates and the densities and drag coefficients of the source's parameter table. Start from rest with zero stress and run exactly 800 sub-iterations at alpha = beta = 500, physical time step 600 s, and flux parameters a = 0.25 and b = 3.0, with the wind multiplied by wind_scale. Each row is [largest shear deformation, mean shear deformation, the largest absolute value taken by any scalar velocity component over all nodes, the ratio of the final stress residual to the immediately preceding one, summed shear deformation], where the shear deformation is the source's own diagnostic, the three deformation entries are expressed in units of 1e-6 per second, and the residual is the largest absolute difference between the relaxed stress and its target. Raise ValueError unless wind_scale is positive and finite. Assemble by calling the earlier sub-problem functions, every one of them."
+    orchestrator: true

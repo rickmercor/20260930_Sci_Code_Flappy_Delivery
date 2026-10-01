@@ -1,0 +1,48 @@
+problem_id: "Chemistry-Quantum_Chemistry-6"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1021/acs.jctc.6c00443"
+dependencies: ""
+steps:
+  - number: 1
+    name: "proton_potential"
+    description: "Build the diabatic proton potential energy profile of one electronic state on a grid of proton positions. Each diabatic electronic state of the assembly holds the transferring proton in an asymmetric double well whose barrier height, bias and vertical offset are properties of that electronic state."
+    orchestrator: false
+  - number: 2
+    name: "vibrational_levels"
+    description: "Solve the one-dimensional proton vibrational problem on a given diabatic potential and return the lowest vibrational energies in ascending order. These energies include the diabatic electronic offset already carried by the potential, so they are vibronic energies rather than vibrational spacings."
+    orchestrator: false
+  - number: 3
+    name: "vibrational_wavefunctions"
+    description: "Return the lowest proton vibrational wave functions on one diabatic potential, normalised so that the squared amplitude integrates to one over the grid, and with a fixed sign convention. The columns are ordered by increasing energy."
+    orchestrator: false
+  - number: 4
+    name: "direct_coupling"
+    description: "Compute the direct electronic coupling between the reactant state, which carries the excitation on the donor, and the product state, which carries it on the acceptor."
+    orchestrator: false
+  - number: 5
+    name: "crossing_points"
+    description: "Locate, for every pair of a reactant and a product vibronic level, the point on the bath coordinate at which that pair's transition conserves energy."
+    orchestrator: false
+  - number: 6
+    name: "pathway_convergence"
+    description: "Measure, for one reactant-product vibronic pair at its own crossing point, whether repeated passage through the unpopulated electronic states is contractive. The sum over pathways of every length has a finite limit only when it is, so this has to hold before any coupling built from that sum means anything."
+    orchestrator: false
+  - number: 7
+    name: "pair_coupling"
+    description: "Assemble the total vibronic coupling of one reactant-product pair at that pair's own crossing point: the direct interaction plus the whole sum over pathways through the unpopulated states."
+    orchestrator: false
+  - number: 8
+    name: "rate_from_couplings"
+    description: "Fold a table of vibronic couplings into the rate constant, weighting every reactant- product pair by the thermal population of its reactant member and by how readily the bath brings that pair into resonance."
+    orchestrator: false
+  - number: 9
+    name: "pcent_log_rate"
+    description: "Compute the base-ten logarithm of the proton-coupled energy transfer rate constant for one reorganisation energy, starting from the proton potentials of every electronic state."
+    orchestrator: false
+  - number: 10
+    name: "fit_reorganization_energy"
+    description: "Find the reorganisation energy at which the model reproduces a measured rate constant. This is the end-to-end calculation: it starts from the proton potentials of every electronic state and returns one number in eV."
+    orchestrator: true

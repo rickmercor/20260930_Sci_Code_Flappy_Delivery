@@ -1,0 +1,65 @@
+{
+  "problem_id": "Biology-Ecology-32",
+  "sub_steps": [
+    {
+      "step_number": "Biology-Ecology-32.1",
+      "test_cases": [
+        "params = dict(r=0.4, a=0.1, k=0.3, b=0.8, s=0.2, zeta=10.0, mu_M=1.0, rho=5.0,\n              d_p=0.4, b_p=0.05, b_ep=0.1, d_ep=0.1, L=30.0, nu=100.0)\nassert np.allclose(net_reproductive_number(0.43, 1.0, 0.35, dict(params)), target)",
+        "params = dict(r=0.4, a=0.1, k=0.3, b=0.8, s=0.2, zeta=10.0, mu_M=1.0, rho=5.0,\n              d_p=0.4, b_p=0.05, b_ep=0.1, d_ep=0.1, L=30.0, nu=100.0)\nassert np.allclose(net_reproductive_number(4.0, 2.0, 0.6, dict(params)), target)",
+        "params = dict(r=0.4, a=0.1, k=0.3, b=0.8, s=0.2, zeta=10.0, mu_M=1.0, rho=5.0,\n              d_p=0.4, b_p=0.05, b_ep=0.1, d_ep=0.1, L=30.0, nu=100.0)\nassert np.allclose(net_reproductive_number(53.404169, 2.0, 0.05, dict(params)), target)",
+        "params = dict(r=0.4, a=0.1, k=0.3, b=0.8, s=0.2, zeta=10.0, mu_M=1.0, rho=5.0,\n              d_p=0.4, b_p=0.05, b_ep=0.1, d_ep=0.1, L=30.0, nu=100.0)\nassert np.allclose(net_reproductive_number(0.07, 1.37, 0.9, dict(params)), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-32.2",
+      "test_cases": [
+        "params = dict(r=0.4, a=0.1, k=0.3, b=0.8, s=0.2, zeta=10.0, mu_M=1.0, rho=5.0,\n              d_p=0.4, b_p=0.05, b_ep=0.1, d_ep=0.1, L=30.0, nu=100.0)\nassert np.allclose(coexistence_steady_states(1.0, 0.35, dict(params)), target)",
+        "params = dict(r=0.4, a=0.1, k=0.3, b=0.8, s=0.2, zeta=10.0, mu_M=1.0, rho=5.0,\n              d_p=0.4, b_p=0.05, b_ep=0.1, d_ep=0.1, L=30.0, nu=100.0)\nassert np.allclose(coexistence_steady_states(2.0, 0.6, dict(params)), target)",
+        "params = dict(r=0.4, a=0.1, k=0.3, b=0.8, s=0.2, zeta=10.0, mu_M=1.0, rho=5.0,\n              d_p=0.4, b_p=0.05, b_ep=0.1, d_ep=0.1, L=30.0, nu=100.0)\nassert np.allclose(coexistence_steady_states(2.0, 0.7688, dict(params)), target)",
+        "params = dict(r=0.4, a=0.1, k=0.3, b=0.8, s=0.2, zeta=10.0, mu_M=1.0, rho=5.0,\n              d_p=0.4, b_p=0.05, b_ep=0.1, d_ep=0.1, L=30.0, nu=100.0)\nassert np.allclose(float(len(coexistence_steady_states(2.0, 0.8, dict(params)))), target)",
+        "params = dict(r=0.4, a=0.1, k=0.3, b=0.8, s=0.2, zeta=10.0, mu_M=1.0, rho=5.0,\n              d_p=0.4, b_p=0.05, b_ep=0.1, d_ep=0.1, L=30.0, nu=100.0)\nassert np.allclose(coexistence_steady_states(2.0, 0.05, dict(params)), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-32.3",
+      "test_cases": [
+        "import numpy as np\nparams = dict(r=0.4, a=0.1, k=0.3, b=0.8, s=0.2, zeta=10.0, mu_M=1.0, rho=5.0,\n              d_p=0.4, b_p=0.05, b_ep=0.1, d_ep=0.1, L=30.0, nu=100.0)\nstate = np.array([0.43360547741334027, 0.09846862199809107, 0.08560985893275563, 0.46720178005652135])\nassert np.allclose(rightmost_characteristic_root(state.copy(), 1.0, 0.35, dict(params)), target)",
+        "import numpy as np\nparams = dict(r=0.4, a=0.1, k=0.3, b=0.8, s=0.2, zeta=10.0, mu_M=1.0, rho=5.0,\n              d_p=0.4, b_p=0.05, b_ep=0.1, d_ep=0.1, L=30.0, nu=100.0)\nstate = np.array([1.6747443739947518, 0.1911822146190545, 0.16238618997293736, 0.3312535007438904])\nassert np.allclose(rightmost_characteristic_root(state.copy(), 2.0, 0.6, dict(params)), target)",
+        "import numpy as np\nparams = dict(r=0.4, a=0.1, k=0.3, b=0.8, s=0.2, zeta=10.0, mu_M=1.0, rho=5.0,\n              d_p=0.4, b_p=0.05, b_ep=0.1, d_ep=0.1, L=30.0, nu=100.0)\nstate = np.array([0.849355973141835, 0.14302351961566773, 0.1553553913764681, 0.43266935120138766])\nassert np.allclose(rightmost_characteristic_root(state.copy(), 2.0, 0.7685, dict(params)), target)",
+        "import numpy as np\nparams = dict(r=0.4, a=0.1, k=0.3, b=0.8, s=0.2, zeta=10.0, mu_M=1.0, rho=5.0,\n              d_p=0.4, b_p=0.05, b_ep=0.1, d_ep=0.1, L=30.0, nu=100.0)\nstate = np.array([0.8569812894582145, 0.14368306025391175, 0.15539682601956772, 0.4317265453226151])\nassert np.allclose(rightmost_characteristic_root(state.copy(), 2.0, 0.7688, dict(params)), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-32.4",
+      "test_cases": [
+        "params = dict(r=0.4, a=0.1, k=0.3, b=0.8, s=0.2, zeta=10.0, mu_M=1.0, rho=5.0,\n              d_p=0.4, b_p=0.05, b_ep=0.1, d_ep=0.1, L=30.0, nu=100.0)\nassert np.allclose(invasion_threshold(2.0, dict(params)), target)",
+        "params = dict(r=0.4, a=0.1, k=0.3, b=0.8, s=0.2, zeta=10.0, mu_M=1.0, rho=5.0,\n              d_p=0.4, b_p=0.05, b_ep=0.1, d_ep=0.1, L=30.0, nu=100.0)\nassert np.allclose(invasion_threshold(1.5, dict(params)), target)",
+        "params = dict(r=0.4, a=0.1, k=0.3, b=0.8, s=0.2, zeta=10.0, mu_M=1.0, rho=5.0,\n              d_p=0.4, b_p=0.05, b_ep=0.1, d_ep=0.1, L=30.0, nu=100.0)\nassert np.allclose(invasion_threshold(1.0, dict(params)), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-32.5",
+      "test_cases": [
+        "params = dict(r=0.4, a=0.1, k=0.3, b=0.8, s=0.2, zeta=10.0, mu_M=1.0, rho=5.0,\n              d_p=0.4, b_p=0.05, b_ep=0.1, d_ep=0.1, L=30.0, nu=100.0)\nassert np.allclose(fold_threshold(2.0, dict(params)), target)",
+        "params = dict(r=0.4, a=0.1, k=0.3, b=0.8, s=0.2, zeta=10.0, mu_M=1.0, rho=5.0,\n              d_p=0.4, b_p=0.05, b_ep=0.1, d_ep=0.1, L=30.0, nu=100.0)\nassert np.allclose(fold_threshold(1.8, dict(params)), target)",
+        "params = dict(r=0.4, a=0.1, k=0.3, b=0.8, s=0.2, zeta=10.0, mu_M=1.0, rho=5.0,\n              d_p=0.4, b_p=0.05, b_ep=0.1, d_ep=0.1, L=30.0, nu=100.0)\nassert np.allclose(fold_threshold(1.5, dict(params)), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-32.6",
+      "test_cases": [
+        "params = dict(r=0.4, a=0.1, k=0.3, b=0.8, s=0.2, zeta=10.0, mu_M=1.0, rho=5.0,\n              d_p=0.4, b_p=0.05, b_ep=0.1, d_ep=0.1, L=30.0, nu=100.0)\nassert np.allclose(stability_switch_threshold(1.0, dict(params)), target)",
+        "params = dict(r=0.4, a=0.1, k=0.3, b=0.8, s=0.2, zeta=10.0, mu_M=1.0, rho=5.0,\n              d_p=0.4, b_p=0.05, b_ep=0.1, d_ep=0.1, L=30.0, nu=100.0)\nassert np.allclose(stability_switch_threshold(1.5, dict(params)), target)",
+        "params = dict(r=0.4, a=0.1, k=0.3, b=0.8, s=0.2, zeta=10.0, mu_M=1.0, rho=5.0,\n              d_p=0.4, b_p=0.05, b_ep=0.1, d_ep=0.1, L=30.0, nu=100.0)\nassert np.allclose(stability_switch_threshold(2.0, dict(params)), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-32.7",
+      "test_cases": [
+        "params = dict(r=0.4, a=0.1, k=0.3, b=0.8, s=0.2, zeta=10.0, mu_M=1.0, rho=5.0,\n              d_p=0.4, b_p=0.05, b_ep=0.1, d_ep=0.1, L=30.0, nu=100.0)\nassert np.allclose(bistability_width(2.0, dict(params)), target)",
+        "params = dict(r=0.4, a=0.1, k=0.3, b=0.8, s=0.2, zeta=10.0, mu_M=1.0, rho=5.0,\n              d_p=0.4, b_p=0.05, b_ep=0.1, d_ep=0.1, L=30.0, nu=100.0)\nassert np.allclose(bistability_width(1.8, dict(params)), target)",
+        "params = dict(r=0.4, a=0.1, k=0.3, b=0.8, s=0.2, zeta=10.0, mu_M=1.0, rho=5.0,\n              d_p=0.4, b_p=0.05, b_ep=0.1, d_ep=0.1, L=30.0, nu=100.0)\nassert np.allclose(bistability_width(1.0, dict(params)), target)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+problem_id: "Chemistry-Quantum_Chemistry-23"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "medium"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2603.06018"
+dependencies: ""
+steps:
+  - number: 1
+    name: "Filled hydrogenic p-shell semilocal ingredients."
+    description: "For a completely filled, spin-unpolarized hydrogenic p shell with principal quantum number 2, 3 or 4 and nuclear charge Z, evaluate the normalized radial function and derivative, the spherical density and derivative, the positive kinetic-energy density, and the semilocal ingredients needed by the later ePC steps."
+    orchestrator: false
+  - number: 2
+    name: "Point-charge-plus-continuum reference strong-interaction functionals."
+    description: "Given a spherical, spin-unpolarized density and its radial\n\nderivative on a radial grid, return the two strong-interaction functionals\n\nW_inf[n] and W'_inf[n] in the original gradient-corrected\n\npoint-charge-plus-continuum (PC) model."
+    orchestrator: false
+  - number: 3
+    name: "ePC W_inf enhancement-factor branches from the primary paper."
+    description: "For supplied reduced-gradient values s, return the two enhancement-factor branches used by the primary ePC meta-GGA model for W_inf: the slowly-varying z=0 branch and the iso-orbital z=1 branch."
+    orchestrator: false
+  - number: 4
+    name: "ePC W_inf functional from the primary-paper interpolation."
+    description: "Given a spherical spin-unpolarized density, its reduced gradient and iso-orbital indicator on a radial grid, evaluate W_inf with the full primary-paper ePC meta-GGA interpolation between the two branches from the previous step."
+    orchestrator: false
+  - number: 5
+    name: "ePC Wprime-infinity enhancement-factor branches from the primary paper."
+    description: "For supplied reduced-gradient values s and relative spin polarization zeta, return the two enhancement-factor branches used by the primary ePC meta-GGA model for W'_inf."
+    orchestrator: false
+  - number: 6
+    name: "ePC Wprime-infinity functional from the primary-paper interpolation."
+    description: "Given a spherical spin-unpolarized density, reduced gradient and iso-orbital indicator on a radial grid, evaluate W'_inf with the full primary-paper ePC interpolation between the branches from the previous step."
+    orchestrator: false
+  - number: 7
+    name: "Filled-shell ePC audit and final W'_inf orchestrator."
+    description: "For a filled, spin-unpolarized hydrogenic p shell, run the complete reference-plus-ePC pipeline on the fixed radial grid and return the primary-paper ePC W'_inf result."
+    orchestrator: true

@@ -1,0 +1,36 @@
+problem_id: "Mathematics-Computational_Mechanics-44"
+subject: "mathematics"
+subject_area: "Computational Mechanics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2608.23121"
+dependencies: ""
+steps:
+  - number: 1
+    name: "pd_micromodulus"
+    description: "Convert the material's Young's modulus and a horizon into the micro-modulus this formulation uses for the requested modelling scenario, and report it with the Poisson's ratio the scenario constrains and the inputs."
+    orchestrator: false
+  - number: 2
+    name: "pd_critical_stretch"
+    description: "Convert a critical energy release rate into the critical bond stretch for the requested modelling scenario, and report it with the inputs."
+    orchestrator: false
+  - number: 3
+    name: "pd_dual_horizon_sets"
+    description: "For a cloud of material points with individually assigned horizons, determine for each point which other points lie inside its own horizon and, separately, which other points have it inside theirs."
+    orchestrator: false
+  - number: 4
+    name: "pd_bond_state"
+    description: "For a cloud of material points in a reference and a current configuration, compute the stretch of every bond and whether each bond is still intact given a critical stretch."
+    orchestrator: false
+  - number: 5
+    name: "pd_pairwise_force"
+    description: "Assemble the internal force density at each material point from the bond stretches, the intactness flags, the neighbour relations, the per-point micro-moduli and the point volumes."
+    orchestrator: false
+  - number: 6
+    name: "pd_point_damage"
+    description: "Compute the local damage at each material point from the intactness flags, the neighbour relations and the point volumes."
+    orchestrator: false
+  - number: 7
+    name: "pd_audit"
+    description: "The orchestrator. It must call the six earlier functions rather than reimplementing them, and assemble the force components, the local damage, the per-point micro-moduli, the force magnitudes and a diagnostics row."
+    orchestrator: true

@@ -1,0 +1,104 @@
+{
+  "problem_id": "Chemistry-Quantum_Chemistry-36",
+  "sub_steps": [
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-36.1",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(ppp_monomer_matrices(np.array([1.34, 1.40]), np.array([-2.4, -2.0]), np.array([0.0, 0.0, -3.0]), np.array([11.13, 11.13, 16.76])), target)",
+        "import numpy as np\nassert np.allclose(ppp_monomer_matrices(np.array([1.35, 1.46, 1.35]), np.array([-2.6, -2.2, -2.6]), np.zeros(4), np.full(4, 11.13)), target)",
+        "import numpy as np\nassert np.allclose(ppp_monomer_matrices(np.array([1.34]), np.array([-2.4]), np.array([0.0, -2.0]), np.array([11.13, 12.34])), target)",
+        "import numpy as np\nassert np.allclose(ppp_monomer_matrices(np.array([2.5, 0.9]), np.array([-1.1, -3.3]), np.array([1.5, 0.0, -4.0]), np.array([6.0, 11.13, 19.0])), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        ppp_monomer_matrices(np.array([1.34]), np.array([-2.4]), np.array([0.0, 0.0]), np.array([11.13, 0.0]))\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-36.2",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(antiparallel_stack_interactions(np.array([1.34, 1.40]), np.array([11.13, 11.13, 16.76]), 7.0), target)",
+        "import numpy as np\nassert np.allclose(antiparallel_stack_interactions(np.array([1.35, 1.46, 1.35]), np.full(4, 11.13), 3.5), target)",
+        "import numpy as np\nassert np.allclose(antiparallel_stack_interactions(np.array([1.34]), np.array([11.13, 12.34]), 5.0), target)",
+        "import numpy as np\nassert np.allclose(antiparallel_stack_interactions(np.array([2.5, 0.9]), np.array([6.0, 11.13, 19.0]), 60.0), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        antiparallel_stack_interactions(np.array([1.34, 1.40]), np.array([11.13, 11.13, 16.76]), 0.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-36.3",
+      "test_cases": [
+        "import numpy as np\nM = np.array([[[0.0, -2.4, 0.0], [-2.4, 0.0, -2.0], [0.0, -2.0, -3.0]], [[11.13, 7.730026265451644, 4.916924259823535], [7.730026265451644, 11.13, 8.276493731331758], [4.916924259823535, 8.276493731331758, 16.76]]], dtype=np.float64)\nassert np.allclose(ppp_rhf_orbitals(M[0].copy(), M[1].copy(), np.array([1.0, 1.0, 2.0]), 2), target)",
+        "import numpy as np\nM = np.array([[[0.0, -2.6, 0.0, 0.0], [-2.6, 0.0, -2.2, 0.0], [0.0, -2.2, 0.0, -2.6], [0.0, 0.0, -2.6, 0.0]], [[11.13, 7.700227091894275, 4.654053918495372, 3.3047405797809017], [7.700227091894275, 11.13, 7.3808232860022445, 4.654053918495372], [4.654053918495372, 7.3808232860022445, 11.13, 7.700227091894275], [3.3047405797809017, 4.654053918495372, 7.700227091894275, 11.13]]], dtype=np.float64)\nassert np.allclose(ppp_rhf_orbitals(M[0].copy(), M[1].copy(), np.ones(4), 2), target)",
+        "import numpy as np\nM = np.array([[[0.0, -2.4], [-2.4, -2.0]], [[11.13, 7.924395376191007], [7.924395376191007, 12.34]]], dtype=np.float64)\nassert np.allclose(ppp_rhf_orbitals(M[0].copy(), M[1].copy(), np.ones(2), 1), target)",
+        "import numpy as np\nM = np.array([[[0.0, -2.4, 0.0], [-2.4, 0.0, -2.4], [0.0, -2.4, 0.0]], [[11.13, 7.553113496587473, 4.667756354136853], [7.553113496587473, 11.13, 7.553113496587473], [4.667756354136853, 7.553113496587473, 11.13]]], dtype=np.float64)\nassert np.allclose(ppp_rhf_orbitals(M[0].copy(), M[1].copy(), np.ones(3), 1), target)",
+        "import numpy as np\nM = np.array([[[0.0, -2.4, 0.0], [-2.4, 0.0, -1.6], [0.0, -1.6, -5.0]], [[11.13, 7.730026265451644, 4.916924259823535], [7.730026265451644, 11.13, 8.276493731331758], [4.916924259823535, 8.276493731331758, 16.76]]], dtype=np.float64)\nassert np.allclose(ppp_rhf_orbitals(M[0].copy(), M[1].copy(), np.array([1.0, 1.0, 2.0]), 2), target)",
+        "import numpy as np\nM = np.array([[[0.0, -2.4], [-2.4, 0.0]], [[11.13, 7.730026265451644], [7.730026265451644, 11.13]]], dtype=np.float64)\ndef _exception_code(fn):\n    try:\n        fn()\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_exception_code(lambda: ppp_rhf_orbitals(M[0].copy(), M[1].copy(), np.ones(2), 2)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-36.4",
+      "test_cases": [
+        "import numpy as np\nM = np.array([[[0.0, -2.4, 0.0], [-2.4, 0.0, -2.0], [0.0, -2.0, -3.0]], [[11.13, 7.730026265451644, 4.916924259823535], [7.730026265451644, 11.13, 8.276493731331758], [4.916924259823535, 8.276493731331758, 16.76]]], dtype=np.float64)\nassert np.allclose(ccsd_energy(M[0].copy(), M[1].copy(), np.array([1.0, 1.0, 2.0]), 2), target)",
+        "import numpy as np\nM = np.array([[[0.0, -2.6, 0.0, 0.0], [-2.6, 0.0, -2.2, 0.0], [0.0, -2.2, 0.0, -2.6], [0.0, 0.0, -2.6, 0.0]], [[11.13, 7.700227091894275, 4.654053918495372, 3.3047405797809017], [7.700227091894275, 11.13, 7.3808232860022445, 4.654053918495372], [4.654053918495372, 7.3808232860022445, 11.13, 7.700227091894275], [3.3047405797809017, 4.654053918495372, 7.700227091894275, 11.13]]], dtype=np.float64)\nassert np.allclose(ccsd_energy(M[0].copy(), M[1].copy(), np.ones(4), 2), target)",
+        "import numpy as np\nM = np.array([[[0.0, -2.4], [-2.4, -2.0]], [[11.13, 7.924395376191007], [7.924395376191007, 12.34]]], dtype=np.float64)\nassert np.allclose(ccsd_energy(M[0].copy(), M[1].copy(), np.ones(2), 1), target)",
+        "import numpy as np\nM = np.array([[[0.0, -2.4, 0.0], [-2.4, 0.0, -2.0], [0.0, -2.0, -3.0]], [[11.13, 7.730026265451644, 4.916924259823535], [7.730026265451644, 11.13, 8.276493731331758], [4.916924259823535, 8.276493731331758, 16.76]]], dtype=np.float64)\nZ = np.array([1.0, 1.0, 2.0, 1.0, 1.0, 2.0])\nh = np.zeros((6, 6)); h[:3, :3] = M[0]; h[3:, 3:] = M[0]\ng = np.zeros((6, 6)); g[:3, :3] = M[1]; g[3:, 3:] = M[1]\nassert np.allclose(ccsd_energy(h.copy(), g.copy(), Z.copy(), 4), target)",
+        "import numpy as np\nM = np.array([[[0.0, -2.4, 0.0], [-2.4, 0.0, -2.0], [0.0, -2.0, -3.0]], [[11.13, 7.730026265451644, 4.916924259823535], [7.730026265451644, 11.13, 8.276493731331758], [4.916924259823535, 8.276493731331758, 16.76]]], dtype=np.float64)\nG = np.array([[1.8892525834159448, 1.985507504772866, 2.0346951833386533], [1.985507504772866, 2.022441120556207, 1.998129269229852], [2.0346951833386533, 1.998129269229852, 1.9010103415231825]], dtype=np.float64)\nZ = np.array([1.0, 1.0, 2.0, 1.0, 1.0, 2.0])\nh = np.zeros((6, 6)); h[:3, :3] = M[0]; h[3:, 3:] = M[0]\ng = np.zeros((6, 6)); g[:3, :3] = M[1]; g[3:, 3:] = M[1]; g[:3, 3:] = G; g[3:, :3] = G.T\nassert np.allclose(ccsd_energy(h.copy(), g.copy(), Z.copy(), 4), target)",
+        "import numpy as np\nM = np.array([[[0.0, -2.4, 0.0], [-2.4, 0.0, -2.4], [0.0, -2.4, 0.0]], [[11.13, 7.553113496587473, 4.667756354136853], [7.553113496587473, 11.13, 7.553113496587473], [4.667756354136853, 7.553113496587473, 11.13]]], dtype=np.float64)\nassert np.allclose(ccsd_energy(M[0].copy(), M[1].copy(), np.ones(3), 1), target)",
+        "import numpy as np\nM = np.array([[[0.0, -2.4], [-2.4, 0.0]], [[11.13, 7.730026265451644], [7.730026265451644, 11.13]]], dtype=np.float64)\ndef _exception_code(fn):\n    try:\n        fn()\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_exception_code(lambda: ccsd_energy(M[0].copy(), M[1].copy(), np.ones(3), 1)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-36.5",
+      "test_cases": [
+        "import numpy as np\nM = np.array([[[0.0, -2.4, 0.0], [-2.4, 0.0, -2.0], [0.0, -2.0, -3.0]], [[11.13, 7.730026265451644, 4.916924259823535], [7.730026265451644, 11.13, 8.276493731331758], [4.916924259823535, 8.276493731331758, 16.76]]], dtype=np.float64)\nassert np.allclose(eom_ccsd_singlet_energies(M[0].copy(), M[1].copy(), np.array([1.0, 1.0, 2.0]), 2, 3), target)",
+        "import numpy as np\nM = np.array([[[0.0, -2.6, 0.0, 0.0], [-2.6, 0.0, -2.2, 0.0], [0.0, -2.2, 0.0, -2.6], [0.0, 0.0, -2.6, 0.0]], [[11.13, 7.700227091894275, 4.654053918495372, 3.3047405797809017], [7.700227091894275, 11.13, 7.3808232860022445, 4.654053918495372], [4.654053918495372, 7.3808232860022445, 11.13, 7.700227091894275], [3.3047405797809017, 4.654053918495372, 7.700227091894275, 11.13]]], dtype=np.float64)\nassert np.allclose(eom_ccsd_singlet_energies(M[0].copy(), M[1].copy(), np.ones(4), 2, 4), target)",
+        "import numpy as np\nM = np.array([[[0.0, -2.4], [-2.4, -2.0]], [[11.13, 7.924395376191007], [7.924395376191007, 12.34]]], dtype=np.float64)\nassert np.allclose(eom_ccsd_singlet_energies(M[0].copy(), M[1].copy(), np.ones(2), 1, 2), target)",
+        "import numpy as np\nM = np.array([[[0.0, -2.4, 0.0], [-2.4, 0.0, -2.4], [0.0, -2.4, 0.0]], [[11.13, 7.553113496587473, 4.667756354136853], [7.553113496587473, 11.13, 7.553113496587473], [4.667756354136853, 7.553113496587473, 11.13]]], dtype=np.float64)\nassert np.allclose(eom_ccsd_singlet_energies(M[0].copy(), M[1].copy(), np.ones(3), 1, 3), target)",
+        "import numpy as np\nM = np.array([[[0.0, -2.4, 0.0], [-2.4, 0.0, -1.6], [0.0, -1.6, -5.0]], [[11.13, 7.730026265451644, 4.916924259823535], [7.730026265451644, 11.13, 8.276493731331758], [4.916924259823535, 8.276493731331758, 16.76]]], dtype=np.float64)\nassert np.allclose(eom_ccsd_singlet_energies(M[0].copy(), M[1].copy(), np.array([1.0, 1.0, 2.0]), 2, 2), target)",
+        "import numpy as np\nM = np.array([[[0.0, -2.4], [-2.4, -2.0]], [[11.13, 7.924395376191007], [7.924395376191007, 12.34]]], dtype=np.float64)\ndef _exception_code(fn):\n    try:\n        fn()\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_exception_code(lambda: eom_ccsd_singlet_energies(M[0].copy(), M[1].copy(), np.ones(2), 1, 9)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-36.6",
+      "test_cases": [
+        "import numpy as np\nM = np.array([[[0.0, -2.4, 0.0], [-2.4, 0.0, -2.0], [0.0, -2.0, -3.0]], [[11.13, 7.730026265451644, 4.916924259823535], [7.730026265451644, 11.13, 8.276493731331758], [4.916924259823535, 8.276493731331758, 16.76]]], dtype=np.float64)\nassert np.allclose(eom_transition_density_product(M[0].copy(), M[1].copy(), np.array([1.0, 1.0, 2.0]), 2, 0), target)",
+        "import numpy as np\nM = np.array([[[0.0, -2.6, 0.0, 0.0], [-2.6, 0.0, -2.2, 0.0], [0.0, -2.2, 0.0, -2.6], [0.0, 0.0, -2.6, 0.0]], [[11.13, 7.700227091894275, 4.654053918495372, 3.3047405797809017], [7.700227091894275, 11.13, 7.3808232860022445, 4.654053918495372], [4.654053918495372, 7.3808232860022445, 11.13, 7.700227091894275], [3.3047405797809017, 4.654053918495372, 7.700227091894275, 11.13]]], dtype=np.float64)\nassert np.allclose(eom_transition_density_product(M[0].copy(), M[1].copy(), np.ones(4), 2, 1), target)",
+        "import numpy as np\nM = np.array([[[0.0, -2.4, 0.0], [-2.4, 0.0, -2.4], [0.0, -2.4, 0.0]], [[11.13, 7.553113496587473, 4.667756354136853], [7.553113496587473, 11.13, 7.553113496587473], [4.667756354136853, 7.553113496587473, 11.13]]], dtype=np.float64)\nassert np.allclose(eom_transition_density_product(M[0].copy(), M[1].copy(), np.ones(3), 1, 0), target)",
+        "import numpy as np\nM = np.array([[[0.0, -2.4], [-2.4, -2.0]], [[11.13, 7.924395376191007], [7.924395376191007, 12.34]]], dtype=np.float64)\nassert np.allclose(eom_transition_density_product(M[0].copy(), M[1].copy(), np.ones(2), 1, 0), target)",
+        "import numpy as np\nM = np.array([[[0.0, -2.4, 0.0], [-2.4, 0.0, -1.6], [0.0, -1.6, -5.0]], [[11.13, 7.730026265451644, 4.916924259823535], [7.730026265451644, 11.13, 8.276493731331758], [4.916924259823535, 8.276493731331758, 16.76]]], dtype=np.float64)\nassert np.allclose(eom_transition_density_product(M[0].copy(), M[1].copy(), np.array([1.0, 1.0, 2.0]), 2, 1), target)",
+        "import numpy as np\nM = np.array([[[0.0, -2.4], [-2.4, -2.0]], [[11.13, 7.924395376191007], [7.924395376191007, 12.34]]], dtype=np.float64)\ndef _exception_code(fn):\n    try:\n        fn()\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_exception_code(lambda: eom_transition_density_product(M[0].copy(), M[1].copy(), np.ones(2), 1, -1)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-36.7",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(fragment_excitonic_coupling(np.array([1.34, 1.40]), np.array([-2.4, -2.0]), np.array([0.0, 0.0, -3.0]), np.array([11.13, 11.13, 16.76]), np.array([1.0, 1.0, 2.0]), 2, 0, 7.0), target)",
+        "import numpy as np\nassert np.allclose(fragment_excitonic_coupling(np.array([1.34, 1.40]), np.array([-2.4, -2.0]), np.array([0.0, 0.0, -3.0]), np.array([11.13, 11.13, 16.76]), np.array([1.0, 1.0, 2.0]), 2, 0, 4.0), target)",
+        "import numpy as np\nassert np.allclose(fragment_excitonic_coupling(np.array([1.34]), np.array([-2.4]), np.array([0.0, -2.0]), np.array([11.13, 12.34]), np.array([1.0, 1.0]), 1, 0, 5.0), target)",
+        "import numpy as np\nassert np.allclose(fragment_excitonic_coupling(np.array([1.35, 1.46, 1.35]), np.array([-2.6, -2.2, -2.6]), np.zeros(4), np.full(4, 11.13), np.ones(4), 2, 1, 6.0), target)",
+        "import numpy as np\nassert np.allclose(fragment_excitonic_coupling(np.array([1.40, 1.40]), np.array([-2.4, -2.4]), np.zeros(3), np.full(3, 11.13), np.ones(3), 1, 0, 6.0), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        fragment_excitonic_coupling(np.array([1.34]), np.array([-2.4]), np.array([0.0, -2.0]), np.array([11.13, 12.34]), np.array([1.0, 1.0]), 1, 0, -5.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-36.8",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(supersystem_excitonic_coupling(np.array([1.34, 1.40]), np.array([-2.4, -2.0]), np.array([0.0, 0.0, -3.0]), np.array([11.13, 11.13, 16.76]), np.array([1.0, 1.0, 2.0]), 2, 0, 7.0), target)",
+        "import numpy as np\nassert np.allclose(supersystem_excitonic_coupling(np.array([1.34, 1.40]), np.array([-2.4, -2.0]), np.array([0.0, 0.0, -3.0]), np.array([11.13, 11.13, 16.76]), np.array([1.0, 1.0, 2.0]), 2, 0, 4.0), target)",
+        "import numpy as np\nassert np.allclose(supersystem_excitonic_coupling(np.array([1.34]), np.array([-2.4]), np.array([0.0, -2.0]), np.array([11.13, 12.34]), np.array([1.0, 1.0]), 1, 0, 5.0), target)",
+        "import numpy as np\nassert np.allclose(supersystem_excitonic_coupling(np.array([1.34]), np.array([-2.4]), np.array([0.0, 0.0]), np.array([11.13, 11.13]), np.array([1.0, 1.0]), 1, 0, 6.0), target)",
+        "import numpy as np\nassert np.allclose(supersystem_excitonic_coupling(np.array([1.40, 1.40]), np.array([-2.4, -2.4]), np.zeros(3), np.full(3, 11.13), np.ones(3), 1, 0, 6.0), target)",
+        "import numpy as np\nassert np.allclose(supersystem_excitonic_coupling(np.array([1.34, 1.40]), np.array([-2.4, -1.6]), np.array([0.0, 0.0, -5.0]), np.array([11.13, 11.13, 16.76]), np.array([1.0, 1.0, 2.0]), 2, 0, 12.0), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        supersystem_excitonic_coupling(np.array([1.34]), np.array([-2.4]), np.array([0.0, -2.0]), np.array([11.13, 12.34]), np.array([1.0, 1.0]), 1, 7, 5.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-36.9",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(separability_error_percent(np.array([1.34, 1.40]), np.array([-2.4, -2.0]), np.array([0.0, 0.0, -3.0]), np.array([11.13, 11.13, 16.76]), np.array([1.0, 1.0, 2.0]), 2, 0, 7.0), target)",
+        "import numpy as np\nassert np.allclose(separability_error_percent(np.array([1.34, 1.40]), np.array([-2.4, -2.0]), np.array([0.0, 0.0, -3.0]), np.array([11.13, 11.13, 16.76]), np.array([1.0, 1.0, 2.0]), 2, 0, 30.0), target)",
+        "import numpy as np\nassert np.allclose(separability_error_percent(np.array([1.34]), np.array([-2.4]), np.array([0.0, 0.0]), np.array([11.13, 11.13]), np.array([1.0, 1.0]), 1, 0, 6.0), target)",
+        "import numpy as np\nassert np.allclose(separability_error_percent(np.array([1.40, 1.40]), np.array([-2.4, -2.4]), np.zeros(3), np.full(3, 11.13), np.ones(3), 1, 0, 6.0), target)",
+        "import numpy as np\nassert np.allclose(separability_error_percent(np.array([1.34, 1.40]), np.array([-2.4, -1.6]), np.array([0.0, 0.0, -5.0]), np.array([11.13, 11.13, 16.76]), np.array([1.0, 1.0, 2.0]), 2, 0, 12.0), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        separability_error_percent(np.array([1.34, 1.40]), np.array([-2.4, -2.0]), np.array([0.0, 0.0, -3.0]), np.array([11.13, 11.13, 16.76]), np.array([1.0, 1.0, 2.0]), 2, 0, 0.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

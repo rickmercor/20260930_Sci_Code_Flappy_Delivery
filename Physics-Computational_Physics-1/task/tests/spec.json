@@ -1,0 +1,69 @@
+{
+  "problem_id": "Physics-Computational_Physics-1",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Computational_Physics-1.1",
+      "test_cases": [
+        "import numpy as np\ndx = 0.1\npsi = np.array([(i + 0.5) * dx for i in range(10)])\nassert np.allclose(tuple(np.round(np.asarray(a, dtype=float), 10) for a in reconstruct_interfaces(psi.copy(), dx)), target)",
+        "import numpy as np\ndx = 0.125\npsi = np.array([0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0])\nassert np.allclose(tuple(np.round(np.asarray(a, dtype=float), 10) for a in reconstruct_interfaces(psi.copy(), dx)), target)",
+        "import numpy as np\ndx = 0.2\npsi = np.full(5, 3.0)\nassert np.allclose(tuple(np.round(np.asarray(a, dtype=float), 10) for a in reconstruct_interfaces(psi.copy(), dx)), target)",
+        "import numpy as np\nN = 12\ndx = 1.0 / N\nxc = np.array([(i + 0.5) * dx for i in range(N)])\npsi = 1.0 + 0.5 * np.sin(2.0 * np.pi * xc) + 0.25 * np.sin(4.0 * np.pi * xc)\nassert np.allclose(tuple(np.round(np.asarray(a, dtype=float), 10) for a in reconstruct_interfaces(psi.copy(), dx)), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Computational_Physics-1.2",
+      "test_cases": [
+        "import numpy as np\ndx = 0.01\nN_x = 100\npsi = np.linspace(0.5, 1.5, N_x)\nsigma = 11.0\nsigma_s = 10.0\ntau = 1.0 / sigma\ndt = 0.2 * dx / 1.0\nassert np.allclose(np.round(compute_macroscopic_flux(psi.copy(), sigma_s, sigma, dx, dt, tau), 10), target)",
+        "import numpy as np\ndx = 0.1\npsi = np.full(10, 2.0)\nsigma = 11.0\nsigma_s = 10.0\ntau = 1.0 / sigma\ndt = 0.2 * dx\nassert np.allclose(np.round(compute_macroscopic_flux(psi.copy(), sigma_s, sigma, dx, dt, tau), 12), target)",
+        "import numpy as np\ndx = 0.025\nN_x = 40\npsi = np.sin(np.pi * np.linspace(dx/2, 1-dx/2, N_x))\nsigma = 1000.0\nsigma_s = 999.0\ntau = 1.0 / sigma\ndt = 0.2 * dx / 1.0\nassert np.allclose(np.round(compute_macroscopic_flux(psi.copy(), sigma_s, sigma, dx, dt, tau), 10), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Computational_Physics-1.3",
+      "test_cases": [
+        "import numpy as np\n\ndef run_model():\n    rng = np.random.default_rng(42)\n    t_f, mask = classify_particles(0.5, 0.1, rng, 100000)\n    frac = float(np.mean(mask))\n    mean_tf = float(np.mean(t_f))\n    consistent = float(np.array_equal(mask, t_f == 0.1))\n    return np.array([round(frac, 2), round(mean_tf, 4), consistent])\nassert np.allclose(run_model(), target)",
+        "import numpy as np\n\ndef run_model():\n    rng = np.random.default_rng(42)\n    _, mask = classify_particles(1000.0, 0.01, rng, 50000)\n    return round(float(np.mean(mask)), 4)\nassert np.allclose(run_model(), target)",
+        "import numpy as np\n\ndef run_model():\n    rng = np.random.default_rng(42)\n    t_f, mask = classify_particles(0.001, 1.0, rng, 50000)\n    frac_cl = float(np.mean(mask))\n    max_tf = float(np.max(t_f))\n    return np.array([round(frac_cl, 4), float(max_tf <= 1.0)])\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Computational_Physics-1.4",
+      "test_cases": [
+        "import numpy as np\ndx = 1.0\nN_x = 1\nx_p = np.array([0.9])\nxi_p = np.array([1.0])\nw_p = np.array([0.01])\nt_f = np.array([0.2])\ndt = 0.2\nassert np.allclose(tuple(np.round(np.asarray(a, dtype=float), 6) for a in free_transport_step(x_p.copy(), xi_p.copy(), w_p.copy(), dx, N_x, dt, t_f.copy())), target)",
+        "import numpy as np\ndx = 0.5\nN_x = 2\nx_p = np.array([0.25, 0.75])\nxi_p = np.array([1.0, -1.0])\nw_p = np.array([0.01, 0.01])\nt_f = np.array([0.1, 0.1])\ndt = 0.1\nassert np.allclose(tuple(np.round(np.asarray(a, dtype=float), 6) for a in free_transport_step(x_p.copy(), xi_p.copy(), w_p.copy(), dx, N_x, dt, t_f.copy())), target)",
+        "import numpy as np\ndx = 0.25\nN_x = 4\nx_p = np.array([0.9])\nxi_p = np.array([1.0])\nw_p = np.array([0.005])\nt_f = np.array([0.2])\ndt = 0.2\nassert np.allclose(tuple(np.round(np.asarray(a, dtype=float), 6) for a in free_transport_step(x_p.copy(), xi_p.copy(), w_p.copy(), dx, N_x, dt, t_f.copy())), target)",
+        "import numpy as np\ndx = 0.25\nN_x = 4\nx_p = np.array([0.05])\nxi_p = np.array([-1.0])\nw_p = np.array([0.005])\nt_f = np.array([0.1])\ndt = 0.1\nassert np.allclose(tuple(np.round(np.asarray(a, dtype=float), 6) for a in free_transport_step(x_p.copy(), xi_p.copy(), w_p.copy(), dx, N_x, dt, t_f.copy())), target)",
+        "import numpy as np\ndx = 0.25\nN_x = 4\nx_p = np.array([0.24, 0.26, 0.60, 0.51])\nxi_p = np.array([1.0, -1.0, 0.5, -0.1])\nw_p = np.array([0.01, 0.02, 0.03, 0.04])\nt_f = np.array([0.05, 0.05, 0.05, 0.05])\ndt = 0.05\nassert np.allclose(tuple(np.round(np.asarray(a, dtype=float), 6) for a in free_transport_step(x_p.copy(), xi_p.copy(), w_p.copy(), dx, N_x, dt, t_f.copy())), target)",
+        "import numpy as np\ndx = 0.25\nN_x = 4\nx_p = np.array([0.24, 0.24])\nxi_p = np.array([1.0, 1.0])\nw_p = np.array([0.01, 0.01])\nt_f = np.array([0.005, 0.05])\ndt = 0.05\nassert np.allclose(tuple(np.round(np.asarray(a, dtype=float), 6) for a in free_transport_step(x_p.copy(), xi_p.copy(), w_p.copy(), dx, N_x, dt, t_f.copy())), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Computational_Physics-1.5",
+      "test_cases": [
+        "import numpy as np\ndx = 0.25\nsigma = 11.0\nsigma_s = 10.0\ntau = 1.0 / sigma\ndt = 0.01\npsi = np.ones(4)\npsi_ma = np.zeros(4)\nq_arr = np.zeros(4)\nH_ma = np.zeros(4)\nH_mi_free = np.array([0.0, 0.1, -0.05, 0.0])\nassert np.allclose(np.round(macroscopic_update(psi.copy(), H_ma.copy(), H_mi_free.copy(), psi_ma.copy(), sigma, sigma_s, q_arr.copy(), dx, dt, tau), 10), target)",
+        "import numpy as np\nN_x = 10\ndx = 0.1\nsigma = 11.0\nsigma_s = 10.0\ntau = 1.0 / sigma\ndt = 0.2 * dx\npsi = np.full(N_x, 1.0)\npsi_ma = np.full(N_x, 0.5)\nq_arr = np.zeros(N_x)\nq_arr[3:7] = 0.5\nH_ma = np.zeros(N_x)\nH_mi_free = np.zeros(N_x)\nassert np.allclose(np.round(macroscopic_update(psi.copy(), H_ma.copy(), H_mi_free.copy(), psi_ma.copy(), sigma, sigma_s, q_arr.copy(), dx, dt, tau), 10), target)",
+        "import numpy as np\nN_x = 5\ndx = 0.2\nsigma = 10.0\nsigma_s = 10.0\ntau = 1.0 / sigma\ndt = 0.01\npsi = np.array([1.0, 2.0, 3.0, 2.0, 1.0])\npsi_ma = np.array([0.5, 1.0, 1.5, 1.0, 0.5])\nq_arr = np.zeros(N_x)\nH_ma = np.zeros(N_x)\nH_mi_free = np.zeros(N_x)\nassert np.allclose(np.round(macroscopic_update(psi.copy(), H_ma.copy(), H_mi_free.copy(), psi_ma.copy(), sigma, sigma_s, q_arr.copy(), dx, dt, tau), 10), target)",
+        "import numpy as np\nN_x = 20\ndx = 0.05\nsigma = 1000.0\nsigma_s = 999.0\ntau = 1.0 / sigma\ndt = 0.2 * dx / 1.0\nx_c = np.linspace(dx/2, 1-dx/2, N_x)\npsi = np.sin(np.pi * x_c) + 1.0\npsi_ma = 0.5 * psi\nq_arr = np.full(N_x, 0.5)\nH_ma = -(np.pi / (3.0 * sigma)) * np.cos(np.pi * np.arange(N_x) * dx)\nH_mi_free = np.zeros(N_x)\nassert np.allclose(np.round(macroscopic_update(psi.copy(), H_ma.copy(), H_mi_free.copy(), psi_ma.copy(), sigma, sigma_s, q_arr.copy(), dx, dt, tau), 8), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Computational_Physics-1.6",
+      "test_cases": [
+        "import numpy as np\n\ndef _zero_time_mass(fn):\n    rng = np.random.default_rng(42)\n    _, _, weights = fn(np.ones(1), 0.0, 1.0, 1.0, 0.1, rng)\n    return float(np.sum(weights))\nassert np.allclose(_zero_time_mass(resample_particles), target)",
+        "import numpy as np\n\ndef _negative_time(fn):\n    try:\n        fn(np.ones(1), -0.1, 1.0, 1.0, 0.1, np.random.default_rng(42))\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(_negative_time(resample_particles), target)",
+        "import numpy as np\n\ndef _zero_collision_time(fn):\n    try:\n        fn(np.ones(1), 0.1, 0.0, 1.0, 0.1, np.random.default_rng(42))\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(_zero_collision_time(resample_particles), target)",
+        "import numpy as np\n\ndef run_model():\n    rng = np.random.default_rng(42)\n    psi_ma = np.full(10, 1.5)\n    dx = 0.1\n    tau = 1.0 / 11.0\n    dt = 0.2 * dx\n    m_e = dx / 200\n    x_r, xi_r, w_r = resample_particles(psi_ma, dt, tau, dx, m_e, rng)\n    total_mass = float(np.sum(w_r)) if len(w_r) > 0 else 0.0\n    cell_counts = np.bincount(np.floor(x_r / dx).astype(int), minlength=len(psi_ma))\n    summary = np.array([len(x_r), round(total_mass, 6), round(float(np.mean(xi_r)), 6),\n                        round(float(np.min(xi_r)), 6), round(float(np.max(xi_r)), 6)])\n    return np.concatenate((summary, cell_counts))\nassert np.allclose(run_model(), target)",
+        "import numpy as np\n\ndef run_model():\n    rng = np.random.default_rng(42)\n    psi_ma = np.full(5, 1.0)\n    dx = 0.2\n    tau = 0.001\n    dt = 1.0\n    m_e = 0.01\n    x_r, _, w_r = resample_particles(psi_ma, dt, tau, dx, m_e, rng)\n    return len(x_r)\nassert np.allclose(run_model(), target)",
+        "import numpy as np\n\ndef run_model():\n    rng = np.random.default_rng(42)\n    psi_ma = np.array([1.0, 0.0, 2.0, 0.0, 1.0])\n    dx = 0.2\n    tau = 0.5\n    dt = 0.1\n    m_e = 0.01\n    x_r, xi_r, w_r = resample_particles(psi_ma, dt, tau, dx, m_e, rng)\n    in_cell1 = int(np.sum((x_r >= 0.2) & (x_r < 0.4)))\n    in_cell3 = int(np.sum((x_r >= 0.6) & (x_r < 0.8)))\n    return np.array([in_cell1, in_cell3, float(len(x_r) > 0)])\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Computational_Physics-1.7",
+      "test_cases": [
+        "import numpy as np\nN_x = 40\ndx = 1.0 / N_x\nxc = np.array([(i + 0.5) * dx for i in range(N_x)])\nq_arr = np.zeros(N_x)\nfor i in range(N_x):\n    if 0.25 <= xc[i] < 0.75:\n        q_arr[i] = 0.5\n\ndef run_model():\n    rng = np.random.default_rng(42)\n    psi = solve_ugkwp_steady(10.0, 1.0, q_arr.copy(), N_x, 0.2, 50, 4000, 2000, rng)\n    return np.round(psi, 6)\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nN_x = 40\ndx = 1.0 / N_x\nxc = np.array([(i + 0.5) * dx for i in range(N_x)])\nq_arr = np.zeros(N_x)\nfor i in range(N_x):\n    if 0.25 <= xc[i] < 0.75:\n        q_arr[i] = 0.5\n\ndef run_model():\n    rng = np.random.default_rng(42)\n    psi = solve_ugkwp_steady(90.0, 10.0, q_arr.copy(), N_x, 0.2, 50, 4000, 2000, rng)\n    sym_err = float(np.max(np.abs(psi - psi[::-1])) / (np.max(psi) + 1e-15))\n    return np.concatenate(([float(sym_err < 0.1)], np.round(psi, 6)))\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nN_x = 40\ndx = 1.0 / N_x\nxc = np.array([(i + 0.5) * dx for i in range(N_x)])\nq_arr = np.zeros(N_x)\nfor i in range(N_x):\n    if 0.05 <= xc[i] < 0.15:\n        q_arr[i] = 0.5\nsrc_idx = int(np.where(q_arr > 0)[0][0])\nfar_idx = (src_idx + N_x // 2) % N_x\n\ndef run_model():\n    rng = np.random.default_rng(42)\n    psi = solve_ugkwp_steady(10.0, 1.0, q_arr.copy(), N_x, 0.2, 50, 4000, 2000, rng)\n    return np.concatenate(([float(psi[src_idx] > psi[far_idx])], np.round(psi, 6)))\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

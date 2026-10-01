@@ -1,0 +1,88 @@
+{
+  "problem_id": "Physics-Optics-11",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Optics-11.1",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(np.stack(grating_channels(-0.6, 0.39, 5)), target)",
+        "import numpy as np\nassert np.allclose(np.stack(grating_channels(0.0, 0.4, 4)), target)",
+        "import numpy as np\nassert np.allclose(np.stack(grating_channels(-0.3, 1.7, 1)), target)",
+        "import numpy as np\ndef rejects_grazing(fn):\n    try:\n        fn(0.0, 0.5, 3)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(rejects_grazing(grating_channels), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-11.2",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(reciprocal_fourier([2.0], 5), target)",
+        "import numpy as np\nassert np.allclose(reciprocal_fourier([1.0, 0.2j], 6), target)",
+        "import numpy as np\ncoefficients = np.array([2.4+0.45j, 0.35, 0.04j])\nassert np.allclose(reciprocal_fourier(coefficients, 8), target)",
+        "import numpy as np\ndef reciprocal_residual(fn):\n    coefficients = np.array([1.3 + 0.2j, 0.14 - 0.03j, -0.025j])\n    original = coefficients.copy()\n    inverse = fn(coefficients, 7)\n    residual = np.convolve(coefficients, inverse)[:7]\n    residual[0] -= 1\n    return max(float(np.max(np.abs(residual))), float(np.max(np.abs(coefficients - original))))\nassert np.allclose(reciprocal_residual(reciprocal_fourier), target)",
+        "import numpy as np\ndef rejects_zero_profile(fn):\n    try:\n        fn([0.0, 0.1], 3)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(rejects_zero_profile(reciprocal_fourier), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-11.3",
+      "test_cases": [
+        "import numpy as np\n\nsines = np.array([-0.6, 0.1, 0.8])\nassert np.allclose(bergmann_generator(sines, [1.0], [1.0]), target)",
+        "import numpy as np\n\nsines = np.array([-0.6, -0.21, 0.18, 0.57, 0.96])\nassert np.allclose(bergmann_generator(\n    sines, [2.4 + 0.45j, 0.35, 0.04j], [1.2 + 0.14j, 0.10, 0.015]\n), target)",
+        "import numpy as np\n\nsines = np.array([0.0, 0.7, 1.4, 2.1])\nassert np.allclose(bergmann_generator(sines, [1.4, -0.2j], [2.1 + 0.3j, 0.1, 0.02j]), target)",
+        "import numpy as np\nassert np.allclose(bergmann_generator([0.3], [2.0], [1.0]), target)",
+        "import numpy as np\ndef rejects_nonfinite(fn):\n    try:\n        fn([1e+200], [1.0], [1.0])\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(rejects_nonfinite(bergmann_generator), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-11.4",
+      "test_cases": [
+        "import numpy as np\n\ngenerator = np.diag([1.0, -0.4j])\nassert np.allclose(ordered_transfer_series([generator], [1.0]), target)",
+        "import numpy as np\n\nfirst = np.array([[0.0, 1.0], [0.0, 0.0]])\nsecond = np.array([[0.0, 0.0], [2.0, 0.0]])\nexpected = np.array(\n    [np.eye(2), 1j * (0.3 * first + 0.7 * second), -0.21 * second @ first]\n)\nassert np.allclose(ordered_transfer_series([first, second], [0.3, 0.7]), target)",
+        "import numpy as np\n\ngenerator = np.array([[0.2j, 1.4], [0.8, -0.1j]])\nassert np.allclose(ordered_transfer_series([generator, generator, generator], [0.0, 0.25, 0.75]), target)",
+        "import numpy as np\ndef rejects_bad_fractions(fn):\n    try:\n        fn([np.eye(2), np.eye(2)], [0.3, 0.6])\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(rejects_bad_fractions(ordered_transfer_series), target)",
+        "import numpy as np\ndef rejects_nonfinite(fn):\n    try:\n        fn([1e+200 * np.eye(2)], [1.0])\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(rejects_nonfinite(ordered_transfer_series), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-11.5",
+      "test_cases": [
+        "import numpy as np\n\ncosines = np.array([0.8, 0.6, 1.2j])\ngenerator = np.block(\n    [[np.zeros((3, 3)), np.eye(3)], [np.diag(cosines**2), np.zeros((3, 3))]]\n)\nstate_series = np.array(\n    [np.eye(6), 1j * generator, -0.5 * generator @ generator]\n)\nexpected = np.zeros((3, 6, 6), dtype=complex)\nexpected[0] = np.eye(6)\nassert np.allclose(global_transfer_series(state_series, cosines), target)",
+        "import numpy as np\n\nstate_series = np.zeros((3, 2, 2), dtype=complex)\nstate_series[0] = np.eye(2)\nexpected = np.array([np.eye(2), np.diag([-0.8j, 0.8j]), -0.32 * np.eye(2)])\nassert np.allclose(global_transfer_series(state_series, [0.8]), target)",
+        "import numpy as np\n\nrng = np.random.default_rng(1105)\nstate_series = rng.normal(size=(3, 4, 4)) + 1j * rng.normal(size=(3, 4, 4))\nstate_series[0] = np.eye(4)\ncosines = np.array([0.9, 0.7j])\nassert np.allclose(global_transfer_series(state_series, cosines), target)",
+        "import numpy as np\ndef rejects_grazing_basis(fn):\n    series = np.array([np.eye(2), np.zeros((2, 2)), np.zeros((2, 2))])\n    try:\n        fn(series, [0.0])\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(rejects_grazing_basis(global_transfer_series), target)",
+        "import numpy as np\nseries = np.zeros((3, 2, 2), dtype=complex)\nseries[0] = np.eye(2)\n\ndef rejects_nonfinite(fn):\n    try:\n        fn(series, [1e+200])\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(rejects_nonfinite(global_transfer_series), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-11.6",
+      "test_cases": [
+        "import numpy as np\n\ntransfer = np.zeros((3, 6, 6), dtype=complex)\ntransfer[0] = np.eye(6)\nexpected = np.zeros((2, 3, 3), dtype=complex)\nexpected[1, 0, 0] = 1\nassert np.allclose(scattering_series(transfer), target)",
+        "import numpy as np\n\ntransfer = np.array(\n    [np.eye(2), [[0, 2], [3, 4]], [[5, 6], [7, 8]]], dtype=complex\n)\nassert np.allclose(scattering_series(transfer), target)",
+        "import numpy as np\n\nrng = np.random.default_rng(1106)\ntransfer = rng.normal(size=(3, 6, 6)) + 1j * rng.normal(size=(3, 6, 6))\ntransfer[0] = np.eye(6)\nassert np.allclose(scattering_series(transfer), target)",
+        "import numpy as np\ndef boundary_residual(fn):\n    rng = np.random.default_rng(7)\n    transfer = rng.normal(size=(3, 4, 4)) + 1j * rng.normal(size=(3, 4, 4))\n    transfer[0] = np.eye(4)\n    amplitudes = fn(transfer)\n    incident = np.array([1.0, 0.0])\n    outgoing = np.zeros((3, 4), dtype=complex)\n    for degree in range(3):\n        for coefficient in range(degree + 1):\n            incoming = np.r_[incident if degree - coefficient == 0 else np.zeros(2), amplitudes[0, degree - coefficient]]\n            outgoing[degree] += transfer[coefficient] @ incoming\n    expected = np.column_stack((amplitudes[1], np.zeros((3, 2))))\n    return float(np.max(np.abs(outgoing - expected)))\nassert np.allclose(boundary_residual(scattering_series), target)",
+        "import numpy as np\n\ntransfer = np.zeros((3, 2, 2), dtype=np.int64)\ntransfer[0] = np.eye(2, dtype=np.int64)\ntransfer[1] = [[0, 10**10], [10**10, 0]]\nexpected = np.array([[[0], [-1e10], [0]], [[1], [0], [-1e20]]], dtype=complex)\nassert np.allclose(scattering_series(transfer), target)",
+        "import numpy as np\ntransfer = np.zeros((3, 2, 2), dtype=complex)\ntransfer[0] = np.eye(2)\ntransfer[1] = 1e+200\n\ndef rejects_nonfinite(fn):\n    try:\n        fn(transfer)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(rejects_nonfinite(scattering_series), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-11.7",
+      "test_cases": [
+        "import numpy as np\n\nseries = np.zeros((2, 3, 1), dtype=complex)\nseries[1, 0, 0] = 1\nassert np.allclose(diffraction_efficiencies(series, [0.8], 0.0), target)",
+        "import numpy as np\n\nseries = np.zeros((2, 3, 3), dtype=complex)\nseries[0, 0] = [0.2, 0.3j, 5.0]\nseries[1, 0] = [0.8, 0.4, 7j]\nassert np.allclose(diffraction_efficiencies(series, [0.8, 0.6, 1.2j], 0.2), target)",
+        "import numpy as np\n\nseries = np.zeros((2, 3, 2), dtype=complex)\nseries[1, 1, 1] = 1.0\nseries[1, 2, 1] = 3.0j\nassert np.allclose(diffraction_efficiencies(series, [0.8, 0.4], 0.2), target)",
+        "import numpy as np\ndef rejects_negative_thickness(fn):\n    try:\n        fn(np.zeros((2, 3, 1)), [1.0], -0.1)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(rejects_negative_thickness(diffraction_efficiencies), target)",
+        "import numpy as np\nassert np.allclose(diffraction_efficiencies(np.zeros((2, 3, 1)), [1.0], 1e200), target)",
+        "import numpy as np\ndef rejects_nonfinite(fn):\n    try:\n        fn(np.ones((2, 3, 1)), [1.0], 1e+200)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(rejects_nonfinite(diffraction_efficiencies), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-11.8",
+      "test_cases": [
+        "import numpy as np\n\nmaterials = np.array(\n    [\n        [\n            [2.4 + 0.45j, 0.35, 0.04j],\n            [1.2 + 0.14j, 0.10 * np.exp(0.3j), 0.015],\n        ],\n        [\n            [3.1 + 0.38j, 0.30 * np.exp(0.8j), -0.025j],\n            [1.6 + 0.15j, 0.12 * np.exp(-0.55j), 0.012j],\n        ],\n    ]\n)\nassert np.allclose(layer_reversal_contrast(materials, [0.37, 0.63], -0.6, 0.39, 0.08, 5), target)",
+        "import numpy as np\n\nmaterials = np.array(\n    [\n        [\n            [3.1 + 0.38j, 0.30 * np.exp(0.8j), -0.025j],\n            [1.6 + 0.15j, 0.12 * np.exp(-0.55j), 0.012j],\n        ],\n        [\n            [2.4 + 0.45j, 0.35, 0.04j],\n            [1.2 + 0.14j, 0.10 * np.exp(0.3j), 0.015],\n        ],\n    ]\n)\nassert np.allclose(layer_reversal_contrast(materials, [0.63, 0.37], -0.6, 0.39, 0.08, 5), target)",
+        "import numpy as np\n\nmaterials = np.array([[[2.0], [1.0]], [[1.4], [1.2]]])\nassert np.allclose(layer_reversal_contrast(materials, [0.2, 0.8], -0.4, 0.6, 0.1, 3), target)",
+        "import numpy as np\n\nmaterials = np.tile(\n    np.array([[[2.0 + 0.2j, 0.1], [1.1 + 0.1j, 0.05j]]]),\n    (2, 1, 1),\n)\nassert np.allclose(layer_reversal_contrast(materials, [0.35, 0.65], -0.5, 0.6, 0.07, 3), target)",
+        "import numpy as np\n\nmaterials = np.array(\n    [\n        [[2.0 + 0.2j, 0.1], [1.0, 0]],\n        [[1.4 + 0.1j, 0.05j], [1.2, 0]],\n    ]\n)\nassert np.allclose(layer_reversal_contrast(materials, [0.2, 0.8], -0.4, 0.6, 0.0, 3), target)",
+        "import numpy as np\n\nmaterials = np.array(\n    [\n        [\n            [2.4 + 0.45j, 0.35, 0.04j],\n            [1.2 + 0.14j, 0.10 * np.exp(0.3j), 0.015],\n        ],\n        [\n            [3.1 + 0.38j, 0.30 * np.exp(0.8j), -0.025j],\n            [1.6 + 0.15j, 0.12 * np.exp(-0.55j), 0.012j],\n        ],\n    ]\n)\nassert np.allclose(layer_reversal_contrast(materials, [0.37, 0.63], -0.6, 0.39, 0.08, 8), target)",
+        "import numpy as np\nmaterials = np.array([[[2.4 + 0.45j, 0.35, 0.04j], [1.2 + 0.14j, 0.1 * np.exp(0.3j), 0.015]], [[3.1 + 0.38j, 0.3 * np.exp(0.8j), -0.025j], [1.6 + 0.15j, 0.12 * np.exp(-0.55j), 0.012j]]])\n\ndef rejects_nonfinite(fn):\n    try:\n        fn(materials, [0.37, 0.63], -0.6, 0.39, 1e+200, 5)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(rejects_nonfinite(layer_reversal_contrast), target)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+problem_id: "Physics-Condensed_Matter_Physics-54"
+subject: "physics"
+subject_area: "Condensed Matter Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2604.10190"
+dependencies: ""
+steps:
+  - number: 1
+    name: "magnetic_ribbon"
+    description: "Construct the complex Hamiltonian blocks from the physical geometry, directed hopping list, Bloch convention and straight-bond Peierls phase in the interface. Include the Hermitian conjugate of every directed bond once. Treat the scalar stripe disorder equally on both orbitals and truncate only at the open x edges."
+    orchestrator: false
+  - number: 2
+    name: "fixed_mu_projectors"
+    description: "Build each occupied spectral projector with the strict condition E<mu. Support zero, full and momentum-dependent occupied ranks. The result must be independent of eigenvector phases and rotations within occupied degenerate subspaces."
+    orchestrator: false
+  - number: 3
+    name: "fermi_partition"
+    description: "Find a deterministic partition at the momentum-dependent Fermi crossings. Follow ordered bands through the prescribed scan, bisect sign-changing brackets, retain exact scan-node hits under the specified tolerance, and merge roots before adding the two endpoints. Use the magnetic ribbon builder from step 1."
+    orchestrator: false
+  - number: 4
+    name: "partition_density"
+    description: "Integrate the local occupied density over every supplied momentum interval using a separate Gauss-Legendre rule. Reconstruct the magnetic Hamiltonian and its fixed-mu projector at the quadrature nodes. Normalize by 2*pi and sum, rather than average, the two orbital densities."
+    orchestrator: false
+  - number: 5
+    name: "refine_density"
+    description: "Starting from the supplied density estimate, double the per-interval Gauss-Legendre order until the stated maximum-component convergence condition holds. Use step 4 for each refinement. Preserve the partition and compare consecutive summed densities; report nonconvergence instead of silently returning an unconverged estimate."
+    orchestrator: false
+  - number: 6
+    name: "embedded_chern"
+    description: "Evaluate the open-ribbon local Chern marker from the sampled projector in the cell-periodic Bloch basis. Differentiate the sampled projector in momentum with the source method's prescription for the hybrid marker, combine it with the intra-cell y embedding, use physical open-x coordinates, and retain the primitive-cell-area normalization."
+    orchestrator: false
+  - number: 7
+    name: "boundary_discrepancy"
+    description: "Form the centered finite-flux density response and compare it with the supplied zero-field Chern profile. Return its spatial mean and the boundary/interior RMS errors, with both ribbon edges in the boundary set. Keep the boundary-minus-interior sign fixed."
+    orchestrator: false
+  - number: 8
+    name: "run_ribbon_comparison"
+    description: "Generate the deterministic scalar stripe disorder and execute all seven preceding functions, calling each directly and using its returned result. Compute the Chern marker on the uniform zero-field momentum grid and each magnetic density by continuous momentum quadrature. Return the boundary-minus-interior RMS discrepancy."
+    orchestrator: true

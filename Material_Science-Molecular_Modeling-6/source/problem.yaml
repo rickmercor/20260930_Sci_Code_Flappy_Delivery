@@ -1,0 +1,40 @@
+problem_id: "Material_Science-Molecular_Modeling-6"
+subject: "materials"
+subject_area: "Molecular Modeling"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2605.20918"
+dependencies: ""
+steps:
+  - number: 1
+    name: "greedy_multicoloring"
+    description: "Color the orbital-interaction graph for a given distance matrix and cutoff, exactly by the source's greedy multicoloring criterion, processing orbitals in index order and always taking the smallest admissible color."
+    orchestrator: false
+  - number: 2
+    name: "css_matrix"
+    description: "Assemble the chromatic superposition states as columns of an (n, Nc) matrix: column c carries the declared deterministic sign s_j on every orbital j of color c and zeros elsewhere, with s_j = +1 when ((3(j+1)) mod 7) >= 3 and -1 otherwise."
+    orchestrator: false
+  - number: 3
+    name: "block_krylov_basis"
+    description: "Build the block-Krylov sequence B, AB, ..., A^(v-1)B, flatten it block by block in that order, orthonormalize the columns left to right by modified Gram-Schmidt with one full re-orthogonalization sweep, drop any column whose residual norm falls below 1e-10, and sign-fix each kept column so its first component with absolute value above 1e-8 is positive."
+    orchestrator: false
+  - number: 4
+    name: "projected_inv_sqrt"
+    description: "Project the overlap onto the orthonormal Krylov basis, symmetrize, and return the inverse square root of the projected overlap computed by exact eigendecomposition, guarding positive definiteness."
+    orchestrator: false
+  - number: 5
+    name: "css_extract"
+    description: "Recover the full sparse operator from its CSS-projected block: for each orbital, read the column of its color and undo the superposition exactly as the source's extraction prescribes, keep only entries the cutoff criterion admits, set all others to zero, and symmetrize the result."
+    orchestrator: false
+  - number: 6
+    name: "css_inv_sqrt"
+    description: "Compute the CSS approximation of the overlap inverse square root: color the graph with the overlap cutoff, build the probing states, form the block-Krylov basis of the overlap from them, apply the projected inverse square root, assemble the projected block exactly as the source specifies, and extract the sparse result."
+    orchestrator: false
+  - number: 7
+    name: "css_density"
+    description: "Compute the CSS density matrix at inverse temperature beta and chemical potential mu: transform the Hamiltonian with the CSS overlap inverse square root, color with the density cutoff, build and transform the density probing states, form the block-Krylov basis of the transformed Hamiltonian, apply the Fermi-Dirac function by exact diagonalization inside the Krylov space, assemble the projected density block in the source's arrangement, and extract."
+    orchestrator: false
+  - number: 8
+    name: "css_audit"
+    description: "Build the two declared datasets from the integer constructors, run the full CSS pipeline on each with the declared cutoffs, Krylov dimensions and Fermi parameters, and report per dataset: the band energy Tr(rho H); the electron count Tr(rho S); the Frobenius error of the CSS density against the exact Fermi-Dirac density; the Frobenius error of the CSS overlap inverse square root against the exact one; the two color counts; and the probe quadratic form u^T rho u. Assemble by calling the earlier sub-problem functions."
+    orchestrator: true

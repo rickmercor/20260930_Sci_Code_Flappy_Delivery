@@ -1,0 +1,78 @@
+{
+  "problem_id": "Chemistry-Quantum_Chemistry-42",
+  "sub_steps": [
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-42.1",
+      "test_cases": [
+        "import numpy as np\npts = np.array([[0.0, 0.0], [2.2, 0.8], [1.1, -0.3], [4.0, 2.5]])\npar = np.array([0.85, 0.02, 0.45, 0.3, 0.8])\nassert np.allclose(excited_surface_derivatives(pts.copy(), 2.2, par.copy()), target)",
+        "import numpy as np\npts = np.array([[9.0, 0.2], [12.5, -1.4], [6.3, 3.0]])\npar = np.array([1.1, 0.035, 0.6, -0.25, 0.3])\nassert np.allclose(excited_surface_derivatives(pts.copy(), 1.5, par.copy()), target)",
+        "import numpy as np\npts = np.array([[-0.7, 1.9]])\npar = np.array([0.6, 0.01, 0.35, 0.9, 1.9])\nassert np.allclose(excited_surface_derivatives(pts.copy(), -0.7, par.copy()), target)",
+        "import numpy as np\nq1 = np.linspace(-2.0, 1.0, 7)\npts = np.column_stack([q1, 0.5 * np.sin(q1)])\npar = np.array([0.95, 0.025, 0.4, 0.55, -0.6])\nassert np.allclose(excited_surface_derivatives(pts.copy(), 3.1, par.copy()), target)",
+        "import numpy as np\ndef _probe(fn):\n    try:\n        fn(np.array([[0.0, 0.0]]), 1.0, np.array([0.85, 0.0, 0.45, 0.3, 0.8]))\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_probe(excited_surface_derivatives), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-42.2",
+      "test_cases": [
+        "import numpy as np\npar = np.array([0.85, 0.02, 0.45, 0.3, 0.8])\ngp = np.array([1.0, 0.5, np.deg2rad(20.0)])\na1 = np.linspace(-8.0, 16.0, 96, endpoint=False)\na2 = np.linspace(-8.0, 8.0, 32, endpoint=False)\nassert np.allclose(exact_autocorrelation(2.0, par.copy(), gp.copy(), a1.copy(), a2.copy(), 0.05, 60), target)",
+        "import numpy as np\npar = np.array([1.1, 0.04, 0.6, -0.4, -0.5])\ngp = np.array([0.8, 0.9, -0.6])\na1 = np.linspace(-6.0, 14.0, 64, endpoint=False)\na2 = np.linspace(-7.0, 7.0, 48, endpoint=False)\nassert np.allclose(exact_autocorrelation(1.3, par.copy(), gp.copy(), a1.copy(), a2.copy(), 0.08, 45), target)",
+        "import numpy as np\npar = np.array([0.85, 0.02, 0.45, 0.3, 0.8])\ngp = np.array([1.4, 0.3, 1.2])\na1 = np.linspace(-5.0, 5.0, 20, endpoint=False)\na2 = np.linspace(-9.0, 9.0, 24, endpoint=False)\nassert np.allclose(exact_autocorrelation(0.5, par.copy(), gp.copy(), a1.copy(), a2.copy(), 0.1, 0), target)",
+        "import numpy as np\npar = np.array([0.7, 0.015, 0.3, 0.8, 1.2])\ngp = np.array([0.9, 0.35, 0.3])\na1 = np.linspace(-9.0, 12.0, 70, endpoint=False)\na2 = np.linspace(-10.0, 12.0, 40, endpoint=False)\nassert np.allclose(exact_autocorrelation(0.0, par.copy(), gp.copy(), a1.copy(), a2.copy(), 0.2, 40), target)",
+        "import numpy as np\ndef _probe(fn):\n    try:\n        fn(1.0, np.array([0.85, 0.02, 0.45, 0.3, 0.8]), np.array([1.0, 0.5, 0.2]),\n           np.array([0.0, 1.0, 2.0, 3.5, 4.0]), np.linspace(-4.0, 4.0, 8, endpoint=False), 0.1, 3)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_probe(exact_autocorrelation), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-42.3",
+      "test_cases": [
+        "import numpy as np\npar = np.array([0.85, 0.02, 0.45, 0.3, 0.8])\ngp = np.array([1.0, 0.5, np.deg2rad(20.0)])\nassert np.allclose(thawed_gaussian_autocorrelation(2.2, par.copy(), gp.copy(), 0, 0.05, 400), target)",
+        "import numpy as np\npar = np.array([1.1, 0.04, 0.6, -0.4, -0.5])\ngp = np.array([0.8, 0.9, -0.6])\nassert np.allclose(thawed_gaussian_autocorrelation(1.3, par.copy(), gp.copy(), 1, 0.04, 500), target)",
+        "import numpy as np\npar = np.array([0.7, 0.05, 0.3, -1.2, 2.0])\ngp = np.array([1.2, 0.45, 0.9])\nassert np.allclose(thawed_gaussian_autocorrelation(-4.0, par.copy(), gp.copy(), 2, 0.05, 160), target)",
+        "import numpy as np\npar = np.array([0.95, 0.025, 0.4, 0.55, -0.6])\ngp = np.array([2.6, 1.9, 1.1])\nassert np.allclose(thawed_gaussian_autocorrelation(1.1, par.copy(), gp.copy(), 3, 0.02, 1500), target)",
+        "import numpy as np\npar = np.array([1.6, 0.03, 1.2, 0.25, 0.5])\ngp = np.array([1.4, 1.5, -0.3])\nassert np.allclose(thawed_gaussian_autocorrelation(1.7, par.copy(), gp.copy(), 2, 0.025, 1200), target)",
+        "import numpy as np\npar = np.array([0.85, 0.02, 0.45, 0.3, 0.8])\ngp = np.array([1.7, 0.25, -1.4])\nassert np.allclose(thawed_gaussian_autocorrelation(2.0, par.copy(), gp.copy(), 2, 0.1, 0), target)",
+        "import numpy as np\ndef _probe(fn):\n    try:\n        fn(1.0, np.array([0.85, 0.02, 0.45, 0.3, 0.8]), np.array([1.0, 0.5, 0.2]), 4, 0.1, 5)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_probe(thawed_gaussian_autocorrelation), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-42.4",
+      "test_cases": [
+        "import numpy as np\npar = np.array([0.85, 0.02, 0.45, 0.3, 0.8])\ngp = np.array([1.0, 0.5, np.deg2rad(20.0)])\nassert np.allclose(thawed_gaussian_energy(2.2, par.copy(), gp.copy(), 1, 0.05, 400), target)",
+        "import numpy as np\npar = np.array([0.85, 0.02, 0.45, 0.3, 0.8])\ngp = np.array([1.0, 0.5, np.deg2rad(20.0)])\nassert np.allclose(thawed_gaussian_energy(2.6, par.copy(), gp.copy(), 0, 0.05, 560), target)",
+        "import numpy as np\npar = np.array([1.1, 0.04, 0.6, -0.4, -0.5])\ngp = np.array([0.6, 1.3, 1.1])\nassert np.allclose(thawed_gaussian_energy(1.4, par.copy(), gp.copy(), 2, 0.04, 300), target)",
+        "import numpy as np\npar = np.array([1.6, 0.03, 1.2, 0.25, 0.5])\ngp = np.array([1.4, 1.5, -0.3])\nassert np.allclose(thawed_gaussian_energy(1.7, par.copy(), gp.copy(), 3, 0.025, 600), target)",
+        "import numpy as np\npar = np.array([0.6, 0.01, 0.35, 0.9, 1.9])\ngp = np.array([0.6, 0.35, 0.4])\nassert np.allclose(thawed_gaussian_energy(-0.7, par.copy(), gp.copy(), 1, 0.1, 0), target)",
+        "import numpy as np\ndef _probe(fn):\n    try:\n        fn(1.0, np.array([0.85, 0.02, 0.0, 0.3, 0.8]), np.array([1.0, 0.5, 0.2]), 1, 0.1, 3)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_probe(thawed_gaussian_energy), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-42.5",
+      "test_cases": [
+        "import numpy as np\nt = 0.05 * np.arange(601)\nza = np.exp(-1.2 * (1.0 - np.exp(-0.85j * t)) - 2.1j * t)\nzr = np.exp(-1.25 * (1.0 - np.exp(-0.83j * t)) - 2.08j * t - 0.004 * t * t * 1j)\nA = np.column_stack([za.real, za.imag])\nB = np.column_stack([zr.real, zr.imag])\nassert np.allclose(spectral_contrast_cosine(A.copy(), B.copy(), 0.05, 5.0), target)",
+        "import numpy as np\nt = 0.1 * np.arange(121)\nzr = np.exp(-0.7 * (1.0 - np.exp(-1.3j * t)) - 0.4j * t)\nB = np.column_stack([zr.real, zr.imag])\nA = 2.5 * B\nassert np.allclose(spectral_contrast_cosine(A.copy(), B.copy(), 0.1, 2.0), target)",
+        "import numpy as np\nt = 0.02 * np.arange(2001)\nzr = np.exp(-2.0 * (1.0 - np.exp(-0.6j * t)) - 1.5j * t)\nza = zr * np.exp(-0.35j * t)\nA = np.column_stack([za.real, za.imag])\nB = np.column_stack([zr.real, zr.imag])\nassert np.allclose(spectral_contrast_cosine(A.copy(), B.copy(), 0.02, 1.5), target)",
+        "import numpy as np\nA = np.array([[1.0, 0.0], [0.2, -0.6]])\nB = np.array([[1.0, 0.0], [-0.1, -0.7]])\nassert np.allclose(spectral_contrast_cosine(A.copy(), B.copy(), 0.5, 0.8), target)",
+        "import numpy as np\ndef _probe(fn):\n    try:\n        fn(np.ones((5, 2)), np.ones((6, 2)), 0.1, 1.0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_probe(spectral_contrast_cosine), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-42.6",
+      "test_cases": [
+        "import numpy as np\npar = np.array([0.85, 0.02, 0.45, 0.3, 0.8])\ngp = np.array([1.0, 0.5, np.deg2rad(20.0)])\na1 = np.linspace(-8.0, 16.0, 72, endpoint=False)\na2 = np.linspace(-8.0, 8.0, 32, endpoint=False)\nassert np.allclose(method_diagnostics(2.2, par.copy(), gp.copy(), a1.copy(), a2.copy(), 0.1, 2.0), target)",
+        "import numpy as np\npar = np.array([0.9, 1e-4, 0.5, 0.0, 0.6])\ngp = np.array([1.2, 0.4, 0.5])\na1 = np.linspace(-9.0, 11.0, 64, endpoint=False)\na2 = np.linspace(-9.0, 9.0, 48, endpoint=False)\nassert np.allclose(method_diagnostics(1.5, par.copy(), gp.copy(), a1.copy(), a2.copy(), 0.05, 2.5), target)",
+        "import numpy as np\npar = np.array([1.1, 0.03, 0.6, -0.35, 0.4])\ngp = np.array([0.8, 0.7, -0.5])\na1 = np.linspace(-7.0, 13.0, 64, endpoint=False)\na2 = np.linspace(-7.0, 7.0, 40, endpoint=False)\nassert np.allclose(method_diagnostics(1.8, par.copy(), gp.copy(), a1.copy(), a2.copy(), 0.08, 1.6), target)",
+        "import numpy as np\npar = np.array([0.85, 0.02, 0.45, 0.3, 0.8])\ngp = np.array([1.0, 0.5, 0.35])\na1 = np.linspace(-8.0, 16.0, 48, endpoint=False)\na2 = np.linspace(-8.0, 8.0, 24, endpoint=False)\nassert np.allclose(method_diagnostics(1.2, par.copy(), gp.copy(), a1.copy(), a2.copy(), 0.4, 0.09), target)",
+        "import numpy as np\ndef _probe(fn):\n    try:\n        fn(1.0, np.array([0.85, 0.02, 0.45, 0.3, 0.8]), np.array([1.0, 0.5, 0.2]),\n           np.linspace(-6.0, 6.0, 16, endpoint=False), np.linspace(-6.0, 6.0, 16, endpoint=False), 1.0, 0.05)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_probe(method_diagnostics), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-42.7",
+      "test_cases": [
+        "import numpy as np\npar = np.array([0.85, 0.02, 0.45, 0.5, 0.4])\ngp = np.array([1.0, 0.5, np.deg2rad(-35.0)])\na1 = np.linspace(-8.0, 16.0, 64, endpoint=False)\na2 = np.linspace(-8.0, 8.0, 32, endpoint=False)\nassert np.allclose(vertical_adiabatic_crossover(par.copy(), gp.copy(), a1.copy(), a2.copy(), 0.1, 2.5, 1.0, 3.0, 3), target)",
+        "import numpy as np\npar = np.array([1.1, 0.03, 0.6, 0.3, 0.8])\ngp = np.array([1.0, 0.7, np.deg2rad(20.0)])\na1 = np.linspace(-8.0, 14.0, 64, endpoint=False)\na2 = np.linspace(-8.0, 8.0, 32, endpoint=False)\nassert np.allclose(vertical_adiabatic_crossover(par.copy(), gp.copy(), a1.copy(), a2.copy(), 0.1, 3.0, 1.0, 2.5, 4), target)",
+        "import numpy as np\npar = np.array([0.85, 0.02, 0.45, 0.5, 0.4])\ngp = np.array([1.0, 0.5, np.deg2rad(-35.0)])\na1 = np.linspace(-8.0, 16.0, 64, endpoint=False)\na2 = np.linspace(-8.0, 8.0, 32, endpoint=False)\nassert np.allclose(vertical_adiabatic_crossover(par.copy(), gp.copy(), a1.copy(), a2.copy(), 0.1, 2.5, 1.8, 2.6, 2), target)",
+        "import numpy as np\ndef _probe(fn):\n    try:\n        fn(np.array([0.85, 0.02, 0.45, 0.3, 0.8]), np.array([1.0, 0.5, np.deg2rad(20.0)]),\n           np.linspace(-8.0, 16.0, 64, endpoint=False), np.linspace(-8.0, 8.0, 32, endpoint=False),\n           0.1, 2.0, 2.0, 3.0, 2)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_probe(vertical_adiabatic_crossover), target)",
+        "import numpy as np\ndef _probe(fn):\n    try:\n        fn(np.array([0.85, 0.02, 0.45, 0.5, 0.4]), np.array([1.0, 0.5, np.deg2rad(-35.0)]),\n           np.linspace(-8.0, 16.0, 64, endpoint=False), np.linspace(-8.0, 8.0, 32, endpoint=False),\n           0.1, 2.5, 0.6, 1.6, 3)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_probe(vertical_adiabatic_crossover), target)"
+      ]
+    }
+  ]
+}

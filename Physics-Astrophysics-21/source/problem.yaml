@@ -1,0 +1,44 @@
+problem_id: "Physics-Astrophysics-21"
+subject: "physics"
+subject_area: "Astrophysics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2608.29229"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_repair_axis"
+    description: "Restore an axis-compatible stored representation of a raw tensor nodal stage."
+    orchestrator: false
+  - number: 2
+    name: "02_regular_local_state"
+    description: "Recover the finite local orthonormal state associated with stored cell data."
+    orchestrator: false
+  - number: 3
+    name: "03_directional_jump_amplitudes"
+    description: "Measure interface irregularity of local Q2 states on a four-cell patch."
+    orchestrator: false
+  - number: 4
+    name: "04_normalized_damping_rates"
+    description: "Assign source-consistent damping rates to derivative orders on the patch."
+    orchestrator: false
+  - number: 5
+    name: "05_conservative_local_filter"
+    description: "Apply local-state oscillation elimination while retaining stored cell means."
+    orchestrator: false
+  - number: 6
+    name: "06_absolute_physical_scaling"
+    description: "Impose the source's absolute physical constraints on a stored cell state."
+    orchestrator: false
+  - number: 7
+    name: "07_relative_physical_scaling"
+    description: "Enforce the source's relative distance from the relativistic cone boundary."
+    orchestrator: false
+  - number: 8
+    name: "08_primitive_pressure"
+    description: "Recover ideal-gas pressure from an admissible relativistic local state."
+    orchestrator: false
+  - number: 9
+    name: "09_stabilized_patch_pressure"
+    description: "FINAL ORCHESTRATOR: pressure of the finite prescribed stage on a Q2 patch."
+    orchestrator: true

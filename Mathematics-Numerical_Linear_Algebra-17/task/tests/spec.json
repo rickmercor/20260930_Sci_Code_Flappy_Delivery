@@ -1,0 +1,105 @@
+{
+  "problem_id": "Mathematics-Numerical_Linear_Algebra-17",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-17.1",
+      "test_cases": [
+        "import numpy as np\nn, d, data_seed, sketch_seed = 12, 8, 7, 11\ns = np.array([8.0, 6.0, 5.0, 1.2, 0.9, 0.7, 0.5, 0.4, 0.3, 0.25, 0.2, 0.15])\nassert np.allclose(assemble_sketched_instance(n, d, s, data_seed, sketch_seed), target)",
+        "import numpy as np\nn, d, data_seed, sketch_seed = 4, 3, 1, 2\ns = np.array([3.0, 2.0, 0.4, 0.2])\nassert np.allclose(assemble_sketched_instance(n, d, s, data_seed, sketch_seed), target)",
+        "import numpy as np\ns = np.array([1.0, -0.1])\ndef run_model():\n    try:\n        assemble_sketched_instance(2, 2, s, 0, 1)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ns = np.array([1.0, 0.5])\ndef run_model():\n    try:\n        assemble_sketched_instance(2, 0, s, 0, 1)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ns = np.array([1.0])\ndef run_model():\n    try:\n        assemble_sketched_instance(2, 2, s, 0, 1)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-17.2",
+      "test_cases": [
+        "import numpy as np\nn, d, m = 12, 8, 4\ns = np.array([8.0, 6.0, 5.0, 1.2, 0.9, 0.7, 0.5, 0.4, 0.3, 0.25, 0.2, 0.15])\nrng = np.random.default_rng(7)\nQ, _ = np.linalg.qr(rng.standard_normal((n, n)), mode='reduced')\nA = 0.5 * ((Q * s) @ Q.T + ((Q * s) @ Q.T).T)\nb = rng.standard_normal(n)\nOmega = np.random.default_rng(11).standard_normal((d, n))\ninst = np.concatenate(([float(n), float(d)], A.ravel(), b, Omega.ravel()))\nassert np.allclose(start_krylov_pack(inst, m), target)",
+        "import numpy as np\nn, d, m = 4, 3, 2\ns = np.array([3.0, 2.0, 0.4, 0.2])\nrng = np.random.default_rng(1)\nQ, _ = np.linalg.qr(rng.standard_normal((n, n)), mode='reduced')\nA = 0.5 * ((Q * s) @ Q.T + ((Q * s) @ Q.T).T)\nb = rng.standard_normal(n)\nOmega = np.random.default_rng(2).standard_normal((d, n))\ninst = np.concatenate(([float(n), float(d)], A.ravel(), b, Omega.ravel()))\nassert np.allclose(start_krylov_pack(inst, m), target)",
+        "import numpy as np\nn, d = 4, 3\ns = np.array([3.0, 2.0, 0.4, 0.2])\nrng = np.random.default_rng(1)\nQ, _ = np.linalg.qr(rng.standard_normal((n, n)), mode='reduced')\nA = 0.5 * ((Q * s) @ Q.T + ((Q * s) @ Q.T).T)\nb = rng.standard_normal(n)\nOmega = np.random.default_rng(2).standard_normal((d, n))\ninst = np.concatenate(([float(n), float(d)], A.ravel(), b, Omega.ravel()))\ndef run_model():\n    try:\n        start_krylov_pack(inst, 4)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nn, d = 4, 2\ns = np.array([3.0, 2.0, 0.4, 0.2])\nrng = np.random.default_rng(1)\nQ, _ = np.linalg.qr(rng.standard_normal((n, n)), mode='reduced')\nA = 0.5 * ((Q * s) @ Q.T + ((Q * s) @ Q.T).T)\nb = rng.standard_normal(n)\nOmega = np.random.default_rng(2).standard_normal((d, n))\ninst = np.concatenate(([float(n), float(d)], A.ravel(), b, Omega.ravel()))\ndef run_model():\n    try:\n        start_krylov_pack(inst, 3)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        start_krylov_pack(np.ones(3), 1)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-17.3",
+      "test_cases": [
+        "import numpy as np\nOmega = np.array([[1.0, 0.0, 0.0], [1.0, 1.0, 0.0]])\nU = np.array([[1.0], [0.0], [0.0]])\nw = np.array([1.0, 2.0, 3.0])\nassert np.allclose(sketched_action_pack(Omega, U, w), target)",
+        "import numpy as np\nrng = np.random.default_rng(4)\nOmega = rng.standard_normal((4, 6))\nU = rng.standard_normal((6, 2))\nw = rng.standard_normal(6)\nassert np.allclose(sketched_action_pack(Omega, U, w), target)",
+        "import numpy as np\nOmega = np.ones((2, 3))\nU = np.eye(3, 3)\nw = np.ones(3)\ndef run_model():\n    try:\n        sketched_action_pack(Omega, U, w)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nOmega = np.array([[1.0, 0.0, 0.0], [0.0, 1.0, 0.0]])\nU = np.array([[1.0], [0.0], [0.0]])\nw = np.array([0.0, 0.0, 1.0])\ndef run_model():\n    try:\n        sketched_action_pack(Omega, U, w)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nOmega = np.array([[1.0, 0.0, 0.0], [0.5, 1.0, 0.0], [0.0, 0.0, 1.0]])\nU = np.array([[1.0, 0.0], [0.0, 1.0], [0.0, 0.0]])\nw = np.array([0.5, -0.25, 2.0])\nassert np.allclose(sketched_action_pack(Omega, U, w), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-17.4",
+      "test_cases": [
+        "import numpy as np\nn, m, n_hess = 3, 2, 0\nU = np.array([[1.0, 0.0], [0.0, 0.0], [0.0, 0.0]])\nH = np.zeros((2, 2))\nstate = np.concatenate(([float(n), float(m), float(n_hess)], U.ravel(), H.ravel(), np.zeros(3), [0.0]))\nh = np.array([0.5])\nr = np.array([0.0, 2.0, 0.0])\naction = np.concatenate(([1.0], h, r, [2.0]))\nassert np.allclose(append_krylov_column(state, action), target)",
+        "import numpy as np\nn, m, n_hess = 3, 2, 1\nU = np.array([[1.0, 0.0], [0.0, 1.0], [0.0, 0.0]])\nH = np.array([[0.5, 0.0], [2.0, 0.0]])\nstate = np.concatenate(([float(n), float(m), float(n_hess)], U.ravel(), H.ravel(), np.zeros(3), [0.0]))\nh = np.array([0.1, -0.2])\nr = np.array([0.3, 0.0, 0.6])\naction = np.concatenate(([2.0], h, r, [0.5]))\nassert np.allclose(append_krylov_column(state, action), target)",
+        "import numpy as np\nn, m = 2, 1\nU = np.array([[1.0], [0.0]])\nH = np.zeros((1, 1))\nstate = np.concatenate(([float(n), float(m), 0.0], U.ravel(), H.ravel(), np.zeros(2), [0.0]))\naction = np.concatenate(([1.0], np.array([1.5]), np.array([0.0, 2.0]), [2.0]))\nassert np.allclose(append_krylov_column(state, action), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        append_krylov_column(np.ones(3), np.ones(4))\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nn, m, n_hess = 3, 2, 0\nU = np.array([[1.0, 0.0], [0.0, 0.0], [0.0, 0.0]])\nH = np.zeros((2, 2))\nstate = np.concatenate(([float(n), float(m), float(n_hess)], U.ravel(), H.ravel(), np.zeros(3), [0.0]))\naction = np.concatenate(([2.0], np.array([0.1, 0.2]), np.ones(3), [1.0]))\ndef run_model():\n    try:\n        append_krylov_column(state, action)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-17.5",
+      "test_cases": [
+        "import numpy as np\nn, m, n_hess = 4, 2, 2\nU = np.array([[1.0, 0.1], [0.0, 1.0], [0.2, 0.0], [0.0, 0.3]])\nH = np.array([[1.0, 0.5], [0.4, 2.0]])\nleftover = np.array([0.3, -0.2, 0.1, 0.4])\nstate = np.concatenate(([float(n), float(m), float(n_hess)], U.ravel(), H.ravel(), leftover, [0.8]))\nassert np.allclose(leftover_euclidean_coeffs(state), target)",
+        "import numpy as np\nn, m, n_hess = 3, 2, 2\nU = np.array([[1.0, 0.0], [0.0, 1.0], [0.0, 0.0]])\nH = np.eye(2)\nleftover = np.array([0.2, -0.1, 1.0])\nstate = np.concatenate(([float(n), float(m), float(n_hess)], U.ravel(), H.ravel(), leftover, [0.5]))\nassert np.allclose(leftover_euclidean_coeffs(state), target)",
+        "import numpy as np\nn, m, n_hess = 3, 2, 1\nU = np.eye(3, 2)\nH = np.eye(2)\nstate = np.concatenate(([float(n), float(m), float(n_hess)], U.ravel(), H.ravel(), np.ones(3), [0.5]))\ndef run_model():\n    try:\n        leftover_euclidean_coeffs(state)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nn, m, n_hess = 3, 2, 2\nU = np.array([[1.0, 2.0], [0.0, 0.0], [0.0, 0.0]])\nH = np.eye(2)\nleftover = np.array([1.0, 0.0, 0.0])\nstate = np.concatenate(([float(n), float(m), float(n_hess)], U.ravel(), H.ravel(), leftover, [1.0]))\ndef run_model():\n    try:\n        leftover_euclidean_coeffs(state)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        leftover_euclidean_coeffs(np.ones(3))\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-17.6",
+      "test_cases": [
+        "import numpy as np\nn, m, n_hess = 3, 2, 2\nU = np.eye(3, 2)\nH = np.array([[1.0, 2.0], [3.0, 4.0]])\nstate = np.concatenate(([float(n), float(m), float(n_hess)], U.ravel(), H.ravel(), np.ones(3), [0.5]))\nhhat = np.array([0.2, -0.1])\nassert np.allclose(restore_last_column(state, hhat), target)",
+        "import numpy as np\nn, m, n_hess = 2, 1, 1\nU = np.array([[1.0], [0.0]])\nH = np.array([[2.0]])\nstate = np.concatenate(([float(n), float(m), float(n_hess)], U.ravel(), H.ravel(), np.array([0.0, 1.0]), [1.5]))\nhhat = np.array([0.4])\nassert np.allclose(restore_last_column(state, hhat), target)",
+        "import numpy as np\nn, m, n_hess = 3, 2, 1\nU = np.eye(3, 2)\nH = np.array([[1.0, 2.0], [3.0, 4.0]])\nstate = np.concatenate(([float(n), float(m), float(n_hess)], U.ravel(), H.ravel(), np.ones(3), [0.5]))\nhhat = np.array([0.2, -0.1])\ndef run_model():\n    try:\n        restore_last_column(state, hhat)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nn, m, n_hess = 3, 2, 2\nU = np.eye(3, 2)\nH = np.array([[1.0, 2.0], [3.0, 4.0]])\nstate = np.concatenate(([float(n), float(m), float(n_hess)], U.ravel(), H.ravel(), np.ones(3), [0.5]))\nhhat = np.array([0.2])\ndef run_model():\n    try:\n        restore_last_column(state, hhat)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        restore_last_column(np.ones(3), np.ones(2))\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-17.7",
+      "test_cases": [
+        "import numpy as np\nHbar = np.array([[2.0, 0.1], [0.1, 1.0]])\nassert np.allclose(dominant_real_eigenvalue(Hbar), target)",
+        "import numpy as np\nHbar = np.diag([4.0, 3.0, 0.5])\nassert np.allclose(dominant_real_eigenvalue(Hbar), target)",
+        "import numpy as np\nHbar = np.array([[0.0, -1.0], [1.0, 0.0]])\ndef run_model():\n    try:\n        dominant_real_eigenvalue(Hbar)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        dominant_real_eigenvalue(np.ones(3))\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nHbar = np.array([[-0.5]])\nassert np.allclose(dominant_real_eigenvalue(Hbar), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-17.8",
+      "test_cases": [
+        "import numpy as np\nn, m, n_hess = 4, 3, 3\nU = np.array([[1.0, 0.1, 0.0], [0.0, 1.0, 0.2], [0.3, 0.0, 1.0], [0.0, 0.2, 0.1]])\nH = np.array([[3.0, 0.5, 0.2], [0.4, 2.0, 0.3], [0.0, 0.6, 1.0]])\nleftover = np.array([0.2, -0.1, 0.4, 0.3])\nh_next = 0.8\nstate = np.concatenate(([float(n), float(m), float(n_hess)], U.ravel(), H.ravel(), leftover, [h_next]))\nhhat = np.array([0.1, -0.2, 0.05])\nHbar = H.copy()\nHbar[:, -1] += h_next * hhat\nassert np.allclose(compress_ritz_pack(state, hhat, Hbar, 2), target)",
+        "import numpy as np\nn, m, n_hess = 3, 2, 2\nU = np.array([[1.0, 0.0], [0.0, 1.0], [0.0, 0.5]])\nH = np.array([[2.0, 1.0], [0.5, 1.0]])\nleftover = np.array([0.0, 0.0, 1.0])\nh_next = 0.4\nstate = np.concatenate(([float(n), float(m), float(n_hess)], U.ravel(), H.ravel(), leftover, [h_next]))\nhhat = np.array([0.0, 0.5])\nHbar = H.copy()\nHbar[:, -1] += h_next * hhat\nassert np.allclose(compress_ritz_pack(state, hhat, Hbar, 1), target)",
+        "import numpy as np\nn, m, n_hess = 5, 4, 4\nrng = np.random.default_rng(3)\nU = np.eye(5, 4) + 0.1 * rng.standard_normal((5, 4))\nH = np.array([[4.0, 0.5, 0.1, 0.2], [0.5, 3.0, 0.4, 0.1], [0.0, 0.4, 2.0, 0.3], [0.0, 0.0, 0.3, 1.0]])\nleftover = rng.standard_normal(5)\nh_next = 0.7\nstate = np.concatenate(([float(n), float(m), float(n_hess)], U.ravel(), H.ravel(), leftover, [h_next]))\nhhat = np.array([0.05, -0.05, 0.1, 0.0])\nHbar = H.copy()\nHbar[:, -1] += h_next * hhat\nassert np.allclose(compress_ritz_pack(state, hhat, Hbar, 2), target)",
+        "import numpy as np\nn, m, n_hess = 3, 2, 2\nU = np.eye(3, 2)\nH = np.array([[2.0, 1.0], [0.5, 1.0]])\nstate = np.concatenate(([float(n), float(m), float(n_hess)], U.ravel(), H.ravel(), np.ones(3), [0.4]))\nhhat = np.array([0.0, 0.5])\nHbar = H.copy()\nHbar[:, -1] += 0.4 * hhat\ndef run_model():\n    try:\n        compress_ritz_pack(state, hhat, Hbar, 2)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nn, m, n_hess = 3, 2, 2\nU = np.eye(3, 2)\nH = np.array([[2.0, 1.0], [0.5, 1.0]])\nstate = np.concatenate(([float(n), float(m), float(n_hess)], U.ravel(), H.ravel(), np.ones(3), [0.4]))\nhhat = np.array([0.0, 0.5])\ndef run_model():\n    try:\n        compress_ritz_pack(state, hhat, H, 1)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-17.9",
+      "test_cases": [
+        "import numpy as np\nn, d, l, m = 5, 4, 1, 3\ns = np.array([4.0, 3.0, 1.0, 0.5, 0.25])\nrng = np.random.default_rng(5)\nQ, _ = np.linalg.qr(rng.standard_normal((n, n)), mode='reduced')\nA = 0.5 * ((Q * s) @ Q.T + ((Q * s) @ Q.T).T)\nb = rng.standard_normal(n)\nOmega = np.random.default_rng(6).standard_normal((d, n))\ninst = np.concatenate(([float(n), float(d)], A.ravel(), b, Omega.ravel()))\nU_l = np.array([[1.0], [0.0], [0.5], [0.0], [0.0]])\nH_l = np.array([[2.0]])\nuhat = np.array([0.0, 1.0, 0.0, 0.3, 0.0])\nc = np.array([0.6])\ndec = np.concatenate(([float(n), float(l)], U_l.ravel(), H_l.ravel(), uhat, c))\nassert np.allclose(expand_krylov_cycle(inst, dec, m), target)",
+        "import numpy as np\nn, d, l, m = 6, 5, 2, 4\ns = np.array([5.0, 4.0, 3.0, 0.5, 0.4, 0.3])\nrng = np.random.default_rng(8)\nQ, _ = np.linalg.qr(rng.standard_normal((n, n)), mode='reduced')\nA = 0.5 * ((Q * s) @ Q.T + ((Q * s) @ Q.T).T)\nb = rng.standard_normal(n)\nOmega = np.random.default_rng(9).standard_normal((d, n))\ninst = np.concatenate(([float(n), float(d)], A.ravel(), b, Omega.ravel()))\nU_l = rng.standard_normal((n, l))\nH_l = np.array([[3.0, 0.2], [0.0, 1.5]])\nuhat = rng.standard_normal(n)\nc = np.array([0.4, -0.1])\ndec = np.concatenate(([float(n), float(l)], U_l.ravel(), H_l.ravel(), uhat, c))\nassert np.allclose(expand_krylov_cycle(inst, dec, m), target)",
+        "import numpy as np\nn, d, l, m = 4, 3, 1, 2\ns = np.array([3.0, 2.0, 0.4, 0.2])\nrng = np.random.default_rng(1)\nQ, _ = np.linalg.qr(rng.standard_normal((n, n)), mode='reduced')\nA = 0.5 * ((Q * s) @ Q.T + ((Q * s) @ Q.T).T)\nb = rng.standard_normal(n)\nOmega = np.random.default_rng(2).standard_normal((d, n))\ninst = np.concatenate(([float(n), float(d)], A.ravel(), b, Omega.ravel()))\nU_l = np.array([[0.8], [0.2], [0.0], [-0.1]])\nH_l = np.array([[1.7]])\nuhat = np.array([0.1, 0.0, 0.9, 0.2])\nc = np.array([0.35])\ndec = np.concatenate(([float(n), float(l)], U_l.ravel(), H_l.ravel(), uhat, c))\nassert np.allclose(expand_krylov_cycle(inst, dec, m), target)",
+        "import numpy as np\nn, d, l = 4, 3, 1\ns = np.array([3.0, 2.0, 0.4, 0.2])\nrng = np.random.default_rng(1)\nQ, _ = np.linalg.qr(rng.standard_normal((n, n)), mode='reduced')\nA = 0.5 * ((Q * s) @ Q.T + ((Q * s) @ Q.T).T)\nb = rng.standard_normal(n)\nOmega = np.random.default_rng(2).standard_normal((d, n))\ninst = np.concatenate(([float(n), float(d)], A.ravel(), b, Omega.ravel()))\ndec = np.concatenate(([float(n), float(l)], np.array([0.8, 0.2, 0.0, -0.1]), [1.7], np.array([0.1, 0.0, 0.9, 0.2]), [0.35]))\ndef run_model():\n    try:\n        expand_krylov_cycle(inst, dec, 1)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nn, d, l = 4, 2, 1\ns = np.array([3.0, 2.0, 0.4, 0.2])\nrng = np.random.default_rng(1)\nQ, _ = np.linalg.qr(rng.standard_normal((n, n)), mode='reduced')\nA = 0.5 * ((Q * s) @ Q.T + ((Q * s) @ Q.T).T)\nb = rng.standard_normal(n)\nOmega = np.random.default_rng(2).standard_normal((d, n))\ninst = np.concatenate(([float(n), float(d)], A.ravel(), b, Omega.ravel()))\ndec = np.concatenate(([float(n), float(l)], np.array([0.8, 0.2, 0.0, -0.1]), [1.7], np.array([0.1, 0.0, 0.9, 0.2]), [0.35]))\ndef run_model():\n    try:\n        expand_krylov_cycle(inst, dec, 3)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-17.10",
+      "test_cases": [
+        "import numpy as np\nn, m, d, l = 12, 4, 8, 2\ns = np.array([8.0, 6.0, 5.0, 1.2, 0.9, 0.7, 0.5, 0.4, 0.3, 0.25, 0.2, 0.15])\ndata_seed, sketch_seed = 7, 11\nassert np.allclose(run_restarted_correction_norm(n, m, d, l, s, data_seed, sketch_seed), target)",
+        "import numpy as np\nn, m, d, l = 8, 3, 6, 1\ns = np.array([5.0, 4.0, 3.0, 0.5, 0.4, 0.3, 0.2, 0.1])\ndata_seed, sketch_seed = 1, 4\nassert np.allclose(run_restarted_correction_norm(n, m, d, l, s, data_seed, sketch_seed), target)",
+        "import numpy as np\nn, m, d, l = 9, 4, 6, 2\ns = np.array([6.0, 4.5, 3.0, 2.0, 0.6, 0.5, 0.4, 0.3, 0.2])\ndata_seed, sketch_seed = 0, 2\nassert np.allclose(run_restarted_correction_norm(n, m, d, l, s, data_seed, sketch_seed), target)",
+        "import numpy as np\ns = np.array([3.0, 2.0, 0.4, 0.2])\ndef run_model():\n    try:\n        run_restarted_correction_norm(4, 3, 4, 3, s, 0, 1)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ns = np.array([3.0, 2.0, 0.4, 0.2])\ndef run_model():\n    try:\n        run_restarted_correction_norm(4, 3, 2, 1, s, 0, 1)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

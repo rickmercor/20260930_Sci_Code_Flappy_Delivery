@@ -1,0 +1,40 @@
+problem_id: "Biology-Ecology-45"
+subject: "biology"
+subject_area: "Ecology"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1016/j.ecolmodel.2026.111673"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_step_01_environmental_degradation_rate.py"
+    description: "Compute the source's temperature- and moisture-adjusted first-order degradation coefficient for every soil layer. A correct result converts positive Celsius temperatures to Kelvin only inside the Arrhenius term, caps moisture at field capacity, and returns zero at nonpositive Celsius temperature; a failure changes dissipation and every downstream parent/metabolite mass."
+    orchestrator: false
+  - number: 2
+    name: "02_step_02_freundlich_aqueous_concentration.py"
+    description: "Solve the nonlinear one-layer mass closure for the unique nonnegative aqueous concentration. A passing implementation preserves the declared water and soil mass basis and respects the convergence contract; an incorrect phase balance changes the dissolved mass available for preferential transport."
+    orchestrator: false
+  - number: 3
+    name: "03_step_03_canopy_washoff.py"
+    description: "Compute canopy residue, soil transfer, foliar dissipation, and intercepted rainfall for one day. Passing behavior uses the declared mass-conserving interpretation of the source's decreasing exponential and handles degenerate rainfall or canopy geometry without division by zero; failure corrupts the soil input and canopy mass balance."
+    orchestrator: false
+  - number: 4
+    name: "04_step_04_preferential_bypass.py"
+    description: "Route top-layer dissolved solute through a rainfall-driven macropore event. A correct output caps removal at available dissolved mass, deposits the adsorbed fraction by layer thickness, and exports the remainder; a failing result violates solute conservation or the paper's preferential-flow construction."
+    orchestrator: false
+  - number: 5
+    name: "05_step_05_daily_glyphosate_ampa_update.py"
+    description: "Advance all canopy, layered parent/metabolite, and export pools through one declared daily event sequence. Passing behavior reuses the earlier process functions, delays new AMPA until after existing-AMPA dissipation, and preserves nonnegative mass bookkeeping; failure changes the coupled state even when individual formulas are correct."
+    orchestrator: false
+  - number: 6
+    name: "06_step_06_simulate_glyphosate_ampa_fate.py"
+    description: "Initialize the application and run the daily update across all forcing rows. A correct simulation validates every configuration key and preserves the exact state order without mutating inputs; a failure invalidates the endpoint used by every sensitivity calculation."
+    orchestrator: false
+  - number: 7
+    name: "07_step_07_pathway_sensitivity_matrix.py"
+    description: "Compute the response-by-parameter matrix from paired relative perturbations of the complete multi-day simulation. Passing behavior perturbs one positive parameter at a time, uses the unperturbed response for standardization, and rejects noninteger response indices; failure can look plausible while changing the final norm materially."
+    orchestrator: false
+  - number: 8
+    name: "08_step_08_epic_fate_sensitivity_norm.py"
+    description: "Orchestrate the complete sensitivity calculation and return its Frobenius norm. A passing implementation delegates to the sensitivity-matrix function and reduces every matrix entry exactly once; a failing result misses a pathway, response, or standardization and cannot reproduce the independent literal integration targets."
+    orchestrator: true

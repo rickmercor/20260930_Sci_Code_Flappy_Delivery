@@ -1,0 +1,40 @@
+problem_id: "Chemistry-Quantum_Chemistry-5"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2607.15695"
+dependencies: ""
+steps:
+  - number: 1
+    name: "chain_hamiltonian"
+    description: "Return the one-body matrix h and the density-density interaction matrix W of the task's open chain of N sites: h has the site energies eps on its diagonal and -t between nearest neighbours; W has U on its diagonal and V between nearest neighbours, and the interaction energy of two site charges n_i, n_j is W_ij n_i n_j."
+    orchestrator: false
+  - number: 2
+    name: "scaled_exchange_orbitals"
+    description: "Return the converged orbitals of the closed-shell mean field F = h + J - alpha K of the task's chain, where the Hartree operator J is diagonal with J_ii = sum_j W_ij n_j (n_j the site occupations of the nelec/2 doubly occupied orbitals) and the exchange operator is K_ij = W_ij P_ij / 2 with P = 2 C_occ C_occ^T the spatial density matrix; iterate to self-consistency (density matrix converged to 1e-12) and return the canonical orbitals of the converged operator in increasing energy order."
+    orchestrator: false
+  - number: 3
+    name: "mean_field_matrices"
+    description: "Return, in the orbital basis defined by C, the mean-field operator of step 02 (whose diagonal holds the orbital energies) and the full exchange operator K of step 02 built from the same nelec/2 doubly occupied orbitals; the exchange operator is needed separately because the source's static self-energy compares the exact-exchange operator with the exchange-correlation potential of the reference."
+    orchestrator: false
+  - number: 4
+    name: "mo_coulomb_integrals"
+    description: "Return the two-electron integrals (pq|rs) of the chain's density-density interaction in the orbital basis of step 02, in the chemist's notation of the source's Eq. (1): the charge distribution of orbital pair (p, q) on the sites interacts through W with that of pair (r, s)."
+    orchestrator: false
+  - number: 5
+    name: "rpa_excitation_energies"
+    description: "Return, in increasing order, the excitation energies of the source's screening problem (its Eq. (10), the random-phase approximation that defines the GW screened interaction) for the spin-orbital energies eps and integrals eri of a closed-shell reference with nocc occupied spin-orbitals."
+    orchestrator: false
+  - number: 6
+    name: "gw_density_correction"
+    description: "Return the source's GW correction to the density matrix of the reference, Delta gamma^GW, obtained from the linearized Dyson equation with the one-shot GW self-energy (its Eqs. (4)-(6) evaluated analytically as its Eqs. (9)-(12)): build the screening of step 05 together with its transition vectors, form the source's coupling vectors (its Eq. (11)) and evaluate every block of the correction with the static exchange-correlation difference sxv of the reference; return the full spin-orbital matrix."
+    orchestrator: false
+  - number: 7
+    name: "iterated_dyson_correction"
+    description: "Return the source's iterated-Dyson GW correction Delta gamma^idGW (its Sec. III): the Dyson equation is iterated with the static part of the self-energy updated to the final density matrix, which leaves the occupied-occupied and virtual-virtual blocks of step 06 unchanged (its Eqs. (18a)-(18b)) and turns the occupied-virtual block into the solution of its Eq. (21); solve that equation exactly (the source's Sec. III B) rather than by iteration."
+    orchestrator: false
+  - number: 8
+    name: "idgw_dipole"
+    description: "Orchestrator. Build the chain (step 01), converge its scaled-exchange reference (step 02), form the reference operators and integrals in the orbital basis (steps 03-04), expand to spin-orbitals with the interleaved index of step 05 (orbital energies repeated for the two spins, integrals carried over for equal spins within each pair), form the static exchange-correlation difference of the reference from the exchange operator of step 03 and the fraction alpha, then check the screening is stable (step 05), obtain the GW correction (step 06) and the iterated-Dyson correction (step 07); add the correction to the reference density matrix (unit occupations of the nelec lowest spin-orbitals) and return the electronic dipole D = -sum_i x_i n_i with x_i = i - (N - 1)/2. Call the earlier step functions rather than reimplementing them."
+    orchestrator: true

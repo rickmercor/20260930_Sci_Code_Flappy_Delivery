@@ -1,0 +1,48 @@
+problem_id: "Chemistry-Quantum_Chemistry-9"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "numeric"
+paper_doi: "https://doi.org/10.48550/arXiv.2609.06162"
+dependencies: ""
+steps:
+  - number: 1
+    name: "radial_quadrature"
+    description: "Build a quadrature for integrals over the radial half line. Take the n_nodes Gauss-Legendre nodes and weights of the interval from minus one to one, map them onto the open unit interval by replacing each node t with (t+1)/2 and halving each weight, and send a mapped node u to the radius scale*u/(1-u). The quadrature weight belonging to that radius is the halved Gauss-Legendre weight times scale/(1-u)**2, so that the sum over nodes of weight times f(radius) approximates the integral of f from zero to infinity. Keep the nodes in the order numpy's Gauss-Legendre routine returns them, which puts the smallest radius first."
+    orchestrator: false
+  - number: 2
+    name: "orthonormal_orbitals"
+    description: "Build two orthonormal radial orbitals out of Slater primitives and return them as one padded coefficient table. A primitive carrying label one is sqrt(z**3/pi)*exp(-z*r) and a primitive carrying label two is sqrt(z**5/(3*pi))*r*exp(-z*r), each already scaled so that the integral of its square over all space is one. Define the overlap of two radial functions as the integral from zero to infinity of four pi r**2 times their product. The inner orbital is the sum of the label-one primitives built from inner_exponents weighted by inner_coefficients, divided by the square root of its own overlap with itself. The outer orbital starts as the single label-two primitive built from outer_exponent, then has the inner orbital subtracted from it once, weighted by the overlap of that starting primitive with the already-scaled inner orbital, and is only then divided by the square root of its own overlap with itself. The inner orbital is never modified, so the order of those two operations is part of the contract. Return an array whose first index selects the orbital with the inner one first, whose second index runs over terms, and whose third index holds the primitive label, the exponent and the coefficient in that order. List the inner orbital's terms in the order of inner_exponents, list the outer orbital's label-two term first and its label-one terms after it in that same order, and pad the inner orbital with trailing rows of all zeros so both orbitals carry the same number of terms."
+    orchestrator: false
+  - number: 3
+    name: "spin_channel_fields"
+    description: "Evaluate the five radial fields that one spin channel contributes, at each radius. A row (p, z, w) of an orbital table contributes w times the primitive it names, where label p equal to one means sqrt(z**3/pi)*exp(-z*r) and label p equal to two means sqrt(z**5/(3*pi))*r*exp(-z*r); a row whose coefficient is zero is padding and contributes nothing, whatever its other entries. Write phi_k for the k-th orbital of the table, taken as that sum over its rows, n_k for its occupation and a prime for d/dr. The density is the sum over k of n_k phi_k**2. The gradient is the sum over k of 2 n_k phi_k phi_k'. The Laplacian is the sum over k of 2 n_k times (phi_k (phi_k'' + 2 phi_k'/r) + phi_k'**2). The orbital kinetic density is the sum over k of n_k phi_k'**2, carrying no factor of one half. The fifth field is the model-hole curvature: the Laplacian minus twice (the orbital kinetic density minus a quarter of the gradient squared divided by the density), the whole difference divided by six. Return the five fields as rows in exactly that order."
+    orchestrator: false
+  - number: 4
+    name: "b86b_exchange_density"
+    description: "Return the gradient-corrected semilocal exchange energy density of one spin channel, evaluated pointwise. Write rho for the density and x for the absolute gradient divided by rho**(4/3). The value is minus (3/2)*(3/(4*pi))**(1/3) times rho**(4/3), minus 0.00375 times rho**(4/3) times x**2 divided by (1 + 0.007*x**2)**(4/5). The channel enters on its own and the two channels are summed only later, so no spin-scaling factor is applied here."
+    orchestrator: false
+  - number: 5
+    name: "exact_exchange_density"
+    description: "Return the exact exchange energy density of one spin channel, in the gauge that takes the integrand as it stands with no function added to it. A row (p, z, w) of an orbital table contributes w times the primitive it names, where label p equal to one means sqrt(z**3/pi)*exp(-z*r) and label p equal to two means sqrt(z**5/(3*pi))*r*exp(-z*r); a row whose coefficient is zero is padding and contributes nothing, whatever its other entries. The value at radius r is minus one half of the sum over every ordered pair (i, j) of orbitals of n_i n_j phi_i(r) phi_j(r) times the electrostatic potential at r of the product density phi_i phi_j. Fractional occupations enter as the plain product n_i n_j and not as its square root, which is what makes a single fractionally occupied orbital cancel its own classical repulsion exactly. Every product of two of these orbitals is spherically symmetric, and the potential at radius r of a spherical density f is four pi times the quantity (the integral from zero to r of s**2 f(s) ds, divided by r, plus the integral from r to infinity of s f(s) ds)."
+    orchestrator: false
+  - number: 6
+    name: "effective_hole_normalisation"
+    description: "Invert a model exchange hole pointwise to find the normalisation it would need in order to reproduce a given exact exchange energy density. Define first the model potential P(rho, Q, N) at the reference point of a hole of normalisation N sitting in a density rho with curvature Q: solve x*exp(-2*x/3)/(x-2) = (2/3)*(pi*rho/N)**(2/3)*rho/Q for x, taking the unique root larger than two when the right-hand side is positive and the unique root between zero and two when it is negative; then set alpha = (8*pi*rho*exp(x)/N)**(1/3) and b = x/alpha, and take P = -N*(1 - exp(-x) - x*exp(-x)/2)/b. The target at each point is twice the exact exchange energy density divided by the density. Solve P(rho, Q, N) equals that target for N, searching only normalisations between zero and one, and return one wherever no normalisation at or below one reaches the target. P is monotone in N over that interval, so the solution is unique wherever one exists, and the returned values therefore never exceed one."
+    orchestrator: false
+  - number: 7
+    name: "xc_hole_normalisation"
+    description: "Combine the two spin channels' effective hole normalisations into the effective exchange-correlation hole normalisation of the same-spin channel, pointwise. Write a for the same-spin normalisation and b for the other-spin one. Take f as the least of three numbers: (1-a)/b, (1-b)/a, and one; treat a ratio whose denominator is zero as larger than the other two so that it never wins. Return a + f*b. The function is not symmetric in its two arguments, so calling it for the other channel means exchanging them."
+    orchestrator: false
+  - number: 8
+    name: "local_mixing_function"
+    description: "Return the position-dependent fraction of exact exchange the local hybrid mixes in, evaluated pointwise. Write rho for the density, eps for the semilocal exchange energy density of the same channel, and n for the exchange-correlation hole normalisation of the same channel. Form the length z as the absolute value of rho divided by eps. Form the dimensionless scaling factor s as b_param times the square of the sine of pi times n, plus one, so that s equals one wherever n is a whole number and rises to b_param plus one halfway between two whole numbers. The mixing fraction at each point is the error function of c_param times s times z, so the scaling factor multiplies the argument of the error function and not the function itself. Return one value per point, each between zero and one."
+    orchestrator: false
+  - number: 9
+    name: "channel_admixture"
+    description: "Return one spin channel's contribution to the exact-exchange admixture energy. It is four pi times the quadrature sum over the supplied nodes of weight times radius squared times the mixing fraction times (the exact exchange energy density minus the semilocal one) at that node. The difference is taken in that order, exact first, and the four pi times radius squared is the spherical measure that turns a radial quadrature into an integral over all space. Return a plain float."
+    orchestrator: false
+  - number: 10
+    name: "lhnz_exchange_correction"
+    description: "Assemble the whole chain and return the local hybrid's exact-exchange admixture energy for a spherical, spin-polarised atom, summed over both spin channels. The majority channel holds one electron in the inner orbital and outer_occupation of an electron in the outer one; the minority channel holds one electron in the inner orbital alone. A channel is evaluated only at the radii where its own density exceeds 1e-14, and each channel is integrated over its own surviving radii. Both channels' effective hole normalisations must be formed before either channel's exchange-correlation hole normalisation is taken, and at a radius a channel did not survive its effective hole normalisation is taken to be one. Return the total as a plain float."
+    orchestrator: true

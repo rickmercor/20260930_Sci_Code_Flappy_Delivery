@@ -1,0 +1,40 @@
+problem_id: "Chemistry-Quantum_Chemistry-69"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2605.31582"
+dependencies: ""
+steps:
+  - number: 1
+    name: "Relax the bond-gap profile (fixed budget)"
+    description: "Step 1 \u2014 Damped relaxation of the bond-unit gap profile (fixed sweep budget)."
+    orchestrator: false
+  - number: 2
+    name: "Reference pairing energy"
+    description: "Step 2 \u2014 Energy of the paired-bond reference state."
+    orchestrator: false
+  - number: 3
+    name: "Generalized Fock matrix"
+    description: "Step 3 \u2014 Generalized Fock matrix of the paired-bond reference."
+    orchestrator: false
+  - number: 4
+    name: "Single-excitation channel"
+    description: "Step 4 \u2014 Second-order sum over the single-excitation channel."
+    orchestrator: false
+  - number: 5
+    name: "Double-excitation channel"
+    description: "Step 5 \u2014 Second-order sum over the double-excitation channel."
+    orchestrator: false
+  - number: 6
+    name: "Pair-transfer channel"
+    description: "Step 6 \u2014 Second-order sum over the correlated pair-transfer channel."
+    orchestrator: false
+  - number: 7
+    name: "Intruder-dressed reference"
+    description: "Step 7 \u2014 Variational dressing of the reference by the intruder states."
+    orchestrator: false
+  - number: 8
+    name: "Dressed-correction orchestrator (final)"
+    description: "Step 8 \u2014 Orchestrator: the dressed second-order valence correction."
+    orchestrator: true

@@ -1,0 +1,36 @@
+problem_id: "Material_Science-Semiconductor_Materials-21"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1016/j.ijheatmasstransfer.2026.128510"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_compute_system_coefficients"
+    description: "Derive every scalar coefficient of the coupled electron-phonon system that the rest of the stability analysis consumes."
+    orchestrator: false
+  - number: 2
+    name: "02_compute_angular_moments"
+    description: "Evaluate the two solid-angle integrals of the swept-error factor that both iteration operators are assembled from."
+    orchestrator: false
+  - number: 3
+    name: "03_build_unaccelerated_matrix"
+    description: "Assemble the two-by-two error amplification matrix of the unaccelerated inner loop."
+    orchestrator: false
+  - number: 4
+    name: "04_build_accelerated_operators"
+    description: "Assemble the pair of two-by-two operators the accelerated inner iteration acts with, one on the new energy amplitudes and one on the old."
+    orchestrator: false
+  - number: 5
+    name: "05_compute_spectral_radii"
+    description: "Read the convergence rate of each scheme off the spectral radius of its error amplification map."
+    orchestrator: false
+  - number: 6
+    name: "06_compute_convergence_rates"
+    description: "Chain the sub-problem functions 01-05 to return both schemes' convergence rates at one Knudsen-number triple."
+    orchestrator: false
+  - number: 7
+    name: "07_run_stability_sweep"
+    description: "Sweep the equal-Knudsen line through every transport regime and return the worst convergence rate the accelerated scheme attains on it."
+    orchestrator: true

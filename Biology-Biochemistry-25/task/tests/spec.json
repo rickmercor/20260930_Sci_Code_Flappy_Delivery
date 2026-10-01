@@ -1,0 +1,77 @@
+{
+  "problem_id": "Biology-Biochemistry-25",
+  "sub_steps": [
+    {
+      "step_number": "Biology-Biochemistry-25.1",
+      "test_cases": [
+        "import numpy as np\nenergies=np.array([[0.,10.,-5.,11.]],float)\nargs=(energies,298.15,1.98720425864083e-3,1.380649e-23,6.62607015e-34,False)\nassert np.allclose(compute_tst_rates(*args), target)",
+        "import numpy as np\nenergies=np.array([[0.,10.,-5.,11.,-9.,9.],[1.,9.,-4.,10.,-8.,8.]],float)\nargs=(energies,298.15,1.98720425864083e-3,1.380649e-23,6.62607015e-34,True)\nassert np.allclose(compute_tst_rates(*args), target)",
+        "import numpy as np\nenergies=np.zeros((2,4),float)\nargs=(energies,300.,1e-3,1e-23,1e-34,False)\nassert np.allclose(compute_tst_rates(*args), target)",
+        "import numpy as np\nenergies=np.zeros((1,5),float)\nargs=(energies,298.15,1.98720425864083e-3,1.380649e-23,6.62607015e-34,False)\ndef run_model():\n    try: compute_tst_rates(*args); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-25.2",
+      "test_cases": [
+        "import numpy as np\nr=np.array([[2.,1.,3.],[4.,2.,5.]],float)\nassert np.allclose(compute_kinetic_observables(r,False), target)",
+        "import numpy as np\nr=np.array([[2.,1.,3.,4.,5.]],float)\nassert np.allclose(compute_kinetic_observables(r,True), target)",
+        "import numpy as np\nr=np.ones((1,3),float)\nassert np.allclose(compute_kinetic_observables(r,False), target)",
+        "import numpy as np\nr=np.ones((1,4),float)\ndef run_model():\n    try: compute_kinetic_observables(r,False); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-25.3",
+      "test_cases": [
+        "import numpy as np\nwt=np.array([0.,10.,-5.,11.])\nd=np.array([[1.,2.,3.,4.],[-1.,0.,2.,-2.],[.5,.5,.5,.5]])\np=np.array([[0,1],[1,2]],int)\nassert np.allclose(build_additive_double_energies(wt,d,p), target)",
+        "import numpy as np\nwt=np.array([0.,10.,-5.,11.,-9.,9.])\nd=np.zeros((2,6))\np=np.array([[0,0]],int)\nassert np.allclose(build_additive_double_energies(wt,d,p), target)",
+        "import numpy as np\nwt=np.array([0.,10.,-5.,11.])\nd=np.array([[1e-9]*4,[-1e-9]*4])\np=np.array([[0,1]],int)\nassert np.allclose(build_additive_double_energies(wt,d,p), target)",
+        "import numpy as np\nwt=np.zeros(4); d=np.zeros((2,4)); p=np.array([[0,2]],int)\ndef run_model():\n    try: build_additive_double_energies(wt,d,p); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-25.4",
+      "test_cases": [
+        "import numpy as np\nx=np.array([[2.,4.,8.,1.],[4.,2.,16.,2.]],float)\nassert np.allclose(compute_single_fold_changes(x,0), target)",
+        "import numpy as np\nx=np.ones((3,4))\nassert np.allclose(compute_single_fold_changes(x,1), target)",
+        "import numpy as np\nx=np.array([[1e-12,2e-9,3e-6,4e-3],[2e-12,4e-9,6e-6,8e-3]],float)\nassert np.allclose(compute_single_fold_changes(x,1), target)",
+        "import numpy as np\nx=np.ones((1,4))\ndef run_model():\n    try: compute_single_fold_changes(x,2); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-25.5",
+      "test_cases": [
+        "import numpy as np\nf=np.array([[1.,1.,1.,1.],[2.,3.,4.,5.],[.5,2.,8.,2.]],float)\nd=np.array([[1.,2.,10.,3.],[2.,1.,4.,2.]],float)\np=np.array([[1,2],[0,1]],int)\nassert np.allclose(compute_pair_interactions(f,1.0,d,p,0,2), target)",
+        "import numpy as np\nf=np.ones((2,4)); d=np.ones((1,4)); p=np.array([[0,1]],int)\nassert np.allclose(compute_pair_interactions(f,1.0,d,p,0,2), target)",
+        "import numpy as np\nf=np.array([[1e-10]*4,[1e10]*4],float); d=np.array([[1.,1.,1.,1.]],float); p=np.array([[0,1]],int)\nassert np.allclose(compute_pair_interactions(f,1.0,d,p,0,2), target)",
+        "import numpy as np\nf=np.ones((2,4)); d=np.ones((1,4)); p=np.array([[0,1]],int)\ndef run_model():\n    try: compute_pair_interactions(f,1.0,d,p,0,4); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-25.6",
+      "test_cases": [
+        "import numpy as np\ne=np.array([1.,1.6,.5,2.,.8],float)\nassert np.allclose(classify_epistasis(e,1.5), target)",
+        "import numpy as np\ne=np.ones(5)\nassert np.allclose(classify_epistasis(e,1.5), target)",
+        "import numpy as np\ne=np.array([1e-9,1e9],float)\nassert np.allclose(classify_epistasis(e,1.5), target)",
+        "import numpy as np\ne=np.ones(2)\ndef run_model():\n    try: classify_epistasis(e,1.0); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-25.7",
+      "test_cases": [
+        "import numpy as np\ns=np.array([38.,26.,12.,38/120]); c=np.array([45.,35.,10.,45/120])\nassert np.allclose(compute_complexity_ratio(s,c), target)",
+        "import numpy as np\ns=np.array([1.,1.,0.,1.]); c=np.array([2.,1.,1.,.5])\nassert np.allclose(compute_complexity_ratio(s,c), target)",
+        "import numpy as np\ns=np.array([120.,60.,60.,.5]); c=np.array([120.,60.,60.,.5])\nassert np.allclose(compute_complexity_ratio(s,c), target)",
+        "import numpy as np\ns=np.array([0.,0.,0.,0.]); c=np.array([1.,1.,0.,1.])\ndef run_model():\n    try: compute_complexity_ratio(s,c); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-25.8",
+      "test_cases": [
+        "import numpy as np\nd=np.array([[1.579, -1.372, -1.539, -0.468, -0.142, -0.998], [-0.242, -1.868, 1.189, 1.473, 0.964, -0.256], [1.032, -1.408, -1.411, -1.093, -0.442, -0.024], [-0.274, -1.587, -0.994, 1.752, 0.979, -1.726], [1.318, -0.099, -1.016, 1.38, 0.361, 1.092], [-1.411, -0.899, -1.667, -1.419, 0.925, 0.687], [1.747, -0.192, 1.025, 0.405, -0.963, 1.882], [-1.753, -0.155, -0.072, -0.165, 1.732, -1.112], [-1.03, -0.036, 1.174, -0.695, -0.806, 1.161], [-0.837, 0.312, -0.659, 1.69, -0.604, -0.511], [1.457, 1.262, 0.716, -1.579, 1.185, -0.562], [-1.421, -1.247, 1.23, -1.314, -1.224, 1.638], [1.579, -0.988, 0.33, 1.911, 0.736, -0.879], [0.206, -1.158, -1.947, -1.37, 1.933, 1.505], [1.276, -1.811, -0.147, 0.305, 0.54, 1.998], [-0.607, 0.449, -1.039, 1.6, -1.905, -0.369]],dtype=float)\nassert np.allclose(resolve_kinetic_complexity_ratio(d), target)",
+        "import numpy as np\nd=np.array([[1.579, -1.372, -1.539, -0.468, -0.142, -0.998], [-0.242, -1.868, 1.189, 1.473, 0.964, -0.256], [1.032, -1.408, -1.411, -1.093, -0.442, -0.024], [-0.274, -1.587, -0.994, 1.752, 0.979, -1.726], [1.318, -0.099, -1.016, 1.38, 0.361, 1.092], [-1.411, -0.899, -1.667, -1.419, 0.925, 0.687], [1.747, -0.192, 1.025, 0.405, -0.963, 1.882], [-1.753, -0.155, -0.072, -0.165, 1.732, -1.112], [-1.03, -0.036, 1.174, -0.695, -0.806, 1.161], [-0.837, 0.312, -0.659, 1.69, -0.604, -0.511], [1.457, 1.262, 0.716, -1.579, 1.185, -0.562], [-1.421, -1.247, 1.23, -1.314, -1.224, 1.638], [1.579, -0.988, 0.33, 1.911, 0.736, -0.879], [0.206, -1.158, -1.947, -1.37, 1.933, 1.505], [1.276, -1.811, -0.147, 0.305, 0.54, 1.998], [-0.607, 0.449, -1.039, 1.6, -1.905, -0.369]],dtype=float)\nperm=np.array([7, 0, 12, 3, 15, 1, 10, 5, 14, 8, 2, 13, 6, 11, 4, 9],dtype=int)\nassert np.allclose(resolve_kinetic_complexity_ratio(d[perm]), target)",
+        "import numpy as np\nd=0.5*np.array([[1.579, -1.372, -1.539, -0.468, -0.142, -0.998], [-0.242, -1.868, 1.189, 1.473, 0.964, -0.256], [1.032, -1.408, -1.411, -1.093, -0.442, -0.024], [-0.274, -1.587, -0.994, 1.752, 0.979, -1.726], [1.318, -0.099, -1.016, 1.38, 0.361, 1.092], [-1.411, -0.899, -1.667, -1.419, 0.925, 0.687], [1.747, -0.192, 1.025, 0.405, -0.963, 1.882], [-1.753, -0.155, -0.072, -0.165, 1.732, -1.112], [-1.03, -0.036, 1.174, -0.695, -0.806, 1.161], [-0.837, 0.312, -0.659, 1.69, -0.604, -0.511], [1.457, 1.262, 0.716, -1.579, 1.185, -0.562], [-1.421, -1.247, 1.23, -1.314, -1.224, 1.638], [1.579, -0.988, 0.33, 1.911, 0.736, -0.879], [0.206, -1.158, -1.947, -1.37, 1.933, 1.505], [1.276, -1.811, -0.147, 0.305, 0.54, 1.998], [-0.607, 0.449, -1.039, 1.6, -1.905, -0.369]],dtype=float)\nassert np.allclose(resolve_kinetic_complexity_ratio(d), target)",
+        "import numpy as np\nd=np.zeros((15,6),float)\ndef run_model():\n    try: resolve_kinetic_complexity_ratio(d); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

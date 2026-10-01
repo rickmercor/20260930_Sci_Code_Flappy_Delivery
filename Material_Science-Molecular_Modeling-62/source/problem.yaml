@@ -1,0 +1,48 @@
+problem_id: "Material_Science-Molecular_Modeling-62"
+subject: "materials"
+subject_area: "Molecular Modeling"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1016/j.ijheatmasstransfer.2026.128477"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_convert_reduced_temperatures"
+    description: "Convert the substrate temperature and the interfacial temperature jump from Lennard-Jones reduced units to kelvin and return the wall-adjacent liquid temperature that drives the nucleation model."
+    orchestrator: false
+  - number: 2
+    name: "02_compute_vapour_state"
+    description: "Compute the specific gas constant of water vapour, the saturated vapour density from the ideal-gas law and the latent heat of vaporisation from the Watson correlation."
+    orchestrator: false
+  - number: 3
+    name: "03_compute_segment_volume_factor"
+    description: "Compute the dimensionless factor that turns the squared nucleus radius and the cylinder depth into the volume of the truncated cylindrical nucleus."
+    orchestrator: false
+  - number: 4
+    name: "04_compute_thermal_volume_moment"
+    description: "Compute the dimensionless first moment of the nucleus volume against the linear wall-normal temperature profile."
+    orchestrator: false
+  - number: 5
+    name: "05_compute_free_energy_coefficients"
+    description: "Reduce the available-energy increment of the nucleus to the three parameters that define its dependence on the nucleus radius."
+    orchestrator: false
+  - number: 6
+    name: "06_evaluate_available_energy_profile"
+    description: "Evaluate the available-energy increment of the nucleus over a grid of nucleus radii."
+    orchestrator: false
+  - number: 7
+    name: "07_locate_critical_nucleus"
+    description: "Locate the maximum of the available-energy increment and return the critical nucleus radius and the critical activation energy."
+    orchestrator: false
+  - number: 8
+    name: "08_compute_thermal_barrier_ratio"
+    description: "Express the critical activation energy in units of the thermal energy of the wall-adjacent liquid."
+    orchestrator: false
+  - number: 9
+    name: "09_sweep_measured_contact_angles"
+    description: "Turn a table of measured quasi-steady bubble contact angles and their wall-adjacent liquid temperatures into the dimensionless nucleation barrier of each state."
+    orchestrator: false
+  - number: 10
+    name: "10_run_nucleation_barrier_pipeline"
+    description: "Chain the sub-problem functions 01-09 end-to-end on the measured flow-boiling states and return the largest dimensionless nucleation barrier.\n\nOrchestrator: yes - this is the final step; it integrates the earlier sub-problems (convert_reduced_temperatures, compute_vapour_state, compute_segment_volume_factor, compute_thermal_volume_moment, compute_free_energy_coefficients, evaluate_available_energy_profile, locate_critical_nucleus, compute_thermal_barrier_ratio, sweep_measured_contact_angles) rather than reimplementing them."
+    orchestrator: true

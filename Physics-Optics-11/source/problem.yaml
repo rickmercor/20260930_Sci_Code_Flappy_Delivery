@@ -1,0 +1,40 @@
+problem_id: "Physics-Optics-11"
+subject: "physics"
+subject_area: "Optics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: " 10.1093/ptep/ptag074"
+dependencies: ""
+steps:
+  - number: 1
+    name: "grating_channels"
+    description: "Construct the causal diffraction orders and outgoing vacuum branches."
+    orchestrator: false
+  - number: 2
+    name: "reciprocal_fourier"
+    description: "Resolve the one-sided Fourier coefficients of a reciprocal material."
+    orchestrator: false
+  - number: 3
+    name: "bergmann_generator"
+    description: "Build the dimensionless first-order TE/TM layer generator."
+    orchestrator: false
+  - number: 4
+    name: "ordered_transfer_series"
+    description: "Compose an ordered layer stack through second order in total thickness."
+    orchestrator: false
+  - number: 5
+    name: "global_transfer_series"
+    description: "Convert state-transfer coefficients into global plane-wave coordinates."
+    orchestrator: false
+  - number: 6
+    name: "scattering_series"
+    description: "Apply outgoing boundary conditions to a second-order transfer series."
+    orchestrator: false
+  - number: 7
+    name: "diffraction_efficiencies"
+    description: "Evaluate the specified amplitude polynomial and its vacuum flux weights."
+    orchestrator: false
+  - number: 8
+    name: "layer_reversal_contrast"
+    description: "Compose the source-derived TE/TM layer-order contrast diagnostic."
+    orchestrator: true

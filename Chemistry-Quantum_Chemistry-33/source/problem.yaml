@@ -1,0 +1,36 @@
+problem_id: "Chemistry-Quantum_Chemistry-33"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2602.20232"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_embed_localized_orbitals"
+    description: "Validate coefficients with shape (P,A,R,M), integer shell_counts with shape (A,), and weights with shape (K,R). Zero every radial slot r >= shell_counts[a], then compute embedded[p,a,k,m] = sum_r weights[k,r]*padded[p,a,r,m]. Return padded, embedded, and dot(arange(1,N+1), embedded.ravel())/N in C order."
+    orchestrator: false
+  - number: 2
+    name: "02_apply_signed_mo_attention"
+    description: "Validate embedded shape (P,A,K,M), integer fragment_ids shape (P,), three weight tensors shape (H,K,K), head_weights shape (H,), and positive epsilon. Project query, key, and value channels with the supplied head matrices. Recover the source normalization and aggregation rule, mask scores for unequal fragment labels, combine heads with head_weights, and return mixed states, the H by P by P score tensor, and the pre-renormalization H by P output norms."
+    orchestrator: false
+  - number: 3
+    name: "03_apply_odd_local_mixing"
+    description: "Validate features shape (P,A,K,M), positions shape (A,3), two channel maps shape (K,K), and positive cutoff. For each ordered atom pair inside the strict cutoff, add exp(-distance/cutoff)*features[:,neighbor] to the center aggregate and require at least one edge. Form the rotationally equivariant odd cubic as aggregate*sum(aggregate*aggregate,axis=-1,keepdims=True). Apply linear_weights to aggregate and cubic_weights to that cubic, add both to the residual features, and return updated, aggregate, and the directed-edge count."
+    orchestrator: false
+  - number: 4
+    name: "04_readout_single_amplitudes"
+    description: "Compute the source-derived singles readout for the supplied orbital states and maps. Return T1 with shape (O,V), invariant pair features with shape (O,V,K), and the requested signed T1 checksum. Follow the finite-fixture unscaled real-vector scalar-coupling convention stated in the problem statement."
+    orchestrator: false
+  - number: 5
+    name: "05_readout_double_amplitudes"
+    description: "Compute the source-derived doubles readout using the supplied orbital states, MP2 amplitudes, and readout maps. Return T2, its correction relative to MP2, and the largest occupied- or virtual-index exchange residual. Use the finite-fixture pair normalization, unscaled scalar coupling, factorized pair product, and normalized exchange projector stated in the problem statement."
+    orchestrator: false
+  - number: 6
+    name: "06_compute_cc_correlation_audit"
+    description: "Validate T1 shape (O,V), T2 and antisymmetrized integrals shape (O,O,V,V), finite values, and separate occupied- and virtual-index antisymmetry for both rank-four tensors. Form tau=T2+T1_ia*T1_jb-T1_ib*T1_ja. Return total correlation energy, 0.25*sum((T1_ia*T1_jb-T1_ib*T1_ja)*g), 0.25*sum(T2*g), the joint T1/T2 norm, and the weighted C-order checksum of tau*g."
+    orchestrator: false
+  - number: 7
+    name: "07_compute_molecular_orbital_audit"
+    description: "This final orchestrator uses the default signature values shown below and default_rng(seed). Construct every seeded array and analytic weight exactly as specified in the problem statement. Form true antisymmetrized integrals g=0.25*(raw-raw.swapaxes(0,1)-raw.swapaxes(2,3)+raw.transpose(1,0,3,2)) and MP2=g/denominator. Call public Steps 1 through 6 in order. Compute all seventeen diagnostics using the definitions in the problem statement, including mean absolute valid scores and the absolute weighted T2 checksum. Compute the disclosed J, round only J to eight decimal places, and return J, diagnostics, T1, T2, and scores."
+    orchestrator: true

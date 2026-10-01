@@ -1,0 +1,40 @@
+problem_id: "Chemistry-Computational_Chemistry-53"
+subject: "chemistry"
+subject_area: "Computational Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1063/5.0310667"
+dependencies: ""
+steps:
+  - number: 1
+    name: "two_diabat_potential"
+    description: "Implement two_diabat_potential, which evaluates the lower adiabatic potential energy surface of a\ntwo-state diabatic model, together with its first and second derivatives, at a set of positions."
+    orchestrator: false
+  - number: 2
+    name: "locate_stationary_points"
+    description: "Implement locate_stationary_points, which finds the two minima and the barrier top of the lower\nadiabatic surface of the two-state diabatic model, together with the harmonic frequencies of the\ntwo wells."
+    orchestrator: false
+  - number: 3
+    name: "half_ring_action"
+    description: "Implement half_ring_action, which evaluates the discretized imaginary-time action of a folded\nring polymer on the two-state surface, together with its gradient and Hessian with respect to\nthe bead positions."
+    orchestrator: false
+  - number: 4
+    name: "optimize_instanton"
+    description: "Implement optimize_instanton, which returns the ring-polymer instanton of the two-state surface:\nthe folded half ring polymer at which the discretized imaginary-time action is stationary, with\nexactly one unstable direction."
+    orchestrator: false
+  - number: 5
+    name: "select_dividing_surface"
+    description: "Implement select_dividing_surface, which places the dividing surface on a folded ring-polymer\npath and returns how the closed ring polymer, and with it the imaginary time, is shared between\nthe two wells, together with the imaginary-time speed of the path at the dividing surface."
+    orchestrator: false
+  - number: 6
+    name: "fluctuation_factor"
+    description: "Implement fluctuation_factor, which evaluates the pinned fluctuation factor of a ring-polymer\ninstanton: the ratio of the fluctuation determinant of the ring polymer pinned at its dividing\nsurface to those of the two wells, each well represented by the part of the ring assigned to it."
+    orchestrator: false
+  - number: 7
+    name: "instanton_exponent"
+    description: "Implement instanton_exponent, which evaluates the exponent of the instanton tunnelling frequency:\nthe action of the folded ring-polymer path measured relative to the two wells over the imaginary\ntimes assigned to them."
+    orchestrator: false
+  - number: 8
+    name: "tunnelling_frequency"
+    description: "Implement tunnelling_frequency, the end-to-end pipeline, which returns the tunnelling frequency\nhbar*Omega between the two wells of the lower adiabatic surface of the two-state model from\nring-polymer instanton theory for asymmetric wells, at a given inverse temperature and\nring-polymer size."
+    orchestrator: true

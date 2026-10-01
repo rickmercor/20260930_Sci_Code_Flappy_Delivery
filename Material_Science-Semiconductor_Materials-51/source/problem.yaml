@@ -1,0 +1,44 @@
+problem_id: "Material_Science-Semiconductor_Materials-51"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1021/acs.nanolett.5c05429"
+dependencies: ""
+steps:
+  - number: 1
+    name: "weighted_mfp_average"
+    description: "Carrier transport in real crystals is anisotropic, so the mean free path varies by crystallographic direction. A single representative value must weight each direction's contribution by how much carrier density actually flows along it, since directions carrying more current are more relevant to the effective transport behavior -- an unweighted average would misrepresent this transport-relevant length scale."
+    orchestrator: false
+  - number: 2
+    name: "d0_from_mfp"
+    description: "Implement d0_from_mfp, which computes the characteristic length scale governing the onset of surface scattering as a fixed proportion of the weighted-average mean free path."
+    orchestrator: false
+  - number: 3
+    name: "bulk_mobility_temperature_scaling"
+    description: "Implement bulk_mobility_temperature_scaling, which computes the temperature-corrected bulk carrier mobility from a reference value using the observed power-law temperature dependence."
+    orchestrator: false
+  - number: 4
+    name: "diameter_dependent_mobility"
+    description: "Implement diameter_dependent_mobility, which computes the effective 1D nanowire mobility from the temperature-scaled bulk mobility, using the empirical diameter-dependence relation."
+    orchestrator: false
+  - number: 5
+    name: "surface_limited_mobility"
+    description: "Implement surface_limited_mobility, which extracts the surface-scattering-only contribution to mobility from the combined 1D mobility and the bulk mobility, using Matthiessen's rule."
+    orchestrator: false
+  - number: 6
+    name: "surface_mobility_direct_check"
+    description: "Implement surface_mobility_direct_check, which computes the surface-scattering-only mobility using the paper's alternate direct form (Eq. 6), rather than deriving it via Matthiessen's rule, as an independent consistency check on the pipeline."
+    orchestrator: false
+  - number: 7
+    name: "ionized_impurity_screening_parameter"
+    description: "Implement ionized_impurity_screening_parameter, which computes the dimensionless Brooks-Herring screening parameter characterizing the strength of Coulomb screening by free carriers around ionized impurities."
+    orchestrator: false
+  - number: 8
+    name: "ionized_impurity_mobility"
+    description: "Implement ionized_impurity_mobility, which computes the ionized-impurity-limited carrier mobility using the Brooks-Herring screening function."
+    orchestrator: false
+  - number: 9
+    name: "final_combined_mobility_ratio"
+    description: "Implement final_combined_mobility_ratio, the final orchestrator that chains all eight prior sub-problems: computing the weighted MFP average, characteristic length scale, temperature-scaled bulk mobility, diameter-dependent mobility, surface-limited mobility (with direct-form consistency check), the ionized-impurity screening parameter, and the impurity-limited mobility, then combines the diameter-dependent nanowire mobility (which already includes bulk and surface scattering) with the impurity-limited mobility via a second application of Matthiessen's rule, and returns the ratio of this fully combined mobility to the temperature-scaled bulk mobility."
+    orchestrator: true

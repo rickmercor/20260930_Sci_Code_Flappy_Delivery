@@ -1,0 +1,81 @@
+{
+  "problem_id": "Physics-Computational_Physics-9",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Computational_Physics-9.1",
+      "test_cases": [
+        "import numpy as np\nN = 32\nL = 6.0\nH = 1.0\nassert np.allclose(build_density_grid(N, L, H), target)",
+        "import numpy as np\nN = 16\nL = 6.0\nH = 1.0\nassert np.allclose(build_density_grid(N, L, H, m_x=1, m_y=1), target)",
+        "import numpy as np\nN = 8\nL = 6.0\nH = 3.0\nassert np.allclose(build_density_grid(N, L, H), target)",
+        "import numpy as np\nN = 8\nL = 6.0\nH = 1.0\nassert np.allclose(build_density_grid(N, L, H, m_x=2, m_y=0), target)",
+        "import numpy as np\nN = 4\nL = 1.0\nH = 0.25\nassert np.allclose(build_density_grid(N, L, H), target)",
+        "import numpy as np\nEXPECTED = np.array([-2.90625, 2.90625, 0.0145117])\nassert np.allclose(np.round(np.array([build_density_grid(32, 6.0, 1.0)[0].min(), build_density_grid(32, 6.0, 1.0)[0].max(), build_density_grid(32, 6.0, 1.0)[3][0, 0, 0]], dtype=float), 7), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Computational_Physics-9.2",
+      "test_cases": [
+        "import numpy as np\nNx, Ny = 8, 6\nLx, Ly = 6.0, 4.0\nOmega = 1.0\nt = 0.0\nassert np.allclose(compute_shear_wavevectors(Nx, Ny, Lx, Ly, Omega, t), target)",
+        "import numpy as np\nNx, Ny = 16, 16\nLx, Ly = 6.0, 6.0\nOmega = 1.0\nt = 0.7\nassert np.allclose(compute_shear_wavevectors(Nx, Ny, Lx, Ly, Omega, t), target)",
+        "import numpy as np\nNx, Ny = 8, 8\nLx, Ly = 6.0, 6.0\nOmega = 1.0\nt = Ly / (1.5 * Omega * Lx)\nassert np.allclose(compute_shear_wavevectors(Nx, Ny, Lx, Ly, Omega, t), target)",
+        "import numpy as np\nNx, Ny = 1, 1\nLx, Ly = 2.0, 3.0\nOmega = 0.5\nt = 1.3\nassert np.allclose(compute_shear_wavevectors(Nx, Ny, Lx, Ly, Omega, t), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Computational_Physics-9.3",
+      "test_cases": [
+        "import numpy as np\nk_bench = np.sqrt(2.0) * 2.0 * np.pi / 6.0\nEXPECTED = np.array([21.78, 21.78, 21.78, -0.4559194])\nassert np.allclose(np.round(np.array([greens_function_hat(np.array(0.0), np.array(0.0), 6.6), greens_function_hat(np.array(0.0), np.array(1e-8), 6.6), greens_function_hat(np.array(0.0), np.array(1e-12), 6.6), greens_function_hat(np.array(k_bench), np.array(0.0), 6.6)], dtype=float), 7), target)",
+        "import numpy as np\nk_perp = np.array([[0.0], [0.0], [1.2], [2.5]])\nkz = np.array([[0.0, 0.9, 3.1]])\nL = 6.6\nassert np.allclose(greens_function_hat(k_perp, kz, L), target)",
+        "import numpy as np\nNx, Nz = 8, 16\nkx = 2.0 * np.pi * np.fft.fftfreq(Nx, d=6.0 / Nx)\nky = 2.0 * np.pi * np.fft.fftfreq(Nx, d=6.0 / Nx)\nk_perp = np.sqrt(kx[:, None] ** 2 + ky[None, :] ** 2)[:, :, None]\nkz = (2.0 * np.pi * np.fft.fftfreq(Nz, d=6.0 / Nz))[None, None, :]\nL = 1.1 * 6.0\nassert np.allclose(greens_function_hat(k_perp, kz, L), target)",
+        "import numpy as np\nk_perp = np.array(0.0)\nkz = np.array(0.0)\nL = 3.3\nassert np.allclose(greens_function_hat(k_perp, kz, L), target)",
+        "import numpy as np\nk_perp = np.zeros(4)\nkz = np.array([-2.0, -1.0e-8, 1.0e-8, 2.0])\nL = 6.6\nassert np.allclose(greens_function_hat(k_perp, kz, L), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Computational_Physics-9.4",
+      "test_cases": [
+        "import numpy as np\nrng = np.random.default_rng(3)\nrho = rng.normal(size=(4, 5, 6))\npad_factor = 4\nassert np.allclose(zero_pad_density(rho, pad_factor), target)",
+        "import numpy as np\nrho = np.arange(24, dtype=float).reshape(2, 3, 4)\npad_factor = 2\nassert np.allclose(zero_pad_density(rho, pad_factor), target)",
+        "import numpy as np\nrho = np.ones((3, 3, 1))\npad_factor = 4\nassert np.allclose(zero_pad_density(rho, pad_factor), target)",
+        "import numpy as np\nN = 32\nd = 6.0 / N\nc = -3.0 + (np.arange(N) + 0.5) * d\nX, Y, Z = np.meshgrid(c, c, c, indexing=\"ij\")\nk = 2.0 * np.pi / 6.0\nrho = np.cos(k * X) * np.cos(k * Y) * np.exp(-0.5 * Z ** 2)\nassert np.allclose(zero_pad_density(rho, 4), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Computational_Physics-9.5",
+      "test_cases": [
+        "import numpy as np\nrng = np.random.default_rng(7)\nNx, Ny, Nzp = 6, 5, 12\nrho_padded = np.zeros((Nx, Ny, Nzp))\nrho_padded[:, :, :3] = rng.normal(size=(Nx, Ny, 3))\nkx = 2.0 * np.pi * np.fft.fftfreq(Nx, d=1.0)\nky = 2.0 * np.pi * np.fft.fftfreq(Ny, d=1.0)\nkz = 2.0 * np.pi * np.fft.fftfreq(Nzp, d=0.5)\nk2 = kx[:, None, None] ** 2 + ky[None, :, None] ** 2 + kz[None, None, :] ** 2\ngreens_hat_grid = -1.0 / (1.0 + k2)\nNz_out = 3\nG = 1.0\nassert np.allclose(spectral_convolution_potential(rho_padded, greens_hat_grid, Nz_out, G=G), target)",
+        "import numpy as np\nrng = np.random.default_rng(11)\nrho_padded = rng.normal(size=(4, 4, 8))\ngreens_hat_grid = np.ones((4, 4, 8))\nNz_out = 8\nG = 2.5\nassert np.allclose(spectral_convolution_potential(rho_padded, greens_hat_grid, Nz_out, G=G), target)",
+        "import numpy as np\nrng = np.random.default_rng(13)\nrho_padded = rng.normal(size=(3, 3, 4))\ngreens_hat_grid = rng.normal(size=(3, 3, 4))\nNz_out = 1\nassert np.allclose(spectral_convolution_potential(rho_padded, greens_hat_grid, Nz_out), target)",
+        "import numpy as np\nNx = Ny = 6\nNz = 5\nrho_padded = np.zeros((Nx, Ny, 4 * Nz))\nzc = -3.0 + (np.arange(Nz) + 0.5) * (6.0 / Nz)\nrho_padded[:, :, :Nz] = np.exp(-0.5 * zc ** 2)[None, None, :]\nkz = 2.0 * np.pi * np.fft.fftfreq(4 * Nz, d=6.0 / Nz)\ng_hat = -1.0 / (1.0 + kz[None, None, :] ** 2) * np.ones((Nx, Ny, 1))\nassert np.allclose(spectral_convolution_potential(rho_padded, g_hat, Nz, G=1.0), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Computational_Physics-9.6",
+      "test_cases": [
+        "import numpy as np\nN = 16\nL = 6.0\nd = L / N\ncoords = -L / 2.0 + (np.arange(N) + 0.5) * d\nX, Y, Z = np.meshgrid(coords, coords, coords, indexing=\"ij\")\nkx = ky = 2.0 * np.pi / L\nH = 1.0\nassert np.allclose(analytic_layer_potential(X, Y, Z, kx, ky, H, L), target)",
+        "import numpy as np\nz = np.linspace(-3.0, 3.0, 41)\nkx = ky = 2.0 * np.pi / 6.0\nH = 3.0\nassert np.allclose(analytic_layer_potential(0.0, 0.0, z, kx, ky, H, 6.0, G=1.0), target)",
+        "import numpy as np\nz = np.array([-3.0, 0.0, 3.0])\nkx = 2.0 * np.pi / 6.0\nky = 0.0\nH = 1.0\nassert np.allclose(analytic_layer_potential(1.0, 2.0, z, kx, ky, H, 6.0), target)",
+        "import numpy as np\nkx = ky = 2.0 * np.pi / 6.0\nEXPECTED = -4.4134327\nassert np.allclose(float(np.round(analytic_layer_potential(0.0, 0.0, 0.0, kx, ky, 1.0, 6.0), 7)), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Computational_Physics-9.7",
+      "test_cases": [
+        "import numpy as np\nrng = np.random.default_rng(21)\nphi_ref = rng.normal(size=(6, 6, 6))\nphi_num = phi_ref + 1.0e-4 * rng.normal(size=(6, 6, 6))\nassert np.allclose(relative_error_rms(phi_num, phi_ref), target)",
+        "import numpy as np\nphi_ref = np.linspace(-5.0, 2.0, 64).reshape(4, 4, 4)\nphi_num = phi_ref.copy()\nassert np.allclose(relative_error_rms(phi_num, phi_ref), target)",
+        "import numpy as np\nrng = np.random.default_rng(5)\nphi_ref = rng.normal(size=(5, 5, 5))\nphi_num = phi_ref - 42.0\nassert np.allclose(relative_error_rms(phi_num, phi_ref), target)",
+        "import numpy as np\nphi_ref = np.array([3.5])\nphi_num = np.array([-7.0])\nassert np.allclose(relative_error_rms(phi_num, phi_ref), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Computational_Physics-9.8",
+      "test_cases": [
+        "import numpy as np\nN = 16\nL = 6.0\nH = 1.0\nassert np.allclose(run_benchmark_pipeline(N, L, H), target)",
+        "import numpy as np\nN = 16\nL = 6.0\nH = 3.0\nassert np.allclose(run_benchmark_pipeline(N, L, H), target)",
+        "import numpy as np\nN = 32\nL = 6.0\nH = 1.0\nassert np.allclose(run_benchmark_pipeline(N, L, H, alpha=1.1, pad_factor=4, G=1.0, Omega=1.0, t=0.0, m_x=1, m_y=1), target)",
+        "import numpy as np\nN = 16\nL = 6.0\nH = 1.0\nOmega = 1.0\nt_wrap = L / (1.5 * Omega * L)\nassert np.allclose(run_benchmark_pipeline(N, L, H, Omega=Omega, t=t_wrap), target)",
+        "import numpy as np\nN = 16\nL = 6.0\nH = 1.0\nassert np.allclose(run_benchmark_pipeline(N, L, H, m_x=2, m_y=1), target)"
+      ]
+    }
+  ]
+}

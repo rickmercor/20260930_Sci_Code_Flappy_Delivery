@@ -1,0 +1,48 @@
+problem_id: "Physics-Optics-48"
+subject: "physics"
+subject_area: "Optics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2604.17605"
+dependencies: ""
+steps:
+  - number: 1
+    name: "scale_staging_lattice"
+    description: "Scale the paper's mirror-symmetric nonlinear-plasma-lens lattice to one energy and dipole exponent."
+    orchestrator: false
+  - number: 2
+    name: "second_order_chromatic_growth"
+    description: "Evaluate the paper's achromatic-lattice second-order chromatic emittance increment."
+    orchestrator: false
+  - number: 3
+    name: "nonlinear_geometric_growth"
+    description: "Evaluate the residual O(tau_x^2) normalized-emittance increments after the paper's -I cancellation."
+    orchestrator: false
+  - number: 4
+    name: "incoherent_radiation_growth"
+    description: "Propagate the calibrated bending-plane ISR increment under a general dipole-field exponent."
+    orchestrator: false
+  - number: 5
+    name: "combine_emittance_increments"
+    description: "Combine independent chromatic, geometric and ISR increments into outgoing-emittance ratios."
+    orchestrator: false
+  - number: 6
+    name: "robust_energy_profile"
+    description: "Evaluate the componentwise worst uncertainty corner at every energy for one exponent."
+    orchestrator: false
+  - number: 7
+    name: "select_minimax_exponent"
+    description: "Apply prefix feasibility and the deterministic minimax tie-break across exponent candidates."
+    orchestrator: false
+  - number: 8
+    name: "transport_nonlinear_lens_pair"
+    description: "Propagate one or many angular rays through the paper's exact two-lens nonlinear thin-map."
+    orchestrator: false
+  - number: 9
+    name: "nonlinear_lens_validity_certificate"
+    description: "Construct an exact Appendix-D/E validity certificate from Gaussian moments and correlated lens offsets."
+    orchestrator: false
+  - number: 10
+    name: "run_robust_scaling_benchmark"
+    description: "Run the whole robust plasma-lens scaling benchmark and return its rounded energy ceiling."
+    orchestrator: true

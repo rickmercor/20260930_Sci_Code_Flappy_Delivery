@@ -1,0 +1,40 @@
+problem_id: "Physics-Condensed_Matter_Physics-39"
+subject: "physics"
+subject_area: "Condensed Matter Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1016/j.jcp.2026.115344"
+dependencies: ""
+steps:
+  - number: 1
+    name: "evaluate_bernoulli"
+    description: "Evaluate the Bernoulli transport factor for finite real input values."
+    orchestrator: false
+  - number: 2
+    name: "construct_diamond_geometry"
+    description: "Construct orientation-aware geometric data for primal-dual diamonds."
+    orchestrator: false
+  - number: 3
+    name: "build_ddfv_poisson_flux_operator"
+    description: "Construct local linear maps for the two oriented electrostatic fluxes."
+    orchestrator: false
+  - number: 4
+    name: "compute_ddfv_ha_flux_jets"
+    description: "Evaluate carrier fluxes and their local first-derivative data on each diamond."
+    orchestrator: false
+  - number: 5
+    name: "assemble_stationary_residual"
+    description: "Assemble the stationary residual for the prescribed benchmark topology."
+    orchestrator: false
+  - number: 6
+    name: "assemble_newton_system"
+    description: "Assemble the Newton linear system associated with the stationary residual."
+    orchestrator: false
+  - number: 7
+    name: "run_voltage_continuation"
+    description: "Compute the final stationary state along a supplied contact-voltage path."
+    orchestrator: false
+  - number: 8
+    name: "solve_stationary_ddfv_ha"
+    description: "Return the outward right-contact current for the converged stationary branch."
+    orchestrator: true

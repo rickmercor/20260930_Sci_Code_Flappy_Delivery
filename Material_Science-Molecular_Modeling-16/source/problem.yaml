@@ -1,0 +1,36 @@
+problem_id: "Material_Science-Molecular_Modeling-16"
+subject: "materials"
+subject_area: "Molecular Modeling"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1021/acs.jctc.6c00386"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_compute_moments"
+    description: "Compute bath-weighted operator moments through the requested order in the normalized Pauli basis (I, X, Y, Z)/sqrt(2). Use system-first tensor-product ordering."
+    orchestrator: false
+  - number: 2
+    name: "02_kernel_coefficients"
+    description: "The row index labels the initial operator. Define\n\n\n\n$$\n\nPX=\n\n\\sum_j\n\n\\operatorname{Tr}[X(\\phi_j\\otimes\\rho_b)]\n\n(\\phi_j\\otimes I_b),\n\n\\qquad Q=1-P,\n\n$$\n\n\n\n$$\n\nf_i(t)=e^{tQD}QD(\\phi_i\\otimes I_b),\n\n$$\n\n\n\n$$\n\nK_{n,ij}(t)=\n\n\\operatorname{Tr}[D^n f_i(t)(\\phi_j\\otimes\\rho_b)].\n\n$$\n\n\n\nDerive the initial kernels from this definition. The hierarchy is\n\n\n\n$$\n\nK_n'(t)=K_{n+1}(t)-K_1(t)\\Omega_n.\n\n$$\n\n\n\nDifferentiate it to obtain the requested Taylor coefficients. Inputs satisfying the signature are admissible moment arrays; no Hamiltonian-realizability test is required."
+    orchestrator: false
+  - number: 3
+    name: "03_fit_closure"
+    description: "Fit an elementwise [4/4] Pad\u00e9 closure to the third-kernel Taylor coefficients. Return numerator and denominator coefficients in ascending powers."
+    orchestrator: false
+  - number: 4
+    name: "04_propagate_kernel"
+    description: "Propagate the first two auxiliary kernels with classical RK4 and an elementwise rational third-kernel closure, retaining nonzero drift."
+    orchestrator: false
+  - number: 5
+    name: "05_propagate_correlation"
+    description: "Integrate a matrix GQME with drift and a sampled causal memory kernel using nested trapezoidal quadrature and an implicit endpoint."
+    orchestrator: false
+  - number: 6
+    name: "06_measure_population"
+    description: "Compute the population of the +1 eigenstate of axis\u00b7sigma from the final basis-correlation matrix and the initial Bloch vector."
+    orchestrator: false
+  - number: 7
+    name: "07_solve"
+    description: "Compute the measured population by composing moments, third-kernel closure, kernel propagation and drift-aware correlation propagation. Compute the measured population by composing moments, third-kernel closure, kernel propagation and drift-aware correlation propagation."
+    orchestrator: true

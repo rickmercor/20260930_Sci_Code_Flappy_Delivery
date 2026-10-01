@@ -1,0 +1,48 @@
+problem_id: "Physics-Condensed_Matter_Physics-35"
+subject: "physics"
+subject_area: "Condensed Matter Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1016/j.ijheatmasstransfer.2026.128474"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_compute_modulation_fourier_coefficients"
+    description: "Reduce the two travelling-wave material profiles to the complex Fourier coefficients through which they enter the modulated diffusion problem."
+    orchestrator: false
+  - number: 2
+    name: "02_assemble_secular_matrix"
+    description: "Assemble the harmonic coupling matrix whose determinant vanishes on the admissible spatial decay constants of the modulated medium."
+    orchestrator: false
+  - number: 3
+    name: "03_solve_secular_roots"
+    description: "Extract every admissible spatial decay constant of the modulated medium from the vanishing of the harmonic coupling determinant."
+    orchestrator: false
+  - number: 4
+    name: "04_compute_bloch_fourier_components"
+    description: "Recover the periodic envelope belonging to one spatial decay constant as the null vector of the harmonic coupling matrix under a fixed normalisation."
+    orchestrator: false
+  - number: 5
+    name: "05_compute_boundary_coefficients"
+    description: "Impose the two fixed terminal potentials on the superposition of Bloch states and extract the two boundary coefficients belonging to the non-decaying state."
+    orchestrator: false
+  - number: 6
+    name: "06_compute_time_averaged_flux"
+    description: "Evaluate the time-averaged flux density the branch passes under one assignment of the two terminal potentials."
+    orchestrator: false
+  - number: 7
+    name: "07_compute_effective_parameters"
+    description: "Map the modulated branch onto an equivalent advection-diffusion medium and extract its effective conductivity, advective coefficient and their ratio."
+    orchestrator: false
+  - number: 8
+    name: "08_compute_rectification_ratio"
+    description: "Convert the intrinsic drift-to-diffusion ratio of a branch into the boundary-sensitive figure of merit that its terminals actually experience."
+    orchestrator: false
+  - number: 9
+    name: "09_compute_homogenized_limit"
+    description: "Evaluate the effective parameters the same modulation produces in the limit of infinitely many cells inside a branch of fixed length."
+    orchestrator: false
+  - number: 10
+    name: "10_run_diffusive_circulator_pipeline"
+    description: "Final orchestrator. Chain every step to compare the rectification a modulated branch actually delivers with the rectification its many-cell homogenised description predicts."
+    orchestrator: true

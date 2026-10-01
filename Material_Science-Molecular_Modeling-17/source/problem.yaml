@@ -1,0 +1,40 @@
+problem_id: "Material_Science-Molecular_Modeling-17"
+subject: "materials"
+subject_area: "Molecular Modeling"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2608.29124"
+dependencies: ""
+steps:
+  - number: 1
+    name: "stf_target_rdf"
+    description: "Generates the structural input, the radial distribution function of a cut-and-shifted 12-6 fluid, by a fixed-count integral-equation solve on the fixed radial grid."
+    orchestrator: false
+  - number: 2
+    name: "stf_ibi_potential"
+    description: "Reconstructs the reduced effective pair potential from the radial distribution function by a fixed number of iterative Boltzmann inversion steps."
+    orchestrator: false
+  - number: 3
+    name: "stf_wca_split"
+    description: "Splits the reconstructed potential into a short-range reference part and a tail part at the position of its minimum."
+    orchestrator: false
+  - number: 4
+    name: "stf_reference_rdf"
+    description: "Solves for the radial distribution function of the reference (core-only) system by a fixed-count integral-equation solve."
+    orchestrator: false
+  - number: 5
+    name: "stf_hs_diameter"
+    description: "Assigns the effective hard-sphere diameter by the source's structure-matching procedure, reports the comparison cutoff it uses, and the diameter the conventional prescription would give."
+    orchestrator: false
+  - number: 6
+    name: "stf_integrated_strength"
+    description: "Computes the integrated strength of the tail interaction by the thermodynamic-integration route and by the second-virial route."
+    orchestrator: false
+  - number: 7
+    name: "stf_free_energy"
+    description: "Assembles the reduced excess free energy per particle from the hard-sphere reference at the assigned diameter and the integrated tail strength."
+    orchestrator: false
+  - number: 8
+    name: "stf_audit"
+    description: "Runs the whole study from the generated structure to the excess free energy, reporting every intermediate the source's construction depends on."
+    orchestrator: true

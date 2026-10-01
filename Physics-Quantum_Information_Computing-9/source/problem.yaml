@@ -1,0 +1,40 @@
+problem_id: "Physics-Quantum_Information_Computing-9"
+subject: "physics"
+subject_area: "Quantum Information / Computing"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2605.00246"
+dependencies: ""
+steps:
+  - number: 1
+    name: "werner_parameter"
+    description: "Convert one Werner-state fidelity to the parameter that composes multiplicatively under swapping."
+    orchestrator: false
+  - number: 2
+    name: "hardware_initial_fidelity"
+    description: "Predict a freshly generated pair's initial fidelity from a calibrated link-quality parameter."
+    orchestrator: false
+  - number: 3
+    name: "bbpssw_after_rounds"
+    description: "Propagate a Werner-state fidelity through a specified number of ideal symmetric BBPSSW rounds."
+    orchestrator: false
+  - number: 4
+    name: "segment_budgets"
+    description: "Compute the base and hardware-weighted Werner budgets assigned to a replaced major-path segment."
+    orchestrator: false
+  - number: 5
+    name: "equal_split_plan"
+    description: "Plan the minimum per-hop purification rounds for base Q-GUARD's equal target allocation."
+    orchestrator: false
+  - number: 6
+    name: "weighted_split_plan"
+    description: "Allocate Q-GUARD-WS purification rounds greedily across heterogeneous detour links."
+    orchestrator: false
+  - number: 7
+    name: "recovery_exg"
+    description: "Evaluate the paper's local expected-goodput score for one feasible recovery span."
+    orchestrator: false
+  - number: 8
+    name: "qguard_ws_benchmark"
+    description: "Run the complete recovery comparison and return the selected-EXG gain of Q-GUARD-WS over base Q-GUARD."
+    orchestrator: true

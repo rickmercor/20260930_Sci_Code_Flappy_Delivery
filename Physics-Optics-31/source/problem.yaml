@@ -1,0 +1,48 @@
+problem_id: "Physics-Optics-31"
+subject: "physics"
+subject_area: "Optics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2607.01996"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_generate_weighted_sobol_nodes"
+    description: "Generate deterministic importance-weighted Sobol phase-space nodes."
+    orchestrator: false
+  - number: 2
+    name: "02_compute_gaussian_expansion_coefficients"
+    description: "Evaluate the overlap-to-weight ratio at every phase-space node."
+    orchestrator: false
+  - number: 3
+    name: "03_evaluate_quasistatic_dipole"
+    description: "Return potential, gradient, and Hessian for one or many two-dimensional points."
+    orchestrator: false
+  - number: 4
+    name: "04_initialize_hagedorn_state"
+    description: "Convert phase-space nodes and a basis width into the propagated parameter state."
+    orchestrator: false
+  - number: 5
+    name: "05_propagate_hagedorn_state"
+    description: "Advance every independent Gaussian with the source drift-kick-drift map."
+    orchestrator: false
+  - number: 6
+    name: "06_reconstruct_tgwp_momentum"
+    description: "Sum closed Fourier transforms of the propagated Gaussian components."
+    orchestrator: false
+  - number: 7
+    name: "07_initialize_grid_wavefunction"
+    description: "Evaluate the same two-dimensional Gaussian used by the mesh-free expansion."
+    orchestrator: false
+  - number: 8
+    name: "08_propagate_split_step_reference"
+    description: "Alternate potential half-steps and an exact spectral kinetic step."
+    orchestrator: false
+  - number: 9
+    name: "09_compute_momentum_amplitude_error"
+    description: "Reduce two endpoint fields to one unit-normalized Fourier-amplitude L2 error."
+    orchestrator: false
+  - number: 10
+    name: "10_run_meshfree_grid_benchmark"
+    description: "Compose every public scientific step and return the endpoint amplitude error."
+    orchestrator: true

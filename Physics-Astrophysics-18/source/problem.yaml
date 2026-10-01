@@ -1,0 +1,40 @@
+problem_id: "Physics-Astrophysics-18"
+subject: "physics"
+subject_area: "Astrophysics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2608.08520"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_ml_parameters_and_horizon"
+    description: "Convert the physical mass, dimensionless spin and deformation parameter into the metric's\n\nintegration constants and the constants of the thermodynamically normalised Killing frame,\n\nand return the outer horizon radius alongside them."
+    orchestrator: false
+  - number: 2
+    name: "02_ml_metric_components"
+    description: "Evaluate the covariant metric components of the spindle-deformed black hole at a point, in\n\nthe frame reached by applying both mandatory coordinate transformations."
+    orchestrator: false
+  - number: 3
+    name: "03_inverse_metric_and_hamiltonian"
+    description: "Invert the metric's t-phi block to obtain the contravariant components, and evaluate the\n\nphoton Hamiltonian for a given covariant momentum."
+    orchestrator: false
+  - number: 4
+    name: "04_zamo_flow_four_velocity"
+    description: "Build the four-velocity of the accreting matter from the prescribed three-velocity\n\ncomponents measured in the local zero-angular-momentum frame."
+    orchestrator: false
+  - number: 5
+    name: "05_emission_and_absorption"
+    description: "Evaluate the total emission and absorption coefficients of the multi-component accretion\n\nenvironment at a point, from the disk, plateau, bump and localized-spot laws under their\n\nindependent weights."
+    orchestrator: false
+  - number: 6
+    name: "06_screen_to_initial_conditions"
+    description: "Convert a point on the observer's screen into the position and covariant momentum of the\n\nbackward-traced ray that reaches it."
+    orchestrator: false
+  - number: 7
+    name: "07_transfer_rhs"
+    description: "Evaluate the affine-parameter derivative of the combined geodesic and radiative-transfer\n\nstate at a point along a ray."
+    orchestrator: false
+  - number: 8
+    name: "08_line_summed_intensity"
+    description: "Trace every listed screen point through the full pipeline, apply the horizon-capture and\n\nescape rules, and return the summed observed specific intensity."
+    orchestrator: true

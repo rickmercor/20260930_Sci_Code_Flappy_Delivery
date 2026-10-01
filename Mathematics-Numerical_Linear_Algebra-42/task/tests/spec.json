@@ -1,0 +1,80 @@
+{
+  "problem_id": "Mathematics-Numerical_Linear_Algebra-42",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-42.1",
+      "test_cases": [
+        "import numpy as np\nn = 7\nassert np.allclose((lambda value: float(np.dot(value[0], np.arange(1, value[0].size + 1, dtype=float))))(compute_glr_laguerre_state(n)), target)",
+        "import numpy as np\nn = 1\nassert np.allclose((lambda value: float(np.dot(value[1], np.arange(1, value[1].size + 1, dtype=float))))(compute_glr_laguerre_state(n)), target)",
+        "import numpy as np\nn = 1024\nassert np.allclose((lambda value: float(np.dot(value[1], np.arange(1, value[1].size + 1, dtype=float))))(compute_glr_laguerre_state(n)), target)",
+        "n = True\ndef run_model():\n    try:\n        compute_glr_laguerre_state(n)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-42.2",
+      "test_cases": [
+        "import numpy as np\nn = 4\nalpha = 0.0\nnodes = np.array([0.0, 0.3225476896193923, 1.7457611011583467, 4.536620296921128, 9.395070912301133])\nweighted_derivatives = np.array([-1.9295167263574815, 0.5288490840397949, -0.2463836645483675, 0.12809234113352305])\nselected_indices = None\nassert np.allclose((lambda value: float(np.dot(value[0].ravel(), np.arange(1, value[0].size + 1, dtype=float))))(build_truncated_collocation_state(n, alpha, nodes, weighted_derivatives, selected_indices)), target)",
+        "import numpy as np\nn = 1\nalpha = 2.5\nnodes = np.array([0.0, 3.5])\nweighted_derivatives = np.array([-0.17377394345044514])\nselected_indices = None\nassert np.allclose((lambda value: float(np.dot(value[1].ravel(), np.arange(1, value[1].size + 1, dtype=float))))(build_truncated_collocation_state(n, alpha, nodes, weighted_derivatives, selected_indices)), target)",
+        "import numpy as np\nn = 6\nalpha = -0.6\nnodes = np.array([0.0, 0.07674267368646596, 0.8413066603703071, 2.4646529229830443, 5.079644083448372, 8.980233158929984, 14.957420500581827])\nweighted_derivatives = np.array([-1.6174834229538, 0.5511666024408923, -0.33418432022223143, 0.23405282970252178, -0.17153085041572877, 0.12157870027129943])\nselected_indices = np.array([0, 2, 6])\nassert np.allclose((lambda value: float(np.dot(value[0].ravel(), np.arange(1, value[0].size + 1, dtype=float))))(build_truncated_collocation_state(n, alpha, nodes, weighted_derivatives, selected_indices)), target)",
+        "import numpy as np\nn = 7\nalpha = 1.75\nnodes = np.array([0.0, 0.6982270967000053, 1.9874269753445861, 3.9482194676942703, 6.675227468040911, 10.33707861234613, 15.268203467160129, 22.335616912713967])\nweighted_derivatives = np.array([-10.64942754544752, 1.9640104665918596, -0.6368164570840024, 0.26536759846289293, -0.1258326521529564, 0.06295053576398975, -0.03012272036405051])\nselected_indices = np.array([1, 3, 5, 7])\nassert np.allclose((lambda value: float(np.dot(value[1].ravel(), np.arange(1, value[1].size + 1, dtype=float))))(build_truncated_collocation_state(n, alpha, nodes, weighted_derivatives, selected_indices)), target)",
+        "import numpy as np\nn = 3\nalpha = 0.0\nnodes = np.array([0.0, 0.4, 2.0, 5.0])\nweighted_derivatives = np.array([-1.0, 0.5, -0.1])\nselected_indices = np.array([0, 3, 2])\ndef run_model():\n    try:\n        build_truncated_collocation_state(n, alpha, nodes, weighted_derivatives, selected_indices)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-42.3",
+      "test_cases": [
+        "import numpy as np\nnodes = np.array([0.0, 0.25, 2.0, 8.0])\nsecond_order = np.arange(16, dtype=float).reshape(4, 4) - 5.0\nbeta = 10.0\nassert np.allclose((lambda value: float(np.dot(value[0], np.arange(1, value[0].size + 1, dtype=float)) + np.dot(value[1].ravel(), np.arange(value[0].size + 1, value[0].size + value[1].size + 1, dtype=float))))(scale_and_reduce_second_order(nodes, second_order, beta)), target)",
+        "import numpy as np\nnodes = np.array([0.0, 1.0])\nsecond_order = np.array([[1.25, -2.0], [0.5, -0.75]])\nbeta = 1.0\nassert np.allclose((lambda value: float(np.dot(value[0], np.arange(1, value[0].size + 1, dtype=float)) + np.dot(value[1].ravel(), np.arange(value[0].size + 1, value[0].size + value[1].size + 1, dtype=float))))(scale_and_reduce_second_order(nodes, second_order, beta)), target)",
+        "import numpy as np\nnodes = np.array([0.0, 1e-6, 3.0])\nsecond_order = np.eye(3)\nbeta = 0.125\nassert np.allclose((lambda value: float(np.dot(value[0], np.arange(1, value[0].size + 1, dtype=float)) + np.dot(value[1].ravel(), np.arange(value[0].size + 1, value[0].size + value[1].size + 1, dtype=float))))(scale_and_reduce_second_order(nodes, second_order, beta)), target)",
+        "import numpy as np\nnodes = np.array([0.0, 1.0])\nsecond_order = np.eye(2)\nbeta = 0.0\ndef run_model():\n    try:\n        scale_and_reduce_second_order(nodes, second_order, beta)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-42.4",
+      "test_cases": [
+        "import numpy as np\nphysical_nodes = np.array([0.05, 1.5, 5.08685476, 12.0])\nradius = 5.08685476\ndiffuseness = 0.929852862\nassert np.allclose((lambda value: float(np.dot(value, np.arange(1, value.size + 1, dtype=float))))(sample_woods_saxon_profile(physical_nodes, radius, diffuseness)), target)",
+        "import numpy as np\nphysical_nodes = np.array([1e-12, 1000.0])\nradius = 4.0\ndiffuseness = 25.0\nassert np.allclose((lambda value: float(np.dot(value, np.arange(1, value.size + 1, dtype=float))))(sample_woods_saxon_profile(physical_nodes, radius, diffuseness)), target)",
+        "import numpy as np\nphysical_nodes = np.array([0.2, 0.7, 2.5])\nradius = 0.35\ndiffuseness = 0.07\nassert np.allclose((lambda value: float(np.dot(value, np.arange(1, value.size + 1, dtype=float))))(sample_woods_saxon_profile(physical_nodes, radius, diffuseness)), target)",
+        "import numpy as np\nphysical_nodes = np.array([0.2, 0.7, 2.5])\nradius = 1.0\ndiffuseness = 0.0\ndef run_model():\n    try:\n        sample_woods_saxon_profile(physical_nodes, radius, diffuseness)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-42.5",
+      "test_cases": [
+        "import numpy as np\nreduced_second_order = np.array([[2.0, -1.5, 0.25], [0.5, -3.0, 4.0], [1.25, 0.0, 0.75]])\npotential = np.array([0.9, 0.5, 0.02])\nassert np.allclose((lambda value: float(np.dot(value[0].ravel(), np.arange(1, value[0].size + 1, dtype=float)) + np.dot(value[1].ravel(), np.arange(value[0].size + 1, value[0].size + value[1].size + 1, dtype=float))))(assemble_generalized_pencil(reduced_second_order, potential)), target)",
+        "import numpy as np\nreduced_second_order = np.array([[-7.5]])\npotential = np.array([0.125])\nassert np.allclose((lambda value: float(np.dot(value[0].ravel(), np.arange(1, value[0].size + 1, dtype=float)) + np.dot(value[1].ravel(), np.arange(value[0].size + 1, value[0].size + value[1].size + 1, dtype=float))))(assemble_generalized_pencil(reduced_second_order, potential)), target)",
+        "import numpy as np\nreduced_second_order = np.array([[0.0, 100.0], [-0.125, 2.0]])\npotential = np.array([1e-12, 3.5])\nassert np.allclose((lambda value: float(np.dot(value[0].ravel(), np.arange(1, value[0].size + 1, dtype=float)) + np.dot(value[1].ravel(), np.arange(value[0].size + 1, value[0].size + value[1].size + 1, dtype=float))))(assemble_generalized_pencil(reduced_second_order, potential)), target)",
+        "import numpy as np\nreduced_second_order = np.eye(2)\npotential = np.array([0.5, 0.0])\ndef run_model():\n    try:\n        assemble_generalized_pencil(reduced_second_order, potential)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-42.6",
+      "test_cases": [
+        "import numpy as np\na_matrix = np.diag(np.array([-6.0, 1.0, 8.0]))\nq_matrix = np.diag(np.array([2.0, 0.25, 4.0]))\nassert np.allclose((lambda value: float(np.dot(value, np.arange(1, value.size + 1, dtype=float))))(compute_finite_spectral_magnitudes(a_matrix, q_matrix)), target)",
+        "import numpy as np\na_matrix = np.array([[3.0, -7.0, 0.5], [2.0, 1.0, 4.0], [0.0, -2.0, 5.0]])\nq_matrix = np.array([[2.0, 0.0, 0.25], [0.0, 1.5, 0.0], [0.0, 0.0, 0.75]])\nassert np.allclose((lambda value: float(np.dot(value, np.arange(1, value.size + 1, dtype=float))))(compute_finite_spectral_magnitudes(a_matrix, q_matrix)), target)",
+        "import numpy as np\na_matrix = np.diag(np.array([2.0, -9.0, 5.0]))\nq_matrix = np.diag(np.array([1.0, 0.0, 0.5]))\nassert np.allclose((lambda value: float(np.dot(value, np.arange(1, value.size + 1, dtype=float))))(compute_finite_spectral_magnitudes(a_matrix, q_matrix)), target)",
+        "import numpy as np\na_matrix = np.eye(2)\nq_matrix = np.eye(3)\ndef run_model():\n    try:\n        compute_finite_spectral_magnitudes(a_matrix, q_matrix)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-42.7",
+      "test_cases": [
+        "import numpy as np\nmagnitudes = np.array([0.125, 2.0, 7.5, 11.0])\nmode_index = 3\nassert np.allclose(select_one_based_mode(magnitudes, mode_index), target)",
+        "import numpy as np\nmagnitudes = np.array([1e-14, 1.0, 100.0])\nmode_index = 1\nassert np.allclose(select_one_based_mode(magnitudes, mode_index), target)",
+        "import numpy as np\nmagnitudes = np.array([0.0, 3.25, 3.25, 9.0])\nmode_index = 4\nassert np.allclose(select_one_based_mode(magnitudes, mode_index), target)",
+        "import numpy as np\nmagnitudes = np.array([1.0, 0.5, 2.0])\nmode_index = 2\ndef run_model():\n    try:\n        select_one_based_mode(magnitudes, mode_index)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nmagnitudes = np.array([0.5, 1.5])\nmode_index = 3\ndef run_model():\n    try:\n        select_one_based_mode(magnitudes, mode_index)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-42.8",
+      "test_cases": [
+        "n = 160\nbeta = 10.0\nradius = 5.08685476\ndiffuseness = 0.929852862\nmode_index = 25\nassert np.allclose(compute_laguerre_woods_saxon_mode(n, beta, radius, diffuseness, mode_index), target)",
+        "n = 64\nbeta = 10.0\nradius = 5.08685476\ndiffuseness = 0.929852862\nmode_index = 5\nassert np.allclose(compute_laguerre_woods_saxon_mode(n, beta, radius, diffuseness, mode_index), target)",
+        "n = 96\nbeta = 8.0\nradius = 5.08685476\ndiffuseness = 0.929852862\nmode_index = 10\nassert np.allclose(compute_laguerre_woods_saxon_mode(n, beta, radius, diffuseness, mode_index), target)",
+        "n = 128\nbeta = 12.0\nradius = 4.5\ndiffuseness = 0.8\nmode_index = 20\nassert np.allclose(compute_laguerre_woods_saxon_mode(n, beta, radius, diffuseness, mode_index), target)",
+        "n = 12\nbeta = 10.0\nradius = 5.08685476\ndiffuseness = 0.929852862\nmode_index = 13\ndef run_model():\n    try:\n        compute_laguerre_woods_saxon_mode(n, beta, radius, diffuseness, mode_index)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

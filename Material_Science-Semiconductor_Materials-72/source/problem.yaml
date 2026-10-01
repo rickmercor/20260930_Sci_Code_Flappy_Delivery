@@ -1,0 +1,44 @@
+problem_id: "Material_Science-Semiconductor_Materials-72"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1038/s41598-026-55391-2"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_grid_and_layer_profiles.py"
+    description: "Build the non-uniform node grid of the injection-layer/transport-layer stack and the piecewise-constant material profiles carried on it."
+    orchestrator: false
+  - number: 2
+    name: "02_equilibrium_densities.py"
+    description: "Set the equilibrium starting densities of holes and electrons on every node from the local doping and intrinsic density."
+    orchestrator: false
+  - number: 3
+    name: "03_poisson_potential.py"
+    description: "Solve Poisson's equation for the electrostatic potential on the non-uniform grid from the current space charge."
+    orchestrator: false
+  - number: 4
+    name: "04_band_edge_fields.py"
+    description: "Evaluate the valence- and conduction-band driving fields at every interval midpoint of the non-uniform grid."
+    orchestrator: false
+  - number: 5
+    name: "05_midpoint_densities.py"
+    description: "Supply the carrier densities that enter the drift currents at the interval midpoints, under either the conventional or the field-selected treatment of the junction."
+    orchestrator: false
+  - number: 6
+    name: "06_drift_diffusion_currents.py"
+    description: "Evaluate the hole and electron drift-diffusion current densities on every interval of the non-uniform grid."
+    orchestrator: false
+  - number: 7
+    name: "07_recombination_rate.py"
+    description: "Evaluate the non-radiative recombination sink on every node from trap-assisted and Auger channels."
+    orchestrator: false
+  - number: 8
+    name: "08_continuity_update.py"
+    description: "Advance the nodal hole and electron densities by one explicit time step of the flux-conservative continuity equations."
+    orchestrator: false
+  - number: 9
+    name: "09_interfacial_hole_density.py"
+    description: "Run the explicit interfacial transient of the injection-layer/transport-layer stack from equilibrium and return the hole density on the transport side of the junction."
+    orchestrator: true

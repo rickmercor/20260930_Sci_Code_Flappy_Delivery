@@ -1,0 +1,52 @@
+problem_id: "Material_Science-Semiconductor_Materials-13"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1063/5.0333116"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_compute_emission_rate"
+    description: "Return the thermal emission rate of a deep level with a given activation energy and high-temperature capture cross section, at each of a set of sample temperatures."
+    orchestrator: false
+  - number: 2
+    name: "02_generate_capacitance_transients"
+    description: "Return the noisy capacitance transient recorded at each sample temperature for a junction containing several deep levels, given the levels' emission parameters and capacitance deflections."
+    orchestrator: false
+  - number: 3
+    name: "03_bin_transient_logarithmic"
+    description: "Return the logarithmically binned form of one capacitance transient, giving for each retained bin its mean sampling time, its mean capacitance and the number of raw samples it averages."
+    orchestrator: false
+  - number: 4
+    name: "04_build_inversion_system"
+    description: "Return the weighted linear system whose solution is the emission-rate spectral density of one binned capacitance transient or a batch of temperature-indexed transients, as the weighted exponential kernel augmented by the weighted right-hand side."
+    orchestrator: false
+  - number: 5
+    name: "05_solve_regularized_spectrum"
+    description: "Return the non-negative emission-rate spectral density obtained from one weighted inversion system or a temperature-indexed batch by Tikhonov-regularized least squares."
+    orchestrator: false
+  - number: 6
+    name: "06_extract_spectral_peaks"
+    description: "Return the emission rate and the enclosed spectral weight of each of the strongest features of an emission-rate spectral density, partitioning the rate grid at the minima that separate those features."
+    orchestrator: false
+  - number: 7
+    name: "07_fit_arrhenius_parameters"
+    description: "Return the trap depth and the infinite-temperature capture cross section of a level from its emission rates measured across a set of temperatures."
+    orchestrator: false
+  - number: 8
+    name: "08_fit_constrained_amplitudes"
+    description: "Return the individual capacitance deflections and quiescent capacitance of one binned transient or a temperature-indexed batch, obtained by independent weighted linear least-squares fits with the emission rates held fixed."
+    orchestrator: false
+  - number: 9
+    name: "09_compute_defect_concentration"
+    description: "Return the apparent trap concentration of each level from its capacitance deflection, the shallow doping density of the probed layer and the quiescent capacitance at the reverse bias, under an explicitly supplied multiplicative partial-probing correction."
+    orchestrator: false
+  - number: 10
+    name: "10_average_active_window"
+    description: "Return the mean and the relative scatter of each level's capacitance deflection over the temperatures of the active window, from the deflections recovered at every measured temperature."
+    orchestrator: false
+  - number: 11
+    name: "11_run_dlts_concentration_pipeline"
+    description: "Chain the sub-problem functions 01-10 end to end on a synthetic multi-level capacitance data set and return the ratio of the largest recovered apparent trap concentration to the smallest, with every partial-probing correction set to one."
+    orchestrator: true

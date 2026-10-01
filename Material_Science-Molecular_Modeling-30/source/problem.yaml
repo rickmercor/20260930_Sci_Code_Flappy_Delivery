@@ -1,0 +1,48 @@
+problem_id: "Material_Science-Molecular_Modeling-30"
+subject: "materials"
+subject_area: "Molecular Modeling"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2608.14292"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_quantum_matrix_response"
+    description: "Compute the covariance and static pair response in a fixed coordinate frame."
+    orchestrator: false
+  - number: 2
+    name: "02_gaussian_vertex_averages"
+    description: "Average the first four derivatives of the anharmonic directional potential."
+    orchestrator: false
+  - number: 3
+    name: "03_relax_auxiliary_matrix"
+    description: "Find the stationary auxiliary matrix at a constrained centroid."
+    orchestrator: false
+  - number: 4
+    name: "04_build_correlated_ensemble"
+    description: "Construct a correlated Gaussian residual-force ensemble."
+    orchestrator: false
+  - number: 5
+    name: "05_apply_anharmonic_response"
+    description: "Apply the permutation-symmetric anharmonic response from Gaussian force moments."
+    orchestrator: false
+  - number: 6
+    name: "06_apply_static_response"
+    description: "Apply the coupled static response in the physical coordinate frame."
+    orchestrator: false
+  - number: 7
+    name: "07_relaxed_positional_hessian"
+    description: "Recover positional curvature after covariance relaxation, including at a critical point."
+    orchestrator: false
+  - number: 8
+    name: "08_quantum_response_tangent"
+    description: "Differentiate the quantum covariance and pair response along a matrix and thermal perturbation."
+    orchestrator: false
+  - number: 9
+    name: "09_stationary_hessian_tangent"
+    description: "Differentiate the stationary Gaussian and its relaxed positional Hessian along a parameter path."
+    orchestrator: false
+  - number: 10
+    name: "10_critical_temperature_slope"
+    description: "Compute the thermal slope of the positional-instability coupling with the reference potential fixed."
+    orchestrator: true

@@ -1,0 +1,96 @@
+{
+  "problem_id": "Mathematics-Computational_Finance-15",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Computational_Finance-15.1",
+      "test_cases": [
+        "import numpy as np\ns = np.linspace(0.0, 4.0, 129)\nassert np.allclose(smooth_put_payoff(s, 1.0, 1e-3), target)",
+        "import numpy as np\ns = np.array([0.7, 0.8, 0.85, 0.95, 1.0, 1.05, 1.15, 1.2, 1.3])\nassert np.allclose(smooth_put_payoff(s, 1.0, 0.2), target)",
+        "import numpy as np\ns = np.array([[2.49, 2.4995, 2.5], [2.5003, 2.51, 3.0]])\nassert np.allclose(smooth_put_payoff(s, 2.5, 5e-4), target)",
+        "import numpy as np\ndef code(thunk):\n    try:\n        thunk()\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(code(lambda: smooth_put_payoff(np.array([1.0]), 1.0, 0.0)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-15.2",
+      "test_cases": [
+        "import numpy as np\ndef pack(out):\n    return np.concatenate([np.asarray(a, dtype=float) for a in out])\nassert np.allclose(pack(exact_difference_weights(64, 0.05, 0.3)), target)",
+        "import numpy as np\ndef pack(out):\n    return np.concatenate([np.asarray(a, dtype=float) for a in out])\nassert np.allclose(pack(exact_difference_weights(12, 0.08, 0.1)), target)",
+        "import numpy as np\ndef pack(out):\n    return np.concatenate([np.asarray(a, dtype=float) for a in out])\nassert np.allclose(pack(exact_difference_weights(2, 0.02, 0.4)), target)",
+        "def code(thunk):\n    try:\n        thunk()\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(code(lambda: exact_difference_weights(8, 0.0, 0.3)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-15.3",
+      "test_cases": [
+        "import numpy as np\ndef pack(out):\n    return np.concatenate([np.ravel(np.asarray(a, dtype=float)) for a in out])\nassert np.allclose(pack(nsfd_coefficients(128, 0.5 / 128, 0.05, 0.3)), target)",
+        "import numpy as np\ndef pack(out):\n    return np.concatenate([np.ravel(np.asarray(a, dtype=float)) for a in out])\nassert np.allclose(pack(nsfd_coefficients(10, 2.0, 0.1, 0.25)), target)",
+        "import numpy as np\ndef pack(out):\n    return np.concatenate([np.ravel(np.asarray(a, dtype=float)) for a in out])\nassert np.allclose(pack(nsfd_coefficients(2, 0.01, 0.03, 0.2)), target)",
+        "def code(thunk):\n    try:\n        thunk()\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(code(lambda: nsfd_coefficients(8, -0.1, 0.05, 0.3)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-15.4",
+      "test_cases": [
+        "import numpy as np\ns = np.linspace(0.0, 4.0, 129)\nassert np.allclose(smoothed_put_exact(s, 1.0, 0.1, 0.3, 1.0 / 128, 0.05), target)",
+        "import numpy as np\ns = np.array([[0.9, 0.99, 1.0], [1.01, 1.1, 1.5]])\nassert np.allclose(smoothed_put_exact(s, 1.0, 0.05, 0.3, 1.0, 1e-3), target)",
+        "import numpy as np\ns = np.linspace(1.8, 2.2, 17)\nassert np.allclose(smoothed_put_exact(s, 2.0, 0.08, 0.25, 0.01, 0.04), target)",
+        "import numpy as np\ns = np.array([0.0, 0.97, 1.0, 1.02, 1.5])\nassert np.allclose(smoothed_put_exact(s, 1.0, 0.1, 0.3, 0.0, 0.05), target)",
+        "import numpy as np\ndef code(thunk):\n    try:\n        thunk()\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(code(lambda: smoothed_put_exact(np.array([1.0]), 1.0, 0.05, 0.3, 0.5, 1.2)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-15.5",
+      "test_cases": [
+        "import numpy as np\ns = np.linspace(0.0, 4.0, 65)\nv0 = np.maximum(1.0 - s, 0.0)\nlo = np.linspace(0.02, 30.0, 63)\nce = -np.linspace(1400.0, 1500.0, 63)\nup = np.linspace(1.5, 32.0, 63)\nassert np.allclose(nsfd_time_step(v0, lo, ce, up, 0.000390701, 0.99960943, 0.0), target)",
+        "import numpy as np\nv0 = np.array([0.0, 0.3, 0.9, 1.4, 2.2, 3.1])\nlo = np.array([0.4, 1.1, 2.0, 3.2])\nce = np.array([-12.0, -14.5, -17.0, -21.0])\nup = np.array([0.9, 1.8, 2.9, 4.1])\nassert np.allclose(nsfd_time_step(v0, lo, ce, up, 0.1, 0.0, 3.05), target)",
+        "import numpy as np\nv0 = np.array([1.0, 0.5, 0.0])\nlo = np.array([0.2])\nce = np.array([-5.0])\nup = np.array([1.0])\nassert np.allclose(nsfd_time_step(v0, lo, ce, up, 0.25, 0.98, 0.0), target)",
+        "import numpy as np\ndef code(thunk):\n    try:\n        thunk()\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(code(lambda: nsfd_time_step(np.zeros(5), np.ones(4), -np.ones(4), np.ones(4), 0.1, 1.0, 0.0)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-15.6",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(solve_nsfd_put(1.0, 0.05, 0.3, 0.5, 4.0, 1e-3, 32, 32), target)",
+        "import numpy as np\nassert np.allclose(solve_nsfd_put(1.1, 0.03, 0.45, 1.5, 5.0, 0.05, 40, 15), target)",
+        "import numpy as np\nassert np.allclose(solve_nsfd_put(2.0, 0.08, 0.2, 0.25, 6.0, 0.01, 6, 1), target)",
+        "def code(thunk):\n    try:\n        thunk()\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(code(lambda: solve_nsfd_put(5.0, 0.05, 0.3, 0.5, 4.0, 1e-3, 16, 16)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-15.7",
+      "test_cases": [
+        "import numpy as np\ns = np.linspace(0.0, 4.0, 33)\nt = np.linspace(0.0, 1.0, 9)[:, None]\ng = np.maximum(1.0 - s[None, :], 0.0) * np.exp(-0.1 * t)\nassert np.allclose(max_nodal_error(g, 1.0, 0.1, 0.3, 1.0, 4.0, 0.05), target)",
+        "import numpy as np\ng = np.full((6, 11), 0.2)\nassert np.allclose(max_nodal_error(g, 1.2, 0.03, 0.4, 2.0, 3.0, 0.01), target)",
+        "import numpy as np\ng = np.array([[1.0, 0.0], [0.97, 0.01]])\nassert np.allclose(max_nodal_error(g, 1.0, 0.06, 0.25, 0.5, 2.0, 0.05), target)",
+        "import numpy as np\ndef code(thunk):\n    try:\n        thunk()\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(code(lambda: max_nodal_error(np.zeros(5), 1.0, 0.05, 0.3, 0.5, 4.0, 0.05)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-15.8",
+      "test_cases": [
+        "import numpy as np\ndef coeffs(M, dt, r, sigma):\n    al = 2.0 * r / sigma ** 2\n    j = np.arange(1, M, dtype=float)\n    a1 = (j + 1) / j ** al - j / (j + 1) ** al\n    a2 = (j + 2) / j ** al - j / (j + 2) ** al\n    a3 = (j + 2) / (j + 1) ** al - (j + 1) / (j + 2) ** al\n    q = a2 - a1 - a3\n    p1 = np.expm1(r * dt)\n    return (a2 - a1) / q - 1.0, -a2 / q - 1.0 / p1, a1 / q, p1\ns = np.linspace(0.0, 4.0, 65)\ng = np.maximum(1.0 - s, 0.0)\nlo, ce, up, p1 = coeffs(64, 1.0 / 64, 0.1, 0.3)\nassert np.allclose(nsfd_american_step(g, lo, ce, up, p1, g, 1.0, 0.0), target)",
+        "import numpy as np\ndef coeffs(M, dt, r, sigma):\n    al = 2.0 * r / sigma ** 2\n    j = np.arange(1, M, dtype=float)\n    a1 = (j + 1) / j ** al - j / (j + 1) ** al\n    a2 = (j + 2) / j ** al - j / (j + 2) ** al\n    a3 = (j + 2) / (j + 1) ** al - (j + 1) / (j + 2) ** al\n    q = a2 - a1 - a3\n    p1 = np.expm1(r * dt)\n    return (a2 - a1) / q - 1.0, -a2 / q - 1.0 / p1, a1 / q, p1\ns = np.linspace(0.0, 5.0, 21)\ng = np.maximum(2.0 - s, 0.0)\nv0 = g + 0.02 * np.exp(-(s - 2.0) ** 2)\nlo, ce, up, p1 = coeffs(20, 0.5, 0.12, 0.2)\nassert np.allclose(nsfd_american_step(v0, lo, ce, up, p1, g, 2.0, 0.0), target)",
+        "import numpy as np\ndef coeffs(M, dt, r, sigma):\n    al = 2.0 * r / sigma ** 2\n    j = np.arange(1, M, dtype=float)\n    a1 = (j + 1) / j ** al - j / (j + 1) ** al\n    a2 = (j + 2) / j ** al - j / (j + 2) ** al\n    a3 = (j + 2) / (j + 1) ** al - (j + 1) / (j + 2) ** al\n    q = a2 - a1 - a3\n    p1 = np.expm1(r * dt)\n    return (a2 - a1) / q - 1.0, -a2 / q - 1.0 / p1, a1 / q, p1\ns = np.linspace(0.0, 3.0, 13)\nv0 = np.exp(-s)\ng = np.zeros(13)\nlo, ce, up, p1 = coeffs(12, 0.05, 0.05, 0.4)\nassert np.allclose(nsfd_american_step(v0, lo, ce, up, p1, g, 0.9, 0.05), target)",
+        "import numpy as np\ndef code(thunk):\n    try:\n        thunk()\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(code(lambda: nsfd_american_step(np.zeros(5), np.ones(3), -3.0 * np.ones(3), np.ones(3), 0.1, np.zeros(4), 1.0, 0.0)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-15.9",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(solve_nsfd_american_put(1.0, 0.1, 0.3, 1.0, 4.0, 1e-3, 32, 32), target)",
+        "import numpy as np\nassert np.allclose(solve_nsfd_american_put(1.1, 0.06, 0.45, 1.5, 5.0, 0.05, 40, 15), target)",
+        "import numpy as np\nassert np.allclose(solve_nsfd_american_put(2.0, 0.08, 0.2, 0.25, 6.0, 0.01, 6, 1), target)",
+        "def code(thunk):\n    try:\n        thunk()\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(code(lambda: solve_nsfd_american_put(1.0, 0.05, 0.3, 0.5, 4.0, 1.5, 16, 16)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-15.10",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(nsfd_american_put_study(1.0, 0.1, 0.3, 1.0, 4.0, 0.05, 64), target)",
+        "import numpy as np\nassert np.allclose(nsfd_american_put_study(1.1, 0.03, 0.45, 1.5, 5.0, 0.05, 40), target)",
+        "import numpy as np\nassert np.allclose(nsfd_american_put_study(1.0, 0.04, 0.4, 1.0, 8.0, 1e-3, 2), target)",
+        "def code(thunk):\n    try:\n        thunk()\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(code(lambda: nsfd_american_put_study(1.0, 0.05, 0.3, 0.5, 4.0, 1e-3, 1)), target)"
+      ]
+    }
+  ]
+}

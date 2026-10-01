@@ -1,0 +1,79 @@
+{
+  "problem_id": "Physics-Quantum_Information_Computing-13",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Quantum_Information_Computing-13.1",
+      "test_cases": [
+        "import numpy as np\ndef _pack(result):\n    rows, cols = result\n    return np.asarray([len(rows), *rows, len(cols), *cols], dtype=int)\nM_candidate = np.array([[1,0,1],[0,0,0],[0,1,0]], dtype=int)\nM_oracle = M_candidate.copy()\nassert np.allclose(_pack(matrix_supports(M_candidate)), target)",
+        "import numpy as np\ndef _pack(result):\n    rows, cols = result\n    return np.asarray([len(rows), *rows, len(cols), *cols], dtype=int)\nM_candidate = np.zeros((1,1), dtype=int)\nM_oracle = M_candidate.copy()\nassert np.allclose(_pack(matrix_supports(M_candidate)), target)",
+        "import numpy as np\ndef _pack(result):\n    rows, cols = result\n    return np.asarray([len(rows), *rows, len(cols), *cols], dtype=int)\nM_candidate = np.zeros((2,3), dtype=int)\nM_oracle = M_candidate.copy()\nassert np.allclose(_pack(matrix_supports(M_candidate)), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-13.2",
+      "test_cases": [
+        "import numpy as np\nH_candidate = np.array([[1,1,0],[0,1,1]], dtype=int)\nH_oracle = H_candidate.copy()\nv_candidate = [0,1]\nv_oracle = v_candidate.copy()\nassert np.allclose(np.asarray(beta_neighborhood(H_candidate, v_candidate, 'A', 0.5), dtype=int), target)",
+        "import numpy as np\nH_candidate = np.array([[1,1]], dtype=int)\nH_oracle = H_candidate.copy()\nv_candidate = [0]\nv_oracle = v_candidate.copy()\nassert np.allclose(np.asarray(beta_neighborhood(H_candidate, v_candidate, 'A', 0.5), dtype=int), target)",
+        "import numpy as np\nH_candidate = np.eye(2, dtype=int)\nH_oracle = H_candidate.copy()\nv_candidate = []\nv_oracle = []\nassert np.allclose(np.asarray(beta_neighborhood(H_candidate, v_candidate, 'B', 0.5), dtype=int), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-13.3",
+      "test_cases": [
+        "import numpy as np\ndef _pack(result):\n    A, B = result\n    return np.asarray([len(A), *A, len(B), *B], dtype=int)\nH_candidate = np.array([[1,1,0],[0,1,1]], dtype=int)\nH_oracle = H_candidate.copy()\nseed_candidate = [0]\nseed_oracle = seed_candidate.copy()\nassert np.allclose(_pack(grow_beta_region(H_candidate, seed_candidate, 'A', 0.5, 2)), target)",
+        "import numpy as np\ndef _pack(result):\n    A, B = result\n    return np.asarray([len(A), *A, len(B), *B], dtype=int)\nH_candidate = np.array([[1,1,0],[0,1,1]], dtype=int)\nH_oracle = H_candidate.copy()\nseed_candidate = [0,2]\nseed_oracle = seed_candidate.copy()\nassert np.allclose(_pack(grow_beta_region(H_candidate, seed_candidate, 'A', 0.5, 0)), target)",
+        "import numpy as np\ndef _pack(result):\n    A, B = result\n    return np.asarray([len(A), *A, len(B), *B], dtype=int)\nH_candidate = np.array([[1,1,0],[0,1,1]], dtype=int)\nH_oracle = H_candidate.copy()\nseed_candidate = [1]\nseed_oracle = seed_candidate.copy()\nassert np.allclose(_pack(grow_beta_region(H_candidate, seed_candidate, 'B', 0.5, 1)), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-13.4",
+      "test_cases": [
+        "import numpy as np\ndef _pack(result):\n    pairs, partners = result\n    P = np.asarray(pairs, dtype=int).reshape((-1,2))\n    return np.concatenate([\n        np.asarray([P.shape[0], P.shape[1]], dtype=int),\n        P.ravel(),\n        np.asarray([len(partners)], dtype=int),\n        np.asarray(partners, dtype=int),\n    ])\nH_candidate = np.array([[1,1,0],[0,1,1]], dtype=int)\nH_oracle = H_candidate.copy()\nactive_candidate = [0,2]\nactive_oracle = active_candidate.copy()\nassert np.allclose(_pack(deterministic_peeling(H_candidate, active_candidate, 'A')), target)",
+        "import numpy as np\ndef _pack(result):\n    pairs, partners = result\n    P = np.asarray(pairs, dtype=int).reshape((-1,2))\n    return np.concatenate([\n        np.asarray([P.shape[0], P.shape[1]], dtype=int),\n        P.ravel(),\n        np.asarray([len(partners)], dtype=int),\n        np.asarray(partners, dtype=int),\n    ])\nH_candidate = np.eye(2, dtype=int)\nH_oracle = H_candidate.copy()\nactive_candidate = [0,1]\nactive_oracle = active_candidate.copy()\nassert np.allclose(_pack(deterministic_peeling(H_candidate, active_candidate, 'B')), target)",
+        "import numpy as np\ndef _pack(result):\n    pairs, partners = result\n    P = np.asarray(pairs, dtype=int).reshape((-1,2))\n    return np.concatenate([\n        np.asarray([P.shape[0], P.shape[1]], dtype=int),\n        P.ravel(),\n        np.asarray([len(partners)], dtype=int),\n        np.asarray(partners, dtype=int),\n    ])\nH_candidate = np.eye(2, dtype=int)\nH_oracle = H_candidate.copy()\nactive_candidate = []\nactive_oracle = []\nassert np.allclose(_pack(deterministic_peeling(H_candidate, active_candidate, 'A')), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-13.5",
+      "test_cases": [
+        "import numpy as np\nM_candidate = np.array([[1,1],[1,0]], dtype=int)\nM_oracle = M_candidate.copy()\nassert np.allclose(gf2_inverse(M_candidate), target)",
+        "import numpy as np\nM_candidate = np.array([[1]], dtype=int)\nM_oracle = M_candidate.copy()\nassert np.allclose(gf2_inverse(M_candidate), target)",
+        "import numpy as np\nM_candidate = np.zeros((0,0), dtype=int)\nM_oracle = M_candidate.copy()\nassert np.allclose(gf2_inverse(M_candidate), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-13.6",
+      "test_cases": [
+        "import numpy as np\nH_candidate = np.array([[1,1,0],[0,1,1]], dtype=int)\nH_oracle = H_candidate.copy()\na_candidate = [0,2]\na_oracle = a_candidate.copy()\nb_candidate = [0,1]\nb_oracle = b_candidate.copy()\nassert np.allclose(embedded_inverse(H_candidate, a_candidate, b_candidate), target)",
+        "import numpy as np\nH_candidate = np.array([[1]], dtype=int)\nH_oracle = H_candidate.copy()\na_candidate = [0]\na_oracle = [0]\nb_candidate = [0]\nb_oracle = [0]\nassert np.allclose(embedded_inverse(H_candidate, a_candidate, b_candidate), target)",
+        "import numpy as np\nH_candidate = np.eye(2, dtype=int)\nH_oracle = H_candidate.copy()\na_candidate = []\na_oracle = []\nb_candidate = []\nb_oracle = []\nassert np.allclose(embedded_inverse(H_candidate, a_candidate, b_candidate), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-13.7",
+      "test_cases": [
+        "import numpy as np\ndef _pack(result):\n    pieces = [np.asarray([len(result)], dtype=int)]\n    for M in result:\n        M = np.asarray(M, dtype=int)\n        pieces.append(np.asarray([M.ndim, *M.shape], dtype=int))\n        pieces.append(M.ravel())\n    return np.concatenate(pieces)\nH_candidate = np.eye(2, dtype=int)\nH_oracle = H_candidate.copy()\nW_candidate = np.array([[1,0],[0,0]], dtype=int)\nW_oracle = W_candidate.copy()\nassert np.allclose(_pack(decode_x_sector(H_candidate, W_candidate, 0.5, 1)), target)",
+        "import numpy as np\ndef _pack(result):\n    pieces = [np.asarray([len(result)], dtype=int)]\n    for M in result:\n        M = np.asarray(M, dtype=int)\n        pieces.append(np.asarray([M.ndim, *M.shape], dtype=int))\n        pieces.append(M.ravel())\n    return np.concatenate(pieces)\nH_candidate = np.eye(2, dtype=int)\nH_oracle = H_candidate.copy()\nW_candidate = np.zeros((2,2), dtype=int)\nW_oracle = W_candidate.copy()\nassert np.allclose(_pack(decode_x_sector(H_candidate, W_candidate, 0.5, 1)), target)",
+        "import numpy as np\ndef _pack(result):\n    pieces = [np.asarray([len(result)], dtype=int)]\n    for M in result:\n        M = np.asarray(M, dtype=int)\n        pieces.append(np.asarray([M.ndim, *M.shape], dtype=int))\n        pieces.append(M.ravel())\n    return np.concatenate(pieces)\nH_candidate = np.array([[1,1,0],[0,1,1]], dtype=int)\nH_oracle = H_candidate.copy()\nW_candidate = np.array([[1,0,0],[0,0,0]], dtype=int)\nW_oracle = W_candidate.copy()\nassert np.allclose(_pack(decode_x_sector(H_candidate, W_candidate, 0.5, 1)), target)",
+        "import numpy as np\ndef _pack(result):\n    pieces = [np.asarray([len(result)], dtype=int)]\n    for M in result:\n        M = np.asarray(M, dtype=int)\n        pieces.append(np.asarray([M.ndim, *M.shape], dtype=int))\n        pieces.append(M.ravel())\n    return np.concatenate(pieces)\ndef _from_masks(values, width):\n    return np.asarray([[(m >> j) & 1 for j in range(width)] for m in values], dtype=int)\nH_candidate = _from_masks([192,3,289,52,384,14,28,72], 9)\nH_oracle = H_candidate.copy()\nW_candidate = _from_masks([192, 0, 0, 6, 0, 2, 6, 384], 9)\nW_oracle = W_candidate.copy()\nassert np.allclose(_pack(decode_x_sector(H_candidate, W_candidate, 0.5, 2)), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-13.8",
+      "test_cases": [
+        "import numpy as np\ndef _pack(result):\n    pieces = [np.asarray([len(result)], dtype=int)]\n    for M in result:\n        M = np.asarray(M, dtype=int)\n        pieces.append(np.asarray([M.ndim, *M.shape], dtype=int))\n        pieces.append(M.ravel())\n    return np.concatenate(pieces)\nH_candidate = np.eye(2, dtype=int)\nH_oracle = H_candidate.copy()\nU_candidate = np.array([[0,1],[0,0]], dtype=int)\nU_oracle = U_candidate.copy()\nassert np.allclose(_pack(decode_z_sector(H_candidate, U_candidate, 0.5, 1)), target)",
+        "import numpy as np\ndef _pack(result):\n    pieces = [np.asarray([len(result)], dtype=int)]\n    for M in result:\n        M = np.asarray(M, dtype=int)\n        pieces.append(np.asarray([M.ndim, *M.shape], dtype=int))\n        pieces.append(M.ravel())\n    return np.concatenate(pieces)\nH_candidate = np.eye(2, dtype=int)\nH_oracle = H_candidate.copy()\nU_candidate = np.zeros((2,2), dtype=int)\nU_oracle = U_candidate.copy()\nassert np.allclose(_pack(decode_z_sector(H_candidate, U_candidate, 0.5, 1)), target)",
+        "import numpy as np\ndef _pack(result):\n    pieces = [np.asarray([len(result)], dtype=int)]\n    for M in result:\n        M = np.asarray(M, dtype=int)\n        pieces.append(np.asarray([M.ndim, *M.shape], dtype=int))\n        pieces.append(M.ravel())\n    return np.concatenate(pieces)\nH_candidate = np.array([[1,1,0],[0,1,1]], dtype=int)\nH_oracle = H_candidate.copy()\nU_candidate = np.array([[1,0],[0,0],[0,0]], dtype=int)\nU_oracle = U_candidate.copy()\nassert np.allclose(_pack(decode_z_sector(H_candidate, U_candidate, 0.5, 1)), target)",
+        "import numpy as np\ndef _pack(result):\n    pieces = [np.asarray([len(result)], dtype=int)]\n    for M in result:\n        M = np.asarray(M, dtype=int)\n        pieces.append(np.asarray([M.ndim, *M.shape], dtype=int))\n        pieces.append(M.ravel())\n    return np.concatenate(pieces)\ndef _from_masks(values, width):\n    return np.asarray([[(m >> j) & 1 for j in range(width)] for m in values], dtype=int)\nH_candidate = _from_masks([192,3,289,52,384,14,28,72], 9)\nH_oracle = H_candidate.copy()\nU_candidate = _from_masks([0, 0, 36, 1, 36, 36, 1, 129, 0], 8)\nU_oracle = U_candidate.copy()\nassert np.allclose(_pack(decode_z_sector(H_candidate, U_candidate, 0.5, 2)), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-13.9",
+      "test_cases": [
+        "import numpy as np\ndef _from_masks(values, width):\n    return np.asarray([[(m >> j) & 1 for j in range(width)] for m in values], dtype=int)\nH_candidate = _from_masks([192,3,289,52,384,14,28,72], 9)\nH_oracle = H_candidate.copy()\nW_candidate = _from_masks([192,0,0,6,0,2,6,384], 9)\nW_oracle = W_candidate.copy()\nU_candidate = _from_masks([0,0,36,1,36,36,1,129,0], 8)\nU_oracle = U_candidate.copy()\nassert np.allclose(run_quantum_expander_decoder(H_candidate, W_candidate, U_candidate, 0.5, 2), target)",
+        "import numpy as np\nH_candidate = np.eye(2, dtype=int)\nH_oracle = H_candidate.copy()\nW_candidate = np.array([[1,0],[0,0]], dtype=int)\nW_oracle = W_candidate.copy()\nU_candidate = np.array([[0,1],[0,0]], dtype=int)\nU_oracle = U_candidate.copy()\nassert np.allclose(run_quantum_expander_decoder(H_candidate, W_candidate, U_candidate, 0.5, 1), target)",
+        "import numpy as np\nH_candidate = np.array([[1,1,0],[0,1,1]], dtype=int)\nH_oracle = H_candidate.copy()\nW_candidate = np.array([[1,0,0],[0,0,0]], dtype=int)\nW_oracle = W_candidate.copy()\nU_candidate = np.array([[1,0],[0,0],[0,0]], dtype=int)\nU_oracle = U_candidate.copy()\nassert np.allclose(run_quantum_expander_decoder(H_candidate, W_candidate, U_candidate, 0.5, 1), target)"
+      ]
+    }
+  ]
+}

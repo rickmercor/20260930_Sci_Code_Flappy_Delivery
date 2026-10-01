@@ -1,0 +1,40 @@
+problem_id: "Physics-Condensed_Matter_Physics-15"
+subject: "physics"
+subject_area: "Condensed Matter Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1126/sciadv.aed7081"
+dependencies: ""
+steps:
+  - number: 1
+    name: "build_mass_weighted_dynamical_matrix"
+    description: "Construct the mass-weighted dynamical matrix."
+    orchestrator: false
+  - number: 2
+    name: "compute_molecular_berry_curvature"
+    description: "Compute the real antisymmetric molecular Berry-curvature matrix."
+    orchestrator: false
+  - number: 3
+    name: "analyze_unperturbed_subspace"
+    description: "Return the unperturbed spectrum and target-subspace projector."
+    orchestrator: false
+  - number: 4
+    name: "compute_first_order_frequencies"
+    description: "Compute the two first-order MBC-split modes."
+    orchestrator: false
+  - number: 5
+    name: "solve_full_mbc_eigenproblem"
+    description: "Solve the companion linearization of the full MBC eigenproblem."
+    orchestrator: false
+  - number: 6
+    name: "match_target_modes"
+    description: "Select the two full modes with greatest target-subspace weight."
+    orchestrator: false
+  - number: 7
+    name: "label_modes_by_chirality"
+    description: "Compute chiralities and order the two modes as plus and minus branches."
+    orchestrator: false
+  - number: 8
+    name: "compute_corrected_peak_separation"
+    description: "Return the chirality-resolved, Fano-corrected peak separation."
+    orchestrator: true

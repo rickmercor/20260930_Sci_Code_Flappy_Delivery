@@ -1,0 +1,40 @@
+problem_id: "Material_Science-Molecular_Modeling-20"
+subject: "materials"
+subject_area: "Molecular Modeling"
+difficulty: "medium"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1038/s41524-026-02086-x"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_validate_topology"
+    description: "Check the candidate connections against the topology rule for the given linker type. Return the indices of connections with the required endpoint labels and an E site inside the segment."
+    orchestrator: false
+  - number: 2
+    name: "02_periodic_neighbor"
+    description: "Find the closest positive-distance periodic image of the second point relative to the first. Return its shift and Cartesian distance."
+    orchestrator: false
+  - number: 3
+    name: "03_reassign_fragments"
+    description: "Assign compatible fragments to connection slots within the paper\u2019s default search radius. A slot or fragment may be used only once."
+    orchestrator: false
+  - number: 4
+    name: "04_fine_alignment_loss"
+    description: "Calculate the fine-alignment loss of the supplied connected atom groups using Eq. (3)."
+    orchestrator: false
+  - number: 5
+    name: "05_propagate_coordinate"
+    description: "Calculate the target edge length from Eq. (4) and propagate an endpoint from the supplied starting position."
+    orchestrator: false
+  - number: 6
+    name: "06_fractional_cell_loss"
+    description: "Calculate the cell loss for corresponding original and propagated graph nodes using Eq. (5)."
+    orchestrator: false
+  - number: 7
+    name: "07_cap_defects"
+    description: "Place and orient the complete cap fragment at each vacant site."
+    orchestrator: false
+  - number: 8
+    name: "08_rank_candidates"
+    description: "Evaluate the candidates using the preceding seven steps. Return the id with the lowest cell loss among those that pass all construction checks."
+    orchestrator: true

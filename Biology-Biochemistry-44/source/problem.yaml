@@ -1,0 +1,44 @@
+problem_id: "Biology-Biochemistry-44"
+subject: "biology"
+subject_area: "Biochemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.48550/arXiv.2607.09872"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_build_homolog_pair"
+    description: "Generate a coded reference sequence and a homolog derived from it by seeded random deletions and substitutions."
+    orchestrator: false
+  - number: 2
+    name: "02_compute_log_forward_tables"
+    description: "Compute the natural-log forward weights of every partial global alignment of a coded sequence x with a coded sequence y under a three-state pair model."
+    orchestrator: false
+  - number: 3
+    name: "03_compute_log_backward_tables"
+    description: "Compute the natural logs of the derivatives of the total alignment weight with respect to every forward weight of the pair model."
+    orchestrator: false
+  - number: 4
+    name: "04_compute_expected_gap_transition_counts"
+    description: "Compute the posterior expected numbers of gap-opening and gap-extension columns in the alignment ensemble of x with y from the reference forward and backward tables."
+    orchestrator: false
+  - number: 5
+    name: "05_calibrate_gap_factors"
+    description: "Find the gap-opening and gap-extension factors at which the expected numbers of gap-opening and gap-extension columns in the alignment ensemble of x with y equal two target counts."
+    orchestrator: false
+  - number: 6
+    name: "06_evaluate_single_substitution_log_weights"
+    description: "Obtain the exact natural-log total alignment weight after every single-base substitution of x from the reference forward and backward tables."
+    orchestrator: false
+  - number: 7
+    name: "07_compute_neighbour_double_log_weights"
+    description: "Obtain the exact natural-log total alignment weight after every double substitution of two neighbouring bases of x from the reference forward and backward tables."
+    orchestrator: false
+  - number: 8
+    name: "08_summarize_neighbour_epistasis"
+    description: "Convert single and neighbouring double substitution log weights into log-scale epistasis values and summarize them over all genuine double substitutions."
+    orchestrator: false
+  - number: 9
+    name: "09_estimate_mean_neighbour_epistasis"
+    description: "Compose every earlier step to obtain the mean log-scale epistasis over all neighbouring double substitutions of a synthetic reference sequence aligned with its homolog under gap factors fitted to observed transition counts.\nOrchestrator: yes - builds the sequence pair (build_homolog_pair), fits the gap factors (calibrate_gap_factors), computes the reference forward and backward tables (compute_log_forward_tables, compute_log_backward_tables), confirms the fitted expected counts (compute_expected_gap_transition_counts), scores every single substitution (evaluate_single_substitution_log_weights) and every neighbouring double substitution (compute_neighbour_double_log_weights), and summarizes the epistasis (summarize_neighbour_epistasis), consuming each output rather than reimplementing any step."
+    orchestrator: true

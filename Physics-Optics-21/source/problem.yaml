@@ -1,0 +1,40 @@
+problem_id: "Physics-Optics-21"
+subject: "physics"
+subject_area: "Optics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1364/OE.582146"
+dependencies: ""
+steps:
+  - number: 1
+    name: "cl_detector_coords"
+    description: "Compute, for every view, the detector coordinates at which each voxel centre is imaged by the rotational cone-beam laminography geometry. Return one array holding the two coordinate maps for all views, so that the projector and its transpose consume exactly the same geometry. Voxel centres are offset by half a voxel from the grid corner, and the detector centre sits at index det_size / 2. The submitted function must import inside itself whatever it uses."
+    orchestrator: false
+  - number: 2
+    name: "cl_forward_project"
+    description: "Apply the system matrix A: deposit every voxel's value bilinearly at its detector image, using the coordinates of step 1, and accumulate over all voxels. Contributions are clamped to the detector edges, so a voxel imaged outside the detector deposits on the border pixel rather than being discarded. The operator is linear in the volume for fixed geometry. The submitted function must import inside itself whatever it uses."
+    orchestrator: false
+  - number: 3
+    name: "cl_back_project"
+    description: "Apply the exact discrete transpose of step 2 for the same geometry: read the projection values at the same four detector pixels, weight them with the same bilinear weights and accumulate into the voxel. This is the transpose, not an inverse and not a filtered back-projection; it must satisfy the inner-product identity with step 2 to machine precision for arbitrary inputs. The submitted function must import inside itself whatever it uses."
+    orchestrator: false
+  - number: 4
+    name: "anisotropic_gradient"
+    description: "Apply the forward difference along one axis with periodic wrap, or its exact transpose when adjoint is true. Axis 0 and 1 are the in-plane directions and axis 2 is the stacking direction; the three are applied with different weights by the reconstruction, which is what makes the regularisation anisotropic. Raise ValueError for any axis other than 0, 1 or 2. The submitted function must import inside itself whatever it uses."
+    orchestrator: false
+  - number: 5
+    name: "tensor_svt"
+    description: "Apply the proximal mapping of the low-rank penalty used by the source method: the tensor singular value thresholding operator. It transforms the volume along the stacking direction, applies matrix singular value thresholding with the given threshold to the transformed slices, and returns the result to the spatial domain, taking the real part. Raise ValueError for a negative threshold. The submitted function must import inside itself whatever it uses."
+    orchestrator: false
+  - number: 6
+    name: "operator_norm"
+    description: "Estimate the spectral norm L of the stacked operator built from the projector of step 2 and the three gradients of step 4, by the power iteration on the normal operator fixed in the background: start from the unnormalised volume whose entries are all 1 and run exactly n_power iterations of b = Bx, s = ||b||, x = b/s, returning sqrt(s) from the last iteration. The step sizes of the reconstruction are 1/L, so this value fixes them. The submitted function must import inside itself whatever it uses."
+    orchestrator: false
+  - number: 7
+    name: "agslr_cp_update"
+    description: "Apply one iteration of the reconstruction scheme to the current state. The state is the tuple (x, xbar, y, p, q, r) holding the image, the extrapolated image, the dual variable of the data term and the three dual variables of the gradient terms. Update the four duals with the proximal mappings of their conjugates, take the proximal step on the image with the low-rank operator of step 5, and form the new extrapolated image exactly as the source method prints it. Must call the earlier step functions by name; no inlined reimplementation. Raise ValueError if any of the first three regularisation weights is not positive. The submitted function must import inside itself whatever it uses."
+    orchestrator: false
+  - number: 8
+    name: "run_agslr_cp"
+    description: "Run the whole reconstruction: build the geometry with step 1, estimate the spectral norm with step 6, set both step sizes to its reciprocal, start from a zero image with zero duals, and apply n_iter iterations of step 7 with relaxation 1. Return the reconstructed volume. Must call the earlier step functions by name; no inlined reimplementation. The submitted function must import inside itself whatever it uses."
+    orchestrator: true

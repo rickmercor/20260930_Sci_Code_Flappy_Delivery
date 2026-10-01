@@ -1,0 +1,48 @@
+problem_id: "Material_Science-Semiconductor_Materials-2"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1103/8wwd-8ymg"
+dependencies: ""
+steps:
+  - number: 1
+    name: "solve kane state"
+    description: "Determine finite-temperature band occupation for the compact MoS2 model."
+    orchestrator: false
+  - number: 2
+    name: "resolve acoustic tensor"
+    description: "Contract an in-plane deformation-potential tensor into LA and TA band-edge shifts."
+    orchestrator: false
+  - number: 3
+    name: "evaluate polarizability"
+    description: "Evaluate the thermally broadened two-dimensional polarizability."
+    orchestrator: false
+  - number: 4
+    name: "screen dielectric kernel"
+    description: "Apply closed-form image-charge form factors and free-carrier screening."
+    orchestrator: false
+  - number: 5
+    name: "compute acoustic rates"
+    description: "Compute incidence-averaged, partially screened acoustic momentum relaxation."
+    orchestrator: false
+  - number: 6
+    name: "integrate impurity rates"
+    description: "Integrate the screened Coulomb rate coefficient over scattering angle."
+    orchestrator: false
+  - number: 7
+    name: "compute surface optical rates"
+    description: "Compute screened surface-optical-phonon momentum relaxation."
+    orchestrator: false
+  - number: 8
+    name: "compute transport moments"
+    description: "Convert energy-resolved relaxation rates into thermoelectric and Hall responses."
+    orchestrator: false
+  - number: 9
+    name: "infer sheet state"
+    description: "Infer the gate-held sheet density and midplane defect density from Hall-bar data."
+    orchestrator: false
+  - number: 10
+    name: "select encapsulation defect ratio"
+    description: "Transfer the inferred sheet to each encapsulation and return the defect ratio of the best one."
+    orchestrator: true

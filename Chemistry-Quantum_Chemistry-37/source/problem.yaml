@@ -1,0 +1,40 @@
+problem_id: "Chemistry-Quantum_Chemistry-37"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: " https://doi.org/10.48550/arXiv.2509.16152"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_model_jet.py"
+    description: "Implement model_jet. The model fixes signed electronic couplings and reference energies. Analytic control derivatives start from a Hamiltonian jet whose mixed slot is zero even though the final energy response is not."
+    orchestrator: false
+  - number: 2
+    name: "02_select_space.py"
+    description: "Implement select_space. State selection depends on coupling-to-energy-separation ratios. Secondary closure must include indirect couplings while excluding frozen states; exact degeneracies require selection without division."
+    orchestrator: false
+  - number: 3
+    name: "03_effective_jet.py"
+    description: "Implement effective_jet. The effective Hamiltonian incorporates external-state perturbative contributions. Differentiation must include both coupling products and changing reference denominators before symmetrization."
+    orchestrator: false
+  - number: 4
+    name: "04_eigensystem_jet.py"
+    description: "Implement eigensystem_jet. Nondegenerate eigenvectors respond to perturbations as well as eigenvalues. Their mixed normalization term is necessary for a valid orthogonal basis jet."
+    orchestrator: false
+  - number: 5
+    name: "05_update_partition.py"
+    description: "Implement update_partition. Effective eigenvalues define the new reference Hamiltonian. The physical Hamiltonian transforms in a parameter-dependent basis, and reference energies outside the selected space are retained."
+    orchestrator: false
+  - number: 6
+    name: "06_bw_root_jet.py"
+    description: "Implement bw_root_jet. The second-order Brillouin-Wigner energy is an implicit root. Its response includes the changing poles, couplings and diagonal matrix element; vanishing baseline coupling can still have a nonzero mixed contribution."
+    orchestrator: false
+  - number: 7
+    name: "07_ssrsbw_jet.py"
+    description: "Implement ssrsbw_jet. Sequential state-specific optimization freezes previously accepted reference states but retains them as external perturbers. Each corrected energy is evaluated when its own reference is accepted."
+    orchestrator: false
+  - number: 8
+    name: "08_gap_response.py"
+    description: "Implement gap_response. The requested observable is the mixed control derivative of the gap between the second and third sorted corrected energies, not an exact-diagonalization gap."
+    orchestrator: true

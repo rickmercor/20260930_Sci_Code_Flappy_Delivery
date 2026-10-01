@@ -1,0 +1,40 @@
+problem_id: "Biology-Biochemistry-22"
+subject: "biology"
+subject_area: "Biochemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1609/aaai.v40i2.37084"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_encode_sequence.py"
+    description: "Encode a reduced-alphabet protein sequence as a continuous one-hot state. Each residue-class index becomes one row of a numerical matrix that can subsequently be relaxed and evolved through Hamiltonian dynamics."
+    orchestrator: false
+  - number: 2
+    name: "02_surrogate_score_gradient.py"
+    description: "Evaluate one fixed structure-aware surrogate model and its analytic gradient. The surrogate combines position-specific residue scores, an interaction between the first and last sequence positions, and a quadratic penalty for movement away from the initial protein sequence."
+    orchestrator: false
+  - number: 3
+    name: "03_potential_energy_gradient.py"
+    description: "Convert a surrogate protein-fitness score into the probability-derived potential energy used by Hamiltonian dynamics, and calculate the corresponding analytic potential gradient."
+    orchestrator: false
+  - number: 4
+    name: "04_reflective_leapfrog.py"
+    description: "Evolve one continuously relaxed protein sequence through leapfrog Hamiltonian dynamics. Whenever a coordinate leaves the permitted interval, apply repeated virtual-barrier reflections and reverse the corresponding momentum component."
+    orchestrator: false
+  - number: 5
+    name: "05_discretize_positions.py"
+    description: "Convert a continuously relaxed protein-sequence state back into discrete residue-class indices. Select the largest coordinate at each sequence position and reconstruct the corresponding numerical one-hot candidate."
+    orchestrator: false
+  - number: 6
+    name: "06_metropolis_acceptance.py"
+    description: "Calculate the discretization-aware Metropolis acceptance probability for a proposed protein sequence and return a numerical accept-or-reject decision."
+    orchestrator: false
+  - number: 7
+    name: "07_ensemble_ucb.py"
+    description: "Evaluate every accepted discrete protein candidate using the complete surrogate ensemble and calculate its upper-confidence-bound score from the ensemble mean and population standard deviation."
+    orchestrator: false
+  - number: 8
+    name: "08_optimize_protein_candidate.py"
+    description: "Orchestrate the complete deterministic protein-acquisition pipeline. Call the preceding sequence-encoding, surrogate, potential, reflective-leapfrog, discretization, Metropolis, and ensemble-UCB steps in order, then return the maximum UCB among the accepted candidates."
+    orchestrator: true

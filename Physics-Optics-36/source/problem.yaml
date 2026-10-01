@@ -1,0 +1,36 @@
+problem_id: "Physics-Optics-36"
+subject: "physics"
+subject_area: "Optics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1364/BOE.572256"
+dependencies: ""
+steps:
+  - number: 1
+    name: "recover_scatter_sites"
+    description: "Recover the final scattering positions from exiting photon histories."
+    orchestrator: false
+  - number: 2
+    name: "compute_mode_transfer"
+    description: "Compute spherical-wave power transfer to the Gaussian collection mode."
+    orchestrator: false
+  - number: 3
+    name: "compute_detected_weights"
+    description: "Compute accepted hybrid detected packet intensities from transport histories and mode transfer."
+    orchestrator: false
+  - number: 4
+    name: "compute_hybrid_opl"
+    description: "Compute round-trip optical pathlengths assigned to hybrid detected packets."
+    orchestrator: false
+  - number: 5
+    name: "compute_gated_responses"
+    description: "Compute each packet outcome\u2019s incoherent contribution to each OCT optical-depth bin."
+    orchestrator: false
+  - number: 6
+    name: "compute_noise_coefficient"
+    description: "Compute the exact RMS normalized-profile-noise coefficient of a finite packet population."
+    orchestrator: false
+  - number: 7
+    name: "compute_oct_noise"
+    description: "Compute the RMS noise coefficient of a hybrid particle-wave OCT detector replay."
+    orchestrator: true

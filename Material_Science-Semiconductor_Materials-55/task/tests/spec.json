@@ -1,0 +1,110 @@
+{
+  "problem_id": "Material_Science-Semiconductor_Materials-55",
+  "sub_steps": [
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-55.1",
+      "test_cases": [
+        "import numpy as np\nMASS = {\"Sb\": 121.760, \"Si\": 28.0855, \"C\": 12.011}\nSPECIES = [\"Sb\", \"Si\", \"Si\", \"Si\", \"C\", \"C\", \"C\", \"C\", \"C\", \"C\", \"C\", \"C\", \"C\"]\nDISP = np.array([\n    [ 0.0258, -0.0179,  0.0409],\n    [-0.0394,  0.0280, -0.0320],\n    [ 0.0318, -0.0421, -0.0289],\n    [ 0.0093,  0.0370,  0.0438],\n    [ 0.0546, -0.0258,  0.0211],\n    [-0.0471,  0.0393, -0.0179],\n    [ 0.0248,  0.0511, -0.0344],\n    [-0.0180, -0.0458,  0.0401],\n    [ 0.0382,  0.0222,  0.0499],\n    [-0.0526, -0.0169, -0.0256],\n    [ 0.0154, -0.0554,  0.0196],\n    [-0.0324,  0.0234,  0.0453],\n    [ 0.0430, -0.0346, -0.0185]])\nM = np.array([MASS[s] for s in SPECIES])\nassert np.allclose(round(mass_weighted_displacement(M.copy(), DISP.copy()), 12), target)",
+        "import numpy as np\nassert np.allclose(round(mass_weighted_displacement([121.760], [[0.0, 0.0, 0.13]]), 12), target)",
+        "import numpy as np\nm = np.array([28.0855, 12.011])\nd = np.zeros((2, 3))\nassert np.allclose(round(mass_weighted_displacement(m.copy(), d.copy()), 12), target)",
+        "import numpy as np\nm = [121.760, 12.011]\nd = [[0.02, 0.0, 0.0], [0.0, 0.09, 0.0]]\nassert np.allclose(round(mass_weighted_displacement(m.copy(), d.copy()), 12), target)",
+        "import numpy as np\ndef probe(fn):\n    try:\n        fn([28.0855, -1.0], [[0.01, 0.0, 0.0], [0.0, 0.01, 0.0]])\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(probe(mass_weighted_displacement), target)",
+        "import numpy as np\ndef probe(fn):\n    try:\n        fn([28.0855, 12.011], [[0.01, 0.0, 0.0]])\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(probe(mass_weighted_displacement), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-55.2",
+      "test_cases": [
+        "import numpy as np\nEG, EE, EV_ = -8912.475160, -8911.713724, -8912.352817\ndq = 1.020205375219\nassert np.allclose(np.round(configuration_coordinate_parameters(EG, EE, EV_, dq), 12).tolist(), target)",
+        "import numpy as np\nassert np.allclose(np.round(configuration_coordinate_parameters(-1204.0, -1202.05, -1203.94, 0.66), 12).tolist(), target)",
+        "import numpy as np\nSH = 5000.0\nassert np.allclose(np.round(configuration_coordinate_parameters(-8912.475160 - SH, -8911.713724 - SH, -8912.352817 - SH, 1.020205375219), 12).tolist(), target)",
+        "import numpy as np\nassert np.allclose(float(np.round(np.log10(configuration_coordinate_parameters(0.0, 0.8, 1.0e-8, 1.0)[1]), 10)), target)",
+        "import numpy as np\ndef probe(fn):\n    try:\n        fn(-100.0, -101.0, -99.9, 1.0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(probe(configuration_coordinate_parameters), target)",
+        "import numpy as np\ndef probe(fn):\n    try:\n        fn(-100.0, -99.0, -100.5, 1.0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(probe(configuration_coordinate_parameters), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-55.3",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(np.round(electron_phonon_coupling(1.020205375219, 0.031348254831), 12).tolist(), target)",
+        "import numpy as np\nassert np.allclose(round(100.0 * float(electron_phonon_coupling(0.66, 0.044)[1]), 6), target)",
+        "import numpy as np\nassert np.allclose(round(100.0 * float(electron_phonon_coupling(0.93, 0.034)[1]), 6), target)",
+        "import numpy as np\nassert np.allclose(np.round(electron_phonon_coupling(1e-6, 0.03), 12).tolist(), target)",
+        "import numpy as np\nassert np.allclose(float(np.round(np.log10(electron_phonon_coupling(3.4, 0.052)[1]), 10)), target)",
+        "import numpy as np\ndef probe(fn):\n    try:\n        fn(1.0, 0.0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(probe(electron_phonon_coupling), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-55.4",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(round(dipole_transition_rate(2.85, 2.5732, 0.761436000001), 3), target)",
+        "import numpy as np\nassert np.allclose(round(dipole_transition_rate(5.2, 2.4, 1.945), 3), target)",
+        "import numpy as np\nassert np.allclose(round(dipole_transition_rate(3.0, 2.6, 0.9, 1.5), 3), target)",
+        "import numpy as np\nassert np.allclose(float(np.round(np.log10(dipole_transition_rate(0.02, 1.0, 0.15)), 10)), target)",
+        "import numpy as np\ndef probe(fn):\n    try:\n        fn(2.85, 2.6, 0.0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(probe(dipole_transition_rate), target)",
+        "import numpy as np\ndef probe(fn):\n    try:\n        fn(2.85, float(\"nan\"), 0.9)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(probe(dipole_transition_rate), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-55.5",
+      "test_cases": [
+        "import numpy as np\nG0 = 1518331.655987\nassert np.allclose(np.round(radiative_rate_partition(G0, 3.902705291196, 0.031348254831, 0.761436000001), 3).tolist(), target)",
+        "import numpy as np\nassert np.allclose(np.round(radiative_rate_partition(1.0e8, 0.35, 0.065, 1.945), 3).tolist(), target)",
+        "import numpy as np\ndef line_share(fn):\n    r = fn(1.0, 2.5631155, 0.045, 1.05)\n    return round(100.0 * float(r[1] / r[0]), 8)\nassert np.allclose(line_share(radiative_rate_partition), target)",
+        "import numpy as np\ndef balance(fn):\n    r = fn(4.2e6, 2.9, 0.028, 0.83)\n    return [round(float(r[0] - r[1] - r[2]), 9), round(float(r[1]), 6)]\nassert np.allclose(balance(radiative_rate_partition), target)",
+        "import numpy as np\ndef probe(fn):\n    try:\n        fn(1.0e6, 2.0, 0.4, 0.81)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(probe(radiative_rate_partition), target)",
+        "import numpy as np\ndef probe(fn):\n    try:\n        fn(1e6, 30.0, 0.03, 0.8)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(probe(radiative_rate_partition), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-55.6",
+      "test_cases": [
+        "import numpy as np\nm = np.arange(0, 31)\nassert np.allclose(np.log(coordinate_matrix_element(1.020205375219, 3.902705291187, m.copy(), 24.289581799794)), target)",
+        "import numpy as np\nassert np.allclose(np.log(coordinate_matrix_element(1.02, 3.9, np.array([0]), 24.3)), target)",
+        "import numpy as np\nm = np.arange(0, 12)\nassert np.allclose(coordinate_matrix_element(0.85, 2.2, m.copy(), 0.0), target)",
+        "import numpy as np\nm = np.arange(0, 301, 25)\nassert np.allclose(np.log(coordinate_matrix_element(1.4, 9.5, m.copy(), 12.7)), target)",
+        "import numpy as np\nm = np.array([49, 57, 128, 153, 167, 180, 195, 210, 225, 241, 257, 274, 291, 292])\nassert np.allclose(np.log(coordinate_matrix_element(1.4, 9.5, m.copy(), 12.7)), target)",
+        "import numpy as np\nm = np.array([0, 1, 3, 10, 40, 90, 160])\nassert np.allclose(np.log(coordinate_matrix_element(0.42, 0.35, m.copy(), 60.3)), target)",
+        "import numpy as np\nm = np.array([2, 7, 19, 55, 120])\nassert np.allclose(np.log(coordinate_matrix_element(1.15, 5.3, m.copy(), 6.45)), target)",
+        "import numpy as np\ndef probe(fn):\n    try:\n        fn(1.02, 3.9, np.array([0, 1]), -0.5)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(probe(coordinate_matrix_element), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-55.7",
+      "test_cases": [
+        "assert np.allclose(multiphonon_rate(1.020205375219, 3.902705291187, 0.031348254831, 0.761436000001, 0.128, 4.0, 0.0), target)",
+        "assert np.allclose(multiphonon_rate(1.020205375219, 3.902705291187, 0.031348254831, 0.761436000001, 0.128, 4.0, 140.0), target)",
+        "assert np.allclose(multiphonon_rate(1.3, 6.2, 0.022, 0.41, 0.1, 1.0, 300.0), target)",
+        "assert np.allclose(multiphonon_rate(1.45, 8.5, 0.015, 0.45, 0.1, 2.0, 700.0), target)",
+        "assert np.allclose(multiphonon_rate(1.0, 3.9, 0.008, 0.25, 0.1, 4.0, 1000.0) / 1.0e15, target)",
+        "assert np.allclose(multiphonon_rate(0.9, 4.1, 0.03, 0.25, 0.1, 1.0, 60.0), target)",
+        "assert np.allclose(multiphonon_rate(1.020205375219, 3.902705291187, 0.031348254831, 0.761436000001, 0.128, 4.0, 4.0), target)",
+        "def probe(fn):\n    try:\n        fn(1.02, 3.9, 0.031, 0.76, 0.128, 4.0, -10.0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(probe(multiphonon_rate), target)",
+        "def probe(fn):\n    try:\n        fn(1.02, 3.9, 0.031, 0.76, 0.128, 4.0, 3000.1)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(probe(multiphonon_rate), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-55.8",
+      "test_cases": [
+        "import numpy as np\nM = np.array([121.760, 28.0855, 28.0855, 28.0855, 12.011, 12.011, 12.011,\n              12.011, 12.011, 12.011, 12.011, 12.011, 12.011])\nD = np.array([[ 0.0258, -0.0179,  0.0409], [-0.0394,  0.0280, -0.0320],\n              [ 0.0318, -0.0421, -0.0289], [ 0.0093,  0.0370,  0.0438],\n              [ 0.0546, -0.0258,  0.0211], [-0.0471,  0.0393, -0.0179],\n              [ 0.0248,  0.0511, -0.0344], [-0.0180, -0.0458,  0.0401],\n              [ 0.0382,  0.0222,  0.0499], [-0.0526, -0.0169, -0.0256],\n              [ 0.0154, -0.0554,  0.0196], [-0.0324,  0.0234,  0.0453],\n              [ 0.0430, -0.0346, -0.0185]])\nEG, EE, EV_ = -8912.475160, -8911.713724, -8912.352817\nassert np.allclose(radiative_efficiency(M.copy(), D.copy(), EG, EE, EV_, 2.85, 2.5732, 1.0, 0.128, 4.0, 0.0), target)",
+        "import numpy as np\nM = np.array([121.760, 28.0855, 28.0855, 28.0855, 12.011, 12.011, 12.011,\n              12.011, 12.011, 12.011, 12.011, 12.011, 12.011])\nD = np.array([[ 0.0258, -0.0179,  0.0409], [-0.0394,  0.0280, -0.0320],\n              [ 0.0318, -0.0421, -0.0289], [ 0.0093,  0.0370,  0.0438],\n              [ 0.0546, -0.0258,  0.0211], [-0.0471,  0.0393, -0.0179],\n              [ 0.0248,  0.0511, -0.0344], [-0.0180, -0.0458,  0.0401],\n              [ 0.0382,  0.0222,  0.0499], [-0.0526, -0.0169, -0.0256],\n              [ 0.0154, -0.0554,  0.0196], [-0.0324,  0.0234,  0.0453],\n              [ 0.0430, -0.0346, -0.0185]])\nEG, EE, EV_ = -8912.475160, -8911.713724, -8912.352817\nassert np.allclose(radiative_efficiency(M.copy(), D.copy(), EG, EE, EV_, 2.85, 2.5732, 1.0, 0.128, 4.0, 100.0), target)",
+        "import numpy as np\nM = np.array([121.760, 28.0855, 28.0855, 28.0855, 12.011, 12.011, 12.011,\n              12.011, 12.011, 12.011, 12.011, 12.011, 12.011])\nD = np.array([[ 0.0258, -0.0179,  0.0409], [-0.0394,  0.0280, -0.0320],\n              [ 0.0318, -0.0421, -0.0289], [ 0.0093,  0.0370,  0.0438],\n              [ 0.0546, -0.0258,  0.0211], [-0.0471,  0.0393, -0.0179],\n              [ 0.0248,  0.0511, -0.0344], [-0.0180, -0.0458,  0.0401],\n              [ 0.0382,  0.0222,  0.0499], [-0.0526, -0.0169, -0.0256],\n              [ 0.0154, -0.0554,  0.0196], [-0.0324,  0.0234,  0.0453],\n              [ 0.0430, -0.0346, -0.0185]])\nEG, EE, EV_ = -8912.475160, -8911.713724, -8912.352817\nassert np.allclose(radiative_efficiency(M.copy(), D.copy(), EG, EE, EV_, 2.85, 2.5732, 1.0, 0.128, 4.0, 200.0), target)",
+        "import numpy as np\nM = np.array([121.760, 28.0855, 28.0855, 28.0855, 12.011, 12.011, 12.011,\n              12.011, 12.011, 12.011, 12.011, 12.011, 12.011])\nD = np.array([[ 0.0258, -0.0179,  0.0409], [-0.0394,  0.0280, -0.0320],\n              [ 0.0318, -0.0421, -0.0289], [ 0.0093,  0.0370,  0.0438],\n              [ 0.0546, -0.0258,  0.0211], [-0.0471,  0.0393, -0.0179],\n              [ 0.0248,  0.0511, -0.0344], [-0.0180, -0.0458,  0.0401],\n              [ 0.0382,  0.0222,  0.0499], [-0.0526, -0.0169, -0.0256],\n              [ 0.0154, -0.0554,  0.0196], [-0.0324,  0.0234,  0.0453],\n              [ 0.0430, -0.0346, -0.0185]])\nEG, EE, EV_ = -8912.475160, -8911.713724, -8912.352817\nassert np.allclose(radiative_efficiency(M.copy(), D.copy(), EG, EE, EV_, 2.85, 1.0, 1.0, 0.128, 1.0, 295.0), target)",
+        "import numpy as np\nM = np.array([121.760, 28.0855, 12.011, 12.011])\nD = np.array([[0.061, -0.052, 0.047], [-0.083, 0.071, -0.066], [0.079, -0.058, 0.074], [-0.069, 0.088, -0.057]])\nassert np.allclose(radiative_efficiency(M.copy(), D.copy(), -900.0, -899.3, -899.92, 4.0, 2.6, 1.0, 0.1, 2.0, 500.0), target)",
+        "import numpy as np\nM = np.array([121.760, 28.0855, 28.0855, 28.0855, 12.011, 12.011, 12.011,\n              12.011, 12.011, 12.011, 12.011, 12.011, 12.011])\nD = np.array([[ 0.0258, -0.0179,  0.0409], [-0.0394,  0.0280, -0.0320],\n              [ 0.0318, -0.0421, -0.0289], [ 0.0093,  0.0370,  0.0438],\n              [ 0.0546, -0.0258,  0.0211], [-0.0471,  0.0393, -0.0179],\n              [ 0.0248,  0.0511, -0.0344], [-0.0180, -0.0458,  0.0401],\n              [ 0.0382,  0.0222,  0.0499], [-0.0526, -0.0169, -0.0256],\n              [ 0.0154, -0.0554,  0.0196], [-0.0324,  0.0234,  0.0453],\n              [ 0.0430, -0.0346, -0.0185]])\nEG, EE, EV_ = -8912.475160, -8911.713724, -8912.352817\ndef probe(fn):\n    try:\n        fn(M.copy(), D.copy(), EG, EE, EV_, 2.85, 2.5732, 1.0, 0.128, 4.0, -1.0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(probe(radiative_efficiency), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-55.9",
+      "test_cases": [
+        "import numpy as np\nM = np.array([121.760, 28.0855, 28.0855, 28.0855, 12.011, 12.011, 12.011,\n              12.011, 12.011, 12.011, 12.011, 12.011, 12.011])\nD = np.array([[ 0.0258, -0.0179,  0.0409], [-0.0394,  0.0280, -0.0320],\n              [ 0.0318, -0.0421, -0.0289], [ 0.0093,  0.0370,  0.0438],\n              [ 0.0546, -0.0258,  0.0211], [-0.0471,  0.0393, -0.0179],\n              [ 0.0248,  0.0511, -0.0344], [-0.0180, -0.0458,  0.0401],\n              [ 0.0382,  0.0222,  0.0499], [-0.0526, -0.0169, -0.0256],\n              [ 0.0154, -0.0554,  0.0196], [-0.0324,  0.0234,  0.0453],\n              [ 0.0430, -0.0346, -0.0185]])\nEG, EE, EV_ = -8912.475160, -8911.713724, -8912.352817\nassert np.allclose(thermal_quenching_temperature(M.copy(), D.copy(), EG, EE, EV_, 2.85, 2.5732, 1.0, 0.128, 4.0, 0.5), target)",
+        "import numpy as np\nM = np.array([121.760, 28.0855, 28.0855, 28.0855, 12.011, 12.011, 12.011,\n              12.011, 12.011, 12.011, 12.011, 12.011, 12.011])\nD = np.array([[ 0.0258, -0.0179,  0.0409], [-0.0394,  0.0280, -0.0320],\n              [ 0.0318, -0.0421, -0.0289], [ 0.0093,  0.0370,  0.0438],\n              [ 0.0546, -0.0258,  0.0211], [-0.0471,  0.0393, -0.0179],\n              [ 0.0248,  0.0511, -0.0344], [-0.0180, -0.0458,  0.0401],\n              [ 0.0382,  0.0222,  0.0499], [-0.0526, -0.0169, -0.0256],\n              [ 0.0154, -0.0554,  0.0196], [-0.0324,  0.0234,  0.0453],\n              [ 0.0430, -0.0346, -0.0185]])\nEG, EE, EV_ = -8912.475160, -8911.713724, -8912.352817\nassert np.allclose(thermal_quenching_temperature(M.copy(), D.copy(), EG, EE, EV_, 2.85, 2.5732, 1.0, 0.128, 4.0, 0.97), target)",
+        "import numpy as np\nM = np.array([121.760, 28.0855, 28.0855, 28.0855, 12.011, 12.011, 12.011,\n              12.011, 12.011, 12.011, 12.011, 12.011, 12.011])\nD = np.array([[ 0.0258, -0.0179,  0.0409], [-0.0394,  0.0280, -0.0320],\n              [ 0.0318, -0.0421, -0.0289], [ 0.0093,  0.0370,  0.0438],\n              [ 0.0546, -0.0258,  0.0211], [-0.0471,  0.0393, -0.0179],\n              [ 0.0248,  0.0511, -0.0344], [-0.0180, -0.0458,  0.0401],\n              [ 0.0382,  0.0222,  0.0499], [-0.0526, -0.0169, -0.0256],\n              [ 0.0154, -0.0554,  0.0196], [-0.0324,  0.0234,  0.0453],\n              [ 0.0430, -0.0346, -0.0185]])\nEG, EE, EV_ = -8912.475160, -8911.713724, -8912.352817\nassert np.allclose(thermal_quenching_temperature(M.copy(), D.copy(), EG, EE, EV_, 2.85, 2.5732, 1.0, 0.128, 4.0, 0.01), target)",
+        "import numpy as np\nM = np.array([121.760, 28.0855, 28.0855, 28.0855, 12.011, 12.011, 12.011,\n              12.011, 12.011, 12.011, 12.011, 12.011, 12.011])\nD = np.array([[ 0.0258, -0.0179,  0.0409], [-0.0394,  0.0280, -0.0320],\n              [ 0.0318, -0.0421, -0.0289], [ 0.0093,  0.0370,  0.0438],\n              [ 0.0546, -0.0258,  0.0211], [-0.0471,  0.0393, -0.0179],\n              [ 0.0248,  0.0511, -0.0344], [-0.0180, -0.0458,  0.0401],\n              [ 0.0382,  0.0222,  0.0499], [-0.0526, -0.0169, -0.0256],\n              [ 0.0154, -0.0554,  0.0196], [-0.0324,  0.0234,  0.0453],\n              [ 0.0430, -0.0346, -0.0185]])\nEG, EE, EV_ = -8912.475160, -8911.713724, -8912.352817\nassert np.allclose(thermal_quenching_temperature(M.copy(), D.copy(), EG, EE, EV_, 2.85, 2.5732, 1.0, 0.128, 4.0, 1.0e-8), target)",
+        "import numpy as np\nM = np.array([121.760, 28.0855, 28.0855, 28.0855, 12.011, 12.011, 12.011,\n              12.011, 12.011, 12.011, 12.011, 12.011, 12.011])\nD = np.array([[ 0.0258, -0.0179,  0.0409], [-0.0394,  0.0280, -0.0320],\n              [ 0.0318, -0.0421, -0.0289], [ 0.0093,  0.0370,  0.0438],\n              [ 0.0546, -0.0258,  0.0211], [-0.0471,  0.0393, -0.0179],\n              [ 0.0248,  0.0511, -0.0344], [-0.0180, -0.0458,  0.0401],\n              [ 0.0382,  0.0222,  0.0499], [-0.0526, -0.0169, -0.0256],\n              [ 0.0154, -0.0554,  0.0196], [-0.0324,  0.0234,  0.0453],\n              [ 0.0430, -0.0346, -0.0185]])\nEG, EE, EV_ = -8912.475160, -8911.713724, -8912.352817\nassert np.allclose(thermal_quenching_temperature(M.copy(), D.copy(), EG, EE, EV_, 1.2, 1.0, 1.0, 0.128, 4.0, 0.5), target)",
+        "import numpy as np\nM = np.array([121.760, 28.0855, 12.011, 12.011])\nD = np.array([[0.061, -0.052, 0.047], [-0.083, 0.071, -0.066], [0.079, -0.058, 0.074], [-0.069, 0.088, -0.057]])\nassert np.allclose(thermal_quenching_temperature(M.copy(), D.copy(), -900.0, -899.3, -899.92, 4.0, 2.6, 1.0, 0.1, 2.0, 0.5), target)",
+        "import numpy as np\nM = np.array([121.760, 28.0855, 28.0855, 28.0855, 12.011, 12.011, 12.011,\n              12.011, 12.011, 12.011, 12.011, 12.011, 12.011])\nD = np.array([[ 0.0258, -0.0179,  0.0409], [-0.0394,  0.0280, -0.0320],\n              [ 0.0318, -0.0421, -0.0289], [ 0.0093,  0.0370,  0.0438],\n              [ 0.0546, -0.0258,  0.0211], [-0.0471,  0.0393, -0.0179],\n              [ 0.0248,  0.0511, -0.0344], [-0.0180, -0.0458,  0.0401],\n              [ 0.0382,  0.0222,  0.0499], [-0.0526, -0.0169, -0.0256],\n              [ 0.0154, -0.0554,  0.0196], [-0.0324,  0.0234,  0.0453],\n              [ 0.0430, -0.0346, -0.0185]])\nEG, EE, EV_ = -8912.475160, -8911.713724, -8912.352817\ndef probe(fn):\n    try:\n        fn(M.copy(), D.copy(), EG, EE, EV_, 2.85, 2.5732, 1.0, 0.128, 4.0, 1.0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(probe(thermal_quenching_temperature), target)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "problem_id": "Biology-Biochemistry-9",
+  "sub_steps": [
+    {
+      "step_number": "Biology-Biochemistry-9.1",
+      "test_cases": [
+        "import numpy as np\ng = np.array([[2.0, 3.0], [5.0, 7.0]])\nf = np.array([[1.0, 1.0], [0.2, 2.0]])\nassert np.allclose(perturbed_weights(g,f), target)",
+        "import numpy as np\ng = np.array([[4.0]])\nf = np.array([[1.0]])\nassert np.allclose(perturbed_weights(g,f), target)",
+        "import numpy as np\ng = np.array([[1e-08, 100000000.0]])\nf = np.array([[100000000.0, 1e-08], [0.5, 0.25]])\nassert np.allclose(perturbed_weights(g,f), target)",
+        "import numpy as np\ng = np.ones((2, 3))\nf = np.ones((1, 2))\n\ndef _error_check(fn, args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(_error_check(perturbed_weights, (g,f,)), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-9.2",
+      "test_cases": [
+        "import numpy as np\na = np.array([[-1.0, -1.0, 1.0], [1.0, 1.0, -1.0], [0.0, 0.0, 0.0]])\nb = np.array([-4.0, 4.0, 0.0])\nassert np.allclose(balance_rows(a,b), target)",
+        "import numpy as np\na = np.eye(2)\nb = np.array([0.0, 2.0])\nassert np.allclose(balance_rows(a,b), target)",
+        "import numpy as np\na = np.array([[0.0, 0.0], [2.0, 4.0], [1.0, 2.0]])\nb = np.array([0.0, 6.0, 3.0])\nassert np.allclose(balance_rows(a,b), target)",
+        "import numpy as np\na = np.array([[1.0, 2.0], [2.0, 4.0]])\nb = np.array([1.0, 3.0])\n\ndef _error_check(fn, args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(_error_check(balance_rows, (a,b,)), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-9.3",
+      "test_cases": [
+        "import numpy as np\na = np.array([[1.0, 1.0, -1.0, 4.0]])\ng = np.array([[[1.0, 3.0, 5.0], [2.0, 1.0, 9.0]]])\ni = np.array([2])\nassert np.allclose(infer_net_panel(a, g, i), target)",
+        "import numpy as np\na = np.c_[np.eye(3), [0.0, 2.0, -1.0]]\ng = np.array([[[2.0, 3.0, 4.0]]])\ni = np.array([0, 1])\nassert np.allclose(infer_net_panel(a, g, i), target)",
+        "import numpy as np\na = np.array([[1.0, -1.0, 0.0, 2.0], [0.0, 1.0, 1.0, 1.0]])\ng = np.array([[[0.4, 9.0, 1.0]], [[2.0, 1.0, 7.0]]])\ni = np.array([0])\nassert np.allclose(infer_net_panel(a, g, i), target)",
+        "import numpy as np\na = np.array([[1.0, -2.0]])\ng = np.ones((1, 1, 1))\ni = np.array([0])\n\ndef _error_check(fn, args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(_error_check(infer_net_panel, (a,g,i,)), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-9.4",
+      "test_cases": [
+        "import numpy as np\nv = np.array([0.0, 2.0, -3.0])\ng = np.array([1.0, 2.0, 4.0])\nassert np.allclose(directional_panel(v,g), target)",
+        "import numpy as np\nv = np.array([0.0])\ng = np.array([7.0])\nassert np.allclose(directional_panel(v,g), target)",
+        "import numpy as np\nv = np.array([100000000.0, -100000000.0])\ng = np.array([0.0001, 0.0001])\nassert np.allclose(directional_panel(v,g), target)",
+        "import numpy as np\nv = np.array([1.0, 2.0])\ng = np.array([1.0])\n\ndef _error_check(fn, args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(_error_check(directional_panel, (v,g,)), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-9.5",
+      "test_cases": [
+        "import numpy as np\np = np.array([[3.0, 1.0], [2.0, 5.0]])\nassert np.allclose(energy_panel(p,.00831446261815324,298.15), target)",
+        "import numpy as np\np = np.array([[2.0, 2.0]])\nassert np.allclose(energy_panel(p,1.,1.), target)",
+        "import numpy as np\np = np.array([[1e-200, 1e+200]])\nassert np.allclose(energy_panel(p,1.,1.), target)",
+        "import numpy as np\np = np.array([[0.0, 1.0]])\n\ndef _error_check(fn, args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(_error_check(energy_panel, (p,1.0,1.0,)), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-9.6",
+      "test_cases": [
+        "import numpy as np\nv = np.array([-3.0, 0.0, 0.2, 4.0])\nassert np.allclose(active_directions(v,.1), target)",
+        "import numpy as np\nv = np.array([-1e-07, 1e-07, 1.00001e-07])\nassert np.allclose(active_directions(v,1e-7), target)",
+        "import numpy as np\nv = np.array([[1e-12, -1e-12]])\nassert np.allclose(active_directions(v,1e-15), target)",
+        "import numpy as np\nv = np.array([1.0])\n\ndef _error_check(fn, args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(_error_check(active_directions, (v,-1.0,)), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-9.7",
+      "test_cases": [
+        "import numpy as np\nS = np.array([[-1.0], [1.0]])\nz = np.ones((1, 1, 1))\ngam = np.zeros(1)\nsd = np.zeros(1)\nlb = np.array([[[-2.0, 0.0], [-2.0, 0.0]]])\nH = np.empty((0, 2))\nhb = np.empty((1, 0, 2))\nassert np.allclose(physiological_ranges(S,z,gam,sd,lb,H,hb,1.,1.,.1), target)",
+        "import numpy as np\nS = np.array([[-1.0], [1.0]])\nz = np.ones((1, 1, 1))\ngam = np.zeros(1)\nsd = np.zeros(1)\nlb = np.array([[[-2.0, 0.0], [-2.0, 0.0]]])\nH = np.empty((0, 2))\nhb = np.empty((1, 0, 2))\nz[:] = 0.0\ngam[:] = 1.0\nlb[:] = 0.0\nassert np.allclose(physiological_ranges(S,z,gam,sd,lb,H,hb,1.,1.,.1), target)",
+        "import numpy as np\nS = np.array([[-1.0], [1.0]])\nz = np.ones((1, 1, 1))\ngam = np.zeros(1)\nsd = np.zeros(1)\nlb = np.array([[[-2.0, 0.0], [-2.0, 0.0]]])\nH = np.empty((0, 2))\nhb = np.empty((1, 0, 2))\nlb = np.array([[[0.0, 0.0], [1.0, 1.0]]])\nassert np.allclose(physiological_ranges(S,z,gam,sd,lb,H,hb,1.,1.,.1), target)",
+        "import numpy as np\nS = np.array([[-1.0], [1.0]])\nz = np.ones((1, 1, 1))\ngam = np.zeros(1)\nsd = np.zeros(1)\nlb = np.array([[[-2.0, 0.0], [-2.0, 0.0]]])\nH = np.empty((0, 2))\nhb = np.empty((1, 0, 2))\nsd[:] = -1.0\n\ndef _error_check(fn, args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(_error_check(physiological_ranges, (S,z,gam,sd,lb,H,hb,1.0,1.0,0.1,)), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-9.8",
+      "test_cases": [
+        "import numpy as np\ne = np.array([[[-2.0, 0.5]]])\nz = np.array([[[1.0, 0.0]]])\np = np.array([[[1.0, -3.0, 2.0, -1.0, 3.0]]])\nassert np.allclose(compatibility_panel(e,z,p,.1), target)",
+        "import numpy as np\ne = np.array([[[-1.25]]])\nz = np.ones((1, 1, 1))\np = np.array([[[1.0, -1.0, -0.1]]])\nassert np.allclose(compatibility_panel(e,z,p,.25), target)",
+        "import numpy as np\ne = np.array([[[-2.0]], [[2.0]]])\nz = np.ones((2, 1, 1))\np = np.array([[[1.0, -1.5, -0.1]], [[0.0, 0.0, 0.0]]])\nassert np.allclose(compatibility_panel(e,z,p,.1), target)",
+        "import numpy as np\ne = np.array([[[1.0]]])\nz = np.array([[[2.0]]])\np = np.array([[[1.0, -2.0, 2.0]]])\n\ndef _error_check(fn, args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(_error_check(compatibility_panel, (e,z,p,0.1,)), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-9.9",
+      "test_cases": [
+        "import numpy as np\nv = np.array([[[5.0], [4.0]], [[6.0], [2.0]], [[4.5], [4.5]]])\nk = np.zeros((3, 2, 2))\nk[:, :, 0] = 1.0\nk[1, 1, 0] = 0.0\nassert np.allclose(select_robust_candidate(v,k,0,5.), target)",
+        "import numpy as np\nv = np.array([[[2.0], [2.0]], [[2.0], [3.0]]])\nk = np.zeros((2, 2, 2))\nk[:, :, 0] = 1.0\nassert np.allclose(select_robust_candidate(v,k,0,2.), target)",
+        "import numpy as np\nv = np.array([[[-2.0], [-3.0]], [[-4.0], [-1.0]]])\nk = np.zeros((2, 2, 2))\nk[:, :, 0] = 1.0\nassert np.allclose(select_robust_candidate(v,k,0,2.), target)",
+        "import numpy as np\nv = np.ones((1, 1, 1))\nk = np.zeros((1, 1, 2))\n\ndef _error_check(fn, args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(_error_check(select_robust_candidate, (v,k,0,1.0,)), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-9.10",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(resolve_metabolic_panel(), target)",
+        "import numpy as np\nd = dict(S=np.array([[-1.0], [1.0]]), b=np.array([-2.0, 2.0]), weights=np.array([[2.0], [5.0]]), factors=np.array([[1.0], [0.5]]), irreversible=np.array([0], dtype=int), standard_mean=np.zeros(1), standard_sd=np.zeros(1), log_bounds=np.tile([-4.0, 0.0], (2, 2, 1)), contrasts=np.empty((0, 2)), contrast_bounds=np.empty((2, 0, 2)), R=1.0, T=1.0, tau=1e-07, epsilon=0.01, excess=0.3, target=0, normalization=4.0)\nassert np.allclose(resolve_metabolic_panel(d), target)",
+        "import numpy as np\nd = dict(S=np.array([[-1.0], [1.0]]), b=np.array([-2.0, 2.0]), weights=np.array([[2.0], [5.0]]), factors=np.array([[1.0], [0.5]]), irreversible=np.array([0], dtype=int), standard_mean=np.zeros(1), standard_sd=np.zeros(1), log_bounds=np.tile([-4.0, 0.0], (2, 2, 1)), contrasts=np.empty((0, 2)), contrast_bounds=np.empty((2, 0, 2)), R=1.0, T=1.0, tau=1e-07, epsilon=0.01, excess=0.3, target=0, normalization=4.0)\nd['b'][:] = 0.0\nassert np.allclose(resolve_metabolic_panel(d), target)",
+        "import numpy as np\n\ndef _error_check(fn, args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(_error_check(resolve_metabolic_panel, ({},)), target)"
+      ]
+    }
+  ]
+}

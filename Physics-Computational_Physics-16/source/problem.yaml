@@ -1,0 +1,36 @@
+problem_id: "Physics-Computational_Physics-16"
+subject: "physics"
+subject_area: "Computational Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2602.11191"
+dependencies: ""
+steps:
+  - number: 1
+    name: "compute_fission_moments"
+    description: "Implement compute_fission_moments which computes the first and raw second moments of a fission population increment."
+    orchestrator: false
+  - number: 2
+    name: "build_mean_drift"
+    description: "Implement build_mean_drift which constructs the linear mean-population operator for two perfectly mixed fuel regions."
+    orchestrator: false
+  - number: 3
+    name: "build_jump_noise"
+    description: "Implement build_jump_noise which computes the instantaneous covariance-production matrix of the discrete-event model."
+    orchestrator: false
+  - number: 4
+    name: "build_sde_noise"
+    description: "Implement build_sde_noise which computes covariance production for the source paper\u2019s continuous stochastic differential equation model."
+    orchestrator: false
+  - number: 5
+    name: "evaluate_moment_rhs"
+    description: "Implement evaluate_moment_rhs which evaluates the coupled mean and covariance derivatives for both reactor models during a ramp transient."
+    orchestrator: false
+  - number: 6
+    name: "propagate_moments"
+    description: "Implement propagate_moments which evolves the ensemble mean and both population covariance matrices from an empty reactor."
+    orchestrator: false
+  - number: 7
+    name: "calculate_variance_shortfall"
+    description: "Implement calculate_variance_shortfall which compares the ex-core precursor variances predicted by the two benchmark models."
+    orchestrator: true

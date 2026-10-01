@@ -1,0 +1,97 @@
+{
+  "problem_id": "Mathematics-Numerical_Linear_Algebra-7",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-7.1",
+      "test_cases": [
+        "import numpy as np\np, r, nmesh = 2, 0, 4\ntvals = np.array([0.0, 0.25, 1.0, 1.5, 2.75, 4.0])\nassert np.allclose(spline_basis_values(p, r, nmesh, tvals), target)",
+        "import numpy as np\np, r, nmesh = 3, 1, 4\ntvals = np.linspace(0.0, 4.0, 9)\nassert np.allclose(spline_basis_values(p, r, nmesh, tvals), target)",
+        "import numpy as np\np, r, nmesh = 4, 2, 5\ntvals = np.array([0.5, 1.0, 2.2, 3.9, 5.0])\nassert np.allclose(spline_basis_values(p, r, nmesh, tvals), target)",
+        "import numpy as np\np, r, nmesh = 5, 3, 4\ntvals = np.array([0.1, 1.3, 2.0, 3.7])\nassert np.allclose(spline_basis_values(p, r, nmesh, tvals), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-7.2",
+      "test_cases": [
+        "import numpy as np\np, r, nmesh = 2, 0, 4\nassert np.allclose(petrov_galerkin_matrices(p, r, nmesh), target)",
+        "import numpy as np\np, r, nmesh = 3, 0, 3\nassert np.allclose(petrov_galerkin_matrices(p, r, nmesh), target)",
+        "import numpy as np\np, r, nmesh = 3, 1, 4\nassert np.allclose(petrov_galerkin_matrices(p, r, nmesh), target)",
+        "import numpy as np\np, r, nmesh = 4, 2, 5\nassert np.allclose(petrov_galerkin_matrices(p, r, nmesh), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-7.3",
+      "test_cases": [
+        "import numpy as np\np, r = 2, 0\nassert np.allclose(interior_symbol_blocks(p, r), target)",
+        "import numpy as np\np, r = 3, 0\nassert np.allclose(interior_symbol_blocks(p, r), target)",
+        "import numpy as np\np, r = 3, 1\nassert np.allclose(interior_symbol_blocks(p, r), target)",
+        "import numpy as np\np, r = 4, 2\nassert np.allclose(interior_symbol_blocks(p, r), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-7.4",
+      "test_cases": [
+        "import numpy as np\np, r, rho = 2, 0, 5.0\nassert np.allclose(symbol_determinant(p, r, rho), target)",
+        "import numpy as np\np, r, rho = 3, 0, 20.0\nassert np.allclose(symbol_determinant(p, r, rho), target)",
+        "import numpy as np\np, r, rho = 3, 1, 9.9\nassert np.allclose(symbol_determinant(p, r, rho), target)",
+        "import numpy as np\np, r, rho = 4, 2, 60.0\nassert np.allclose(symbol_determinant(p, r, rho), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-7.5",
+      "test_cases": [
+        "import numpy as np\np, r, rho = 4, 2, 60.0\nassert np.allclose(zero_location_type(p, r, rho), target)",
+        "import numpy as np\np, r, rho = 4, 2, 9.875\nassert np.allclose(zero_location_type(p, r, rho), target)",
+        "import numpy as np\np, r, rho = 2, 0, 11.0\nassert np.allclose(zero_location_type(p, r, rho), target)",
+        "import numpy as np\np, r, rho = 3, 1, 20.0\nassert np.allclose(zero_location_type(p, r, rho), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-7.6",
+      "test_cases": [
+        "import numpy as np\np, r = 2, 0\nassert np.allclose(growth_thresholds(p, r), target)",
+        "import numpy as np\np, r = 3, 0\nassert np.allclose(growth_thresholds(p, r), target)",
+        "import numpy as np\np, r = 3, 1\nassert np.allclose(growth_thresholds(p, r), target)",
+        "import numpy as np\np, r = 4, 2\nassert np.allclose(growth_thresholds(p, r), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-7.7",
+      "test_cases": [
+        "import numpy as np\np, r, rho, nblocks = 4, 2, 60.0, 4\nassert np.allclose(block_toeplitz_section(p, r, rho, nblocks), target)",
+        "import numpy as np\np, r, rho, nblocks = 2, 0, 11.0, 5\nassert np.allclose(block_toeplitz_section(p, r, rho, nblocks), target)",
+        "import numpy as np\np, r, rho, nblocks = 3, 1, 9.9, 3\nassert np.allclose(block_toeplitz_section(p, r, rho, nblocks), target)",
+        "import numpy as np\np, r, rho, nblocks = 3, 0, 50.0, 3\nassert np.allclose(block_toeplitz_section(p, r, rho, nblocks), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-7.8",
+      "test_cases": [
+        "import numpy as np\np, r, rho, nblocks = 4, 2, 60.0, 20\nassert np.allclose(exact_condition_number(p, r, rho, nblocks), target)",
+        "import numpy as np\np, r, rho, nblocks = 2, 0, 70.0, 14\nassert np.allclose(exact_condition_number(p, r, rho, nblocks), target)",
+        "import numpy as np\np, r, rho, nblocks = 3, 1, 50.0, 14\nassert np.allclose(exact_condition_number(p, r, rho, nblocks), target)",
+        "import numpy as np\np, r, rho, nblocks = 4, 2, 9.875, 25\nassert np.allclose(exact_condition_number(p, r, rho, nblocks), target)",
+        "import numpy as np\np, r, rho, nblocks = 4, 2, 60.0, 40\nassert np.allclose(exact_condition_number(p, r, rho, nblocks), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-7.9",
+      "test_cases": [
+        "import numpy as np\np, r, rho = 4, 2, 60.0\nnb_list = [10, 20]\nassert np.allclose(growth_factors(p, r, rho, nb_list), target)",
+        "import numpy as np\np, r, rho = 2, 0, 70.0\nnb_list = [10]\nassert np.allclose(growth_factors(p, r, rho, nb_list), target)",
+        "import numpy as np\np, r, rho = 3, 1, 9.9\nnb_list = [12]\nassert np.allclose(growth_factors(p, r, rho, nb_list), target)",
+        "import numpy as np\np, r, rho = 4, 2, 20.0\nnb_list = [15]\nassert np.allclose(growth_factors(p, r, rho, nb_list), target)",
+        "import numpy as np\np, r, rho = 4, 2, 60.0\nnb_list = [40]\nassert np.allclose(growth_factors(p, r, rho, nb_list), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-7.10",
+      "test_cases": [
+        "import numpy as np\np, r, rho, nb_final = 4, 2, 60.0, 60\nassert np.allclose(iga_conditioning_audit(p, r, rho, nb_final), target)",
+        "import numpy as np\np, r, rho, nb_final = 2, 0, 70.0, 30\nassert np.allclose(iga_conditioning_audit(p, r, rho, nb_final), target)",
+        "import numpy as np\np, r, rho, nb_final = 3, 1, 50.0, 25\nassert np.allclose(iga_conditioning_audit(p, r, rho, nb_final), target)",
+        "import numpy as np\np, r, rho, nb_final = 3, 0, 50.0, 20\nassert np.allclose(iga_conditioning_audit(p, r, rho, nb_final), target)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+problem_id: "Chemistry-Quantum_Chemistry-3"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2607.13907"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_build_powder_grid"
+    description: "Implement build_powder_grid which returns the weighted crystallite orientation set used for powder averaging."
+    orchestrator: false
+  - number: 2
+    name: "02_compute_shielding_fourier_components"
+    description: "Implement compute_shielding_fourier_components which returns the rotor-modulated Fourier coefficients of a single-spin shielding Hamiltonian."
+    orchestrator: false
+  - number: 3
+    name: "03_compute_offset_trajectory"
+    description: "Implement compute_offset_trajectory which reconstructs the instantaneous shielding frequency seen by a spin during sample rotation."
+    orchestrator: false
+  - number: 4
+    name: "04_build_interval_quaternion"
+    description: "Implement build_interval_quaternion which represents one piecewise-constant irradiation interval as a rotation quaternion."
+    orchestrator: false
+  - number: 5
+    name: "05_compose_quaternion_sequence"
+    description: "Implement compose_quaternion_sequence which accumulates the rotation of a whole pulse sequence element from its per-interval quaternions."
+    orchestrator: false
+  - number: 6
+    name: "06_extract_effective_field"
+    description: "Implement extract_effective_field which converts the rotation of a periodic pulse element into the constant field that generates it."
+    orchestrator: false
+  - number: 7
+    name: "07_compute_fidelity_and_gradient"
+    description: "Implement compute_fidelity_and_gradient which scores a pulse element against a target rotation and returns the exact derivatives of that score."
+    orchestrator: false
+  - number: 8
+    name: "08_run_pipeline"
+    description: "Implement run_pipeline which refines a piecewise-constant irradiation element against a target rotation and reports the effective field it generates."
+    orchestrator: true

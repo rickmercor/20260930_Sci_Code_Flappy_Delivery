@@ -1,0 +1,69 @@
+{
+  "problem_id": "Biology-Genetics-47",
+  "sub_steps": [
+    {
+      "step_number": "Biology-Genetics-47.1",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(linked_site_spectrum_components(34, 21), target)",
+        "import numpy as np\nassert np.allclose(linked_site_spectrum_components(12, 1), target)",
+        "import numpy as np\nassert np.allclose(linked_site_spectrum_components(80, 79), target)",
+        "import numpy as np\nassert np.allclose(linked_site_spectrum_components(6, 3), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-47.2",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(indel_null_spectrum(34, 13, True), target)",
+        "import numpy as np\nassert np.allclose(indel_null_spectrum(34, 13, False), target)",
+        "import numpy as np\nassert np.allclose(indel_null_spectrum(10, 2, True), target)",
+        "import numpy as np\nassert np.allclose(indel_null_spectrum(60, 59, False), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-47.3",
+      "test_cases": [
+        "import numpy as np\nspec = np.array([0.46776971552907953, 0.2549732363867326, 0.180470560025406, 0.14166866393608013, 0.11756173507208817, 0.100994520450469, 0.08883821053907612, 0.07949879580376522, 0.07207503416812476, 0.06601718838329038, 0.06096994547688006, 0.0566929247008494], dtype=np.float64)\nassert np.allclose(fold_spectrum(spec, 13), target)",
+        "import numpy as np\nspec = np.array([15.0, 8.0, 6.0, 5.0, 2.0, 3.0, 4.0])\nassert np.allclose(fold_spectrum(spec, 8), target)",
+        "import numpy as np\nspec = np.array([7.0])\nassert np.allclose(fold_spectrum(spec, 2), target)",
+        "import numpy as np\nspec = np.array([292, 159, 91, 71, 57, 62, 41, 35, 37, 31, 25, 20, 15, 24, 15, 19, 26, 14, 17, 13, 7, 11, 12, 16, 12, 6, 11, 16, 12, 7, 7, 14, 13])\nassert np.allclose(fold_spectrum(spec, 34), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-47.4",
+      "test_cases": [
+        "import numpy as np\ncounts = np.array([292, 159, 91, 71, 57, 62, 41, 35, 37, 31, 25, 20, 15, 24, 15, 19, 26, 14, 17, 13, 7, 11, 12, 16, 12, 6, 11, 16, 12, 7, 7, 14, 13])\nassert np.allclose(spectrum_statistics(counts, 34), target)",
+        "import numpy as np\ncounts = np.array([20.72968271338669, 11.299393943714442, 7.997733338085894, 6.278188510991328, 5.209865851454659, 4.4756731682829844, 3.9369541382496975, 3.52306863483966, 3.194077214194617, 2.9256177203938964, 2.701944103753417, 2.5124036510428422], dtype=np.float64)\nassert np.allclose(spectrum_statistics(counts, 13), target)",
+        "import numpy as np\ncounts = np.array([1.0, 5.0, 2.0])\nassert np.allclose(spectrum_statistics(counts, 4), target)",
+        "import numpy as np\ncounts = np.array([3, 1, 0, 2, 0, 1, 0, 0, 1, 0, 2, 1, 0, 3, 4, 6, 9, 12, 20])\nassert np.allclose(spectrum_statistics(counts, 20), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-47.5",
+      "test_cases": [
+        "import numpy as np\nfolded = np.array([29, 14, 9, 11, 3, 6])\ntheta = 1208.0 / (np.sum(1.0 / np.arange(1, 34)) * 60000.0)\nassert np.allclose(polarity_log_likelihoods(folded, 34, 13, theta, 9000.0), target)",
+        "import numpy as np\nfolded = np.array([12, 7, 5, 4, 6, 1])\ntheta = 1208.0 / (np.sum(1.0 / np.arange(1, 34)) * 60000.0)\nassert np.allclose(polarity_log_likelihoods(folded, 34, 13, theta, 9000.0), target)",
+        "import numpy as np\nfolded = np.array([5.0])\nassert np.allclose(polarity_log_likelihoods(folded, 10, 3, 0.01, 2000.0), target)",
+        "import numpy as np\nfolded = np.array([18, 9, 4, 6])\nassert np.allclose(polarity_log_likelihoods(folded, 20, 8, 0.006, 12000.0), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-47.6",
+      "test_cases": [
+        "import numpy as np\nfolded = np.array([29, 14, 9, 11, 3, 6])\nassert np.allclose(sv_aware_theta_folded(folded, 34, 13, True, 9000.0, 'pairwise', 1), target)",
+        "import numpy as np\nfolded = np.array([29, 14, 9, 11, 3, 6])\nassert np.allclose(sv_aware_theta_folded(folded, 34, 13, False, 9000.0, 'watterson', 1), target)",
+        "import numpy as np\nfolded = np.array([29, 14, 9, 11, 3, 6])\nassert np.allclose(sv_aware_theta_folded(folded, 34, 13, True, 9000.0, 'pairwise', 2), target)",
+        "import numpy as np\nfolded = np.array([7.0])\nassert np.allclose(sv_aware_theta_folded(folded, 10, 3, True, 3000.0, 'watterson', 1), target)",
+        "import numpy as np\nfolded = np.array([10, 6, 4, 3])\nassert np.allclose(sv_aware_theta_folded(folded, 20, 8, False, 5000.0, 'pairwise', 1), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-47.7",
+      "test_cases": [
+        "import numpy as np\nfolded = np.array([29, 14, 9, 11, 3, 6])\nflank = np.array([292, 159, 91, 71, 57, 62, 41, 35, 37, 31, 25, 20, 15, 24, 15, 19, 26, 14, 17, 13, 7, 11, 12, 16, 12, 6, 11, 16, 12, 7, 7, 14, 13])\nassert np.allclose(sv_aware_relative_diversity(34, 13, folded, 9000.0, flank, 60000.0), target)",
+        "import numpy as np\nfolded = np.array([12, 7, 5, 4, 6, 1])\nflank = np.array([292, 159, 91, 71, 57, 62, 41, 35, 37, 31, 25, 20, 15, 24, 15, 19, 26, 14, 17, 13, 7, 11, 12, 16, 12, 6, 11, 16, 12, 7, 7, 14, 13])\nassert np.allclose(sv_aware_relative_diversity(34, 13, folded, 9000.0, flank, 60000.0), target)",
+        "import numpy as np\nfolded = np.array([7.0])\nflank = np.array([40, 18, 12, 9, 6, 7, 4, 5, 6])\nassert np.allclose(sv_aware_relative_diversity(10, 3, folded, 3000.0, flank, 15000.0), target)",
+        "import numpy as np\nfolded = np.array([18, 9, 4, 6])\nflank = np.array([120, 63, 40, 31, 22, 20, 16, 15, 12, 11, 9, 8, 10, 7, 6, 8, 5, 7, 6])\nassert np.allclose(sv_aware_relative_diversity(20, 8, folded, 12000.0, flank, 50000.0), target)"
+      ]
+    }
+  ]
+}

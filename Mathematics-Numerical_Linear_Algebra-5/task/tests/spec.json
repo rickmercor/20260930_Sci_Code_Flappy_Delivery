@@ -1,0 +1,101 @@
+{
+  "problem_id": "Mathematics-Numerical_Linear_Algebra-5",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-5.1",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(float(build_kaczmarz_instance()['b_norm']) + float(np.linalg.norm(build_kaczmarz_instance()['x_star'])) + float(np.linalg.norm(build_kaczmarz_instance()['r_opt'])), target)",
+        "import numpy as np\nassert np.allclose(float(np.max(np.abs(build_kaczmarz_instance()['A'] @ build_kaczmarz_instance()['x_star'] + build_kaczmarz_instance()['r_opt'] - build_kaczmarz_instance()['b']))), target)",
+        "import numpy as np\nassert np.allclose(float(np.sum(build_kaczmarz_instance(seed=1, m=8, n=2, density=1.0, noise_ratio=0.1)['col_sq_norms'])) + float(np.sum(build_kaczmarz_instance(seed=1, m=8, n=2, density=1.0, noise_ratio=0.1)['row_sq_norms'])), target)",
+        "import numpy as np\ndef _guard(thunk):\n    try:\n        thunk()\n        return 0\n    except ValueError:\n        return 2\n    except Exception:\n        return 1\nassert np.allclose(_guard(lambda: build_kaczmarz_instance(m=20, n=10, density=1.5)), target)",
+        "import numpy as np\ndef _guard(thunk):\n    try:\n        thunk()\n        return 0\n    except ValueError:\n        return 2\n    except Exception:\n        return 1\nassert np.allclose(_guard(lambda: build_kaczmarz_instance(m=5, n=10, density=0.5)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-5.2",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(float(np.sum(sample_index_block(np.array([0.1, 0.4, 0.05, 0.3, 0.15]), 2, np.random.default_rng(11)))), target)",
+        "import numpy as np\nassert np.allclose(float(np.sum(sample_index_block(np.array([0.5, 0.0, 0.5, 0.0]), 2, np.random.default_rng(3)))), target)",
+        "import numpy as np\ndef _guard(thunk):\n    try:\n        thunk()\n        return 0\n    except ValueError:\n        return 2\n    except Exception:\n        return 1\nassert np.allclose(_guard(lambda: sample_index_block(np.array([0.5, 0.0, 0.5, 0.0]), 3, np.random.default_rng(1))), target)",
+        "import numpy as np\ndef _guard(thunk):\n    try:\n        thunk()\n        return 0\n    except ValueError:\n        return 2\n    except Exception:\n        return 1\nassert np.allclose(_guard(lambda: sample_index_block(np.array([0.5, -0.1, 0.6]), 1, np.random.default_rng(1))), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-5.3",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(float(np.linalg.norm(column_phase_update(np.array([[1.0, 0.0, 2.0], [0.0, 1.0, -1.0], [1.0, 1.0, 0.0], [2.0, -1.0, 1.0]]), np.array([1.0, 2.0, -1.0, 0.5]), np.array([1.0**2+0.0**2+1.0**2+2.0**2, 0.0**2+1.0**2+1.0**2+1.0**2, 2.0**2+1.0**2+0.0**2+1.0**2]), 1, np.random.default_rng(3)))), target)",
+        "import numpy as np\nassert np.allclose(float(np.linalg.norm(column_phase_update(np.array([[1.0, 1.0, 0.0], [2.0, 2.0, 1.0], [0.0, 0.0, 1.0]]), np.array([1.0, 1.0, 1.0]), np.array([5.0, 5.0, 2.0]), 2, np.random.default_rng(0)))), target)",
+        "import numpy as np\nassert np.allclose(float(np.max(np.abs(column_phase_update(np.array([[2.0, 0.0], [0.0, 1.0], [4.0, -1.0]]), np.array([2.0, 0.0, 4.0]), np.array([20.0, 2.0]), 1, np.random.default_rng(0))))), target)",
+        "import numpy as np\ndef _guard(thunk):\n    try:\n        thunk()\n        return 0\n    except ValueError:\n        return 2\n    except Exception:\n        return 1\nassert np.allclose(_guard(lambda: column_phase_update(np.array([[1.0, 2.0], [1.0, 2.0]]), np.array([1.0, 1.0]), np.array([2.0, 0.0]), 1, np.random.default_rng(1))), target)",
+        "import numpy as np\ndef _guard(thunk):\n    try:\n        thunk()\n        return 0\n    except ValueError:\n        return 2\n    except Exception:\n        return 1\nassert np.allclose(_guard(lambda: column_phase_update(np.array([[1.0, 0.0], [0.0, 0.0]]), np.array([1.0, 0.0]), np.array([1.0, 1.0]), 2, np.random.default_rng(1))), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-5.4",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(float(np.linalg.norm(row_phase_update(np.array([[1.0, 0.0, -1.0], [0.5, 1.0, 0.0], [-1.0, 2.0, 1.0], [0.0, -1.0, 2.0]]), np.array([1.0, 2.0, -1.0, 0.5]), np.array([0.5, 0.5, -0.5, 0.0]), np.array([1.0, -1.0, 0.5]), np.array([2.0, 1.25, 6.0, 5.0]), 2, np.random.default_rng(9)))), target)",
+        "import numpy as np\nassert np.allclose(float(np.linalg.norm(row_phase_update(np.array([[1.0, 1.0], [1.0, 1.0], [0.0, 1.0]]), np.array([2.0, 2.0, 1.0]), np.array([0.0, 0.0, 0.0]), np.array([0.0, 0.0]), np.array([2.0, 2.0, 1.0]), 2, np.random.default_rng(0)))), target)",
+        "import numpy as np\nassert np.allclose(float(abs(3.0 - 0.0 - float(np.array([0.0, 1.0]) @ row_phase_update(np.array([[1.0, 2.0], [0.0, 1.0]]), np.array([4.0, 3.0]), np.array([1.0, 0.0]), np.array([1.0, 1.0]), np.array([5.0, 1.0]), 1, np.random.default_rng(0))))), target)",
+        "import numpy as np\ndef _guard(thunk):\n    try:\n        thunk()\n        return 0\n    except ValueError:\n        return 2\n    except Exception:\n        return 1\nassert np.allclose(_guard(lambda: row_phase_update(np.array([[1.0, 0.0], [0.0, 0.0]]), np.array([1.0, 0.0]), np.array([0.0, 0.0]), np.array([0.0, 0.0]), np.array([1.0, 0.0]), 1, np.random.default_rng(1))), target)",
+        "import numpy as np\ndef _guard(thunk):\n    try:\n        thunk()\n        return 0\n    except ValueError:\n        return 2\n    except Exception:\n        return 1\nassert np.allclose(_guard(lambda: row_phase_update(np.array([[1.0, 0.0], [0.0, 0.0]]), np.array([1.0, 0.0]), np.array([0.0, 0.0]), np.array([0.0, 0.0]), np.array([1.0, 1.0]), 2, np.random.default_rng(1))), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-5.5",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(float(np.linalg.norm(march_rgdbek(np.array([[2.0, 0.0, 1.0], [0.0, 1.0, -1.0], [1.0, 1.0, 0.0], [0.0, 2.0, 1.0], [1.0, -1.0, 2.0]]), np.array([3.0, 0.0, 2.0, 1.0, 2.0]), 0.5, 3, 5)['x'])), target)",
+        "import numpy as np\n_A5 = np.array([[1.0, 2.0, -1.0], [0.5, -1.0, 2.0], [2.0, 0.5, 1.0], [-1.0, 1.5, 0.5], [1.5, -0.5, -1.0], [0.7, 1.0, 1.2]])\n_b5 = np.array([1.0, 0.5, 2.0, -1.0, 0.3, 1.5])\nassert np.allclose(float(np.sum(march_rgdbek(_A5, _b5, 0.34, 5, 42)['x']) - np.sum(march_rgdbek(_A5, _b5, 0.34, 5, 42)['x'])), target)",
+        "import numpy as np\ndef _guard(thunk):\n    try:\n        thunk()\n        return 0\n    except ValueError:\n        return 2\n    except Exception:\n        return 1\nassert np.allclose(_guard(lambda: march_rgdbek(np.array([[1.0, 0.0], [0.0, 1.0]]), np.array([1.0, 1.0]), 1.5, 2, 1)), target)",
+        "import numpy as np\ndef _guard(thunk):\n    try:\n        thunk()\n        return 0\n    except ValueError:\n        return 2\n    except Exception:\n        return 1\nassert np.allclose(_guard(lambda: march_rgdbek(np.array([[1.0, 0.0], [0.0, 1.0]]), np.array([1.0, 1.0]), 0.5, 0, 1)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-5.6",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(float(np.linalg.norm(parallel_column_phase(np.array([[1.0, 0.0], [0.0, 1.0], [2.0, 0.0], [0.0, 2.0]]), np.array([1.0, 1.0, 1.0, 1.0]), 2, 1, np.random.default_rng(5)))), target)",
+        "import numpy as np\nassert np.allclose(float(np.linalg.norm(parallel_column_phase(np.array([[1.0, 0.0, 2.0], [0.0, 1.0, -1.0], [1.0, 1.0, 0.0], [2.0, -1.0, 1.0]]), np.array([1.0, 2.0, -1.0, 0.5]), 1, 2, np.random.default_rng(9)))), target)",
+        "import numpy as np\nassert np.allclose(float(np.linalg.norm(parallel_column_phase(np.array([[1.0, 0.5, -0.5], [0.0, 2.0, 0.0], [0.0, 0.0, 1.5], [1.0, 0.0, 0.0]]), np.array([1.0, 0.5, -1.0, 0.75]), 2, 1, np.random.default_rng(1)))), target)",
+        "import numpy as np\ndef _guard(thunk):\n    try:\n        thunk()\n        return 0\n    except ValueError:\n        return 2\n    except Exception:\n        return 1\nassert np.allclose(_guard(lambda: parallel_column_phase(np.array([[1.0, 2.0, 0.0, -1.0], [0.5, -1.0, 2.0, 1.0], [2.0, 0.0, 1.0, 0.5], [-1.0, 1.0, 0.5, 2.0], [1.0, 1.0, -1.0, 0.0], [0.0, 2.0, 1.0, -1.0]]), np.array([1.0, -2.0, 0.5, 1.5, -1.0, 2.0]), 7, 2, np.random.default_rng(1))), target)",
+        "import numpy as np\ndef _guard(thunk):\n    try:\n        thunk()\n        return 0\n    except ValueError:\n        return 2\n    except Exception:\n        return 1\nassert np.allclose(_guard(lambda: parallel_column_phase(np.array([[1.0, 2.0, 0.0, -1.0], [0.5, -1.0, 2.0, 1.0], [2.0, 0.0, 1.0, 0.5], [-1.0, 1.0, 0.5, 2.0], [1.0, 1.0, -1.0, 0.0], [0.0, 2.0, 1.0, -1.0]]), np.array([1.0, -2.0, 0.5]), 2, 2, np.random.default_rng(1))), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-5.7",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(float(np.linalg.norm(parallel_row_phase(np.array([[1.0, 2.0, 0.0, -1.0], [0.5, -1.0, 2.0, 1.0], [2.0, 0.0, 1.0, 0.5], [-1.0, 1.0, 0.5, 2.0], [1.0, 1.0, -1.0, 0.0], [0.0, 2.0, 1.0, -1.0], [1.5, -0.5, 0.5, 1.0], [-0.5, 1.5, 1.0, 0.0]]), np.array([1.0, -2.0, 0.5, 1.5, -1.0, 2.0, 0.3, -0.7]), np.array([0.2, -0.1, 0.3, 0.0, 0.1, -0.2, 0.05, 0.15]), np.array([0.5, -0.5, 0.2, 0.1]), 2, 1, np.random.default_rng(6)))), target)",
+        "import numpy as np\nassert np.allclose(float(np.linalg.norm(parallel_row_phase(np.array([[1.0, 0.0, -1.0], [0.5, 1.0, 0.0], [-1.0, 2.0, 1.0], [0.0, -1.0, 2.0]]), np.array([1.0, 2.0, -1.0, 0.5]), np.array([0.5, 0.5, -0.5, 0.0]), np.array([1.0, -1.0, 0.5]), 1, 2, np.random.default_rng(9)))), target)",
+        "import numpy as np\nassert np.allclose(float(np.linalg.norm(parallel_row_phase(np.array([[1.0, 0.5, -0.5], [0.5, -1.0, 1.5], [0.0, 2.0, 0.0], [0.0, 0.0, 1.5], [1.0, 0.0, 0.0], [0.5, 1.0, 0.0]]), np.array([1.0, -0.5, 2.0, 0.7, 0.3, -0.2]), np.array([0.2, -0.1, 0.4, 0.0, 0.1, -0.2]), np.array([0.5, -0.5, 0.2]), 2, 1, np.random.default_rng(6)))), target)",
+        "import numpy as np\ndef _guard(thunk):\n    try:\n        thunk()\n        return 0\n    except ValueError:\n        return 2\n    except Exception:\n        return 1\nassert np.allclose(_guard(lambda: parallel_row_phase(np.array([[1.0, 2.0, 0.0, -1.0], [0.5, -1.0, 2.0, 1.0], [2.0, 0.0, 1.0, 0.5], [-1.0, 1.0, 0.5, 2.0], [1.0, 1.0, -1.0, 0.0], [0.0, 2.0, 1.0, -1.0]]), np.array([1.0, -2.0, 0.5, 1.5, -1.0, 2.0]), np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0]), np.array([0.5, -0.5, 0.2, 0.1]), 7, 1, np.random.default_rng(1))), target)",
+        "import numpy as np\ndef _guard(thunk):\n    try:\n        thunk()\n        return 0\n    except ValueError:\n        return 2\n    except Exception:\n        return 1\nassert np.allclose(_guard(lambda: parallel_row_phase(np.array([[1.0, 0.0], [0.0, 1.0], [1.0, 1.0], [2.0, -1.0]]), np.array([1.0, 0.0, 1.0, 2.0]), np.array([0.0, 0.0, 0.0, 0.0]), np.array([1.0, 0.0]), 2, 1, np.random.default_rng(1))), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-5.8",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(float(np.linalg.norm(march_parallel_rgdbek(np.array([[1.0, 2.0, 0.0, -1.0], [0.5, -1.0, 2.0, 1.0], [2.0, 0.0, 1.0, 0.5], [-1.0, 1.0, 0.5, 2.0], [1.0, 1.0, -1.0, 0.0], [0.0, 2.0, 1.0, -1.0], [1.5, -0.5, 0.5, 1.0], [-0.5, 1.5, 1.0, 0.0]]), np.array([1.0, -2.0, 0.5, 1.5, -1.0, 2.0, 0.3, -0.7]), 0.5, 3, 5, n_ranks=2)['x'])), target)",
+        "import numpy as np\n_A8 = np.array([[1.0, 2.0, -1.0], [0.5, -1.0, 2.0], [2.0, 0.5, 1.0], [-1.0, 1.5, 0.5], [1.5, -0.5, -1.0], [0.7, 1.0, 1.2], [0.3, -0.2, 1.1], [1.1, 0.4, -0.6]])\n_b8 = np.array([1.0, 0.5, 2.0, -1.0, 0.3, 1.5, -0.4, 0.9])\nassert np.allclose(float(np.sum(march_parallel_rgdbek(_A8, _b8, 0.34, 4, 42, n_ranks=4)['x']) - np.sum(march_parallel_rgdbek(_A8, _b8, 0.34, 4, 42, n_ranks=4)['x'])), target)",
+        "import numpy as np\ndef _guard(thunk):\n    try:\n        thunk()\n        return 0\n    except ValueError:\n        return 2\n    except Exception:\n        return 1\nassert np.allclose(_guard(lambda: march_parallel_rgdbek(np.array([[1.0, 0.0], [0.0, 1.0], [1.0, 1.0], [1.0, -1.0]]), np.array([1.0, 1.0, 2.0, 0.0]), 1.5, 2, 1, n_ranks=2)), target)",
+        "import numpy as np\ndef _guard(thunk):\n    try:\n        thunk()\n        return 0\n    except ValueError:\n        return 2\n    except Exception:\n        return 1\nassert np.allclose(_guard(lambda: march_parallel_rgdbek(np.array([[1.0, 0.0], [0.0, 1.0], [1.0, 1.0], [1.0, -1.0]]), np.array([1.0, 1.0, 2.0, 0.0]), 0.5, 2, 1, n_ranks=5)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-5.9",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(float(sum(convergence_diagnostics(np.array([[1.0, 0.0], [0.0, 1.0], [1.0, 1.0]]), np.array([1.0, 1.0, 2.5]), np.array([0.8, 0.9]), np.array([0.6, 1.2]), np.array([0.1, 0.1, 0.3]), np.array([0.2, -0.1, 0.4]), np.array([1.0, 1.0]), np.array([0.0, 0.0, 0.5])).values())), target)",
+        "import numpy as np\nassert np.allclose(convergence_diagnostics(np.array([[1.0, 0.0], [0.0, 1.0], [1.0, 1.0]]), np.array([1.0, 1.0, 2.5]), np.array([0.8, 0.9]), np.array([1.0, 1.0]), np.array([0.1, 0.1, 0.3]), np.array([0.0, 0.0, 0.5]), np.array([1.0, 1.0]), np.array([0.0, 0.0, 0.5]))['rel_error_parallel'] + convergence_diagnostics(np.array([[1.0, 0.0], [0.0, 1.0], [1.0, 1.0]]), np.array([1.0, 1.0, 2.5]), np.array([0.8, 0.9]), np.array([1.0, 1.0]), np.array([0.1, 0.1, 0.3]), np.array([0.0, 0.0, 0.5]), np.array([1.0, 1.0]), np.array([0.0, 0.0, 0.5]))['z_error_ratio_parallel'], target)",
+        "import numpy as np\ndef _guard(thunk):\n    try:\n        thunk()\n        return 0\n    except ValueError:\n        return 2\n    except Exception:\n        return 1\nassert np.allclose(_guard(lambda: convergence_diagnostics(np.eye(2), np.array([1.0, 1.0]), np.array([0.0, 0.0]), np.array([0.0, 0.0]), np.array([0.0, 0.0]), np.array([0.0, 0.0]), np.array([0.0, 0.0]), np.array([0.5, 0.5]))), target)",
+        "import numpy as np\ndef _guard(thunk):\n    try:\n        thunk()\n        return 0\n    except ValueError:\n        return 2\n    except Exception:\n        return 1\nassert np.allclose(_guard(lambda: convergence_diagnostics(np.eye(2), np.array([1.0, 1.0]), np.array([1.0, 1.0]), np.array([1.0, 1.0]), np.array([1.0, 1.0]), np.array([1.0, 1.0]), np.array([1.0, 1.0]), np.array([1.0, 1.0]))), target)",
+        "import numpy as np\ndef _guard(thunk):\n    try:\n        thunk()\n        return 0\n    except ValueError:\n        return 2\n    except Exception:\n        return 1\nassert np.allclose(_guard(lambda: convergence_diagnostics(np.eye(2), np.array([1.0, 1.0]), np.array([1.0, 1.0]), np.array([0.5, 0.5]), np.array([0.0, 0.0]), np.array([0.1, 0.1]), np.array([1.0, 1.0]), np.array([0.0, 0.0]))), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-5.10",
+      "test_cases": [
+        "import importlib\nimport sys\nimport numpy as np\ntry:\n    _t5 = importlib.import_module('10_run_rgdbek_comparison')\nexcept ImportError:\n    _t5 = next((sys.modules[k] for k in sys.modules if '10_run_rgdbek_comparison' in k), None)\nif _t5 is None:\n    pass  # runner injected the module members directly into this namespace\nelse:\n    run_rgdbek_comparison = _t5.run_rgdbek_comparison\nassert np.allclose(float(run_rgdbek_comparison(seed=1, march_seed=2, m=60, n=20, density=0.35, eta=0.3, iterations=4)), target)",
+        "import importlib\nimport sys\nimport numpy as np\ntry:\n    _t5 = importlib.import_module('10_run_rgdbek_comparison')\nexcept ImportError:\n    _t5 = next((sys.modules[k] for k in sys.modules if '10_run_rgdbek_comparison' in k), None)\nif _t5 is None:\n    pass  # runner injected the module members directly into this namespace\nelse:\n    run_rgdbek_comparison = _t5.run_rgdbek_comparison\nassert np.allclose(float(run_rgdbek_comparison(seed=3, march_seed=4, m=80, n=25, density=0.35, eta=0.15, iterations=6, n_ranks=2)), target)",
+        "import importlib\nimport sys\nimport numpy as np\ntry:\n    _t5 = importlib.import_module('10_run_rgdbek_comparison')\nexcept ImportError:\n    _t5 = next((sys.modules[k] for k in sys.modules if '10_run_rgdbek_comparison' in k), None)\nif _t5 is None:\n    pass  # runner injected the module members directly into this namespace\nelse:\n    run_rgdbek_comparison = _t5.run_rgdbek_comparison\n\ndef _guard(thunk):\n    try:\n        thunk()\n        return 0\n    except ValueError:\n        return 2\n    except Exception:\n        return 1\nassert np.allclose(_guard(lambda: run_rgdbek_comparison(m=60, n=20, density=0.35, eta=0.0, iterations=4)), target)",
+        "import importlib\nimport sys\nimport numpy as np\ntry:\n    _t5 = importlib.import_module('10_run_rgdbek_comparison')\nexcept ImportError:\n    _t5 = next((sys.modules[k] for k in sys.modules if '10_run_rgdbek_comparison' in k), None)\nif _t5 is None:\n    pass  # runner injected the module members directly into this namespace\nelse:\n    run_rgdbek_comparison = _t5.run_rgdbek_comparison\n\ndef _guard(thunk):\n    try:\n        thunk()\n        return 0\n    except ValueError:\n        return 2\n    except Exception:\n        return 1\nassert np.allclose(_guard(lambda: run_rgdbek_comparison(m=60, n=20, density=0.35, eta=0.3, iterations=4, n_ranks=61)), target)"
+      ]
+    }
+  ]
+}

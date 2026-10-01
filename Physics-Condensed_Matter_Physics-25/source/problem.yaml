@@ -1,0 +1,40 @@
+problem_id: "Physics-Condensed_Matter_Physics-25"
+subject: "physics"
+subject_area: "Condensed Matter Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1103/6hj9-tgct"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_bhz_layer.py"
+    description: "Assemble the single-layer angular tight-binding operator."
+    orchestrator: false
+  - number: 2
+    name: "02_aii_pencil.py"
+    description: "Reduce the class-AII localizer to an affine real skew-symmetric pencil."
+    orchestrator: false
+  - number: 3
+    name: "03_paired_ordering.py"
+    description: "Construct a matching-preserving, fill-aware initial permutation."
+    orchestrator: false
+  - number: 4
+    name: "04_skew_factor.py"
+    description: "Factor a reordered skew matrix by stable two-by-two congruence pivots."
+    orchestrator: false
+  - number: 5
+    name: "05_pfaffian_certificate.py"
+    description: "Recover oriented parity, logarithmic Pfaffian magnitude and local protection."
+    orchestrator: false
+  - number: 6
+    name: "06_pencil_crossings.py"
+    description: "Find all distinct interior gap closures of an affine skew pencil."
+    orchestrator: false
+  - number: 7
+    name: "07_phase_integrals.py"
+    description: "Integrate local protection over every nontrivial phase interval."
+    orchestrator: false
+  - number: 8
+    name: "08_topological_exposure.py"
+    description: "Compute the integrated protection of the complete class-AII lattice."
+    orchestrator: true

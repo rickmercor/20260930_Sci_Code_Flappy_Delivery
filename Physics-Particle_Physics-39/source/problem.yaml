@@ -1,0 +1,40 @@
+problem_id: "Physics-Particle_Physics-39"
+subject: "physics"
+subject_area: "Particle Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1103/ffrl-v63s"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_compute_deep_lpm_rate.py"
+    description: "Evaluate the differential deep-LPM gluon splitting rate for a specified daughter momentum fraction and parent momentum."
+    orchestrator: false
+  - number: 2
+    name: "02_compute_thermal_channel_rates.py"
+    description: "Evaluate the finite-temperature splitting and inverse-merging rates for a gluon at a specified momentum fraction."
+    orchestrator: false
+  - number: 3
+    name: "03_integrate_inelastic_hazard.py"
+    description: "Integrate the finite-temperature splitting and merging channels over the supplied momentum-fraction quadrature to obtain the total inelastic hazard."
+    orchestrator: false
+  - number: 4
+    name: "04_compute_designated_split_rate.py"
+    description: "Calculate the integrated rate of a specified discrete splitting subchannel in the quadrature representation of the shower."
+    orchestrator: false
+  - number: 5
+    name: "05_compute_daughter_shower_state.py"
+    description: "Determine the two daughter momenta and their finite-temperature interaction hazards after the designated splitting."
+    orchestrator: false
+  - number: 6
+    name: "06_integrate_exclusive_history_probability.py"
+    description: "Recover both temperature branches consistent with a finite-temperature splitting-minus-merging calibration observable, then use an independent Sudakov survival measurement to select the physical branch."
+    orchestrator: false
+  - number: 7
+    name: "07_integrate_exclusive_history_probability.py"
+    description: "Integrate the exclusive probability for an ordered shower history containing an arbitrary number of designated emissions."
+    orchestrator: false
+  - number: 8
+    name: "08_solve_calibrated_thermal_shower_case.py"
+    description: "Infer the physical plasma temperature from the two-branch thermal calibration and use that temperature to evaluate the complete exclusive shower-history probability."
+    orchestrator: true

@@ -1,0 +1,96 @@
+{
+  "problem_id": "Biology-Biochemistry-47",
+  "sub_steps": [
+    {
+      "step_number": "Biology-Biochemistry-47.1",
+      "test_cases": [
+        "import numpy as np\nimport numpy as np\nfree_energies = [0.0, 10.0, -5.0, 11.0, -9.0, 9.0]\nassert np.allclose(compute_cycle_observables(free_energies)[0], target)",
+        "import numpy as np\nimport numpy as np\nfree_energies = [0.0, 10.0, -5.0, 11.0, -9.0, 9.0]\nassert np.allclose(compute_cycle_observables(free_energies)[1], target)",
+        "import numpy as np\nimport numpy as np\nfree_energies = np.array([[0.5, 12.0, -4.0, 13.5, -7.5, 10.5],\n                          [0.0, 9.0, -3.5, 13.0, -6.0, 11.5]])\ntemperature = 277.15\nassert np.allclose(compute_cycle_observables(free_energies, temperature)[1], target)",
+        "import numpy as np\nimport numpy as np\ndef digest(fn):\n    rates, params = fn(np.zeros(6, dtype=float))\n    return np.array([float(rates.size), float(params.size),\n                     float(np.sum(np.log10(rates))), float(np.sum(np.log10(params)))])\nassert np.allclose(digest(compute_cycle_observables), target)",
+        "import numpy as np\nimport numpy as np\ndef digest(fn):\n    rates, params = fn([0.0, 8.0, -3.0, 14.0, -22.0, 6.0], 310.15)\n    return np.array([float(np.sum(np.log10(rates))), float(np.sum(np.log10(params))),\n                     float(params[1] * 1e6), float(params[3] * 1e-3)])\nassert np.allclose(digest(compute_cycle_observables), target)",
+        "import numpy as np\nimport numpy as np\ndef run_model():\n    try:\n        compute_cycle_observables([0.0, 10.0, -5.0, 11.0])\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nimport numpy as np\ndef run_model():\n    try:\n        compute_cycle_observables([0.0, 10.0, -5.0, 11.0, -9.0, 9.0], 0.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-47.2",
+      "test_cases": [
+        "import numpy as np\nimport numpy as np\nwt_free_energies = [0.0, 10.0, -5.0, 11.0, -9.0, 9.0]\nn_mutants = 25\nassert np.allclose(simulate_mutant_free_energies(wt_free_energies, n_mutants), target)",
+        "import numpy as np\nimport numpy as np\nwt_free_energies = np.array([1.0, 12.0, -6.0, 13.0, -8.0, 10.0])\nn_mutants = 40\namplitude = 3.5\nseed = 7\nassert np.allclose(simulate_mutant_free_energies(wt_free_energies, n_mutants, amplitude, seed), target)",
+        "import numpy as np\nimport numpy as np\nwt_free_energies = [0.0, 10.0, -5.0, 11.0, -9.0, 9.0]\nassert np.allclose(simulate_mutant_free_energies(wt_free_energies, 1, 2.0, 0), target)",
+        "import numpy as np\nimport numpy as np\nwt_free_energies = [0.0, 10.0, -5.0, 11.0, -9.0, 9.0]\nassert np.allclose(simulate_mutant_free_energies(wt_free_energies, 12, 1.0e-9, 2024), target)",
+        "import numpy as np\nimport numpy as np\ndef run_model():\n    try:\n        simulate_mutant_free_energies([0.0, 10.0, -5.0], 10)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nimport numpy as np\ndef run_model():\n    try:\n        simulate_mutant_free_energies([0.0, 10.0, -5.0, 11.0, -9.0, 9.0], 10, 0.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-47.3",
+      "test_cases": [
+        "import numpy as np\nimport numpy as np\nwt_free_energies = [0.0, 10.0, -5.0, 11.0, -9.0, 9.0]\nmutant_free_energies = np.array([[0.3, 10.8, -5.4, 11.2, -8.6, 9.4],\n                                 [-0.5, 9.1, -4.2, 12.3, -9.7, 8.2],\n                                 [0.9, 11.5, -6.1, 10.4, -8.1, 10.3]])\nassert np.allclose(compute_variant_fold_changes(wt_free_energies, mutant_free_energies)[0], target)",
+        "import numpy as np\nimport numpy as np\nwt_free_energies = [0.0, 10.0, -5.0, 11.0, -9.0, 9.0]\nmutant_free_energies = np.array([[0.3, 10.8, -5.4, 11.2, -8.6, 9.4],\n                                 [-0.5, 9.1, -4.2, 12.3, -9.7, 8.2],\n                                 [0.9, 11.5, -6.1, 10.4, -8.1, 10.3]])\nassert np.allclose(compute_variant_fold_changes(wt_free_energies, mutant_free_energies)[1], target)",
+        "import numpy as np\nimport numpy as np\nwt_free_energies = [0.0, 9.0, -3.5, 13.0, -6.0, 11.5]\nmutant_free_energies = np.array([[1.1, 8.2, -3.9, 13.8, -5.2, 12.4],\n                                 [-0.7, 9.9, -2.6, 12.1, -6.8, 10.7]])\ndef digest(fn):\n    rate_folds, parameter_folds = fn(wt_free_energies, mutant_free_energies, 310.15)\n    return np.array([float(rate_folds.size), float(parameter_folds.size),\n                     float(np.sum(np.log10(rate_folds))),\n                     float(np.sum(np.log10(parameter_folds))),\n                     float(np.sum(parameter_folds) * 1e3)])\nassert np.allclose(digest(compute_variant_fold_changes), target)",
+        "import numpy as np\nimport numpy as np\nwt_free_energies = np.array([0.0, 10.0, -5.0, 11.0, -9.0, 9.0])\nmutant_free_energies = np.array([[0.0, 10.0, -5.0, 11.0, -9.0, 9.0],\n                                 [2.0, 12.0, -3.0, 13.0, -7.0, 11.0]])\ndef digest(fn):\n    rate_folds, parameter_folds = fn(wt_free_energies, mutant_free_energies)\n    return np.array([float(np.sum(np.abs(np.log10(rate_folds))) * 1e6),\n                     float(np.sum(np.abs(np.log10(parameter_folds))) * 1e6),\n                     float(np.sum(parameter_folds))])\nassert np.allclose(digest(compute_variant_fold_changes), target)",
+        "import numpy as np\nimport numpy as np\nwt_free_energies = [0.0, 10.0, -5.0, 6.0, -9.0, 16.0]\nmutant_free_energies = np.array([[0.0, 10.0, -5.0, 8.5, -9.0, 16.0],\n                                 [0.0, 10.0, -5.0, 6.0, -9.0, 14.5]])\ndef digest(fn):\n    rate_folds, parameter_folds = fn(wt_free_energies, mutant_free_energies)\n    return np.array([float(np.sum(np.log10(rate_folds))),\n                     float(np.sum(np.log10(parameter_folds))),\n                     float(parameter_folds[0, 1] * 1e6), float(parameter_folds[1, 1] * 1e3)])\nassert np.allclose(digest(compute_variant_fold_changes), target)",
+        "import numpy as np\nimport numpy as np\ndef run_model():\n    try:\n        compute_variant_fold_changes([0.0, 10.0, -5.0, 11.0, -9.0, 9.0], np.zeros((4, 5)))\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nimport numpy as np\nbad = np.zeros((2, 6))\nbad[1, 3] = np.nan\ndef run_model():\n    try:\n        compute_variant_fold_changes([0.0, 10.0, -5.0, 11.0, -9.0, 9.0], bad)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-47.4",
+      "test_cases": [
+        "import numpy as np\nrate_constants_wt = np.array([1.20e6, 850.0, 340.0, 4.50, 95.0])\nrate_folds = np.array([\n    [0.8, 1.2, 0.4, 1.1, 0.6],\n    [1.5, 0.7, 2.0, 0.5, 1.3],\n    [0.9, 1.8, 0.6, 1.4, 0.8],\n])\nassert np.allclose(compute_double_mutant_epistasis(rate_constants_wt, rate_folds)[3], target)",
+        "import numpy as np\nrate_constants_wt = np.array([1.20e6, 850.0, 340.0, 4.50, 95.0])\nrate_folds = np.array([\n    [0.8, 1.2, 0.4, 1.1, 0.6],\n    [1.5, 0.7, 2.0, 0.5, 1.3],\n    [0.9, 1.8, 0.6, 1.4, 0.8],\n])\nassert np.allclose(compute_double_mutant_epistasis(rate_constants_wt, rate_folds)[2], target)",
+        "import numpy as np\nrate_constants_wt = np.array([1.20e6, 850.0, 340.0, 4.50, 95.0])\nrate_folds = np.array([\n    [0.65, 1.40, 0.018, 1.20, 0.060],\n])\nassert np.allclose(compute_double_mutant_epistasis(rate_constants_wt, rate_folds)[1, 0, 0], target)",
+        "import numpy as np\nrate_constants_wt = np.array([2.50e5, 14.0, 0.85, 90.0, 0.13])\nrate_folds = np.array([\n    [1.0e-5, 2.5e3, 4.0e-4, 8.0e2, 3.0e-5],\n    [7.0e2, 3.0e-4, 9.0e3, 2.0e-5, 4.0e2],\n])\nassert np.allclose(compute_double_mutant_epistasis(rate_constants_wt, rate_folds), target)",
+        "import numpy as np\ngenerator = np.random.default_rng(806)\nrate_constants_wt = np.array([8.4e5, 73.0, 15.0, 2.7, 41.0])\nrate_folds = np.exp(generator.uniform(-5.0, 5.0, size=(7, 5)))\nassert np.allclose(compute_double_mutant_epistasis(rate_constants_wt, rate_folds)[0], target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-47.5",
+      "test_cases": [
+        "import numpy as np\ngenerator = np.random.default_rng(31)\nepistasis = 10.0 ** generator.normal(0.05, 0.4, size=(60, 60))\nassert np.allclose(summarize_epistasis(epistasis), target)",
+        "import numpy as np\ngenerator = np.random.default_rng(4)\nepistasis = 10.0 ** generator.gumbel(0.0, 0.3, size=2000)\nthreshold = 5.0\nassert np.allclose(summarize_epistasis(epistasis, threshold), target)",
+        "import numpy as np\nepistasis = np.ones((8, 8))\nassert np.allclose(summarize_epistasis(epistasis), target)",
+        "import numpy as np\nepistasis = np.array([1.5, 1.0 / 1.5, 1.0, 2.0, 0.5])\nassert np.allclose(summarize_epistasis(epistasis, 1.5), target)",
+        "import numpy as np\nepistasis = np.array([1.0e-7])\nassert np.allclose(summarize_epistasis(epistasis, 1.2), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        summarize_epistasis(np.array([1.0, 0.0, 2.0]))\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        summarize_epistasis(np.array([1.0, 2.0]), 1.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-47.6",
+      "test_cases": [
+        "import numpy as np\nimport numpy as np\nrate_table = np.array([[1.20e6, 850.0, 340.0, 4.50, 95.0],\n                       [7.80e5, 1190.0, 6.12, 5.40, 5.70],\n                       [2.82e6, 595.0, 34.0, 3.82, 14.2],\n                       [2.75e6, 2500.0, 2.45, 5.97, 2.22]])\nassert np.allclose(decompose_measured_epistasis(rate_table), target)",
+        "import numpy as np\nimport numpy as np\nwild = np.array([3.0e5, 60.0, 12.0, 0.014, 0.40])\nfirst = wild * np.array([0.4, 2.2, 0.09, 1.7, 0.35])\nsecond = wild * np.array([1.9, 0.6, 2.7, 0.4, 3.1])\nrate_table = np.stack([wild, first, second, wild * (first / wild) * (second / wild)])\nassert np.allclose(decompose_measured_epistasis(rate_table), target)",
+        "import numpy as np\nimport numpy as np\nwild = np.array([1.20e6, 850.0, 340.0, 4.50, 95.0])\nrate_table = np.stack([wild, wild, wild, wild])\nassert np.allclose(decompose_measured_epistasis(rate_table), target)",
+        "import numpy as np\nimport numpy as np\nrate_table = np.array([[5.0e6, 2.0e4, 1.0e4, 1.0e-8, 12.0],\n                       [5.0e6, 2.0e4, 30.0, 4.0e-8, 11.0],\n                       [1.0e6, 8.0e3, 9.0e3, 2.0e-9, 0.15],\n                       [9.0e5, 3.0e4, 55.0, 5.0e-9, 0.30]])\nassert np.allclose(decompose_measured_epistasis(rate_table), target)",
+        "import numpy as np\nimport numpy as np\ndef run_model():\n    try:\n        decompose_measured_epistasis(np.ones((3, 5)))\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nimport numpy as np\nbad = np.array([[1.20e6, 850.0, 340.0, 0.0, 95.0],\n                [7.80e5, 1190.0, 6.12, 5.40, 5.70],\n                [2.82e6, 595.0, 34.0, 3.82, 14.2],\n                [2.75e6, 2500.0, 2.45, 5.97, 2.22]])\ndef run_model():\n    try:\n        decompose_measured_epistasis(bad)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-47.7",
+      "test_cases": [
+        "import numpy as np\nimport numpy as np\nmanufactured_epistasis = 0.4375\nmedian_reference_magnitude = 0.1825\nassert np.allclose(compute_cryptic_epistasis_score(manufactured_epistasis, median_reference_magnitude), target)",
+        "import numpy as np\nimport numpy as np\nmanufactured_epistasis = 1.0 / 0.4375\nmedian_reference_magnitude = 0.1825\nassert np.allclose(compute_cryptic_epistasis_score(manufactured_epistasis, median_reference_magnitude), target)",
+        "import numpy as np\nimport numpy as np\nassert np.allclose(compute_cryptic_epistasis_score(1.0, 0.2), target)",
+        "import numpy as np\nimport numpy as np\nassert np.allclose(compute_cryptic_epistasis_score(2.5, 1.0e-9), target)",
+        "import numpy as np\nimport numpy as np\ndef run_model():\n    try:\n        compute_cryptic_epistasis_score(0.0, 0.13)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nimport numpy as np\ndef run_model():\n    try:\n        compute_cryptic_epistasis_score(2.0, 0.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-47.8",
+      "test_cases": [
+        "import numpy as np\nn_mutants = 60\nassert np.allclose(run_cryptic_epistasis_pipeline(n_mutants=n_mutants), target)",
+        "import numpy as np\nn_mutants = 80\nparameter_index = 2\nassert np.allclose(run_cryptic_epistasis_pipeline(n_mutants=n_mutants, parameter_index=parameter_index), target)",
+        "import numpy as np\nassert np.allclose(run_cryptic_epistasis_pipeline(n_mutants=40, amplitude=0.25, seed=11, threshold=5.0), target)",
+        "import numpy as np\nwt_free_energies = [0.0, 9.0, -3.5, 13.0, -6.0, 11.5]\nrate_table = np.array([\n    [3.0e5, 60.0, 12.0, 0.014, 0.40],\n    [1.2e5, 132.0, 1.08, 0.0238, 0.14],\n    [5.7e5, 36.0, 32.4, 0.0056, 1.24],\n    [3.1e5, 95.0, 6.5, 0.0071, 0.62],\n])\nassert np.allclose(run_cryptic_epistasis_pipeline(wt_free_energies, rate_table, 50, 1.5, 20260311, 310.15), target)",
+        "import numpy as np\n\ndef run_model():\n    try:\n        run_cryptic_epistasis_pipeline(n_mutants=20, parameter_index=7)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\n\ndef run_model():\n    try:\n        run_cryptic_epistasis_pipeline(n_mutants=20, parameter_index=0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\n\ndef run_model():\n    try:\n        run_cryptic_epistasis_pipeline(n_mutants=20, amplitude=0.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

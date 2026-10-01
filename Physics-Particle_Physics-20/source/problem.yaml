@@ -1,0 +1,40 @@
+problem_id: "Physics-Particle_Physics-20"
+subject: "physics"
+subject_area: "Particle Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2607.29436"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_generate_channel_parameters"
+    description: "Generate the deterministic ensemble of on/off channel parameters (s_i, b_i, tau_i) for the multi-channel sensitivity study from a single seeded pseudo-random draw."
+    orchestrator: false
+  - number: 2
+    name: "02_compute_asimov_counts"
+    description: "Replace each channel's observable counts by their expectation values under the nominal signal hypothesis (the Asimov data of the channel)."
+    orchestrator: false
+  - number: 3
+    name: "03_compute_profiled_background"
+    description: "Compute the constrained (profiled) maximum-likelihood estimate of the background rate b for a specified signal value s in the two-measurement on/off model."
+    orchestrator: false
+  - number: 4
+    name: "04_compute_signed_root"
+    description: "Compute the signed likelihood-ratio root r(0) for a test of s = 0 in the two-measurement on/off model."
+    orchestrator: false
+  - number: 5
+    name: "05_compute_auxiliary_statistic"
+    description: "Compute the auxiliary statistic u(0) that enters the higher-order correction of the signed likelihood-ratio root, in the form specific to the two-measurement on/off model."
+    orchestrator: false
+  - number: 6
+    name: "06_compute_corrected_significance"
+    description: "Combine the signed root r(0) and the auxiliary statistic u(0) into the higher-order corrected discovery significance of one channel."
+    orchestrator: false
+  - number: 7
+    name: "07_compute_signal_probability"
+    description: "Compute the posterior probability that the on-region mean exceeds the background, under the prescribed non-informative prior of the reference Bayesian on/off analysis."
+    orchestrator: false
+  - number: 8
+    name: "08_compute_combined_sensitivity"
+    description: "Run the full multi-channel pipeline: generate the channel ensemble, evaluate each channel at its Asimov data, compute the higher-order corrected significance and the posterior signal probability per channel, select channels by the Bayesian criterion, and combine the selected significances in quadrature."
+    orchestrator: true

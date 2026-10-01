@@ -1,0 +1,93 @@
+{
+  "problem_id": "Mathematics-Numerical_Linear_Algebra-13",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-13.1",
+      "test_cases": [
+        "bits = 2\nassert np.allclose(compute_dither_variance_coefficient(bits), target)",
+        "bits = 8\nassert np.allclose(compute_dither_variance_coefficient(bits), target)",
+        "bits = 3\nassert np.allclose(compute_dither_variance_coefficient(bits), target)",
+        "import numpy as np\nbits = np.int64(11)\nassert np.allclose(compute_dither_variance_coefficient(bits), target)",
+        "bits = 16\nassert np.allclose(compute_dither_variance_coefficient(bits), target)",
+        "bits = True\ndef run_model():\n    try:\n        compute_dither_variance_coefficient(bits)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-13.2",
+      "test_cases": [
+        "import numpy as np\nA = np.array([[12.0,0.5],[7.0,-0.4],[0.6,9.0],[0.8,6.0],[1.2,0.7]])\nB = np.array([[0.2,0.5,-0.3,0.4],[6.0,-4.0,5.0,3.0]])\nbound = np.log(4.0)\nassert np.allclose(construct_two_channel_switch_partition(A, B, bound), target)",
+        "import numpy as np\nA = np.array([[1.0,1.0],[2.0,2.0],[-3.0,3.0]])\nB = np.array([[1.0,-2.0,4.0],[1.0,2.0,-4.0]])\nbound = np.log(3.0)\nassert np.allclose(construct_two_channel_switch_partition(A, B, bound), target)",
+        "import numpy as np\nA = np.array([[0.0,2.0],[3.0,0.0],[0.0,0.0],[1.0,4.0]])\nB = np.array([[0.0,5.0,0.0],[2.0,0.0,0.0]])\nbound = 0.9\nassert np.allclose(construct_two_channel_switch_partition(A, B, bound), target)",
+        "import numpy as np\neps = 4e-13\nA = np.array([[1.0, np.exp(2.0 * eps)], [1.0, 4.0]])\nB = np.array([[1.0, 2.0], [np.exp(-2.0 * eps), 0.5]])\nbound = np.log(2.0)\ntolerance = 1e-12\nassert np.allclose(construct_two_channel_switch_partition(A, B, bound, tolerance), target)",
+        "import numpy as np\nA = np.array([[1.0, 4.0], [4.0, 1.0]])\nB = np.array([[1.0, 4.0], [4.0, 1.0]])\nbound = np.log(2.0)\nassert np.allclose(construct_two_channel_switch_partition(A, B, bound), target)",
+        "import numpy as np\nA = np.ones((2, 3))\nB = np.ones((2, 2))\nbound = 1.0\ndef run_model():\n    try:\n        construct_two_channel_switch_partition(A, B, bound)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-13.3",
+      "test_cases": [
+        "import numpy as np\nA = np.array([[12.0,0.5],[7.0,-0.4],[0.6,9.0],[0.8,6.0],[1.2,0.7]])\nB = np.array([[0.2,0.5,-0.3,0.4],[6.0,-4.0,5.0,3.0]])\npartition = np.array([7.0,-1.3862943611198906,-1.0397207708399179,-1.0074515102711323,-0.2694982503663435,1.0074515102711323,1.354025100551105,1.3862943611198906,-1.2130075659799043,-1.023586140555525,-0.6384748803187379,0.3689766299523944,1.1807383054111187,1.3701597308354978])\nassert np.allclose(encode_partition_active_branches(A, B, partition), target)",
+        "import numpy as np\nA = np.array([[1.0,1.0],[2.0,2.0],[-3.0,3.0]])\nB = np.array([[1.0,-2.0,4.0],[1.0,2.0,-4.0]])\npartition = np.array([3.0, -1.0, 0.0, 1.0, -0.5, 0.5])\nassert np.allclose(encode_partition_active_branches(A, B, partition), target)",
+        "import numpy as np\nA = np.array([[0.0,0.0],[0.0,2.0],[3.0,0.0]])\nB = np.array([[0.0,4.0],[0.0,0.0]])\npartition = np.array([2.0, -0.7, 0.7, 0.0])\nassert np.allclose(encode_partition_active_branches(A, B, partition), target)",
+        "import numpy as np\nA = np.array([[1.0, np.exp(2e-7)], [2.0, 0.5]])\nB = np.array([[1.0, 3.0], [np.exp(-6e-7), 0.2]])\npartition = np.array([4.0, -1.0, 1e-7, 3e-7, 1.0, -0.49999995, 2e-7, 0.50000015])\ntolerance = 1e-12\nassert np.allclose(encode_partition_active_branches(A, B, partition, tolerance), target)",
+        "import numpy as np\nA = np.array([[-2.0,5.0],[7.0,-1.0],[0.25,0.5]])\nB = np.array([[3.0,-4.0,0.25],[-8.0,1.0,2.0]])\npartition = np.array([2.0, -0.4, 0.9, 0.25])\nassert np.allclose(encode_partition_active_branches(A, B, partition), target)",
+        "import numpy as np\nA = np.ones((2, 2))\nB = np.ones((2, 2))\npartition = np.array([3.0, -1.0, 0.0, 1.0, -0.4, 0.5])\ndef run_model():\n    try:\n        encode_partition_active_branches(A, B, partition)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-13.4",
+      "test_cases": [
+        "import numpy as np\nA = np.array([[12.0,0.5],[7.0,-0.4],[0.6,9.0],[0.8,6.0],[1.2,0.7]])\nB = np.array([[0.2,0.5,-0.3,0.4],[6.0,-4.0,5.0,3.0]])\nbits_a, bits_b, probe = 2, 2, -0.8\nassert np.allclose(reconstruct_active_error_branch(A, B, bits_a, bits_b, probe), target)",
+        "import numpy as np\nA = np.array([[3.0,-0.25],[0.0,2.0],[1.5,0.0]])\nB = np.array([[0.0,4.0,-1.0],[2.0,0.0,3.0]])\nbits_a, bits_b, probe = 3, 5, 0.37\nassert np.allclose(reconstruct_active_error_branch(A, B, bits_a, bits_b, probe), target)",
+        "import numpy as np\nA = np.array([[-8.0,1.0],[0.2,-6.0],[3.0,2.0],[1.0,5.0]])\nB = np.array([[5.0,-0.4,2.0],[-1.0,7.0,0.3]])\nbits_a, bits_b, probe = 4, 2, -0.19\nassert np.allclose(reconstruct_active_error_branch(A, B, bits_a, bits_b, probe), target)",
+        "import numpy as np\nA = np.array([[1.0,np.exp(2e-7)],[4.0,0.25]])\nB = np.array([[1.0,2.0],[np.exp(-6e-7),0.1]])\nbits_a, bits_b, probe = 2, 3, 2e-7\ntolerance = 1e-12\nassert np.allclose(reconstruct_active_error_branch(A, B, bits_a, bits_b, probe, tolerance), target)",
+        "import numpy as np\nA = np.zeros((2, 2))\nB = np.array([[2.0,-1.0],[0.5,3.0]])\nbits_a, bits_b, probe = 2, 2, 0.4\nassert np.allclose(reconstruct_active_error_branch(A, B, bits_a, bits_b, probe), target)",
+        "import numpy as np\nA = np.array([[1.0,1.0],[2.0,0.5]])\nB = np.array([[1.0,3.0],[1.0,0.2]])\nbits_a = bits_b = 2\nprobe = 0.0\ndef run_model():\n    try:\n        reconstruct_active_error_branch(A, B, bits_a, bits_b, probe)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-13.5",
+      "test_cases": [
+        "import numpy as np\nA = np.array([[12.0,0.5],[7.0,-0.4],[0.6,9.0],[0.8,6.0],[1.2,0.7]])\nB = np.array([[0.2,0.5,-0.3,0.4],[6.0,-4.0,5.0,3.0]])\nbits_a = bits_b = 2\nbound = np.log(4.0)\nassert np.allclose(enumerate_bounded_error_candidates(A, B, bits_a, bits_b, bound), target)",
+        "import numpy as np\nA = np.array([[4.0,-4.0],[-4.0,-1.0],[2.0,4.0]])\nB = np.array([[-5.0,1.0,-1.0],[-4.0,-4.0,-4.0]])\nbits_a, bits_b = 2, 3\nbound = 1.0\nassert np.allclose(enumerate_bounded_error_candidates(A, B, bits_a, bits_b, bound), target)",
+        "import numpy as np\nA = np.array([[-8.0,0.2],[0.4,7.0],[3.0,-2.0]])\nB = np.array([[5.0,-0.3,1.0],[-0.2,6.0,4.0]])\nbits_a, bits_b = 5, 3\nbound = 0.83\nassert np.allclose(enumerate_bounded_error_candidates(A, B, bits_a, bits_b, bound), target)",
+        "import numpy as np\nA = np.array([[100.0,1.0],[80.0,2.0],[60.0,1.0]])\nB = np.array([[0.001,0.002],[4.0,5.0]])\nbits_a = bits_b = 2\nbound = np.log(4.0)\nassert np.allclose(enumerate_bounded_error_candidates(A, B, bits_a, bits_b, bound), target)",
+        "import numpy as np\nA = np.zeros((3, 2))\nB = np.array([[1.0,0.0],[0.0,2.0]])\nbits_a = bits_b = 2\nbound = 0.7\nassert np.allclose(enumerate_bounded_error_candidates(A, B, bits_a, bits_b, bound), target)",
+        "import numpy as np\nA = np.ones((2, 2))\nB = np.ones((2, 2))\nbits_a = bits_b = 2\nbound = 0.0\ndef run_model():\n    try:\n        enumerate_bounded_error_candidates(A, B, bits_a, bits_b, bound)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-13.6",
+      "test_cases": [
+        "import numpy as np\nA_tilde = np.array([[12.0,0.5],[7.0,-0.4],[0.6,9.0],[0.8,6.0],[1.2,0.7]])\nB_tilde = np.array([[0.2,0.5,-0.3,0.4],[6.0,-4.0,5.0,3.0]])\nranges_a = np.max(np.abs(A_tilde), axis=1)\nranges_b = np.max(np.abs(B_tilde), axis=0)\nvariance_a = np.repeat((ranges_a**2 / 12.0)[:, None], 2, axis=1)\nvariance_b = np.repeat((ranges_b**2 / 12.0)[None, :], 2, axis=0)\nassert np.allclose(compute_expected_product_error(A_tilde, B_tilde, variance_a, variance_b), target)",
+        "import numpy as np\nA_tilde = np.array([[2.0], [-1.0]])\nB_tilde = np.array([[3.0, 4.0]])\nvariance_a = np.array([[0.25], [0.5]])\nvariance_b = np.array([[0.1, 0.2]])\nassert np.allclose(compute_expected_product_error(A_tilde, B_tilde, variance_a, variance_b), target)",
+        "import numpy as np\nA_tilde = np.array([[0.0, 2.0]])\nB_tilde = np.array([[3.0], [0.0]])\nvariance_a = np.zeros((1, 2))\nvariance_b = np.zeros((2, 1))\nassert np.allclose(compute_expected_product_error(A_tilde, B_tilde, variance_a, variance_b), target)",
+        "import numpy as np\nA_tilde = np.array([[2.0,-1.0,0.5],[-3.0,4.0,1.5]])\nB_tilde = np.array([[1.0,-2.0],[0.25,3.0],[-4.0,0.5]])\nvariance_a = np.array([[0.2,0.4,0.1],[0.3,0.05,0.6]])\nvariance_b = np.array([[0.7,0.2],[0.1,0.9],[0.4,0.3]])\nassert np.allclose(compute_expected_product_error(A_tilde, B_tilde, variance_a, variance_b), target)",
+        "import numpy as np\nA_tilde = np.array([[1e6,1e-6],[-2e5,3e-5]])\nB_tilde = np.array([[2e-6,-4e-6],[3e5,1e5]])\nvariance_a = np.array([[1e-8,2e-8],[3e-9,4e-9]])\nvariance_b = np.array([[5e-7,6e-7],[7e-8,8e-8]])\nassert np.allclose(compute_expected_product_error(A_tilde, B_tilde, variance_a, variance_b), target)",
+        "import numpy as np\nA_tilde = np.ones((2, 2))\nB_tilde = np.ones((2, 3))\nvariance_a = np.ones((2, 1))\nvariance_b = np.ones((2, 3))\ndef run_model():\n    try:\n        compute_expected_product_error(A_tilde, B_tilde, variance_a, variance_b)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-13.7",
+      "test_cases": [
+        "import numpy as np\nA = np.array([[12.0,0.5],[7.0,-0.4],[0.6,9.0],[0.8,6.0],[1.2,0.7]])\nB = np.array([[0.2,0.5,-0.3,0.4],[6.0,-4.0,5.0,3.0]])\nbits_a = bits_b = 2\nbound = np.log(4.0)\nassert np.allclose(certify_bounded_shared_scaling(A, B, bits_a, bits_b, bound), target)",
+        "import numpy as np\nA = np.array([[4.0,-4.0],[-4.0,-1.0],[2.0,4.0]])\nB = np.array([[-5.0,1.0,-1.0],[-4.0,-4.0,-4.0]])\nbits_a, bits_b = 2, 3\nbound = 1.0\nassert np.allclose(certify_bounded_shared_scaling(A, B, bits_a, bits_b, bound), target)",
+        "import numpy as np\nA = np.array([[2.0,1.0],[1.0,2.0],[-2.0,1.0],[1.0,-2.0]])\nB = np.array([[2.0,1.0,-2.0,1.0],[1.0,2.0,1.0,-2.0]])\nbits_a = bits_b = 2\nbound = np.log(4.0)\nassert np.allclose(certify_bounded_shared_scaling(A, B, bits_a, bits_b, bound), target)",
+        "import numpy as np\nA = np.array([[100.0,1.0],[80.0,2.0],[60.0,1.0]])\nB = np.array([[0.001,0.002],[4.0,5.0]])\nbits_a = bits_b = 2\nbound = np.log(4.0)\nassert np.allclose(certify_bounded_shared_scaling(A, B, bits_a, bits_b, bound), target)",
+        "import numpy as np\nA = np.array([[-8.0,0.2],[0.4,7.0],[3.0,-2.0],[0.1,5.0]])\nB = np.array([[5.0,-0.3,1.0,-2.0],[-0.2,6.0,4.0,0.5]])\nbits_a, bits_b = 5, 3\nbound = 0.83\nassert np.allclose(certify_bounded_shared_scaling(A, B, bits_a, bits_b, bound), target)",
+        "import numpy as np\nA = np.zeros((2, 2))\nB = np.ones((2, 2))\nbits_a = bits_b = 2\nbound = 1.0\ndef run_model():\n    try:\n        certify_bounded_shared_scaling(A, B, bits_a, bits_b, bound)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-13.8",
+      "test_cases": [
+        "import numpy as np\nA = np.array([[12.0,0.5],[7.0,-0.4],[0.6,9.0],[0.8,6.0],[1.2,0.7]])\nB = np.array([[0.2,0.5,-0.3,0.4],[6.0,-4.0,5.0,3.0]])\nbits_a = bits_b = 2\nbound = np.log(4.0)\nassert np.allclose(compute_quantized_product_error_reduction(A, B, bits_a, bits_b, bound), target)",
+        "import numpy as np\nA = np.array([[2.0,1.0],[1.0,2.0],[-2.0,1.0],[1.0,-2.0]])\nB = np.array([[2.0,1.0,-2.0,1.0],[1.0,2.0,1.0,-2.0]])\nbits_a = bits_b = 2\nbound = np.log(4.0)\nassert np.allclose(compute_quantized_product_error_reduction(A, B, bits_a, bits_b, bound), target)",
+        "import numpy as np\nA = np.array([[100.0,1.0],[80.0,2.0],[60.0,1.0]])\nB = np.array([[0.001,0.002],[4.0,5.0]])\nbits_a = bits_b = 2\nbound = np.log(4.0)\nassert np.allclose(compute_quantized_product_error_reduction(A, B, bits_a, bits_b, bound), target)",
+        "import numpy as np\nA = np.array([[-8.0,0.2],[0.4,7.0],[3.0,-2.0],[0.1,5.0]])\nB = np.array([[5.0,-0.3,1.0,-2.0],[-0.2,6.0,4.0,0.5]])\nbits_a, bits_b = 5, 3\nbound = 0.83\nassert np.allclose(compute_quantized_product_error_reduction(A, B, bits_a, bits_b, bound), target)",
+        "import numpy as np\nA = np.array([[4.0,-4.0],[-4.0,-1.0],[2.0,4.0]])\nB = np.array([[-5.0,1.0,-1.0],[-4.0,-4.0,-4.0]])\nbits_a, bits_b = 2, 3\nbound = 1.0\nassert np.allclose(compute_quantized_product_error_reduction(A, B, bits_a, bits_b, bound), target)",
+        "import numpy as np\nA = np.zeros((2, 2))\nB = np.ones((2, 2))\nbits_a = bits_b = 2\nbound = np.log(4.0)\ndef run_model():\n    try:\n        compute_quantized_product_error_reduction(A, B, bits_a, bits_b, bound)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

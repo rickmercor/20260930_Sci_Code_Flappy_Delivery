@@ -1,0 +1,48 @@
+problem_id: "Mathematics-Computational_Mechanics-40"
+subject: "mathematics"
+subject_area: "Computational Mechanics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2603.03420"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_select_pod_basis"
+    description: "Proper orthogonal decomposition represents a snapshot matrix X by its leading left singular vectors. The retained dimension n is the smallest index satisfying 1 - sum_{i=1}^n sigma_i^2 / sum_i sigma_i^2 < energy_tolerance. Singular vectors have arbitrary signs, so each retained vector is oriented with its largest-magnitude entry positive to make the numerical basis deterministic."
+    orchestrator: false
+  - number: 2
+    name: "02_assemble_quadratic_operator"
+    description: "A quadratic full-order term has the matrix form F(x kron x), where column i * N + j multiplies x_i x_j under row-major Kronecker ordering. A sparse monomial table stores each nonzero as (output_index, first_state_index, second_state_index, coefficient); repeated entries add to the same tensor coefficient."
+    orchestrator: false
+  - number: 3
+    name: "03_assemble_residual_polynomial"
+    description: "For a fixed implicit time step, a quadratic full-order dynamical system restricted to a trial basis has a full residual that is a quadratic polynomial in the unknown reduced state. Separating its constant, linear, and ordered quadratic coefficients exposes the structure needed for hyper-reduction-free tensor contraction while preserving direct full-order verification."
+    orchestrator: false
+  - number: 4
+    name: "04_precompute_hrf_tensors"
+    description: "The hyper-reduction-free formulation expands the projected Newton operators as low-degree polynomials of the reduced state. For a quadratic residual, the Galerkin residual remains quadratic, the residual Jacobian is affine, the least-squares normal matrix is quadratic, and the least-squares gradient is cubic. Their coefficient tensors can be contracted before the online nonlinear iteration."
+    orchestrator: false
+  - number: 5
+    name: "05_evaluate_hrf_galerkin"
+    description: "The Galerkin online kernel evaluates a contracted quadratic residual and its exact reduced-state Jacobian. The ordered quadratic tensor need not be symmetric, so differentiation must preserve the contributions from both state-index placements rather than silently symmetrizing its storage."
+    orchestrator: false
+  - number: 6
+    name: "06_evaluate_hrf_lspg"
+    description: "The hyper-reduction-free LSPG online kernel evaluates a cubic coefficient expansion for the normal residual and a quadratic expansion for the Gauss-Newton matrix. These degrees arise from multiplying an affine residual Jacobian by a quadratic residual, and they retain the nested reduced-state interactions that a generic one-line Gram shortcut conceals."
+    orchestrator: false
+  - number: 7
+    name: "07_certify_hrf_tensors"
+    description: "Exactness is a defining property of the hyper-reduction-free construction. At arbitrary reduced states, contracted Galerkin and LSPG systems can be compared with independently evaluated full residuals and residual Jacobians. This detects tensor-axis mistakes, missing quadratic derivative placements, and omitted cubic interactions without accepting a sampled approximation."
+    orchestrator: false
+  - number: 8
+    name: "08_solve_hrf_pair"
+    description: "The paired reduced solve performs all nonlinear work through precontracted coefficient tensors. Galerkin and LSPG share an initial reduced state but evaluate polynomials of different degrees and stop against different stationarity residuals. No full-order state, residual, Jacobian, or residual-library Gram matrix is available inside the iteration."
+    orchestrator: false
+  - number: 9
+    name: "09_compute_projection_gap"
+    description: "The projection gap is certified from the polynomial residual rather than from the online solver alone. Re-evaluating both projected systems at the shared initial state and at the two terminal states detects internally consistent solves built from incorrectly contracted coefficient tensors."
+    orchestrator: false
+  - number: 10
+    name: "10_run_full_pipeline"
+    description: "The end-to-end calculation must preserve one basis orientation and one tensor-axis convention through residual assembly, offline contraction, two different reduced Newton systems, and independent compact/direct certification. The final scalar is formed only after both terminal states satisfy their own stationarity conditions."
+    orchestrator: true

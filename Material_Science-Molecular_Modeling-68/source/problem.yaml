@@ -1,0 +1,40 @@
+problem_id: "Material_Science-Molecular_Modeling-68"
+subject: "materials"
+subject_area: "Molecular Modeling"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1021/acs.jctc.5c01767"
+dependencies: ""
+steps:
+  - number: 1
+    name: "average_descriptor"
+    description: "Implement average_descriptor, which averages per-atom descriptor vectors into a single system-level descriptor. ERBS treats the machine-learned interatomic potential's own atomic descriptor as a general-purpose reaction coordinate. Rather than biasing individual atoms, the method averages the per-atom descriptor vectors over the whole system to obtain a single system-level descriptor, which is later reduced via PCA into a low-dimensional collective variable."
+    orchestrator: false
+  - number: 2
+    name: "compute_pca_basis"
+    description: "Implement compute_pca_basis, which computes the PCA mean and truncated projection basis from a set of reference system-averaged descriptors. The reference set of previously collected descriptors is used to find the dominant directions of variation via PCA. Centering removes the mean structural offset; the SVD of the centered matrix gives principal directions ordered by explained variance, of which the leading k are kept to define the reduced collective-variable (CV) space."
+    orchestrator: false
+  - number: 3
+    name: "project_to_cv"
+    description: "Implement project_to_cv, which projects one or more system-averaged descriptors into the reduced collective-variable (CV) space defined by a PCA mean and basis. This is applied both to the current configuration's descriptor and to the full reference set, since the projected reference points later serve as kernel centers for the density estimate."
+    orchestrator: false
+  - number: 4
+    name: "gaussian_kernel"
+    description: "Implement gaussian_kernel, which evaluates an isotropic Gaussian kernel between two points in collective-variable space. ERBS builds its on-the-fly probability density from Gaussian kernels deposited at previously visited collective-variable points, each with equal, uncorrelated variance along every CV diemension."
+    orchestrator: false
+  - number: 5
+    name: "density_estimate"
+    description: "Implement density_estimate, which estimates the on-the-fly well-tempered probability density at a collective-variable point as the average of the isotropic Gaussian kernel over all previously visited reference points. This kernel density estimate is later compared, through a normalization constant, against the density at the reference points themselves to build the bias potential."
+    orchestrator: false
+  - number: 6
+    name: "normalization_constant"
+    description: "Implement normalization_constant using the task's leave-one-out convention.\n\nFor N reference CV points, compute\n\n\n\n    Z_n = [1 / (N * (N - 1))] * sum_j sum_{i != j} K(s_j, s_i).\n\n\n\nEach inner density uses the other N - 1 centers, and the outer mean uses all N\n\ncenters. K is the same isotropic Gaussian density kernel used by gaussian_kernel."
+    orchestrator: false
+  - number: 7
+    name: "thermo_params"
+    description: "Implement thermo_params, which computes the inverse thermal energy beta, the barrier ratio gamma, and the bias-limiting factor epsilon from a temperature and a barrier parameter Delta E. These enter the final bias-potential formula to impose a soft ceiling on its own strength."
+    orchestrator: false
+  - number: 8
+    name: "bias_potential"
+    description: "Implement bias_potential, the final orchestrator that chains all prior sub-problems into the full ERBS bias-construction pipeline: average the current configuration's per-atom descriptors, build a PCA basis from the reference descriptors, project both the current configuration and the reference set into the reduced collective-variable space, estimate the well-tempered density and its normalization constant, compute the thermodynamic barrier parameters, and combine them into the final scalar bias potential."
+    orchestrator: true

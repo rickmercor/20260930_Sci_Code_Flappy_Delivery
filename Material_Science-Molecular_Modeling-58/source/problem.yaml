@@ -1,0 +1,36 @@
+problem_id: "Material_Science-Molecular_Modeling-58"
+subject: "materials"
+subject_area: "Molecular Modeling"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2604.13897"
+dependencies: ""
+steps:
+  - number: 1
+    name: "build_error_panel"
+    description: "Builds a deterministic nine-system error panel from the paper-order validation metrics."
+    orchestrator: false
+  - number: 2
+    name: "curate_active_pool"
+    description: "Applies the paper's energy-force curation method and requested split."
+    orchestrator: false
+  - number: 3
+    name: "build_relative_landscapes"
+    description: "Builds source-defined relative polymorph landscapes for DFT, fine-tuned, and foundation models."
+    orchestrator: false
+  - number: 4
+    name: "rank_polymorphs"
+    description: "Scores source-defined polymorph ordering and wrong-minimum penalties."
+    orchestrator: false
+  - number: 5
+    name: "compute_packing_fidelity"
+    description: "Computes geometric packing fidelity for synthetic periodic molecular crystals."
+    orchestrator: false
+  - number: 6
+    name: "compute_dynamic_stability"
+    description: "Computes the paper's orientational, pair-structure, NVE, and NPT stability diagnostics."
+    orchestrator: false
+  - number: 7
+    name: "compute_molcryst_audit"
+    description: "Orchestrates the six preceding public steps and returns the complete molecular-crystal audit."
+    orchestrator: true

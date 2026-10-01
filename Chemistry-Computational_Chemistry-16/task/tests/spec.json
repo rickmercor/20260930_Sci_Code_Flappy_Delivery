@@ -1,0 +1,68 @@
+{
+  "problem_id": "Chemistry-Computational_Chemistry-16",
+  "sub_steps": [
+    {
+      "step_number": "Chemistry-Computational_Chemistry-16.1",
+      "test_cases": [
+        "np=__import__(\"numpy\")\ndef _tree(value):\n    if isinstance(value, np.ndarray):\n        return [float(value.ndim), *[float(x) for x in value.shape], *value.astype(float).ravel().tolist()]\n    if isinstance(value, (tuple, list)):\n        out = [float(len(value))]\n        for item in value:\n            out.extend(_tree(item))\n        return out\n    return [float(value)]\nassert np.allclose(_tree(generate_oci_neb_panel()), target)",
+        "np=__import__(\"numpy\")\ndef _tree(value):\n    if isinstance(value, np.ndarray):\n        return [float(value.ndim), *[float(x) for x in value.shape], *value.astype(float).ravel().tolist()]\n    if isinstance(value, (tuple, list)):\n        out = [float(len(value))]\n        for item in value:\n            out.extend(_tree(item))\n        return out\n    return [float(value)]\nassert np.allclose(_tree(generate_oci_neb_panel(260601,8,7)), target)",
+        "np=__import__(\"numpy\")\ndef _tree(value):\n    if isinstance(value, np.ndarray):\n        return [float(value.ndim), *[float(x) for x in value.shape], *value.astype(float).ravel().tolist()]\n    if isinstance(value, (tuple, list)):\n        out = [float(len(value))]\n        for item in value:\n            out.extend(_tree(item))\n        return out\n    return [float(value)]\nassert np.allclose(_tree(generate_oci_neb_panel(260777,24,11)), target)",
+        "def _value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\na=(260529,18,8)\nassert np.allclose(_value_error(generate_oci_neb_panel,*a), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-16.2",
+      "test_cases": [
+        "np=__import__(\"numpy\")\ndef _tree(value):\n    if isinstance(value, np.ndarray):\n        return [float(value.ndim), *[float(x) for x in value.shape], *value.astype(float).ravel().tolist()]\n    if isinstance(value, (tuple, list)):\n        out = [float(len(value))]\n        for item in value:\n            out.extend(_tree(item))\n        return out\n    return [float(value)]\nassert np.allclose(_tree(compute_climbing_controls()), target)",
+        "np=__import__(\"numpy\")\ndef _tree(value):\n    if isinstance(value, np.ndarray):\n        return [float(value.ndim), *[float(x) for x in value.shape], *value.astype(float).ravel().tolist()]\n    if isinstance(value, (tuple, list)):\n        out = [float(len(value))]\n        for item in value:\n            out.extend(_tree(item))\n        return out\n    return [float(value)]\nassert np.allclose(_tree(compute_climbing_controls(260601,8,7)), target)",
+        "np=__import__(\"numpy\")\ndef _tree(value):\n    if isinstance(value, np.ndarray):\n        return [float(value.ndim), *[float(x) for x in value.shape], *value.astype(float).ravel().tolist()]\n    if isinstance(value, (tuple, list)):\n        out = [float(len(value))]\n        for item in value:\n            out.extend(_tree(item))\n        return out\n    return [float(value)]\nassert np.allclose(_tree(compute_climbing_controls(260777,24,11)), target)",
+        "def _value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\na=(260529,7,9)\nassert np.allclose(_value_error(compute_climbing_controls,*a), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-16.3",
+      "test_cases": [
+        "np=__import__(\"numpy\")\ndef _tree(value):\n    if isinstance(value, np.ndarray):\n        return [float(value.ndim), *[float(x) for x in value.shape], *value.astype(float).ravel().tolist()]\n    if isinstance(value, (tuple, list)):\n        out = [float(len(value))]\n        for item in value:\n            out.extend(_tree(item))\n        return out\n    return [float(value)]\nassert np.allclose(_tree(run_aligned_dimer_bursts()), target)",
+        "np=__import__(\"numpy\")\ndef _tree(value):\n    if isinstance(value, np.ndarray):\n        return [float(value.ndim), *[float(x) for x in value.shape], *value.astype(float).ravel().tolist()]\n    if isinstance(value, (tuple, list)):\n        out = [float(len(value))]\n        for item in value:\n            out.extend(_tree(item))\n        return out\n    return [float(value)]\nassert np.allclose(_tree(run_aligned_dimer_bursts(260601,8,7,.11)), target)",
+        "np=__import__(\"numpy\")\ndef _tree(value):\n    if isinstance(value, np.ndarray):\n        return [float(value.ndim), *[float(x) for x in value.shape], *value.astype(float).ravel().tolist()]\n    if isinstance(value, (tuple, list)):\n        out = [float(len(value))]\n        for item in value:\n            out.extend(_tree(item))\n        return out\n    return [float(value)]\nassert np.allclose(_tree(run_aligned_dimer_bursts(260777,24,11,.31)), target)",
+        "def _value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\na=(260529,18,9,.0)\nassert np.allclose(_value_error(run_aligned_dimer_bursts,*a), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-16.4",
+      "test_cases": [
+        "np=__import__(\"numpy\")\ndef _tree(value):\n    if isinstance(value, np.ndarray):\n        return [float(value.ndim), *[float(x) for x in value.shape], *value.astype(float).ravel().tolist()]\n    if isinstance(value, (tuple, list)):\n        out = [float(len(value))]\n        for item in value:\n            out.extend(_tree(item))\n        return out\n    return [float(value)]\ndef _inactive(value):\n    assert np.all(np.asarray(value[0]) == 0)\n    return _tree(value)\nassert np.allclose(_tree(apply_oci_neb_policy()), target)",
+        "np=__import__(\"numpy\")\ndef _tree(value):\n    if isinstance(value, np.ndarray):\n        return [float(value.ndim), *[float(x) for x in value.shape], *value.astype(float).ravel().tolist()]\n    if isinstance(value, (tuple, list)):\n        out = [float(len(value))]\n        for item in value:\n            out.extend(_tree(item))\n        return out\n    return [float(value)]\ndef _inactive(value):\n    assert np.all(np.asarray(value[0]) == 0)\n    return _tree(value)\nassert np.allclose(_inactive(apply_oci_neb_policy(260529,18,9,.19,.12,.72,5)), target)",
+        "np=__import__(\"numpy\")\ndef _tree(value):\n    if isinstance(value, np.ndarray):\n        return [float(value.ndim), *[float(x) for x in value.shape], *value.astype(float).ravel().tolist()]\n    if isinstance(value, (tuple, list)):\n        out = [float(len(value))]\n        for item in value:\n            out.extend(_tree(item))\n        return out\n    return [float(value)]\ndef _inactive(value):\n    assert np.all(np.asarray(value[0]) == 0)\n    return _tree(value)\nassert np.allclose(_tree(apply_oci_neb_policy(260777,24,11,.31)), target)",
+        "def _value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\na=(260529,18,9,.7)\nassert np.allclose(_value_error(apply_oci_neb_policy,*a), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-16.5",
+      "test_cases": [
+        "np=__import__(\"numpy\")\ndef _tree(value):\n    if isinstance(value, np.ndarray):\n        return [float(value.ndim), *[float(x) for x in value.shape], *value.astype(float).ravel().tolist()]\n    if isinstance(value, (tuple, list)):\n        out = [float(len(value))]\n        for item in value:\n            out.extend(_tree(item))\n        return out\n    return [float(value)]\nassert np.allclose(_tree(reparameterize_successful_paths()), target)",
+        "np=__import__(\"numpy\")\ndef _tree(value):\n    if isinstance(value, np.ndarray):\n        return [float(value.ndim), *[float(x) for x in value.shape], *value.astype(float).ravel().tolist()]\n    if isinstance(value, (tuple, list)):\n        out = [float(len(value))]\n        for item in value:\n            out.extend(_tree(item))\n        return out\n    return [float(value)]\nassert np.allclose(_tree(reparameterize_successful_paths(260601,8,7,.11)), target)",
+        "np=__import__(\"numpy\")\ndef _tree(value):\n    if isinstance(value, np.ndarray):\n        return [float(value.ndim), *[float(x) for x in value.shape], *value.astype(float).ravel().tolist()]\n    if isinstance(value, (tuple, list)):\n        out = [float(len(value))]\n        for item in value:\n            out.extend(_tree(item))\n        return out\n    return [float(value)]\nassert np.allclose(_tree(reparameterize_successful_paths(260777,24,11,.31)), target)",
+        "def _value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\na=(260529,18,6,.19)\nassert np.allclose(_value_error(reparameterize_successful_paths,*a), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-16.6",
+      "test_cases": [
+        "np=__import__(\"numpy\")\ndef _tree(value):\n    if isinstance(value, np.ndarray):\n        return [float(value.ndim), *[float(x) for x in value.shape], *value.astype(float).ravel().tolist()]\n    if isinstance(value, (tuple, list)):\n        out = [float(len(value))]\n        for item in value:\n            out.extend(_tree(item))\n        return out\n    return [float(value)]\ndef _first_inactive(value):\n    tensor=np.asarray(value[0])\n    assert tensor.shape == (8,8)\n    assert np.all(tensor[0, :3] == 0) and tensor[0, 3] == 1\n    return _tree(value)\nassert np.allclose(_tree(evaluate_oci_neb_robustness_tensor()), target)",
+        "np=__import__(\"numpy\")\ndef _tree(value):\n    if isinstance(value, np.ndarray):\n        return [float(value.ndim), *[float(x) for x in value.shape], *value.astype(float).ravel().tolist()]\n    if isinstance(value, (tuple, list)):\n        out = [float(len(value))]\n        for item in value:\n            out.extend(_tree(item))\n        return out\n    return [float(value)]\ndef _first_inactive(value):\n    tensor=np.asarray(value[0])\n    assert tensor.shape == (8,8)\n    assert np.all(tensor[0, :3] == 0) and tensor[0, 3] == 1\n    return _tree(value)\nassert np.allclose(_tree(evaluate_oci_neb_robustness_tensor(260777,24,11,(.2,.3,.45),(.71,.88),(.8,1.,1.3))), target)",
+        "np=__import__(\"numpy\")\ndef _tree(value):\n    if isinstance(value, np.ndarray):\n        return [float(value.ndim), *[float(x) for x in value.shape], *value.astype(float).ravel().tolist()]\n    if isinstance(value, (tuple, list)):\n        out = [float(len(value))]\n        for item in value:\n            out.extend(_tree(item))\n        return out\n    return [float(value)]\ndef _first_inactive(value):\n    tensor=np.asarray(value[0])\n    assert tensor.shape == (8,8)\n    assert np.all(tensor[0, :3] == 0) and tensor[0, 3] == 1\n    return _tree(value)\nassert np.allclose(_first_inactive(evaluate_oci_neb_robustness_tensor(260529,18,9,(.12,.16),(.72,.85),(.9,1.1))), target)",
+        "def _value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nbad=(.31,)\nassert np.allclose(_value_error(evaluate_oci_neb_robustness_tensor,260529,18,9,bad,(.72,.85),(.9,1.1)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-16.7",
+      "test_cases": [
+        "np=__import__(\"numpy\")\ndef _tree(value):\n    if isinstance(value, np.ndarray):\n        return [float(value.ndim), *[float(x) for x in value.shape], *value.astype(float).ravel().tolist()]\n    if isinstance(value, (tuple, list)):\n        out = [float(len(value))]\n        for item in value:\n            out.extend(_tree(item))\n        return out\n    return [float(value)]\nassert np.allclose(_tree(compute_oci_neb_audit()), target)",
+        "np=__import__(\"numpy\")\ndef _tree(value):\n    if isinstance(value, np.ndarray):\n        return [float(value.ndim), *[float(x) for x in value.shape], *value.astype(float).ravel().tolist()]\n    if isinstance(value, (tuple, list)):\n        out = [float(len(value))]\n        for item in value:\n            out.extend(_tree(item))\n        return out\n    return [float(value)]\nassert np.allclose(_tree(compute_oci_neb_audit(260601,8,7)), target)",
+        "np=__import__(\"numpy\")\ndef _tree(value):\n    if isinstance(value, np.ndarray):\n        return [float(value.ndim), *[float(x) for x in value.shape], *value.astype(float).ravel().tolist()]\n    if isinstance(value, (tuple, list)):\n        out = [float(len(value))]\n        for item in value:\n            out.extend(_tree(item))\n        return out\n    return [float(value)]\nassert np.allclose(_tree(compute_oci_neb_audit(260777,24,11)), target)",
+        "def _value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\na=(\"bad\",18,9)\nassert np.allclose(_value_error(compute_oci_neb_audit,*a), target)"
+      ]
+    }
+  ]
+}

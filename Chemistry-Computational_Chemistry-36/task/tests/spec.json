@@ -1,0 +1,86 @@
+{
+  "problem_id": "Chemistry-Computational_Chemistry-36",
+  "sub_steps": [
+    {
+      "step_number": "Chemistry-Computational_Chemistry-36.1",
+      "test_cases": [
+        "import numpy as np\nr=np.array([[[-2.,-1.,np.nan],[-1.5,-1.,-.5]],[[-3.,-2.,np.nan],[-2.5,-2.,-1.]] ,[[-4.,-3.,np.nan],[-3.5,-3.,-2.]]])\nl=np.array([[2,3],[2,3],[2,3]])\ne=np.array([[1,0],[1,1],[0,1]])\nb=np.array([3.,5.,7.])\nassert np.allclose(restore_opes_bias(r,l,e,b,.1,300.), target)",
+        "import numpy as np\nr=np.array([[[-2.,-1.,np.nan],[-1.5,-1.,-.5]],[[-3.,-2.,np.nan],[-2.5,-2.,-1.]] ,[[-4.,-3.,np.nan],[-3.5,-3.,-2.]]])\nl=np.array([[2,3],[2,3],[2,3]])\ne=np.array([[1,0],[1,1],[0,1]])\nb=np.array([3.,5.,7.])\nassert np.allclose(restore_opes_bias(r,l,e,b,1e-6,1e6), target)",
+        "import numpy as np\nr=np.full((3,1,2),-8e307); l=np.full((3,1),2); e=np.ones((3,1)); b=np.array([8e307,8e307-1e292,8e307-2e292])\nassert np.allclose(restore_opes_bias(r,l,e,b,1.,300.), target)",
+        "import numpy as np\ndef check(fn):\n out=[]\n base=(np.zeros((3,2,3)),np.full((3,2),2),np.ones((3,2)),np.arange(3.))\n for r,l,e,b in ((base[0],np.zeros((3,2),int),base[2],base[3]),(base[0],base[1],np.full((3,2),2),base[3]),(np.full((3,2,3),np.nan),base[1],base[2],base[3])):\n  try: fn(r,l,e,b,.1,300.)\n  except ValueError: out.append(1)\n  except Exception: out.append(2)\n  else: out.append(0)\n return np.array(out)\nassert np.allclose(check(restore_opes_bias), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-36.2",
+      "test_cases": [
+        "import numpy as np\nl=np.array([[5,7,6],[3,4,5],[9,8,7]]); e=np.array([[1,0,1],[1,1,0],[0,1,0]])\nassert np.allclose(censored_observed_log_rates(l,e,.2), target)",
+        "import numpy as np\nl=np.ones((3,4),dtype=int); e=np.ones((3,4),dtype=int)\nassert np.allclose(censored_observed_log_rates(l,e,1.), target)",
+        "import numpy as np\nl=np.array([[1000000],[2000000],[4000000]]); e=np.ones((3,1),dtype=int)\nassert np.allclose(censored_observed_log_rates(l,e,1e-9), target)",
+        "import numpy as np\ndef check(fn):\n out=[]\n for l,e,d in ((np.ones((3,2),int),np.zeros((3,2)),.1),(np.ones((3,2),int),np.full((3,2),np.nan),.1),(np.ones((3,2),int),np.ones((3,2)),0.)):\n  try: fn(l,e,d)\n  except ValueError: out.append(1)\n  except Exception: out.append(2)\n  else: out.append(0)\n return np.array(out)\nassert np.allclose(check(censored_observed_log_rates), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-36.3",
+      "test_cases": [
+        "import numpy as np\nv=np.array([[[1.,2.,0.],[2.,3.,4.]],[[0.,1.,2.],[1.,2.,0.]],[[2.,2.,2.],[3.,3.,3.]]]); l=np.array([[2,3],[3,2],[3,3]])\nassert np.allclose(ensemble_time_log_acceleration(v,l,300.,.6), target)",
+        "import numpy as np\nv=np.arange(18,dtype=float).reshape(3,2,3); l=np.full((3,2),3)\nassert np.allclose(ensemble_time_log_acceleration(v,l,300.,0.), target)",
+        "import numpy as np\nv=np.full((3,2,2),1e307); l=np.full((3,2),2)\nassert np.allclose(ensemble_time_log_acceleration(v,l,1e307,1.), target)",
+        "import numpy as np\ndef check(fn):\n out=[]\n for v,l,t,g in ((np.zeros((3,2,2)),np.full((3,2),3),300.,.5),(np.full((3,2,2),np.nan),np.full((3,2),2),300.,.5),(np.zeros((3,2,2)),np.full((3,2),2),300.,1.1)):\n  try: fn(v,l,t,g)\n  except ValueError: out.append(1)\n  except Exception: out.append(2)\n  else: out.append(0)\n return np.array(out)\nassert np.allclose(check(ensemble_time_log_acceleration), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-36.4",
+      "test_cases": [
+        "import numpy as np\nv=np.array([[[1.,1.2],[1.1,1.3]],[[2.,2.2],[2.1,2.3]],[[3.,3.2],[3.1,3.3]],[[4.,4.2],[4.1,4.3]]]); l=np.full((4,2),2); y=np.array([-1.1,-.8,-.5,-.2])\nassert np.allclose(fit_eatr_flooding(y,v,l,300.,np.array([0,1,2,3])), target)",
+        "import numpy as np\nv=np.array([[[1.,1.2],[1.1,1.3]],[[2.,2.2],[2.1,2.3]],[[3.,3.2],[3.1,3.3]],[[4.,4.2],[4.1,4.3]]]); l=np.full((4,2),2); y=np.array([-1.1,-.8,-.5,-.2])\nassert np.allclose(fit_eatr_flooding(y,v,l,300.,np.array([0,1,2]),.15,.85), target)",
+        "import numpy as np\nv=np.zeros((3,2,2)); l=np.full((3,2),2); y=np.array([-2.,-2.,-2.])\nassert np.allclose(fit_eatr_flooding(y,v,l,300.,np.arange(3)), target)",
+        "import numpy as np\ndef check(fn):\n v=np.zeros((4,2,2)); l=np.full((4,2),2); y=np.zeros(4); out=[]\n for idx,a,b in ((np.array([0,0,1]),0.,1.),(np.array([0,1]),0.,1.),(np.array([0,1,4]),0.,1.),(np.array([0,1,2]),.8,.2)):\n  try: fn(y,v,l,300.,idx,a,b)\n  except ValueError: out.append(1)\n  except Exception: out.append(2)\n  else: out.append(0)\n return np.array(out)\nassert np.allclose(check(fit_eatr_flooding), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-36.5",
+      "test_cases": [
+        "import numpy as np\nv=np.array([[[1.,1.2],[1.1,1.3]],[[2.,2.2],[2.1,2.3]],[[3.,3.2],[3.1,3.3]],[[4.,4.2],[4.1,4.3]],[[5.,5.2],[5.1,5.3]]]); l=np.full((5,2),2); y=np.array([-1.1,-.8,-.5,-.2,.1])\nassert np.allclose(scan_eatr_prefixes(y,v,l,300.,np.arange(5),3), target)",
+        "import numpy as np\nv=np.array([[[1.,1.2],[1.1,1.3]],[[2.,2.2],[2.1,2.3]],[[3.,3.2],[3.1,3.3]],[[4.,4.2],[4.1,4.3]],[[5.,5.2],[5.1,5.3]]]); l=np.full((5,2),2); y=np.array([-1.1,-.8,-.5,-.2,.1])\nassert np.allclose(scan_eatr_prefixes(y,v,l,300.,np.array([4,3,2,1,0]),4), target)",
+        "import numpy as np\nv=np.zeros((3,1,2)); l=np.full((3,1),2); y=np.zeros(3)\nassert np.allclose(scan_eatr_prefixes(y,v,l,1e5,np.array([1,0,2]),3), target)",
+        "import numpy as np\ndef check(fn):\n v=np.zeros((4,1,2)); l=np.full((4,1),2); y=np.zeros(4); out=[]\n for order,m in ((np.array([0,1,1,3]),3),(np.arange(4),2),(np.arange(3),3)):\n  try: fn(y,v,l,300.,order,m)\n  except ValueError: out.append(1)\n  except Exception: out.append(2)\n  else: out.append(0)\n return np.array(out)\nassert np.allclose(check(scan_eatr_prefixes), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-36.6",
+      "test_cases": [
+        "import numpy as np\nt=np.array([[3,.7,-2.,.001],[4,.6,-2.1,.002],[5,.5,-2.2,.008]])\nassert np.allclose(select_consistent_prefix(t,.003), target)",
+        "import numpy as np\nt=np.array([[3,.01,-2.,.001],[4,.04,-2.1,.002],[5,.98,-2.2,.002]])\nassert np.allclose(select_consistent_prefix(t,.01,.03), target)",
+        "import numpy as np\nt=np.array([[3,.5,-2.,0.]])\nassert np.allclose(select_consistent_prefix(t,0.,0.), target)",
+        "import numpy as np\ndef check(fn):\n out=[]\n for t,v,m in ((np.array([[3,.0,-2.,.1]]),.01,.02),(np.array([[3,.5,-2.,-1.]]),.1,.02),(np.array([[3,.5,-2.,.1],[5,.5,-2.,.1]]),.1,.02)):\n  try: fn(t,v,m)\n  except ValueError: out.append(1)\n  except Exception: out.append(2)\n  else: out.append(0)\n return np.array(out)\nassert np.allclose(check(select_consistent_prefix), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-36.7",
+      "test_cases": [
+        "import numpy as np\nv=np.array([[[1.,1.2,0.],[1.1,1.3,1.4],[.9,1.,0.]],[[2.,2.2,2.3],[2.1,2.3,0.],[1.9,2.,2.1]],[[3.,3.2,0.],[3.1,3.3,3.4],[2.9,3.,3.1]]]); l=np.array([[2,3,2],[3,2,3],[2,3,3]]); e=np.array([[1,0,1],[1,1,0],[1,0,1]])\nassert np.allclose(opesf_cdf_log_rate(v,l,e,.1,300.,np.array([0,1,2])), target)",
+        "import numpy as np\nv=np.array([[[1.,1.2,0.],[1.1,1.3,1.4],[.9,1.,0.]],[[2.,2.2,2.3],[2.1,2.3,0.],[1.9,2.,2.1]],[[3.,3.2,0.],[3.1,3.3,3.4],[2.9,3.,3.1]]]); l=np.array([[2,3,2],[3,2,3],[2,3,3]]); e=np.array([[1,0,1],[1,1,0],[1,0,1]])\nassert np.allclose(opesf_cdf_log_rate(v,l,e,.1,300.,np.array([2,0])), target)",
+        "import numpy as np\nv=np.zeros((3,2,2)); l=np.full((3,2),2); e=np.ones((3,2),dtype=int)\nassert np.allclose(opesf_cdf_log_rate(v,l,e,1e-4,1e6,np.arange(3)), target)",
+        "import numpy as np\ndef check(fn):\n v=np.zeros((3,2,2)); l=np.full((3,2),2); out=[]\n for e,idx in ((np.zeros((3,2)),np.arange(3)),(np.ones((3,2)),np.array([0,0])),(np.ones((3,2)),np.array([3]))):\n  try: fn(v,l,e,.1,300.,idx)\n  except ValueError: out.append(1)\n  except Exception: out.append(2)\n  else: out.append(0)\n return np.array(out)\nassert np.allclose(check(opesf_cdf_log_rate), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-36.8",
+      "test_cases": [
+        "import numpy as np\nv=np.array([[[1.,1.2],[1.1,1.3]],[[2.,2.2],[2.1,2.3]],[[3.,3.2],[3.1,3.3]],[[4.,4.2],[4.1,4.3]],[[5.,5.2],[5.1,5.3]]]); l=np.full((5,2),2); y=np.array([-1.1,-.8,-.5,-.2,.1])\nassert np.allclose(leave_one_set_out_log_rates(y,v,l,300.,np.arange(5)), target)",
+        "import numpy as np\nv=np.array([[[1.,1.2],[1.1,1.3]],[[2.,2.2],[2.1,2.3]],[[3.,3.2],[3.1,3.3]],[[4.,4.2],[4.1,4.3]],[[5.,5.2],[5.1,5.3]]]); l=np.full((5,2),2); y=np.array([-1.1,-.8,-.5,-.2,.1])\nassert np.allclose(leave_one_set_out_log_rates(y,v,l,300.,np.array([4,2,0,3])), target)",
+        "import numpy as np\nv=np.zeros((4,1,2)); l=np.full((4,1),2); y=np.zeros(4)\nassert np.allclose(leave_one_set_out_log_rates(y,v,l,1e6,np.arange(4)), target)",
+        "import numpy as np\ndef check(fn):\n v=np.zeros((5,1,2)); l=np.full((5,1),2); y=np.zeros(5); out=[]\n for idx in (np.arange(3),np.array([0,1,1,2]),np.array([0,1,2,5])):\n  try: fn(y,v,l,300.,idx)\n  except ValueError: out.append(1)\n  except Exception: out.append(2)\n  else: out.append(0)\n return np.array(out)\nassert np.allclose(check(leave_one_set_out_log_rates), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-36.9",
+      "test_cases": [
+        "assert np.allclose(run_flooding_rate_audit(26091615,.003,.2), target)",
+        "assert np.allclose(run_flooding_rate_audit(73,.003,.2), target)",
+        "assert np.allclose(run_flooding_rate_audit(991,.0035,.25), target)",
+        "import numpy as np\ndef check(fn):\n out=[]\n for args in ((True,.003,.2),(1,-1.,.2),(1,.003,0.)):\n  try: fn(*args)\n  except ValueError: out.append(1)\n  except Exception: out.append(2)\n  else: out.append(0)\n return np.array(out)\nassert np.allclose(check(run_flooding_rate_audit), target)"
+      ]
+    }
+  ]
+}

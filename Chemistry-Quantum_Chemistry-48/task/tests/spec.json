@@ -1,0 +1,69 @@
+{
+  "problem_id": "Chemistry-Quantum_Chemistry-48",
+  "sub_steps": [
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-48.1",
+      "test_cases": [
+        "assert np.allclose(enumerate_fock_states(4, 2), target)",
+        "assert np.allclose(enumerate_fock_states(5, 0), target)",
+        "assert np.allclose(enumerate_fock_states(5, 5), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-48.2",
+      "test_cases": [
+        "import numpy as np\nbasis_states = np.array([3,5,6,9,10,12])\norbital_rows = np.array([[1.,0.,0.,0.],[0.,0.,1.,0.]])\nassert np.allclose(expand_slater_determinant(orbital_rows, basis_states), target)",
+        "import numpy as np\nbasis_states = np.array([3,5,6,9,10,12])\norbital_rows = np.array([[1.,0.,0.,0.],[0.,0.,1.,0.]])\norbital_rows = orbital_rows[::-1]\nassert np.allclose(expand_slater_determinant(orbital_rows, basis_states), target)",
+        "import numpy as np\norbital_rows=np.empty((0,3)); basis_states=np.array([0])\nassert np.allclose(expand_slater_determinant(orbital_rows, basis_states), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-48.3",
+      "test_cases": [
+        "import numpy as np\none_body=np.array([[1.,-0.2],[-0.2,2.]])\nantisym_two_body=np.zeros((2,2,2,2))\nbasis_states=np.array([1,2])\nnuclear_energy=0.5\nassert np.allclose(build_active_space_hamiltonian(one_body, antisym_two_body, basis_states, nuclear_energy), target)",
+        "import numpy as np\none_body=np.zeros((2,2))\nantisym_two_body=np.zeros((2,2,2,2))\nantisym_two_body[0,1,0,1]=0.7\nantisym_two_body[1,0,0,1]=-0.7\nantisym_two_body[0,1,1,0]=-0.7\nantisym_two_body[1,0,1,0]=0.7\nbasis_states=np.array([3])\nnuclear_energy=0.0\nassert np.allclose(build_active_space_hamiltonian(one_body, antisym_two_body, basis_states, nuclear_energy), target)",
+        "import numpy as np\none_body=np.eye(3)\nantisym_two_body=np.zeros((3,3,3,3))\nbasis_states=np.array([0])\nnuclear_energy=-1.2\nassert np.allclose(build_active_space_hamiltonian(one_body, antisym_two_body, basis_states, nuclear_energy), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-48.4",
+      "test_cases": [
+        "import numpy as np\ndeterminant_orbitals=np.array([[[1.,0.,0.],[0.,1.,0.]]])\nmixing_matrices=np.array([[[1.,0.3],[0.,1.]]])\nassert np.allclose(transform_orbital_frames(determinant_orbitals, mixing_matrices), target)",
+        "import numpy as np\ndeterminant_orbitals=np.array([[[1.,0.,0.],[0.,1.,0.]]])\nmixing_matrices=np.array([[[2.,0.],[0.,0.5]]])\nassert np.allclose(transform_orbital_frames(determinant_orbitals, mixing_matrices), target)",
+        "import numpy as np\ndeterminant_orbitals=np.array([[[1.,0.,0.],[0.,1.,0.]]])\ndeterminant_orbitals=np.concatenate([determinant_orbitals,determinant_orbitals[:,:,::-1]])\nmixing_matrices=np.repeat(np.eye(2)[None],2,axis=0)\nassert np.allclose(transform_orbital_frames(determinant_orbitals, mixing_matrices), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-48.5",
+      "test_cases": [
+        "import numpy as np\nhole_amplitudes=np.array([[2.]])\nhole_basis_states=np.array([0]); electron_basis_states=np.array([1,2,4]); n_orbitals=3\nassert np.allclose(assemble_hole_lift(hole_amplitudes, hole_basis_states, electron_basis_states, n_orbitals), target)",
+        "import numpy as np\nhole_amplitudes=np.array([[1.,0.,0.]])\nhole_basis_states=np.array([1,2,4]); electron_basis_states=np.array([3,5,6]); n_orbitals=3\nassert np.allclose(assemble_hole_lift(hole_amplitudes, hole_basis_states, electron_basis_states, n_orbitals), target)",
+        "import numpy as np\nhole_amplitudes=np.zeros((2,3))\nhole_basis_states=np.array([1,2,4]); electron_basis_states=np.array([3,5,6]); n_orbitals=3\nassert np.allclose(assemble_hole_lift(hole_amplitudes, hole_basis_states, electron_basis_states, n_orbitals), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-48.6",
+      "test_cases": [
+        "import numpy as np\nlift_columns=np.diag([1.,2.]); sector_hamiltonian=np.diag([3.,5.])\nassert np.allclose(form_eidos_pencil(lift_columns, sector_hamiltonian), target)",
+        "import numpy as np\nlift_columns=np.array([[1.,1.],[0.,0.]]); sector_hamiltonian=np.eye(2)\nassert np.allclose(form_eidos_pencil(lift_columns, sector_hamiltonian), target)",
+        "import numpy as np\nlift_columns=np.zeros((2,3)); sector_hamiltonian=np.eye(2)\nassert np.allclose(form_eidos_pencil(lift_columns, sector_hamiltonian), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-48.7",
+      "test_cases": [
+        "import numpy as np\nmatrix_pencil=np.array([np.diag([2.,0.]),np.diag([1.,0.])]); relative_cutoff=1e-12\nassert np.allclose(solve_eidos_update(matrix_pencil, relative_cutoff), target)",
+        "import numpy as np\nmatrix_pencil=np.array([np.diag([8.,3.,0.]),np.diag([4.,1.,0.])]); relative_cutoff=1e-12\nassert np.allclose(solve_eidos_update(matrix_pencil, relative_cutoff), target)",
+        "import numpy as np\nmetric=np.array([[1.,1.],[1.,1.]]); matrix_pencil=np.stack([1.5*metric,metric]); relative_cutoff=1e-12\nassert np.allclose(solve_eidos_update(matrix_pencil, relative_cutoff), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-48.8",
+      "test_cases": [
+        "import numpy as np\nrng = np.random.default_rng(26082026)\nm, n, n_det = 8, 4, 3\n\nraw_h = rng.normal(size=(m,m))\none_body = 0.11*(raw_h+raw_h.T) + np.diag(np.linspace(-1.35,1.10,m))\n\npairs = [(p,q) for p in range(m) for q in range(p+1,m)]\nraw_pairs = rng.normal(size=(len(pairs),len(pairs)))\npair_matrix = 0.035*(raw_pairs+raw_pairs.T) + np.diag(np.linspace(0.22,0.58,len(pairs)))\nantisym_two_body = np.zeros((m,m,m,m))\nfor a,(p,q) in enumerate(pairs):\n    for b,(r,s) in enumerate(pairs):\n        value = pair_matrix[a,b]\n        antisym_two_body[p,q,r,s] = value\n        antisym_two_body[q,p,r,s] = -value\n        antisym_two_body[p,q,s,r] = -value\n        antisym_two_body[q,p,s,r] = value\n\nq0,_ = np.linalg.qr(rng.normal(size=(m,n)))\nq1,_ = np.linalg.qr(q0 + 0.018*rng.normal(size=(m,n)))\nq2,_ = np.linalg.qr(rng.normal(size=(m,n)))\ndeterminant_orbitals = np.stack([q0.T,q1.T,q2.T])\n\ndef _frame(candidate_id):\n    frame_rng = np.random.default_rng(48151623 + candidate_id)\n    scale = 10.0**frame_rng.uniform(-1.2,0.25)\n    blocks = []\n    for _ in range(n_det):\n        block = np.eye(n)\n        for _ in range(7):\n            i,j = frame_rng.choice(n,size=2,replace=False)\n            shear = np.eye(n)\n            shear[i,j] = frame_rng.normal(scale=scale)\n            block = shear @ block\n        blocks.append(block)\n    return np.stack(blocks)\n\ncandidate_ids = [402,1895,1839,1009,3817,3383,4790,3572,1958,1503]\nmixing_candidates = np.stack([_frame(i) for i in candidate_ids])\nclose_shear = np.eye(n)\nclose_shear[3,0] = 0.23\nmixing_candidates[4,2] = close_shear @ mixing_candidates[4,2]\nnuclear_energy = 1.70\nmetric_cutoff = 1e-13\nassert np.allclose(select_orbital_update(one_body, antisym_two_body, determinant_orbitals, mixing_candidates, nuclear_energy, metric_cutoff), target)",
+        "import numpy as np\nrng = np.random.default_rng(26082026)\nm, n, n_det = 8, 4, 3\n\nraw_h = rng.normal(size=(m,m))\none_body = 0.11*(raw_h+raw_h.T) + np.diag(np.linspace(-1.35,1.10,m))\n\npairs = [(p,q) for p in range(m) for q in range(p+1,m)]\nraw_pairs = rng.normal(size=(len(pairs),len(pairs)))\npair_matrix = 0.035*(raw_pairs+raw_pairs.T) + np.diag(np.linspace(0.22,0.58,len(pairs)))\nantisym_two_body = np.zeros((m,m,m,m))\nfor a,(p,q) in enumerate(pairs):\n    for b,(r,s) in enumerate(pairs):\n        value = pair_matrix[a,b]\n        antisym_two_body[p,q,r,s] = value\n        antisym_two_body[q,p,r,s] = -value\n        antisym_two_body[p,q,s,r] = -value\n        antisym_two_body[q,p,s,r] = value\n\nq0,_ = np.linalg.qr(rng.normal(size=(m,n)))\nq1,_ = np.linalg.qr(q0 + 0.018*rng.normal(size=(m,n)))\nq2,_ = np.linalg.qr(rng.normal(size=(m,n)))\ndeterminant_orbitals = np.stack([q0.T,q1.T,q2.T])\n\ndef _frame(candidate_id):\n    frame_rng = np.random.default_rng(48151623 + candidate_id)\n    scale = 10.0**frame_rng.uniform(-1.2,0.25)\n    blocks = []\n    for _ in range(n_det):\n        block = np.eye(n)\n        for _ in range(7):\n            i,j = frame_rng.choice(n,size=2,replace=False)\n            shear = np.eye(n)\n            shear[i,j] = frame_rng.normal(scale=scale)\n            block = shear @ block\n        blocks.append(block)\n    return np.stack(blocks)\n\ncandidate_ids = [402,1895,1839,1009,3817,3383,4790,3572,1958,1503]\nmixing_candidates = np.stack([_frame(i) for i in candidate_ids])\nclose_shear = np.eye(n)\nclose_shear[3,0] = 0.23\nmixing_candidates[4,2] = close_shear @ mixing_candidates[4,2]\nnuclear_energy = 1.70\nmetric_cutoff = 1e-13\n\norder = np.array([5,0,9,4,3,1,6,8,2,7])\nmixing_candidates = mixing_candidates[order]\nassert np.allclose(select_orbital_update(one_body, antisym_two_body, determinant_orbitals, mixing_candidates, nuclear_energy, metric_cutoff), target)",
+        "import numpy as np\nrng = np.random.default_rng(26082026)\nm, n, n_det = 8, 4, 3\n\nraw_h = rng.normal(size=(m,m))\none_body = 0.11*(raw_h+raw_h.T) + np.diag(np.linspace(-1.35,1.10,m))\n\npairs = [(p,q) for p in range(m) for q in range(p+1,m)]\nraw_pairs = rng.normal(size=(len(pairs),len(pairs)))\npair_matrix = 0.035*(raw_pairs+raw_pairs.T) + np.diag(np.linspace(0.22,0.58,len(pairs)))\nantisym_two_body = np.zeros((m,m,m,m))\nfor a,(p,q) in enumerate(pairs):\n    for b,(r,s) in enumerate(pairs):\n        value = pair_matrix[a,b]\n        antisym_two_body[p,q,r,s] = value\n        antisym_two_body[q,p,r,s] = -value\n        antisym_two_body[p,q,s,r] = -value\n        antisym_two_body[q,p,s,r] = value\n\nq0,_ = np.linalg.qr(rng.normal(size=(m,n)))\nq1,_ = np.linalg.qr(q0 + 0.018*rng.normal(size=(m,n)))\nq2,_ = np.linalg.qr(rng.normal(size=(m,n)))\ndeterminant_orbitals = np.stack([q0.T,q1.T,q2.T])\n\ndef _frame(candidate_id):\n    frame_rng = np.random.default_rng(48151623 + candidate_id)\n    scale = 10.0**frame_rng.uniform(-1.2,0.25)\n    blocks = []\n    for _ in range(n_det):\n        block = np.eye(n)\n        for _ in range(7):\n            i,j = frame_rng.choice(n,size=2,replace=False)\n            shear = np.eye(n)\n            shear[i,j] = frame_rng.normal(scale=scale)\n            block = shear @ block\n        blocks.append(block)\n    return np.stack(blocks)\n\ncandidate_ids = [402,1895,1839,1009,3817,3383,4790,3572,1958,1503]\nmixing_candidates = np.stack([_frame(i) for i in candidate_ids])\nclose_shear = np.eye(n)\nclose_shear[3,0] = 0.23\nmixing_candidates[4,2] = close_shear @ mixing_candidates[4,2]\nnuclear_energy = 1.70\nmetric_cutoff = 1e-13\n\nkeep = np.array([0,1,2,3,4,6,7,8,9])\nmixing_candidates = mixing_candidates[keep]\nassert np.allclose(select_orbital_update(one_body, antisym_two_body, determinant_orbitals, mixing_candidates, nuclear_energy, metric_cutoff), target)"
+      ]
+    }
+  ]
+}

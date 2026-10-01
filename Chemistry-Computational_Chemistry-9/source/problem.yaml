@@ -1,0 +1,40 @@
+problem_id: "Chemistry-Computational_Chemistry-9"
+subject: "chemistry"
+subject_area: "Computational Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1021/acs.jctc.5c01167"
+dependencies: ""
+steps:
+  - number: 1
+    name: "compute_ao_integrals"
+    description: "Implement compute_ao_integrals, which evaluates the one- and two-electron integrals of a\nmolecule over a basis of contracted Cartesian Gaussian functions."
+    orchestrator: false
+  - number: 2
+    name: "run_rhf"
+    description: "Implement run_rhf, which solves the closed-shell restricted Hartree-Fock equations for a\nmolecule whose atomic-orbital integrals are given."
+    orchestrator: false
+  - number: 3
+    name: "mp2_spin_components"
+    description: "Implement mp2_spin_components, which evaluates the second-order M\u00f8ller-Plesset correlation\nenergy of a closed-shell molecule resolved into its opposite-spin and same-spin parts."
+    orchestrator: false
+  - number: 4
+    name: "unrelaxed_mp2_density"
+    description: "Implement unrelaxed_mp2_density, which builds the unrelaxed second-order M\u00f8ller-Plesset\none-particle reduced density matrix of a closed-shell molecule in its canonical\nmolecular-orbital basis."
+    orchestrator: false
+  - number: 5
+    name: "correlation_indices"
+    description: "Implement correlation_indices, which measures the dynamic and nondynamic electron\ncorrelation of a closed-shell molecule from the natural-orbital occupations of its\none-particle density matrix."
+    orchestrator: false
+  - number: 6
+    name: "correlation_driven_weights"
+    description: "Implement correlation_driven_weights, which converts the correlation indices of a molecule\ninto the opposite-spin and same-spin weights of its spin-component-scaled MP2 energy."
+    orchestrator: false
+  - number: 7
+    name: "cd_scs_mp2_energy"
+    description: "Implement cd_scs_mp2_energy, which returns the total correlation-driven spin-component-scaled\nMP2 energy of a closed-shell molecule at one fixed geometry."
+    orchestrator: false
+  - number: 8
+    name: "stretch_energy"
+    description: "Implement stretch_energy, which returns the correlation-driven spin-component-scaled MP2\nenergy change between two geometries of the same closed-shell molecule."
+    orchestrator: true

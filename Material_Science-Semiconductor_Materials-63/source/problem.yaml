@@ -1,0 +1,40 @@
+problem_id: "Material_Science-Semiconductor_Materials-63"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1038/s41524-026-02111-z"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_score_force_disagreement"
+    description: "Score per-frame force-model disagreement for defective-supercell active learning."
+    orchestrator: false
+  - number: 2
+    name: "02_force_labeling_mask"
+    description: "Build the binary force active-learning keep mask from disagreement scores."
+    orchestrator: false
+  - number: 3
+    name: "03_score_hamiltonian_disagreement"
+    description: "Score per-structure Hamiltonian-model disagreement for electronic AL"
+    orchestrator: false
+  - number: 4
+    name: "04_balanced_acquisition_indices"
+    description: "Acquire a balanced active-learning index set over defect and temperature classes"
+    orchestrator: false
+  - number: 5
+    name: "05_resolve_gap_spectrum"
+    description: "Resolve valence, mid-gap, and conduction levels from truncated near-gap spectra."
+    orchestrator: false
+  - number: 6
+    name: "06_asga_ordered_depth_series"
+    description: "Assemble the ordered arsenic-antisite CBM-depth series from acquired indices."
+    orchestrator: false
+  - number: 7
+    name: "07_temperature_paired_asga_means"
+    description: "Reduce the ordered As_Ga depth series to per-temperature means."
+    orchestrator: false
+  - number: 8
+    name: "08_orchestrate_defect_al_cbm_depth"
+    description: "*equal-weight temperature average. If n_per_group is None, derive floor(n_labeled / 3) from the force screen. Call prior public compute_* APIs only.*"
+    orchestrator: true

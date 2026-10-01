@@ -1,0 +1,40 @@
+problem_id: "Material_Science-Semiconductor_Materials-52"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1038/s41467-026-73506-1"
+dependencies: ""
+steps:
+  - number: 1
+    name: "polaron_optical_rates"
+    description: "Compute the three optical population-decay rates."
+    orchestrator: false
+  - number: 2
+    name: "polaron_free_generator"
+    description: "Build the field-free Lindblad generator."
+    orchestrator: false
+  - number: 3
+    name: "polaron_pulse_coefficient"
+    description: "Obtain one pulse-area coefficient of the impulsive density map."
+    orchestrator: false
+  - number: 4
+    name: "single_mode_rephasing_echo"
+    description: "Compute the complex rephasing pathway coefficient for one phonon mode."
+    orchestrator: false
+  - number: 5
+    name: "weak_polaron_echo"
+    description: "Evaluate the source amplitude kernel used by calibration."
+    orchestrator: false
+  - number: 6
+    name: "recover_intrinsic_echo"
+    description: "Recover the polarization-invariant amplitude and fine-structure contrast."
+    orchestrator: false
+  - number: 7
+    name: "fit_polaron_bath"
+    description: "Infer the two coupling strengths and phonon decay rates."
+    orchestrator: false
+  - number: 8
+    name: "predict_polaron_echo"
+    description: "Infer the bath and predict the gated rephasing power ratio."
+    orchestrator: true

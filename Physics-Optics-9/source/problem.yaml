@@ -1,0 +1,40 @@
+problem_id: "Physics-Optics-9"
+subject: "physics"
+subject_area: "Optics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1364/OL.585803"
+dependencies: ""
+steps:
+  - number: 1
+    name: "riccati_wave_data"
+    description: "Evaluate Riccati spherical Bessel and incoming/outgoing Hankel data."
+    orchestrator: false
+  - number: 2
+    name: "tm_boundary_data"
+    description: "Form the TM scattering numerator, outgoing determinant and its derivative."
+    orchestrator: false
+  - number: 3
+    name: "physical_tm_poles"
+    description: "Find the complete finite set of outgoing TM resonances in a rectangle."
+    orchestrator: false
+  - number: 4
+    name: "tm_channel_data"
+    description: "Find all derivative-normalization channel poles and their residues."
+    orchestrator: false
+  - number: 5
+    name: "tm_physical_residues"
+    description: "Evaluate the derivative-normalized residues of supplied physical poles."
+    orchestrator: false
+  - number: 6
+    name: "subtracted_pole_sum"
+    description: "Evaluate a finite first-order pole expansion with a fixed subtraction value."
+    orchestrator: false
+  - number: 7
+    name: "tm_spectral_errors"
+    description: "Integrate the two weighted spectral errors for supplied modal data."
+    orchestrator: false
+  - number: 8
+    name: "scattering_pole_audit"
+    description: "Run the complete TM channel-pole audit and return its diagnostic scalar."
+    orchestrator: true

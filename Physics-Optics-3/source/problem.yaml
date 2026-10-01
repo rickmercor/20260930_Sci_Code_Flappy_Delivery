@@ -1,0 +1,44 @@
+problem_id: "Physics-Optics-3"
+subject: "physics"
+subject_area: "Optics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2607.01996"
+dependencies: ""
+steps:
+  - number: 1
+    name: "phase_space_sobol_packets"
+    description: "Construct the paper's weighted full-phase-space Gaussian packet ensemble."
+    orchestrator: false
+  - number: 2
+    name: "interference_potential_derivatives"
+    description: "Evaluate the common time-dependent optical potential and its spatial derivatives."
+    orchestrator: false
+  - number: 3
+    name: "stormer_verlet_centers_actions"
+    description: "Propagate packet centers and classical actions with the paper's second-order scheme."
+    orchestrator: false
+  - number: 4
+    name: "hagedorn_width_evolution"
+    description: "Propagate matrix-valued Hagedorn widths and continuous complex normalizations."
+    orchestrator: false
+  - number: 5
+    name: "coherent_tgwp_reconstruction"
+    description: "Reconstruct the complex meshfree TGWP wavefunction by coherent superposition."
+    orchestrator: false
+  - number: 6
+    name: "strang_split_step_reference"
+    description: "Propagate the same state with the independent periodic-grid Strang reference."
+    orchestrator: false
+  - number: 7
+    name: "wavefunction_error_diagnostics"
+    description: "Measure complex, modulus, overlap, norm, and phase-aligned wavefunction errors."
+    orchestrator: false
+  - number: 8
+    name: "tgwp_convergence_table"
+    description: "Apply grid accuracy, time refinement, and packet-basis saturation tests to all candidates."
+    orchestrator: false
+  - number: 9
+    name: "select_meshfree_configuration"
+    description: "Select the convergence-qualified TGWP configuration and return its adjusted speedup."
+    orchestrator: true

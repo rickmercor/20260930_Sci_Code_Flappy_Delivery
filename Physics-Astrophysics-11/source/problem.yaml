@@ -1,0 +1,36 @@
+problem_id: "Physics-Astrophysics-11"
+subject: "physics"
+subject_area: "Astrophysics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2602.17487"
+dependencies: ""
+steps:
+  - number: 1
+    name: "mapped_velocity_geometry"
+    description: "Step 01: mapped geometry for two cells sharing a velocity-space face."
+    orchestrator: false
+  - number: 2
+    name: "discrete_face_hamiltonian_gradient"
+    description: "Step 02: tangential gradient of the shared discrete Hamiltonian face."
+    orchestrator: false
+  - number: 3
+    name: "physical_distribution_nodal_state"
+    description: "Step 03: physical tensor-Q2 states at native volume nodes."
+    orchestrator: false
+  - number: 4
+    name: "distribution_face_traces"
+    description: "Step 04: physical-distribution values on the shared cell face."
+    orchestrator: false
+  - number: 5
+    name: "mapped_normal_face_transport"
+    description: "Step 05: signed mapped transport on the shared velocity-space face."
+    orchestrator: false
+  - number: 6
+    name: "paired_upwind_face_loss"
+    description: "Step 06: paired upwind loss across one internal velocity-space face."
+    orchestrator: false
+  - number: 7
+    name: "mapped_velocity_face_damping"
+    description: "Step 07 (final orchestrator): mapped velocity-face damping."
+    orchestrator: true

@@ -1,0 +1,83 @@
+{
+  "problem_id": "Material_Science-Semiconductor_Materials-23",
+  "sub_steps": [
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-23.1",
+      "test_cases": [
+        "import numpy as np\nkappa = 0.15\nassert np.allclose(compute_scan_auxiliary_constants(kappa), target)",
+        "import numpy as np\nkappa = 0.065\nassert np.allclose(compute_scan_auxiliary_constants(kappa), target)",
+        "import numpy as np\nkappa = 0.027\nassert np.allclose(compute_scan_auxiliary_constants(kappa), target)",
+        "import numpy as np\nkappa = 0.5\nassert np.allclose(compute_scan_auxiliary_constants(kappa), target)",
+        "import numpy as np\nkappa = 1e-4\nassert np.allclose(compute_scan_auxiliary_constants(kappa), target)",
+        "import numpy as np\nkappa = 100.0\nassert np.allclose(compute_scan_auxiliary_constants(kappa), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-23.2",
+      "test_cases": [
+        "import numpy as np\ns, alpha, kappa = 1.0, 0.30, 0.15\nassert np.allclose(compute_h1x_metallic_factor(s, alpha, kappa), target)",
+        "import numpy as np\ns, alpha, kappa = 1.0, 0.30, 0.065\nassert np.allclose(compute_h1x_metallic_factor(s, alpha, kappa), target)",
+        "import numpy as np\ns, alpha, kappa = 0.75, 0.0, 0.15\nassert np.allclose(compute_h1x_metallic_factor(s, alpha, kappa), target)",
+        "import numpy as np\ns, alpha, kappa = 1.25, 1.0, 0.027\nassert np.allclose(compute_h1x_metallic_factor(s, alpha, kappa), target)",
+        "import numpy as np\ns, alpha, kappa = 0.001, 0.5, 0.15\nassert np.allclose(compute_h1x_metallic_factor(s, alpha, kappa), target)",
+        "import numpy as np\ns, alpha, kappa = 50.0, 0.5, 0.15\nassert np.allclose(compute_h1x_metallic_factor(s, alpha, kappa), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-23.3",
+      "test_cases": [
+        "import numpy as np\ns, alpha, kappa, c1x = 1.0, 0.30, 0.15, 0.20\nassert np.allclose(compute_fx_enhancement(s, alpha, kappa, c1x), target)",
+        "import numpy as np\ns, alpha, kappa, c1x = 1.0, 0.30, 0.065, 0.667\nassert np.allclose(compute_fx_enhancement(s, alpha, kappa, c1x), target)",
+        "import numpy as np\ns, alpha, kappa, c1x = 0.75, 0.0, 0.15, 0.20\nassert np.allclose(compute_fx_enhancement(s, alpha, kappa, c1x), target)",
+        "import numpy as np\ns, alpha, kappa, c1x = 1.25, 0.45, 0.027, 0.15\nassert np.allclose(compute_fx_enhancement(s, alpha, kappa, c1x), target)",
+        "import numpy as np\ns, alpha, kappa, c1x = 2.0, 1.0, 0.065, 0.667\nassert np.allclose(compute_fx_enhancement(s, alpha, kappa, c1x), target)",
+        "import numpy as np\ns, alpha, kappa, c1x = 0.001, 0.0, 0.15, 0.20\nassert np.allclose(compute_fx_enhancement(s, alpha, kappa, c1x), target)",
+        "import numpy as np\ns, alpha, kappa, c1x = 50.0, 0.5, 0.15, 0.20\nassert np.allclose(compute_fx_enhancement(s, alpha, kappa, c1x), target)",
+        "import numpy as np\ns, alpha, kappa, c1x = 1.0, 0.999, 0.5, 0.05\nassert np.allclose(compute_fx_enhancement(s, alpha, kappa, c1x), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-23.4",
+      "test_cases": [
+        "import numpy as np\nelectronegativity_a, electronegativity_b, lattice_a = 1.90, 2.55, 4.35\nassert np.allclose(compute_material_descriptors(electronegativity_a, electronegativity_b, lattice_a), target)",
+        "import numpy as np\nelectronegativity_a, electronegativity_b, lattice_a = 1.81, 2.18, 5.653\nassert np.allclose(compute_material_descriptors(electronegativity_a, electronegativity_b, lattice_a), target)",
+        "import numpy as np\nelectronegativity_a, electronegativity_b, lattice_a = 2.55, 2.55, 3.57\nassert np.allclose(compute_material_descriptors(electronegativity_a, electronegativity_b, lattice_a), target)",
+        "import numpy as np\nelectronegativity_a, electronegativity_b, lattice_a = 0.79, 3.98, 6.2\nassert np.allclose(compute_material_descriptors(electronegativity_a, electronegativity_b, lattice_a), target)",
+        "import numpy as np\nelectronegativity_a, electronegativity_b, lattice_a = 3.98, 0.79, 6.2\nassert np.allclose(compute_material_descriptors(electronegativity_a, electronegativity_b, lattice_a), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-23.5",
+      "test_cases": [
+        "import numpy as np\ns_grid = np.array([1.0])\nalpha_grid = np.array([0.30])\nweight_matrix = np.array([[1.0]])\ndescriptors = np.array([0.899761995567654, 1.8836052532311538, 0.4776807635380046, 0.09719014188242121], dtype=np.float64)\nkappa_sd, c1x_sd = 0.15, 0.20\nkappa_default, c1x_default = 0.065, 0.667\nassert np.allclose(compute_weighted_fx_percent_increase(s_grid.copy(), alpha_grid.copy(), weight_matrix.copy(), descriptors.copy(), kappa_sd, c1x_sd, kappa_default, c1x_default), target)",
+        "import numpy as np\ns_grid = np.array([0.75, 1.0, 1.25])\nalpha_grid = np.array([0.15, 0.30, 0.45])\nweight_matrix = np.array([[1,2,3],[2,3,4],[3,4,5]], dtype=float)\ndescriptors = np.array([0.899761995567654, 1.8836052532311538, 0.4776807635380046, 0.09719014188242121], dtype=np.float64)\nkappa_sd, c1x_sd = 0.15, 0.20\nkappa_default, c1x_default = 0.065, 0.667\nassert np.allclose(compute_weighted_fx_percent_increase(s_grid.copy(), alpha_grid.copy(), weight_matrix.copy(), descriptors.copy(), kappa_sd, c1x_sd, kappa_default, c1x_default), target)",
+        "import numpy as np\ns_grid = np.array([1.0, 1.0])\nalpha_grid = np.array([0.0, 1.0])\nweight_matrix = np.array([[1.0, 0.0],[0.0, 1.0]])\ndescriptors = np.array([1.0, 1.5457, 0.6469, 0.1758])\nkappa_sd, c1x_sd = 0.05, 0.15\nkappa_default, c1x_default = 0.065, 0.667\nassert np.allclose(compute_weighted_fx_percent_increase(s_grid.copy(), alpha_grid.copy(), weight_matrix.copy(), descriptors.copy(), kappa_sd, c1x_sd, kappa_default, c1x_default), target)",
+        "import numpy as np\ns_grid = np.array([0.5, 1.5, 3.0])\nalpha_grid = np.array([0.0, 0.5, 1.0])\nweight_matrix = np.array([[5,1,1],[1,5,1],[1,1,5]], dtype=float)\ndescriptors = np.array([1.0, 1.5445563076495463, 0.6474351210424735, 0.1762709150375451], dtype=np.float64)\nkappa_sd, c1x_sd = 0.5, 0.05\nkappa_default, c1x_default = 0.065, 0.667\nassert np.allclose(compute_weighted_fx_percent_increase(s_grid.copy(), alpha_grid.copy(), weight_matrix.copy(), descriptors.copy(), kappa_sd, c1x_sd, kappa_default, c1x_default), target)",
+        "import numpy as np\ns_grid = np.array([0.25, 2.0])\nalpha_grid = np.array([0.05, 0.95])\nweight_matrix = np.array([[1.0, 7.0],[3.0, 0.0]])\ndescriptors = np.array([0.07854960051774965, 2.68467875173176, 0.029258472905587307, 0.03356718472021751], dtype=np.float64)\nkappa_sd, c1x_sd = 0.30, 0.10\nkappa_default, c1x_default = 0.065, 0.667\nassert np.allclose(compute_weighted_fx_percent_increase(s_grid.copy(), alpha_grid.copy(), weight_matrix.copy(), descriptors.copy(), kappa_sd, c1x_sd, kappa_default, c1x_default), target)",
+        "import numpy as np\ns_grid = np.array([0.75, 1.25])\nalpha_grid = np.array([0.15, 0.45])\nweight_matrix = np.array([[0.0, 1.0], [0.0, 3.0]])\ndescriptors = np.array([0.899761995567654, 1.8836052532311538, 0.4776807635380046, 0.09719014188242121], dtype=np.float64)\nkappa_sd, c1x_sd = 0.15, 0.20\nkappa_default, c1x_default = 0.065, 0.667\nassert np.allclose(compute_weighted_fx_percent_increase(s_grid.copy(), alpha_grid.copy(), weight_matrix.copy(), descriptors.copy(), kappa_sd, c1x_sd, kappa_default, c1x_default), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-23.6",
+      "test_cases": [
+        "import numpy as np\ntarget_percent_increase = 2.4569242254305657\ns_grid = np.array([0.75, 1.0, 1.25])\nalpha_grid = np.array([0.15, 0.30, 0.45])\nweight_matrix = np.array([[1,2,3],[2,3,4],[3,4,5]], dtype=float)\ndescriptors = np.array([0.899761995567654, 1.8836052532311538, 0.4776807635380046, 0.09719014188242121], dtype=np.float64)\nc1x_sd, kappa_default, c1x_default = 0.20, 0.065, 0.667\nassert np.allclose(calibrate_kappa_to_target(target_percent_increase, s_grid.copy(), alpha_grid.copy(), weight_matrix.copy(), descriptors.copy(), c1x_sd, kappa_default, c1x_default), target)",
+        "import numpy as np\ntarget_percent_increase = 2.2\ns_grid = np.array([0.75, 1.0, 1.25])\nalpha_grid = np.array([0.15, 0.30, 0.45])\nweight_matrix = np.array([[1,2,3],[2,3,4],[3,4,5]], dtype=float)\ndescriptors = np.array([0.899761995567654, 1.8836052532311538, 0.4776807635380046, 0.09719014188242121], dtype=np.float64)\nc1x_sd, kappa_default, c1x_default = 0.20, 0.065, 0.667\nassert np.allclose(calibrate_kappa_to_target(target_percent_increase, s_grid.copy(), alpha_grid.copy(), weight_matrix.copy(), descriptors.copy(), c1x_sd, kappa_default, c1x_default), target)",
+        "import numpy as np\ntarget_percent_increase = 2.1\ns_grid = np.array([1.0])\nalpha_grid = np.array([0.30])\nweight_matrix = np.array([[1.0]])\ndescriptors = np.array([0.899761995567654, 1.8836052532311538, 0.4776807635380046, 0.09719014188242121], dtype=np.float64)\nc1x_sd, kappa_default, c1x_default = 0.20, 0.065, 0.667\nassert np.allclose(calibrate_kappa_to_target(target_percent_increase, s_grid.copy(), alpha_grid.copy(), weight_matrix.copy(), descriptors.copy(), c1x_sd, kappa_default, c1x_default), target)",
+        "import numpy as np\ntarget_percent_increase = 1.85\ns_grid = np.array([0.75, 1.0, 1.25])\nalpha_grid = np.array([0.15, 0.30, 0.45])\nweight_matrix = np.array([[1,2,3],[2,3,4],[3,4,5]], dtype=float)\ndescriptors = np.array([0.899761995567654, 1.8836052532311538, 0.4776807635380046, 0.09719014188242121], dtype=np.float64)\nc1x_sd, kappa_default, c1x_default = 0.20, 0.065, 0.667\nassert np.allclose(calibrate_kappa_to_target(target_percent_increase, s_grid.copy(), alpha_grid.copy(), weight_matrix.copy(), descriptors.copy(), c1x_sd, kappa_default, c1x_default), target)",
+        "import numpy as np\ntarget_percent_increase = 2.75\ns_grid = np.array([0.75, 1.0, 1.25])\nalpha_grid = np.array([0.15, 0.30, 0.45])\nweight_matrix = np.array([[1,2,3],[2,3,4],[3,4,5]], dtype=float)\ndescriptors = np.array([0.899761995567654, 1.8836052532311538, 0.4776807635380046, 0.09719014188242121], dtype=np.float64)\nc1x_sd, kappa_default, c1x_default = 0.20, 0.065, 0.667\nassert np.allclose(calibrate_kappa_to_target(target_percent_increase, s_grid.copy(), alpha_grid.copy(), weight_matrix.copy(), descriptors.copy(), c1x_sd, kappa_default, c1x_default), target)",
+        "import numpy as np\ns_grid = np.array([0.75, 1.0, 1.25])\nalpha_grid = np.array([0.15, 0.30, 0.45])\nweight_matrix = np.array([[1, 2, 3], [2, 3, 4], [3, 4, 5]], dtype=float)\ndescriptors = np.array([0.899761995567654, 1.8836052532311538, 0.4776807635380046, 0.09719014188242121], dtype=np.float64)\nc1x_sd, kappa_default, c1x_default = 0.20, 0.065, 0.667\ntarget_percent_increase = 1.8018434133095746\nassert np.allclose(calibrate_kappa_to_target(target_percent_increase, s_grid.copy(), alpha_grid.copy(), weight_matrix.copy(), descriptors.copy(), c1x_sd, kappa_default, c1x_default), target)",
+        "import numpy as np\ns_grid = np.array([0.75, 1.0, 1.25])\nalpha_grid = np.array([0.15, 0.30, 0.45])\nweight_matrix = np.array([[1, 2, 3], [2, 3, 4], [3, 4, 5]], dtype=float)\ndescriptors = np.array([0.899761995567654, 1.8836052532311538, 0.4776807635380046, 0.09719014188242121], dtype=np.float64)\nc1x_sd, kappa_default, c1x_default = 0.20, 0.065, 0.667\ntarget_percent_increase = 2.7659830747444\nassert np.allclose(calibrate_kappa_to_target(target_percent_increase, s_grid.copy(), alpha_grid.copy(), weight_matrix.copy(), descriptors.copy(), c1x_sd, kappa_default, c1x_default), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-23.7",
+      "test_cases": [
+        "import numpy as np\nelectronegativity_si, electronegativity_c, lattice_a = 1.90, 2.55, 4.35\ns_grid = np.array([0.75, 1.0, 1.25])\nalpha_grid = np.array([0.15, 0.30, 0.45])\nweight_matrix = np.array([[1,2,3],[2,3,4],[3,4,5]], dtype=float)\nkappa_sd, c1x_sd = 0.15, 0.20\nkappa_default, c1x_default = 0.065, 0.667\nassert np.allclose(orchestrate_sd_scan_exchange_proxy(electronegativity_si, electronegativity_c, lattice_a, s_grid.copy(), alpha_grid.copy(), weight_matrix.copy(), kappa_sd, c1x_sd, kappa_default, c1x_default), target)",
+        "import numpy as np\nelectronegativity_si, electronegativity_c, lattice_a = 1.90, 2.55, 4.35\ns_grid = np.array([1.0])\nalpha_grid = np.array([0.30])\nweight_matrix = np.array([[1.0]])\nkappa_sd, c1x_sd = 0.15, 0.20\nkappa_default, c1x_default = 0.065, 0.667\nassert np.allclose(orchestrate_sd_scan_exchange_proxy(electronegativity_si, electronegativity_c, lattice_a, s_grid.copy(), alpha_grid.copy(), weight_matrix.copy(), kappa_sd, c1x_sd, kappa_default, c1x_default), target)",
+        "import numpy as np\nelectronegativity_si, electronegativity_c, lattice_a = 1.81, 2.18, 5.653\ns_grid = np.array([1.0])\nalpha_grid = np.array([0.35])\nweight_matrix = np.array([[1.0]])\nkappa_sd, c1x_sd = 0.027, 0.15\nkappa_default, c1x_default = 0.065, 0.667\nassert np.allclose(orchestrate_sd_scan_exchange_proxy(electronegativity_si, electronegativity_c, lattice_a, s_grid.copy(), alpha_grid.copy(), weight_matrix.copy(), kappa_sd, c1x_sd, kappa_default, c1x_default), target)",
+        "import numpy as np\nelectronegativity_si, electronegativity_c, lattice_a = 2.55, 2.55, 3.567\ns_grid = np.array([0.5, 1.5, 3.0])\nalpha_grid = np.array([0.0, 0.5, 1.0])\nweight_matrix = np.array([[5,1,1],[1,5,1],[1,1,5]], dtype=float)\nkappa_sd, c1x_sd = 0.5, 0.05\nkappa_default, c1x_default = 0.065, 0.667\nassert np.allclose(orchestrate_sd_scan_exchange_proxy(electronegativity_si, electronegativity_c, lattice_a, s_grid.copy(), alpha_grid.copy(), weight_matrix.copy(), kappa_sd, c1x_sd, kappa_default, c1x_default), target)",
+        "import numpy as np\nelectronegativity_si, electronegativity_c, lattice_a = 0.79, 3.98, 6.2\ns_grid = np.array([0.25, 2.0])\nalpha_grid = np.array([0.05, 0.95])\nweight_matrix = np.array([[1.0, 7.0],[3.0, 0.0]])\nkappa_sd, c1x_sd = 0.30, 0.10\nkappa_default, c1x_default = 0.065, 0.667\nassert np.allclose(orchestrate_sd_scan_exchange_proxy(electronegativity_si, electronegativity_c, lattice_a, s_grid.copy(), alpha_grid.copy(), weight_matrix.copy(), kappa_sd, c1x_sd, kappa_default, c1x_default), target)"
+      ]
+    }
+  ]
+}

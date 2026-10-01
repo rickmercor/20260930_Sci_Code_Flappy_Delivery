@@ -1,0 +1,81 @@
+{
+  "problem_id": "Physics-Optics-1",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Optics-1.1",
+      "test_cases": [
+        "import numpy as np\nv = analytic_strip_halfwidth(3.4, 1.0)\nassert np.allclose(round(v, 8), target)",
+        "import numpy as np\nv = analytic_strip_halfwidth(5.0, 2.0)\nassert np.allclose(round(v, 8), target)",
+        "import numpy as np\nv = analytic_strip_halfwidth(2.0, 1.9)\nassert np.allclose(round(v, 8), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        analytic_strip_halfwidth(1.0, 2.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        analytic_strip_halfwidth(3.4, -1.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-1.2",
+      "test_cases": [
+        "import numpy as np\ndef _pack(M):\n    M = np.asarray(M)\n    return np.round(np.concatenate([M.real.ravel(), M.imag.ravel()]), 8)\nv = layer_transfer_matrix(3.4 + 0.5j, 3.4, 15.54)\nassert np.allclose(_pack(v), target)",
+        "import numpy as np\ndef _pack(M):\n    M = np.asarray(M)\n    return np.round(np.concatenate([M.real.ravel(), M.imag.ravel()]), 8)\nv = layer_transfer_matrix(2.4 - 1.2j, 3.4, 9.03)\nassert np.allclose(_pack(v), target)",
+        "import numpy as np\ndef _pack(M):\n    M = np.asarray(M)\n    return np.round(np.concatenate([M.real.ravel(), M.imag.ravel()]), 8)\nv = layer_transfer_matrix(5.0, 3.4, 15.82)\nassert np.allclose(_pack(v), target)",
+        "import numpy as np\ndef _pack(M):\n    M = np.asarray(M)\n    return np.round(np.concatenate([M.real.ravel(), M.imag.ravel()]), 8)\nv = layer_transfer_matrix(1.5 + 2.0j, 3.4, 0.7)\nassert np.allclose(_pack(v), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        layer_transfer_matrix(0.0, 3.4, 9.03)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        layer_transfer_matrix(3.0, 3.4, -1.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-1.3",
+      "test_cases": [
+        "import numpy as np\ndef _pack(z):\n    z = complex(z)\n    return np.round(np.array([np.log(abs(z)), np.cos(np.angle(z)), np.sin(np.angle(z))]), 6)\nv = approximant_cell_trace(0.1, 0.8, 21, 34, 3.4, 1.0, 15.54)\nassert np.allclose(_pack(v), target)",
+        "import numpy as np\ndef _pack(z):\n    z = complex(z)\n    return np.round(np.array([np.log(abs(z)), np.cos(np.angle(z)), np.sin(np.angle(z))]), 6)\nv = approximant_cell_trace(0.37, 0.65, 21, 34, 3.4, 1.0, 15.82)\nassert np.allclose(_pack(v), target)",
+        "import numpy as np\ndef _pack(z):\n    z = complex(z)\n    return np.round(np.array([np.log(abs(z)), np.cos(np.angle(z)), np.sin(np.angle(z))]), 6)\nv = approximant_cell_trace(0.2, 1.2, 13, 21, 3.4, 1.0, 9.03)\nassert np.allclose(_pack(v), target)",
+        "import numpy as np\ndef _pack(z):\n    z = complex(z)\n    return np.round(np.array([np.log(abs(z)), np.cos(np.angle(z)), np.sin(np.angle(z))]), 6)\nv = approximant_cell_trace(0.05, 0.9, 3, 5, 3.4, 1.0, 9.03)\nassert np.allclose(_pack(v), target)",
+        "import numpy as np\ndef _pack(z):\n    z = complex(z)\n    return np.round(np.array([np.log(abs(z)), np.cos(np.angle(z)), np.sin(np.angle(z))]), 6)\nv = approximant_cell_trace(0.1 + 1.0/34.0, 0.8, 21, 34, 3.4, 1.0, 15.54)\nassert np.allclose(_pack(v), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        approximant_cell_trace(0.1, 0.8, 2, 4, 3.4, 1.0, 9.03)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        approximant_cell_trace(0.1, 1.95, 21, 34, 3.4, 1.0, 9.03)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-1.4",
+      "test_cases": [
+        "import numpy as np\nv = trace_fourier_coefficients(0.8, 21, 34, 3.4, 1.0, 15.54, 4, 64)\nassert np.allclose(np.round(np.log(np.abs(v)), 6), target)",
+        "import numpy as np\nv = trace_fourier_coefficients(0.8, 21, 34, 3.4, 1.0, 15.82, 4, 64)\nassert np.allclose(np.round(np.log(np.abs(v)), 6), target)",
+        "import numpy as np\nv = trace_fourier_coefficients(0.8, 21, 34, 3.4, 1.0, 15.82, 4, 64)\nassert np.allclose(np.round(np.cos(np.angle(v)), 6), target)",
+        "import numpy as np\nv = trace_fourier_coefficients(1.2, 13, 21, 3.4, 1.0, 9.03, 3, 32)\nassert np.allclose(np.round(np.log(np.abs(v)), 6), target)",
+        "import numpy as np\ndef _phase_components(z):\n    phase = np.angle(z)\n    return np.round(np.concatenate([np.cos(phase), np.sin(phase)]), 6)\nv = trace_fourier_coefficients(1.0, 3, 5, 3.4, 1.0, 9.03, 2, 16)\nassert np.allclose(_phase_components(v), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        trace_fourier_coefficients(0.8, 21, 34, 3.4, 1.0, 15.54, 4, 8)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-1.5",
+      "test_cases": [
+        "import numpy as np\nv = coefficient_intercepts(np.array([2.0, 3.0e5, 1.0e9 + 2.0e8j]), 21, 0.8)\nassert np.allclose(np.round(v, 8), target)",
+        "import numpy as np\nv = coefficient_intercepts(np.array([1.0 - 1.0j, -4.0e3, 7.5e7j, 2.0e10]), 34, 0.55)\nassert np.allclose(np.round(v, 8), target)",
+        "import numpy as np\nv = coefficient_intercepts(np.array([0.3, 5.0, 80.0]), 5, 0.0)\nassert np.allclose(np.round(v, 8), target)",
+        "import numpy as np\nv = coefficient_intercepts(np.array(trace_fourier_coefficients(0.8, 21, 34, 3.4, 1.0, 15.54, 4, 64), dtype=complex), 34, 0.8)\nassert np.allclose(np.round(v, 7), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        coefficient_intercepts(np.array([1.0, 0.0, 2.0]), 13, 0.8)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-1.6",
+      "test_cases": [
+        "import numpy as np\nv = integrated_dominant_order(np.array([0.0152599, -0.5988219, -1.3226223, -2.2937098, -3.4920013]), 0.60, 1.10)\nassert np.allclose(round(v, 8), target)",
+        "import numpy as np\nv = integrated_dominant_order(np.array([0.0164905, -0.6035127, -1.2604040, -2.2742122, -3.3931359]), 0.60, 1.10)\nassert np.allclose(round(v, 8), target)",
+        "import numpy as np\nv = integrated_dominant_order(np.array([0.0, -2.0, -1.0]), 0.0, 1.5)\nassert np.allclose(round(v, 8), target)",
+        "import numpy as np\nv = integrated_dominant_order(np.array([0.0, -0.3, -0.9, -1.8]), 0.1, 0.6)\nassert np.allclose(round(v, 8), target)",
+        "import numpy as np\nv = integrated_dominant_order(np.array([1.0, -0.2, -1.7, -3.0]), -0.5, 2.5)\nassert np.allclose(round(v, 8), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        integrated_dominant_order(np.array([0.0, -1.0]), 1.0, 1.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-1.7",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(round(run_ptqc_spectral_contrast(15.54, 15.82, 3.4, 1.0, 21, 34, 0.8, 0.60, 1.10, 120, 4, 64), 6), target)",
+        "import numpy as np\nassert np.allclose(round(run_ptqc_spectral_contrast(15.82, 15.54, 3.4, 1.0, 21, 34, 0.8, 0.60, 1.10, 120, 4, 64), 6), target)",
+        "import numpy as np\nassert np.allclose(round(run_ptqc_spectral_contrast(15.54, 15.82, 3.4, 1.0, 13, 21, 0.8, 0.60, 1.10, 120, 4, 64), 6), target)",
+        "import numpy as np\nassert np.allclose(round(run_ptqc_spectral_contrast(9.03, 8.50, 3.4, 1.0, 21, 34, 1.2, 1.00, 1.40, 64, 4, 64), 6), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        run_ptqc_spectral_contrast(15.54, 15.82, 3.4, 1.0, 21, 34, 0.8, 0.60, 1.95, 120, 4, 64)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        run_ptqc_spectral_contrast(15.54, 15.82, 3.4, 1.0, 21, 34, 0.8, 0.60, 1.10, 0, 4, 64)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

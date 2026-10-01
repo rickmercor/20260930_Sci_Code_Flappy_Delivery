@@ -1,0 +1,78 @@
+{
+  "problem_id": "Material_Science-Semiconductor_Materials-48",
+  "sub_steps": [
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-48.1",
+      "test_cases": [
+        "import numpy as np\ns = np.array([0.004, 0.03, 0.25, 2.0, 16.0, 128.0])\nkappa = 4.5\nr0 = 4.15\nassert np.allclose(screened_gaussian_moments(s, kappa, r0), target)",
+        "import numpy as np\ns = np.array([0.01, 0.5, 20.0])\nkappa = 2.45\nr0 = 0.0\nassert np.allclose(screened_gaussian_moments(s, kappa, r0), target)",
+        "import numpy as np\ns = np.array([1.0e-5, 1.0e-3, 1.0e3, 1.0e5])\nkappa = 1.0\nr0 = 6.0\nassert np.allclose(screened_gaussian_moments(s, kappa, r0), target)",
+        "import numpy as np\ns = np.array([0.1, 1.0, 10.0])\nkappa = 4.5\nr0 = 0.05\nassert np.allclose(screened_gaussian_moments(s, kappa, r0), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-48.2",
+      "test_cases": [
+        "import numpy as np\nexponents = np.array([0.02, 0.1, 0.5, 2.5, 12.5])\nm_e = 0.47\nm_h = 0.54\nkappa = 4.5\nr0 = 4.15\nassert np.allclose(exciton_ground_state(exponents, m_e, m_h, kappa, r0), target)",
+        "import numpy as np\nexponents = np.array([0.02, 0.1, 0.5, 2.5, 12.5])\nm_e = 0.47\nm_h = 0.54\nkappa = 4.5\nr0 = 0.0\nassert np.allclose(exciton_ground_state(exponents, m_e, m_h, kappa, r0), target)",
+        "import numpy as np\nexponents = np.array([0.3])\nm_e = 0.47\nm_h = 0.54\nkappa = 4.5\nr0 = 4.15\nassert np.allclose(exciton_ground_state(exponents, m_e, m_h, kappa, r0), target)",
+        "import numpy as np\nexponents = np.array([0.05, 0.4, 3.2, 25.6])\nm_e = 1.0\nm_h = 1.2\nkappa = 1.0\nr0 = 2.0\nassert np.allclose(exciton_ground_state(exponents, m_e, m_h, kappa, r0), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-48.3",
+      "test_cases": [
+        "import numpy as np\nexponents = np.array([0.02, 0.1, 0.5, 2.5, 12.5])\ncoefficients = np.array([-0.00484781934334, 0.131037470592, 0.300175291225, 0.0798788920878, 0.0234948262371])\nkappa = 4.5\nr0 = 4.15\nassert np.allclose(exchange_constant(exponents, coefficients, kappa, r0), target)",
+        "import numpy as np\nexponents = np.array([0.02, 0.1, 0.5, 2.5, 12.5])\ncoefficients = np.array([0.00192612859442, -0.0124482428401, 0.277816293025, 0.594038400312, 0.525864373425])\nkappa = 4.5\nr0 = 0.0\nassert np.allclose(exchange_constant(exponents, coefficients, kappa, r0), target)",
+        "import numpy as np\nexponents = np.array([0.3])\ncoefficients = np.array([np.sqrt(0.6 / np.pi)])\nkappa = 4.5\nr0 = 4.15\nassert np.allclose(exchange_constant(exponents, coefficients, kappa, r0), target)",
+        "import numpy as np\nexponents = np.array([0.05, 0.4, 3.2, 25.6])\ncoefficients = np.array([-0.00951763743232, 0.169820649119, 1.06859210545, 0.17307684644])\nkappa = 1.0\nr0 = 2.0\nassert np.allclose(exchange_constant(exponents, coefficients, kappa, r0), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-48.4",
+      "test_cases": [
+        "import numpy as np\nexponents = np.array([0.02, 0.1, 0.5, 2.5, 12.5])\ncoefficients = np.array([-0.00484781934334, 0.131037470592, 0.300175291225, 0.0798788920878, 0.0234948262371])\nm_e = 0.47\nm_h = 0.54\nmomenta = np.array([0.0, 0.2, 0.8, 2.0, 5.0])\nassert np.allclose(saturation_overlap(exponents, coefficients, m_e, m_h, momenta), target)",
+        "import numpy as np\nexponents = np.array([0.05, 0.4, 3.2, 25.6])\ncoefficients = np.array([-0.00951763743232, 0.169820649119, 1.06859210545, 0.17307684644])\nm_e = 1.0\nm_h = 1.2\nmomenta = np.array([0.0])\nassert np.allclose(saturation_overlap(exponents, coefficients, m_e, m_h, momenta), target)",
+        "import numpy as np\nexponents = np.array([0.02, 0.1, 0.5, 2.5, 12.5])\ncoefficients = np.array([-0.00484781934334, 0.131037470592, 0.300175291225, 0.0798788920878, 0.0234948262371])\nm_e = 0.2\nm_h = 1.8\nmomenta = np.array([0.5, 3.0, 10.0])\nassert np.allclose(saturation_overlap(exponents, coefficients, m_e, m_h, momenta), target)",
+        "import numpy as np\nexponents = np.array([0.3])\ncoefficients = np.array([np.sqrt(0.6 / np.pi)])\nm_e = 0.47\nm_h = 0.54\nmomenta = np.array([0.0, 1.0, 4.0])\nassert np.allclose(saturation_overlap(exponents, coefficients, m_e, m_h, momenta), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-48.5",
+      "test_cases": [
+        "import numpy as np\nmomenta = np.array([0.0, 1.0e-3, 3.0e-3, 1.0e-2, 0.5])\nexciton_energy = 1.9\ntotal_mass = 1.01\ncavity_detuning = -0.03\ncavity_index = 1.8\ncoupling = 0.02\nassert np.allclose(polariton_branches(momenta, exciton_energy, total_mass, cavity_detuning, cavity_index, coupling), target)",
+        "import numpy as np\nmomenta = np.array([0.0, 2.0e-3])\nexciton_energy = 1.9\ntotal_mass = 1.01\ncavity_detuning = 0.0\ncavity_index = 1.8\ncoupling = 0.02\nassert np.allclose(polariton_branches(momenta, exciton_energy, total_mass, cavity_detuning, cavity_index, coupling), target)",
+        "import numpy as np\nmomenta = np.array([0.0, 1.0e-2, 2.0])\nexciton_energy = 1.9\ntotal_mass = 1.01\ncavity_detuning = 0.08\ncavity_index = 1.8\ncoupling = 0.02\nassert np.allclose(polariton_branches(momenta, exciton_energy, total_mass, cavity_detuning, cavity_index, coupling), target)",
+        "import numpy as np\nmomenta = np.array([0.0, 1.0e-3, 5.0e-3])\nexciton_energy = 1.9\ntotal_mass = 1.01\ncavity_detuning = -0.01\ncavity_index = 1.8\ncoupling = 0.001\nassert np.allclose(polariton_branches(momenta, exciton_energy, total_mass, cavity_detuning, cavity_index, coupling), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-48.6",
+      "test_cases": [
+        "import numpy as np\nexciton_energy = 1.9\ntotal_mass = 1.01\ncavity_detuning = -0.03\ncavity_index = 1.8\ncoupling = 0.02\ntemperature = 50.0\nassert np.allclose(thermal_exciton_fraction(exciton_energy, total_mass, cavity_detuning, cavity_index, coupling, temperature), target)",
+        "import numpy as np\nexciton_energy = 1.9\ntotal_mass = 1.01\ncavity_detuning = -0.03\ncavity_index = 1.8\ncoupling = 0.02\ntemperature = 10.0\nassert np.allclose(thermal_exciton_fraction(exciton_energy, total_mass, cavity_detuning, cavity_index, coupling, temperature), target)",
+        "import numpy as np\nexciton_energy = 1.9\ntotal_mass = 1.01\ncavity_detuning = -0.03\ncavity_index = 1.8\ncoupling = 0.02\ntemperature = 300.0\nassert np.allclose(thermal_exciton_fraction(exciton_energy, total_mass, cavity_detuning, cavity_index, coupling, temperature), target)",
+        "import numpy as np\nexciton_energy = 1.9\ntotal_mass = 1.01\ncavity_detuning = 0.0\ncavity_index = 1.8\ncoupling = 0.02\ntemperature = 20.0\nassert np.allclose(thermal_exciton_fraction(exciton_energy, total_mass, cavity_detuning, cavity_index, coupling, temperature), target)",
+        "import numpy as np\nexciton_energy = 1.9\ntotal_mass = 1.01\ncavity_detuning = 0.05\ncavity_index = 1.8\ncoupling = 0.02\ntemperature = 77.0\nassert np.allclose(thermal_exciton_fraction(exciton_energy, total_mass, cavity_detuning, cavity_index, coupling, temperature), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-48.7",
+      "test_cases": [
+        "import numpy as np\nexponents = np.array([0.02, 0.1, 0.5, 2.5, 12.5])\ncoefficients = np.array([-0.00484781934334, 0.131037470592, 0.300175291225, 0.0798788920878, 0.0234948262371])\nm_e = 0.47\nm_h = 0.54\nkappa = 4.5\nr0 = 4.15\nexciton_energy = 1.9\ncavity_detuning = -0.03\ncavity_index = 1.8\ncoupling = 0.02\ntemperature = 50.0\ndensity = 0.01\nassert np.allclose(normal_incidence_shifts(exponents, coefficients, m_e, m_h, kappa, r0, exciton_energy, cavity_detuning, cavity_index, coupling, temperature, density), target)",
+        "import numpy as np\nexponents = np.array([0.02, 0.1, 0.5, 2.5, 12.5])\ncoefficients = np.array([-0.00484781934334, 0.131037470592, 0.300175291225, 0.0798788920878, 0.0234948262371])\nm_e = 0.47\nm_h = 0.54\nkappa = 4.5\nr0 = 4.15\nexciton_energy = 1.9\ncavity_detuning = -0.03\ncavity_index = 1.8\ncoupling = 0.02\ntemperature = 300.0\ndensity = 0.01\nassert np.allclose(normal_incidence_shifts(exponents, coefficients, m_e, m_h, kappa, r0, exciton_energy, cavity_detuning, cavity_index, coupling, temperature, density), target)",
+        "import numpy as np\nexponents = np.array([0.02, 0.1, 0.5, 2.5, 12.5])\ncoefficients = np.array([-0.00484781934334, 0.131037470592, 0.300175291225, 0.0798788920878, 0.0234948262371])\nm_e = 0.47\nm_h = 0.54\nkappa = 4.5\nr0 = 4.15\nexciton_energy = 1.9\ncavity_detuning = 0.0\ncavity_index = 1.8\ncoupling = 0.02\ntemperature = 10.0\ndensity = 0.01\nassert np.allclose(normal_incidence_shifts(exponents, coefficients, m_e, m_h, kappa, r0, exciton_energy, cavity_detuning, cavity_index, coupling, temperature, density), target)",
+        "import numpy as np\nexponents = np.array([0.05, 0.4, 3.2, 25.6])\ncoefficients = np.array([-0.00951763743232, 0.169820649119, 1.06859210545, 0.17307684644])\nm_e = 1.0\nm_h = 1.2\nkappa = 1.0\nr0 = 2.0\nexciton_energy = 1.9\ncavity_detuning = -0.05\ncavity_index = 1.8\ncoupling = 0.02\ntemperature = 10.0\ndensity = 0.005\nassert np.allclose(normal_incidence_shifts(exponents, coefficients, m_e, m_h, kappa, r0, exciton_energy, cavity_detuning, cavity_index, coupling, temperature, density), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-48.8",
+      "test_cases": [
+        "import numpy as np\nexponents = np.array([0.01, 0.05, 0.25, 1.25, 6.25, 31.25])\nm_e = 0.47\nm_h = 0.54\nkappa = 4.5\nr0 = 4.15\nexciton_energy = 1.9\ncavity_detuning = -0.03\ncavity_index = 1.8\ncoupling = 0.02\ntemperature = 50.0\ndensity = 0.01\nassert np.allclose(polariton_splitting_change(exponents, m_e, m_h, kappa, r0, exciton_energy, cavity_detuning, cavity_index, coupling, temperature, density), target)",
+        "import numpy as np\nexponents = np.array([0.01, 0.05, 0.25, 1.25, 6.25, 31.25])\nm_e = 0.47\nm_h = 0.54\nkappa = 4.5\nr0 = 4.15\nexciton_energy = 1.9\ncavity_detuning = -0.03\ncavity_index = 1.8\ncoupling = 0.02\ntemperature = 40.0\ndensity = 0.01\nassert np.allclose(polariton_splitting_change(exponents, m_e, m_h, kappa, r0, exciton_energy, cavity_detuning, cavity_index, coupling, temperature, density), target)",
+        "import numpy as np\nexponents = np.array([0.01, 0.05, 0.25, 1.25, 6.25, 31.25])\nm_e = 0.47\nm_h = 0.54\nkappa = 4.5\nr0 = 4.15\nexciton_energy = 1.9\ncavity_detuning = 0.0\ncavity_index = 1.8\ncoupling = 0.02\ntemperature = 20.0\ndensity = 0.01\nassert np.allclose(polariton_splitting_change(exponents, m_e, m_h, kappa, r0, exciton_energy, cavity_detuning, cavity_index, coupling, temperature, density), target)",
+        "import numpy as np\nexponents = np.array([0.01, 0.05, 0.25, 1.25, 6.25, 31.25])\nm_e = 0.47\nm_h = 0.54\nkappa = 4.5\nr0 = 0.0\nexciton_energy = 1.9\ncavity_detuning = -0.02\ncavity_index = 1.8\ncoupling = 0.02\ntemperature = 100.0\ndensity = 0.01\nassert np.allclose(polariton_splitting_change(exponents, m_e, m_h, kappa, r0, exciton_energy, cavity_detuning, cavity_index, coupling, temperature, density), target)"
+      ]
+    }
+  ]
+}

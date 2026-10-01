@@ -1,0 +1,40 @@
+problem_id: "Physics-Particle_Physics-4"
+subject: "physics"
+subject_area: "Particle Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2608.27267"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_build_maximal_tree_reduction_atlas"
+    description: "Build a rooted maximal-tree reduction atlas for the source paper's gauge hierarchy."
+    orchestrator: false
+  - number: 2
+    name: "02_assemble_qsvt_field_amplitude_objects"
+    description: "Assemble the QSVT singlet Green and field-amplitude digitization."
+    orchestrator: false
+  - number: 3
+    name: "03_build_reduced_nonabelian_gauss_response"
+    description: "Build the reduced non-Abelian Gauss response and interaction pullback."
+    orchestrator: false
+  - number: 4
+    name: "04_assemble_maximal_tree_gauss_terms"
+    description: "Assemble the three ordered Gauss-kernel terms from the tree atlas."
+    orchestrator: false
+  - number: 5
+    name: "05_invert_gauss_kernel_on_singlet"
+    description: "Invert the singular Gauss kernel only on the global singlet subspace."
+    orchestrator: false
+  - number: 6
+    name: "06_build_ordered_tree_charge_flow_map"
+    description: "Extract the rooted charge-to-link flow map from the reduction atlas."
+    orchestrator: false
+  - number: 7
+    name: "07_solve_temporal_gauge_field"
+    description: "Solve the eliminated temporal gauge field for globally neutral colour sources."
+    orchestrator: false
+  - number: 8
+    name: "08_maximal_tree_nonlocal_energy"
+    description: "Evaluate the gauge-fixed nonlocal Yang-Mills interaction."
+    orchestrator: true

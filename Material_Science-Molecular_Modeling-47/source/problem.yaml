@@ -1,0 +1,40 @@
+problem_id: "Material_Science-Molecular_Modeling-47"
+subject: "materials"
+subject_area: "Molecular Modeling"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1137/25M1759033"
+dependencies: ""
+steps:
+  - number: 1
+    name: "plane_wave_grid"
+    description: "Build the reciprocal-space grid of the periodic cell: the signed plane-wave wavevectors in the ordering a discrete Fourier transform produces, their squared magnitudes, and the Coulomb factor of the Hartree kernel with its divergent component removed."
+    orchestrator: false
+  - number: 2
+    name: "ground_state_orbitals"
+    description: "Diagonalize the Kohn-Sham Hamiltonian and evaluate the Fermi-Dirac occupations of its eigenstates. Returns the eigenvectors, the ascending eigenvalues and the occupations packed into a single array, because every later step needs all three and the Studio driver compares one numeric object rather than a tuple."
+    orchestrator: false
+  - number: 3
+    name: "sternheimer_solve"
+    description: "Solve the projected Sternheimer equation for the first-order response of one retained state to a local potential perturbation, by conjugate gradients run to a caller-supplied tolerance. This is the primitive whose cost the adaptive rule of the later steps controls."
+    orchestrator: false
+  - number: 4
+    name: "apply_chi0"
+    description: "Apply the independent-particle susceptibility to a local potential perturbation, at finite electronic temperature and at fixed total electron number, without ever assembling it as a matrix."
+    orchestrator: false
+  - number: 5
+    name: "kerker_precondition"
+    description: "Apply the charge-conserving Kerker preconditioner to a vector. This is the operator the source paper puts in front of the Dyson equation to stop the condition number growing with system size, and the charge-conserving correction is the part that is easy to miss."
+    orchestrator: false
+  - number: 6
+    name: "adaptive_cg_tolerance"
+    description: "Compute the tolerance to which each inner Sternheimer solve may be run at the current outer iteration, using the source paper's guaranteed prefactor. This rule is the paper's contribution reduced to one function."
+    orchestrator: false
+  - number: 7
+    name: "preconditioned_gmres"
+    description: "Solve the preconditioned Dyson equation by restarted inexact GMRES: apply the Kerker preconditioner to both sides, run the Arnoldi process with an operator that is deliberately applied only approximately, maintain the running singular-value estimate the tolerance rule needs, and restart when the cycle is exhausted. The screening kernel is built here."
+    orchestrator: false
+  - number: 8
+    name: "response_observable"
+    description: "Run the whole calculation on the stated configuration and return the screened response of the observable: build the grid, diagonalise, form the bare response, and solve the preconditioned Dyson equation."
+    orchestrator: true

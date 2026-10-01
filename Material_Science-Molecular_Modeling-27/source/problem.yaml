@@ -1,0 +1,48 @@
+problem_id: "Material_Science-Molecular_Modeling-27"
+subject: "materials"
+subject_area: "Molecular Modeling"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2607.02735"
+dependencies: ""
+steps:
+  - number: 1
+    name: "reference_path"
+    description: "Lay down the ordered set of reference configurations that defines the path collective variable, taking the guide curve of the configuration as the route: n_images points on the guide curve r(t) = (t, 0.15 sin(pi t)), equally spaced in arc length along the curve (not uniformly in the parameter t, and not by equal chord length), with the first at t = 0 and the last at t = 1, every configuration placed to within 1e-9 Angstrom of its exact equal-arc-length position (an arc-length table of at least 40 000 points over the curve, or exact quadrature of the speed with a root finder, achieves this; a 10 000-point table does not). Return the configurations in the order in which they run from the initial site to the final site, one row per configuration."
+    orchestrator: false
+  - number: 2
+    name: "pcv_coordinates"
+    description: "Evaluate the progress coordinate and the orthogonal coordinate of the arithmetic path collective variable for a batch of configurations, exactly as the source defines the pair. Two choices inside that definition are load-bearing and the source states both: which quantity plays the role of the inter-configuration metric, and how the reference configurations are indexed in the numerator of the progress coordinate. Set the sharpness of the soft minimum from the reference set itself, as 2.3 divided by the mean of that metric between consecutive reference configurations. Guard the exponentials against underflow; the result must not depend on how that guarding is done."
+    orchestrator: false
+  - number: 3
+    name: "station_frame"
+    description: "Place the nodes on which the confinement envelope will be represented. The source represents the envelope on a grid in the progress coordinate, so the nodes are the points of the guide curve whose on-path progress coordinate falls on a uniform grid spanning the whole path, endpoints included. Locate each node to machine precision by bisection on the guide-curve parameter rather than by interpolating a table, and pin the two end nodes to the two ends of the curve. For each node also report the on-path value of the orthogonal coordinate, which the source needs as a baseline because that value is not zero, together with the speed and the signed curvature of the guide curve there."
+    orchestrator: false
+  - number: 4
+    name: "orthogonal_slices"
+    description: "Build the orthogonal slice of the ensemble at every node. Step off the guide curve along the unit normal on a uniform grid of signed offsets covering the sampling window symmetrically, endpoints included, map each offset to a configuration in the collective-variable plane, and report two numbers for it: the offset coordinate that the confinement acts on, which the source defines as the orthogonal coordinate measured from the on-path baseline of that node rather than from zero; and the equilibrium statistical weight of the configuration. The weight is the Boltzmann factor of the landscape at 300 K together with the volume element of the curved frame; shift the exponent by the global minimum of the landscape over the grid so the weights stay in range, which changes every weight by one common factor and cancels everywhere it is used."
+    orchestrator: false
+  - number: 5
+    name: "conditional_free_energy"
+    description: "Turn each orthogonal slice into the conditional free energy of the offset coordinate that the contour condition is applied to. Three things have to happen and the source fixes all three. The offset coordinate cannot tell the two sides of the path apart, so the two branches of the slice have to be brought together before anything is measured: at every positive normal offset add the statistical weight of the configuration at the opposite offset (minus n) to the weight at plus n, and attach the sum to the offset coordinate of the positive branch. The density is wanted in the offset coordinate while the slice is sampled in the normal offset, so the change of variables between them has to be carried through: divide the folded weight by the magnitude of the derivative of the offset coordinate with respect to the normal offset along the positive branch, taken by centred finite differences on the offset grid. And a histogram in the offset coordinate carries a coordinate-volume contribution that the source removes with an explicit metric correction whose exponent is fixed by the effective perpendicular dimensionality of the problem, itself fixed by the dimensionality of the collective-variable space. Return the positive branch sorted by increasing offset, with the free energy on an absolute scale in kcal/mol."
+    orchestrator: false
+  - number: 6
+    name: "adaptive_half_width"
+    description: "Find the half-width of the adaptive tube at every node: the offset at which the conditional free energy first rises by the prescribed amount above its on-path reference level, which is the level the source measures the excess from. An arithmetic path variable has a soft-minimum core in which the on-path value is not numerically well defined, so read the reference level by linear interpolation of the conditional at the prescribed reference offset and scan outward from there; interpolate the crossing itself linearly between the two bracketing nodes of the offset grid. Where the prescribed rise is never reached inside the sampled window, set the half-width to twice the contour level in units of thermal energy, divided by d_perp (the number of perpendicular directions, one less than the dimensionality of the collective-variable space), times the mean of the offset coordinate over the entries of the slice whose offset coordinate is non-negative, weighted by their statistical weights; that is the harmonic limit for an orthogonal coordinate that is a squared displacement. Return one half-width per node, in the units of the offset coordinate."
+    orchestrator: false
+  - number: 7
+    name: "smooth_envelope"
+    description: "Regularise the half-width profile along the progress coordinate into the continuous envelope the restraint reads, by a centred moving average over an odd number of nodes. Replace any node that carries no value by the mean of the nodes that do before averaging; extend the profile beyond each end by its mirror image about the end node with the end node included, so that the point one step outside an end carries the end value itself (numpy's symmetric padding, not the reflect padding that omits the end value), and the averaged profile keeps the same number of nodes; return the profile unchanged when the window is a single node."
+    orchestrator: false
+  - number: 8
+    name: "tube_projected_profile"
+    description: "Report, at every node, the unconfined free-energy profile along the path, the fraction of the orthogonal partition function that the given tube retains, and the profile that a calculation inside that tube would return. The first is the marginal of the equilibrium density over the sampled orthogonal window, with the same grid spacing used as the measure. The third follows from the first two by the exact relation the source derives between them, which is a two-line consequence of the definitions of the marginal and of the restricted marginal; get its sign right."
+    orchestrator: false
+  - number: 9
+    name: "harmonic_tube_reference"
+    description: "Write down the closed-form predictions the source derives for a locally harmonic orthogonal well, for a given contour level and an array of local perpendicular stiffnesses: the fraction of the orthogonal partition function that a contour-following tube retains, which the source obtains in closed form and which depends on the stiffness through nothing at all; the physical half-width of that tube; and the position of the wall expressed in local thermal widths. Return one row per stiffness. Do not compute these numerically; they are the analytic limits the audit is checked against."
+    orchestrator: false
+  - number: 10
+    name: "tube_audit"
+    description: "Run the whole construction on the configuration and report it. Build the reference set, place the nodes, take the orthogonal slices, and then for each contour level in turn build the conditional free energies, find the adaptive half-widths, smooth them into the envelope, project the profile through the tube, and evaluate the closed-form predictions at the local stiffnesses of the nodes, the transverse stiffness k(t) of the landscape at each node's curve parameter. Record one row per contour level, and put the run-level quantities in a leading row. The integral of the envelope along the progress coordinate is taken with the trapezoidal rule over the node grid, the abscissae being the uniform progress-grid values from 0 to 1 inclusive that define the nodes, and the reported total is the sum of those integrals over the contour levels."
+    orchestrator: true

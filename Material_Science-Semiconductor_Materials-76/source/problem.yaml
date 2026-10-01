@@ -1,0 +1,36 @@
+problem_id: "Material_Science-Semiconductor_Materials-76"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1038/s41377-026-02342-1"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_cw_emission_state"
+    description: "Step 01 - Continuous-wave state of the ring laser equations."
+    orchestrator: false
+  - number: 2
+    name: "02_effective_rabi_frequency"
+    description: "Step 02 - Effective Rabi frequency of the gain medium."
+    orchestrator: false
+  - number: 3
+    name: "03_sideband_growth_rate"
+    description: "Step 03 - Growth rate of a sideband perturbation of the continuous wave."
+    orchestrator: false
+  - number: 4
+    name: "04_parametric_gain_maximum"
+    description: "Step 04 - Parametric-gain maximum of the fundamental continuous wave."
+    orchestrator: false
+  - number: 5
+    name: "05_sideband_onset_pump"
+    description: "Step 05 - Onset pump of a cavity sideband."
+    orchestrator: false
+  - number: 6
+    name: "06_harmonic_order_switch"
+    description: "Step 06 - Multimode threshold and first change of the predicted comb order."
+    orchestrator: false
+  - number: 7
+    name: "07_erf_gain_offset_at_switch"
+    description: "Step 07 - Gain maximum minus effective Rabi frequency at the order change (orchestrator)."
+    orchestrator: true

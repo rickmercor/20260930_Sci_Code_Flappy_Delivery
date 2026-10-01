@@ -1,0 +1,87 @@
+{
+  "problem_id": "Mathematics-Numerical_Linear_Algebra-32",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-32.1",
+      "test_cases": [
+        "import numpy as np\nm, n, seed = 12, 10, 7\ns = np.array([4.0, 3.2, 2.6, 2.1, 1.7, 1.4, 1.15, 0.95, 0.8, 0.7])\nassert np.allclose(construct_flat_spectrum_matrix(m, n, s, seed), target)",
+        "import numpy as np\nm, n, seed = 6, 4, 1\ns = np.array([5.0, 2.0, 0.8, 0.3])\nassert np.allclose(construct_flat_spectrum_matrix(m, n, s, seed), target)",
+        "import numpy as np\nm, n, seed = 3, 3, 2\ns = np.array([4.0, 1.0, 0.25])\nassert np.allclose(construct_flat_spectrum_matrix(m, n, s, seed), target)",
+        "import numpy as np\nm, n, seed = 4, 1, 3\ns = np.array([2.5])\nassert np.allclose(construct_flat_spectrum_matrix(m, n, s, seed), target)",
+        "import numpy as np\ns = np.array([1.0, -0.1])\ndef run_model():\n    try:\n        construct_flat_spectrum_matrix(2, 2, s, 0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ns = np.array([1.0, 0.5, 0.2])\ndef run_model():\n    try:\n        construct_flat_spectrum_matrix(2, 3, s, 0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-32.2",
+      "test_cases": [
+        "import numpy as np\nm, n, s_width, d, l, seed = 12, 10, 4, 7, 8, 11\nassert np.allclose(draw_gaussian_test_matrices(m, n, s_width, d, l, seed), target)",
+        "import numpy as np\nm, n, s_width, d, l, seed = 6, 5, 2, 4, 3, 1\nassert np.allclose(draw_gaussian_test_matrices(m, n, s_width, d, l, seed), target)",
+        "import numpy as np\nm, n, s_width, d, l, seed = 2, 2, 1, 2, 2, 3\nassert np.allclose(draw_gaussian_test_matrices(m, n, s_width, d, l, seed), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        draw_gaussian_test_matrices(4, 4, 2, 2, 3, 0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        draw_gaussian_test_matrices(3, 3, 0, 2, 2, 0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-32.3",
+      "test_cases": [
+        "import numpy as np\nm, n, s_width, d, l = 12, 10, 4, 7, 8\nrng = np.random.default_rng(7)\nU, _ = np.linalg.qr(rng.standard_normal((m, n)), mode='reduced')\nV, _ = np.linalg.qr(rng.standard_normal((n, n)), mode='reduced')\ns = np.array([4.0, 3.2, 2.6, 2.1, 1.7, 1.4, 1.15, 0.95, 0.8, 0.7])\nA = U @ np.diag(s) @ V.T\nrng = np.random.default_rng(11)\nOmega = rng.standard_normal((n, s_width))\nPsi = rng.standard_normal((d, m))\nPhi = rng.standard_normal((n, l))\nheader = np.array([Omega.shape[0], Omega.shape[1], Psi.shape[0], Psi.shape[1], Phi.shape[0], Phi.shape[1]], dtype=float)\ntest_pack = np.concatenate([header, Omega.ravel(), Psi.ravel(), Phi.ravel()])\nassert np.allclose(form_one_pass_sketches(A, test_pack), target)",
+        "import numpy as np\nA = np.array([[1.0, 2.0], [3.0, 4.0], [0.5, -1.0]], dtype=float)\nOmega = np.array([[1.0], [0.0]], dtype=float)\nPsi = np.array([[1.0, 0.0, 0.0], [0.0, 1.0, 0.0]], dtype=float)\nPhi = np.array([[1.0, 0.0], [0.0, 1.0]], dtype=float)\nheader = np.array([2.0, 1.0, 2.0, 3.0, 2.0, 2.0])\ntest_pack = np.concatenate([header, Omega.ravel(), Psi.ravel(), Phi.ravel()])\nassert np.allclose(form_one_pass_sketches(A, test_pack), target)",
+        "import numpy as np\nA = np.array([[2.0]], dtype=float)\nOmega = np.array([[1.0]], dtype=float)\nPsi = np.array([[3.0]], dtype=float)\nPhi = np.array([[4.0, 5.0]], dtype=float)\nheader = np.array([1.0, 1.0, 1.0, 1.0, 1.0, 2.0])\ntest_pack = np.concatenate([header, Omega.ravel(), Psi.ravel(), Phi.ravel()])\nassert np.allclose(form_one_pass_sketches(A, test_pack), target)",
+        "import numpy as np\nA = np.ones((2, 2))\nheader = np.array([3.0, 1.0, 1.0, 2.0, 2.0, 2.0])\ntest_pack = np.concatenate([header, np.ones(3), np.ones(2), np.ones(4)])\ndef run_model():\n    try:\n        form_one_pass_sketches(A, test_pack)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA = np.array([1.0, 2.0])\ntest_pack = np.ones(10)\ndef run_model():\n    try:\n        form_one_pass_sketches(A, test_pack)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-32.4",
+      "test_cases": [
+        "import numpy as np\nm, n, s_width, l = 12, 10, 4, 8\nrng = np.random.default_rng(7)\nU, _ = np.linalg.qr(rng.standard_normal((m, n)), mode='reduced')\nV, _ = np.linalg.qr(rng.standard_normal((n, n)), mode='reduced')\ns = np.array([4.0, 3.2, 2.6, 2.1, 1.7, 1.4, 1.15, 0.95, 0.8, 0.7])\nA = U @ np.diag(s) @ V.T\nrng = np.random.default_rng(11)\nOmega = rng.standard_normal((n, s_width))\n_ = rng.standard_normal((7, m))\nPhi = rng.standard_normal((n, l))\nY = A @ Omega\nZ = A @ Phi\nq = 1\nassert np.allclose(amplify_rangefinder(Y, Z, q), target)",
+        "import numpy as np\nZ = np.array([[1.0, 0.0], [0.0, 2.0], [1.0, 1.0]], dtype=float)\nY = np.array([[1.0], [0.0], [0.0]], dtype=float)\nq = 1\nassert np.allclose(amplify_rangefinder(Y, Z, q), target)",
+        "import numpy as np\nZ = np.eye(3)\nY = np.array([[1.0, 0.0], [0.0, 1.0], [0.0, 0.0]], dtype=float)\nq = 2\nassert np.allclose(amplify_rangefinder(Y, Z, q), target)",
+        "import numpy as np\nY = np.ones((3, 1))\nZ = np.ones((3, 2))\ndef run_model():\n    try:\n        amplify_rangefinder(Y, Z, 0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nY = np.ones((3, 2))\nZ = np.ones((3, 1))\ndef run_model():\n    try:\n        amplify_rangefinder(Y, Z, 1)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-32.5",
+      "test_cases": [
+        "import numpy as np\nYhat = np.array([[2.0, 1.0], [0.0, 3.0], [1.0, 1.0]], dtype=float)\nassert np.allclose(rangefinder_thin_factors(Yhat), target)",
+        "import numpy as np\nYhat = np.eye(3)\nassert np.allclose(rangefinder_thin_factors(Yhat), target)",
+        "import numpy as np\nYhat = np.array([[4.0]], dtype=float)\nassert np.allclose(rangefinder_thin_factors(Yhat), target)",
+        "import numpy as np\nm, n, s_width, l = 12, 10, 4, 8\nrng = np.random.default_rng(7)\nU, _ = np.linalg.qr(rng.standard_normal((m, n)), mode='reduced')\nV, _ = np.linalg.qr(rng.standard_normal((n, n)), mode='reduced')\ns = np.array([4.0, 3.2, 2.6, 2.1, 1.7, 1.4, 1.15, 0.95, 0.8, 0.7])\nA = U @ np.diag(s) @ V.T\nrng = np.random.default_rng(11)\nOmega = rng.standard_normal((n, s_width))\n_ = rng.standard_normal((7, m))\nPhi = rng.standard_normal((n, l))\nY = A @ Omega\nZ = A @ Phi\nX, _ = np.linalg.qr(Z.T @ Y, mode='reduced')\nYhat = Z @ X\nassert np.allclose(rangefinder_thin_factors(Yhat), target)",
+        "import numpy as np\nYhat = np.ones((2, 3))\ndef run_model():\n    try:\n        rangefinder_thin_factors(Yhat)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nYhat = np.zeros((3, 2))\ndef run_model():\n    try:\n        rangefinder_thin_factors(Yhat)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-32.6",
+      "test_cases": [
+        "import numpy as np\nm, n, s_width, d, l = 12, 10, 4, 7, 8\nrng = np.random.default_rng(7)\nU, _ = np.linalg.qr(rng.standard_normal((m, n)), mode='reduced')\nV, _ = np.linalg.qr(rng.standard_normal((n, n)), mode='reduced')\ns = np.array([4.0, 3.2, 2.6, 2.1, 1.7, 1.4, 1.15, 0.95, 0.8, 0.7])\nA = U @ np.diag(s) @ V.T\nrng = np.random.default_rng(11)\nOmega = rng.standard_normal((n, s_width))\nPsi = rng.standard_normal((d, m))\nPhi = rng.standard_normal((n, l))\nY = A @ Omega\nW = Psi @ A\nZ = A @ Phi\nX, _ = np.linalg.qr(Z.T @ Y, mode='reduced')\nYhat = Z @ X\nQ, _ = np.linalg.qr(Yhat, mode='reduced')\nassert np.allclose(sketched_coefficient_matrix(Q, Psi, W), target)",
+        "import numpy as np\nQ = np.array([[1.0, 0.0], [0.0, 1.0], [0.0, 0.0]], dtype=float)\nPsi = np.array([[1.0, 0.0, 0.0], [0.0, 1.0, 0.0]], dtype=float)\nW = np.array([[2.0, 0.0, 1.0], [0.0, 3.0, -1.0]], dtype=float)\nassert np.allclose(sketched_coefficient_matrix(Q, Psi, W), target)",
+        "import numpy as np\nQ = np.array([[1.0]], dtype=float)\nPsi = np.array([[2.0]], dtype=float)\nW = np.array([[4.0, -2.0]], dtype=float)\nassert np.allclose(sketched_coefficient_matrix(Q, Psi, W), target)",
+        "import numpy as np\nQ = np.eye(2)\nPsi = np.ones((1, 2))\nW = np.ones((1, 3))\ndef run_model():\n    try:\n        sketched_coefficient_matrix(Q, Psi, W)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nQ = np.eye(2)\nPsi = np.eye(3)\nW = np.ones((2, 2))\ndef run_model():\n    try:\n        sketched_coefficient_matrix(Q, Psi, W)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-32.7",
+      "test_cases": [
+        "import numpy as np\nm, n, s_width, d, l, rank, row, col = 12, 10, 4, 7, 8, 3, 2, 0\nrng = np.random.default_rng(7)\nU, _ = np.linalg.qr(rng.standard_normal((m, n)), mode='reduced')\nV, _ = np.linalg.qr(rng.standard_normal((n, n)), mode='reduced')\ns = np.array([4.0, 3.2, 2.6, 2.1, 1.7, 1.4, 1.15, 0.95, 0.8, 0.7])\nA = U @ np.diag(s) @ V.T\nrng = np.random.default_rng(11)\nOmega = rng.standard_normal((n, s_width))\nPsi = rng.standard_normal((d, m))\nPhi = rng.standard_normal((n, l))\nY = A @ Omega\nW = Psi @ A\nZ = A @ Phi\nX, _ = np.linalg.qr(Z.T @ Y, mode='reduced')\nYhat = Z @ X\nQ, _ = np.linalg.qr(Yhat, mode='reduced')\nB = np.linalg.lstsq(Psi @ Q, W, rcond=None)[0]\nassert np.allclose(reconstruction_entry(Q, B, rank, row, col), target)",
+        "import numpy as np\nQ = np.eye(3)[:, :2]\nB = np.array([[3.0, 0.0, 1.0], [0.0, 2.0, 0.0]], dtype=float)\nrank, row, col = 2, 0, 0\nassert np.allclose(reconstruction_entry(Q, B, rank, row, col), target)",
+        "import numpy as np\nQ = np.array([[1.0], [0.0]], dtype=float)\nB = np.array([[-2.0, 4.0]], dtype=float)\nrank, row, col = 1, 1, 1\nassert np.allclose(reconstruction_entry(Q, B, rank, row, col), target)",
+        "import numpy as np\nQ = np.eye(2)\nB = np.eye(2)\ndef run_model():\n    try:\n        reconstruction_entry(Q, B, 0, 0, 0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nQ = np.eye(2)\nB = np.eye(2)\ndef run_model():\n    try:\n        reconstruction_entry(Q, B, 1, 2, 0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-32.8",
+      "test_cases": [
+        "import numpy as np\nm, n, s_width, d, l, q, rank, row, col = 12, 10, 4, 7, 8, 1, 3, 2, 0\ns = np.array([4.0, 3.2, 2.6, 2.1, 1.7, 1.4, 1.15, 0.95, 0.8, 0.7])\ndata_seed, sketch_seed = 7, 11\nassert np.allclose(run_sketch_power_entry(m, n, s, data_seed, sketch_seed, s_width, d, l, q, rank, row, col), target)",
+        "import numpy as np\nm, n, s_width, d, l, q, rank, row, col = 6, 4, 2, 4, 3, 1, 2, 1, 0\ns = np.array([5.0, 2.0, 0.8, 0.3])\ndata_seed, sketch_seed = 1, 4\nassert np.allclose(run_sketch_power_entry(m, n, s, data_seed, sketch_seed, s_width, d, l, q, rank, row, col), target)",
+        "import numpy as np\nm, n, s_width, d, l, q, rank, row, col = 4, 3, 1, 2, 2, 1, 1, 0, 0\ns = np.array([3.0, 1.5, 0.4])\ndata_seed, sketch_seed = 0, 2\nassert np.allclose(run_sketch_power_entry(m, n, s, data_seed, sketch_seed, s_width, d, l, q, rank, row, col), target)",
+        "import numpy as np\ns = np.array([2.0, 1.0])\ndef run_model():\n    try:\n        run_sketch_power_entry(3, 2, s, 0, 1, 1, 2, 2, 0, 1, 0, 0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ns = np.array([2.0, 0.0])\ndef run_model():\n    try:\n        run_sketch_power_entry(2, 2, s, 0, 1, 1, 2, 2, 1, 1, 0, 0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

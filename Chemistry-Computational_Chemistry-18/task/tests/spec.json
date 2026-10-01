@@ -1,0 +1,112 @@
+{
+  "problem_id": "Chemistry-Computational_Chemistry-18",
+  "sub_steps": [
+    {
+      "step_number": "Chemistry-Computational_Chemistry-18.1",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(lattice_census(1, np.eye(3)), target)",
+        "import numpy as np\nE = np.array([[7, 3, 0], [0, 5, 0], [0, 0, 3]])\nassert np.allclose(lattice_census(1, E), target)",
+        "import numpy as np\n# boundary: a box elongated along x, three times as many cells along x as along y and z\nassert np.allclose(lattice_census(2, np.diag([3, 1, 1])), target)",
+        "import numpy as np\n# edge case: the same sheared sample passed as a float array of integer values\nE = np.array([[7.0, 3.0, 0.0], [0.0, 5.0, 0.0], [0.0, 0.0, 3.0]])\nassert np.allclose(lattice_census(2, E), target)",
+        "import numpy as np\n# invalid input: a singular edge matrix must raise ValueError\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: lattice_census(1, np.zeros((3, 3)))), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-18.2",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(finite_lattice_sum(np.array([0.5, 0.5, 0.5]), 2, np.eye(3), 1.0), target)",
+        "import numpy as np\nE = np.array([[7, 3, 0], [0, 5, 0], [0, 0, 3]])\nassert np.allclose(finite_lattice_sum(np.array([0.37, 0.21, 0.13]), 3, E, 1.0), target)",
+        "import numpy as np\n# a lattice constant of 2 with the displacement given in the same absolute units\nassert np.allclose(finite_lattice_sum(np.array([0.25, 0.0, 0.0]), 2, np.diag([7, 5, 3]), 2.0), target)",
+        "import numpy as np\n# boundary: the central cell alone, where the sum is the bare pair term\nassert np.allclose(finite_lattice_sum(np.array([0.37, 0.21, 0.13]), 0, np.eye(3), 1.0), target)",
+        "import numpy as np\n# invalid input: a vanishing displacement must raise ValueError\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: finite_lattice_sum(np.array([0.0, 0.0, 0.0]), 2, np.eye(3), 1.0)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-18.3",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(boundary_term(np.array([0.5, 0.5, 0.5]), np.eye(3), 1.0), target)",
+        "import numpy as np\nE = np.array([[7, 3, 0], [0, 5, 0], [0, 0, 3]])\nassert np.allclose(boundary_term(np.array([0.37, 0.21, 0.13]), E, 1.0), target)",
+        "import numpy as np\n# a box with perpendicular edges and a unit cell of volume 8\nassert np.allclose(boundary_term(np.array([0.25, 0.1, 0.0]), np.diag([3, 1, 1]), 8.0), target)",
+        "import numpy as np\n# boundary: a displacement along one axis of a sample sheared in the other two\nE = np.array([[1, 0, 0], [0, 3, 2], [0, 0, 3]])\nassert np.allclose(boundary_term(np.array([0.0, 0.0, 0.4]), E, 1.0), target)",
+        "import numpy as np\n# invalid input: a vanishing unit-cell volume must raise ValueError\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: boundary_term(np.array([0.5, 0.5, 0.5]), np.eye(3), 0.0)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-18.4",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(finite_size_term(np.array([0.5, 0.5, 0.5]), 1, 1.0), target)",
+        "import numpy as np\nassert np.allclose(finite_size_term(np.array([0.37, 0.21, 0.13]), 8, 1.0), target)",
+        "import numpy as np\n# an axial displacement, where the quartic term changes sign, with a lattice constant of 2\nassert np.allclose(finite_size_term(np.array([0.5, 0.0, 0.0]), 4, 2.0), target)",
+        "import numpy as np\n# boundary: the central cell alone, p = 0\nassert np.allclose(finite_size_term(np.array([0.37, 0.21, 0.13]), 0, 1.0), target)",
+        "import numpy as np\n# invalid input: a negative size index must raise ValueError\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: finite_size_term(np.array([0.5, 0.5, 0.5]), -1, 1.0)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-18.5",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(bulk_pair_potential(np.array([0.5, 0.5, 0.5]), 5, 1.0), target)",
+        "import numpy as np\nassert np.allclose(bulk_pair_potential(np.array([0.37, 0.21, 0.13]), 8, 1.0), target)",
+        "import numpy as np\n# a lattice constant of 2 with an axial displacement\nassert np.allclose(bulk_pair_potential(np.array([0.25, 0.0, 0.0]), 4, 2.0), target)",
+        "import numpy as np\n# boundary: the smallest admissible sample, p = 1, where the change entry compares with the bare pair term\nassert np.allclose(bulk_pair_potential(np.array([0.37, 0.21, 0.13]), 1, 1.0), target)",
+        "import numpy as np\n# invalid input: a zero size index must raise ValueError\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: bulk_pair_potential(np.array([0.5, 0.5, 0.5]), 0, 1.0)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-18.6",
+      "test_cases": [
+        "import numpy as np\n# boundary: the minimal 3x3x3 supercell\nassert np.allclose(madelung_constant(1), target)",
+        "import numpy as np\nassert np.allclose(madelung_constant(5), target)",
+        "import numpy as np\nassert np.allclose(madelung_constant(8), target)",
+        "import numpy as np\n# invalid input: a zero size index must raise ValueError\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: madelung_constant(0)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-18.7",
+      "test_cases": [
+        "import numpy as np\nE = np.array([[7, 3, 0], [0, 5, 0], [0, 0, 3]])\nassert np.allclose(infinite_crystal_potential(np.array([0.37, 0.21, 0.13]), E, 6, 1.0), target)",
+        "import numpy as np\n# a box elongated along the displacement\nassert np.allclose(infinite_crystal_potential(np.array([0.5, 0.0, 0.0]), np.diag([3, 1, 1]), 5, 1.0), target)",
+        "import numpy as np\n# boundary: the cube itself, where the scaled difference is the closed-form finite-size coefficient\nassert np.allclose(infinite_crystal_potential(np.array([0.25, 0.15, 0.05]), np.eye(3), 4, 2.0), target)",
+        "import numpy as np\n# invalid input: a singular edge matrix must raise ValueError\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: infinite_crystal_potential(np.array([0.37, 0.21, 0.13]), np.zeros((3, 3)), 6, 1.0)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-18.8",
+      "test_cases": [
+        "import numpy as np\nE = np.array([[7, 3, 0], [0, 5, 0], [0, 0, 3]])\nassert np.allclose(multipole_coefficient(np.array([0.37, 0.21, 0.13]), E, 1.0), target)",
+        "import numpy as np\n# a box with perpendicular edges of the same nominal lengths\nassert np.allclose(multipole_coefficient(np.array([0.37, 0.21, 0.13]), np.diag([7, 5, 3]), 1.0), target)",
+        "import numpy as np\n# boundary: the cube itself with a unit cell of volume 8, where the first entry equals the closed form\nassert np.allclose(multipole_coefficient(np.array([0.25, 0.1, 0.0]), np.eye(3), 8.0), target)",
+        "import numpy as np\n# a sample sheared in the y-z plane with an axial displacement\nE = np.array([[1, 0, 0], [0, 3, 2], [0, 0, 3]])\nassert np.allclose(multipole_coefficient(np.array([0.0, 0.0, 0.4]), E, 1.0), target)",
+        "import numpy as np\n# invalid input: a vanishing unit-cell volume must raise ValueError\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: multipole_coefficient(np.array([0.37, 0.21, 0.13]), np.eye(3), 0.0)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-18.9",
+      "test_cases": [
+        "import numpy as np\nE = np.array([[7, 3, 0], [0, 5, 0], [0, 0, 3]])\nassert np.allclose(finite_size_fit(np.array([0.37, 0.21, 0.13]), E, np.array([4, 6, 8]), 8, 1.0), target)",
+        "import numpy as np\n# a box with perpendicular edges, where the second-order sums carry no inverse-square term\nassert np.allclose(finite_size_fit(np.array([0.37, 0.21, 0.13]), np.diag([7, 5, 3]), np.array([4, 6, 8]), 8, 1.0), target)",
+        "import numpy as np\n# boundary: the cube with a lattice constant of 2, where the second-order sums vanish identically\nassert np.allclose(finite_size_fit(np.array([0.25, 0.15, 0.05]), np.eye(3), np.array([3, 4, 6, 8]), 8, 2.0), target)",
+        "import numpy as np\n# invalid input: only two sizes cannot support the fit and must raise ValueError\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: finite_size_fit(np.array([0.37, 0.21, 0.13]), np.eye(3), np.array([4, 6]), 8, 1.0)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-18.10",
+      "test_cases": [
+        "import numpy as np\nE = np.array([[7, 3, 0], [0, 5, 0], [0, 0, 3]])\nassert np.allclose(termination_coefficient(np.array([0.37, 0.21, 0.13]), E, 1.0), target)",
+        "import numpy as np\n# the shear reversed\nE = np.array([[7, -3, 0], [0, 5, 0], [0, 0, 3]])\nassert np.allclose(termination_coefficient(np.array([0.37, 0.21, 0.13]), E, 1.0), target)",
+        "import numpy as np\n# a short sample whose boundary-phase pattern leaves a non-zero first-order boundary term\nE = np.array([[3, 1, 0], [0, 3, 0], [0, 0, 1]])\nassert np.allclose(termination_coefficient(np.array([0.25, 0.15, 0.05]), E, 1.0), target)",
+        "import numpy as np\n# a lattice constant of 2 with the displacement in the same absolute units\nE = np.array([[5, 2, 0], [0, 3, 0], [0, 0, 3]])\nassert np.allclose(termination_coefficient(np.array([0.5, 0.3, 0.1]), E, 2.0), target)",
+        "import numpy as np\n# boundary: a box, where the coefficient vanishes\nassert np.allclose(termination_coefficient(np.array([0.37, 0.21, 0.13]), np.diag([7, 5, 3]), 1.0), target)",
+        "import numpy as np\n# invalid input: a shear outside the stated form must raise ValueError\nE = np.array([[3, 0, 0], [0, 3, 0], [1, 0, 3]])\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: termination_coefficient(np.array([0.37, 0.21, 0.13]), E, 1.0)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-18.11",
+      "test_cases": [
+        "import numpy as np\nE = np.array([[7, 3, 0], [0, 5, 0], [0, 0, 3]])\nassert np.allclose(lattice_audit(np.array([0.37, 0.21, 0.13]), E, 8, 12, np.array([6, 8, 10, 12]), 1.0), target)",
+        "import numpy as np\n# the mirror image of the benchmark shear, sheared the other way\nE = np.array([[7, -3, 0], [0, 5, 0], [0, 0, 3]])\nassert np.allclose(lattice_audit(np.array([0.37, 0.21, 0.13]), E, 6, 8, np.array([4, 6, 8]), 1.0), target)",
+        "import numpy as np\n# boundary: a box with perpendicular edges, where the termination contribution should be negligible\nassert np.allclose(lattice_audit(np.array([0.5, 0.0, 0.0]), np.diag([3, 1, 1]), 5, 6, np.array([3, 4, 6]), 1.0), target)",
+        "import numpy as np\n# invalid input: a zero bulk size index must raise ValueError\nE = np.array([[7, 3, 0], [0, 5, 0], [0, 0, 3]])\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: lattice_audit(np.array([0.37, 0.21, 0.13]), E, 8, 0, np.array([6, 8, 10]), 1.0)), target)"
+      ]
+    }
+  ]
+}

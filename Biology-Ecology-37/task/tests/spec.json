@@ -1,0 +1,102 @@
+{
+  "problem_id": "Biology-Ecology-37",
+  "sub_steps": [
+    {
+      "step_number": "Biology-Ecology-37.1",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(breeding_cycle_fecundity(0.16, 0.38, 4, np.array([4, 5, 6, 7, 8, 9, 10, 12, 20])), target)",
+        "import numpy as np\nassert np.allclose(breeding_cycle_fecundity(0.3, 0.6, 3, np.array([5, 4, 3, 2, 0])), target)",
+        "import numpy as np\nassert np.allclose(breeding_cycle_fecundity(0.02, 0.9, 7, np.arange(7, 70, 3)), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-37.2",
+      "test_cases": [
+        "import numpy as np\ntheta = np.array([np.log(48000.0), -0.012, np.log(0.955 / 0.045), np.log(0.85 / 0.15), np.log(0.16 / 0.84), np.log(0.38 / 0.62)])\nassert np.allclose(stage_abundances(theta, 2016, np.arange(2002, 2028)), target)",
+        "import numpy as np\ntheta = np.array([np.log(1000.0), 0.0, np.log(0.9 / 0.1), np.log(0.7 / 0.3), 0.0, 0.0])\nassert np.allclose(stage_abundances(theta, 2000, np.array([2003, 2000, 1998])), target)",
+        "import numpy as np\ntheta = np.array([np.log(250000.0), -0.08, np.log(0.92 / 0.08), np.log(0.6 / 0.4), -1.0, 1.0])\nassert np.allclose(stage_abundances(theta, 2010, np.array([1990, 2010, 2050])), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-37.3",
+      "test_cases": [
+        "import numpy as np\nsizes = np.array([800.0] * 5 + [950.0] * 4)\nassert np.allclose(sample_composition(sizes, -0.012, 0.955, 0.85, 37, 5), target)",
+        "import numpy as np\nsizes = np.array([100.0, 0.0])\nassert np.allclose(sample_composition(sizes, 0.0, 0.8, 0.6, 6, 0), target)",
+        "import numpy as np\nsizes = np.array([1234.5])\nassert np.allclose(sample_composition(sizes, 0.08, 0.99, 0.95, 60, 3), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-37.4",
+      "test_cases": [
+        "import numpy as np\ntrue = np.array([1, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 5, 5, 6, 7, 8, 9, 10, 12, 14, 16, 18, 20, 22, 25, 28, 31, 34, 36])\nest = np.array([2, 2, 4, 1, 3, 4, 2, 4, 5, 6, 4, 3, 3, 5, 4, 9, 6, 8, 9, 14, 15, 17, 19, 18, 20, 28, 28, 31, 32, 36])\nassert np.allclose(age_error_sd(true, est, 37), target)",
+        "import numpy as np\ntrue = np.array([1, 1, 2, 2, 9, 9, 10, 10])\nest = np.array([1, 2, 1, 3, 10, 8, 10, 9])\nassert np.allclose(age_error_sd(true, est, 10), target)",
+        "import numpy as np\ntrue = np.arange(3, 23)\nest = true.copy()\nest[7] = 11\nassert np.allclose(age_error_sd(true, est, 40), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-37.5",
+      "test_cases": [
+        "import numpy as np\nages = np.arange(1, 38)\nlam = np.exp(-0.012)\nrel = np.where(ages < 6, lam ** (-ages) * 0.85 ** (ages - 1), lam ** (-ages) * 0.85 ** 5 * 0.955 ** (ages - 6))\nrel_m = np.where(ages <= 5, rel, 0.0)\nshare = np.array([rel, rel_m]) / (rel.sum() + rel_m.sum())\nsamples = np.array([800.0, 1000.0])[:, None, None] * share[None, :, :]\nassert np.allclose(estimated_age_numbers(samples, 1.6625615194893861), target)",
+        "import numpy as np\nsamples = np.array([[[3.0, 1.0], [2.0, 0.0]]])\nassert np.allclose(estimated_age_numbers(samples, 0.8), target)",
+        "import numpy as np\nsamples = np.linspace(1.0, 60.0, 3 * 2 * 20).reshape(3, 2, 20)\nassert np.allclose(estimated_age_numbers(samples, 0.12), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-37.6",
+      "test_cases": [
+        "import numpy as np\ntheta = np.array([np.log(48000.0), -0.012, np.log(0.955 / 0.045), np.log(0.85 / 0.15), np.log(0.16 / 0.84), np.log(0.38 / 0.62)])\nages = np.arange(1, 38)\nlam = np.exp(-0.012)\nrel = np.where(ages < 6, lam ** (-ages) * 0.85 ** (ages - 1), lam ** (-ages) * 0.85 ** 5 * 0.955 ** (ages - 6))\nrel_m = np.where(ages <= 5, rel, 0.0)\nshare = np.array([rel, rel_m]) / (rel.sum() + rel_m.sum())\na = np.arange(1, 38)[:, None]\ne = np.arange(1, 38)[None, :]\nfrom scipy.stats import norm\nP = norm.cdf((e + 0.5 - a) / 1.6625615194893861) - norm.cdf((e - 0.5 - a) / 1.6625615194893861)\nP = P / P.sum(axis=1, keepdims=True)\nsamples = np.array([800.0, 800.0, 1000.0, 1000.0])[:, None, None] * share[None, :, :]\nnumbers = samples[:, :, :, None] * P[None, None, :, :]\nyears = np.array([2014, 2016, 2024, 2027])\nassert np.allclose(mother_offspring_probabilities(theta, 2016, 4, years, 2002, numbers), target)",
+        "import numpy as np\ntheta = np.array([np.log(48000.0), -0.012, np.log(0.955 / 0.045), np.log(0.85 / 0.15), np.log(0.16 / 0.84), np.log(0.38 / 0.62)])\nages = np.arange(1, 38)\nlam = np.exp(-0.012)\nrel = np.where(ages < 6, lam ** (-ages) * 0.85 ** (ages - 1), lam ** (-ages) * 0.85 ** 5 * 0.955 ** (ages - 6))\nrel_m = np.where(ages <= 5, rel, 0.0)\nshare = np.array([rel, rel_m]) / (rel.sum() + rel_m.sum())\na = np.arange(1, 38)[:, None]\ne = np.arange(1, 38)[None, :]\nfrom scipy.stats import norm\nP = norm.cdf((e + 0.5 - a) / 0.3) - norm.cdf((e - 0.5 - a) / 0.3)\nP = P / P.sum(axis=1, keepdims=True)\nsamples = np.array([500.0])[:, None, None] * share[None, :, :]\nnumbers = samples[:, :, :, None] * P[None, None, :, :]\nyears = np.array([2020])\nassert np.allclose(mother_offspring_probabilities(theta, 2016, 4, years, 2019, numbers), target)",
+        "import numpy as np\ntheta = np.array([np.log(3000.0), 0.05, np.log(0.93 / 0.07), np.log(0.7 / 0.3), np.log(0.25 / 0.75), np.log(0.5 / 0.5)])\na = np.arange(1, 16)[:, None]\ne = np.arange(1, 16)[None, :]\nfrom scipy.stats import norm\nP = norm.cdf((e + 0.5 - a) / 3.0) - norm.cdf((e - 0.5 - a) / 3.0)\nP = P / P.sum(axis=1, keepdims=True)\nsamples = np.linspace(5.0, 40.0, 3 * 2 * 15).reshape(3, 2, 15)\nnumbers = samples[:, :, :, None] * P[None, None, :, :]\nyears = np.array([2010, 2011, 2013])\nassert np.allclose(mother_offspring_probabilities(theta, 2012, 3, years, 1998, numbers), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-37.7",
+      "test_cases": [
+        "import numpy as np\ntheta = np.array([np.log(48000.0), -0.012, np.log(0.955 / 0.045), np.log(0.85 / 0.15), np.log(0.16 / 0.84), np.log(0.38 / 0.62)])\nages = np.arange(1, 38)\nlam = np.exp(-0.012)\nrel = np.where(ages < 6, lam ** (-ages) * 0.85 ** (ages - 1), lam ** (-ages) * 0.85 ** 5 * 0.955 ** (ages - 6))\nrel_m = np.where(ages <= 5, rel, 0.0)\nshare = np.array([rel, rel_m]) / (rel.sum() + rel_m.sum())\na = np.arange(1, 38)[:, None]\ne = np.arange(1, 38)[None, :]\nfrom scipy.stats import norm\nP = norm.cdf((e + 0.5 - a) / 1.6625615194893861) - norm.cdf((e - 0.5 - a) / 1.6625615194893861)\nP = P / P.sum(axis=1, keepdims=True)\nsamples = np.array([800.0, 800.0, 1000.0, 1000.0])[:, None, None] * share[None, :, :]\nnumbers = samples[:, :, :, None] * P[None, None, :, :]\nyears = np.array([2014, 2016, 2024, 2027])\nassert np.allclose(half_sibling_probabilities(theta, 2016, years, 2002, numbers), target)",
+        "import numpy as np\ntheta = np.array([np.log(48000.0), -0.012, np.log(0.955 / 0.045), np.log(0.85 / 0.15), np.log(0.16 / 0.84), np.log(0.38 / 0.62)])\nages = np.arange(1, 38)\nlam = np.exp(-0.012)\nrel = np.where(ages < 6, lam ** (-ages) * 0.85 ** (ages - 1), lam ** (-ages) * 0.85 ** 5 * 0.955 ** (ages - 6))\nrel_m = np.where(ages <= 5, rel, 0.0)\nshare = np.array([rel, rel_m]) / (rel.sum() + rel_m.sum())\na = np.arange(1, 38)[:, None]\ne = np.arange(1, 38)[None, :]\nfrom scipy.stats import norm\nP = norm.cdf((e + 0.5 - a) / 0.9) - norm.cdf((e - 0.5 - a) / 0.9)\nP = P / P.sum(axis=1, keepdims=True)\nsamples = np.array([500.0])[:, None, None] * share[None, :, :]\nnumbers = samples[:, :, :, None] * P[None, None, :, :]\nyears = np.array([2020])\nassert np.allclose(half_sibling_probabilities(theta, 2016, years, 2000, numbers), target)",
+        "import numpy as np\ntheta = np.array([np.log(3000.0), 0.05, np.log(0.93 / 0.07), np.log(0.7 / 0.3), np.log(0.25 / 0.75), np.log(0.5 / 0.5)])\na = np.arange(1, 16)[:, None]\ne = np.arange(1, 16)[None, :]\nfrom scipy.stats import norm\nP = norm.cdf((e + 0.5 - a) / 3.0) - norm.cdf((e - 0.5 - a) / 3.0)\nP = P / P.sum(axis=1, keepdims=True)\nsamples = np.linspace(5.0, 40.0, 3 * 2 * 15).reshape(3, 2, 15)\nnumbers = samples[:, :, :, None] * P[None, None, :, :]\nyears = np.array([2010, 2011, 2013])\nassert np.allclose(half_sibling_probabilities(theta, 2012, years, 1998, numbers), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-37.8",
+      "test_cases": [
+        "import numpy as np\ntheta = np.array([np.log(48000.0), -0.012, np.log(0.955 / 0.045), np.log(0.85 / 0.15), np.log(0.16 / 0.84), np.log(0.38 / 0.62)])\nages = np.arange(1, 38)\nlam = np.exp(-0.012)\nrel = np.where(ages < 6, lam ** (-ages) * 0.85 ** (ages - 1), lam ** (-ages) * 0.85 ** 5 * 0.955 ** (ages - 6))\nrel_m = np.where(ages <= 5, rel, 0.0)\nshare = np.array([rel, rel_m]) / (rel.sum() + rel_m.sum())\na = np.arange(1, 38)[:, None]\ne = np.arange(1, 38)[None, :]\nfrom scipy.stats import norm\nP = norm.cdf((e + 0.5 - a) / 1.6625615194893861) - norm.cdf((e - 0.5 - a) / 1.6625615194893861)\nP = P / P.sum(axis=1, keepdims=True)\nsamples = np.array([800.0] * 5 + [1000.0] * 4)[:, None, None] * share[None, :, :]\nnumbers = samples[:, :, :, None] * P[None, None, :, :]\nyears = np.array([2014, 2015, 2016, 2017, 2018, 2024, 2025, 2026, 2027])\nassert np.allclose(self_recapture_probabilities(theta, 2016, years, numbers), target)",
+        "import numpy as np\ntheta = np.array([np.log(48000.0), -0.012, np.log(0.955 / 0.045), np.log(0.85 / 0.15), np.log(0.16 / 0.84), np.log(0.38 / 0.62)])\nages = np.arange(1, 38)\nlam = np.exp(-0.012)\nrel = np.where(ages < 6, lam ** (-ages) * 0.85 ** (ages - 1), lam ** (-ages) * 0.85 ** 5 * 0.955 ** (ages - 6))\nrel_m = np.where(ages <= 5, rel, 0.0)\nshare = np.array([rel, rel_m]) / (rel.sum() + rel_m.sum())\na = np.arange(1, 38)[:, None]\ne = np.arange(1, 38)[None, :]\nfrom scipy.stats import norm\nP = norm.cdf((e + 0.5 - a) / 0.4) - norm.cdf((e - 0.5 - a) / 0.4)\nP = P / P.sum(axis=1, keepdims=True)\nsamples = np.array([300.0, 300.0])[:, None, None] * share[None, :, :]\nnumbers = samples[:, :, :, None] * P[None, None, :, :]\nyears = np.array([2020, 2021])\nassert np.allclose(self_recapture_probabilities(theta, 2016, years, numbers), target)",
+        "import numpy as np\ntheta = np.array([np.log(3000.0), 0.05, np.log(0.93 / 0.07), np.log(0.7 / 0.3), np.log(0.25 / 0.75), np.log(0.5 / 0.5)])\na = np.arange(1, 16)[:, None]\ne = np.arange(1, 16)[None, :]\nfrom scipy.stats import norm\nP = norm.cdf((e + 0.5 - a) / 3.0) - norm.cdf((e - 0.5 - a) / 3.0)\nP = P / P.sum(axis=1, keepdims=True)\nsamples = np.linspace(5.0, 40.0, 3 * 2 * 15).reshape(3, 2, 15)\nnumbers = samples[:, :, :, None] * P[None, None, :, :]\nyears = np.array([2003, 2008, 2013])\nassert np.allclose(self_recapture_probabilities(theta, 2012, years, numbers), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-37.9",
+      "test_cases": [
+        "import numpy as np\nages = np.arange(1, 38)\nlam = np.exp(-0.012)\nrel = np.where(ages < 6, lam ** (-ages) * 0.85 ** (ages - 1), lam ** (-ages) * 0.85 ** 5 * 0.955 ** (ages - 6))\nrel_m = np.where(ages <= 5, rel, 0.0)\nshare = np.array([rel, rel_m]) / (rel.sum() + rel_m.sum())\na = np.arange(1, 38)[:, None]\ne = np.arange(1, 38)[None, :]\nfrom scipy.stats import norm\nP = norm.cdf((e + 0.5 - a) / 1.6625615194893861) - norm.cdf((e - 0.5 - a) / 1.6625615194893861)\nP = P / P.sum(axis=1, keepdims=True)\nsamples = np.array([800.0, 800.0, 1000.0, 1000.0])[:, None, None] * share[None, :, :]\nnumbers = samples[:, :, :, None] * P[None, None, :, :]\nyears = np.array([2014, 2018, 2024, 2027])\nassert np.allclose(comparison_counts(numbers, years, 2002, 4, 'MOP'), target)",
+        "import numpy as np\nages = np.arange(1, 38)\nlam = np.exp(-0.012)\nrel = np.where(ages < 6, lam ** (-ages) * 0.85 ** (ages - 1), lam ** (-ages) * 0.85 ** 5 * 0.955 ** (ages - 6))\nrel_m = np.where(ages <= 5, rel, 0.0)\nshare = np.array([rel, rel_m]) / (rel.sum() + rel_m.sum())\na = np.arange(1, 38)[:, None]\ne = np.arange(1, 38)[None, :]\nfrom scipy.stats import norm\nP = norm.cdf((e + 0.5 - a) / 1.6625615194893861) - norm.cdf((e - 0.5 - a) / 1.6625615194893861)\nP = P / P.sum(axis=1, keepdims=True)\nsamples = np.array([800.0, 800.0, 1000.0, 1000.0])[:, None, None] * share[None, :, :]\nnumbers = samples[:, :, :, None] * P[None, None, :, :]\nyears = np.array([2014, 2018, 2024, 2027])\nassert np.allclose(comparison_counts(numbers, years, 2002, 4, 'HSP'), target)",
+        "import numpy as np\nages = np.arange(1, 38)\nlam = np.exp(-0.012)\nrel = np.where(ages < 6, lam ** (-ages) * 0.85 ** (ages - 1), lam ** (-ages) * 0.85 ** 5 * 0.955 ** (ages - 6))\nrel_m = np.where(ages <= 5, rel, 0.0)\nshare = np.array([rel, rel_m]) / (rel.sum() + rel_m.sum())\na = np.arange(1, 38)[:, None]\ne = np.arange(1, 38)[None, :]\nfrom scipy.stats import norm\nP = norm.cdf((e + 0.5 - a) / 1.6625615194893861) - norm.cdf((e - 0.5 - a) / 1.6625615194893861)\nP = P / P.sum(axis=1, keepdims=True)\nsamples = np.array([800.0, 800.0, 1000.0, 1000.0])[:, None, None] * share[None, :, :]\nnumbers = samples[:, :, :, None] * P[None, None, :, :]\nyears = np.array([2014, 2018, 2024, 2027])\nassert np.allclose(comparison_counts(numbers, years, 2002, 4, 'SP'), target)",
+        "import numpy as np\nsamples = np.linspace(1.0, 30.0, 3 * 2 * 12).reshape(3, 2, 12)\na = np.arange(1, 13)[:, None]\ne = np.arange(1, 13)[None, :]\nfrom scipy.stats import norm\nP = norm.cdf((e + 0.5 - a) / 2.5) - norm.cdf((e - 0.5 - a) / 2.5)\nP = P / P.sum(axis=1, keepdims=True)\nnumbers = samples[:, :, :, None] * P[None, None, :, :]\nyears = np.array([2010, 2011, 2015])\nassert np.allclose(comparison_counts(numbers, years, 2004, 6, 'HSP'), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-37.10",
+      "test_cases": [
+        "import numpy as np\ntheta = np.array([np.log(48000.0), -0.012, np.log(0.955 / 0.045), np.log(0.85 / 0.15), np.log(0.16 / 0.84), np.log(0.38 / 0.62)])\nyears = np.array([2014, 2015, 2016, 2017, 2018, 2024, 2025, 2026, 2027])\nages = np.arange(1, 38)\nlam = np.exp(-0.012)\nrel = np.where(ages < 6, lam ** (-ages) * 0.85 ** (ages - 1), lam ** (-ages) * 0.85 ** 5 * 0.955 ** (ages - 6))\nrel_m = np.where(ages <= 5, rel, 0.0)\nshare = np.array([rel, rel_m]) / (rel.sum() + rel_m.sum())\nsamples = np.array([800.0] * 5 + [1000.0] * 4)[:, None, None] * share[None, :, :]\na = ages[:, None]\ne = ages[None, :]\nfrom scipy.stats import norm\nP = norm.cdf((e + 0.5 - a) / 1.6625615194893861) - norm.cdf((e - 0.5 - a) / 1.6625615194893861)\nP = P / P.sum(axis=1, keepdims=True)\nnumbers = samples[:, :, :, None] * P[None, None, :, :]\nassert np.allclose(pseudo_fisher_information(theta, 2016, 4, numbers, years, 2002, True), target)",
+        "import numpy as np\ntheta = np.array([np.log(48000.0), -0.012, np.log(0.955 / 0.045), np.log(0.85 / 0.15), np.log(0.16 / 0.84), np.log(0.38 / 0.62)])\nyears = np.array([2014, 2015, 2016, 2017, 2018, 2024, 2025, 2026, 2027])\nages = np.arange(1, 38)\nlam = np.exp(-0.012)\nrel = np.where(ages < 6, lam ** (-ages) * 0.85 ** (ages - 1), lam ** (-ages) * 0.85 ** 5 * 0.955 ** (ages - 6))\nrel_m = np.where(ages <= 5, rel, 0.0)\nshare = np.array([rel, rel_m]) / (rel.sum() + rel_m.sum())\nsamples = np.array([800.0] * 5 + [1000.0] * 4)[:, None, None] * share[None, :, :]\na = ages[:, None]\ne = ages[None, :]\nfrom scipy.stats import norm\nP = norm.cdf((e + 0.5 - a) / 1.6625615194893861) - norm.cdf((e - 0.5 - a) / 1.6625615194893861)\nP = P / P.sum(axis=1, keepdims=True)\nnumbers = samples[:, :, :, None] * P[None, None, :, :]\nassert np.allclose(pseudo_fisher_information(theta, 2016, 4, numbers, years, 2002, False), target)",
+        "import numpy as np\ntheta = np.array([np.log(3000.0), 0.05, np.log(0.93 / 0.07), np.log(0.7 / 0.3), np.log(0.25 / 0.75), np.log(0.5 / 0.5)])\na = np.arange(1, 16)[:, None]\ne = np.arange(1, 16)[None, :]\nfrom scipy.stats import norm\nP = norm.cdf((e + 0.5 - a) / 3.0) - norm.cdf((e - 0.5 - a) / 3.0)\nP = P / P.sum(axis=1, keepdims=True)\nsamples = np.linspace(5.0, 40.0, 3 * 2 * 15).reshape(3, 2, 15)\nnumbers = samples[:, :, :, None] * P[None, None, :, :]\nassert np.allclose(pseudo_fisher_information(theta, 2012, 3, numbers, np.array([2010, 2011, 2012]), 1998, True), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-37.11",
+      "test_cases": [
+        "import numpy as np\ntheta = np.array([np.log(48000.0), -0.012, np.log(0.955 / 0.045), np.log(0.85 / 0.15), np.log(0.16 / 0.84), np.log(0.38 / 0.62)])\nyears = np.array([2014, 2015, 2016, 2017, 2018, 2024, 2025, 2026, 2027])\nages = np.arange(1, 38)\nlam = np.exp(-0.012)\nrel = np.where(ages < 6, lam ** (-ages) * 0.85 ** (ages - 1), lam ** (-ages) * 0.85 ** 5 * 0.955 ** (ages - 6))\nrel_m = np.where(ages <= 5, rel, 0.0)\nshare = np.array([rel, rel_m]) / (rel.sum() + rel_m.sum())\nsamples = np.array([800.0] * 5 + [600.0] * 4)[:, None, None] * share[None, :, :]\na = ages[:, None]\ne = ages[None, :]\nfrom scipy.stats import norm\nP = norm.cdf((e + 0.5 - a) / 1.6625615194893861) - norm.cdf((e - 0.5 - a) / 1.6625615194893861)\nP = P / P.sum(axis=1, keepdims=True)\nnumbers = samples[:, :, :, None] * P[None, None, :, :]\nassert np.allclose(design_precision(theta, 2016, 4, numbers, years, 2002, 2027), target)",
+        "import numpy as np\ntheta = np.array([np.log(48000.0), -0.012, np.log(0.955 / 0.045), np.log(0.85 / 0.15), np.log(0.16 / 0.84), np.log(0.38 / 0.62)])\nyears = np.array([2014, 2015, 2016, 2017, 2018, 2024, 2025, 2026, 2027])\nages = np.arange(1, 38)\nlam = np.exp(-0.012)\nrel = np.where(ages < 6, lam ** (-ages) * 0.85 ** (ages - 1), lam ** (-ages) * 0.85 ** 5 * 0.955 ** (ages - 6))\nrel_m = np.where(ages <= 5, rel, 0.0)\nshare = np.array([rel, rel_m]) / (rel.sum() + rel_m.sum())\nsamples = np.array([800.0] * 5 + [1500.0] * 4)[:, None, None] * share[None, :, :]\na = ages[:, None]\ne = ages[None, :]\nfrom scipy.stats import norm\nP = norm.cdf((e + 0.5 - a) / 1.6625615194893861) - norm.cdf((e - 0.5 - a) / 1.6625615194893861)\nP = P / P.sum(axis=1, keepdims=True)\nnumbers = samples[:, :, :, None] * P[None, None, :, :]\nassert np.allclose(design_precision(theta, 2016, 4, numbers, years, 2002, 2016), target)",
+        "import numpy as np\ntheta = np.array([np.log(3000.0), 0.05, np.log(0.93 / 0.07), np.log(0.7 / 0.3), np.log(0.25 / 0.75), np.log(0.5 / 0.5)])\na = np.arange(1, 16)[:, None]\ne = np.arange(1, 16)[None, :]\nfrom scipy.stats import norm\nP = norm.cdf((e + 0.5 - a) / 3.0) - norm.cdf((e - 0.5 - a) / 3.0)\nP = P / P.sum(axis=1, keepdims=True)\nsamples = np.linspace(5.0, 40.0, 4 * 2 * 15).reshape(4, 2, 15)\nnumbers = samples[:, :, :, None] * P[None, None, :, :]\nassert np.allclose(design_precision(theta, 2012, 3, numbers, np.array([2010, 2011, 2012, 2013]), 1998, 2023), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-37.12",
+      "test_cases": [
+        "import numpy as np\ntheta = np.array([np.log(48000.0), -0.012, np.log(0.955 / 0.045), np.log(0.85 / 0.15), np.log(0.16 / 0.84), np.log(0.38 / 0.62)])\ntrue = np.array([1, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 5, 5, 6, 7, 8, 9, 10, 12, 14, 16, 18, 20, 22, 25, 28, 31, 34, 36])\nest = np.array([2, 2, 4, 1, 3, 4, 2, 4, 5, 6, 4, 3, 3, 5, 4, 9, 6, 8, 9, 14, 15, 17, 19, 18, 20, 28, 28, 31, 32, 36])\nassert np.allclose(smallest_design_expected_kin_pairs(theta, 2016, 4, 2002, np.arange(2014, 2019), 800.0, np.arange(2024, 2028), 50, 3000, 37, 5, 2027, 0.10, true, est), target)",
+        "import numpy as np\ntheta = np.array([np.log(2000.0), 0.0, np.log(0.9 / 0.1), np.log(0.75 / 0.25), np.log(0.2 / 0.8), np.log(0.45 / 0.55)])\ntrue = np.array([2, 5, 9, 14, 20])\nest = np.array([2, 5, 10, 14, 20])\nassert np.allclose(smallest_design_expected_kin_pairs(theta, 2010, 4, 1995, np.array([2008]), 0.0, np.array([2009, 2010, 2011]), 50, 5000, 25, 0, 2011, 0.15, true, est), target)",
+        "import numpy as np\ntheta = np.array([np.log(9000.0), -0.03, np.log(0.94 / 0.06), np.log(0.8 / 0.2), np.log(0.1 / 0.9), np.log(0.35 / 0.65)])\ntrue = np.array([1, 3, 3, 6, 8, 12, 15, 20, 24, 27])\nest = np.array([3, 1, 6, 9, 5, 16, 12, 24, 21, 30])\nassert np.allclose(smallest_design_expected_kin_pairs(theta, 2005, 4, 1996, np.array([2003, 2004]), 300.0, np.array([2010, 2012]), 250, 20000, 30, 5, 2020, 0.06, true, est), target)"
+      ]
+    }
+  ]
+}

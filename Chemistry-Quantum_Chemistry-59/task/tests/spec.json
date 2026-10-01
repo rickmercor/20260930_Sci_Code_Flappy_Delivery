@@ -1,0 +1,88 @@
+{
+  "problem_id": "Chemistry-Quantum_Chemistry-59",
+  "sub_steps": [
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-59.1",
+      "test_cases": [
+        "import numpy as np\nd=np.array([3,1],dtype=np.int64); a=np.array([0]); c=np.array([4])\nassert np.allclose(apply_fermion_string(d.copy(),a.copy(),c.copy(),4), target)",
+        "import numpy as np\nd=np.array([3,3],dtype=np.int64); a=np.array([0,3]); c=np.array([5,6])\nassert np.allclose(apply_fermion_string(d.copy(),a.copy(),c.copy(),4), target)",
+        "import numpy as np\nd=np.array([5,2],dtype=np.int64); a=np.array([6]); c=np.array([0])\nassert np.allclose(apply_fermion_string(d.copy(),a.copy(),c.copy(),4), target)",
+        "import numpy as np\nd=np.array([5,3],dtype=np.int64); a=np.array([0,4]); c=np.array([6,2])\nassert np.allclose(apply_fermion_string(d.copy(),a.copy(),c.copy(),4), target)",
+        "import numpy as np\nd=np.array([1,0],dtype=np.int64); a=np.array([],dtype=np.int64); c=np.array([0],dtype=np.int64)\nassert np.allclose(apply_fermion_string(d.copy(),a.copy(),c.copy(),2), target)",
+        "import numpy as np\nd=np.array([1,0],dtype=np.int64); a=np.array([4]); c=np.array([],dtype=np.int64)\ndef check(fn):\n try: fn(d.copy(),a.copy(),c.copy(),2)\n except ValueError: return 1\n except Exception: return 2\n return 0\nassert np.allclose(check(apply_fermion_string), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-59.2",
+      "test_cases": [
+        "import numpy as np\nd=np.array([[1,1],[2,1],[1,2],[2,2]],dtype=np.int64); h,g=_small_integrals(2,11)\nassert np.allclose(build_selected_hamiltonian(d.copy(),h.copy(),g.copy(),2), target)",
+        "import numpy as np\nd=np.array([[3,1],[5,1],[3,2],[6,1],[5,2]],dtype=np.int64); h,g=_small_integrals(3,29)\nassert np.allclose(build_selected_hamiltonian(d.copy(),h.copy(),g.copy(),3), target)",
+        "import numpy as np\nd=np.array([[3,3]],dtype=np.int64); h,g=_small_integrals(3,47)\nassert np.allclose(build_selected_hamiltonian(d.copy(),h.copy(),g.copy(),3), target)",
+        "import numpy as np\nd=np.array([[3,3],[12,12],[5,10],[10,5]],dtype=np.int64); h,g=_small_integrals(4,73)\nassert np.allclose(build_selected_hamiltonian(d.copy(),h.copy(),g.copy(),4), target)",
+        "import numpy as np\nd=np.array([[1,1],[1,1]],dtype=np.int64); h,g=_small_integrals(2,83)\ndef check(fn):\n try: fn(d.copy(),h.copy(),g.copy(),2)\n except ValueError: return 1\n except Exception: return 2\n return 0\nassert np.allclose(check(build_selected_hamiltonian), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-59.3",
+      "test_cases": [
+        "import numpy as np\ns=np.array([1.,-1.,1.,-1.]); x=np.array([-2.,-.3,-1.1,-.7])\nassert np.allclose(normalized_configuration_probabilities(s.copy(),x.copy()), target)",
+        "import numpy as np\ns=np.array([-1.]); x=np.array([700.])\nassert np.allclose(normalized_configuration_probabilities(s.copy(),x.copy()), target)",
+        "import numpy as np\ns=np.array([1.,-1.,1.]); x=np.array([1000.,0.,-1000.])\nassert np.allclose(normalized_configuration_probabilities(s.copy(),x.copy()), target)",
+        "import numpy as np\ns=np.array([-1.,1.,-1.,1.,1.]); x=np.zeros(5)\nassert np.allclose(normalized_configuration_probabilities(s.copy(),x.copy()), target)",
+        "import numpy as np\ns=np.array([1.,0.]); x=np.array([0.,-1.])\ndef check(fn):\n try: fn(s.copy(),x.copy())\n except ValueError: return 1\n except Exception: return 2\n return 0\nassert np.allclose(check(normalized_configuration_probabilities), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-59.4",
+      "test_cases": [
+        "import numpy as np\np=np.array([.08,.41,.12,.24,.15])\nassert np.allclose(select_cumulative_support(p.copy(),.70,1,5), target)",
+        "import numpy as np\np=np.array([.5,.3,.2])\nassert np.allclose(select_cumulative_support(p.copy(),.8,1,3), target)",
+        "import numpy as np\np=np.array([.7,.1,.1,.1])\nassert np.allclose(select_cumulative_support(p.copy(),.5,3,4), target)",
+        "import numpy as np\np=np.array([2.,2.,2.,2.,1.])\nassert np.allclose(select_cumulative_support(p.copy(),.95,1,3), target)",
+        "import numpy as np\np=np.array([.5,.3,.2])\ndef check(fn):\n try: fn(p.copy(),0.,1,3)\n except ValueError: return 1\n except Exception: return 2\n return 0\nassert np.allclose(check(select_cumulative_support), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-59.5",
+      "test_cases": [
+        "import numpy as np\nh=np.array([[-1.,.2,.05,0.],[.2,-.7,.3,.08],[.05,.3,.4,.1],[0.,.08,.1,.9]]); psi=np.array([3.,4.,.2,.1]); d=np.array([[3,1],[1,3],[2,3],[3,2]],dtype=np.int64); v=np.array([0,1])\nassert np.allclose(screen_dynamic_perturbative_space(h.copy(),psi.copy(),d.copy(),v.copy(),.12), target)",
+        "import numpy as np\nh=np.array([[0.,.25],[.25,0.]]); psi=np.array([1.,0.]); d=np.array([[1,1],[2,1]],dtype=np.int64); v=np.array([0])\nassert np.allclose(screen_dynamic_perturbative_space(h.copy(),psi.copy(),d.copy(),v.copy(),.25), target)",
+        "import numpy as np\nh=np.diag([-1.,-.5,.2]); psi=np.array([1.,-2.,.3]); d=np.array([[2,3],[1,2],[1,1]],dtype=np.int64); v=np.array([0,1])\nassert np.allclose(screen_dynamic_perturbative_space(h.copy(),psi.copy(),d.copy(),v.copy(),.001), target)",
+        "import numpy as np\nh=np.array([[0.,0.,.4,.3],[0.,0.,.1,.2],[.4,.1,0.,0.],[.3,.2,0.,0.]]); psi=np.array([1.,1.,0.,0.]); d=np.array([[3,3],[2,2],[5,1],[1,5]],dtype=np.int64); v=np.array([0,1])\nassert np.allclose(screen_dynamic_perturbative_space(h.copy(),psi.copy(),d.copy(),v.copy(),.05), target)",
+        "import numpy as np\nh=np.array([[-1.,.2],[.2,-.5]]); psi=np.array([1.,-2.]); d=np.array([[1,1],[2,1]],dtype=np.int64); v=np.array([0,1])\nassert np.allclose(screen_dynamic_perturbative_space(h.copy(),psi.copy(),d.copy(),v.copy(),.1), target)",
+        "import numpy as np\nh=np.eye(2); psi=np.ones(2); d=np.array([[1,1],[2,1]],dtype=np.int64); v=np.array([0])\ndef check(fn):\n try: fn(h.copy(),psi.copy(),d.copy(),v.copy(),-.1)\n except ValueError: return 1\n except Exception: return 2\n return 0\nassert np.allclose(check(screen_dynamic_perturbative_space), target)",
+        "import numpy as np\nh=np.eye(2); psi=np.ones(2); d=np.array([[-1,1],[2,1]],dtype=np.int64); v=np.array([1])\ndef check(fn):\n try: fn(h.copy(),psi.copy(),d.copy(),v.copy(),.1)\n except ValueError: return 1\n except Exception: return 2\n return 0\nassert np.allclose(check(screen_dynamic_perturbative_space), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-59.6",
+      "test_cases": [
+        "import numpy as np\nh=np.array([[-1.,.2,.3],[.2,-.4,.1],[.3,.1,.5]]); psi=np.array([2.,-1.,.5]); v=np.array([0,1]); p=np.array([2])\nassert np.allclose(deterministic_energy_diagnostics(h.copy(),psi.copy(),v.copy(),p.copy()), target)",
+        "import numpy as np\nh=np.array([[-2.,.4],[.4,-1.]]); psi=np.array([1.,2.]); v=np.array([1,0]); p=np.array([],dtype=np.int64)\nassert np.allclose(deterministic_energy_diagnostics(h.copy(),psi.copy(),v.copy(),p.copy()), target)",
+        "import numpy as np\nh=np.diag(np.array([-3.,-2.,.2,.7])); psi=np.array([1.,-1.,2.,-2.]); v=np.array([0,1]); p=np.array([3,2])\nassert np.allclose(deterministic_energy_diagnostics(h.copy(),psi.copy(),v.copy(),p.copy()), target)",
+        "import numpy as np\nh=np.array([[-1.2,.15,.2,-.1],[.15,-.8,.05,.3],[.2,.05,.4,.6],[-.1,.3,.6,.9]]); psi=np.array([.3,-.7,.2,.5]); v=np.array([1,0]); p=np.array([3,2])\nassert np.allclose(deterministic_energy_diagnostics(h.copy(),psi.copy(),v.copy(),p.copy()), target)",
+        "import numpy as np\nh=np.eye(3); psi=np.ones(3); v=np.array([0,1]); p=np.array([1,2])\ndef check(fn):\n try: fn(h.copy(),psi.copy(),v.copy(),p.copy())\n except ValueError: return 1\n except Exception: return 2\n return 0\nassert np.allclose(check(deterministic_energy_diagnostics), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-59.7",
+      "test_cases": [
+        "import numpy as np\nh=np.array([[-1.,.2,.3],[.2,-.4,.1],[.3,.1,.5]]); psi=np.array([2.,-1.,.5]); v=np.array([0,1]); p=np.array([2])\nassert np.allclose(decomposed_epstein_nesbet_pt2(h.copy(),psi.copy(),v.copy(),p.copy(),-.5,.2), target)",
+        "import numpy as np\nh=np.array([[-2.,.3,0.],[.3,-1.,0.],[0.,0.,.4]]); w,u=np.linalg.eigh(h[:2,:2]); psi=np.array([u[0,0],u[1,0],0.]); v=np.array([0,1]); p=np.array([],dtype=np.int64); et=float(w[0]+.7)\nassert np.allclose(decomposed_epstein_nesbet_pt2(h.copy(),psi.copy(),v.copy(),p.copy(),et,.7), target)",
+        "import numpy as np\nh=np.array([[-1.5,.25],[.25,-.6]]); psi=np.array([1.,2.]); v=np.array([1,0]); p=np.array([],dtype=np.int64)\nassert np.allclose(decomposed_epstein_nesbet_pt2(h.copy(),psi.copy(),v.copy(),p.copy(),-.8,.4), target)",
+        "import numpy as np\nh=np.array([[-2.,.1,.25,-.2],[.1,-1.1,.3,.05],[.25,.3,.2,.1],[-.2,.05,.1,.8]]); psi=np.array([-.4,.9,.2,-.1]); v=np.array([0,1]); p=np.array([3,2])\nassert np.allclose(decomposed_epstein_nesbet_pt2(h.copy(),psi.copy(),v.copy(),p.copy(),-1.1,.5), target)",
+        "import numpy as np\nh=np.diag([-1.,.5]); psi=np.array([1.,0.]); v=np.array([0]); p=np.array([1])\ndef check(fn):\n try: fn(h.copy(),psi.copy(),v.copy(),p.copy(),-1.,0.)\n except ValueError: return 1\n except Exception: return 2\n return 0\nassert np.allclose(check(decomposed_epstein_nesbet_pt2), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-59.8",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(nqs_internal_pt2_share(), target)",
+        "import numpy as np\nargs=_make_nqs_fixture(3107,4,18,.82,.010,4,8,.91)\nassert np.allclose(nqs_internal_pt2_share(*tuple(x.copy() if isinstance(x,np.ndarray) else x for x in args)), target)",
+        "import numpy as np\nargs=_make_nqs_fixture(902,5,24,.88,.014,5,10,1.6)\nassert np.allclose(nqs_internal_pt2_share(*tuple(x.copy() if isinstance(x,np.ndarray) else x for x in args)), target)",
+        "import numpy as np\nargs=_make_nqs_fixture(1441,4,20,.75,.008,3,7,.5)\nassert np.allclose(nqs_internal_pt2_share(*tuple(x.copy() if isinstance(x,np.ndarray) else x for x in args)), target)",
+        "import numpy as np\nargs=_make_nqs_fixture(1771,4,16,.8,.01,4,7,.7); args=(args[0],)+tuple(None for _ in range(9))\ndef check(fn):\n try: fn(*tuple(x.copy() if isinstance(x,np.ndarray) else x for x in args))\n except ValueError: return 1\n except Exception: return 2\n return 0\nassert np.allclose(check(nqs_internal_pt2_share), target)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+problem_id: "Physics-Astrophysics-40"
+subject: "physics"
+subject_area: "Astrophysics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1016/j.icarus.2026.117303"
+dependencies: ""
+steps:
+  - number: 1
+    name: "sample entry"
+    description: "Step 1: draw one entry state, physical realization, and nuisance point."
+    orchestrator: false
+  - number: 2
+    name: "atmospheric rhs"
+    description: "Step 2: evaluate local atmosphere, loading, drag, gravity, and ablation."
+    orchestrator: false
+  - number: 3
+    name: "propagate fragment"
+    description: "Step 3: propagate one fragment to impact, depletion, or breakup."
+    orchestrator: false
+  - number: 4
+    name: "partition fragment cloud"
+    description: "Step 4: partition a disrupted parent and assign transverse kicks."
+    orchestrator: false
+  - number: 5
+    name: "simulate realization"
+    description: "Step 5: propagate one queue-based cascading-fragment realization."
+    orchestrator: false
+  - number: 6
+    name: "build impact cloud"
+    description: "Step 6: assemble the proposal cloud and retain realization metadata."
+    orchestrator: false
+  - number: 7
+    name: "compute population weights"
+    description: "Step 7: importance-reweight the proposal cloud for three populations."
+    orchestrator: false
+  - number: 8
+    name: "fit ground gmm"
+    description: "Step 8: fit a weighted three-dimensional mass-location Gaussian mixture."
+    orchestrator: false
+  - number: 9
+    name: "infer campaign recovery"
+    description: "Step 9: infer second-campaign recovery from a mixed first catalog."
+    orchestrator: false
+  - number: 10
+    name: "solve strewn probability"
+    description: "Step 10: compose the complete posterior predictive recovery calculation."
+    orchestrator: true

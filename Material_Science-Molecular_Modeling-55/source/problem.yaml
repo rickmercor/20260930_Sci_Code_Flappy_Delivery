@@ -1,0 +1,36 @@
+problem_id: "Material_Science-Molecular_Modeling-55"
+subject: "materials"
+subject_area: "Molecular Modeling"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1038/s41524-026-02080-3"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_generate_uncertainty_panel"
+    description: "Generate the deterministic descriptor, force, and baseline-uncertainty panel from the delivered specification. Require integer n_cal, n_test, and d with n_cal at least 40, n_test at least 24, and d at least 6. Preserve every default_rng draw in the stated order. Return x_cal, predicted and reference calibration forces, sigma_cal, x_test, predicted and reference test forces, and sigma_test."
+    orchestrator: false
+  - number: 2
+    name: "02_compute_site_scores"
+    description: "Call public Step 1 and compute the source-defined site-specific force calibration score for every calibration environment. Use the Euclidean norm of the force-vector discrepancy and the positive baseline uncertainty exactly as defined in the paper. Return the scores, force-error magnitudes, and the specified index-weighted score checksum."
+    orchestrator: false
+  - number: 3
+    name: "03_fit_global_conformal"
+    description: "Call public Step 2. Require the miscoverage level alpha strictly between zero and one, so the target coverage is 1-alpha. Apply the paper's finite-sample conformal order statistic, clipping its rank to the available scores, to obtain the global multiplicative calibrator. Compute the mean pinball loss at quantile level 1-alpha, the level that this multiplier estimates, and return q_global, pinball, and the unchanged score checksum."
+    orchestrator: false
+  - number: 4
+    name: "04_fit_class_conformal"
+    description: "Call public Steps 1 and 2, standardize the calibration descriptors, and fit the specified diagonal Gaussian mixture for exactly 17 EM updates. Require 2 <= n_classes <= min(20,n_cal//4) and the miscoverage level alpha strictly between zero and one. Recompute responsibilities from the final mixture parameters before assigning calibration labels. Apply the paper's class-conditional quantile rule within each component and use the global quantile only for a component with fewer than three members. Return class quantiles, mixture parameters, standardization arrays, and class_checksum."
+    orchestrator: false
+  - number: 5
+    name: "05_fit_flexible_quantile"
+    description: "Call public Steps 1 and 2. Require width at least 5, iterations at least 5, and positive ridge. Build the disclosed smooth random-feature basis. Use the weighted log-score regression and fixed IRLS updates only to initialize beta; then perform the stated deterministic subgradient optimization on the physically weighted DIRECT force-space absolute error. Return the best beta, descriptor standardization, its attained direct force-space objective, and flexible_checksum."
+    orchestrator: false
+  - number: 6
+    name: "06_evaluate_transfer_tensor"
+    description: "Call public Steps 1, 3, 4, and 5. Require each supplied tensor axis to contain at least two values. Evaluate every descriptor shift, uncertainty scale, and functional-correction scale in C order. At each cell apply the global scalar, the maximum-responsibility class scale, and the smooth descriptor scale; for each method store risk, coverage, stable-rank Spearman correlation, windowed high-error selection accuracy, and top-k precision. Return the complete fifteen-channel tensor and tensor_checksum."
+    orchestrator: false
+  - number: 7
+    name: "07_compute_uncertainty_calibration_audit"
+    description: "This is the final orchestrator. Require an integer seed. Call public Steps 1 through 6 with the stated default path, including the full 4 by 3 by 3 tensor. From the three risk channels compute improvement, median_risk, population risk_spread, worst_risk, leading_singular, transfer_risk, and J exactly as specified. Return J rounded to eight decimals together with q_global, four checksums, the flexible direct-loss objective, and all six risk diagnostics. The protected implementation must make the identical chain using protected Steps 1 through 6 only."
+    orchestrator: true

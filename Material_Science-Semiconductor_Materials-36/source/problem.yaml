@@ -1,0 +1,44 @@
+problem_id: "Material_Science-Semiconductor_Materials-36"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1016/j.ijheatmasstransfer.2026.128356"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_compute_axial_eigenmodes"
+    description: "Build the axial eigenvalues and their squared norms for a through-silicon via that is adiabatic on its bottom face and held at the ambient temperature by a heat sink on its top face."
+    orchestrator: false
+  - number: 2
+    name: "02_propagate_radial_eigenfunction"
+    description: "Propagate one radial eigenfunction of the layered via outward from the axis, returning the two Bessel amplitudes and the separation constant of every material layer for a trial thermal decay rate."
+    orchestrator: false
+  - number: 3
+    name: "03_compute_radial_eigenvalues"
+    description: "Locate the leading thermal decay rates of the layered via for one axial mode by finding the zeros of the outward radial slope at the adiabatic outer surface."
+    orchestrator: false
+  - number: 4
+    name: "04_compute_modal_coefficients"
+    description: "Project a uniform initial temperature rise onto the layered eigenfunctions of one axial mode and return the expansion coefficient of every radial mode."
+    orchestrator: false
+  - number: 5
+    name: "05_compute_temperature_rise"
+    description: "Evaluate the transient excess temperature of the layered via at one point and one instant by summing the assembled double eigenfunction series."
+    orchestrator: false
+  - number: 6
+    name: "06_compute_potential_stress_terms"
+    description: "Evaluate the displacement and stress contributions of the thermoelastic displacement potential in one layer, for one axial mode, at one radius and instant."
+    orchestrator: false
+  - number: 7
+    name: "07_compute_love_mode_coefficients"
+    description: "Solve the interface and traction-free conditions of one axial mode for the Love displacement function coefficients of every layer."
+    orchestrator: false
+  - number: 8
+    name: "08_assemble_mode_stress"
+    description: "Combine the Love displacement function of a layer with the thermoelastic potential of the same layer to obtain the four stress amplitudes of one axial mode at one radius."
+    orchestrator: false
+  - number: 9
+    name: "09_run_mobility_shift_pipeline"
+    description: "Chain the sub-problem functions 01-08 end to end on the quenched through-silicon via and return the piezoresistive carrier mobility change rate at the requested point and instant.\n\nOrchestrator: yes - this is the final step; it integrates the earlier sub-problems (compute_axial_eigenmodes, propagate_radial_eigenfunction, compute_radial_eigenvalues, compute_modal_coefficients, compute_temperature_rise, compute_potential_stress_terms, compute_love_mode_coefficients, assemble_mode_stress) rather than reimplementing them."
+    orchestrator: true

@@ -1,0 +1,40 @@
+problem_id: "Chemistry-Quantum_Chemistry-80"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1039/D6CP02924H"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_morse_moment_matrices"
+    description: "Matrix elements of the first four powers of the dimensionless bond coordinate between the lowest bound states of a local X-H Morse oscillator."
+    orchestrator: false
+  - number: 2
+    name: "02_promoting_integrals"
+    description: "Franck-Condon overlaps and first-derivative integrals between the vibrational ground state of a mode in the excited electronic state and its ground-state levels, for a Morse bond or, when the anharmonicity is zero, a harmonic mode."
+    orchestrator: false
+  - number: 3
+    name: "03_local_force_field"
+    description: "Anharmonic force field rewritten in local X-H bond coordinates: the cubic and quartic Hamiltonian coefficients of every canonical monomial, split into pure X-H, mixed and pure-bath classes, with the diagonal bond terms removed and small coefficients screened out."
+    orchestrator: false
+  - number: 4
+    name: "04_window_states"
+    description: "Enumeration of the complete zero-order product states of the local Morse bonds and the harmonic bath whose vibrational excitation energy lies within a resonance window around the electronic energy gap."
+    orchestrator: false
+  - number: 5
+    name: "05_zero_order_amplitudes"
+    description: "Zero-order internal-conversion amplitudes of product final states, split into the X-H-active channel, where the promoting derivative acts on a local bond coordinate, and the bath-active channel, where it acts on a bath mode."
+    orchestrator: false
+  - number: 6
+    name: "06_first_order_intensities"
+    description: "Transition intensities of product states corrected to first order in the off-diagonal pure X-H anharmonic coupling, which borrows amplitude from other local-bond configurations that share the same bath quantum numbers."
+    orchestrator: false
+  - number: 7
+    name: "07_spreading_widths"
+    description: "State-resolved spreading widths of product final states from their golden-rule decay into other product states through the mixed and pure-bath anharmonic terms, with the energy-conserving delta function replaced by a narrow Lorentzian."
+    orchestrator: false
+  - number: 8
+    name: "08_internal_conversion_rate"
+    description: "State-correlated internal-conversion rate constant of the local-Morse doorway model: every product state in the window contributes its first-order intensity with its own spreading width and its own energy mismatch."
+    orchestrator: true

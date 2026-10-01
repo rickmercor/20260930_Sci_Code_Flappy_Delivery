@@ -1,0 +1,84 @@
+{
+  "problem_id": "Material_Science-Semiconductor_Materials-29",
+  "sub_steps": [
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-29.1",
+      "test_cases": [
+        "import numpy as np\nthickness = 100.0\npermittivity = 3.5\ntemperature = 300.0\nnc = 1.0e26\nnv = 1.0e26\ngap = 1.5\nbarrier_anode = 0.02\nbarrier_cathode = 0.02\nmobility_n = 1.0e-8\nmobility_p = 5.0e-9\nlangevin_factor = 0.1\nassert np.allclose(diode_parameters(thickness, permittivity, temperature, nc, nv, gap, barrier_anode, barrier_cathode, mobility_n, mobility_p, langevin_factor), target)",
+        "import numpy as np\nthickness = 100.0\npermittivity = 3.5\ntemperature = 300.0\nnc = 1.0e26\nnv = 1.0e26\ngap = 1.5\nbarrier_anode = 0.02\nbarrier_cathode = 0.50\nmobility_n = 1.0e-8\nmobility_p = 5.0e-9\nlangevin_factor = 0.1\nassert np.allclose(diode_parameters(thickness, permittivity, temperature, nc, nv, gap, barrier_anode, barrier_cathode, mobility_n, mobility_p, langevin_factor), target)",
+        "import numpy as np\nthickness = 80.0\npermittivity = 3.0\ntemperature = 320.0\nnc = 5.0e25\nnv = 2.0e26\ngap = 1.7\nbarrier_anode = 0.10\nbarrier_cathode = 0.15\nmobility_n = 2.0e-8\nmobility_p = 1.0e-8\nlangevin_factor = 0.05\nassert np.allclose(diode_parameters(thickness, permittivity, temperature, nc, nv, gap, barrier_anode, barrier_cathode, mobility_n, mobility_p, langevin_factor), target)",
+        "import numpy as np\nthickness = 100.0\npermittivity = 3.5\ntemperature = 300.0\nnc = 1.0e26\nnv = 1.0e26\ngap = 1.5\nbarrier_anode = 0.25\nbarrier_cathode = 0.25\nmobility_n = 1.0e-8\nmobility_p = 5.0e-9\nlangevin_factor = 0.1\nassert np.allclose(diode_parameters(thickness, permittivity, temperature, nc, nv, gap, barrier_anode, barrier_cathode, mobility_n, mobility_p, langevin_factor), target)",
+        "import numpy as np\nthickness = 100.0\npermittivity = 3.5\ntemperature = 300.0\nnc = 1.0e26\nnv = 1.0e26\ngap = 1.5\nbarrier_anode = 0.0\nbarrier_cathode = 0.0\nmobility_n = 1.0e-8\nmobility_p = 5.0e-9\nlangevin_factor = 0.1\nassert np.allclose(diode_parameters(thickness, permittivity, temperature, nc, nv, gap, barrier_anode, barrier_cathode, mobility_n, mobility_p, langevin_factor), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-29.2",
+      "test_cases": [
+        "import numpy as np\npar = diode_parameters(100.0, 3.5, 300.0, 1.0e26, 1.0e26, 1.5, 0.02, 0.02, 1.0e-8, 5.0e-9, 0.1)\n\nvoltage = 0.0\nassert np.allclose(effective_built_in_potential(voltage, par), target)",
+        "import numpy as np\npar = diode_parameters(100.0, 3.5, 300.0, 1.0e26, 1.0e26, 1.5, 0.02, 0.02, 1.0e-8, 5.0e-9, 0.1)\n\nvoltage = 0.7\nassert np.allclose(effective_built_in_potential(voltage, par), target)",
+        "import numpy as np\npar = diode_parameters(100.0, 3.5, 300.0, 1.0e26, 1.0e26, 1.5, 0.02, 0.50, 1.0e-8, 5.0e-9, 0.1)\n\nvoltage = -0.5\nassert np.allclose(effective_built_in_potential(voltage, par), target)",
+        "import numpy as np\npar = diode_parameters(80.0, 3.0, 320.0, 5.0e25, 2.0e26, 1.7, 0.10, 0.15, 2.0e-8, 1.0e-8, 0.05)\n\nvoltage = 0.3\nassert np.allclose(effective_built_in_potential(voltage, par), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-29.3",
+      "test_cases": [
+        "import numpy as np\npar = diode_parameters(100.0, 3.5, 300.0, 1.0e26, 1.0e26, 1.5, 0.02, 0.02, 1.0e-8, 5.0e-9, 0.1)\n\npositions = np.array([0.0, 1.0, 5.0, 50.0, 95.0, 100.0])\nvoltage = 0.3\nassert np.allclose(field_and_carrier_profiles(positions, voltage, par), target)",
+        "import numpy as np\npar = diode_parameters(100.0, 3.5, 300.0, 1.0e26, 1.0e26, 1.5, 0.02, 0.50, 1.0e-8, 5.0e-9, 0.1)\n\npositions = np.array([2.0, 40.0, 71.0, 72.0, 99.0])\nvoltage = 0.2\nassert np.allclose(field_and_carrier_profiles(positions, voltage, par), target)",
+        "import numpy as np\npar = diode_parameters(200.0, 3.5, 300.0, 1.0e26, 1.0e26, 1.5, 0.02, 0.02, 1.0e-8, 5.0e-9, 0.1)\n\npositions = np.array([0.5, 100.0, 199.5])\nvoltage = -1.0\nassert np.allclose(field_and_carrier_profiles(positions, voltage, par), target)",
+        "import numpy as np\npar = diode_parameters(80.0, 3.0, 320.0, 5.0e25, 2.0e26, 1.7, 0.10, 0.15, 2.0e-8, 1.0e-8, 0.05)\n\npositions = np.linspace(0.0, 80.0, 17)\nvoltage = 0.5\nassert np.allclose(field_and_carrier_profiles(positions, voltage, par), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-29.4",
+      "test_cases": [
+        "import numpy as np\npar = diode_parameters(100.0, 3.5, 300.0, 1.0e26, 1.0e26, 1.5, 0.02, 0.02, 1.0e-8, 5.0e-9, 0.1)\n\nvoltage = 0.0\nassert np.allclose(analytic_capacitance(voltage, par), target)",
+        "import numpy as np\npar = diode_parameters(100.0, 3.5, 300.0, 1.0e26, 1.0e26, 1.5, 0.02, 0.02, 1.0e-8, 5.0e-9, 0.1)\n\nvoltage = 0.8\nassert np.allclose(analytic_capacitance(voltage, par), target)",
+        "import numpy as np\npar = diode_parameters(100.0, 3.5, 300.0, 1.0e26, 1.0e26, 1.5, 0.25, 0.25, 1.0e-8, 5.0e-9, 0.1)\n\nvoltage = 0.5\nassert np.allclose(analytic_capacitance(voltage, par), target)",
+        "import numpy as np\npar = diode_parameters(100.0, 3.5, 300.0, 1.0e26, 1.0e26, 1.5, 0.02, 0.50, 1.0e-8, 5.0e-9, 0.1)\n\nvoltage = -0.3\nassert np.allclose(analytic_capacitance(voltage, par), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-29.5",
+      "test_cases": [
+        "import numpy as np\npar = diode_parameters(100.0, 3.5, 300.0, 1.0e26, 1.0e26, 1.5, 0.02, 0.02, 1.0e-8, 5.0e-9, 0.1)\n\nvoltage = 0.0\nintervals = 200\nassert np.allclose(drift_diffusion_state(voltage, intervals, par), target)",
+        "import numpy as np\npar = diode_parameters(100.0, 3.5, 300.0, 1.0e26, 1.0e26, 1.5, 0.02, 0.02, 1.0e-8, 5.0e-9, 0.1)\n\nvoltage = 0.7\nintervals = 400\nassert np.allclose(drift_diffusion_state(voltage, intervals, par), target)",
+        "import numpy as np\npar = diode_parameters(100.0, 3.5, 300.0, 1.0e26, 1.0e26, 1.5, 0.02, 0.50, 1.0e-8, 5.0e-9, 0.1)\n\nvoltage = -0.4\nintervals = 200\nassert np.allclose(drift_diffusion_state(voltage, intervals, par), target)",
+        "import numpy as np\npar = diode_parameters(80.0, 3.0, 320.0, 5.0e25, 2.0e26, 1.7, 0.10, 0.15, 2.0e-8, 1.0e-8, 0.05)\n\nvoltage = 0.5\nintervals = 300\nassert np.allclose(drift_diffusion_state(voltage, intervals, par), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-29.6",
+      "test_cases": [
+        "import numpy as np\npar = diode_parameters(100.0, 3.5, 300.0, 1.0e26, 1.0e26, 1.5, 0.02, 0.02, 1.0e-8, 5.0e-9, 0.1)\n\nvoltage = 0.0\nintervals = 200\nstate = drift_diffusion_state(voltage, intervals, par)\nassert np.allclose(exact_capacitance(state, voltage, par), target)",
+        "import numpy as np\npar = diode_parameters(100.0, 3.5, 300.0, 1.0e26, 1.0e26, 1.5, 0.02, 0.02, 1.0e-8, 5.0e-9, 0.1)\n\nvoltage = 0.7\nintervals = 400\nstate = drift_diffusion_state(voltage, intervals, par)\nassert np.allclose(exact_capacitance(state, voltage, par), target)",
+        "import numpy as np\npar = diode_parameters(100.0, 3.5, 300.0, 1.0e26, 1.0e26, 1.5, 0.02, 0.50, 1.0e-8, 5.0e-9, 0.1)\n\nvoltage = -0.4\nintervals = 200\nstate = drift_diffusion_state(voltage, intervals, par)\nassert np.allclose(exact_capacitance(state, voltage, par), target)",
+        "import numpy as np\npar = diode_parameters(80.0, 3.0, 320.0, 5.0e25, 2.0e26, 1.7, 0.10, 0.15, 2.0e-8, 1.0e-8, 0.05)\n\nvoltage = 0.5\nintervals = 300\nstate = drift_diffusion_state(voltage, intervals, par)\nassert np.allclose(exact_capacitance(state, voltage, par), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-29.7",
+      "test_cases": [
+        "import numpy as np\npar = diode_parameters(100.0, 3.5, 300.0, 1.0e26, 1.0e26, 1.5, 0.02, 0.02, 1.0e-8, 5.0e-9, 0.1)\n\nfit_voltages = np.array([-0.2, -0.1, 0.0, 0.1, 0.2])\nintervals = 200\nassert np.allclose(built_in_extraction(fit_voltages, intervals, par), target)",
+        "import numpy as np\npar = diode_parameters(100.0, 3.5, 300.0, 1.0e26, 1.0e26, 1.5, 0.02, 0.50, 1.0e-8, 5.0e-9, 0.1)\n\nfit_voltages = np.array([-0.3, -0.15, 0.0, 0.15])\nintervals = 200\nassert np.allclose(built_in_extraction(fit_voltages, intervals, par), target)",
+        "import numpy as np\npar = diode_parameters(80.0, 3.0, 320.0, 5.0e25, 2.0e26, 1.7, 0.10, 0.15, 2.0e-8, 1.0e-8, 0.05)\n\nfit_voltages = np.array([-0.1, 0.0, 0.1])\nintervals = 300\nassert np.allclose(built_in_extraction(fit_voltages, intervals, par), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-29.8",
+      "test_cases": [
+        "import numpy as np\npar = diode_parameters(100.0, 3.5, 300.0, 1.0e26, 1.0e26, 1.5, 0.02, 0.02, 1.0e-8, 5.0e-9, 0.1)\n\nlevel = 1.0\nintervals = 200\nmarch_step = 0.05\nassert np.allclose(validity_threshold(level, intervals, par, march_step), target)",
+        "import numpy as np\npar = diode_parameters(100.0, 3.5, 300.0, 1.0e26, 1.0e26, 1.5, 0.02, 0.50, 1.0e-8, 5.0e-9, 0.1)\n\nlevel = 0.5\nintervals = 200\nmarch_step = 0.1\nassert np.allclose(validity_threshold(level, intervals, par, march_step), target)",
+        "import numpy as np\npar = diode_parameters(80.0, 3.0, 320.0, 5.0e25, 2.0e26, 1.7, 0.10, 0.15, 2.0e-8, 1.0e-8, 0.05)\n\nlevel = 2.0\nintervals = 300\nmarch_step = 0.05\nassert np.allclose(validity_threshold(level, intervals, par, march_step), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-29.9",
+      "test_cases": [
+        "import numpy as np\ndesign_table = [(100.0, 3.5, 300.0, 1.0e26, 1.0e26, 1.5, 0.02, 0.02, 1.0e-8, 5.0e-9, 0.1)]\nintervals = 400\nlevel = 1.0\nfit_voltages = np.array([-0.2, -0.1, 0.0, 0.1, 0.2])\nmarch_step = 0.05\nassert np.allclose(cv_audit(design_table, intervals, level, fit_voltages, march_step), target)",
+        "import numpy as np\ndesign_table = [(100.0, 3.5, 300.0, 1.0e26, 1.0e26, 1.5, 0.02, 0.50, 1.0e-8, 5.0e-9, 0.1), (100.0, 3.5, 300.0, 1.0e26, 1.0e26, 1.5, 0.25, 0.25, 1.0e-8, 5.0e-9, 0.1)]\nintervals = 200\nlevel = 1.0\nfit_voltages = np.array([-0.2, -0.1, 0.0, 0.1, 0.2])\nmarch_step = 0.05\nassert np.allclose(cv_audit(design_table, intervals, level, fit_voltages, march_step), target)",
+        "import numpy as np\ndesign_table = [(80.0, 3.0, 320.0, 5.0e25, 2.0e26, 1.7, 0.10, 0.15, 2.0e-8, 1.0e-8, 0.05)]\nintervals = 200\nlevel = 2.0\nfit_voltages = np.array([-0.1, 0.0, 0.1])\nmarch_step = 0.1\nassert np.allclose(cv_audit(design_table, intervals, level, fit_voltages, march_step), target)"
+      ]
+    }
+  ]
+}

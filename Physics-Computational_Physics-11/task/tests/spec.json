@@ -1,0 +1,70 @@
+{
+  "problem_id": "Physics-Computational_Physics-11",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Computational_Physics-11.1",
+      "test_cases": [
+        "import numpy as np\ntheta = np.arange(12)*np.pi/6\nradius = 1 + .16*np.cos(2*theta) + .07*np.sin(3*theta) + .04*np.cos(theta)\nnodes = np.column_stack((radius*np.cos(theta), radius*np.sin(theta)))\nhistory = np.zeros((3,12,2))\nhistory[0] = nodes\ndt = .001\nvelocity=np.zeros((2,12,2)); velocity[0,:,0]=.3; velocity[0,:,1]=-.2\nassert np.allclose(normal_diffusion_cost(history.copy(), velocity.copy(), dt), target)",
+        "import numpy as np\ntheta = np.arange(12)*np.pi/6\nradius = 1 + .16*np.cos(2*theta) + .07*np.sin(3*theta) + .04*np.cos(theta)\nnodes = np.column_stack((radius*np.cos(theta), radius*np.sin(theta)))\nhistory = np.zeros((3,12,2))\nhistory[0] = nodes\ndt = .001\nvelocity=np.zeros((2,12,2))\nassert np.allclose(normal_diffusion_cost(history.copy(), velocity.copy(), dt), target)",
+        "import numpy as np\ntheta = np.arange(12)*np.pi/6\nradius = 1 + .16*np.cos(2*theta) + .07*np.sin(3*theta) + .04*np.cos(theta)\nnodes = np.column_stack((radius*np.cos(theta), radius*np.sin(theta)))\nhistory = np.zeros((3,12,2))\nhistory[0] = nodes\ndt = .001\nhistory[1,:,0]=.02; velocity=np.zeros((2,12,2)); velocity[1,:,1]=.4\nassert np.allclose(normal_diffusion_cost(history.copy(), velocity.copy(), dt), target)",
+        "import numpy as np\ntheta = np.arange(12)*np.pi/6\nradius = 1 + .16*np.cos(2*theta) + .07*np.sin(3*theta) + .04*np.cos(theta)\nnodes = np.column_stack((radius*np.cos(theta), radius*np.sin(theta)))\nhistory = np.zeros((3,12,2))\nhistory[0] = nodes\ndt = .001\nvelocity=np.zeros((2,12,2)); velocity[0]=nodes\ndef _check_public():\n    try:\n        normal_diffusion_cost(history.copy(), velocity.copy(), dt)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_check_public(), target)",
+        "import numpy as np\ntheta = np.arange(12)*np.pi/6\nradius = 1 + .16*np.cos(2*theta) + .07*np.sin(3*theta) + .04*np.cos(theta)\nnodes = np.column_stack((radius*np.cos(theta), radius*np.sin(theta)))\nhistory = np.zeros((3,12,2))\nhistory[0] = nodes\ndt = .001\nhistory[1]=-16*nodes; history[2]=64*nodes; velocity=np.zeros((2,12,2))\ndef _check_public():\n    try:\n        normal_diffusion_cost(history.copy(), velocity.copy(), dt)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_check_public(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Computational_Physics-11.2",
+      "test_cases": [
+        "import numpy as np\ntheta = np.arange(12)*np.pi/6\nradius = 1 + .16*np.cos(2*theta) + .07*np.sin(3*theta) + .04*np.cos(theta)\nnodes = np.column_stack((radius*np.cos(theta), radius*np.sin(theta)))\nhistory = np.zeros((3,12,2))\nhistory[0] = nodes\ndt = .001\naction=np.zeros((2,12)); action[0]=.001*np.cos(theta); action[1]=.0003*np.sin(2*theta)\nassert np.allclose(minimum_deformation_lift(history.copy(), action.copy(), dt), target)",
+        "import numpy as np\ntheta = np.arange(12)*np.pi/6\nradius = 1 + .16*np.cos(2*theta) + .07*np.sin(3*theta) + .04*np.cos(theta)\nnodes = np.column_stack((radius*np.cos(theta), radius*np.sin(theta)))\nhistory = np.zeros((3,12,2))\nhistory[0] = nodes\ndt = .001\naction=np.zeros((2,12))\nassert np.allclose(minimum_deformation_lift(history.copy(), action.copy(), dt), target)",
+        "import numpy as np\ntheta = np.arange(12)*np.pi/6\nradius = 1 + .16*np.cos(2*theta) + .07*np.sin(3*theta) + .04*np.cos(theta)\nnodes = np.column_stack((radius*np.cos(theta), radius*np.sin(theta)))\nhistory = np.zeros((3,12,2))\nhistory[0] = nodes\ndt = .001\naction=np.zeros((2,12)); action[0]=dt/12\nassert np.allclose(minimum_deformation_lift(history.copy(), action.copy(), dt), target)",
+        "import numpy as np\ntheta = np.arange(12)*np.pi/6\nradius = 1 + .16*np.cos(2*theta) + .07*np.sin(3*theta) + .04*np.cos(theta)\nnodes = np.column_stack((radius*np.cos(theta), radius*np.sin(theta)))\nhistory = np.zeros((3,12,2))\nhistory[0] = nodes\ndt = .001\naction=np.zeros((12,2))\ndef _check_public():\n    try:\n        minimum_deformation_lift(history.copy(), action.copy(), dt)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_check_public(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Computational_Physics-11.3",
+      "test_cases": [
+        "import numpy as np\ntheta = np.arange(12)*np.pi/6\nradius = 1 + .16*np.cos(2*theta) + .07*np.sin(3*theta) + .04*np.cos(theta)\nnodes = np.column_stack((radius*np.cos(theta), radius*np.sin(theta)))\nhistory = np.zeros((3,12,2))\nhistory[0] = nodes\ndt = .001\nhistory[1]=.015*nodes*np.cos(theta)[:,None]\nassert np.allclose(normal_length_force(history.copy(), dt), target)",
+        "import numpy as np\ntheta = np.arange(12)*np.pi/6\nradius = 1 + .16*np.cos(2*theta) + .07*np.sin(3*theta) + .04*np.cos(theta)\nnodes = np.column_stack((radius*np.cos(theta), radius*np.sin(theta)))\nhistory = np.zeros((3,12,2))\nhistory[0] = nodes\ndt = .001\nassert np.allclose(normal_length_force(history.copy(), dt), target)",
+        "import numpy as np\ntheta = np.arange(12)*np.pi/6\nradius = 1 + .16*np.cos(2*theta) + .07*np.sin(3*theta) + .04*np.cos(theta)\nnodes = np.column_stack((radius*np.cos(theta), radius*np.sin(theta)))\nhistory = np.zeros((3,12,2))\nhistory[0] = nodes\ndt = .001\nhistory[0]=1.2*nodes+np.array([.2,-.1])\nassert np.allclose(normal_length_force(history.copy(), dt), target)",
+        "import numpy as np\ntheta = np.arange(12)*np.pi/6\nradius = 1 + .16*np.cos(2*theta) + .07*np.sin(3*theta) + .04*np.cos(theta)\nnodes = np.column_stack((radius*np.cos(theta), radius*np.sin(theta)))\nhistory = np.zeros((3,12,2))\nhistory[0] = nodes\ndt = .001\nhistory[:]=0\ndef _check_public():\n    try:\n        normal_length_force(history.copy(), dt)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_check_public(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Computational_Physics-11.4",
+      "test_cases": [
+        "import numpy as np\ntheta = np.arange(12)*np.pi/6\nradius = 1 + .16*np.cos(2*theta) + .07*np.sin(3*theta) + .04*np.cos(theta)\nnodes = np.column_stack((radius*np.cos(theta), radius*np.sin(theta)))\nhistory = np.zeros((3,12,2))\nhistory[0] = nodes\ndt = .001\nhistory[1]=.012*nodes*np.sin(theta)[:,None]\nassert np.allclose(fixed_geometry_response(history.copy(), dt), target)",
+        "import numpy as np\ntheta = np.arange(12)*np.pi/6\nradius = 1 + .16*np.cos(2*theta) + .07*np.sin(3*theta) + .04*np.cos(theta)\nnodes = np.column_stack((radius*np.cos(theta), radius*np.sin(theta)))\nhistory = np.zeros((3,12,2))\nhistory[0] = nodes\ndt = .001\nassert np.allclose(fixed_geometry_response(history.copy(), dt), target)",
+        "import numpy as np\ntheta = np.arange(12)*np.pi/6\nradius = 1 + .16*np.cos(2*theta) + .07*np.sin(3*theta) + .04*np.cos(theta)\nnodes = np.column_stack((radius*np.cos(theta), radius*np.sin(theta)))\nhistory = np.zeros((3,12,2))\nhistory[0] = nodes\ndt = .001\nhistory[0]=1.15*nodes\nassert np.allclose(fixed_geometry_response(history.copy(), dt), target)",
+        "import numpy as np\ntheta = np.arange(12)*np.pi/6\nradius = 1 + .16*np.cos(2*theta) + .07*np.sin(3*theta) + .04*np.cos(theta)\nnodes = np.column_stack((radius*np.cos(theta), radius*np.sin(theta)))\nhistory = np.zeros((3,12,2))\nhistory[0] = nodes\ndt = .001\n\ndef _check_public():\n    try:\n        fixed_geometry_response(history.copy(), 0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_check_public(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Computational_Physics-11.5",
+      "test_cases": [
+        "import numpy as np\ntheta = np.arange(12)*np.pi/6\nradius = 1 + .16*np.cos(2*theta) + .07*np.sin(3*theta) + .04*np.cos(theta)\nnodes = np.column_stack((radius*np.cos(theta), radius*np.sin(theta)))\nhistory = np.zeros((3,12,2))\nhistory[0] = nodes\ndt = .001\nassert np.allclose(discrete_curve_trajectory(nodes.copy(), dt), target)",
+        "import numpy as np\ntheta = np.arange(12)*np.pi/6\nradius = 1 + .16*np.cos(2*theta) + .07*np.sin(3*theta) + .04*np.cos(theta)\nnodes = np.column_stack((radius*np.cos(theta), radius*np.sin(theta)))\nhistory = np.zeros((3,12,2))\nhistory[0] = nodes\ndt = .001\nassert np.allclose(discrete_curve_trajectory(nodes.copy(), .0001), target)",
+        "import numpy as np\ntheta = np.arange(12)*np.pi/6\nradius = 1 + .16*np.cos(2*theta) + .07*np.sin(3*theta) + .04*np.cos(theta)\nnodes = np.column_stack((radius*np.cos(theta), radius*np.sin(theta)))\nhistory = np.zeros((3,12,2))\nhistory[0] = nodes\ndt = .001\nnodes=nodes+np.array([.2,-.15])\nassert np.allclose(discrete_curve_trajectory(nodes.copy(), dt), target)",
+        "import numpy as np\ntheta = np.arange(12)*np.pi/6\nradius = 1 + .16*np.cos(2*theta) + .07*np.sin(3*theta) + .04*np.cos(theta)\nnodes = np.column_stack((radius*np.cos(theta), radius*np.sin(theta)))\nhistory = np.zeros((3,12,2))\nhistory[0] = nodes\ndt = .001\n\ndef _check_public():\n    try:\n        discrete_curve_trajectory(nodes.copy(), -dt)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_check_public(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Computational_Physics-11.6",
+      "test_cases": [
+        "import numpy as np\ntheta = np.arange(12)*np.pi/6\nradius = 1 + .16*np.cos(2*theta) + .07*np.sin(3*theta) + .04*np.cos(theta)\nnodes = np.column_stack((radius*np.cos(theta), radius*np.sin(theta)))\nhistory = np.zeros((3,12,2))\nhistory[0] = nodes\ndt = .001\nhistory[1]=.025*nodes*np.cos(2*theta)[:,None]\nassert np.allclose(relative_curve_length_loss(history.copy()), target)",
+        "import numpy as np\ntheta = np.arange(12)*np.pi/6\nradius = 1 + .16*np.cos(2*theta) + .07*np.sin(3*theta) + .04*np.cos(theta)\nnodes = np.column_stack((radius*np.cos(theta), radius*np.sin(theta)))\nhistory = np.zeros((3,12,2))\nhistory[0] = nodes\ndt = .001\nassert np.allclose(relative_curve_length_loss(history.copy()), target)",
+        "import numpy as np\ntheta = np.arange(12)*np.pi/6\nradius = 1 + .16*np.cos(2*theta) + .07*np.sin(3*theta) + .04*np.cos(theta)\nnodes = np.column_stack((radius*np.cos(theta), radius*np.sin(theta)))\nhistory = np.zeros((3,12,2))\nhistory[0] = nodes\ndt = .001\nhistory[1]=.02*nodes\nassert np.allclose(relative_curve_length_loss(history.copy()), target)",
+        "import numpy as np\ntheta = np.arange(12)*np.pi/6\nradius = 1 + .16*np.cos(2*theta) + .07*np.sin(3*theta) + .04*np.cos(theta)\nnodes = np.column_stack((radius*np.cos(theta), radius*np.sin(theta)))\nhistory = np.zeros((3,12,2))\nhistory[0] = nodes\ndt = .001\nhistory[1]=-16*nodes; history[2]=64*nodes\nassert np.allclose(relative_curve_length_loss(history.copy()), target)",
+        "import numpy as np\ntheta = np.arange(12)*np.pi/6\nradius = 1 + .16*np.cos(2*theta) + .07*np.sin(3*theta) + .04*np.cos(theta)\nnodes = np.column_stack((radius*np.cos(theta), radius*np.sin(theta)))\nhistory = np.zeros((3,12,2))\nhistory[0] = nodes\ndt = .001\nhistory[1]=-nodes\ndef _check_public():\n    try:\n        relative_curve_length_loss(history.copy())\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_check_public(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Computational_Physics-11.7",
+      "test_cases": [
+        "import numpy as np\ntheta = np.arange(12)*np.pi/6\nradius = 1 + .16*np.cos(2*theta) + .07*np.sin(3*theta) + .04*np.cos(theta)\nnodes = np.column_stack((radius*np.cos(theta), radius*np.sin(theta)))\nhistory = np.zeros((3,12,2))\nhistory[0] = nodes\ndt = .001\nassert np.allclose(curve_diffusion_length_loss(nodes.copy(), dt), target)",
+        "import numpy as np\ntheta = np.arange(12)*np.pi/6\nradius = 1 + .16*np.cos(2*theta) + .07*np.sin(3*theta) + .04*np.cos(theta)\nnodes = np.column_stack((radius*np.cos(theta), radius*np.sin(theta)))\nhistory = np.zeros((3,12,2))\nhistory[0] = nodes\ndt = .001\nassert np.allclose(curve_diffusion_length_loss(nodes.copy(), .0001), target)",
+        "import numpy as np\ntheta = np.arange(12)*np.pi/6\nradius = 1 + .16*np.cos(2*theta) + .07*np.sin(3*theta) + .04*np.cos(theta)\nnodes = np.column_stack((radius*np.cos(theta), radius*np.sin(theta)))\nhistory = np.zeros((3,12,2))\nhistory[0] = nodes\ndt = .001\nnodes=nodes+np.array([-.25,.3])\nassert np.allclose(curve_diffusion_length_loss(nodes.copy(), dt), target)",
+        "import numpy as np\ntheta = np.arange(12)*np.pi/6\nradius = 1 + .16*np.cos(2*theta) + .07*np.sin(3*theta) + .04*np.cos(theta)\nnodes = np.column_stack((radius*np.cos(theta), radius*np.sin(theta)))\nhistory = np.zeros((3,12,2))\nhistory[0] = nodes\ndt = .001\n\ndef _check_public():\n    try:\n        curve_diffusion_length_loss(nodes.copy(), 0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_check_public(), target)"
+      ]
+    }
+  ]
+}

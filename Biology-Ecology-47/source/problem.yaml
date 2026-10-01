@@ -1,0 +1,48 @@
+problem_id: "Biology-Ecology-47"
+subject: "biology"
+subject_area: "Ecology"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1111/2041-210X.70372"
+dependencies: ""
+steps:
+  - number: 1
+    name: "Noncircular Niche Profile"
+    description: "Calculate the modified noncircular niche profile."
+    orchestrator: false
+  - number: 2
+    name: "Petra Calibration"
+    description: "Calibrate the PETRA-EDR forecast."
+    orchestrator: false
+  - number: 3
+    name: "Petra Residual Signal"
+    description: "Calculate PETRA-EDR resilience and signed exposure."
+    orchestrator: false
+  - number: 4
+    name: "Assemble Periodic System"
+    description: "Assemble the trajectory-conditioned periodic community system."
+    orchestrator: false
+  - number: 5
+    name: "Plan Certificates"
+    description: "Calculate finite-community feasibility and stability certificates."
+    orchestrator: false
+  - number: 6
+    name: "Periodic Risk Panel"
+    description: "Calculate the periodic risk panel for one management plan."
+    orchestrator: false
+  - number: 7
+    name: "Continuous Plan Profile"
+    description: "Optimize one plan under all periodic climate conditions."
+    orchestrator: false
+  - number: 8
+    name: "Management Profile Table"
+    description: "Calculate the optimized profile table for every plan."
+    orchestrator: false
+  - number: 9
+    name: "Select Regret Controlled Plan"
+    description: "Select the regret-controlled management plan."
+    orchestrator: false
+  - number: 10
+    name: "Select Periodic Management"
+    description: "Run the complete periodic-disturbance management pipeline."
+    orchestrator: true

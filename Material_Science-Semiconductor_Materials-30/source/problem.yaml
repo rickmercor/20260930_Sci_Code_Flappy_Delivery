@@ -1,0 +1,48 @@
+problem_id: "Material_Science-Semiconductor_Materials-30"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "medium"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1038/s41467-025-65718-8"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_emission_coefficients"
+    description: "Calculate transition-resolved capture and emission coefficients."
+    orchestrator: false
+  - number: 2
+    name: "02_barrier_state"
+    description: "Solve the electrostatic barrier and its population gradient."
+    orchestrator: false
+  - number: 3
+    name: "03_kinetic_jet"
+    description: "Construct the drift, coupled Jacobian and intrinsic diffusion matrix."
+    orchestrator: false
+  - number: 4
+    name: "04_gaussian_flow"
+    description: "Propagate the mean, transition matrix and accumulated process covariance."
+    orchestrator: false
+  - number: 5
+    name: "05_hybrid_cycle"
+    description: "Form one cycle with joint fluctuations at two moving read gates."
+    orchestrator: false
+  - number: 6
+    name: "06_periodic_state"
+    description: "Find the attracting mean state at the start of the fill phase."
+    orchestrator: false
+  - number: 7
+    name: "07_stationary_covariance"
+    description: "Solve the stationary covariance of the cycle-start Gaussian state."
+    orchestrator: false
+  - number: 8
+    name: "08_detector_coefficients"
+    description: "Expand the family-resolved capacitance difference to quadratic order."
+    orchestrator: false
+  - number: 9
+    name: "09_quadratic_spectrum"
+    description: "Compute the full discrete-frequency spectrum of a quadratic Gaussian readout"
+    orchestrator: false
+  - number: 10
+    name: "10_dlts_noise"
+    description: "Calculate the signed cross-spectral coherence between two defect families."
+    orchestrator: true

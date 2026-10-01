@@ -1,0 +1,40 @@
+problem_id: "Mathematics-Computational_Mechanics-46"
+subject: "mathematics"
+subject_area: "Computational Mechanics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1016/j.cma.2026.119335"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_bar_model_setup"
+    description: "Builds the duplicated-node degree-of-freedom map, the connectivity, and the lumped nodal masses for a uniform two-node bar discretization with cohesive interfaces at every other interior node, plus the two derived elastic-wave scalars used to nondimensionalize the whole simulation."
+    orchestrator: false
+  - number: 2
+    name: "02_initial_state_energy"
+    description: "Builds the initial free-expansion velocity field and its kinetic energy, the setup-time interface stiffness cap, and the full-row Gershgorin stability bound that fixes the march's fixed time step and step count."
+    orchestrator: false
+  - number: 3
+    name: "03_cohesive_law_state"
+    description: "Evaluates the stiffness-capped Camacho-Ortiz traction-separation law for a set of interfaces given their current opening and opening history: it updates the monotone damage history, locates the crossover damage where the damage-secant stiffness first drops below the setup-time cap, and returns the traction each interface carries in whichever of the two regimes it currently occupies."
+    orchestrator: false
+  - number: 4
+    name: "04_predictor_forces"
+    description: "Builds the smooth explicit predictor of one time step: it assembles the tridiagonal bulk-plus-secant-interface stiffness for the current damage state, predicts the displacement half a step ahead with no contact correction, assembles the cap-regime traction force on interfaces that are still below the crossover damage, and forms the contact-free velocity that later feeds the contact solve."
+    orchestrator: false
+  - number: 5
+    name: "05_contact_qp_solve"
+    description: "Solves the velocity-level contact problem for one time step: it forms the gap and active set from the predicted displacement, assembles the modified Delassus operator that already accounts for the smooth dynamics' own stiffness coupling, and returns the normal impulse each active interface pair needs to satisfy the prescribed restitution relation."
+    orchestrator: false
+  - number: 6
+    name: "06_nonsmooth_corrector"
+    description: "Folds the contact impulse into the state at the end of a time step: it turns the impulse into a velocity jump, corrects the predicted displacement with half of that jump, recomputes the acceleration at the corrected configuration, and forms the trapezoidal velocity update with the jump added on top."
+    orchestrator: false
+  - number: 7
+    name: "07_nsn_time_march"
+    description: "Runs the full semi-explicit nonsmooth Newmark march from the free-expansion initial state to the requested horizon, chaining the smooth predictor, the damage update, the contact QP, and the nonsmooth corrector every step, and reports the end-of-run displacement together with the damage, impulse, and event-census diagnostics that verify the run."
+    orchestrator: false
+  - number: 8
+    name: "08_run_nsn_fragmentation"
+    description: "Chains the geometry, initial state, cohesive law, predictor, contact solve, and corrector physics of the preceding steps, step by step, into the complete free-expansion fragmentation run at the requested configuration, cross-checks the result against the independently-expressed full march, and extracts the single requested observable: the right-end displacement at the horizon, normalized by the bar length."
+    orchestrator: true

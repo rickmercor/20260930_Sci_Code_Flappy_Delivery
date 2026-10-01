@@ -1,0 +1,87 @@
+{
+  "problem_id": "Chemistry-Quantum_Chemistry-20",
+  "sub_steps": [
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-20.1",
+      "test_cases": [
+        "import numpy as np\ndef _sig(v):\n    v = np.asarray(v, dtype=float)\n    if v.shape != (3,):\n        return -1.0\n    return float(v.size + 1.0e3 * v[0] + v[1] + 10.0 * v[2])\nassert np.allclose(_sig(fit_trigonometric_well(5.0, 0.55, 2.78)), target)",
+        "import numpy as np\ndef _sig(v):\n    v = np.asarray(v, dtype=float)\n    if v.shape != (3,):\n        return -1.0\n    return float(v.size + 1.0e3 * v[0] + v[1] + 10.0 * v[2])\nassert np.allclose(_sig(fit_trigonometric_well(8.0, 0.42, 2.80)), target)",
+        "import numpy as np\ndef _sig(v):\n    v = np.asarray(v, dtype=float)\n    if v.shape != (3,):\n        return -1.0\n    return float(v.size + 1.0e3 * v[0] + v[1] + 10.0 * v[2])\nassert np.allclose(_sig(fit_trigonometric_well(0.05, 0.30, 1.30)), target)",
+        "import numpy as np\ndef _sig(v):\n    v = np.asarray(v, dtype=float)\n    if v.shape != (3,):\n        return -1.0\n    return float(v.size + 1.0e3 * v[0] + v[1] + 10.0 * v[2])\nassert np.allclose(_sig(fit_trigonometric_well(1.3, 1.0, 3.15)), target)",
+        "import numpy as np\nassert np.allclose(float(fit_trigonometric_well(5.0, 0.55, 2.7955549381646616)[2]), target)",
+        "import numpy as np\ndef _status(fn):\n    try:\n        fn()\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_status(lambda: fit_trigonometric_well(5.0, 1.39, 2.78)), target)",
+        "import numpy as np\ndef _status(fn):\n    try:\n        fn()\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_status(lambda: fit_trigonometric_well(True, 0.55, 2.78)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-20.2",
+      "test_cases": [
+        "import numpy as np\ndef _sig(v):\n    v = np.asarray(v, dtype=float).ravel()\n    rank = np.arange(1.0, v.size + 1.0)\n    return float(v.size + np.sum(rank * v) / np.sum(rank) + np.sqrt(np.sum(v * v)) / v.size)\nassert np.allclose(_sig(compute_well_energy_levels(18, 27.089280949903493, 8)), target)",
+        "import numpy as np\nassert np.allclose(float(compute_well_energy_levels(2, 7.82971, 4)[1]), target)",
+        "import numpy as np\nassert np.allclose(float(compute_well_energy_levels(18, 27.089280949903493, 4)[3]), target)",
+        "import numpy as np\nassert np.allclose(float(compute_well_energy_levels(1, 3.0, 1)[0]), target)",
+        "import numpy as np\ndef _sig(v):\n    v = np.asarray(v, dtype=float).ravel()\n    rank = np.arange(1.0, v.size + 1.0)\n    return float(v.size + np.sum(rank * v) / np.sum(rank) + np.sqrt(np.sum(v * v)) / v.size)\nassert np.allclose(_sig(compute_well_energy_levels(44, 55.4907031, 60)), target)",
+        "import numpy as np\ndef _status(fn):\n    try:\n        fn()\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_status(lambda: compute_well_energy_levels(0, 27.0, 3)), target)",
+        "import numpy as np\ndef _status(fn):\n    try:\n        fn()\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_status(lambda: compute_well_energy_levels(18, -1.0, 3)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-20.3",
+      "test_cases": [
+        "import numpy as np\ndef _sig(v):\n    v = np.asarray(v, dtype=float)\n    if v.ndim != 2 or v.shape[0] != 2:\n        return -1.0\n    w = np.cos(np.arange(v.size, dtype=float) + 1.0)\n    flat = 1.0e2 * v.ravel()\n    return float(v.shape[1] + np.sum(np.abs(flat)) + flat @ w)\nassert np.allclose(_sig(evaluate_well_eigenfunction(18, 27.089280949903493, 0, np.array([-1.2, -0.618, 0.0, 0.25, 0.618, 1.2]))), target)",
+        "import numpy as np\ndef _sig(v):\n    v = np.asarray(v, dtype=float)\n    if v.ndim != 2 or v.shape[0] != 2:\n        return -1.0\n    w = np.cos(np.arange(v.size, dtype=float) + 1.0)\n    flat = 1.0e2 * v.ravel()\n    return float(v.shape[1] + np.sum(np.abs(flat)) + flat @ w)\nassert np.allclose(_sig(evaluate_well_eigenfunction(18, 27.089280949903493, 2, np.array([-0.9, -0.3, 0.1, 0.35, 0.618, 0.9]))), target)",
+        "import numpy as np\nassert np.allclose(float(evaluate_well_eigenfunction(18, 27.089280949903493, 1, np.array([0.0]))[1, 0]), target)",
+        "import numpy as np\ndef _sig(v):\n    v = np.asarray(v, dtype=float)\n    if v.ndim != 2 or v.shape[0] != 2:\n        return -1.0\n    w = np.cos(np.arange(v.size, dtype=float) + 1.0)\n    flat = 1.0e2 * v.ravel()\n    return float(v.shape[1] + np.sum(np.abs(flat)) + flat @ w)\nassert np.allclose(_sig(evaluate_well_eigenfunction(2, 7.82971, 3, np.array([-1.3, -0.5, 0.2, 1.05, 1.4]))), target)",
+        "import numpy as np\nassert np.allclose(float(1.0e3 * evaluate_well_eigenfunction(44, 55.4907031, 1, np.array([0.35]))[0, 0]), target)",
+        "import numpy as np\ndef _status(fn):\n    try:\n        fn()\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_status(lambda: evaluate_well_eigenfunction(18, 27.089280949903493, 0, np.array([0.2, 1.5707963267948966]))), target)",
+        "import numpy as np\ndef _status(fn):\n    try:\n        fn()\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_status(lambda: evaluate_well_eigenfunction(18, 4.0, 0, np.array([0.2]))), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-20.4",
+      "test_cases": [
+        "import numpy as np\ndef _sig(v):\n    v = np.asarray(v, dtype=float)\n    if v.shape != (2,):\n        return -1.0\n    return float(v.size + 10.0 * v[0] + 100.0 * v[1])\nassert np.allclose(_sig(compute_right_moving_flux(18, 27.089280949903493, 0)), target)",
+        "import numpy as np\ndef _sig(v):\n    v = np.asarray(v, dtype=float)\n    if v.shape != (2,):\n        return -1.0\n    return float(v.size + 10.0 * v[0] + 100.0 * v[1])\nassert np.allclose(_sig(compute_right_moving_flux(18, 27.089280949903493, 2)), target)",
+        "import numpy as np\ndef _sig(v):\n    v = np.asarray(v, dtype=float)\n    if v.shape != (2,):\n        return -1.0\n    return float(v.size + 10.0 * v[0] + 100.0 * v[1])\nassert np.allclose(_sig(compute_right_moving_flux(2, 7.82971, 1)), target)",
+        "import numpy as np\ndef _sig(v):\n    v = np.asarray(v, dtype=float)\n    if v.shape != (2,):\n        return -1.0\n    return float(v.size + 10.0 * v[0] + 100.0 * v[1])\nassert np.allclose(_sig(compute_right_moving_flux(38, 47.9421, 2)), target)",
+        "import numpy as np\ndef _status(fn):\n    try:\n        fn()\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_status(lambda: compute_right_moving_flux(18, 27.089280949903493, 3)), target)",
+        "import numpy as np\ndef _status(fn):\n    try:\n        fn()\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_status(lambda: compute_right_moving_flux(18, 27.089280949903493, -1)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-20.5",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(float(compute_transmission_probability(18, 27.089280949903493, 1, 5.080934285923759)), target)",
+        "import numpy as np\nassert np.allclose(float(compute_transmission_probability(18, 27.089280949903493, 2, 1.3038290874147116)), target)",
+        "import numpy as np\nassert np.allclose(float(compute_transmission_probability(18, 27.089280949903493, 0, 0.05)), target)",
+        "import numpy as np\nassert np.allclose(float(compute_transmission_probability(2, 7.82971, 1, 3.1328994169027675)), target)",
+        "import numpy as np\nassert np.allclose(float(compute_transmission_probability(38, 47.9421, 2, 1.6940766100506346)), target)",
+        "import numpy as np\ndef _status(fn):\n    try:\n        fn()\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_status(lambda: compute_transmission_probability(18, 27.089280949903493, 1, 0.0)), target)",
+        "import numpy as np\ndef _status(fn):\n    try:\n        fn()\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_status(lambda: compute_transmission_probability(18, 27.089280949903493, 3, 1.0)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-20.6",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(float(compute_reduced_rate_constant(18, 27.089280949903493, 0.07602299053366514)), target)",
+        "import numpy as np\nassert np.allclose(float(compute_reduced_rate_constant(18, 27.089280949903493, 0.02)), target)",
+        "import numpy as np\nassert np.allclose(float(compute_reduced_rate_constant(18, 27.089280949903493, 2.5)), target)",
+        "import numpy as np\nassert np.allclose(float(compute_reduced_rate_constant(2, 7.82971, 0.0345)), target)",
+        "import numpy as np\nassert np.allclose(float(compute_reduced_rate_constant(38, 47.9421, 0.1)), target)",
+        "import numpy as np\ndef _status(fn):\n    try:\n        fn()\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_status(lambda: compute_reduced_rate_constant(18, 27.089280949903493, 0.0)), target)",
+        "import numpy as np\ndef _status(fn):\n    try:\n        fn()\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_status(lambda: compute_reduced_rate_constant(18, 27.089280949903493, float('nan'))), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-20.7",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(compute_proton_transfer_rate(), target)",
+        "import numpy as np\nassert np.allclose(compute_proton_transfer_rate(5.0, 0.55, 2.78, 60.0), target)",
+        "import numpy as np\nassert np.allclose(compute_proton_transfer_rate(8.0, 0.42, 2.80, 300.0), target)",
+        "import numpy as np\nassert np.allclose(compute_proton_transfer_rate(1.3, 1.0, 3.15, 1500.0), target)",
+        "import numpy as np\ndef _status(fn):\n    try:\n        fn()\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_status(lambda: compute_proton_transfer_rate(5.0, 0.55, 2.78, -10.0)), target)",
+        "import numpy as np\ndef _status(fn):\n    try:\n        fn()\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_status(lambda: compute_proton_transfer_rate(5.0, 1.5, 2.78, 400.0)), target)"
+      ]
+    }
+  ]
+}

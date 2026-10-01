@@ -1,0 +1,44 @@
+problem_id: "Physics-Computational_Physics-23"
+subject: "physics"
+subject_area: "Computational Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1016/j.ijheatmasstransfer.2026.128501"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_time_spectral_operator"
+    description: "Build the Gauss node times of one time step together with the matrix that turns nodal values of a field into nodal values of its first time derivative."
+    orchestrator: false
+  - number: 2
+    name: "02_rectangular_layer_mesh"
+    description: "Lay out the quadratic boundary elements of one rectangular layer together with the interior points at which that layer is sampled."
+    orchestrator: false
+  - number: 3
+    name: "03_layer_reference_fields"
+    description: "Evaluate the benchmark temperature field of one layer, its two spatial derivatives and the heat source density that makes it an exact solution."
+    orchestrator: false
+  - number: 4
+    name: "04_near_singular_rule"
+    description: "Build the quadrature rule used to integrate one boundary element as seen from a source point that may lie very close to it."
+    orchestrator: false
+  - number: 5
+    name: "05_element_boundary_terms"
+    description: "Turn one boundary element and one source point into the quadrature points, kernel weights and outward normals that carry the boundary integral of the representation formula."
+    orchestrator: false
+  - number: 6
+    name: "06_sct_domain_terms"
+    description: "Convert the part of one layer swept by rays from a source point through one boundary element into quadrature points and weights for the domain integral of the fundamental solution against a known density."
+    orchestrator: false
+  - number: 7
+    name: "07_domain_integrand_values"
+    description: "Combine the spectral time derivative of the temperature with the heat source density into the density that the domain integral of the representation formula must carry at every Gauss node of the time step."
+    orchestrator: false
+  - number: 8
+    name: "08_reconstruct_interior_value"
+    description: "Close the representation formula at one interior point by combining the assembled boundary quadrature with the assembled domain quadrature."
+    orchestrator: false
+  - number: 9
+    name: "09_run_coating_benchmark"
+    description: "Chain the sub-problem functions 01-08 over the coating and the substrate and return the factor by which the near-singular treatment improves the accuracy of the reconstructed temperature."
+    orchestrator: true

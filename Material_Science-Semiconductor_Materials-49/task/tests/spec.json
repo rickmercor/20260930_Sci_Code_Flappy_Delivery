@@ -1,0 +1,133 @@
+{
+  "problem_id": "Material_Science-Semiconductor_Materials-49",
+  "sub_steps": [
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-49.1",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(effective_ionization_parameters(8.2e9, 3.94e7, 4.5e6, 1.28e7), target)",
+        "import numpy as np\nassert np.allclose(effective_ionization_parameters(7.0e5, 1.23e6, 1.6e6, 2.00e6), target)",
+        "import numpy as np\nassert np.allclose(effective_ionization_parameters(2.8e8, 3.43e7, 5.4e6, 1.96e7), target)",
+        "import numpy as np\nassert np.allclose(effective_ionization_parameters(7.1e5, 2.10e7, 7.1e5, 2.10e7), target)",
+        "import numpy as np\nassert np.allclose(effective_ionization_parameters(1.5e5, 2.40e7, 6.0e4, 1.39e7), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        effective_ionization_parameters(-8.2e9, 3.94e7, 4.5e6, 1.28e7)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-49.2",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(ionization_dimensionless_group(1.920937271e8, 2.61e7, 9.7, 4.4e15), target)",
+        "import numpy as np\nassert np.allclose(ionization_dimensionless_group(1.058300525e6, 1.615e6, 11.7, 1.0e15), target)",
+        "import numpy as np\nassert np.allclose(ionization_dimensionless_group(1.920937271e8, 2.61e7, 9.7, 1.0e17), target)",
+        "import numpy as np\nassert np.allclose(ionization_dimensionless_group(3.887158e7, 2.695e7, 8.9, 1.0e16), target)",
+        "import numpy as np\nassert np.allclose(ionization_dimensionless_group(9.486833e4, 1.895e7, 5.7, 1.0e14), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        ionization_dimensionless_group(1.92e8, 2.61e7, 9.7, 0.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-49.3",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(avalanche_zeta(6.04983e6), target)",
+        "import numpy as np\nassert np.allclose(avalanche_zeta(1.1052e4), target)",
+        "import numpy as np\nassert np.allclose(avalanche_zeta(2.688e7), target)",
+        "import numpy as np\nassert np.allclose(avalanche_zeta(50.0), target)",
+        "import numpy as np\nassert np.allclose(avalanche_zeta(12.0), target)",
+        "import numpy as np\nassert np.allclose(avalanche_zeta(1.0e9), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        avalanche_zeta(-5.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-49.4",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(critical_field(2.61e7, 10.712565), target)",
+        "import numpy as np\nassert np.allclose(critical_field(1.615e6, 4.043), target)",
+        "import numpy as np\nassert np.allclose(critical_field(2.695e7, 12.0), target)",
+        "import numpy as np\nassert np.allclose(critical_field(1.895e7, 20.0), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        critical_field(2.61e7, 0.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-49.5",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(punchthrough_field_ratio(10.712565), target)",
+        "import numpy as np\nassert np.allclose(punchthrough_field_ratio(11.993110), target)",
+        "import numpy as np\nassert np.allclose(punchthrough_field_ratio(8.111756), target)",
+        "import numpy as np\nassert np.allclose(punchthrough_field_ratio(4.0), target)",
+        "import numpy as np\nassert np.allclose(punchthrough_field_ratio(60.0), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        punchthrough_field_ratio(0.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-49.6",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(punchthrough_depletion_width(9.7, 4.442828e15, 2.436391e6, 0.280310), target)",
+        "import numpy as np\nassert np.allclose(punchthrough_depletion_width(11.7, 1.0e15, 2.868e5, 0.25), target)",
+        "import numpy as np\nassert np.allclose(punchthrough_depletion_width(9.7, 1.0e17, 3.2176e6, 0.0), target)",
+        "import numpy as np\nassert np.allclose(punchthrough_depletion_width(8.9, 1.0e16, 3.1217e6, 0.3333333333333333), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        punchthrough_depletion_width(9.7, 3.17e16, 2.88e6, 1.4)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-49.7",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(punchthrough_breakdown_voltage(9.7, 4.442828e15, 2.436391e6, 0.280310), target)",
+        "import numpy as np\nassert np.allclose(punchthrough_breakdown_voltage(9.7, 1.499584e16, 2.695323e6, 0.275528), target)",
+        "import numpy as np\nassert np.allclose(punchthrough_breakdown_voltage(11.7, 1.0e15, 2.868e5, 0.0), target)",
+        "import numpy as np\nassert np.allclose(punchthrough_breakdown_voltage(5.7, 1.0e15, 3.6906e6, 0.3333333333333333), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        punchthrough_breakdown_voltage(9.7, 3.17e16, 2.88e6, -0.2)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-49.8",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(field_ratio_at_rating(9.7, 3.0345717e16, 2.8698979e6, 650.0), target)",
+        "import numpy as np\nassert np.allclose(field_ratio_at_rating(9.7, 2.5e16, 2.9e6, 650.0), target)",
+        "import numpy as np\nassert np.allclose(field_ratio_at_rating(9.7, 1.0e16, 3.1e6, 300.0), target)",
+        "import numpy as np\nassert np.allclose(field_ratio_at_rating(11.7, 1.0e15, 3.0e5, 100.0), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        field_ratio_at_rating(9.7, -3.0e16, 2.87e6, 650.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-49.9",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(free_electron_density(3.170246194e16, 1.7e19, 2.0, 0.060, 0.120, 0.025852), target)",
+        "import numpy as np\nassert np.allclose(free_electron_density(1.0e15, 1.7e19, 2.0, 0.060, 0.120, 0.025852), target)",
+        "import numpy as np\nassert np.allclose(free_electron_density(1.0e17, 1.7e19, 2.0, 0.060, 0.120, 0.025852), target)",
+        "import numpy as np\nassert np.allclose(free_electron_density(1.0e18, 1.7e19, 2.0, 0.060, 0.120, 0.025852), target)",
+        "import numpy as np\nassert np.allclose(free_electron_density(4.442828e15, 1.7e19, 2.0, 0.060, 0.060, 0.025852), target)",
+        "import numpy as np\nassert np.allclose(free_electron_density(3.0e16, 1.7e19, 2.0, 0.045, 0.100, 0.025852), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        free_electron_density(3.17e16, 1.7e19, 2, -0.06, 0.12, 0.025852)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-49.10",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(drift_electron_mobility(4.442828e15), target)",
+        "import numpy as np\nassert np.allclose(drift_electron_mobility(1.0e14), target)",
+        "import numpy as np\nassert np.allclose(drift_electron_mobility(2.0e17), target)",
+        "import numpy as np\nassert np.allclose(drift_electron_mobility(1.0e19), target)",
+        "import numpy as np\nassert np.allclose(drift_electron_mobility(1.499584e16), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        drift_electron_mobility(-1.0e16)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-49.11",
+      "test_cases": [
+        "import numpy as np\nfrom scipy.special import exp1\nfrom scipy.integrate import quad\nfrom scipy.optimize import brentq\nassert np.allclose(round(two_carrier_critical_field(8.2e9, 3.94e7, 4.5e6, 1.28e7, 9.7, 3.0e16)*1e-6, 6), target)",
+        "import numpy as np\nfrom scipy.special import exp1\nfrom scipy.integrate import quad\nfrom scipy.optimize import brentq\nassert np.allclose(round(two_carrier_critical_field(8.2e9, 3.94e7, 4.5e6, 1.28e7, 9.7, 2.0e15)*1e-6, 6), target)",
+        "import numpy as np\nfrom scipy.special import exp1\nfrom scipy.integrate import quad\nfrom scipy.optimize import brentq\nassert np.allclose(round(two_carrier_critical_field(8.2e9, 3.94e7, 4.5e6, 1.28e7, 9.7, 2.0e17)*1e-6, 6), target)",
+        "import numpy as np\nfrom scipy.special import exp1\nfrom scipy.integrate import quad\nfrom scipy.optimize import brentq\nassert np.allclose(round(two_carrier_critical_field(1.92094e8, 2.61e7, 1.92094e8, 2.61e7, 9.7, 3.0e16)*1e-6, 6), target)",
+        "import numpy as np\nfrom scipy.special import exp1\nfrom scipy.integrate import quad\nfrom scipy.optimize import brentq\ndef run_model():\n    try:\n        two_carrier_critical_field(8.2e9, 3.94e7, 4.5e6, 1.28e7, 9.7, 0.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-49.12",
+      "test_cases": [
+        "import numpy as np\nfrom scipy.special import exp1\nfrom scipy.integrate import quad\nfrom scipy.optimize import brentq, minimize_scalar\nassert np.allclose(minimum_specific_on_resistance(8.2e9, 3.94e7, 4.5e6, 1.28e7, 9.7, 650.0, 1.7e19, 2.0, 0.060, 0.120, 0.025852), target)",
+        "import numpy as np\nfrom scipy.special import exp1\nfrom scipy.integrate import quad\nfrom scipy.optimize import brentq, minimize_scalar\nassert np.allclose(minimum_specific_on_resistance(8.2e9, 3.94e7, 4.5e6, 1.28e7, 9.7, 1200.0, 1.7e19, 2.0, 0.060, 0.120, 0.025852), target)",
+        "import numpy as np\nfrom scipy.special import exp1\nfrom scipy.integrate import quad\nfrom scipy.optimize import brentq, minimize_scalar\nassert np.allclose(minimum_specific_on_resistance(8.2e9, 3.94e7, 4.5e6, 1.28e7, 9.7, 3300.0, 1.7e19, 2.0, 0.060, 0.120, 0.025852), target)",
+        "import numpy as np\nfrom scipy.special import exp1\nfrom scipy.integrate import quad\nfrom scipy.optimize import brentq, minimize_scalar\nassert np.allclose(minimum_specific_on_resistance(8.2e9, 3.94e7, 4.5e6, 1.28e7, 9.7, 900.0, 1.7e19, 2.0, 0.060, 0.120, 0.025852), target)",
+        "import numpy as np\nfrom scipy.special import exp1\nfrom scipy.integrate import quad\nfrom scipy.optimize import brentq, minimize_scalar\ndef run_model():\n    try:\n        minimum_specific_on_resistance(8.2e9, 3.94e7, 4.5e6, 1.28e7, 9.7, -650.0, 1.7e19, 2, 0.060, 0.120, 0.025852)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

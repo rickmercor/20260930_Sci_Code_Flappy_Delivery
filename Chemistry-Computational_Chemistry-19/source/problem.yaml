@@ -1,0 +1,36 @@
+problem_id: "Chemistry-Computational_Chemistry-19"
+subject: "chemistry"
+subject_area: "Computational Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.48550/arXiv.2606.08763"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_compute_link_free_energy"
+    description: "Evaluate the free energy of a displacement-controlled chain with one breakable segment as a function of that segment's length."
+    orchestrator: false
+  - number: 2
+    name: "02_locate_free_energy_extrema"
+    description: "Locate the intact-state minimum, the transition-state maximum and the broken-state minimum of the free energy profile along the breakable segment's length at a fixed end-to-end distance."
+    orchestrator: false
+  - number: 3
+    name: "03_compute_intact_chain_tension"
+    description: "Compute the mean tension of the chain from the end-to-end distance derivative of its free energy at a fixed breakable-segment length."
+    orchestrator: false
+  - number: 4
+    name: "04_infer_segment_count_and_bond_energy"
+    description: "Infer the number of Kuhn segments and the bond well depth of a clamped chain from its mean intact and broken dwell times at one end-to-end distance."
+    orchestrator: false
+  - number: 5
+    name: "05_integrate_intact_probability"
+    description: "Propagate the probability that a chain pulled at a constant rate is intact, given its scission and re-formation barriers along the end-to-end distance."
+    orchestrator: false
+  - number: 6
+    name: "06_compute_final_scission_statistics"
+    description: "Compute the unnormalized first moments of tension and extension at the last scission event of a pulled reversible chain, together with the total final-scission probability and the expected number of scission events."
+    orchestrator: false
+  - number: 7
+    name: "07_predict_mean_final_rupture_force"
+    description: "Predict the mean tension at the final scission of a reversible chain pulled at constant speed, starting from its clamped dwell times."
+    orchestrator: true

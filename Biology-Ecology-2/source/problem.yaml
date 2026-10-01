@@ -1,0 +1,44 @@
+problem_id: "Biology-Ecology-2"
+subject: "biology"
+subject_area: "Ecology"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1109/ICASSP55912.2026.11462837"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_build_web"
+    description: "Turn an arc list into a directed food web and its underlying undirected graph."
+    orchestrator: false
+  - number: 2
+    name: "02_motif_profiles"
+    description: "Count how often each species occupies each structural position in the web's three-node subgraphs."
+    orchestrator: false
+  - number: 3
+    name: "03_cost_matrix"
+    description: "Turn two sets of species profiles into a pairwise dissimilarity matrix."
+    orchestrator: false
+  - number: 4
+    name: "04_alignment_iteration"
+    description: "Apply one iteration of the proximal alignment scheme."
+    orchestrator: false
+  - number: 5
+    name: "05_align"
+    description: "Run the alignment scheme from the uniform start for a fixed number of iterations."
+    orchestrator: false
+  - number: 6
+    name: "06_role_similarity"
+    description: "Score each species of one web by how much cheaply-matched mass it carries to the other webs."
+    orchestrator: false
+  - number: 7
+    name: "07_backbone"
+    description: "Select the species that form the web's backbone."
+    orchestrator: false
+  - number: 8
+    name: "08_transitivity"
+    description: "Measure how much of a species' alignment mass closes a triangle across two other webs."
+    orchestrator: false
+  - number: 9
+    name: "09_backbone_transitivity"
+    description: "Run the whole pipeline and return the mean transitivity over the first web's backbone."
+    orchestrator: true

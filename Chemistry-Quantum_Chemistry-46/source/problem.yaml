@@ -1,0 +1,40 @@
+problem_id: "Chemistry-Quantum_Chemistry-46"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1063/5.0327154"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_transition_blocks"
+    description: "Build the direct electronic RPA blocks."
+    orchestrator: false
+  - number: 2
+    name: "02_cavity_jets"
+    description: "Expand the cavity RPA matrices in independently varied logarithmic couplings."
+    orchestrator: false
+  - number: 3
+    name: "03_stable_ring"
+    description: "Obtain the stabilizing ring amplitude from the positive RPA subspace."
+    orchestrator: false
+  - number: 4
+    name: "04_ring_jets"
+    description: "Differentiate the stabilizing Riccati branch on a rectangular multivariate grid."
+    orchestrator: false
+  - number: 5
+    name: "05_inverse_jets"
+    description: "Invert an ordered multivariate matrix Taylor series."
+    orchestrator: false
+  - number: 6
+    name: "06_photon_covariance_jets"
+    description: "Reduce the normalized ring vacuum to its photon quadrature covariance."
+    orchestrator: false
+  - number: 7
+    name: "07_entropy_jets"
+    description: "Evaluate the photon Renyi entropy series at index 2 or 3/2."
+    orchestrator: false
+  - number: 8
+    name: "08_solve_cavity"
+    description: "Return the ordinary mixed logarithmic-coupling entropy response."
+    orchestrator: true

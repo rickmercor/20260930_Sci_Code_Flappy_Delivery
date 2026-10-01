@@ -1,0 +1,97 @@
+{
+  "problem_id": "Material_Science-Semiconductor_Materials-72",
+  "sub_steps": [
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-72.1",
+      "test_cases": [
+        "import numpy as np\nargs = (20, 80, 1.0e-7, 0.25e-7, -5.17, -5.60, -3.60, -2.60, 2.81e19, 1.00e17, 1.63e6, 1.59e-6, 3.0, 9.4)\nassert np.allclose(grid_and_layer_profiles(*args), target)",
+        "import numpy as np\nargs = (3, 5, 2.0, 0.5, -5.0, -6.0, -3.0, -2.0, 4.0, 1.5, 0.7, 0.2, 3.0, 9.0)\nassert np.allclose(grid_and_layer_profiles(*args), target)",
+        "import numpy as np\nargs = (1, 1, 1.0, 3.0, -5.1, -5.4, -3.5, -2.7, 2.0, 5.0, 1.0, 0.1, 2.5, 4.0)\nassert np.allclose(grid_and_layer_profiles(*args), target)",
+        "import numpy as np\nargs = (4, 4, 1.0, 1.0, -5.2, -5.2, -3.6, -3.6, 1.0, 1.0, 2.0, 2.0, 3.0, 3.0)\nassert np.allclose(grid_and_layer_profiles(*args), target)",
+        "import numpy as np\ndef _probe(fn):\n    bad = [(0, 5, 1.0, 1.0), (5, 5, 1.0, -1.0), (2.5, 5, 1.0, 1.0)]\n    hits = 0\n    for n1, n2, d1, d2 in bad:\n        try:\n            fn(n1, n2, d1, d2, -5.0, -6.0, -3.0, -2.0, 1.0, 1.0, 1.0, 1.0, 3.0, 3.0)\n        except ValueError:\n            hits += 1\n    return float(hits)\nassert np.allclose(_probe(grid_and_layer_profiles), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-72.2",
+      "test_cases": [
+        "import numpy as np\nNA = np.concatenate([np.full(21, 2.81e19), np.full(80, 1.00e17)])\nni = np.concatenate([np.full(21, 1.63e6), np.full(80, 1.59e-6)])\nassert np.allclose(equilibrium_densities(NA, ni), target)",
+        "import numpy as np\nNA = np.array([4.0, 2.0, 0.5]); ni = np.array([2.0, 3.0, 1.0])\nassert np.allclose(equilibrium_densities(NA, ni), target)",
+        "import numpy as np\nNA = np.array([1.0e18]); ni = np.array([0.0])\nassert np.allclose(equilibrium_densities(NA, ni), target)",
+        "import numpy as np\nNA = np.array([1.00e17, 1.00e17]); ni = np.array([1.59e-6, 1.63e6])\ndef _minority(fn):\n    return float(fn(NA, ni)[1, 0] * 1.0e29)\nassert np.allclose(_minority(equilibrium_densities), target)",
+        "import numpy as np\ndef _probe(fn):\n    hits = 0\n    for NA, ni in ((np.array([1.0, 0.0]), np.array([1.0, 1.0])),\n                   (np.array([1.0, 2.0]), np.array([1.0])),\n                   (np.array([1.0, 2.0]), np.array([1.0, -1.0]))):\n        try:\n            fn(NA, ni)\n        except ValueError:\n            hits += 1\n    return float(hits)\nassert np.allclose(_probe(equilibrium_densities), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-72.3",
+      "test_cases": [
+        "import numpy as np\nz = np.concatenate([np.arange(21) * 1.0e-7, 20.0e-7 + np.arange(1, 81) * 0.25e-7])\nNA = np.concatenate([np.full(21, 2.81e19), np.full(80, 1.00e17)])\ner = np.concatenate([np.full(21, 3.0), np.full(80, 9.4)])\np = NA.copy(); n = np.concatenate([np.full(21, 9.4552e-8), np.full(80, 2.5281e-29)])\nassert np.allclose(poisson_potential(p, n, NA, er, z, 0.0, 1.0), target)",
+        "import numpy as np\nz = np.concatenate([np.arange(21) * 1.0e-7, 20.0e-7 + np.arange(1, 81) * 0.25e-7])\nNA = np.concatenate([np.full(21, 2.81e19), np.full(80, 1.00e17)])\ner = np.concatenate([np.full(21, 3.0), np.full(80, 9.4)])\np = NA * (1.0 + 1.0e-3 * np.sin(np.arange(101) * 0.7)); n = np.full(101, 5.0e15)\nassert np.allclose(poisson_potential(p, n, NA, er, z, 0.0, 1.0), target)",
+        "import numpy as np\nz = np.array([0.0, 1.0e-7, 2.0e-7, 2.5e-7, 3.0e-7, 3.5e-7])\nNA = np.zeros(6); p = np.zeros(6); n = np.zeros(6)\ner = np.array([2.0, 2.0, 2.0, 8.0, 8.0, 8.0])\nassert np.allclose(poisson_potential(p, n, NA, er, z, -0.5, 0.5), target)",
+        "import numpy as np\nz = np.array([0.0, 2.0e-7, 3.0e-7])\nNA = np.array([0.0, 1.0e18, 0.0]); p = np.zeros(3); n = np.zeros(3); er = np.full(3, 4.0)\nassert np.allclose(poisson_potential(p, n, NA, er, z, 0.0, 0.0), target)",
+        "import numpy as np\ndef _probe(fn):\n    hits = 0\n    good = np.ones(4)\n    for z, er in ((np.array([0.0, 1.0, 1.0, 2.0]), good), (np.array([0.0, 1.0, 2.0, 3.0]), np.array([1.0, 0.0, 1.0, 1.0])),\n                  (np.array([0.0, 1.0]), np.ones(2))):\n        try:\n            fn(np.ones(z.size), np.ones(z.size), np.ones(z.size), er, z, 0.0, 1.0)\n        except ValueError:\n            hits += 1\n    return float(hits)\nassert np.allclose(_probe(poisson_potential), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-72.4",
+      "test_cases": [
+        "import numpy as np\nz = np.concatenate([np.arange(21) * 1.0e-7, 20.0e-7 + np.arange(1, 81) * 0.25e-7])\nEV0 = np.concatenate([np.full(21, -5.17), np.full(80, -5.60)])\nEC0 = np.concatenate([np.full(21, -3.60), np.full(80, -2.60)])\nphi = np.where(np.arange(101) <= 20, 0.2 * z / z[20], 0.2 + 0.8 * (z - z[20]) / (z[-1] - z[20]))\nassert np.allclose(band_edge_fields(EV0, EC0, phi, z), target)",
+        "import numpy as np\nz = np.linspace(0.0, 4.0e-6, 11); EV0 = np.full(11, -5.3); EC0 = np.full(11, -3.1)\nphi = np.linspace(0.0, 1.0, 11)\nassert np.allclose(band_edge_fields(EV0, EC0, phi, z), target)",
+        "import numpy as np\nz = np.array([0.0, 1.0e-7, 1.25e-7]); EV0 = np.array([-5.17, -5.17, -5.60])\nEC0 = np.array([-3.60, -3.60, -2.60]); phi = np.zeros(3)\nassert np.allclose(band_edge_fields(EV0, EC0, phi, z), target)",
+        "import numpy as np\nz = np.array([0.0, 2.0e-7, 2.5e-7, 3.0e-7]); EV0 = np.array([-5.0, -5.0, -5.3, -5.3])\nEC0 = np.array([-3.0, -3.0, -2.2, -2.2]); phi = np.array([0.0, 0.1, 0.4, 0.3])\nassert np.allclose(band_edge_fields(EV0, EC0, phi, z), target)",
+        "import numpy as np\ndef _probe(fn):\n    hits = 0\n    for z, e in ((np.array([0.0, 1.0, 1.0]), np.zeros(3)), (np.array([0.0, 1.0, 2.0]), np.zeros(2)),\n                 (np.array([0.0]), np.zeros(1))):\n        try:\n            fn(e, np.zeros(z.size), np.zeros(z.size), z)\n        except ValueError:\n            hits += 1\n    return float(hits)\nassert np.allclose(_probe(band_edge_fields), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-72.5",
+      "test_cases": [
+        "import numpy as np\np = np.concatenate([np.full(21, 2.81e19), np.full(80, 1.00e17)])\nn = np.concatenate([np.full(21, 9.4552e-8), np.full(80, 2.5281e-29)])\nFV = np.concatenate([np.full(20, -3.1e5), [-1.52e7], np.full(79, -1.4e5)])\nFC = np.concatenate([np.full(20, -3.1e5), [3.61e7], np.full(79, -1.4e5)])\nassert np.allclose(midpoint_densities(p, n, FV, FC, 20, 'field'), target)",
+        "import numpy as np\np = np.array([6.0, 5.0, 1.0, 2.0, 3.0]); n = np.array([4.0, 7.0, 2.0, 9.0, 8.0])\nFV = np.array([1.0, -2.0, 3.0, -1.0]); FC = np.array([-1.0, 2.0, -3.0, 1.0])\nassert np.allclose(midpoint_densities(p, n, FV, FC, 1, 'field'), target)",
+        "import numpy as np\np = np.array([6.0, 5.0, 1.0, 2.0, 3.0]); n = np.array([4.0, 7.0, 2.0, 9.0, 8.0])\nFV = np.array([1.0, 2.0, 3.0, -1.0]); FC = np.array([-1.0, -2.0, -3.0, 1.0])\nassert np.allclose(midpoint_densities(p, n, FV, FC, 1, 'field'), target)",
+        "import numpy as np\np = np.array([6.0, 5.0, 1.0]); n = np.array([4.0, 7.0, 2.0])\nFV = np.array([0.0, 0.0]); FC = np.array([0.0, 0.0])\nassert np.allclose(midpoint_densities(p, n, FV, FC, 1, 'field'), target)",
+        "import numpy as np\np = np.array([6.0, 5.0, 1.0, 2.0, 3.0]); n = np.array([4.0, 7.0, 2.0, 9.0, 8.0])\nFV = np.array([1.0, -2.0, 3.0, -1.0]); FC = np.array([-1.0, 2.0, -3.0, 1.0])\nassert np.allclose(midpoint_densities(p, n, FV, FC, 1, 'mean'), target)",
+        "import numpy as np\np = np.ones(4); n = np.ones(4); FV = np.ones(3); FC = np.ones(3)\ndef _probe(fn):\n    hits = 0\n    for kw in (dict(n_hil=3, scheme='field'), dict(n_hil=1, scheme='upwind'), dict(n_hil=-1, scheme='mean')):\n        try:\n            fn(p, n, FV, FC, **kw)\n        except ValueError:\n            hits += 1\n    try:\n        fn(p, n, FV, np.ones(4), 1, 'mean')\n    except ValueError:\n        hits += 1\n    return float(hits)\nassert np.allclose(_probe(midpoint_densities), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-72.6",
+      "test_cases": [
+        "import numpy as np\nz = np.concatenate([np.arange(21) * 1.0e-7, 20.0e-7 + np.arange(1, 81) * 0.25e-7])\np = np.concatenate([np.full(21, 2.81e19), np.full(80, 1.00e17)])\nn = np.concatenate([np.full(21, 9.4552e-8), np.full(80, 2.5281e-29)])\np_mid = 0.5 * (p[:-1] + p[1:]); p_mid[20] = 3.3e17; n_mid = 0.5 * (n[:-1] + n[1:]); n_mid[20] = 4.0e-20\nFV = np.concatenate([np.full(20, -3.1e5), [-1.52e7], np.full(79, -1.4e5)])\nFC = np.concatenate([np.full(20, -3.1e5), [3.61e7], np.full(79, -1.4e5)])\nmu_p = np.concatenate([np.full(21, 2.0e-4), np.full(80, 2.0e-3)])\nmu_n = np.concatenate([np.full(21, 2.0e-6), np.full(80, 2.0e-5)])\nassert np.allclose(drift_diffusion_currents(p, n, p_mid, n_mid, FV, FC, mu_p, mu_n, z, 300.0), target)",
+        "import numpy as np\nz = np.array([0.0, 1.0e-7, 2.0e-7, 2.25e-7, 2.5e-7])\np = np.array([3.0e15, 2.0e15, 1.5e15, 1.0e15, 0.5e15]); n = np.array([1.0e15, 2.5e15, 0.5e15, 2.0e15, 3.0e15])\np_mid = np.array([2.5e15, 1.5e15, 1.25e15, 0.75e15]); n_mid = np.array([1.75e15, 2.5e15, 1.25e15, 2.5e15])\nFV = np.array([2.0e5, -1.0e7, 3.0e5, -4.0e5]); FC = np.array([-1.0e5, 4.0e7, 2.0e5, 1.0e5])\nmu_p = np.array([2.0e-4, 2.0e-4, 2.0e-4, 2.0e-3, 2.0e-3]); mu_n = np.array([3.0e-4, 3.0e-4, 3.0e-4, 5.0e-3, 5.0e-3])\nassert np.allclose(drift_diffusion_currents(p, n, p_mid, n_mid, FV, FC, mu_p, mu_n, z, 300.0), target)",
+        "import numpy as np\nz = np.array([0.0, 0.5e-7, 1.5e-7]); p = np.full(3, 1.0e16); n = np.full(3, 1.0e16)\np_mid = np.full(2, 1.0e16); n_mid = np.full(2, 1.0e16); FV = np.array([3.0e5, 3.0e5]); FC = np.array([-2.0e5, -2.0e5])\nmu_p = np.array([1.0e-3, 1.0e-3, 4.0e-3]); mu_n = np.array([2.0e-3, 2.0e-3, 6.0e-3])\nassert np.allclose(drift_diffusion_currents(p, n, p_mid, n_mid, FV, FC, mu_p, mu_n, z, 300.0), target)",
+        "import numpy as np\nz = np.array([0.0, 1.0e-7, 1.3e-7]); p = np.array([4.0e15, 1.0e15, 2.0e15]); n = np.array([1.0e15, 3.0e15, 2.0e15])\np_mid = np.array([2.5e15, 1.0e15]); n_mid = np.array([3.0e15, 2.5e15]); FV = np.array([0.0, 0.0]); FC = np.array([0.0, 0.0])\nmu_p = np.array([1.0e-4, 1.0e-4, 1.0e-3]); mu_n = np.array([2.0e-4, 2.0e-4, 5.0e-4])\nassert np.allclose(drift_diffusion_currents(p, n, p_mid, n_mid, FV, FC, mu_p, mu_n, z, 450.0), target)",
+        "import numpy as np\ndef _probe(fn):\n    hits = 0\n    z = np.array([0.0, 1.0, 2.0]); a = np.ones(3); m = np.ones(2)\n    for args in ((a, a, m, m, m, m, a, a, np.array([0.0, 1.0, 1.0]), 300.0),\n                 (a, a, m, m, m, m, a, a, z, 0.0),\n                 (a, a, np.ones(3), m, m, m, a, a, z, 300.0)):\n        try:\n            fn(*args)\n        except ValueError:\n            hits += 1\n    return float(hits)\nassert np.allclose(_probe(drift_diffusion_currents), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-72.7",
+      "test_cases": [
+        "import numpy as np\np = np.concatenate([np.full(21, 2.2e19), np.full(80, 6.0e17)])\nn = np.concatenate([np.full(21, 9.4552e-8), np.full(80, 2.5281e-29)])\nni = np.concatenate([np.full(21, 1.63e6), np.full(80, 1.59e-6)])\nassert np.allclose(recombination_rate(p, n, ni, 1.0e-7, 1.0e-7, 0.0, 0.0), target)",
+        "import numpy as np\np = np.array([4.0e10, 1.0e10, 2.0e9]); n = np.array([1.5e10, 3.0e10, 0.2e9]); ni = np.array([2.0e10, 1.0e10, 1.0e9])\nassert np.allclose(recombination_rate(p, n, ni, 2.0e-7, 5.0e-7, 1.0e-30, 3.0e-30), target)",
+        "import numpy as np\nni = np.array([1.63e6, 1.59e-6]); p = np.array([2.81e19, 1.0e17]); n = ni ** 2 / p\nassert np.allclose(recombination_rate(p, n, ni, 1.0e-7, 1.0e-7, 2.0e-31, 2.0e-31), target)",
+        "import numpy as np\np = np.array([1.0e18, 3.0e17]); n = np.array([1.0e18, 5.0e17]); ni = np.array([1.0e10, 1.0e10])\nassert np.allclose(recombination_rate(p, n, ni, 1.0e-7, 3.0e-7, 1.0e-30, 2.0e-30), target)",
+        "import numpy as np\ndef _probe(fn):\n    hits = 0\n    a = np.ones(2)\n    for args in ((a, a, a, 0.0, 1.0, 0.0, 0.0), (a, a, a, 1.0, 1.0, -1.0, 0.0), (a, np.ones(3), a, 1.0, 1.0, 0.0, 0.0),\n                 (np.zeros(2), np.zeros(2), np.zeros(2), 1.0, 1.0, 0.0, 0.0)):\n        try:\n            fn(*args)\n        except ValueError:\n            hits += 1\n    return float(hits)\nassert np.allclose(_probe(recombination_rate), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-72.8",
+      "test_cases": [
+        "import numpy as np\nz = np.concatenate([np.arange(21) * 1.0e-7, 20.0e-7 + np.arange(1, 81) * 0.25e-7])\np = np.concatenate([np.full(21, 2.81e19), np.full(80, 1.00e17)])\nn = np.concatenate([np.full(21, 9.4552e-8), np.full(80, 2.5281e-29)])\nJp = np.zeros(100); Jp[20] = 6.4e3; Jp[19] = 3.0e1; Jn = np.zeros(100); U = np.zeros(101)\nassert np.allclose(continuity_update(p, n, Jp, Jn, U, z, 1.0e-12), target)",
+        "import numpy as np\nz = np.array([0.0, 1.0e-7, 2.0e-7, 2.25e-7, 2.5e-7])\np = np.array([5.0e15, 4.0e15, 3.0e15, 2.0e15, 1.0e15]); n = np.array([1.0e15, 2.0e15, 3.0e15, 4.0e15, 5.0e15])\nJp = np.array([1.0e2, -3.0e2, 2.0e2, 5.0e1]); Jn = np.array([-2.0e2, 1.0e2, 4.0e2, -1.0e2])\nU = np.array([0.0, 1.0e26, -5.0e25, 2.0e26, 0.0])\nassert np.allclose(continuity_update(p, n, Jp, Jn, U, z, 1.0e-12), target)",
+        "import numpy as np\nz = np.array([0.0, 2.0e-7, 2.5e-7]); p = np.array([1.0e16, 2.0e16, 3.0e16]); n = np.array([3.0e16, 2.0e16, 1.0e16])\nJp = np.array([5.0e2, 5.0e2]); Jn = np.array([-4.0e2, 1.0e2]); U = np.array([0.0, 0.0, 0.0])\nassert np.allclose(continuity_update(p, n, Jp, Jn, U, z, 2.0e-12), target)",
+        "import numpy as np\nz = np.array([0.0, 1.0e-7, 1.5e-7, 2.0e-7]); p = np.array([2.0e16, 1.0e16, 4.0e16, 3.0e16]); n = np.array([1.0e16, 5.0e16, 2.0e16, 6.0e16])\nJp = np.array([-1.0e3, 2.0e3, -5.0e2]); Jn = np.array([3.0e3, -1.0e3, 2.0e3]); U = np.array([7.0e27, -2.0e27, 3.0e27, 9.0e27])\nassert np.allclose(continuity_update(p, n, Jp, Jn, U, z, 1.0e-12), target)",
+        "import numpy as np\ndef _probe(fn):\n    hits = 0\n    a = np.ones(3); j = np.ones(2)\n    for args in ((a, a, j, j, a, np.array([0.0, 1.0, 1.0]), 1.0), (a, a, j, j, a, np.array([0.0, 1.0, 2.0]), 0.0),\n                 (a, a, np.ones(3), j, a, np.array([0.0, 1.0, 2.0]), 1.0), (np.ones(2), np.ones(2), np.ones(1), np.ones(1), np.ones(2), np.array([0.0, 1.0]), 1.0)):\n        try:\n            fn(*args)\n        except ValueError:\n            hits += 1\n    return float(hits)\nassert np.allclose(_probe(continuity_update), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-72.9",
+      "test_cases": [
+        "import numpy as np\ncfg = (20, 80, 1.0e-7, 0.25e-7, 1.0e-12, 1000, 300.0, 1.0, -5.17, -5.60, -3.60, -2.60, 2.81e19, 1.00e17,\n       1.63e6, 1.59e-6, 3.0, 9.4, 2.0e-4, 2.0e-3, 2.0e-6, 2.0e-5, 1.0e-7, 1.0e-7, 0.0, 0.0)\nassert np.allclose(interfacial_hole_density(*cfg, 'field'), target)",
+        "import numpy as np\ncfg = (20, 20, 1.0e-7, 1.0e-7, 1.0e-12, 1000, 300.0, 1.0, -5.17, -5.60, -3.60, -2.60, 2.81e19, 1.00e17,\n       1.63e6, 1.59e-6, 3.0, 3.2, 2.0e-4, 2.0e-3, 2.0e-6, 2.0e-5, 1.0e-7, 1.0e-7, 0.0, 0.0)\nassert np.allclose(interfacial_hole_density(*cfg, 'field'), target)",
+        "import numpy as np\ncfg = (10, 20, 1.0e-7, 0.5e-7, 1.0e-12, 40, 300.0, 0.5, -5.17, -5.60, -3.60, -2.60, 2.81e19, 1.00e17,\n       1.63e6, 1.59e-6, 3.0, 9.4, 2.0e-4, 2.0e-3, 2.0e-6, 2.0e-5, 1.0e-7, 1.0e-7, 0.0, 0.0)\nassert np.allclose(interfacial_hole_density(*cfg, 'mean'), target)",
+        "import numpy as np\ncfg = (8, 16, 1.0e-7, 0.5e-7, 5.0e-13, 300, 350.0, -0.5, -5.10, -5.45, -3.50, -2.70, 1.0e19, 5.0e16,\n       1.0e6, 1.0e-5, 3.0, 3.5, 5.0e-4, 1.0e-3, 1.0e-5, 1.0e-4, 2.0e-8, 5.0e-8, 1.0e-30, 2.0e-30)\nassert np.allclose(interfacial_hole_density(*cfg, 'field'), target)",
+        "import numpy as np\ncfg = (10, 20, 1.0e-7, 0.5e-7, 1.0e-12, 200, 300.0, 1.0, -5.17, -5.60, -3.60, -2.60, 2.81e19, 1.00e17,\n       1.63e6, 1.0e16, 3.0, 9.4, 2.0e-4, 2.0e-3, 2.0e-6, 2.0e-5, 1.0e-10, 1.0e-10, 1.0e-30, 1.0e-30)\nassert np.allclose(interfacial_hole_density(*cfg, 'field'), target)",
+        "import numpy as np\ncfg = (5, 5, 1.0e-7, 1.0e-7, 1.0e-12, 0, 300.0, 1.0, -5.17, -5.60, -3.60, -2.60, 2.81e19, 1.00e17,\n       1.63e6, 1.59e-6, 3.0, 9.4, 2.0e-4, 2.0e-3, 2.0e-6, 2.0e-5, 1.0e-7, 1.0e-7, 0.0, 0.0)\ndef _probe(fn):\n    hits = 0\n    for scheme, c in (('field', cfg), ('upwind', cfg[:5] + (10,) + cfg[6:]), ('field', cfg[:4] + (-1.0e-12, 10) + cfg[6:])):\n        try:\n            fn(*c, scheme)\n        except ValueError:\n            hits += 1\n    return float(hits)\nassert np.allclose(_probe(interfacial_hole_density), target)"
+      ]
+    }
+  ]
+}

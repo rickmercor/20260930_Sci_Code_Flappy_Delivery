@@ -1,0 +1,40 @@
+problem_id: "Material_Science-Molecular_Modeling-42"
+subject: "materials"
+subject_area: "Molecular Modeling"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: " https://doi.org/10.1063/5.0337420"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_step_01_spin_operators"
+    description: "Build periodic spin-1/2 bond operators and the total-spin Casimir."
+    orchestrator: false
+  - number: 2
+    name: "02_step_02_spin_projectors.py"
+    description: "Resolve the zero-magnetization space into total-spin sectors."
+    orchestrator: false
+  - number: 3
+    name: "03_step_03_bead_hamiltonians."
+    description: "Build bead Hamiltonians and their first two displacement derivatives."
+    orchestrator: false
+  - number: 4
+    name: "04_step_04_sector_propagator"
+    description: "Evaluate the projected thermal exponential through second order."
+    orchestrator: false
+  - number: 5
+    name: "05_step_05_sector_free_energy_jet."
+    description: "Coordinates on one bead differentiate the same exponential twice. Coordinates on different beads replace two ordered factors. Taking the logarithm subtracts the disconnected product of first derivatives."
+    orchestrator: false
+  - number: 6
+    name: "06_step_06_rped_force_constants"
+    description: "Assemble the whole-chain spin free energy, forces and Hessian."
+    orchestrator: false
+  - number: 7
+    name: "07_step_07_internal_curvature"
+    description: "Resolve the least-curved internal ring-polymer displacement."
+    orchestrator: false
+  - number: 8
+    name: "08_step_08_solve"
+    description: "The threshold is the extra Einstein stiffness needed for nonnegative curvature in the specified internal space. The geometry is fixed; the calculation does not locate an equilibrium phase transition."
+    orchestrator: true

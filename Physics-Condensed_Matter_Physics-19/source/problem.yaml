@@ -1,0 +1,40 @@
+problem_id: "Physics-Condensed_Matter_Physics-19"
+subject: "physics"
+subject_area: "Condensed Matter Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2605.01202"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_build_skew_inner_product"
+    description: "Build the matrix of the skew-symmetric bilinear form under which the skew-orthogonal polynomials of the shifted RSK rows of a symmetric geometric waiting-time matrix are defined."
+    orchestrator: false
+  - number: 2
+    name: "02_skew_orthonormalize"
+    description: "Reduce one new vector against a partially built symplectic basis so that it becomes skew-orthogonal to every complete pair, either opening a new pair or completing the unpaired last vector."
+    orchestrator: false
+  - number: 3
+    name: "03_run_symplectic_arnoldi"
+    description: "Generate a skew-orthonormal polynomial basis on a set of nodes, together with the upper Hessenberg matrix of its multiplication-by-x recurrence."
+    orchestrator: false
+  - number: 4
+    name: "04_assemble_pfaffian_kernel"
+    description: "Assemble the 2 x 2 matrix-valued Pfaffian kernel of a finite beta = 1 discrete particle ensemble from its skew-orthonormal polynomials."
+    orchestrator: false
+  - number: 5
+    name: "05_condition_kernel"
+    description: "Produce the Pfaffian kernel of a discrete Pfaffian point process restricted to the remaining sites, conditioned on a set of sites being all occupied or all empty."
+    orchestrator: false
+  - number: 6
+    name: "06_compute_gap_probability"
+    description: "Compute the probability that a discrete Pfaffian point process leaves every site of a given set empty."
+    orchestrator: false
+  - number: 7
+    name: "07_compute_single_occupancy_p"
+    description: "Compute the probability that exactly one site of a given set is occupied in a discrete Pfaffian point process."
+    orchestrator: false
+  - number: 8
+    name: "08_compute_second_row_pmf"
+    description: "Compose every earlier step to obtain the exact probability that the second row of the RSK shape of a symmetric geometric waiting-time matrix has a given length."
+    orchestrator: true

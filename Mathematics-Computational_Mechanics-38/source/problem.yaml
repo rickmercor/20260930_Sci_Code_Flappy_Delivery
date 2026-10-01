@@ -1,0 +1,44 @@
+problem_id: "Mathematics-Computational_Mechanics-38"
+subject: "mathematics"
+subject_area: "Computational Mechanics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2604.09215"
+dependencies: ""
+steps:
+  - number: 1
+    name: "step-01-bond-families"
+    description: "Constructs the geometric substrate that every later step consumes: the uniform Cartesian point cloud, the reference-configuration bond families within the horizon, the benchmark's normalized cubic B-spline influence function on every bond, the per-point discrete kernel integral, the method's truncation-corrected averaged bond kernel used in every family average, and the benchmark's pre-notch and no-fail bond masks. Returns one dictionary of arrays (points, bond pairs, kernel weights, masks) that steps 3, 4, 7, 8 and 9 take as input. Validates grid placement, the family radius rule, the kernel, the treatment of truncated families, and the bond bookkeeping. Deliberately excluded: damage, deformation, constitutive response, and dynamics."
+    orchestrator: false
+  - number: 2
+    name: "step-02-normalization-constant"
+    description: "Computes the Griffith-consistency normalization constant of the bond-based phase-field damage model for a named normalized spherical kernel ('cubic', 'linear', or 'constant'), following the source's derivation, with any one-dimensional kernel integrals evaluated to better than 1e-12. Validates the normalization that every later damage quantity inherits (the critical threshold of step 6 and the dissipation functional of step 9). Deliberately excluded: any mesh, deformation, or dynamics - the constant is a pure kernel functional."
+    orchestrator: false
+  - number: 3
+    name: "step-03-kinematic-operators"
+    description: "Builds, for a given bond phase-field state on the families of step 1, the kinematically degraded moment matrix (shape tensor) of every point and the shape-function derivatives of both endpoints of every bond pair. Validates the method's separate kinematic degradation function, the role of the critical phase-field value s_c in it, and the way it enters the kinematic operators; the returned operators are the kinematic input of the bond deformation gradients (step 4) and of every internal-force evaluation (step 7). Deliberately excluded: stress, driving force, and evolution."
+    orchestrator: false
+  - number: 4
+    name: "step-04-bond-deformation-gradients"
+    description: "Computes the nonlocal deformation gradient of every point from the shape-function derivatives of step 3 and from it the bond-associated (quadrature-point) deformation gradient of every bond pair for a given displacement field on the families of step 1. Validates the bond-level construction of the framework the source builds on, which reproduces homogeneous deformations exactly; the returned (P, 3, 3) array feeds the stress evaluation of step 5 inside every internal-force evaluation of step 7. Deliberately excluded: damage and constitutive response."
+    orchestrator: false
+  - number: 5
+    name: "step-05-bond-stress-driving-force"
+    description: "Evaluates the Saint Venant-Kirchhoff response of one or many bond deformation gradients and returns both the undamaged first Piola-Kirchhoff stress and the benchmark's stress-based crack driving force in the form the source adopts. Validates the constitutive law, the choice of stress measure for the driving force, and its scaling. Both outputs are consumed by every internal-force evaluation of step 7. Deliberately excluded: mesh, families, and evolution - this is a pure pointwise constitutive functional."
+    orchestrator: false
+  - number: 6
+    name: "step-06-bond-phase-field"
+    description: "Applies the method's closed-form bond-level phase-field evolution to the damage-history variable, with the critical crack-driving-force threshold derived from Gc, the horizon, and the normalization constant produced by step 2. Works elementwise on arrays of bond histories. Validates the evolution law and the threshold it pivots on; the returned bond phase-field is consumed by every internal-force evaluation of step 7, by the initial state of the dynamics of step 8, and by the orchestrator of step 9. Deliberately excluded: how the history variable is accumulated in time."
+    orchestrator: false
+  - number: 7
+    name: "step-07-internal-force-evaluation"
+    description: "Performs exactly one internal-force evaluation of the full method for a given displacement field and bond state on the families of step 1, by chaining steps 3 to 6 in the order the source prescribes and then assembling the method's two-term force state with its non-uniform stress contribution and the truncation-corrected bond weights. Returns the internal force density of every point together with the updated history and bond phase-field, which the dynamics of step 8 feed back into the next evaluation. Validates the within-evaluation update ordering and the force-state assembly. Deliberately excluded: time integration."
+    orchestrator: false
+  - number: 8
+    name: "step-08-velocity-verlet-dynamics"
+    description: "Runs the frozen explicit dynamics of the pre-notched benchmark on the families of step 1: initial bond phase-field from the pre-notch history through step 6, velocity Dirichlet layers, one initializing internal-force evaluation of step 7, and n_steps velocity Verlet steps with exactly one internal-force evaluation of step 7 each. Returns the final kinematic state and the final bond history and phase-field, which the orchestrator of step 9 turns into the crack dissipation energy. Validates the boundary protocol, the integrator layout, and the irreversible accumulation of damage."
+    orchestrator: false
+  - number: 9
+    name: "step-09-crack-dissipation-orchestrator"
+    description: "Final orchestrator. Chains the earlier steps end to end - families and bond kernel (step 1), damage-model normalization constant (step 2), initial bond phase-field of the pre-notched state (step 6), and the dynamics of step 8 (which invoke step 7 and through it steps 3-6 once per force evaluation) - then evaluates the method's total crack dissipation energy of the body on the final and the initial bond phase-field and returns their difference, the crack dissipation growth dE. Every earlier step is on the answer path; nothing is recomputed locally."
+    orchestrator: true

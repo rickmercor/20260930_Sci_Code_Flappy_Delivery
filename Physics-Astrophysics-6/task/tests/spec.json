@@ -1,0 +1,67 @@
+{
+  "problem_id": "Physics-Astrophysics-6",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Astrophysics-6.1",
+      "test_cases": [
+        "import numpy as np\np = np.random.default_rng(41).uniform(-2, 2, (3, 4))\nassert np.allclose(seed_bounds(p.copy()), target)",
+        "import numpy as np\np = np.array([[0.3], [1.2], [-0.7]])\nassert np.allclose(seed_bounds(p.copy()), target)",
+        "import numpy as np\np = np.zeros((2, 3))\n\ndef case():\n    try:\n        seed_bounds(p.copy())\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(case(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-6.2",
+      "test_cases": [
+        "import numpy as np\np = np.random.default_rng(17).uniform(0, 6, (3, 3))\nassert np.allclose(prescribed_component(np.array([0.2, 2.1]), 1.3, 0.02, p.copy(), seed_bounds(p.copy())), target)",
+        "import numpy as np\np = np.zeros((3, 1))\nassert np.allclose(prescribed_component(0.0, 0.0, 0.0, p.copy(), seed_bounds(p.copy())), target)",
+        "import numpy as np\np = np.random.default_rng(17).uniform(0, 6, (3, 3))\n\ndef case():\n    _case_bounds = seed_bounds(p.copy())\n    try:\n        prescribed_component(np.nan, 0.0, 0.0, p.copy(), _case_bounds)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(case(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-6.3",
+      "test_cases": [
+        "import numpy as np\np = np.random.default_rng(27).uniform(-3, 3, (3, 4))\nassert np.allclose(boundary_field(np.array([0.1, 2.3]), 0.8, p.copy(), seed_bounds(p.copy())), target)",
+        "import numpy as np\np = np.zeros((3, 1))\nassert np.allclose(boundary_field(0.0, 0.0, p.copy(), seed_bounds(p.copy())), target)",
+        "import numpy as np\np = np.random.default_rng(27).uniform(-3, 3, (3, 4))\n\ndef case():\n    try:\n        boundary_field(0.0, 0.0, p.copy(), np.zeros((2, 2)))\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(case(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-6.4",
+      "test_cases": [
+        "import numpy as np\np = np.random.default_rng(71).uniform(0, 6, (3, 3))\nx = np.array([0.2, 1.7])\ny = np.array([0.1, 1.9, 4.7])\nz = np.array([0.0, 0.003, 0.009])\n\ndef _case_encode_volume(value, shape):\n    result = np.asarray(value)\n    if result.shape != shape or result.dtype.kind not in \"iuf\" or not np.isfinite(result).all():\n        raise AssertionError(\"volume_field must return a finite real field with the contracted shape\")\n    return result * (1e-9 / 2e-6)\nassert np.allclose(_case_encode_volume(volume_field(x.copy(), y.copy(), z.copy(), p.copy(), seed_bounds(p.copy())), (len(z), len(x), len(y), 3)), target)",
+        "import numpy as np\np = np.array([[5.93, 2.26, 4.93, 3.72, 1.85], [5.8, 5.46, 2.29, 6.11, 1.41], [5.06, 4.28, 2.96, 0.19, 5.62]])\nx = np.array([2.2143518802])\ny = np.array([0.4, 1.9, 3.3, 5.0])\nz = np.array([0.05, 0.15, 0.2369])\n\ndef _case_encode_volume(value, shape):\n    result = np.asarray(value)\n    if result.shape != shape or result.dtype.kind not in \"iuf\" or not np.isfinite(result).all():\n        raise AssertionError(\"volume_field must return a finite real field with the contracted shape\")\n    return result * (1e-9 / 2e-6)\nassert np.allclose(_case_encode_volume(volume_field(x.copy(), y.copy(), z.copy(), p.copy(), seed_bounds(p.copy())), (len(z), len(x), len(y), 3)), target)",
+        "import numpy as np\np = np.zeros((3, 1))\nx = np.array([0.3])\ny = np.array([0.2, 2.0])\nz = np.array([0.0])\n\ndef _case_encode_volume(value, shape):\n    result = np.asarray(value)\n    if result.shape != shape or result.dtype.kind not in \"iuf\" or not np.isfinite(result).all():\n        raise AssertionError(\"volume_field must return a finite real field with the contracted shape\")\n    return result * (1e-9 / 2e-6)\nassert np.allclose(_case_encode_volume(volume_field(x.copy(), y.copy(), z.copy(), p.copy(), seed_bounds(p.copy())), (len(z), len(x), len(y), 3)), target)",
+        "import numpy as np\np = np.random.default_rng(71).uniform(0, 6, (3, 3))\n\ndef case():\n    _case_bounds = seed_bounds(p.copy())\n    try:\n        volume_field([0.0], [0.0], [-0.1], p.copy(), _case_bounds)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(case(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-6.5",
+      "test_cases": [
+        "import numpy as np\np = np.array([[5.93, 2.26, 4.93, 3.72, 1.85], [5.8, 5.46, 2.29, 6.11, 1.41], [5.06, 4.28, 2.96, 0.19, 5.62]])\nassert np.allclose(branch_margin(2.2143518802, 0.3, p.copy(), seed_bounds(p.copy())), target)",
+        "import numpy as np\np = np.array([[5.93, 2.26, 4.93, 3.72, 1.85], [5.8, 5.46, 2.29, 6.11, 1.41], [5.06, 4.28, 2.96, 0.19, 5.62]])\nassert np.allclose(branch_margin(1.0, 0.0, p.copy(), seed_bounds(p.copy())), target)",
+        "import numpy as np\np = np.round(np.random.default_rng(303).uniform(0, 2 * np.pi, (3, 5)), 2)\nassert np.allclose(branch_margin(3.4335205081, 0.25, p.copy(), seed_bounds(p.copy())), target)",
+        "import numpy as np\np = np.array([[5.93, 2.26, 4.93, 3.72, 1.85], [5.8, 5.46, 2.29, 6.11, 1.41], [5.06, 4.28, 2.96, 0.19, 5.62]])\n\ndef case():\n    _case_bounds = seed_bounds(p.copy())\n    try:\n        branch_margin(1.0, -0.1, p.copy(), _case_bounds)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(case(), target)",
+        "import numpy as np\np = np.array([[5.93, 2.26, 4.93, 3.72, 1.85], [5.8, 5.46, 2.29, 6.11, 1.41], [5.06, 4.28, 2.96, 0.19, 5.62]])\n\ndef case2():\n    _case_bounds = seed_bounds(p.copy())\n    try:\n        branch_margin(2.2143518802, 1.5, p.copy(), _case_bounds)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(case2(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-6.6",
+      "test_cases": [
+        "import numpy as np\np = np.array([[5.93, 2.26, 4.93, 3.72, 1.85], [5.8, 5.46, 2.29, 6.11, 1.41], [5.06, 4.28, 2.96, 0.19, 5.62]])\nassert np.allclose(plane_height(2.2143518802, p.copy(), seed_bounds(p.copy())), target)",
+        "import numpy as np\np = np.array([[5.93, 2.26, 4.93, 3.72, 1.85], [5.8, 5.46, 2.29, 6.11, 1.41], [5.06, 4.28, 2.96, 0.19, 5.62]])\nassert np.allclose(plane_height(1.0, p.copy(), seed_bounds(p.copy())), target)",
+        "import numpy as np\np = np.round(np.random.default_rng(101).uniform(0, 2 * np.pi, (3, 4)), 2)\nassert np.allclose(plane_height(2.5, p.copy(), seed_bounds(p.copy())), target)",
+        "import numpy as np\np = np.array([[5.93, 2.26, 4.93, 3.72, 1.85], [5.8, 5.46, 2.29, 6.11, 1.41], [5.06, 4.28, 2.96, 0.19, 5.62]])\nassert np.allclose(plane_height(2.2143518802, p.copy(), seed_bounds(p.copy()), 0.5), target)",
+        "import numpy as np\np = np.array([[5.93, 2.26, 4.93, 3.72, 1.85], [5.8, 5.46, 2.29, 6.11, 1.41], [5.06, 4.28, 2.96, 0.19, 5.62]])\n\ndef case():\n    _case_bounds = seed_bounds(p.copy())\n    try:\n        plane_height(2.2143518802, p.copy(), _case_bounds, 0.05)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(case(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-6.7",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(existence_height(), target)",
+        "import numpy as np\np = np.round(np.random.default_rng(909).uniform(0, 2 * np.pi, (3, 3)), 2)\nassert np.allclose(existence_height(p.copy()), target)",
+        "import numpy as np\np = np.round(np.random.default_rng(101).uniform(0, 2 * np.pi, (3, 4)), 2)\nassert np.allclose(existence_height(p.copy()), target)",
+        "import numpy as np\ndef case():\n    try:\n        existence_height(None, 0.05)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(case(), target)"
+      ]
+    }
+  ]
+}

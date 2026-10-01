@@ -1,0 +1,48 @@
+problem_id: "Material_Science-Semiconductor_Materials-42"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1038/s41524-026-02283-8"
+dependencies: ""
+steps:
+  - number: 1
+    name: "bloch_frames"
+    description: "Evaluate the supplied lattice-gauge Hamiltonian and its canonical Bloch frames."
+    orchestrator: false
+  - number: 2
+    name: "slab_averages"
+    description: "Evaluate the distinct orbital and uniform-pair slab integrals in the symmetric Q2D construction (SI S.25\u2013S.26)."
+    orchestrator: false
+  - number: 3
+    name: "density_vertices"
+    description: "Form point-orbital density vertices with the symmetric orbital factors of SI S.25, keeping the Fourier and Bloch-gauge phases."
+    orchestrator: false
+  - number: 4
+    name: "dielectric_matrices"
+    description: "Construct the complete finite-grid static RPA response using main Eq. 5 and the symmetric Q2D dielectric prescription."
+    orchestrator: false
+  - number: 5
+    name: "screening_lengths"
+    description: "Extract the anisotropic microscopic screening lengths from the dielectric Schur complement (SI S.12) for the origin-cell treatment (SI S.20\u2013S.21); the finite sampling rule is stipulated."
+    orchestrator: false
+  - number: 6
+    name: "screened_potentials"
+    description: "Combine the independently averaged Coulomb pair potential with the inverse symmetric dielectric matrix and regularize head, wings and body according to the specified Q2D cell prescription."
+    orchestrator: false
+  - number: 7
+    name: "exciton_hamiltonian"
+    description: "Apply the paper\u2019s microscopic direct kernel with reciprocal local fields and both conduction channels; the real-space Eq. 20 fixes the stated conjugation convention."
+    orchestrator: false
+  - number: 8
+    name: "exciton_levels"
+    description: "Obtain the lowest exciton eigenenergies while retaining physical degeneracies."
+    orchestrator: false
+  - number: 9
+    name: "calibration_branches"
+    description: "Resolve the inverse calibration\u2019s isolated branches rather than depending on one optimizer starting point; this is a constructed inverse use of the paper\u2019s forward model."
+    orchestrator: false
+  - number: 10
+    name: "predict_exciton_splitting"
+    description: "Orchestrate the microscopic screening, complete inverse branch set, dielectric witness selection, and full versus head-projected exciton prediction."
+    orchestrator: true

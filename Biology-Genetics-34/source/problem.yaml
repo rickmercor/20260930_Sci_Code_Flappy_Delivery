@@ -1,0 +1,48 @@
+problem_id: "Biology-Genetics-34"
+subject: "biology"
+subject_area: "Genetics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1038/s41588-026-02549-3"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_mixture_probabilities"
+    description: "Turn the per-component counts of causal variants reported by a genome-wide Bayesian mixture model into the mixing probabilities of the prior, including the probability that a variant is null."
+    orchestrator: false
+  - number: 2
+    name: "02_mixture_scale_factors"
+    description: "Convert the prior variance scale factors of the mixture model into the per-component shrinkage and precision constants that a single-variant posterior at a given sample size depends on."
+    orchestrator: false
+  - number: 3
+    name: "03_pip_curve_constants"
+    description: "Reduce the prior mixing probabilities and the per-component shrinkage constants to the pair of numbers each non-null component contributes to the posterior inclusion probability of a single variant."
+    orchestrator: false
+  - number: 4
+    name: "04_pip_threshold_statistic"
+    description: "Invert the posterior inclusion probability of a single variant to find the chi-square statistic at which a given PIP threshold is first reached."
+    orchestrator: false
+  - number: 5
+    name: "05_component_detection_power"
+    description: "Compute, for each non-null mixture component, the probability that a causal variant drawn from that component produces a chi-square statistic above the threshold set by the PIP cut-off."
+    orchestrator: false
+  - number: 6
+    name: "06_component_tail_second_moment"
+    description: "Compute, for each non-null mixture component, the second moment of the standardised statistic restricted to the region in which the variant is detected."
+    orchestrator: false
+  - number: 7
+    name: "07_component_detected_variance"
+    description: "Compute, for each non-null mixture component, the expected squared effect of a causal variant restricted to the outcomes in which that variant is detected."
+    orchestrator: false
+  - number: 8
+    name: "08_expected_heritability_explained"
+    description: "Combine the per-component detected effect variances with the prior mixing probabilities into the expected proportion of SNP-based heritability carried by the variants that pass the PIP threshold."
+    orchestrator: false
+  - number: 9
+    name: "09_required_case_count"
+    description: "Convert an equivalent quantitative-trait sample size on the liability scale into the number of cases an ascertained case-control study of a disease must collect."
+    orchestrator: false
+  - number: 10
+    name: "10_run_finemapping_power_pipeline"
+    description: "Chain the sub-problem functions 01-09 end to end and return the number of cases a prospective case-control study needs before its fine-mapped variants carry a target share of the SNP-based heritability."
+    orchestrator: true

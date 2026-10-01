@@ -1,0 +1,124 @@
+{
+  "problem_id": "Mathematics-Numerical_Linear_Algebra-14",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-14.1",
+      "test_cases": [
+        "import numpy as np\nsigma = np.diag([3.0, 0.5])\nA = np.block([[np.zeros((2,2)), -sigma], [sigma, np.zeros((2,2))]])\nassert np.allclose(compute_skew_polar_factor(A), target)",
+        "import numpy as np\nA = np.array([[0.0, -1e-8], [1e-8, 0.0]])\nassert np.allclose(compute_skew_polar_factor(A), target)",
+        "import numpy as np\nsigma = np.diag([5.0, 1.0, 0.02])\nS = np.block([[np.zeros((3,3)), -sigma], [sigma, np.zeros((3,3))]])\nG = np.eye(6)\nc, s = np.cos(0.43), np.sin(0.43)\nG[0,0] = G[4,4] = c\nG[0,4], G[4,0] = -s, s\nA = G @ S @ G.T\nassert np.allclose(compute_skew_polar_factor(A), target)",
+        "import numpy as np\nS = np.array([[0.0,-1.0,0.4,0.2],[1.0,0.0,-0.7,0.3],[-0.4,0.7,0.0,-0.9],[-0.2,-0.3,0.9,0.0]])\nE = 0.5 * (np.full((4,4), 1e-8) + np.full((4,4), 1e-8).T)\nA = 1e6 * S + E\nassert np.allclose(compute_skew_polar_factor(A), target)",
+        "import numpy as np\nA = 1e-13 * np.array([[0.0, -1.0], [1.0, 0.0]])\nassert np.allclose(compute_skew_polar_factor(A), target)",
+        "import numpy as np\nS = np.array([[0.0,-1.0,0.4,0.2],[1.0,0.0,-0.7,0.3],[-0.4,0.7,0.0,-0.9],[-0.2,-0.3,0.9,0.0]])\nE = 0.5 * (np.full((4,4), 2.5e-14) + np.full((4,4), 2.5e-14).T)\nA = 1e-3 * S + E\nassert np.allclose(compute_skew_polar_factor(A), target)",
+        "import numpy as np\nA = np.array([[0.0, 1.0], [1.0, 0.0]])\ndef run_model():\n    try:\n        compute_skew_polar_factor(A)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA = np.array([[0.0,-1.0,0.0,0.0],[1.0,0.0,0.0,0.0],[0.0,0.0,0.0,0.0],[0.0,0.0,0.0,0.0]])\ndef run_model():\n    try:\n        compute_skew_polar_factor(A)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA = np.array([[0.0, -1.0], [1.0, 0.0]])\ndef run_model():\n    try:\n        compute_skew_polar_factor(A, 1e-12, -1.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA = np.array([[0.0, -1.0], [1.0, 0.0]])\ndef run_model():\n    try:\n        compute_skew_polar_factor(A, 0.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA = np.array([[0.0, -1.0], [1.0, np.nan]])\ndef run_model():\n    try:\n        compute_skew_polar_factor(A)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA = np.array([[0.0, -1.0], [1.0, 0.0]], dtype=complex)\ndef run_model():\n    try:\n        compute_skew_polar_factor(A)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA = np.zeros((3, 3))\ndef run_model():\n    try:\n        compute_skew_polar_factor(A)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-14.2",
+      "test_cases": [
+        "import numpy as np\nP = np.array([[0.0, -1.0], [1.0, 0.0]])\nseed = 7\nassert np.allclose(sample_positive_imaginary_basis(P, seed), target)",
+        "import numpy as np\nI = np.eye(3)\nP = np.block([[np.zeros((3,3)), -I], [I, np.zeros((3,3))]])\nseed = 260812153\nassert np.allclose(sample_positive_imaginary_basis(P, seed), target)",
+        "import numpy as np\nI = np.eye(2)\nP = np.block([[np.zeros((2,2)), -I], [I, np.zeros((2,2))]])\nseed = 314159\nassert np.allclose(sample_positive_imaginary_basis(P, seed), target)",
+        "import numpy as np\nP = np.zeros((3, 3))\ndef run_model():\n    try:\n        sample_positive_imaginary_basis(P, 3)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nP = np.array([[0.0, -1.0], [1.0, np.nan]])\ndef run_model():\n    try:\n        sample_positive_imaginary_basis(P, 3)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nP = np.array([[0.0, -1.0], [1.0, 0.0]])\ndef run_model():\n    try:\n        sample_positive_imaginary_basis(P, True)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nP = np.eye(2)\ndef run_model():\n    try:\n        sample_positive_imaginary_basis(P, 3)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nP = np.array([[0.0, -1.0], [1.0, 0.0]], dtype=complex)\ndef run_model():\n    try:\n        sample_positive_imaginary_basis(P, 3)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nP = np.array([[0.0, -2.0], [2.0, 0.0]])\ndef run_model():\n    try:\n        sample_positive_imaginary_basis(P, 1)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-14.3",
+      "test_cases": [
+        "import numpy as np\nV_tilde = np.array([[1.0], [-1.0j]]) / np.sqrt(2.0)\nassert np.allclose(build_real_symplectic_basis(V_tilde), target)",
+        "import numpy as np\nphase = np.exp(0.37j)\nV_tilde = phase * np.array([[1.0], [-1.0j]]) / np.sqrt(2.0)\nassert np.allclose(build_real_symplectic_basis(V_tilde), target)",
+        "import numpy as np\nU = np.array([[1.0, 1.0j], [1.0j, 1.0]]) / np.sqrt(2.0)\nV_tilde = np.vstack((U, -1.0j * U)) / np.sqrt(2.0)\nassert np.allclose(build_real_symplectic_basis(V_tilde), target)",
+        "import numpy as np\nV_tilde = np.ones((4, 2), dtype=complex)\ndef run_model():\n    try:\n        build_real_symplectic_basis(V_tilde)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nV_tilde = np.ones((3, 2), dtype=complex)\ndef run_model():\n    try:\n        build_real_symplectic_basis(V_tilde)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nV_tilde = np.array([[1.0, 0.0], [0.0, 1.0], [np.inf, 0.0], [0.0, 0.0]], dtype=complex)\ndef run_model():\n    try:\n        build_real_symplectic_basis(V_tilde)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nV_tilde = np.ones((4, 3), dtype=complex)\ndef run_model():\n    try:\n        build_real_symplectic_basis(V_tilde)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-14.4",
+      "test_cases": [
+        "import numpy as np\nsigma = np.diag([3.0, 0.5])\nA = np.block([[np.zeros((2,2)), -sigma], [sigma, np.zeros((2,2))]])\nZ = np.eye(4)\nassert np.allclose(compute_skew_hamiltonian_blocks(A, Z), target)",
+        "import numpy as np\nsigma = np.diag([4.0, 1.0])\nS = np.block([[np.zeros((2,2)), -sigma], [sigma, np.zeros((2,2))]])\ntheta = 0.41\nU = np.array([[np.cos(theta), -np.sin(theta)], [np.sin(theta), np.cos(theta)]])\nZ = np.block([[U, np.zeros((2,2))], [np.zeros((2,2)), U]])\nA = S.copy()\nassert np.allclose(compute_skew_hamiltonian_blocks(A, Z), target)",
+        "import numpy as np\nA = np.array([[0.0, -1e-6], [1e-6, 0.0]])\nZ = np.eye(2)\nassert np.allclose(compute_skew_hamiltonian_blocks(A, Z), target)",
+        "import numpy as np\nA = np.zeros((3, 3))\nZ = np.eye(3)\ndef run_model():\n    try:\n        compute_skew_hamiltonian_blocks(A, Z)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA = np.array([[0.0, -1.0], [1.0, 0.0]])\nA[0, 1] = np.inf\nZ = np.eye(2)\ndef run_model():\n    try:\n        compute_skew_hamiltonian_blocks(A, Z)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA = np.array([[0.0, -1.0], [1.0, 0.0]])\nZ = np.eye(4)\ndef run_model():\n    try:\n        compute_skew_hamiltonian_blocks(A, Z)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA = np.eye(4)\nZ = np.eye(4)\ndef run_model():\n    try:\n        compute_skew_hamiltonian_blocks(A, Z)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA = np.array([[0.0, -1.0], [1.0, 0.0]])\nZ = 2.0 * np.eye(2)\ndef run_model():\n    try:\n        compute_skew_hamiltonian_blocks(A, Z)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-14.5",
+      "test_cases": [
+        "import numpy as np\nH = np.diag([3.0, 0.5])\nOmega = np.zeros((2, 2))\nblocks = np.stack((H, Omega))\nassert np.allclose(solve_half_size_hermitian_problem(blocks), target)",
+        "import numpy as np\nH = np.array([[2.0, 0.3], [0.3, -1.0]])\nOmega = np.array([[0.0, 0.4], [-0.4, 0.0]])\nblocks = np.stack((H, Omega))\nassert np.allclose(solve_half_size_hermitian_problem(blocks), target)",
+        "import numpy as np\nblocks = np.array([[[-0.2]], [[0.0]]])\nassert np.allclose(solve_half_size_hermitian_problem(blocks), target)",
+        "import numpy as np\nblocks = np.stack((np.array([[0.0, 3.0], [3.0, 0.0]]), np.zeros((2, 2))))\nassert np.allclose(solve_half_size_hermitian_problem(blocks), target)",
+        "import numpy as np\nblocks = np.stack((np.diag([2.0, -4.0]), np.array([[0.0, 0.7], [-0.7, 0.0]])))\nassert np.allclose(solve_half_size_hermitian_problem(blocks), target)",
+        "import numpy as np\nw = np.array([1.0, 1.0j, -1.0, -1.0j], dtype=complex)\nw /= np.linalg.norm(w)\nK = 4.0 * np.eye(4) - 5.0 * np.outer(w, w.conj())\nblocks = np.stack((K.real, K.imag))\nassert np.allclose(solve_half_size_hermitian_problem(blocks), target)",
+        "import numpy as np\nw = np.array([1.0, -1.0j, -1.0, 1.0j], dtype=complex)\nw /= np.linalg.norm(w)\nK = -3.0 * np.eye(4) + 5.0 * np.outer(w, w.conj())\nblocks = np.stack((K.real, K.imag))\nassert np.allclose(solve_half_size_hermitian_problem(blocks), target)",
+        "import numpy as np\nrng = np.random.default_rng(20260831)\nU0 = np.linalg.qr(rng.standard_normal((4,4)) + 1j*rng.standard_normal((4,4)))[0]\nvalues = np.array([-1.0, 4.0, 4.0 + 6e-14, 4.0 + 1.2e-13])\nK = U0 @ np.diag(values) @ U0.conj().T\nblocks = np.stack((K.real, K.imag))\nassert np.allclose(solve_half_size_hermitian_problem(blocks), target)",
+        "import numpy as np\nrng = np.random.default_rng(20260901)\nU0 = np.linalg.qr(rng.standard_normal((5,5)) + 1j*rng.standard_normal((5,5)))[0]\nvalues = np.array([-5.0 - 1.5e-13, -5.0 - 7.5e-14, -5.0, 0.4, 2.0])\nK = U0 @ np.diag(values) @ U0.conj().T\nblocks = np.stack((K.real, K.imag))\nassert np.allclose(solve_half_size_hermitian_problem(blocks), target)",
+        "import numpy as np\nblocks = np.stack((np.array([[1.0, 0.3], [0.9, 2.0]]), np.zeros((2, 2))))\ndef run_model():\n    try:\n        solve_half_size_hermitian_problem(blocks)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nblocks = np.zeros((2, 2, 3))\ndef run_model():\n    try:\n        solve_half_size_hermitian_problem(blocks)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nblocks = np.stack((np.array([[np.nan, 0.0], [0.0, 1.0]]), np.zeros((2, 2))))\ndef run_model():\n    try:\n        solve_half_size_hermitian_problem(blocks)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nblocks = np.array([[[1.0, 0.0], [0.0, 2.0]], [[0.0, 0.2], [0.2, 0.0]]])\ndef run_model():\n    try:\n        solve_half_size_hermitian_problem(blocks)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-14.6",
+      "test_cases": [
+        "import numpy as np\nZ = np.eye(4)\neigensystem = np.vstack((np.array([3.0, 0.5], dtype=complex), np.eye(2, dtype=complex)))\nassert np.allclose(recover_real_spectral_decomposition(Z, eigensystem), target)",
+        "import numpy as np\nZ = np.eye(2)\neigensystem = np.array([[-0.2], [1.0]], dtype=complex)\nassert np.allclose(recover_real_spectral_decomposition(Z, eigensystem), target)",
+        "import numpy as np\nZ = np.eye(4)\nU = np.array([[1.0, 1.0j], [1.0j, 1.0]]) / np.sqrt(2.0)\neigensystem = np.vstack((np.array([2.0, -0.4], dtype=complex), U))\nassert np.allclose(recover_real_spectral_decomposition(Z, eigensystem), target)",
+        "import numpy as np\nrng = np.random.default_rng(20260830)\nZ = np.linalg.qr(rng.standard_normal((6, 6)))[0]\nU = np.linalg.qr(rng.standard_normal((3, 3)) + 1j * rng.standard_normal((3, 3)))[0]\neigensystem = np.vstack((np.array([2.0, -0.5, 0.0], dtype=complex), U))\nassert np.allclose(recover_real_spectral_decomposition(Z, eigensystem), target)",
+        "import numpy as np\nZ = np.eye(3)\neigensystem = np.vstack((np.array([3.0, 0.5], dtype=complex), np.eye(2, dtype=complex)))\ndef run_model():\n    try:\n        recover_real_spectral_decomposition(Z, eigensystem)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nZ = 2.0 * np.eye(4)\neigensystem = np.vstack((np.array([3.0, 0.5], dtype=complex), np.eye(2, dtype=complex)))\ndef run_model():\n    try:\n        recover_real_spectral_decomposition(Z, eigensystem)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nZ = np.eye(4)\nZ[0, 0] = np.nan\neigensystem = np.vstack((np.array([3.0, 0.5], dtype=complex), np.eye(2, dtype=complex)))\ndef run_model():\n    try:\n        recover_real_spectral_decomposition(Z, eigensystem)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nZ = np.eye(4)\neigensystem = np.vstack((np.array([3.0 + 1e-11j, 0.5], dtype=complex), np.eye(2, dtype=complex)))\ndef run_model():\n    try:\n        recover_real_spectral_decomposition(Z, eigensystem)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nZ = np.eye(4)\neigensystem = np.vstack((np.array([3.0 + 1e-13j, 0.5], dtype=complex), np.eye(2, dtype=complex)))\nassert np.allclose(recover_real_spectral_decomposition(Z, eigensystem), target)",
+        "import numpy as np\nZ = np.eye(4)\neigensystem = np.vstack((np.array([3.0, 0.5, 0.25], dtype=complex), np.eye(3, dtype=complex)[:, :3]))\ndef run_model():\n    try:\n        recover_real_spectral_decomposition(Z, eigensystem)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nZ = np.eye(4)\nU = 2.0 * np.eye(2, dtype=complex)\neigensystem = np.vstack((np.array([2.0, 0.4], dtype=complex), U))\ndef run_model():\n    try:\n        recover_real_spectral_decomposition(Z, eigensystem)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-14.7",
+      "test_cases": [
+        "import numpy as np\nZ = np.eye(4)\nQ = np.eye(4)\nassert np.allclose(compute_basis_checksums(Z, Q), target)",
+        "import numpy as np\nZ = np.diag([1.0, -1.0, 1.0, -1.0])\nQ = np.diag([-1.0, 1.0, -1.0, 1.0])\nassert np.allclose(compute_basis_checksums(Z, Q), target)",
+        "import numpy as np\ntheta = 0.61\nR = np.array([[np.cos(theta), -np.sin(theta)], [np.sin(theta), np.cos(theta)]])\nZ = np.block([[R, np.zeros((2,2))], [np.zeros((2,2)), R]])\nQ = Z.T\nassert np.allclose(compute_basis_checksums(Z, Q), target)",
+        "import numpy as np\nZ = np.eye(3)\nQ = np.eye(3)\ndef run_model():\n    try:\n        compute_basis_checksums(Z, Q)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nZ = 2.0 * np.eye(4)\nQ = np.eye(4)\ndef run_model():\n    try:\n        compute_basis_checksums(Z, Q)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nZ = np.eye(4)\nQ = np.eye(2)\ndef run_model():\n    try:\n        compute_basis_checksums(Z, Q)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nZ = np.eye(4)\nQ = np.eye(4)\nQ[0, 0] = np.nan\ndef run_model():\n    try:\n        compute_basis_checksums(Z, Q)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nZ = np.eye(4)\nQ = 2.0 * np.eye(4)\ndef run_model():\n    try:\n        compute_basis_checksums(Z, Q)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-14.8",
+      "test_cases": [
+        "import numpy as np\nsigma = np.diag([3.0, 0.5])\nA = np.block([[np.zeros((2,2)), -sigma], [sigma, np.zeros((2,2))]])\nseed = 7\nassert np.allclose(compute_basis_sensitive_skew_scalar(A, seed), target)",
+        "import numpy as np\nvalues = np.array([5.0, 2.0, 0.4, 0.05])\nS = np.block([[np.zeros((4,4)), -np.diag(values)], [np.diag(values), np.zeros((4,4))]])\nQ0 = np.eye(8)\nfor p, q, theta in [(0,5,0.37),(2,7,-0.52),(1,4,0.81),(3,6,-0.28),(0,2,0.44)]:\n    G = np.eye(8)\n    c, s = np.cos(theta), np.sin(theta)\n    G[p,p] = G[q,q] = c\n    G[p,q], G[q,p] = -s, s\n    Q0 = Q0 @ G\nA = Q0 @ S @ Q0.T\nseed = 314159\nassert np.allclose(compute_basis_sensitive_skew_scalar(A, seed), target)",
+        "import numpy as np\nvalues = np.array([100.0, 1.0, 0.01])\nS = np.block([[np.zeros((3,3)), -np.diag(values)], [np.diag(values), np.zeros((3,3))]])\nQ0 = np.eye(6)\nfor p, q, theta in [(0,4,0.23),(1,5,-0.67),(2,3,0.49),(0,1,-0.31)]:\n    G = np.eye(6)\n    c, s = np.cos(theta), np.sin(theta)\n    G[p,p] = G[q,q] = c\n    G[p,q], G[q,p] = -s, s\n    Q0 = Q0 @ G\nA = Q0 @ S @ Q0.T\nseed = 123\nassert np.allclose(compute_basis_sensitive_skew_scalar(A, seed), target)",
+        "import numpy as np\nvalues = np.array([6.0, 2.5, 0.8, 0.09, 0.004])\nS = np.block([[np.zeros((5,5)), -np.diag(values)], [np.diag(values), np.zeros((5,5))]])\nQ0 = np.eye(10)\nfor p, q, theta in [(0,6,0.41),(1,8,-0.33),(2,5,0.77),(3,9,-0.58),(4,7,0.19),(0,3,-0.64),(5,8,0.28)]:\n    G = np.eye(10)\n    c, s = np.cos(theta), np.sin(theta)\n    G[p,p] = G[q,q] = c\n    G[p,q], G[q,p] = -s, s\n    Q0 = Q0 @ G\nA = Q0 @ S @ Q0.T\nA = 0.5 * (A - A.T)\nseed = 4242\nassert np.allclose(compute_basis_sensitive_skew_scalar(A, seed), target)",
+        "import numpy as np\nvalues = np.array([6.0, 6.0, 1.2, 0.08])\nS = np.block([[np.zeros((4,4)), -np.diag(values)], [np.diag(values), np.zeros((4,4))]])\nQ0 = np.eye(8)\nfor p, q, theta in [(0,5,0.37),(1,6,-0.52),(2,7,0.81),(3,4,-0.28),(0,2,0.44),(5,7,-0.33)]:\n    G = np.eye(8)\n    c, s = np.cos(theta), np.sin(theta)\n    G[p,p] = G[q,q] = c\n    G[p,q], G[q,p] = -s, s\n    Q0 = Q0 @ G\nA = Q0 @ S @ Q0.T\nA = 0.5 * (A - A.T)\nseed = 271828\nassert np.allclose(compute_basis_sensitive_skew_scalar(A, seed), target)",
+        "import numpy as np\nsigma = np.diag([3.0, 0.5])\nA = np.block([[np.zeros((2,2)), -sigma], [sigma, np.zeros((2,2))]])\nseed = 1\nassert np.allclose(compute_basis_sensitive_skew_scalar(A, seed), target)",
+        "import numpy as np\nsigma = np.diag([3.0, 0.5])\nA = np.block([[np.zeros((2,2)), -sigma], [sigma, np.zeros((2,2))]])\nseed = 110\ncandidates = 9\nassert np.allclose(compute_basis_sensitive_skew_scalar(A, seed, candidates), target)",
+        "import numpy as np\nvalues = np.array([5.0, 2.0, 0.4, 0.05])\nS = np.block([[np.zeros((4,4)), -np.diag(values)], [np.diag(values), np.zeros((4,4))]])\nQ0 = np.eye(8)\nfor p, q, theta in [(0,5,0.37),(2,7,-0.52),(1,4,0.81),(3,6,-0.28),(0,2,0.44)]:\n    G = np.eye(8)\n    c, s = np.cos(theta), np.sin(theta)\n    G[p,p] = G[q,q] = c\n    G[p,q], G[q,p] = -s, s\n    Q0 = Q0 @ G\nA = Q0 @ S @ Q0.T\nseed = 78\ncandidates = 9\nassert np.allclose(compute_basis_sensitive_skew_scalar(A, seed, candidates), target)",
+        "import numpy as np\nA = np.zeros((3, 3))\ndef run_model():\n    try:\n        compute_basis_sensitive_skew_scalar(A)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA = np.zeros((4, 4))\ndef run_model():\n    try:\n        compute_basis_sensitive_skew_scalar(A)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

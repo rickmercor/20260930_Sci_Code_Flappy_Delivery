@@ -1,0 +1,40 @@
+problem_id: "Chemistry-Computational_Chemistry-45"
+subject: "chemistry"
+subject_area: "Computational Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1021/acs.jctc.5c02073"
+dependencies: ""
+steps:
+  - number: 1
+    name: "generate_mode_trajectory"
+    description: "Generate Cartesian trajectory frames from a reference geometry and one displacement mode."
+    orchestrator: false
+  - number: 2
+    name: "select_diverse_pair"
+    description: "Select the trajectory-frame pair with the largest raw Cartesian RMSD."
+    orchestrator: false
+  - number: 3
+    name: "enumerate_internal_coordinates"
+    description: "Enumerate canonical bond, angle, and dihedral coordinates from a molecular graph. The first column stores coordinate arity: 2 for a bond, 3 for an angle, and 4 for a dihedral."
+    orchestrator: false
+  - number: 4
+    name: "evaluate_internal_coordinates"
+    description: "Evaluate encoded bond lengths, angles, and signed dihedrals over a Cartesian trajectory."
+    orchestrator: false
+  - number: 5
+    name: "coordinate_change_magnitudes"
+    description: "Compute internal-coordinate changes between two frames with periodic dihedral wrapping."
+    orchestrator: false
+  - number: 6
+    name: "screen_graph_changes"
+    description: "Classify graph-coordinate changes using status 0 for unreported, 1 for a primary bond, 2 for a coupled-proton bond, 3 for an independent angle, and 4 for a representative independent dihedral."
+    orchestrator: false
+  - number: 7
+    name: "bond_change_f1"
+    description: "Score reported bond changes against the expected reactive-bond set using F1."
+    orchestrator: false
+  - number: 8
+    name: "identify_transition_mode"
+    description: "Run the complete graph-coordinate pipeline and select the transition mode."
+    orchestrator: true

@@ -1,0 +1,40 @@
+problem_id: "Mathematics-Numerical_Linear_Algebra-55"
+subject: "mathematics"
+subject_area: "Numerical Linear Algebra"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2606.17448"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_build_sbp63_operator"
+    description: "Recover a sixth/third-order SBP closure and an arbitrary calibration jet."
+    orchestrator: false
+  - number: 2
+    name: "02_compute_moving_grid_state"
+    description: "Evaluate the translating-grid velocity and the three stretched physical node vectors in the fixed order used by all later steps."
+    orchestrator: false
+  - number: 3
+    name: "03_compute_donor_interpolation"
+    description: "Invert a stretched cubic donor map and return a runtime-order weight jet."
+    orchestrator: false
+  - number: 4
+    name: "04_compute_relative_metric_scales"
+    description: "Compute the positive nodal magnitudes of the physical characteristic speed relative to each stretched component grid."
+    orchestrator: false
+  - number: 5
+    name: "05_assemble_weak_overset_system"
+    description: "Assemble a moving weak-SAT affine system and a runtime-order time jet."
+    orchestrator: false
+  - number: 6
+    name: "06_compute_weighted_stability_diagnostics"
+    description: "Measure frozen decay, weighted instantaneous growth, and optional metric-induced resolvent amplification of a nonnormal system."
+    orchestrator: false
+  - number: 7
+    name: "07_advance_weak_overset_rk4"
+    description: "Advance the concatenated three-grid state while rebuilding every moving-grid quantity at each of four stage times."
+    orchestrator: false
+  - number: 8
+    name: "08_compute_moving_overset_error"
+    description: "Run the complete stability-audited moving-grid calculation and return its overlap-preserving relative physical error."
+    orchestrator: true

@@ -1,0 +1,40 @@
+problem_id: "Chemistry-Computational_Chemistry-72"
+subject: "chemistry"
+subject_area: "Computational Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1063/5.0322870"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_displaced_factor"
+    description: "Factor a displaced oscillator propagator."
+    orchestrator: false
+  - number: 2
+    name: "02_contour_sources"
+    description: "Resolve the ordered contour into affine Weyl factors."
+    orchestrator: false
+  - number: 3
+    name: "03_gaussian_generator"
+    description: "Compute the thermal generating quadratic form."
+    orchestrator: false
+  - number: 4
+    name: "04_squarefree_moments"
+    description: "Evaluate all distinct-source Gaussian derivatives."
+    orchestrator: false
+  - number: 5
+    name: "05_pathway_polynomial"
+    description: "Contract insertion moments with electronic dipoles."
+    orchestrator: false
+  - number: 6
+    name: "06_response_polynomial"
+    description: "Sum the closed electronic pathways."
+    orchestrator: false
+  - number: 7
+    name: "07_spectral_polynomial"
+    description: "Apply the specified two-time discrete transform."
+    orchestrator: false
+  - number: 8
+    name: "08_solve_ht"
+    description: "Return the cubic-to-linear HT phase contrast."
+    orchestrator: true

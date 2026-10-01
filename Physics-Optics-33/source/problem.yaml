@@ -1,0 +1,44 @@
+problem_id: "Physics-Optics-33"
+subject: "physics"
+subject_area: "Optics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2603.10358"
+dependencies: ""
+steps:
+  - number: 1
+    name: "Focal peak intensity of one pump"
+    description: "Compute the on-axis peak intensity of one focused pump pulse from its energy, focal spot size and temporal width."
+    orchestrator: false
+  - number: 2
+    name: "Standing-wave period, Bragg geometry and object-space grating length"
+    description: "Compute the fringe period of the ionizing standing wave, the probe Bragg angle, the angle between the grating axis and the diffracted order, and the object-space grating length implied by the recorded pixel count."
+    orchestrator: false
+  - number: 3
+    name: "Fringe-resolved interference intensity at one axial position"
+    description: "Compute the instantaneous intensity seen by the gas at one axial position, as a function of time and of position within the fringe pattern."
+    orchestrator: false
+  - number: 4
+    name: "Cycle-averaged field-ionization rate of the gas"
+    description: "Compute the cycle-averaged field-ionization rate of the gas at each supplied instantaneous intensity."
+    orchestrator: false
+  - number: 5
+    name: "Fringe-resolved free-electron density after both pumps"
+    description: "Compute the free-electron density left behind across one fringe of the pattern at a single axial position, after both pumps have passed."
+    orchestrator: false
+  - number: 6
+    name: "First spatial harmonic of the written electron density"
+    description: "Compute the amplitude of the first spatial harmonic of the written electron density at each supplied axial position."
+    orchestrator: false
+  - number: 7
+    name: "Effective grating length for one pump duration"
+    description: "Compute the effective grating length written by a pump pulse of the supplied duration at fixed pump energy and focusing geometry."
+    orchestrator: false
+  - number: 8
+    name: "Grating-length calibration against pump duration"
+    description: "Compute the calibration of effective grating length against pump duration for one pump energy and focusing geometry."
+    orchestrator: false
+  - number: 9
+    name: "Retrieved far-field pulse duration"
+    description: "Compute the pulse duration recorded by the diagnostic, from the imaged extent of the first diffraction order and the numerical calibration of the plasma structure."
+    orchestrator: true

@@ -1,0 +1,44 @@
+problem_id: "Material_Science-Semiconductor_Materials-71"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1038/s41524-026-02173-z"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_directional_band_masses"
+    description: "Recover directional carrier masses from near-edge nonparabolic band samples."
+    orchestrator: false
+  - number: 2
+    name: "02_dos_geometric_mass"
+    description: "Reduce directional masses to one density-of-states mass."
+    orchestrator: false
+  - number: 3
+    name: "03_continuum_ionization_energy"
+    description: "Evaluate the continuum dopant ionization energy."
+    orchestrator: false
+  - number: 4
+    name: "04_ionic_electronic_dielectric"
+    description: "Build the effective dielectric from ionic and electronic responses."
+    orchestrator: false
+  - number: 5
+    name: "05_continuum_polaron_energy"
+    description: "Evaluate continuum polaron formation energy."
+    orchestrator: false
+  - number: 6
+    name: "06_scattering_time_mobility"
+    description: "Convert scattering time and mass into drift mobility."
+    orchestrator: false
+  - number: 7
+    name: "07_gap_scaled_critical_field"
+    description: "Map band gap onto a critical breakdown field."
+    orchestrator: false
+  - number: 8
+    name: "08_prioritization_score"
+    description: "Assemble the gated, thermally attenuated prioritization score P."
+    orchestrator: false
+  - number: 9
+    name: "09 - Orchestrate extreme-gap prioritization"
+    description: "Run the full continuum prioritization pipeline end to end."
+    orchestrator: true

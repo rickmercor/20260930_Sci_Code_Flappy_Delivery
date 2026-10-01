@@ -1,0 +1,48 @@
+problem_id: "Chemistry-Quantum_Chemistry-21"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2606.07287"
+dependencies: ""
+steps:
+  - number: 1
+    name: "ppp_rhf"
+    description: "Solve the restricted closed-shell Hartree-Fock problem of the task's Pariser-Parr-Pople chain at half filling (one electron per site): n_sites sites on a line with unit spacing, nearest-neighbour hopping t_k = -t (1 + delta (-1)^k) on bond k (k = 0 joins sites 0 and 1), on-site repulsion U between opposite spins, and the Ohno inter-site repulsion V_ij = U / sqrt(1 + (U |i - j| / kappa)^2) in its charge-neutral form sum_{i<j} V_ij (n_i - 1)(n_j - 1), so that the one-body matrix carries the on-site shift -sum_{j != i} V_ij and the model has the constant sum_{i<j} V_ij. Start from the eigenvectors of the one-body matrix and iterate the Fock matrix to self-consistency until the one-particle density matrix changes by less than 1e-10 in every element. Return an array whose row 0 holds the n_sites canonical orbital energies in ascending order and whose rows 1 to n_sites hold the orbital coefficient matrix C (C[i, p] = coefficient of site i in orbital p, orbitals in the same ascending order), each column with its phase fixed so that its coefficient on site 0 is positive."
+    orchestrator: false
+  - number: 2
+    name: "mo_integrals"
+    description: "Transform the two-electron interaction of the chain of step 01 (on-site U, Ohno V_ij with parameter kappa, unit site spacing, so that in the site basis the only non-zero integrals are (ii|jj) = V_ij with V_ii = U) to the basis of the orbitals C returned by step 01 and return the full four-index tensor of two-electron integrals in chemists' notation, element [p, q, r, s] = (pq|rs) = sum_ij C[i, p] C[i, q] V_ij C[j, r] C[j, s]."
+    orchestrator: false
+  - number: 3
+    name: "rpa_correlation_energy"
+    description: "Return the RPA correlation energy of the source's low-level method for a particle-hole space described by the vector delta_eps of orbital-energy differences (one entry per particle-hole pair) and the symmetric matrix v_ph of interaction integrals between pairs (element [I, J] = (ia|jb) for pairs I = (i, a) and J = (j, b), in the same pair order): build the RPA matrices from these two ingredients as the source's Eq. (2.8) does, with the sign of the coupling block fixed by its Appendix B, solve the source's eigenproblem, and evaluate the correlation-energy functional the source uses (its Eq. (2.22), Appendix B). Return 0.0 for an empty pair space."
+    orchestrator: false
+  - number: 4
+    name: "rpa_static_kernel"
+    description: "For a particle-hole space described exactly as in step 03 (same delta_eps and v_ph, same pair order), return the n x n static kernel matrix K of the source's RPA: the sum over the modes nu of the source's eigenproblem, built from the two inputs as in step 03, of the outer product of the mode's transition-density vector (X+Y)^nu with itself divided by the mode's excitation energy Omega_nu, with the eigenvectors normalised as the source's Eq. (2.11) prescribes. K is the matrix through which the zero-frequency limit of the source's screened interaction, Eq. (2.12), is expressed once step 06 contracts it with the bare integrals and applies the pole factor of that limit. Return a (0, 0) array for an empty pair space."
+    orchestrator: false
+  - number: 5
+    name: "constrained_ph_pairs"
+    description: "Return the particle-hole space of the source's constrained RPA (its Eq. (2.14)) for n_orb spatial orbitals of which the first n_occ are doubly occupied and the orbitals listed in active form the active space, as an integer array of spin-orbital index pairs (i, a). Spin-orbitals are indexed 2p for the spin-up and 2p + 1 for the spin-down function of spatial orbital p; a pair is an occupied spin-orbital i and a virtual spin-orbital a of the same spin. List the pairs the source keeps in the constrained polarisability, ordered by i ascending and, within the same i, by a ascending."
+    orchestrator: false
+  - number: 6
+    name: "screened_interaction"
+    description: "Return the static (zero-frequency, vanishing broadening) screened interaction of the source, its Eqs. (2.12)-(2.13) at frequency zero, among the active orbitals: eri are the bare integrals of step 02 over all spatial orbitals, pairs the spin-orbital particle-hole pairs of the response (step 05, spin-orbital indexing as defined there), kernel the static kernel of step 04 for that pair space (same pair order), and active the active spatial orbitals. Return the four-index tensor W[t, u, v, w] of screened integrals in chemists' notation over the active orbitals in the order sorted(active), with every element screened."
+    orchestrator: false
+  - number: 7
+    name: "effective_one_body"
+    description: "Return the effective one-body matrix of the source's downfolded Hamiltonian, Eq. (2.20), over the active orbitals (order sorted(active)): the one-body term of the source's CASCI-type effective Hamiltonian (its Eq. (2.5)) built from the one-body integrals h_mo in the orbital basis, the bare integrals eri of step 02 and the doubly occupied orbitals outside the active space (the first n_occ orbitals are occupied), combined with the source's correction term of Eq. (2.19) for the screened two-body interaction veff of step 06 (given on the active block, same order)."
+    orchestrator: false
+  - number: 8
+    name: "energy_shift"
+    description: "Return the electronic contribution of the environment to the constant term of the source's downfolded Hamiltonian, its Eq. (2.21) (derived in its Appendix A.2), for the inputs of step 07 together with the two RPA correlation energies the expression needs, both obtained with step 03 by the caller: e_rpa_full for the full system with the bare interaction and e_rpa_active for the active orbitals alone with the screened interaction. Assemble the mean-field energy of the environment orbitals (Eq. (2.6)), the mean-field correction of the active orbitals that the screening of veff induces, and the two correlation energies with the signs the source's derivation prescribes."
+    orchestrator: false
+  - number: 9
+    name: "active_space_fci"
+    description: "Return the ground-state energy of the effective Hamiltonian H = sum_tu t_eff[t, u] a+_t a_u + (1/2) sum_tuvw veff[t, u, v, w] a+_t a+_v a_w a_u, where the creation and annihilation operators run over both spins of every active spatial orbital, t_eff is the (real, symmetric) one-body matrix and veff the two-body tensor in chemists' notation (tu|vw), with n_elec electrons (n_elec even) distributed over the active orbitals: the lowest eigenvalue of the full configuration-interaction Hamiltonian in the sector with equal numbers of spin-up and spin-down electrons. Return 0.0 for n_elec = 0."
+    orchestrator: false
+  - number: 10
+    name: "downfolded_correlation_energy"
+    description: "Orchestrator. For the chain of step 01 with the given parameters and the active spatial orbitals active (indices into the ascending canonical orbitals of step 01), run the whole downfolding: solve the mean-field problem with step 01, transform the integrals with step 02 (and the one-body matrix of the chain to the same basis), evaluate the RPA correlation energy of the full chain with step 03 on its complete spin-orbital particle-hole space, build the constrained particle-hole space with step 05, its static kernel with step 04 and the screened interaction with step 06, evaluate with step 03 the RPA correlation energy of the active orbitals alone with the screened interaction (the source's prescription for that term), build the effective one-body matrix with step 07 and the constant shift with step 08, solve the active space with step 09 using the number of electrons that occupy the active orbitals in the mean-field reference, and return the correlation energy E_corr = E_tot - E_HF, where E_tot is the total energy of the downfolded Hamiltonian (constant term plus active-space energy) and E_HF the restricted Hartree-Fock energy of the full chain from step 01 (the constant of the model cancels). The value is returned in the energy units in which t, U and kappa are given (it scales linearly with a common scaling of the three); for t = 1 this is the value in units of t. Call the earlier step functions rather than reimplementing them."
+    orchestrator: true

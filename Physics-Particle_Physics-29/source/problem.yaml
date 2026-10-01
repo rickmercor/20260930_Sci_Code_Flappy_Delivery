@@ -1,0 +1,40 @@
+problem_id: "Physics-Particle_Physics-29"
+subject: "physics"
+subject_area: "Particle Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1007/JHEP01(2026)077"
+dependencies: ""
+steps:
+  - number: 1
+    name: "compute_axion_mass_scales"
+    description: "Compute the zero-temperature (present-day) masses of the two axion flavor fields from the axion decay constant and the model's dimensionless mixing ratios."
+    orchestrator: false
+  - number: 2
+    name: "compute_axion_mass_squared_at_temperature"
+    description: "Compute the squared mass of the QCD-coupled axion flavor field at a given temperature."
+    orchestrator: false
+  - number: 3
+    name: "diagonalize_axion_mass_matrix"
+    description: "Construct the coupled two-field mass matrix implied by the axion-mixing potential, and diagonalize it to obtain the physical mass eigenvalues and mixing angle at a given temperature."
+    orchestrator: false
+  - number: 4
+    name: "find_crossing_temperature"
+    description: "Find the temperature at which the two diagonal entries of the axion mass matrix become equal, defining the level-crossing (resonance) temperature."
+    orchestrator: false
+  - number: 5
+    name: "compute_landau_zener_probability"
+    description: "Compute the adiabaticity parameter governing the level crossing, and the resulting Landau-Zener probability of conversion between the two mass eigenstates."
+    orchestrator: false
+  - number: 6
+    name: "compute_oscillation_temperatures_and_initial_fields"
+    description: "Determine the temperatures at which each mass eigenstate begins to oscillate, and the initial field values each eigenstate carries once oscillations begin."
+    orchestrator: false
+  - number: 7
+    name: "assemble_relic_abundance_fraction"
+    description: "Assemble the present-day dark matter abundance carried by each mass eigenstate, and report the fraction carried by the light eigenstate."
+    orchestrator: false
+  - number: 8
+    name: "compute_relic_abundance_fraction"
+    description: "Orchestrator: compute the present-day dark matter abundance fraction carried by the light mass eigenstate of a two-axion system, from the model's fundamental parameters."
+    orchestrator: true

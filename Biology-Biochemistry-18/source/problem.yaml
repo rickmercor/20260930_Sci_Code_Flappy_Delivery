@@ -1,0 +1,48 @@
+problem_id: "Biology-Biochemistry-18"
+subject: "biology"
+subject_area: "Biochemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1038/s44320-026-00227-4"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_reactant_state"
+    description: "Compute each pooled reactant state from the already transformed species energies."
+    orchestrator: false
+  - number: 2
+    name: "02_transport_state"
+    description: "Resolve the transported species and free-proton count for every transport record and condition."
+    orchestrator: false
+  - number: 3
+    name: "03_balanced_reactions"
+    description: "Construct organic, buffered-proton and membrane-charge coefficients for each condition."
+    orchestrator: false
+  - number: 4
+    name: "04_energy_operator"
+    description: "Form each reaction energy as an affine function of concentrations and intrinsic formation errors."
+    orchestrator: false
+  - number: 5
+    name: "05_phenotype_panel"
+    description: "Infer the unique net-flux optimum for every design and independent condition."
+    orchestrator: false
+  - number: 6
+    name: "06_directional_state"
+    description: "Recover the entropy-consistent positive directional pair and its energy estimate."
+    orchestrator: false
+  - number: 7
+    name: "07_calibration_system"
+    description: "Construct the joint calibration half-spaces with shared intrinsic factors and condition-specific concentrations."
+    orchestrator: false
+  - number: 8
+    name: "08_joint_energy_radius"
+    description: "Find the least simultaneous mismatch over the shared Euclidean uncertainty region."
+    orchestrator: false
+  - number: 9
+    name: "09_robust_delivery"
+    description: "Apply the calibration limit and choose the largest worst-condition delivery fraction."
+    orchestrator: false
+  - number: 10
+    name: "10_resolve_transport_panel"
+    description: "Compose all preceding scientific operations into the requested robust production fraction"
+    orchestrator: true

@@ -1,0 +1,48 @@
+problem_id: "Physics-Optics-35"
+subject: "physics"
+subject_area: "Optics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2605.13599"
+dependencies: "import numpy as np"
+steps:
+  - number: 1
+    name: "adaptive_sampling_plan"
+    description: "Recover and implement the paper's adaptive effective-sampling selection across its three physical regimes."
+    orchestrator: false
+  - number: 2
+    name: "cavity_critical_velocity"
+    description: "Compute the resonance-crossing critical mirror speed from the storage-time criterion in Eq. (4)."
+    orchestrator: false
+  - number: 3
+    name: "moving_cavity_drive"
+    description: "Construct the centered round-trip time grid, relative optical-path drive, and amplitude/phase-modulated complex input field from the critical speed supplied by the preceding step."
+    orchestrator: false
+  - number: 4
+    name: "propagate_cavity_field"
+    description: "Propagate the intracavity field one physical round trip at a time with the paper's delayed recursive phase and a zero stored field before the first sample."
+    orchestrator: false
+  - number: 5
+    name: "cavity_observables"
+    description: "Convert the complex field into intracavity power and the approximate demodulated PDH signal."
+    orchestrator: false
+  - number: 6
+    name: "sampling_diagnostics"
+    description: "Measure the three defined time-domain sampling errors and the phase-sensitive two-tone PDH spectral distortion after retaining every Nth round-trip sample."
+    orchestrator: false
+  - number: 7
+    name: "ringdown_tail_inference"
+    description: "Infer incident power from the paper's nonadiabatic continuum tail on full and retained grids, then quantify sampling bias."
+    orchestrator: false
+  - number: 8
+    name: "transformed_sigma_points"
+    description: "Derive a symmetric seven-point positive rule in correlated logit-reflectivity and log-finesse coordinates, then map every point back to physical optics parameters."
+    orchestrator: false
+  - number: 9
+    name: "uncertainty_risk_table"
+    description: "Risk-load five diagnostic distributions independently and apply completeness, memory, and tolerance filters."
+    orchestrator: false
+  - number: 10
+    name: "adaptive_cavity_sampling_benchmark"
+    description: "Compose the discrete moving-cavity diagnostics with the nonadiabatic tail inverse problem and uncertainty certification."
+    orchestrator: true

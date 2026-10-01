@@ -1,0 +1,128 @@
+{
+  "problem_id": "Physics-Astrophysics-7",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Astrophysics-7.1",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(exact_hubble(0.05 + 0.01j, 0.004, 1.0, 1.0), target)",
+        "import numpy as np\n\nz = np.array([0.02 + 0j, 0.0 + 0.03j])\nr = np.array([1e-3, 2e-3])\nassert np.allclose(exact_hubble(z.copy(), r.copy(), 2.0, 1.0), target)",
+        "import numpy as np\nassert np.allclose(exact_hubble(0.0 + 0j, 1e-08, 1.0, 1.0), target)",
+        "import numpy as np\n\n\ndef _raises(fn):\n    try:\n        fn(0.05 + 0.01j, -1.0, 1.0, 1.0)\n        return False\n    except ValueError:\n        return True\nassert np.allclose(_raises(exact_hubble), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-7.2",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(slow_hubble(0.05 + 0.01j, 0.004, 1.0, 1.0), target)",
+        "import numpy as np\n\nz = np.array([0.02 + 0j, 0.0 + 0.03j])\nr = np.array([1e-3, 2e-3])\nassert np.allclose(slow_hubble(z.copy(), r.copy(), 2.0, 1.0), target)",
+        "import numpy as np\nassert np.allclose(slow_hubble(0.0 + 0j, 1e-08, 1.0, 1.0), target)",
+        "import numpy as np\n\n\ndef _raises(fn):\n    try:\n        fn(0.05 + 0.01j, -1.0, 1.0, 1.0)\n        return False\n    except ValueError:\n        return True\nassert np.allclose(_raises(slow_hubble), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-7.3",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(exact_rate(0.05 + 0.01j, 0.03, 1.0, 0.7), target)",
+        "import numpy as np\n\nz = np.array([0.02 + 0j, 0.0 + 0.03j])\nh = np.array([0.01, 0.02])\nassert np.allclose(exact_rate(z.copy(), h.copy(), 2.0, 1.3), target)",
+        "import numpy as np\nassert np.allclose(exact_rate(0.05 + 0.01j, 0.0, 1.0, 0.7), target)",
+        "import numpy as np\n\nz = np.array([0.02 + 0j, 0.0 + 0.03j])\nh = np.array([0.01, 0.02])\ntv = np.array([0.4, 1.9])\nassert np.allclose(exact_rate(z.copy(), h.copy(), 1.0, tv.copy()), target)",
+        "import numpy as np\n\n\ndef _raises(fn):\n    try:\n        fn(0.05 + 0.01j, 0.05, -1.0, 0.7)\n        return False\n    except ValueError:\n        return True\nassert np.allclose(_raises(exact_rate), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-7.4",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(slow_rate(0.05 + 0.01j, 0.03, 0.004, 0.0005, 1.0, 1.0), target)",
+        "import numpy as np\n\nz = np.array([0.02 + 0j, 0.0 + 0.03j])\nh = np.array([0.01, 0.02])\nr = np.array([1e-3, 2e-3])\np = np.array([1e-4, 2e-4])\nassert np.allclose(slow_rate(z.copy(), h.copy(), r.copy(), p.copy(), 2.0, 1.0), target)",
+        "import numpy as np\nassert np.allclose(slow_rate(0.05 + 0.01j, 0.0, 0.0, 0.0, 1.0, 1.0), target)",
+        "import numpy as np\n\n\ndef _raises(fn):\n    try:\n        fn(0.05 + 0.01j, 0.05, 0.004, 0.001, -1.0, 1.0)\n        return False\n    except ValueError:\n        return True\nassert np.allclose(_raises(slow_rate), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-7.5",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(matching_coefficients(\n    0.05 + 0.01j, 0.03, 0.004, 0.0005, 1.0, 1.0, 0.7\n), target)",
+        "import numpy as np\n\nz = np.array([0.02 + 0j, 0.0 + 0.03j])\nh = np.array([0.01, 0.02])\nr = np.array([1e-3, 2e-3])\np = np.array([1e-4, 2e-4])\nassert np.allclose(matching_coefficients(\n    z.copy(), h.copy(), r.copy(), p.copy(), 2.0, 1.0, 1.3\n), target)",
+        "import numpy as np\nassert np.allclose(matching_coefficients(\n    0.05 + 0.01j, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0\n), target)",
+        "import numpy as np\n\nz = np.array([0.02 + 0j, 0.0 + 0.03j])\nh = np.array([0.01, 0.02])\nr = np.array([1e-3, 2e-3])\np = np.array([1e-4, 2e-4])\ntv = np.array([0.4, 1.9])\nassert np.allclose(matching_coefficients(\n    z.copy(),\n    h.copy(),\n    r.copy(),\n    p.copy(),\n    2.0,\n    1.0,\n    tv.copy(),\n), target)",
+        "import numpy as np\n\n\ndef _raises(fn):\n    try:\n        fn(\n            0.05 + 0.01j,\n            0.05,\n            0.004,\n            0.001,\n            -1.0,\n            1.0,\n            0.7,\n        )\n        return False\n    except ValueError:\n        return True\nassert np.allclose(_raises(matching_coefficients), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-7.6",
+      "test_cases": [
+        "import numpy as np\n\nc = np.array([0.02, -0.03, 1e-4, -2e-4])\nassert np.allclose(solve_matching_system(0.05 + 0.01j, c.copy()), target)",
+        "import numpy as np\n\nc = np.array([0.0, 0.0, 0.0, 0.0])\nassert np.allclose(solve_matching_system(0.312 + 0j, c.copy()), target)",
+        "import numpy as np\n\nc = np.array([0.3, 0.4, -1e-3, 5e-4])\nassert np.allclose(solve_matching_system(0.105 - 0.04j, c.copy()), target)",
+        "import numpy as np\n\n\ndef _raises(fn):\n    try:\n        fn(0.1 + 0.05j, np.array([1.0, 2.0, 3.0]))\n        return False\n    except ValueError:\n        return True\nassert np.allclose(_raises(solve_matching_system), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-7.7",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(exact_perturbation_rate(\n    0.001 + 0.0002j,\n    0.05 + 0.01j,\n    0.03,\n    0.0001,\n    2.0,\n    1.0,\n    0.5,\n    0.7,\n), target)",
+        "import numpy as np\n\ndz = np.array([1e-3 + 0j, 0.0 + 2e-3j])\nz = np.array([0.02 + 0j, 0.0 + 0.03j])\nh = np.array([0.01, 0.02])\nhd = np.array([1e-4, 2e-4])\naa = np.array([1.5, 2.5])\nassert np.allclose(exact_perturbation_rate(\n    dz.copy(),\n    z.copy(),\n    h.copy(),\n    hd.copy(),\n    aa.copy(),\n    2.0,\n    0.8,\n    1.3,\n), target)",
+        "import numpy as np\n\ntv = np.array([0.4, 1.9])\ndz = np.array([1e-3 + 0j, 0.0 + 2e-3j])\nz = np.array([0.02 + 0j, 0.0 + 0.03j])\nh = np.array([0.01, 0.02])\nhd = np.array([1e-4, 2e-4])\naa = np.array([1.5, 2.5])\nassert np.allclose(exact_perturbation_rate(\n    dz.copy(),\n    z.copy(),\n    h.copy(),\n    hd.copy(),\n    aa.copy(),\n    2.0,\n    0.8,\n    tv.copy(),\n), target)",
+        "import numpy as np\nassert np.allclose(exact_perturbation_rate(\n    0.001 + 0j, 0.05 + 0.01j, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0\n), target)",
+        "import numpy as np\n\n\ndef _raises(fn):\n    try:\n        fn(\n            1e-3 + 0j,\n            0.05 + 0.01j,\n            0.03,\n            1e-4,\n            -1.0,\n            1.0,\n            0.5,\n            0.7,\n        )\n        return False\n    except ValueError:\n        return True\nassert np.allclose(_raises(exact_perturbation_rate), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-7.8",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(slow_perturbation_rate(\n    0.001 + 0.0002j,\n    0.05 + 0.01j,\n    0.03,\n    0.0001,\n    2.0,\n    1.0,\n    1.0,\n    0.5,\n), target)",
+        "import numpy as np\n\ndz = np.array([1e-3 + 0j, 0.0 + 2e-3j])\nz = np.array([0.02 + 0j, 0.0 + 0.03j])\nh = np.array([0.01, 0.02])\nhd = np.array([1e-4, 2e-4])\naa = np.array([1.5, 2.5])\nassert np.allclose(slow_perturbation_rate(\n    dz.copy(),\n    z.copy(),\n    h.copy(),\n    hd.copy(),\n    aa.copy(),\n    2.0,\n    1.0,\n    0.8,\n), target)",
+        "import numpy as np\nassert np.allclose(slow_perturbation_rate(\n    0.001 + 0j, 0.05 + 0.01j, 0.0, 0.0, 1.0, 1.0, 1.0, 0.0\n), target)",
+        "import numpy as np\n\n\ndef _raises(fn):\n    try:\n        fn(\n            1e-3 + 0j,\n            0.05 + 0.01j,\n            0.03,\n            1e-4,\n            1.0,\n            -1.0,\n            1.0,\n            0.5,\n        )\n        return False\n    except ValueError:\n        return True\nassert np.allclose(_raises(slow_perturbation_rate), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-7.9",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(metric_slow_rates(\n    0.05 + 0.01j,\n    0.001 + 0.0002j,\n    0.001,\n    0.03,\n    2.0,\n    1.0,\n    1.0,\n    0.5,\n), target)",
+        "import numpy as np\n\nz = np.array([0.02 + 0j, 0.0 + 0.03j])\ndz = np.array([1e-3 + 0j, 0.0 + 2e-3j])\net = np.array([1e-3, 2e-3])\nh = np.array([0.01, 0.02])\naa = np.array([1.5, 2.5])\nassert np.allclose(metric_slow_rates(\n    z.copy(),\n    dz.copy(),\n    et.copy(),\n    h.copy(),\n    aa.copy(),\n    2.0,\n    1.0,\n    0.8,\n), target)",
+        "import numpy as np\nassert np.allclose(metric_slow_rates(\n    0.05 + 0.01j, 0.0 + 0j, 0.0, 0.03, 1.0, 1.0, 1.0, 0.5\n), target)",
+        "import numpy as np\n\n\ndef _raises(fn):\n    try:\n        fn(\n            0.05 + 0.01j,\n            1e-3 + 0j,\n            1e-3,\n            -0.03,\n            2.0,\n            1.0,\n            1.0,\n            0.5,\n        )\n        return False\n    except ValueError:\n        return True\nassert np.allclose(_raises(metric_slow_rates), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-7.10",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(perturbation_matching(0.105+0.04j, 0.09, 2.2, 1.0, 1.0, 0.5, 5.0, 1e-3+2e-4j, 3e-3), target)",
+        "import numpy as np\nassert np.allclose(perturbation_matching(0.02-0.01j, 0.05, 1.4, 2.0, 1.0, 0.8, 1.3, 2e-3-1e-4j, -1e-3), target)",
+        "import numpy as np\nassert np.allclose(perturbation_matching(0.105+0.04j, 0.09, 2.2, 1.0, 1.0, 0.0, 0.0, 1e-3+0j, 0.0), target)",
+        "import numpy as np\ndef _raises(fn):\n    try:\n        fn(0.105+0.04j, 0.09, -2.2, 1.0, 1.0, 0.5, 5.0, 1e-3+0j, 3e-3)\n        return False\n    except ValueError:\n        return True\nassert np.allclose(_raises(perturbation_matching), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-7.11",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(reconstruct_perturbation(\n    0.001 + 0.0002j,\n    0.05 + 0.01j,\n    0.03,\n    0.0001,\n    2.0,\n    1.0,\n    0.5,\n    0.7,\n), target)",
+        "import numpy as np\n\ndz = np.array([1e-3 + 0j, 0.0 + 2e-3j])\nz = np.array([0.02 + 0j, 0.0 + 0.03j])\nh = np.array([0.01, 0.02])\nhd = np.array([1e-4, 2e-4])\naa = np.array([1.5, 2.5])\nassert np.allclose(reconstruct_perturbation(\n    dz.copy(),\n    z.copy(),\n    h.copy(),\n    hd.copy(),\n    aa.copy(),\n    2.0,\n    0.8,\n    1.3,\n), target)",
+        "import numpy as np\n\ntv = np.array([0.4, 1.9])\ndz = np.array([1e-3 + 0j, 0.0 + 2e-3j])\nz = np.array([0.02 + 0j, 0.0 + 0.03j])\nh = np.array([0.01, 0.02])\nhd = np.array([1e-4, 2e-4])\naa = np.array([1.5, 2.5])\nassert np.allclose(reconstruct_perturbation(\n    dz.copy(),\n    z.copy(),\n    h.copy(),\n    hd.copy(),\n    aa.copy(),\n    2.0,\n    0.8,\n    tv.copy(),\n), target)",
+        "import numpy as np\nassert np.allclose(reconstruct_perturbation(\n    0.001 + 0j, 0.05 + 0.01j, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0\n), target)",
+        "import numpy as np\n\n\ndef _raises(fn):\n    try:\n        fn(\n            1e-3 + 0j,\n            0.05 + 0.01j,\n            0.03,\n            1e-4,\n            0.0,\n            1.0,\n            0.5,\n            0.7,\n        )\n        return False\n    except ValueError:\n        return True\nassert np.allclose(_raises(reconstruct_perturbation), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-7.12",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(slow_perturbation_observables(\n    0.05 + 0.01j,\n    0.001 + 0.0002j,\n    0.0001,\n    0.03,\n    2.0,\n    1.0,\n    0.5,\n), target)",
+        "import numpy as np\n\nz = np.array([0.02 + 0j, 0.0 + 0.03j])\ndz = np.array([1e-3 + 0j, 0.0 + 2e-3j])\nhd = np.array([1e-4, 2e-4])\nh = np.array([0.01, 0.02])\naa = np.array([1.5, 2.5])\nassert np.allclose(slow_perturbation_observables(\n    z.copy(),\n    dz.copy(),\n    hd.copy(),\n    h.copy(),\n    aa.copy(),\n    2.0,\n    0.8,\n), target)",
+        "import numpy as np\nassert np.allclose(slow_perturbation_observables(\n    0.05 + 0.01j,\n    0.001 + 0.0002j,\n    0.0001,\n    0.03,\n    2.0,\n    1.0,\n    0.0,\n), target)",
+        "import numpy as np\n\n\ndef _raises(fn):\n    try:\n        fn(\n            0.05 + 0.01j,\n            1e-3 + 0j,\n            1e-4,\n            0.03,\n            2.0,\n            -1.0,\n            0.5,\n        )\n        return False\n    except ValueError:\n        return True\nassert np.allclose(_raises(slow_perturbation_observables), target)",
+        "import numpy as np\n\n\ndef pressure_check(fn):\n    result = fn(\n        0.05 + 0.01j,\n        1e-3 + 2e-4j,\n        1e-4,\n        0.03,\n        2.0,\n        1.0,\n        0.4,\n    )\n    expected_density = 1.04e-4\n    expected_pressure = expected_density * 0.4**2 / 16.0\n    return bool(\n        np.isclose(\n            result[0],\n            expected_density,\n            rtol=1e-12,\n            atol=0.0,\n        )\n        and np.isclose(\n            result[1],\n            expected_pressure,\n            rtol=1e-12,\n            atol=0.0,\n        )\n    )\nassert np.allclose(pressure_check(slow_perturbation_observables), target)",
+        "import numpy as np\n\n\ndef pressure_check(fn):\n    result = fn(\n        0.05 + 0.01j,\n        1e-3 + 2e-4j,\n        1e-4,\n        0.03,\n        2.0,\n        1.0,\n        0.8,\n    )\n    expected_density = 1.04e-4\n    expected_pressure = expected_density * 0.8**2 / 16.0\n    return bool(\n        np.isclose(\n            result[0],\n            expected_density,\n            rtol=1e-12,\n            atol=0.0,\n        )\n        and np.isclose(\n            result[1],\n            expected_pressure,\n            rtol=1e-12,\n            atol=0.0,\n        )\n    )\nassert np.allclose(pressure_check(slow_perturbation_observables), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-7.13",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(axion_reconstruction_audit(1), target)",
+        "import numpy as np\nassert np.allclose(axion_reconstruction_audit(1, 0.25+0.0j), target)",
+        "import numpy as np\nassert np.allclose(axion_reconstruction_audit(2, 0.312+0.05j), target)",
+        "import numpy as np\ndef _raises(fn):\n    try:\n        fn(0)\n        return False\n    except ValueError:\n        return True\nassert np.allclose(_raises(axion_reconstruction_audit), target)"
+      ]
+    }
+  ]
+}

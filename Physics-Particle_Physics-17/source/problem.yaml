@@ -1,0 +1,40 @@
+problem_id: "Physics-Particle_Physics-17"
+subject: "physics"
+subject_area: "Particle Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1007/JHEP07(2026)106"
+dependencies: ""
+steps:
+  - number: 1
+    name: "crystal_ball_bin_fractions"
+    description: "Compute the fraction of a single Crystal Ball (CB) line shape that falls in each bin of a dimuon invariant-mass histogram, with the CB normalized to unit integral over the histogram window $[e_0, e_K]$, where $e_0<e_1<\\dots<e_K$ are the bin edges (`edges[0]` to `edges[-1]`).\n\n\n\nThe CB function has a Gaussian core and a power-law tail on the low-mass side:\n\n\n\n$$t=\\dfrac{m-\\mu}{\\sigma},\\qquad \\mathrm{CB}(t)=\\exp\\Big(-\\dfrac{t^2}{2}\\Big)\\ \\ \\mathrm{for}\\ t>-\\alpha,\\qquad \\mathrm{CB}(t)=A\\,(B-t)^{-n}\\ \\ \\mathrm{for}\\ t\\le-\\alpha,$$\n\n\n\n$$A=\\Big(\\dfrac{n}{\\alpha}\\Big)^{n}\\exp\\Big(-\\dfrac{\\alpha^2}{2}\\Big),\\qquad B=\\dfrac{n}{\\alpha}-\\alpha.$$\n\n\n\nThe bin fractions are exact integrals over each bin divided by the exact integral over the window, and they must stay accurate to about $10^{-9}$ relative precision per bin in every regime the fit can visit: windows lying many $\\sigma$ above the mean ($|t|$ up to about 30), windows entirely inside the power-law tail, and every $n>0$, including $n=1$ and values of $n$ arbitrarily close to (but not equal to) 1. The window integral is finite only because the window is finite."
+    orchestrator: false
+  - number: 2
+    name: "upsilon_signal_expected_counts"
+    description: "Compute the expected per-bin signal counts of the three Upsilon(nS) resonances in one $(p_{\\mathrm{T}}, |y|)$ bin, using the signal model of the CMS 13.6 TeV measurement.\n\n\n\nEach resonance is described by the paper's per-state line shape, built from Crystal Ball functions (see $crystal_ball_bin_fractions$), and the three resonances are tied together by the paper's inter-state constraints, so that the only free signal parameters are the three yields and the mean $\\mu_1$ and width $\\sigma_1$ of the Upsilon(1S) line shape. The shape constants that the paper keeps fixed in the fit are stated in the background; none of them is an input. All shapes are normalized to unit integral on the histogram window $[e_0, e_K]$ (`edges[0]` to `edges[-1]`), and counts are bin integrals."
+    orchestrator: false
+  - number: 3
+    name: "quadratic_background_bin_fractions"
+    description: "Compute the continuum background of the CMS Upsilon fit: a second-order polynomial in the dimuon mass, normalized to unit integral on the histogram window $[e_0, e_K]$, where $e_0$ and $e_K$ are the first and last bin edges (`edges[0]` and `edges[-1]`). With the reduced variable\n\n\n\n$$x=\\dfrac{m-m_c}{h},\\qquad m_c=\\dfrac{e_0+e_K}{2},\\qquad h=\\dfrac{e_K-e_0}{2},$$\n\n\n\nso that $x$ runs from $-1$ to $+1$, the density is\n\n\n\n$$p(x)\\propto1+b_1x+b_2x^2.$$\n\n\n\nThe exact bin integrals follow from the primitive $P(x)=x+b_1x^2/2+b_2x^3/3$. Because the fit maximizes a likelihood, the choice of this parametrization of the quadratic family does not change the fitted yields."
+    orchestrator: false
+  - number: 4
+    name: "generate_pseudo_data"
+    description: "Generate the deterministic pseudo-data dimuon mass histogram of the task. The generator is deliberately not the fit model: each Upsilon(nS) is a plain Gaussian (no radiative tail) and the continuum is a falling exponential. With bin edges $e_0<e_1<\\dots<e_K$, the expected count in bin $i$ is\n\n\n\n$$\\nu_i=\\sum_s N_s\\Big[\\Phi\\Big(\\dfrac{e_{i+1}-m_s}{w_s}\\Big)-\\Phi\\Big(\\dfrac{e_i-m_s}{w_s}\\Big)\\Big]+N_{\\mathrm{bkg}}\\,\\dfrac{e^{-c\\,e_i}-e^{-c\\,e_{i+1}}}{e^{-c\\,e_0}-e^{-c\\,e_K}},$$\n\n\n\nwhere $\\Phi$ is the standard normal distribution function. The Gaussian integrals are not renormalized to the window; the exponential is normalized on the window. Every expected count must be computed to full relative precision, including bins many standard deviations away from a peak: an expectation that is tiny but non-zero and one that is exactly zero are not equivalent inputs to `rng.poisson` (a zero rate does not consume a random draw), so they lead to different pseudo-data. The observed counts are drawn with exactly one call `rng.poisson(nu)` on the whole array of $\\nu_i$ (ordered by increasing mass), with `rng = np.random.default_rng(seed)`."
+    orchestrator: false
+  - number: 5
+    name: "fit_upsilon_mass_spectrum"
+    description: "Extract the Upsilon(nS) yields from a dimuon invariant-mass histogram with the fit of the CMS 13.6 TeV analysis: the signal model of $upsilon_signal_expected_counts$ plus the continuum background of $quadratic_background_bin_fractions$, fitted with the statistical method used in the paper. The free parameters, in this order, are\n\n\n\n$$[N_{1S},\\ N_{2S},\\ N_{3S},\\ N_{\\mathrm{bkg}},\\ \\mu_1,\\ \\sigma_1,\\ b_1,\\ b_2],$$\n\n\n\nwhere $N_{\\mathrm{bkg}}$ is the background yield in the window. Parameter points where the model is undefined (it raises `ValueError`) are excluded from the fit. The global optimum of the paper's fit statistic is unique for the task's data; any minimizer that reaches it is acceptable."
+    orchestrator: false
+  - number: 6
+    name: "cross_section_times_bf"
+    description: "Convert a fitted Upsilon signal yield in one $(p_{\\mathrm{T}}, |y|)$ bin into the quantity reported by the CMS 13.6 TeV analysis: the $p_{\\mathrm{T}}$-differential cross section times dimuon branching fraction, per unit rapidity, $\\mathcal{B}\\,d^2\\sigma/(dy\\,dp_{\\mathrm{T}})$, in pb/GeV, as defined by eq. (1.1) of the paper. The luminosity units, the rapidity interval associated with an $|y|$ bin, and the way the single-muon efficiencies and the muon-pair correction factor enter the dimuon efficiency follow the paper and are stated in the background."
+    orchestrator: false
+  - number: 7
+    name: "polarization_scale_factor.py"
+    description: "Rescale an unpolarized Upsilon cross section to an arbitrary polar anisotropy $\\lambda_\\theta$ in the helicity frame ($\\lambda_\\phi=\\lambda_{\\theta\\phi}=0$), using the two extreme-scenario factors of the paper's Table 1: $k_+\\approx A_0/A_{+1}$ (fully transverse, $\\lambda_\\theta=+1$) and $k_-\\approx A_0/A_{-1}$ (fully longitudinal, $\\lambda_\\theta=-1$), where $A_\\lambda$ is the dimuon acceptance of the bin when the parent is produced with decay distribution\n\n\n\n$$W(\\cos\\theta)\\propto1+\\lambda_\\theta\\cos^2\\theta.$$"
+    orchestrator: false
+  - number: 8
+    name: "upsilon_polarized_cross_section"
+    description: "ORCHESTRATOR. End-to-end reproduction of the task:\n\n\n\n1. Edges: 75 bins of 40 MeV on $[8.5, 11.5]$ GeV; masses are the world-average values given in the task, $[9.46040, 10.0234, 10.3551]$ GeV.\n\n2. Pseudo-data: $generate_pseudo_data$ with yields $[2800, 1300, 900]$, means equal to the masses minus 0.012 GeV, widths $[0.072, 0.077, 0.080]$ GeV, $N_{\\mathrm{bkg}}=7000$, exponential slope $c=0.4\\ \\mathrm{GeV^{-1}}$, and the given seed.\n\n3. Fit: $fit_upsilon_mass_spectrum$ (signal from $upsilon_signal_expected_counts$, background from $quadratic_background_bin_fractions$) from the start point $[2500, 1200, 800, 7000, 9.45, 0.06, 0.0, 0.0]$.\n\n4. Cross section of the requested state with $cross_section_times_bf$: $\\mathcal{L}=37.4\\ \\mathrm{fb^{-1}}$, $70<p_{\\mathrm{T}}<100$ GeV, $|y|<0.6$, single-muon efficiencies 0.92 and 0.90, $\\rho_{\\mathrm{pair}}=0.95$, $A=0.38$.\n\n5. Rescale to $\\lambda_\\theta$ with $polarization_scale_factor$, using the paper's Table 1 factors for this $(p_{\\mathrm{T}}, |y|)$ bin, $k_+=1.12$ ($\\lambda_\\theta=+1$) and $k_-=0.83$ ($\\lambda_\\theta=-1$), which are not inputs of this function.\n\n\n\nThe task answer uses $state_index = 2$, $\\lambda_\\theta=-0.5$ and $seed = 13600$."
+    orchestrator: true

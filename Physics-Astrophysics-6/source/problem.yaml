@@ -1,0 +1,36 @@
+problem_id: "Physics-Astrophysics-6"
+subject: "physics"
+subject_area: "Astrophysics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.3847/2041-8213/ae9078"
+dependencies: ""
+steps:
+  - number: 1
+    name: "seed_bounds"
+    description: "Continuous normalization data for a separable broadband realization."
+    orchestrator: false
+  - number: 2
+    name: "prescribed_component"
+    description: "Prescribed longitudinal magnetic component and its physical gradient."
+    orchestrator: false
+  - number: 3
+    name: "boundary_field"
+    description: "Complete magnetic boundary data on z=0."
+    orchestrator: false
+  - number: 4
+    name: "volume_field"
+    description: "Reconstruct the admissible three-dimensional magnetic field."
+    orchestrator: false
+  - number: 5
+    name: "branch_margin"
+    description: "Transverse strength of the admissible field above one periodic plane."
+    orchestrator: false
+  - number: 6
+    name: "plane_height"
+    description: "Height to which the admissible field survives above a single periodic plane."
+    orchestrator: false
+  - number: 7
+    name: "existence_height"
+    description: "Final orchestrator: the height to which the admissible field exists."
+    orchestrator: true

@@ -1,0 +1,77 @@
+{
+  "problem_id": "Mathematics-Computational_Finance-14",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Computational_Finance-14.1",
+      "test_cases": [
+        "import numpy as np\nseed = 260118634\nn_steps = 6\nn_paths = 7\ndim_w = 2\nh = 0.125\nassert np.allclose(np.round(generate_brownian_increments(seed, n_steps, n_paths, dim_w, h), 12).tolist(), target)",
+        "import numpy as np\nseed = 0\nn_steps = 1\nn_paths = 1\ndim_w = 1\nh = 0.5\nassert np.allclose(np.round(generate_brownian_increments(seed, n_steps, n_paths, dim_w, h), 12).tolist(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        generate_brownian_increments(-1, 2, 2, 1, 0.1)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-14.2",
+      "test_cases": [
+        "import numpy as np\nx0 = np.array([48.0, 52.0])\nq = np.array([0.01, 0.015])\nsigma = np.array([[0.24, 0.05], [0.08, 0.20]])\nr = 0.06\nh = 0.125\nincrements = np.array([[[0.10, -0.20], [0.05, 0.03]], [[-0.04, 0.08], [0.02, -0.01]]])\nassert np.allclose(np.round(simulate_gbm_paths(x0, q, sigma, r, h, increments), 12).tolist(), target)",
+        "import numpy as np\nx0 = np.array([10.0])\nq = np.array([0.0])\nsigma = np.array([[0.2]])\nr = 0.0\nh = 0.5\nincrements = np.zeros((1, 1, 1))\nassert np.allclose(np.round(simulate_gbm_paths(x0, q, sigma, r, h, increments), 12).tolist(), target)",
+        "import numpy as np\nx0 = np.array([10.0, 11.0])\nq = np.zeros(2)\nsigma = np.eye(3)\nincrements = np.zeros((1, 1, 2))\ndef run_model():\n    try:\n        simulate_gbm_paths(x0, q, sigma, 0.0, 0.1, increments)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-14.3",
+      "test_cases": [
+        "import numpy as np\npaths = np.array([[[10.0, 20.0], [11.0, 19.0]], [[12.0, 18.0], [9.0, 22.0]], [[13.0, 17.0], [8.0, 23.0]]])\nsegment_starts = np.array([0, 2])\nx_scale = np.array([10.0, 20.0])\nfeature_matrix = np.array([[0.5, -0.2], [0.3, 0.4]])\nfeature_bias = np.array([0.1, -0.1])\nvalue_weights = np.array([[1.0, -0.5], [0.7, 0.2]])\nvalue_bias = np.array([2.0, 1.5])\nassert np.allclose(np.round(evaluate_value_heads(paths, segment_starts, x_scale, feature_matrix, feature_bias, value_weights, value_bias), 12).tolist(), target)",
+        "import numpy as np\npaths = np.array([[[5.0]]])\nsegment_starts = np.array([0])\nx_scale = np.array([5.0])\nfeature_matrix = np.array([[1.0]])\nfeature_bias = np.array([0.0])\nvalue_weights = np.array([[2.0]])\nvalue_bias = np.array([3.0])\nassert np.allclose(np.round(evaluate_value_heads(paths, segment_starts, x_scale, feature_matrix, feature_bias, value_weights, value_bias), 12).tolist(), target)",
+        "import numpy as np\npaths = np.ones((2, 1, 1))\nsegment_starts = np.array([1, 0])\nx_scale = np.ones(1)\nfeature_matrix = np.ones((1, 1))\nfeature_bias = np.zeros(1)\nvalue_weights = np.ones((2, 1))\nvalue_bias = np.zeros(2)\ndef run_model():\n    try:\n        evaluate_value_heads(paths, segment_starts, x_scale, feature_matrix, feature_bias, value_weights, value_bias)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-14.4",
+      "test_cases": [
+        "import numpy as np\npaths = np.array([[[10.0, 20.0], [11.0, 19.0]], [[12.0, 18.0], [9.0, 22.0]], [[13.0, 17.0], [8.0, 23.0]]])\nx_scale = np.array([10.0, 20.0])\nfeature_matrix = np.array([[0.5, -0.2], [0.3, 0.4]])\nfeature_bias = np.array([0.1, -0.1])\ncontrol_weights = np.array([[[0.2, -0.1], [0.3, 0.4]], [[-0.2, 0.5], [0.1, -0.3]]])\ncontrol_bias = np.array([[-1.0, -0.8], [-0.7, -0.6]])\nassert np.allclose(np.round(evaluate_control_heads(paths, x_scale, feature_matrix, feature_bias, control_weights, control_bias), 12).tolist(), target)",
+        "import numpy as np\npaths = np.array([[[5.0]], [[5.0]]])\nx_scale = np.array([5.0])\nfeature_matrix = np.array([[1.0]])\nfeature_bias = np.array([0.0])\ncontrol_weights = np.array([[[2.0]]])\ncontrol_bias = np.array([[3.0]])\nassert np.allclose(np.round(evaluate_control_heads(paths, x_scale, feature_matrix, feature_bias, control_weights, control_bias), 12).tolist(), target)",
+        "import numpy as np\npaths = np.ones((3, 1, 1))\nx_scale = np.ones(1)\nfeature_matrix = np.ones((1, 1))\nfeature_bias = np.zeros(1)\ncontrol_weights = np.ones((1, 1, 1))\ncontrol_bias = np.ones((1, 1))\ndef run_model():\n    try:\n        evaluate_control_heads(paths, x_scale, feature_matrix, feature_bias, control_weights, control_bias)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-14.5",
+      "test_cases": [
+        "import numpy as np\nvalue_starts = np.array([[2.0, 3.0], [1.0, 1.5]])\ncontrols = np.array([[[0.5], [0.2]], [[0.4], [0.1]], [[-0.3], [0.6]]])\nincrements = np.array([[[0.1], [-0.2]], [[0.05], [0.3]], [[-0.1], [0.2]]])\nsegment_steps = np.array([2, 1])\nr = 0.06\nh = 0.125\ntheta = np.array([0.45])\nassert np.allclose(np.round(propagate_bsde_segments(value_starts, controls, increments, segment_steps, r, h, theta), 12).tolist(), target)",
+        "import numpy as np\nvalue_starts = np.array([[2.0]])\ncontrols = np.zeros((1, 1, 1))\nincrements = np.zeros((1, 1, 1))\nsegment_steps = np.array([1])\nr = 0.0\nh = 1.0\ntheta = np.array([0.0])\nassert np.allclose(np.round(propagate_bsde_segments(value_starts, controls, increments, segment_steps, r, h, theta), 12).tolist(), target)",
+        "import numpy as np\nvalue_starts = np.ones((2, 1))\ncontrols = np.zeros((2, 1, 1))\nincrements = np.zeros((2, 1, 1))\nsegment_steps = np.array([1, 2])\ntheta = np.array([0.45])\ndef run_model():\n    try:\n        propagate_bsde_segments(value_starts, controls, increments, segment_steps, 0.0, 0.1, theta)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-14.6",
+      "test_cases": [
+        "import numpy as np\npaths = np.array([[[4.0, 9.0], [9.0, 16.0]], [[1.0, 4.0], [16.0, 25.0]], [[4.0, 4.0], [25.0, 25.0]]])\nvalue_starts = np.array([[1.0, 1.0], [2.0, 3.0]])\nsegment_steps = np.array([1, 1])\nstrikes = np.array([5.0, 6.0])\nassert np.allclose(np.round(construct_bermudan_targets(paths, value_starts, segment_steps, strikes), 12).tolist(), target)",
+        "import numpy as np\npaths = np.array([[[5.0]], [[5.0]]])\nvalue_starts = np.array([[1.0]])\nsegment_steps = np.array([1])\nstrikes = np.array([5.0])\nassert np.allclose(np.round(construct_bermudan_targets(paths, value_starts, segment_steps, strikes), 12).tolist(), target)",
+        "import numpy as np\npaths = np.array([[[5.0]], [[-1.0]]])\nvalue_starts = np.array([[1.0]])\nsegment_steps = np.array([1])\nstrikes = np.array([5.0])\ndef run_model():\n    try:\n        construct_bermudan_targets(paths, value_starts, segment_steps, strikes)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-14.7",
+      "test_cases": [
+        "import numpy as np\nterminals = np.array([[1.0, 3.0], [2.0, 6.0], [0.0, 4.0]])\ntargets = np.array([[2.0, 2.0], [1.0, 4.0], [1.0, 1.0]])\nassert np.allclose(np.round(compute_joint_objective(terminals, targets), 12).tolist(), target)",
+        "import numpy as np\nterminals = np.array([[2.0]])\ntargets = np.array([[2.0]])\nassert np.allclose(np.round(compute_joint_objective(terminals, targets), 12).tolist(), target)",
+        "import numpy as np\nterminals = np.ones((2, 2))\ntargets = np.ones((2, 3))\ndef run_model():\n    try:\n        compute_joint_objective(terminals, targets)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-14.8",
+      "test_cases": [
+        "import numpy as np\nloss_summary = np.array([0.5, 0.25, 0.75])\nh = 0.125\nassert np.allclose(float(compute_error_certificate(loss_summary, h)), target)",
+        "import numpy as np\nloss_summary = np.array([0.0, 0.0])\nh = 0.25\nassert np.allclose(float(compute_error_certificate(loss_summary, h)), target)",
+        "import numpy as np\nloss_summary = np.array([0.2, 0.3])\ndef run_model():\n    try:\n        compute_error_certificate(loss_summary, 0.1)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-14.9",
+      "test_cases": [
+        "seed = 260118634\nassert np.allclose(float(run_full_pipeline(seed=seed)), target)",
+        "seed = 0\nassert np.allclose(float(run_full_pipeline(seed=seed)), target)",
+        "def run_model():\n    try:\n        run_full_pipeline(seed=-1)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

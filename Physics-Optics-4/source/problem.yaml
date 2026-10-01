@@ -1,0 +1,40 @@
+problem_id: "Physics-Optics-4"
+subject: "physics"
+subject_area: "Optics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1038/s41467-025-65289-8"
+dependencies: "import numpy as np"
+steps:
+  - number: 1
+    name: "film_mode_index"
+    description: "Real mode index of the TM guided mode of the four-layer stack."
+    orchestrator: false
+  - number: 2
+    name: "propagation_length"
+    description: "Propagation length of the leaky surface mode, in micrometres."
+    orchestrator: false
+  - number: 3
+    name: "spp_group_index"
+    description: "Group index c*d(Re beta)/d(omega) of the plane-wave pulsed surface mode."
+    orchestrator: false
+  - number: 4
+    name: "transverse_wavenumber"
+    description: "Transverse wave number k_x of the V-shaped spatiotemporal spectrum, in rad/um."
+    orchestrator: false
+  - number: 5
+    name: "axial_wavenumber"
+    description: "Axial wave number k_z of the ST-SPP spectral curve, in rad/um."
+    orchestrator: false
+  - number: 6
+    name: "st_group_index"
+    description: "Axial group index of the ST-SPP at the band-centre frequency."
+    orchestrator: false
+  - number: 7
+    name: "required_numerical_aperture"
+    description: "Free-space numerical aperture the synthesis system must supply."
+    orchestrator: false
+  - number: 8
+    name: "luminal_opening_angle"
+    description: "Superluminal opening angle at which the ST-SPP group velocity equals c\nexactly."
+    orchestrator: true

@@ -1,0 +1,86 @@
+{
+  "problem_id": "Mathematics-Computational_Mechanics-38",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Computational_Mechanics-38.1",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(float(np.mean(build_families(16, 10, 2, 1.0e-3, 2.015e-3)['omega0'])), target)",
+        "import numpy as np\nassert np.allclose(float(len(build_families(16, 10, 2, 1.0e-3, 2.015e-3)['pk'])), target)",
+        "import numpy as np\nassert np.allclose(float(1000*np.sum(build_families(16, 10, 2, 1.0e-3, 2.015e-3)['notch']) + np.sum(build_families(16, 10, 2, 1.0e-3, 2.015e-3)['nofail'])), target)",
+        "import numpy as np\nassert np.allclose(float(np.mean(build_families(6, 4, 2, 5.0e-4, 1.0075e-3)['omega0'])), target)",
+        "import numpy as np\nassert np.allclose(float(np.mean(build_families(3, 3, 3, 1.0e-3, 1.015e-3)['omega0'])), target)",
+        "import numpy as np\nassert np.allclose(float(np.sum(build_families(16, 10, 2, 1.0e-3, 2.015e-3)['omega_b'])*1.0e-9), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-38.2",
+      "test_cases": [
+        "assert np.allclose(pfpd_normalization_constant('cubic'), target)",
+        "assert np.allclose(pfpd_normalization_constant('linear'), target)",
+        "assert np.allclose(pfpd_normalization_constant('constant'), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-38.3",
+      "test_cases": [
+        "import numpy as np\ndef _flank_min(build, kin, s_c, s_notch):\n    fam = build(16, 10, 2, 1.0e-3, 2.015e-3)\n    s = np.where(fam['notch'], s_notch, 0.0)\n    M = kin(fam, s, s_c)['M']\n    flank = (fam['ijk'][:, 1] == 4) | (fam['ijk'][:, 1] == 5)\n    return float(np.min(np.linalg.eigvalsh(M[flank])[:, 0]))\nassert np.allclose(_flank_min(build_families, kinematic_operators, 0.95, 1.0), target)",
+        "import numpy as np\ndef _flank_min(build, kin, s_c, s_notch):\n    fam = build(16, 10, 2, 1.0e-3, 2.015e-3)\n    s = np.where(fam['notch'], s_notch, 0.0)\n    M = kin(fam, s, s_c)['M']\n    flank = (fam['ijk'][:, 1] == 4) | (fam['ijk'][:, 1] == 5)\n    return float(np.min(np.linalg.eigvalsh(M[flank])[:, 0]))\nassert np.allclose(_flank_min(build_families, kinematic_operators, 0.95, 0.9), target)",
+        "import numpy as np\ndef _flank_min(build, kin, s_c, s_notch):\n    fam = build(16, 10, 2, 1.0e-3, 2.015e-3)\n    s = np.where(fam['notch'], s_notch, 0.0)\n    M = kin(fam, s, s_c)['M']\n    flank = (fam['ijk'][:, 1] == 4) | (fam['ijk'][:, 1] == 5)\n    return float(np.min(np.linalg.eigvalsh(M[flank])[:, 0]))\nassert np.allclose(_flank_min(build_families, kinematic_operators, 0.95, 0.975), target)",
+        "import numpy as np\ndef _h_sum(build, kin, s_c, s_notch):\n    fam = build(16, 10, 2, 1.0e-3, 2.015e-3)\n    s = np.where(fam['notch'], s_notch, 0.0)\n    return float(np.sum(kin(fam, s, s_c)['h']))\nassert np.allclose(_h_sum(build_families, kinematic_operators, 0.95, 0.975), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-38.4",
+      "test_cases": [
+        "import numpy as np\ndef _bond_norm(build, kin, grad, A, curv, i0, j0, k0, di, dj, dk):\n    fam = build(16, 10, 2, 1.0e-3, 2.015e-3)\n    X = fam['X']\n    u = X @ A.T + curv*np.stack([X[:, 1]**2, X[:, 0]**2, np.zeros(len(X))], axis=1)\n    ops = kin(fam, np.zeros(len(fam['pk'])), 0.95)\n    F = grad(fam, ops, u)\n    ijk = fam['ijk']\n    a = int(np.flatnonzero((ijk[:, 0] == i0) & (ijk[:, 1] == j0) & (ijk[:, 2] == k0))[0])\n    b = int(np.flatnonzero((ijk[:, 0] == i0+di) & (ijk[:, 1] == j0+dj) & (ijk[:, 2] == k0+dk))[0])\n    m = ((fam['pk'] == a) & (fam['pn'] == b)) | ((fam['pk'] == b) & (fam['pn'] == a))\n    return float(np.linalg.norm(F[m][0], 'fro'))\nA = np.array([[2.0e-3, 1.0e-3, 0.0], [-5.0e-4, 3.0e-3, 0.0], [0.0, 0.0, -1.0e-3]])\nassert np.allclose(_bond_norm(build_families, kinematic_operators, bond_deformation_gradients, A, 20.0, 8, 5, 0, 1, 1, 1), target)",
+        "import numpy as np\ndef _bond_norm(build, kin, grad, A, curv, i0, j0, k0, di, dj, dk):\n    fam = build(16, 10, 2, 1.0e-3, 2.015e-3)\n    X = fam['X']\n    u = X @ A.T + curv*np.stack([X[:, 1]**2, X[:, 0]**2, np.zeros(len(X))], axis=1)\n    ops = kin(fam, np.zeros(len(fam['pk'])), 0.95)\n    F = grad(fam, ops, u)\n    ijk = fam['ijk']\n    a = int(np.flatnonzero((ijk[:, 0] == i0) & (ijk[:, 1] == j0) & (ijk[:, 2] == k0))[0])\n    b = int(np.flatnonzero((ijk[:, 0] == i0+di) & (ijk[:, 1] == j0+dj) & (ijk[:, 2] == k0+dk))[0])\n    m = ((fam['pk'] == a) & (fam['pn'] == b)) | ((fam['pk'] == b) & (fam['pn'] == a))\n    return float(np.linalg.norm(F[m][0], 'fro'))\nth = 0.3\nA = np.array([[np.cos(th) - 1.0, -np.sin(th), 0.0], [np.sin(th), np.cos(th) - 1.0, 0.0], [0.0, 0.0, 0.0]])\nassert np.allclose(_bond_norm(build_families, kinematic_operators, bond_deformation_gradients, A, 0.0, 8, 5, 0, 1, 0, 0), target)",
+        "import numpy as np\ndef _bond_norm(build, kin, grad, A, curv, i0, j0, k0, di, dj, dk):\n    fam = build(16, 10, 2, 1.0e-3, 2.015e-3)\n    X = fam['X']\n    u = X @ A.T + curv*np.stack([X[:, 1]**2, X[:, 0]**2, np.zeros(len(X))], axis=1)\n    ops = kin(fam, np.zeros(len(fam['pk'])), 0.95)\n    F = grad(fam, ops, u)\n    ijk = fam['ijk']\n    a = int(np.flatnonzero((ijk[:, 0] == i0) & (ijk[:, 1] == j0) & (ijk[:, 2] == k0))[0])\n    b = int(np.flatnonzero((ijk[:, 0] == i0+di) & (ijk[:, 1] == j0+dj) & (ijk[:, 2] == k0+dk))[0])\n    m = ((fam['pk'] == a) & (fam['pn'] == b)) | ((fam['pk'] == b) & (fam['pn'] == a))\n    return float(np.linalg.norm(F[m][0], 'fro'))\nA = np.zeros((3, 3))\nassert np.allclose(_bond_norm(build_families, kinematic_operators, bond_deformation_gradients, A, 60.0, 2, 2, 1, 0, 1, 0), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-38.5",
+      "test_cases": [
+        "import numpy as np\nF = np.array([[1.0012, 0.0008, -0.0002], [0.0005, 0.9991, 0.0004], [-0.0001, 0.0003, 1.0006]])\nassert np.allclose(bond_stress_and_driving_force(F, 3.2e10, 0.25)['Y'], target)",
+        "import numpy as np\nF = np.array([[1.0012, 0.0008, -0.0002], [0.0005, 0.9991, 0.0004], [-0.0001, 0.0003, 1.0006]])\nassert np.allclose(float(bond_stress_and_driving_force(F, 3.2e10, 0.25)['P0'][0, 1]), target)",
+        "import numpy as np\nF = np.diag([1.002, 1.0, 1.0])\nassert np.allclose(bond_stress_and_driving_force(F, 3.2e10, 0.25)['Y'], target)",
+        "import numpy as np\nF = np.diag([0.997, 1.0, 1.0])\nassert np.allclose(bond_stress_and_driving_force(F, 3.2e10, 0.25)['Y'], target)",
+        "import numpy as np\nF = np.stack([np.diag([1.002, 1.0, 1.0]), np.diag([0.997, 1.0, 1.0]), np.array([[1.0012, 0.0008, -0.0002], [0.0005, 0.9991, 0.0004], [-0.0001, 0.0003, 1.0006]])])\nassert np.allclose(float(np.sum(bond_stress_and_driving_force(F, 3.2e10, 0.25)['Y'])), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-38.6",
+      "test_cases": [
+        "assert np.allclose(bond_phase_field(1.0e5, 120.0, 2.015e-3, pfpd_normalization_constant('cubic')), target)",
+        "assert np.allclose(bond_phase_field(2.5e5, 120.0, 2.015e-3, pfpd_normalization_constant('cubic')), target)",
+        "assert np.allclose(bond_phase_field(1.0e30, 120.0, 2.015e-3, pfpd_normalization_constant('cubic')), target)",
+        "import numpy as np\ncalY = np.array([0.0, 5.0e4, 1.0e5, 2.5e5, 1.0e30])\nassert np.allclose(float(np.sum(bond_phase_field(calY, 120.0, 2.015e-3, pfpd_normalization_constant('cubic')))), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-38.7",
+      "test_cases": [
+        "import numpy as np\ndef _force_y(build, pf, force, c0, nx, ny, nz, eps, i0, j0, k0):\n    fam = build(nx, ny, nz, 1.0e-3, 2.015e-3)\n    u = np.zeros((len(fam['X']), 3))\n    u[:, 1] = eps*fam['X'][:, 1]\n    calY = np.where(fam['notch'], 1.0e30, 0.0)\n    s = pf(calY, 120.0, 2.015e-3, c0)\n    out = force(fam, u, calY, s, 3.2e10, 0.25, 120.0, 0.95, c0)\n    ijk = fam['ijk']\n    a = int(np.flatnonzero((ijk[:, 0] == i0) & (ijk[:, 1] == j0) & (ijk[:, 2] == k0))[0])\n    return float(out['B'][a, 1])\nassert np.allclose(_force_y(build_families, bond_phase_field, internal_force_evaluation, pfpd_normalization_constant('cubic'), 16, 10, 2, 1.0e-3, 8, 4, 0), target)",
+        "import numpy as np\ndef _force_y(build, pf, force, c0, nx, ny, nz, eps, i0, j0, k0):\n    fam = build(nx, ny, nz, 1.0e-3, 2.015e-3)\n    u = np.zeros((len(fam['X']), 3))\n    u[:, 1] = eps*fam['X'][:, 1]\n    calY = np.where(fam['notch'], 1.0e30, 0.0)\n    s = pf(calY, 120.0, 2.015e-3, c0)\n    out = force(fam, u, calY, s, 3.2e10, 0.25, 120.0, 0.95, c0)\n    ijk = fam['ijk']\n    a = int(np.flatnonzero((ijk[:, 0] == i0) & (ijk[:, 1] == j0) & (ijk[:, 2] == k0))[0])\n    return float(out['B'][a, 1])\nassert np.allclose(_force_y(build_families, bond_phase_field, internal_force_evaluation, pfpd_normalization_constant('cubic'), 8, 6, 2, 2.0e-3, 4, 3, 0), target)",
+        "import numpy as np\ndef _force_y(build, pf, force, c0, nx, ny, nz, eps, i0, j0, k0):\n    fam = build(nx, ny, nz, 1.0e-3, 2.015e-3)\n    u = np.zeros((len(fam['X']), 3))\n    u[:, 1] = eps*fam['X'][:, 1]\n    calY = np.where(fam['notch'], 1.0e30, 0.0)\n    s = pf(calY, 120.0, 2.015e-3, c0)\n    out = force(fam, u, calY, s, 3.2e10, 0.25, 120.0, 0.95, c0)\n    ijk = fam['ijk']\n    a = int(np.flatnonzero((ijk[:, 0] == i0) & (ijk[:, 1] == j0) & (ijk[:, 2] == k0))[0])\n    return float(out['B'][a, 1])\nassert np.allclose(_force_y(build_families, bond_phase_field, internal_force_evaluation, pfpd_normalization_constant('cubic'), 16, 10, 2, -1.0e-3, 8, 4, 0), target)",
+        "import numpy as np\ndef _grown(build, pf, force, c0, eps):\n    fam = build(16, 10, 2, 1.0e-3, 2.015e-3)\n    u = np.zeros((len(fam['X']), 3))\n    u[:, 1] = eps*fam['X'][:, 1]\n    calY = np.where(fam['notch'], 1.0e30, 0.0)\n    s = pf(calY, 120.0, 2.015e-3, c0)\n    out = force(fam, u, calY, s, 3.2e10, 0.25, 120.0, 0.95, c0)\n    return float(np.sum(out['s'][~fam['notch']]))\nassert np.allclose(_grown(build_families, bond_phase_field, internal_force_evaluation, pfpd_normalization_constant('cubic'), 1.0e-3), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-38.8",
+      "test_cases": [
+        "import numpy as np\ndef _ke(build, run, c0, nx, ny, nz, v0, n_steps):\n    fam = build(nx, ny, nz, 1.0e-3, 2.015e-3)\n    st = run(fam, 3.2e10, 0.25, 2450.0, 120.0, 0.95, v0, 2.0e-8, n_steps, c0)\n    return float(0.5*2450.0*np.sum(st['v']**2)*fam['V'])\ndef _grown_pairs(build, run, c0, nx, ny, nz, v0, n_steps):\n    fam = build(nx, ny, nz, 1.0e-3, 2.015e-3)\n    st = run(fam, 3.2e10, 0.25, 2450.0, 120.0, 0.95, v0, 2.0e-8, n_steps, c0)\n    return float(np.sum((st['s'] > 0.5) & ~fam['notch']))\ndef _s_sum(build, run, c0, nx, ny, nz, v0, n_steps):\n    fam = build(nx, ny, nz, 1.0e-3, 2.015e-3)\n    st = run(fam, 3.2e10, 0.25, 2450.0, 120.0, 0.95, v0, 2.0e-8, n_steps, c0)\n    return float(np.sum(st['s']))\nassert np.allclose(_ke(build_families, velocity_verlet_run, pfpd_normalization_constant('cubic'), 16, 10, 2, 1.2, 360), target)",
+        "import numpy as np\ndef _ke(build, run, c0, nx, ny, nz, v0, n_steps):\n    fam = build(nx, ny, nz, 1.0e-3, 2.015e-3)\n    st = run(fam, 3.2e10, 0.25, 2450.0, 120.0, 0.95, v0, 2.0e-8, n_steps, c0)\n    return float(0.5*2450.0*np.sum(st['v']**2)*fam['V'])\ndef _grown_pairs(build, run, c0, nx, ny, nz, v0, n_steps):\n    fam = build(nx, ny, nz, 1.0e-3, 2.015e-3)\n    st = run(fam, 3.2e10, 0.25, 2450.0, 120.0, 0.95, v0, 2.0e-8, n_steps, c0)\n    return float(np.sum((st['s'] > 0.5) & ~fam['notch']))\ndef _s_sum(build, run, c0, nx, ny, nz, v0, n_steps):\n    fam = build(nx, ny, nz, 1.0e-3, 2.015e-3)\n    st = run(fam, 3.2e10, 0.25, 2450.0, 120.0, 0.95, v0, 2.0e-8, n_steps, c0)\n    return float(np.sum(st['s']))\nassert np.allclose(_grown_pairs(build_families, velocity_verlet_run, pfpd_normalization_constant('cubic'), 16, 10, 2, 1.2, 360), target)",
+        "import numpy as np\ndef _ke(build, run, c0, nx, ny, nz, v0, n_steps):\n    fam = build(nx, ny, nz, 1.0e-3, 2.015e-3)\n    st = run(fam, 3.2e10, 0.25, 2450.0, 120.0, 0.95, v0, 2.0e-8, n_steps, c0)\n    return float(0.5*2450.0*np.sum(st['v']**2)*fam['V'])\ndef _grown_pairs(build, run, c0, nx, ny, nz, v0, n_steps):\n    fam = build(nx, ny, nz, 1.0e-3, 2.015e-3)\n    st = run(fam, 3.2e10, 0.25, 2450.0, 120.0, 0.95, v0, 2.0e-8, n_steps, c0)\n    return float(np.sum((st['s'] > 0.5) & ~fam['notch']))\ndef _s_sum(build, run, c0, nx, ny, nz, v0, n_steps):\n    fam = build(nx, ny, nz, 1.0e-3, 2.015e-3)\n    st = run(fam, 3.2e10, 0.25, 2450.0, 120.0, 0.95, v0, 2.0e-8, n_steps, c0)\n    return float(np.sum(st['s']))\nassert np.allclose(_s_sum(build_families, velocity_verlet_run, pfpd_normalization_constant('cubic'), 16, 10, 2, 1.2, 120), target)",
+        "import numpy as np\ndef _ke(build, run, c0, nx, ny, nz, v0, n_steps):\n    fam = build(nx, ny, nz, 1.0e-3, 2.015e-3)\n    st = run(fam, 3.2e10, 0.25, 2450.0, 120.0, 0.95, v0, 2.0e-8, n_steps, c0)\n    return float(0.5*2450.0*np.sum(st['v']**2)*fam['V'])\ndef _grown_pairs(build, run, c0, nx, ny, nz, v0, n_steps):\n    fam = build(nx, ny, nz, 1.0e-3, 2.015e-3)\n    st = run(fam, 3.2e10, 0.25, 2450.0, 120.0, 0.95, v0, 2.0e-8, n_steps, c0)\n    return float(np.sum((st['s'] > 0.5) & ~fam['notch']))\ndef _s_sum(build, run, c0, nx, ny, nz, v0, n_steps):\n    fam = build(nx, ny, nz, 1.0e-3, 2.015e-3)\n    st = run(fam, 3.2e10, 0.25, 2450.0, 120.0, 0.95, v0, 2.0e-8, n_steps, c0)\n    return float(np.sum(st['s']))\nassert np.allclose(_s_sum(build_families, velocity_verlet_run, pfpd_normalization_constant('cubic'), 16, 10, 2, 1.2, 0), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-38.9",
+      "test_cases": [
+        "assert np.allclose(pfpd_crack_dissipation(16, 10, 2, 1.0e-3, 2.015e-3, 3.2e10, 0.25, 2450.0, 120.0, 0.95, 1.2, 2.0e-8, 360), target)",
+        "assert np.allclose(pfpd_crack_dissipation(16, 10, 2, 1.0e-3, 2.015e-3, 3.2e10, 0.25, 2450.0, 120.0, 0.95, 1.2, 2.0e-8, 120), target)",
+        "assert np.allclose(pfpd_crack_dissipation(10, 6, 2, 1.0e-3, 2.015e-3, 3.2e10, 0.25, 2450.0, 120.0, 0.95, 0.8, 2.0e-8, 150), target)"
+      ]
+    }
+  ]
+}

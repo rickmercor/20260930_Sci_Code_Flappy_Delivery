@@ -1,0 +1,36 @@
+problem_id: "Physics-Astrophysics-33"
+subject: "physics"
+subject_area: "Astrophysics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2607.08036"
+dependencies: ""
+steps:
+  - number: 1
+    name: "stationary_density"
+    description: "Determine the positive zero-mass-flux state of a transverse, periodic coronal\n\ntransport layer. Field strength b and parallel velocity u are externally fixed.\n\nUnits absorb the reference density and magnetic permeability, so v_A=b/sqrt(r).\n\nThe slaved turbulent mass flux divided by its positive diffusivity is\n\n-gradient(r) + 2\\*r\\*(gradient(ln b) + M_A\\*gradient(ln u)), with M_A=u/v_A.\n\nThe spatial mean of r is prescribed; M_A is a local state variable."
+    orchestrator: false
+  - number: 2
+    name: "stationary_pressure"
+    description: "Normalize the thermal zero-flux state on the density equilibrium of step 1.\n\nThermal energy is p/(gamma-1). Its turbulent flux divided by diffusivity is\n\n-gradient(E_th) + 2\\*gamma\\*E_th\\*(gradient(ln b) + M_A\\*gradient(ln u)).\n\nThe corresponding mass flux is the one in step 1 and vanishes at every point.\n\nDensity and pressure have prescribed, separately conserved nodal means."
+    orchestrator: false
+  - number: 3
+    name: "transport_tangent"
+    description: "Obtain the local tangent fluxes about the simultaneous zero-flux equilibrium.\n\nThe geometry, outward flow, dominant Elsasser amplitude z and parallel scale\n\nell are externally maintained, while density r and pressure p may respond.\n\nUse v_A=b/sqrt(r), M_A=u/v_A, eta=z\\*l_perp/4, and critical balance\n\nchi=z\\*ell/(v_A\\*l_perp). Mass and thermal fluxes are those in steps 1 and 2."
+    orchestrator: false
+  - number: 4
+    name: "flux_generator"
+    description: "Construct the two-dimensional density-pressure evolution generator from the\n\ntangent fluxes of step 3. Both fields obey their flux-only conservative balance\n\nin the magnetic-surface frame; no source or parallel transport is retained."
+    orchestrator: false
+  - number: 5
+    name: "pressure_response"
+    description: "Propagate an initially pressure-balanced density perturbation under the\n\nautonomous flux generator of step 4. Initial pressure perturbation is zero;\n\nthe density perturbation must have zero arithmetic mean. The dynamics conserve\n\nboth means. Output is the induced pressure at the requested elapsed time."
+    orchestrator: false
+  - number: 6
+    name: "optimal_response"
+    description: "Find the largest possible RMS response of a real linear density-to-pressure\n\nmap. Its columns and rows use the same uniform spatial grid, and its null\n\nconstant mode has already been removed. The norm is unweighted spatial RMS,\n\nnot a norm weighted by the nonuniform equilibrium density or pressure."
+    orchestrator: false
+  - number: 7
+    name: "pressure_susceptibility"
+    description: "Final orchestrator. Combine steps 1-6 for the optimal induced-pressure RMS\n\nfrom an initially pressure-balanced, zero-mean density disturbance in a\n\ntwo-dimensional periodic transverse layer. Each field is normalized by its\n\nprescribed spatial mean. Only transverse conservative turbulent fluxes evolve."
+    orchestrator: true

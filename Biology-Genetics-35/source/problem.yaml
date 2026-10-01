@@ -1,0 +1,48 @@
+problem_id: "Biology-Genetics-35"
+subject: "biology"
+subject_area: "Genetics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1371/journal.pgen.1012209"
+dependencies: ""
+steps:
+  - number: 1
+    name: "Screen eligible signals"
+    description: "Select article-eligible association signals before any pairwise analysis.\n\n\u00a0\n\nFor this benchmark's deterministic reconciliation with the pinned active-trim code, a cell is available for screening only when its collection tests that variant, the supplied value is finite, and the value is greater than -100000. A signal is retained when the maximum available log Bayes factor is at least 5. Preserve original signal order. NaN denotes an unavailable cell; infinity is invalid."
+    orchestrator: false
+  - number: 2
+    name: "Normalize observed and unavailable cells"
+    description: "Construct the benchmark-normalized retained signal matrix while preserving unavailable cells.\n\n\u00a0\n\nFor each retained signal, a cell is observed only if the signal's collection tests the variant, the supplied value is finite, and the value is greater than -100000. Return two float planes: plane 0 contains observed log Bayes factors and -1000000 elsewhere; plane 1 contains the corresponding 1/0 observation indicator. Retained indices must be strictly increasing."
+    orchestrator: false
+  - number: 3
+    name: "Build shared collection variant masks"
+    description: "Derive collection-pair variant universes from retained signal availability.\n\n\u00a0\n\nA collection's universe contains every variant observed in at least one retained signal from that collection. The mask for an ordered collection pair is the intersection of the two collection universes. Collection identifiers must be contiguous from zero, and every collection must be represented."
+    orchestrator: false
+  - number: 4
+    name: "Compute reciprocal signal coverage"
+    description: "Compute directional Bayes-factor-mass coverage for every retained signal pair.\n\n\u00a0\n\nFor direction i to j, the numerator is signal i's Bayes-factor mass over collection-shared variants observed in both signals. The denominator is signal i's mass over all variants observed in i. Use stable log-sum-exp. Store i-to-j and j-to-i in the last axis; a pair with no mutually observed shared variant has zero coverage in both directions."
+    orchestrator: false
+  - number: 5
+    name: "Evaluate H0 through H4 evidence in batches"
+    description: "Evaluate source-matched H0-H4 log evidence for every signal pair.\n\n\u00a0\n\nWork on the collection-pair shared variant axis, including padded values. H0 has log evidence 0. H1 and H2 use each signal alone with prior p1 or p2. H3 uses prior p1*p2 and sums every ordered distinct-variant assignment. H4 uses prior p12 and sums equal-variant assignments. Use stable log-sum-exp throughout. chunk_size controls only outer signal-row blocking and cannot change results."
+    orchestrator: false
+  - number: 6
+    name: "Select posterior-supported graph edges"
+    description: "Convert pairwise evidence into a canonically ordered colocalisation graph.\n\n\u00a0\n\nNormalize each pair's five log evidences by stable log-sum-exp. For i<j, keep an edge only when both directional coverage values are at least overlap_min and the normalized H4 posterior is at least h4_threshold. Return rows [i, j, PP.H4] in lexicographic endpoint order."
+    orchestrator: false
+  - number: 7
+    name: "Apply the credible-set endpoint restriction"
+    description: "Apply the credible-set endpoint sensitivity restriction to graph edges.\n\n\u00a0\n\nRetain an edge exactly when both indexed endpoints have a credible set. Preserve the input row order and all three columns. Endpoint columns must be integer-valued, distinct, ordered as i<j, in range, and free of duplicates."
+    orchestrator: false
+  - number: 8
+    name: "Summarize identity-collider components"
+    description: "Summarize non-isolated connected components and their identity colliders.\n\n\u00a0\n\nNodes are indexed by rows of signal_metadata. Its columns are [dataset ID, trait ID, signal ID], and complete triplets must be unique. A component is a collider exactly when two of its distinct signal nodes share the same ordered (dataset ID, trait ID) pair. Exclude isolated nodes. Return [minimum node index, node count, edge count, collider flag] sorted by minimum node index."
+    orchestrator: false
+  - number: 9
+    name: "Compute the signed component-rate contrast"
+    description: "Compute the signed percentage-point change in component collider fraction.\n\n\u00a0\n\nEach component table has canonical rows [minimum node, node count, edge count, collider flag] in strictly increasing minimum-node order. Both tables must contain at least one component. Return 100 times the restricted mean collider flag minus 100 times the full mean collider flag. Do not return a relative percent change."
+    orchestrator: false
+  - number: 10
+    name: "Orchestrate the complete audit"
+    description: "Run the complete source-calibrated colocalisation and collider sensitivity audit.\n\n\u00a0\n\nChain every preceding stage in order. Subset collection identifiers, metadata, and credible-set flags by the retained signal indices before graph analysis. Build the full components from all selected edges and the restricted components from edges whose two endpoints have credible sets. Return the signed restricted-minus-full collider fraction in percentage points."
+    orchestrator: true

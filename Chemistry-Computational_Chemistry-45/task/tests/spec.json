@@ -1,0 +1,69 @@
+{
+  "problem_id": "Chemistry-Computational_Chemistry-45",
+  "sub_steps": [
+    {
+      "step_number": "Chemistry-Computational_Chemistry-45.1",
+      "test_cases": [
+        "import numpy as np\nreference_positions = np.array([[0.,0.,0.],[1.,0.,0.]])\nmode_vector = np.array([[0.1,0.,0.],[-0.2,0.3,0.]])\namplitudes = np.array([-1.,0.,1.])\nassert np.allclose(generate_mode_trajectory(reference_positions, mode_vector, amplitudes), target)",
+        "import numpy as np\nreference_positions = np.array([[1.,2.,3.],[-1.,0.,2.],[0.5,0.5,0.5]])\nmode_vector = np.array([[0.,1.,0.],[2.,0.,-1.],[0.2,-0.4,0.8]])\namplitudes = np.array([0.5,-0.5,1.5,0.0])\nassert np.allclose(generate_mode_trajectory(reference_positions, mode_vector, amplitudes), target)",
+        "import numpy as np\nreference_positions = np.array([[0.,0.,0.],[0.,1.,0.]])\nmode_vector = np.zeros((2,3))\namplitudes = np.array([2.,-2.])\nassert np.allclose(generate_mode_trajectory(reference_positions, mode_vector, amplitudes), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-45.2",
+      "test_cases": [
+        "import numpy as np\ntrajectory = np.array([[[0.,0.,0.]], [[3.,0.,0.]], [[1.,0.,0.]]])\nassert np.allclose(select_diverse_pair(trajectory), target)",
+        "import numpy as np\ntrajectory = np.array([[[0.,0.,0.],[0.,1.,0.]], [[2.,0.,0.],[2.,1.,0.]], [[-2.,0.,0.],[-2.,1.,0.]]])\nassert np.allclose(select_diverse_pair(trajectory), target)",
+        "import numpy as np\ntrajectory = np.zeros((4,2,3), dtype=float)\nassert np.allclose(select_diverse_pair(trajectory), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-45.3",
+      "test_cases": [
+        "import numpy as np\nbonds = np.array([[0,1],[1,2],[2,3]])\nn_atoms = 4\nassert np.allclose(enumerate_internal_coordinates(bonds, n_atoms), target)",
+        "import numpy as np\nbonds = np.array([[0,1],[1,2],[2,3],[3,0],[1,4],[4,5]])\nn_atoms = 7\nassert np.allclose(enumerate_internal_coordinates(bonds, n_atoms), target)",
+        "import numpy as np\nbonds = np.array([[2,1],[1,0],[0,1],[1,2]])\nn_atoms = 3\nassert np.allclose(enumerate_internal_coordinates(bonds, n_atoms), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-45.4",
+      "test_cases": [
+        "import numpy as np\ntrajectory = np.array([[[0.,0.,0.],[1.,0.,0.]], [[0.,0.,0.],[0.,2.,0.]]])\ncoordinates = np.array([[2,0,1,-1,-1]])\nassert np.allclose(evaluate_internal_coordinates(trajectory, coordinates), target)",
+        "import numpy as np\ntrajectory = np.array([[[1.,0.,0.],[0.,0.,0.],[0.,1.,0.]], [[1.,0.,0.],[0.,0.,0.],[-1.,1.,0.]]])\ncoordinates = np.array([[2,0,1,-1,-1],[3,0,1,2,-1]])\nassert np.allclose(evaluate_internal_coordinates(trajectory, coordinates), target)",
+        "import numpy as np\ntrajectory = np.array([[[0.,1.,0.],[0.,0.,0.],[1.,0.,0.],[1.,1.,1.]], [[0.,1.,1.],[0.,0.,0.],[1.,0.,0.],[1.,1.,0.]]])\ncoordinates = np.array([[3,0,1,2,-1],[4,0,1,2,3]])\nassert np.allclose(evaluate_internal_coordinates(trajectory, coordinates), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-45.5",
+      "test_cases": [
+        "import numpy as np\ncoordinate_values = np.array([[1.0,90.0,179.0],[1.6,105.0,-179.0]])\nframe_pair = np.array([0,1])\ncoordinates = np.array([[2,0,1,-1,-1],[3,0,1,2,-1],[4,0,1,2,3]])\nassert np.allclose(coordinate_change_magnitudes(coordinate_values, frame_pair, coordinates), target)",
+        "import numpy as np\ncoordinate_values = np.array([\n    [179.0,-179.0,0.0,1.2],\n    [-1.0,1.0,180.0,1.8],\n])\nframe_pair = np.array([0,1])\ncoordinates = np.array([\n    [4,0,1,2,3],\n    [4,1,2,3,4],\n    [4,2,3,4,5],\n    [2,0,1,-1,-1],\n])\nassert np.allclose(coordinate_change_magnitudes(coordinate_values, frame_pair, coordinates), target)",
+        "import numpy as np\ncoordinate_values = np.array([\n    [1.0,15.0,170.0,-170.0],\n    [9.0,90.0,0.0,0.0],\n    [4.0,175.0,-170.0,170.0],\n])\nframe_pair = np.array([0,2])\ncoordinates = np.array([\n    [2,0,1,-1,-1],\n    [3,0,1,2,-1],\n    [4,0,1,2,3],\n    [4,1,2,3,4],\n])\nassert np.allclose(coordinate_change_magnitudes(coordinate_values, frame_pair, coordinates), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-45.6",
+      "test_cases": [
+        "import numpy as np\nchanges = np.array([0.65,0.27,31.0,18.0,30.0,25.0,24.0])\ncoordinates = np.array([\n    [2,0,1,-1,-1],\n    [2,1,2,-1,-1],\n    [3,0,1,2,-1],\n    [3,3,4,5,-1],\n    [4,0,1,2,3],\n    [4,3,4,5,6],\n    [4,7,4,5,8],\n])\natomic_numbers = np.array([8,1,8,6,6,6,1,8,1])\nthresholds = np.array([0.55,14.0,23.0,0.22])\nassert np.allclose(screen_graph_changes(changes, coordinates, atomic_numbers, thresholds), target)",
+        "import numpy as np\nchanges = np.array([0.55,0.22,14.0,23.0])\ncoordinates = np.array([\n    [2,0,1,-1,-1],\n    [2,1,2,-1,-1],\n    [3,3,4,5,-1],\n    [4,4,5,6,7],\n])\natomic_numbers = np.array([8,1,8,6,6,6,6,1])\nthresholds = np.array([0.55,14.0,23.0,0.22])\nassert np.allclose(screen_graph_changes(changes, coordinates, atomic_numbers, thresholds), target)",
+        "import numpy as np\nchanges = np.array([0.31,0.21,6.0,12.0,13.0])\ncoordinates = np.array([\n    [2,0,1,-1,-1],\n    [2,1,2,-1,-1],\n    [3,3,4,5,-1],\n    [4,3,4,5,6],\n    [4,7,4,5,8],\n])\natomic_numbers = np.array([8,1,8,6,6,6,6,8,4])\nthresholds = np.array([0.55,14.0,23.0,0.22])\nassert np.allclose(screen_graph_changes(changes, coordinates, atomic_numbers, thresholds), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-45.7",
+      "test_cases": [
+        "import numpy as np\nstatuses = np.array([1,2,3])\ncoordinates = np.array([[2,0,1,-1,-1],[2,1,2,-1,-1],[3,0,1,2,-1]])\nexpected_bonds = np.array([[1,0],[2,1]])\nassert np.allclose(bond_change_f1(statuses, coordinates, expected_bonds), target)",
+        "import numpy as np\nstatuses = np.array([1,2,0])\ncoordinates = np.array([[2,0,1,-1,-1],[2,1,2,-1,-1],[2,2,3,-1,-1]])\nexpected_bonds = np.array([[0,1],[2,3]])\nassert np.allclose(bond_change_f1(statuses, coordinates, expected_bonds), target)",
+        "import numpy as np\nstatuses = np.array([0])\ncoordinates = np.array([[3,0,1,2,-1]])\nexpected_bonds = np.empty((0,2), dtype=int)\nassert np.allclose(bond_change_f1(statuses, coordinates, expected_bonds), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-45.8",
+      "test_cases": [
+        "import numpy as np\nreference_positions = np.array([\n    [0.0,0.0,0.0],\n    [1.0,0.0,0.0],\n    [2.0,0.2,0.0],\n], dtype=float)\nmode_vectors = np.zeros((2,3,3), dtype=float)\nmode_vectors[0,0,0] = 0.30\nmode_vectors[1,1,0] = 0.30\namplitudes = np.array([-1.0,0.0,1.0], dtype=float)\nbonds = np.array([[0,1],[1,2]], dtype=int)\natomic_numbers = np.array([8,1,8], dtype=int)\nexpected_bonds = np.array([[0,1],[1,2]], dtype=int)\nassert np.allclose(identify_transition_mode(\n    reference_positions,\n    mode_vectors,\n    amplitudes,\n    bonds,\n    atomic_numbers,\n    expected_bonds,\n), target)",
+        "import numpy as np\nreference_positions = np.array([\n    [0.0,0.0,0.0],\n    [1.0,0.0,0.0],\n    [0.0,3.0,0.0],\n    [1.0,3.0,0.0],\n    [1.0,4.0,0.0],\n], dtype=float)\nmode_vectors = np.zeros((2,5,3), dtype=float)\nmode_vectors[:,1,0] = 0.30\nmode_vectors[1,4,0] = 0.50\namplitudes = np.array([-1.0,0.0,1.0], dtype=float)\nbonds = np.array([[0,1],[2,3],[3,4]], dtype=int)\natomic_numbers = np.array([6,6,6,6,6], dtype=int)\nexpected_bonds = np.array([[0,1]], dtype=int)\nassert np.allclose(identify_transition_mode(\n    reference_positions,\n    mode_vectors,\n    amplitudes,\n    bonds,\n    atomic_numbers,\n    expected_bonds,\n), target)",
+        "import numpy as np\nreference_positions = np.array([\n    [0.0,0.0,0.0],\n    [1.0,0.0,0.0],\n], dtype=float)\nmode_vectors = np.zeros((3,2,3), dtype=float)\nmode_vectors[0,1,0] = 0.30\nmode_vectors[1,1,0] = 0.30\nmode_vectors[2,1,0] = 0.10\namplitudes = np.array([-1.0,0.0,1.0], dtype=float)\nbonds = np.array([[0,1]], dtype=int)\natomic_numbers = np.array([6,6], dtype=int)\nexpected_bonds = np.array([[0,1]], dtype=int)\nassert np.allclose(identify_transition_mode(\n    reference_positions,\n    mode_vectors,\n    amplitudes,\n    bonds,\n    atomic_numbers,\n    expected_bonds,\n), target)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+problem_id: "Chemistry-Quantum_Chemistry-42"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1063/5.0327624"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_excited_surface_derivatives"
+    description: "Step 01: Excited-state surface energy, gradient and Hessian."
+    orchestrator: false
+  - number: 2
+    name: "02_exact_autocorrelation"
+    description: "Step 02: Exact autocorrelation by split-operator grid propagation."
+    orchestrator: false
+  - number: 3
+    name: "03_thawed_gaussian_autocorrelation"
+    description: "Step 03: Autocorrelation of a thawed Gaussian with local or constant reference Hessian."
+    orchestrator: false
+  - number: 4
+    name: "04_thawed_gaussian_energy"
+    description: "Step 04: True energy along a thawed Gaussian propagation."
+    orchestrator: false
+  - number: 5
+    name: "05_spectral_contrast_cosine"
+    description: "Step 05: Unshifted spectral contrast cosine of broadened lineshapes."
+    orchestrator: false
+  - number: 6
+    name: "06_method_diagnostics"
+    description: "Step 06: Spectral accuracy and energy excursions of four Gaussian variants."
+    orchestrator: false
+  - number: 7
+    name: "07_vertical_adiabatic_crossover"
+    description: "Step 07: Displacement where vertical and adiabatic reference Hessians are equally accurate (orchestrator)."
+    orchestrator: true

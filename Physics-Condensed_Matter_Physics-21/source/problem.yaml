@@ -1,0 +1,44 @@
+problem_id: "Physics-Condensed_Matter_Physics-21"
+subject: "physics"
+subject_area: "Condensed Matter Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.3847/1538-4357/ae552a"
+dependencies: ""
+steps:
+  - number: 1
+    name: "allowed_density_bounds"
+    description: "Evaluate the smallest and largest number density a stable, causal and thermodynamically consistent equation of state may take at a given chemical potential."
+    orchestrator: false
+  - number: 2
+    name: "allowed_pressure_bounds"
+    description: "Evaluate the smallest and largest pressure a stable, causal and thermodynamically consistent equation of state may take at a given chemical potential and number density."
+    orchestrator: false
+  - number: 3
+    name: "chemical_potential_quantile"
+    description: "Invert the marginal chemical-potential distribution of a uniform measure on the allowed region, returning the chemical potential at a requested quantile."
+    orchestrator: false
+  - number: 4
+    name: "quantile_point_in_volume"
+    description: "Select a single thermodynamic state inside the allowed region at prescribed quantiles of the uniform measure, drawing the three variables in sequence."
+    orchestrator: false
+  - number: 5
+    name: "self_similar_refine"
+    description: "Build a self-similar bridge between two endpoints by recursively inserting states into the allowed region."
+    orchestrator: false
+  - number: 6
+    name: "diffusion_profile"
+    description: "Evaluate the density-dependent diffusion coefficient that imposes a fixed fractional correlation length, together with the margin by which it satisfies the causality-preserving condition."
+    orchestrator: false
+  - number: 7
+    name: "diffuse_chemical_potential"
+    description: "Smooth a bridge by evolving the chemical potential under a conservative diffusion in flow time, and report the energy density transported across the domain boundaries."
+    orchestrator: false
+  - number: 8
+    name: "sound_speed_squared"
+    description: "Evaluate the squared speed of sound of a zero-temperature equation of state given as chemical potential against number density."
+    orchestrator: false
+  - number: 9
+    name: "bridge_boundary_flux"
+    description: "Assemble the full construction for one dense-matter bridge and report the energy density transported across its boundaries during smoothing."
+    orchestrator: true

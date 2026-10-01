@@ -1,0 +1,48 @@
+problem_id: "Biology-Ecology-18"
+subject: "biology"
+subject_area: "Ecology"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1111/2041-210X.70372"
+dependencies: ""
+steps:
+  - number: 1
+    name: "Calculate the noncircular niche profile"
+    description: "Calculate the noncircular niche profile."
+    orchestrator: false
+  - number: 2
+    name: "Calibrate the PETRA forecast"
+    description: "Calibrate the PETRA forecast."
+    orchestrator: false
+  - number: 3
+    name: "Build the PETRA resilience and exposure signal."
+    description: "Build the PETRA resilience and exposure signal."
+    orchestrator: false
+  - number: 4
+    name: "Assemble the coupled ecological system."
+    description: "Assemble the coupled ecological system."
+    orchestrator: false
+  - number: 5
+    name: "Calculate feasibility and stability certificates."
+    description: "Calculate feasibility and stability certificates."
+    orchestrator: false
+  - number: 6
+    name: "Calculate correlated disturbance radii."
+    description: "Calculate correlated disturbance radii."
+    orchestrator: false
+  - number: 7
+    name: "Find a plan's continuous effort optimum."
+    description: "Find a plan's continuous effort optimum."
+    orchestrator: false
+  - number: 8
+    name: "Score every management plan."
+    description: "Score every management plan."
+    orchestrator: false
+  - number: 9
+    name: "Select the robust management plan."
+    description: "Select the robust management plan."
+    orchestrator: false
+  - number: 10
+    name: "Run the complete coupled pipeline."
+    description: "Run the complete coupled pipeline."
+    orchestrator: true

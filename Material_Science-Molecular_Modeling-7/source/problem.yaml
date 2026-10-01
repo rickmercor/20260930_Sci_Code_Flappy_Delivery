@@ -1,0 +1,44 @@
+problem_id: "Material_Science-Molecular_Modeling-7"
+subject: "materials"
+subject_area: "Molecular Modeling"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.48550/arXiv.2601.12984"
+dependencies: ""
+steps:
+  - number: 1
+    name: "in_build_finite_group_action"
+    description: "Build the complete group of site permutations from the supplied generators. The input may contain direct permutation generators. It may also contain rotation and translation data for periodic sites. When periodic data are given, first convert every affine operation into a site permutation using exact integer calculations. After collecting all valid generators, repeatedly compose them until no new permutation is obtained. Return every different group element once. The identity permutation must be included."
+    orchestrator: false
+  - number: 2
+    name: "in_enumerate_decoration_orbit_data"
+    description: "A chemical ordering can be represented by a binary occupation vector. For the Mg-Nd panel, a value of 1 means Nd and a value of 0 means Mg. Two decorations should not be counted separately when a symmetry operation of the parent structure converts one into the other. All decorations connected in this way form one symmetry orbit. One representative is selected from every orbit. Here the representative is the decoration having the largest binary code. The orbit size tells how many decorations are related to the representative by parent symmetry. The symmetry operations that leave the representative unchanged form its stabilizer. For a finite group, the orbit size and stabilizer size are related by the orbit-stabilizer theorem. These values are needed in the next step because chemical ordering can reduce the symmetry available to a transformation pathway."
+    orchestrator: false
+  - number: 3
+    name: "in_reduce_undirected_axis_variants"
+    description: "Reduce the supplied undirected axis pairs separately for every decoration. Read the stabilizer flags from decoration_orbit_data, apply only the active group operations to both sites of every axis pair, and treat the mapped pair as unordered. Match every mapped pair back to axis_pairs, build the complete axis orbits, and keep the smallest label from each orbit. Return the canonical decoration code, occupation count, retained axis label and stabilizer-orbit size."
+    orchestrator: false
+  - number: 4
+    name: "in_align_retained_profile_rows"
+    description: "Match every retained axis row with its energy-profile row. Use the canonical decoration code and retained axis label as the key. Keep the first four columns of retained_axis_data and append the matching DFT profile followed by the matching MLIP profile. Preserve the order of retained_axis_data. Every retained key must occur exactly once in profile_keys."
+    orchestrator: false
+  - number: 5
+    name: "in_classify_transformation_landscapes"
+    description: "Classify the DFT and MLIP profiles contained in every aligned row. The first four columns are metadata. Split the remaining values into equal DFT and MLIP profiles. Use the six profile-shape rules and the supplied class_labels. Return the four metadata columns followed by the DFT class and MLIP class. Reject a profile when it does not match exactly one allowed class."
+    orchestrator: false
+  - number: 6
+    name: "in_score_classification_agreement"
+    description: "Build a confusion matrix from the last two columns of classified_rows. Use the ordering supplied in class_labels. Add row totals as the last column and column totals as the last row. Store the exact-class agreement fraction in the bottom-right element. The output must therefore have one more row and one more column than the number of class labels."
+    orchestrator: false
+  - number: 7
+    name: "07_in_reconstruct_integer_confusion_matrix"
+    description: "Reconstruct a nonnegative integer confusion matrix from row totals and arow-normalized matrix printed to a specified number of significant figures."
+    orchestrator: false
+  - number: 8
+    name: "in_compute_kappa_retention"
+    description: "Calculate the ratio of unweighted multiclass Cohen kappa for a synthetic confusion matrix and a paper confusion matrix."
+    orchestrator: false
+  - number: 9
+    name: "Run the complete Mg-Nd kappa pipeline"
+    description: "Run the complete Mg-Nd ordering and class-comparison calculation and return the chance-corrected agreement retention."
+    orchestrator: true

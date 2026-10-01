@@ -1,0 +1,71 @@
+{
+  "problem_id": "Physics-Optics-4",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Optics-4.1",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(film_mode_index(385.0, 55.00), target)",
+        "import numpy as np\nassert np.allclose(film_mode_index(363.0, 55.00), target)",
+        "import numpy as np\nassert np.allclose(film_mode_index(409.0, 300.00), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-4.2",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(propagation_length(385.0, 55.00), target)",
+        "import numpy as np\nassert np.allclose(propagation_length(409.0, 55.00), target)",
+        "import numpy as np\nassert np.allclose(propagation_length(385.0, 300.00), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-4.3",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(spp_group_index(385.0, 55.00), target)",
+        "import numpy as np\nassert np.allclose(spp_group_index(409.0, 55.00), target)",
+        "import numpy as np\nassert np.allclose(spp_group_index(385.0, 300.00), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-4.4",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(transverse_wavenumber(385.0, 36.0), target)",
+        "import numpy as np\nassert np.allclose(transverse_wavenumber(400.0, 36.0), target)",
+        "import numpy as np\nassert np.allclose(transverse_wavenumber(400.0, -36.0), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-4.5",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(axial_wavenumber(385.0, 36.0, 55.00), target)",
+        "import numpy as np\nassert np.allclose(axial_wavenumber(363.0, 36.0, 55.00), target)",
+        "import numpy as np\nassert np.allclose(axial_wavenumber(400.0, -36.0, 55.00), target)",
+        "import numpy as np\ndef _raises_value_error(f, *args):\n    try:\n        f(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(_raises_value_error(axial_wavenumber, 385.0, 3.25, 55.00), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-4.6",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(st_group_index(36.0, 8.334000, 1.110769), target)",
+        "import numpy as np\nassert np.allclose(st_group_index(-36.0, 8.334000, 1.110769), target)",
+        "import numpy as np\nassert np.allclose(st_group_index(80.0, 8.334000, 1.110769), target)",
+        "import numpy as np\ndef _raises_value_error(f, *args):\n    try:\n        f(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(_raises_value_error(st_group_index, 3.15, 8.334000, 1.110769), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-4.7",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(required_numerical_aperture(36.0), target)",
+        "import numpy as np\nassert np.allclose(required_numerical_aperture(-36.0), target)",
+        "import numpy as np\nassert np.allclose(required_numerical_aperture(80.0), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-4.8",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(luminal_opening_angle(55.00), target)",
+        "import numpy as np\nassert np.allclose(luminal_opening_angle(300.00), target)",
+        "import numpy as np\nassert np.allclose(luminal_opening_angle(45.00), target)"
+      ]
+    }
+  ]
+}

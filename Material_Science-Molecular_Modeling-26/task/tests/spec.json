@@ -1,0 +1,189 @@
+{
+  "problem_id": "Material_Science-Molecular_Modeling-26",
+  "sub_steps": [
+    {
+      "step_number": "Material_Science-Molecular_Modeling-26.1",
+      "test_cases": [
+        "import numpy as np\ncenter = 1.6\nkappa = 1.0\nassert np.allclose(compute_umbrella_mean_force(center, kappa), target)",
+        "import numpy as np\ncenter = 284.16\nkappa = 1.0\nassert np.allclose(compute_umbrella_mean_force(center, kappa), target)",
+        "import numpy as np\ncenter = 0.0\nkappa = 1.0\nassert np.allclose(compute_umbrella_mean_force(center, kappa), target)",
+        "import numpy as np\ncenter = 64.0\nkappa = 1.0e3\nassert np.allclose(compute_umbrella_mean_force(center, kappa), target)",
+        "import numpy as np\ncenter = 45.0\nkappa = 2.5\ngamma = 4.0\ndmu = 0.55\noffset = 3.0\nassert np.allclose(compute_umbrella_mean_force(center, kappa, gamma, dmu, offset), target)",
+        "import numpy as np\ncenters = np.array([1.6, 64.0, 142.5, 284.16])\nkappa = 1.0\nassert np.allclose(compute_umbrella_mean_force(centers, kappa), target)",
+        "import numpy as np\ncenters = np.array([0.0, 45.0, 200.0, 287.0])\nkappas = np.array([0.2, 2.5, 0.08, 5.0])\nassert np.allclose(compute_umbrella_mean_force(centers, kappas), target)",
+        "import numpy as np\ncenter = 64.0\nkappas = np.array([0.05, 1.0, 1.0e3])\nassert np.allclose(compute_umbrella_mean_force(center, kappas), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        compute_umbrella_mean_force(0.0, 0.01)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        compute_umbrella_mean_force(50.0, 0.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        compute_umbrella_mean_force(-8.0, 1.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ncenters = np.array([1.0, 2.0, 3.0])\nkappas = np.array([1.0, 2.0])\ndef run_model():\n    try:\n        compute_umbrella_mean_force(centers, kappas)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-26.2",
+      "test_cases": [
+        "import numpy as np\nquery = 142.545454545454547\nassert np.allclose(compute_kernel_embedding(query), target)",
+        "import numpy as np\nquery = 20.0\nassert np.allclose(compute_kernel_embedding(query), target)",
+        "import numpy as np\nquery = 0.0\nassert np.allclose(compute_kernel_embedding(query), target)",
+        "import numpy as np\nquery = 288.0\nassert np.allclose(compute_kernel_embedding(query), target)",
+        "import numpy as np\nquery = 1.25\nlower = -2.0\nupper = 3.5\nvariance = 1.75\nlengthscale = 40.0\nassert np.allclose(compute_kernel_embedding(query, lower, upper, variance, lengthscale), target)",
+        "import numpy as np\nqueries = np.array([0.0, 20.0, 144.0, 288.0])\nassert np.allclose(compute_kernel_embedding(queries), target)",
+        "import numpy as np\nintervals = np.array([[0.0, 25.0], [25.0, 90.0], [90.0, 288.0]])\nquery = 70.0\nassert np.allclose(compute_kernel_embedding(query, intervals=intervals), target)",
+        "import numpy as np\nintervals = np.array([[0.0, 17.0], [17.0, 111.0], [111.0, 288.0]])\nqueries = np.array([1.6, 52.0, 142.5, 285.0])\nassert np.allclose(compute_kernel_embedding(queries, intervals=intervals), target)",
+        "import numpy as np\ncuts = np.array([0.0, 31.0, 90.0, 173.0, 288.0])\nintervals = np.column_stack((cuts[:-1], cuts[1:]))\nqueries = np.array([0.0, 31.0, 144.0, 288.0])\nassert np.allclose(np.concatenate((compute_kernel_embedding(queries, intervals=intervals).sum(axis=0), compute_kernel_embedding(queries))), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        compute_kernel_embedding(300.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nintervals = np.array([[0.0, 20.0], [40.0, 30.0]])\ndef run_model():\n    try:\n        compute_kernel_embedding(np.array([10.0, 50.0]), intervals=intervals)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        compute_kernel_embedding(100.0, 0.0, 288.0, 0.25, 0.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        compute_kernel_embedding(10.0, 288.0, 0.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-26.3",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(compute_initial_integral_variance(), target)",
+        "import numpy as np\nlengthscale = 60.0\nassert np.allclose(compute_initial_integral_variance(0.0, 288.0, 0.25, lengthscale), target)",
+        "import numpy as np\nassert np.allclose(compute_initial_integral_variance(0.0, 20.0, 0.25, 20.0), target)",
+        "import numpy as np\nassert np.allclose(compute_initial_integral_variance(-1.0, 1.0, 3.0, 5000.0), target)",
+        "import numpy as np\nintervals = np.array([[0.0, 70.0], [70.0, 140.0],\n                      [35.0, 190.0], [90.0, 120.0]])\nassert np.allclose(compute_initial_integral_variance(intervals=intervals), target)",
+        "import numpy as np\ncuts = np.array([0.0, 31.0, 90.0, 173.0, 288.0])\nintervals = np.column_stack((cuts[:-1], cuts[1:]))\nassert np.allclose(np.array([compute_initial_integral_variance(intervals=intervals).sum(), compute_initial_integral_variance()]), target)",
+        "import numpy as np\nintervals = np.array([[120.0, 220.0], [5.0, 15.0],\n                      [120.0, 220.0], [0.0, 288.0]])\nassert np.allclose(compute_initial_integral_variance(0.0, 288.0, 0.7, 11.0, intervals), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        compute_initial_integral_variance(5.0, 5.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        compute_initial_integral_variance(0.0, 288.0, -0.25, 20.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nintervals = np.array([[0.0, 80.0], [200.0, 300.0]])\ndef run_model():\n    try:\n        compute_initial_integral_variance(intervals=intervals)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-26.4",
+      "test_cases": [
+        "import numpy as np\ncenters = np.array([1.6, 3.0, 142.545454545454547, 284.16, 285.0])\nforces = np.array([0.395264592035, 0.357711252640, -0.086, -0.148868367933, -0.149108533322])\nquery = 72.0\nassert np.allclose(compute_posterior_mean_gradient(centers, forces, query), target)",
+        "import numpy as np\ncenters = np.array([1.6, 3.0, 284.16, 285.0])\nforces = np.array([0.395264592035, 0.357711252640, -0.148868367933, -0.149108533322])\nquery = 3.0\nassert np.allclose(compute_posterior_mean_gradient(centers, forces, query), target)",
+        "import numpy as np\ncenters = np.array([64.0])\nforces = np.array([0.00062])\nquery = 200.0\nassert np.allclose(compute_posterior_mean_gradient(centers, forces, query), target)",
+        "import numpy as np\ncenters = np.array([50.0, 50.0009, 210.0])\nforces = np.array([0.02, 0.0201, -0.12])\nquery = 130.0\nassert np.allclose(compute_posterior_mean_gradient(centers, forces, query, 0.25, 20.0, 1.0e-8), target)",
+        "import numpy as np\ncenters = np.array([1.6, 3.0, 72.0, 142.5, 220.0, 284.16, 285.0])\nforces = np.array([0.395264592, 0.357711253, -0.0139, -0.0870,\n                   -0.1276, -0.148868368, -0.149108533])\nquery = np.array([288.0, 3.0, 90.0, 3.0, 0.0])\nassert np.allclose(compute_posterior_mean_gradient(centers, forces, query), target)",
+        "import numpy as np\ncenters = np.array([0.0, 25.0, 80.0, 144.0])\nforces = np.array([0.3, 0.13, -0.025, -0.087])\nquery = np.linspace(0.0, 144.0, 41)\nassert np.allclose(compute_posterior_mean_gradient(centers, forces, query, 0.6, 17.0, 1.0e-4), target)",
+        "import numpy as np\ncenters = np.array([0.0, 18.0, 55.0, 97.0, 144.0])\nforces = np.array([0.3, 0.17, 0.02, -0.06, -0.09])\nquery = np.array([0.0, 18.0, 55.0, 97.0, 144.0, 72.0])\nnoise = np.array([1.0e-5, 2.0e-3, 5.0e-4, 4.0e-3, 1.0e-4])\nassert np.allclose(compute_posterior_mean_gradient(centers, forces, query, 0.6, 17.0, noise), target)",
+        "import numpy as np\ncenters = np.array([1.0, 2.0, 3.0])\nforces = np.array([0.1, 0.2])\ndef run_model():\n    try:\n        compute_posterior_mean_gradient(centers, forces, 1.5)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ncenters = np.array([])\nforces = np.array([])\ndef run_model():\n    try:\n        compute_posterior_mean_gradient(centers, forces, 1.5)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ncenters = np.array([1.0, 2.0])\nforces = np.array([0.1, 0.2])\ndef run_model():\n    try:\n        compute_posterior_mean_gradient(centers, forces, 1.5, 0.25, 20.0, -1.0e-3)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ncenters = np.array([1.0, 2.0])\nforces = np.array([0.1, 0.2])\nquery = np.array([[1.0, 1.5]])\ndef run_model():\n    try:\n        compute_posterior_mean_gradient(centers, forces, query)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-26.5",
+      "test_cases": [
+        "import numpy as np\ncenters = np.array([1.6, 3.0, 284.16, 285.0])\nforces = np.array([0.395264592035, 0.357711252640, -0.148868367933, -0.149108533322])\nassert np.allclose(compute_integral_posterior_mean(centers, forces), target)",
+        "import numpy as np\ncenters = np.array([1.6, 3.0, 37.818181818181820, 72.727272727272734,\n                    142.545454545454547, 212.363636363636374, 284.16, 285.0])\nforces = np.array([0.395264592035, 0.357711252640, 0.066906927, -0.014481221,\n                   -0.087001808, -0.124326953, -0.148868367933, -0.149108533322])\nassert np.allclose(compute_integral_posterior_mean(centers, forces), target)",
+        "import numpy as np\ncenters = np.array([144.0])\nforces = np.array([-0.0871])\nassert np.allclose(compute_integral_posterior_mean(centers, forces), target)",
+        "import numpy as np\ncenters = np.array([0.0, 2.5, 5.0, 7.5, 10.0])\nforces = np.array([0.3, 0.3, 0.3, 0.3, 0.3])\nassert np.allclose(compute_integral_posterior_mean(centers, forces, 0.0, 10.0, 4.0, 6.0, 1.0e-10), target)",
+        "import numpy as np\ncenters = np.array([1.6, 37.8, 107.6, 177.5, 247.3, 285.0])\nforces = np.array([0.395264592, 0.06695, -0.05291, -0.10846, -0.13713, -0.149108533])\nintervals = np.array([[0.0, 90.0], [90.0, 180.0],\n                      [35.0, 210.0], [120.0, 150.0]])\nassert np.allclose(compute_integral_posterior_mean(centers, forces, intervals=intervals), target)",
+        "import numpy as np\ncenters = np.array([1.6, 3.0, 72.7, 142.5, 212.4, 284.16, 285.0])\nforces = np.array([0.395264592, 0.357711253, -0.01446, -0.08698,\n                   -0.12434, -0.148868368, -0.149108533])\ncuts = np.array([0.0, 31.0, 90.0, 173.0, 288.0])\nintervals = np.column_stack((cuts[:-1], cuts[1:]))\nassert np.allclose(np.append(compute_integral_posterior_mean(centers, forces, intervals=intervals), compute_integral_posterior_mean(centers, forces)), target)",
+        "import numpy as np\ncenters = np.array([0.0, 18.0, 55.0, 97.0, 144.0])\nforces = np.array([0.3, 0.17, 0.02, -0.06, -0.09])\nnoise = np.array([1.0e-5, 2.0e-3, 5.0e-4, 4.0e-3, 1.0e-4])\nintervals = np.array([[0.0, 50.0], [50.0, 100.0], [100.0, 144.0]])\nassert np.allclose(compute_integral_posterior_mean(centers, forces, 0.0, 144.0, 0.6, 17.0, noise, intervals), target)",
+        "import numpy as np\ncenters = np.array([1.6, 300.0])\nforces = np.array([0.4, -0.15])\ndef run_model():\n    try:\n        compute_integral_posterior_mean(centers, forces)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ncenters = np.array([10.0, 100.0])\nforces = np.array([0.4, np.nan])\ndef run_model():\n    try:\n        compute_integral_posterior_mean(centers, forces)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ncenters = np.array([10.0, 100.0, 200.0])\nforces = np.array([0.2, 0.0, -0.1])\nnoise = np.array([1.0e-3, 2.0e-3])\ndef run_model():\n    try:\n        compute_integral_posterior_mean(centers, forces, noise=noise)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-26.6",
+      "test_cases": [
+        "import numpy as np\ncenters = np.array([1.6, 3.0, 284.16, 285.0])\nassert np.allclose(compute_integral_posterior_variance(centers), target)",
+        "import numpy as np\ncenters = np.array([1.6, 3.0, 20.363636363636363, 37.818181818181820,\n                    72.727272727272734, 107.636363636363640, 142.545454545454547,\n                    177.454545454545453, 212.363636363636374, 247.272727272727280,\n                    264.727272727272748, 284.16, 285.0])\nassert np.allclose(compute_integral_posterior_variance(centers), target)",
+        "import numpy as np\ncenters = np.array([144.0])\nassert np.allclose(compute_integral_posterior_variance(centers), target)",
+        "import numpy as np\ncenters = np.linspace(0.0, 10.0, 6)\nassert np.allclose(compute_integral_posterior_variance(centers, 0.0, 10.0, 1.0, 4.0, 1.0e-6), target)",
+        "import numpy as np\ncenters = np.array([1.6, 37.8, 107.6, 177.5, 247.3, 285.0])\nintervals = np.array([[0.0, 70.0], [70.0, 140.0],\n                      [35.0, 190.0], [90.0, 120.0]])\nassert np.allclose(compute_integral_posterior_variance(centers, intervals=intervals), target)",
+        "import numpy as np\ncenters = np.array([1.6, 3.0, 72.7, 142.5, 212.4, 284.16, 285.0])\ncuts = np.array([0.0, 31.0, 90.0, 173.0, 288.0])\nintervals = np.column_stack((cuts[:-1], cuts[1:]))\nassert np.allclose(np.array([compute_integral_posterior_variance(centers, intervals=intervals).sum(), compute_integral_posterior_variance(centers)]), target)",
+        "import numpy as np\ncenters = np.array([0.0, 18.0, 55.0, 97.0, 144.0])\nnoise = np.array([1.0e-5, 2.0e-3, 5.0e-4, 4.0e-3, 1.0e-4])\nintervals = np.array([[0.0, 50.0], [50.0, 100.0], [100.0, 144.0]])\nassert np.allclose(compute_integral_posterior_variance(centers, 0.0, 144.0, 0.6, 17.0, noise, intervals), target)",
+        "import numpy as np\ncenters = np.array([-5.0, 100.0])\ndef run_model():\n    try:\n        compute_integral_posterior_variance(centers)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ncenters = np.array([])\ndef run_model():\n    try:\n        compute_integral_posterior_variance(centers)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ncenters = np.array([10.0, 100.0, 200.0])\nnoise = np.array([1.0e-3, 2.0e-3])\ndef run_model():\n    try:\n        compute_integral_posterior_variance(centers, noise=noise)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-26.7",
+      "test_cases": [
+        "import numpy as np\ncenters = np.array([1.6, 3.0, 284.16, 285.0])\ncandidate = 142.545454545454547\nassert np.allclose(compute_ivr_acquisition(centers, candidate), target)",
+        "import numpy as np\ncenters = np.array([1.6, 3.0, 284.16, 285.0])\ncandidate = 2.9090909090909092\nassert np.allclose(compute_ivr_acquisition(centers, candidate), target)",
+        "import numpy as np\ncenters = np.array([1.6, 3.0, 72.727272727272734, 142.545454545454547,\n                    212.363636363636374, 284.16, 285.0])\ncandidate = 107.636363636363640\nassert np.allclose(compute_ivr_acquisition(centers, candidate), target)",
+        "import numpy as np\ncenters = np.array([1.6, 3.0, 284.16, 285.0])\ncandidate = 3.0\nassert np.allclose(compute_ivr_acquisition(centers, candidate), target)",
+        "import numpy as np\ncenters = np.array([144.0])\ncandidate = 288.0\nassert np.allclose(compute_ivr_acquisition(centers, candidate), target)",
+        "import numpy as np\ncenters = np.array([1.6, 3.0, 142.5, 284.16, 285.0])\ncandidates = np.array([0.0, 20.0, 72.0, 142.5, 216.0, 288.0])\nassert np.allclose(compute_ivr_acquisition(centers, candidates), target)",
+        "import numpy as np\ncenters = np.array([3.0, 72.0, 144.0, 216.0, 285.0])\ncandidates = np.array([36.0, 108.0, 180.0, 252.0])\nnoise = np.array([1.0e-5, 4.0e-4, 2.0e-3, 7.0e-4, 3.0e-5])\ncandidate_noise = np.array([2.0e-4, 8.0e-4, 3.0e-3, 5.0e-5])\nassert np.allclose(compute_ivr_acquisition(centers, candidates, 0.0, 288.0, 0.25, 20.0, noise, candidate_noise), target)",
+        "import numpy as np\ncenters = np.array([0.0, 96.0, 192.0, 288.0])\ncandidates = np.array([0.0, 48.0, 144.0, 240.0, 288.0])\nnoise = np.array([0.0, 1.0e-3, 2.0e-3, 4.0e-3])\nassert np.allclose(compute_ivr_acquisition(centers, candidates, 0.0, 288.0, 0.25, 20.0, noise, 5.0e-4), target)",
+        "import numpy as np\ncenters = np.array([1.6, 3.0])\ndef run_model():\n    try:\n        compute_ivr_acquisition(centers, -1.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ncenters = np.array([1.6, 3.0])\ndef run_model():\n    try:\n        compute_ivr_acquisition(centers, 100.0, 0.0, 288.0, 0.25, 20.0, -1.0e-6)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ncenters = np.array([1.6, 3.0, 284.16])\ncandidates = np.array([72.0, 144.0])\nnoise = np.array([1.0e-4, 2.0e-4, 3.0e-4])\ndef run_model():\n    try:\n        compute_ivr_acquisition(centers, candidates, 0.0, 288.0, 0.25, 20.0, noise)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-26.8",
+      "test_cases": [
+        "import numpy as np\ncenters = np.array([1.6, 3.0, 72.727272727272734, 142.545454545454547,\n                    212.363636363636374, 284.16, 285.0])\nforces = np.array([0.395264592035, 0.357711252640, -0.014481221, -0.087001808,\n                   -0.124326953, -0.148868367933, -0.149108533322])\nassert np.allclose(compute_free_energy_profile_value(centers, forces, 22), target)",
+        "import numpy as np\ncenters = np.array([1.6, 3.0, 72.727272727272734, 142.545454545454547,\n                    212.363636363636374, 284.16, 285.0])\nforces = np.array([0.395264592035, 0.357711252640, -0.014481221, -0.087001808,\n                   -0.124326953, -0.148868367933, -0.149108533322])\nassert np.allclose(compute_free_energy_profile_value(centers, forces, 70), target)",
+        "import numpy as np\ncenters = np.array([1.6, 3.0, 284.16, 285.0])\nforces = np.array([0.395264592035, 0.357711252640, -0.148868367933, -0.149108533322])\nassert np.allclose(compute_free_energy_profile_value(centers, forces, 99), target)",
+        "import numpy as np\ncenters = np.array([1.6, 3.0, 284.16, 285.0])\nforces = np.array([0.395264592035, 0.357711252640, -0.148868367933, -0.149108533322])\nassert np.allclose(compute_free_energy_profile_value(centers, forces, 1, 2), target)",
+        "import numpy as np\ncenters = np.array([2.0, 60.0, 120.0, 180.0, 240.0, 286.0])\nforces = np.array([0.5, 0.5, 0.5, 0.5, 0.5, 0.5])\nassert np.allclose(compute_free_energy_profile_value(centers, forces, 50), target)",
+        "import numpy as np\ncenters = np.array([1.6, 72.0, 144.0, 216.0, 285.0])\nforces = np.array([0.395264592035, -0.0139, -0.0876, -0.1257, -0.149108533322])\nnodes = np.array([99, 0, 49, 22, 49, 1])\nassert np.allclose(compute_free_energy_profile_value(centers, forces, nodes), target)",
+        "import numpy as np\ncenters = np.array([1.6, 3.0, 142.5, 284.16, 285.0])\nforces = np.array([0.395264592035, 0.357711252640, -0.087001808,\n                   -0.148868367933, -0.149108533322])\nnodes = np.arange(37, dtype=int)\nassert np.allclose(compute_free_energy_profile_value(centers, forces, nodes, 37), target)",
+        "import numpy as np\ncenters = np.array([0.0, 18.0, 55.0, 97.0, 144.0])\nforces = np.array([0.3, 0.17, 0.02, -0.06, -0.09])\nnoise = np.array([1.0e-5, 2.0e-3, 5.0e-4, 4.0e-3, 1.0e-4])\nnodes = np.array([40, 0, 17, 40, 8])\nassert np.allclose(compute_free_energy_profile_value(centers, forces, nodes, 41, 0.0, 144.0, 0.6, 17.0, noise), target)",
+        "import numpy as np\ncenters = np.array([1.6, 3.0])\nforces = np.array([0.4, 0.36])\ndef run_model():\n    try:\n        compute_free_energy_profile_value(centers, forces, 100)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ncenters = np.array([1.6, 3.0])\nforces = np.array([0.4, 0.36])\ndef run_model():\n    try:\n        compute_free_energy_profile_value(centers, forces, 0, 1)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ncenters = np.array([1.6, 3.0])\nforces = np.array([0.4, 0.36])\nnodes = np.array([0.0, 1.0, 2.5])\ndef run_model():\n    try:\n        compute_free_energy_profile_value(centers, forces, nodes)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ncenters = np.array([1.6, 3.0, 100.0])\nforces = np.array([0.4, 0.36, -0.04])\nnoise = np.array([1.0e-3, 2.0e-3])\ndef run_model():\n    try:\n        compute_free_energy_profile_value(centers, forces, 5, noise=noise)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-26.9",
+      "test_cases": [
+        "import numpy as np\ncenters = np.array([1.6, 3.0, 284.16, 285.0])\nforces = np.array([0.395264592035, 0.357711252640, -0.148868367933, -0.149108533322])\nassert np.allclose(compute_combined_acquisition(centers, forces, 48), target)",
+        "import numpy as np\ncenters = np.array([1.6, 3.0, 284.16, 285.0])\nforces = np.array([0.395264592035, 0.357711252640, -0.148868367933, -0.149108533322])\nassert np.allclose(compute_combined_acquisition(centers, forces, 22), target)",
+        "import numpy as np\ncenters = np.array([1.6, 3.0, 284.16, 285.0])\nforces = np.array([0.395264592035, 0.357711252640, -0.148868367933, -0.149108533322])\nassert np.allclose(compute_combined_acquisition(centers, forces, 22, 100, 0.0), target)",
+        "import numpy as np\ncenters = np.array([1.6, 3.0, 284.16, 285.0])\nforces = np.array([0.395264592035, 0.357711252640, -0.148868367933, -0.149108533322])\nassert np.allclose(compute_combined_acquisition(centers, forces, 99, 100, 1.0), target)",
+        "import numpy as np\ncenters = np.array([1.6, 3.0, 284.16, 285.0])\nforces = np.array([0.0, 0.0, 0.0, 0.0])\nassert np.allclose(compute_combined_acquisition(centers, forces, 20, 30, 0.5), target)",
+        "import numpy as np\ncenters = np.array([1.6, 3.0, 72.0, 144.0, 216.0, 284.16, 285.0])\nforces = np.array([0.395264592035, 0.357711252640, -0.0139, -0.0876,\n                   -0.1257, -0.148868367933, -0.149108533322])\nnodes = np.array([99, 0, 49, 22, 49, 75])\nassert np.allclose(compute_combined_acquisition(centers, forces, nodes), target)",
+        "import numpy as np\ncenters = np.array([1.6, 48.0, 144.0, 240.0, 285.0])\nforces = np.array([0.395264592035, 0.0618, -0.0876, -0.1342, -0.149108533322])\nnoise = np.array([1.0e-5, 2.0e-3, 4.0e-4, 3.0e-3, 8.0e-5])\ncandidate_noise = np.geomspace(2.0e-5, 5.0e-3, 41)\nnodes = np.array([40, 3, 19, 3, 27, 0])\nassert np.allclose(compute_combined_acquisition(centers, forces, nodes, 41, 0.35, 0.0, 288.0, 0.25, 20.0, noise, candidate_noise), target)",
+        "import numpy as np\ncenters = np.array([1.6, 3.0, 142.5, 284.16, 285.0])\nforces = np.array([0.395264592035, 0.357711252640, -0.087001808,\n                   -0.148868367933, -0.149108533322])\nnodes = np.arange(41, dtype=int)\nassert np.allclose(compute_combined_acquisition(centers, forces, nodes, 41, 0.0), target)",
+        "import numpy as np\ncenters = np.array([1.6, 3.0])\nforces = np.array([0.4, 0.36])\ndef run_model():\n    try:\n        compute_combined_acquisition(centers, forces, 10, 100, 1.5)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ncenters = np.array([1.6, 144.0, 285.0])\nforces = np.array([0.395264592035, -0.0876, -0.149108533322])\nnoise = np.array([1.0e-5, 2.0e-3, 8.0e-5])\ndef run_model():\n    try:\n        compute_combined_acquisition(centers, forces, 10, noise=noise)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ncenters = np.array([1.6, 3.0])\nforces = np.array([0.4, 0.36])\ndef run_model():\n    try:\n        compute_combined_acquisition(centers, forces, -1)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ncenters = np.array([1.6, 3.0, 284.16, 285.0])\nforces = np.array([0.395264592035, 0.357711252640, -0.148868367933, -0.149108533322])\ncandidate_cost = 1.0 + 0.8 * np.linspace(0.0, 1.0, 100) ** 2\nnodes = np.array([12, 48, 73, 91])\nassert np.allclose(compute_combined_acquisition(centers, forces, nodes, candidate_cost=candidate_cost), target)",
+        "import numpy as np\ncenters = np.array([1.6, 3.0])\nforces = np.array([0.4, 0.36])\ncandidate_cost = np.ones(100)\ncandidate_cost[20] = 0.0\ndef run_model():\n    try:\n        compute_combined_acquisition(centers, forces, 20, candidate_cost=candidate_cost)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ncenters = np.array([1.6, 3.0])\nforces = np.array([0.4, 0.36])\nnodes = np.array([0.0, 1.0, 2.5])\ndef run_model():\n    try:\n        compute_combined_acquisition(centers, forces, nodes)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-26.10",
+      "test_cases": [
+        "import numpy as np\ncenters = np.array([1.6, 3.0, 284.16, 285.0])\nforces = np.array([0.395264592035, 0.357711252640, -0.148868367933, -0.149108533322])\nassert np.allclose(select_next_umbrella_center(centers, forces), target)",
+        "import numpy as np\ncenters = np.array([1.6, 3.0, 72.727272727272734, 142.545454545454547,\n                    212.363636363636374, 247.272727272727280, 284.16, 285.0])\nforces = np.array([0.395264592035, 0.357711252640, -0.014481221, -0.087001808,\n                   -0.124326953, -0.137502864, -0.148868367933, -0.149108533322])\nassert np.allclose(select_next_umbrella_center(centers, forces), target)",
+        "import numpy as np\ncenters = np.array([1.6, 3.0, 72.727272727272734, 142.545454545454547,\n                    212.363636363636374, 247.272727272727280, 284.16, 285.0])\nforces = np.array([0.395264592035, 0.357711252640, -0.014481221, -0.087001808,\n                   -0.124326953, -0.137502864, -0.148868367933, -0.149108533322])\nassert np.allclose(select_next_umbrella_center(centers, forces, 100, 0.0), target)",
+        "import numpy as np\ncenters = np.array([0.0, 96.0, 192.0])\nforces = np.array([0.4333, -0.0532, -0.1160])\nassert np.allclose(select_next_umbrella_center(centers, forces, 4), target)",
+        "import numpy as np\ncenters = np.array([1.6, 3.0, 284.16, 285.0])\nforces = np.array([0.395264592035, 0.357711252640, -0.148868367933, -0.149108533322])\nassert np.allclose(select_next_umbrella_center(centers, forces, 100, 0.9), target)",
+        "import numpy as np\ncenters = np.array([1.6, 48.0, 144.0, 240.0, 285.0])\nforces = np.array([0.395264592035, 0.0618, -0.0876, -0.1342, -0.149108533322])\nnoise = np.array([1.0e-5, 2.0e-3, 4.0e-4, 3.0e-3, 8.0e-5])\ncandidate_noise = np.geomspace(2.0e-5, 5.0e-3, 41)\nassert np.allclose(select_next_umbrella_center(centers, forces, 41, 0.35, 0.0, 288.0, 0.25, 20.0, noise, candidate_noise), target)",
+        "import numpy as np\ncenters = np.array([1.6, 3.0, 284.16, 285.0])\nforces = np.array([0.395264592035, 0.357711252640, -0.148868367933, -0.149108533322])\ncandidate_cost = 1.0 + 0.8 * np.linspace(0.0, 1.0, 100) ** 2\nassert np.allclose(select_next_umbrella_center(centers, forces, candidate_cost=candidate_cost, max_cost=1.12), target)",
+        "import numpy as np\ncenters = np.array([1.6, 3.0])\nforces = np.array([0.4, 0.36])\ndef run_model():\n    try:\n        select_next_umbrella_center(centers, forces, max_cost=0.5)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ncenters = np.array([0.0, 96.0, 192.0, 288.0])\nforces = np.array([0.4333, -0.0532, -0.1160, -0.1499])\ndef run_model():\n    try:\n        select_next_umbrella_center(centers, forces, 4)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ncenters = np.array([1.6, 3.0])\nforces = np.array([0.4, 0.36])\ndef run_model():\n    try:\n        select_next_umbrella_center(centers, forces, 1)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ncenters = np.array([1.6, 144.0, 285.0])\nforces = np.array([0.395264592035, -0.0876, -0.149108533322])\ncandidate_noise = np.ones(12) * 1.0e-3\ndef run_model():\n    try:\n        select_next_umbrella_center(centers, forces, 41, candidate_noise=candidate_noise)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-26.11",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(run_bayesian_umbrella_quadrature(), target)",
+        "import numpy as np\nassert np.allclose(run_bayesian_umbrella_quadrature(None, 5), target)",
+        "import numpy as np\nassert np.allclose(run_bayesian_umbrella_quadrature(None, 0), target)",
+        "import numpy as np\nassert np.allclose(run_bayesian_umbrella_quadrature(None, 15, 1.0, None, None, 100, 0.45, 0.25, 20.0, 1.0e-3, 5.0), target)",
+        "import numpy as np\nassert np.allclose(run_bayesian_umbrella_quadrature(None, 15, 1.0, None, None, 100, 0.45, 0.25, 20.0, 1.0e-3, 0.02, 0.3), target)",
+        "import numpy as np\nassert np.allclose(run_bayesian_umbrella_quadrature(None, 15, 1.0, None, None, 100, 0.45, 0.25, 20.0, 1.0e-3, 0.02, 0.01, 0.5), target)",
+        "import numpy as np\ninitial_centers = np.array([2.0, 5.0, 95.0, 98.0])\nsurface = (4.0, 0.55, 3.0)\ndomain = (0.0, 100.0)\nassert np.allclose(run_bayesian_umbrella_quadrature(initial_centers, 10, 2.5, surface, domain, 41, 0.2, 0.5, 12.0, 1.0e-4), target)",
+        "import numpy as np\ninitial_centers = np.array([2.0, 5.0, 95.0, 98.0])\nsurface = (4.0, 0.55, 3.0)\ndomain = (0.0, 100.0)\nnoise = np.array([2.0e-5, 8.0e-4, 3.0e-4, 1.0e-5])\ncandidate_noise = np.geomspace(2.0e-5, 2.0e-3, 41)\ninterval_edges = np.array([0.0, 9.0, 31.0, 63.0, 84.0, 100.0])\nassert np.allclose(run_bayesian_umbrella_quadrature(initial_centers=initial_centers, n_queries=9, kappa=2.5, surface=surface, domain=domain, n_grid=41, weight=0.2, variance=0.5, lengthscale=12.0, noise=noise, candidate_noise=candidate_noise, interval_edges=interval_edges), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        run_bayesian_umbrella_quadrature(None, -1)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nnoise = np.array([1.0e-5, 2.0e-3, 4.0e-4, 8.0e-5])\ndef run_model():\n    try:\n        run_bayesian_umbrella_quadrature(noise=noise)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ninterval_edges = np.array([5.0, 80.0, 160.0, 288.0])\ndef run_model():\n    try:\n        run_bayesian_umbrella_quadrature(interval_edges=interval_edges)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ninitial_centers = np.array([1.6, 3.0, 284.16, 400.0])\ndef run_model():\n    try:\n        run_bayesian_umbrella_quadrature(initial_centers)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        run_bayesian_umbrella_quadrature(surface=2.5)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        run_bayesian_umbrella_quadrature(rel_tol=np.nan)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        run_bayesian_umbrella_quadrature(None, 15, 1.0, None, None, 100, 0.45, 0.25, 20.0, 1.0e-3, 0.02, 0.01, 0.02, 0.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

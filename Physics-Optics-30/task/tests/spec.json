@@ -1,0 +1,91 @@
+{
+  "problem_id": "Physics-Optics-30",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Optics-30.1",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(np.round(arm_emission_ratios(0.018, 0.42), 8), target)",
+        "import numpy as np\nassert np.allclose(np.round(arm_emission_ratios(0.041, 0.77), 8), target)",
+        "import numpy as np\nassert np.allclose(np.round(arm_emission_ratios(0.0, 0.5), 8), target)",
+        "import numpy as np\nassert np.allclose(np.round(arm_emission_ratios(0.05, 1.0), 8), target)",
+        "def run_model():\n    try:\n        arm_emission_ratios(0.018, 0.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "def run_model():\n    try:\n        arm_emission_ratios(-0.01, 0.5)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "def run_model():\n    try:\n        arm_emission_ratios(0.1, 1.2)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "def run_model():\n    try:\n        arm_emission_ratios(1.5, 0.9)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-30.2",
+      "test_cases": [
+        "assert np.allclose(round(effective_indistinguishability(0.96, 0.25), 8), target)",
+        "assert np.allclose(round(effective_indistinguishability(0.8, 1.0), 8), target)",
+        "assert np.allclose(round(effective_indistinguishability(0.8, 0.0), 8), target)",
+        "assert np.allclose(round(effective_indistinguishability(0.5, 0.6), 8), target)",
+        "def run_model():\n    try:\n        effective_indistinguishability(1.2, 0.5)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "def run_model():\n    try:\n        effective_indistinguishability(0.9, -0.1)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-30.3",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(np.round(cnot_event_table(0.96, 0.25), 8), target)",
+        "import numpy as np\nassert np.allclose(np.round(cnot_event_table(1.0, 1.0), 8), target)",
+        "import numpy as np\nassert np.allclose(np.round(cnot_event_table(0.7, 0.0), 8), target)",
+        "import numpy as np\nassert np.allclose(np.round(cnot_event_table(0.3, 0.6), 8), target)",
+        "def run_model():\n    try:\n        cnot_event_table(0.9, 1.5)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-30.4",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(np.round(hom_event_rates(0.96, 0.25), 8), target)",
+        "import numpy as np\nassert np.allclose(np.round(hom_event_rates(1.0, 1.0), 8), target)",
+        "import numpy as np\nassert np.allclose(np.round(hom_event_rates(0.7, 0.0), 8), target)",
+        "import numpy as np\nassert np.allclose(np.round(hom_event_rates(0.0, 0.6), 8), target)",
+        "def run_model():\n    try:\n        hom_event_rates(-0.1, 0.5)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-30.5",
+      "test_cases": [
+        "assert np.allclose(round(hom_visibility(0.9618090900338264, 0.25, 0.018, 0.42, 0.041, 0.77), 8), target)",
+        "assert np.allclose(round(hom_visibility(1.0, 1.0, 0.0, 0.5, 0.0, 0.5), 8), target)",
+        "assert np.allclose(round(hom_visibility(0.85, 0.0, 0.05, 0.6, 0.02, 0.9), 8), target)",
+        "assert np.allclose(round(hom_visibility(0.7, 0.6, 0.003, 0.85, 0.03, 0.25), 8), target)",
+        "def run_model():\n    try:\n        hom_visibility(0.9, 0.25, 0.1, 1.2, 0.01, 0.3)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-30.6",
+      "test_cases": [
+        "assert np.allclose(round(decode_intrinsic_eta(0.912, 0.25, 0.018, 0.42, 0.041, 0.77), 8), target)",
+        "assert np.allclose(round(decode_intrinsic_eta(0.95, 1.0, 0.01, 0.3, 0.01, 0.3), 8), target)",
+        "assert np.allclose(round(decode_intrinsic_eta(0.80, 0.0, 0.05, 0.6, 0.02, 0.9), 8), target)",
+        "assert np.allclose(round(decode_intrinsic_eta(0.97, 0.6, 0.003, 0.85, 0.03, 0.25), 8), target)",
+        "def run_model():\n    try:\n        decode_intrinsic_eta(0.0, 0.25, 0.018, 0.42, 0.041, 0.77)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "def run_model():\n    try:\n        decode_intrinsic_eta(0.999, 0.0, 0.2, 0.9, 0.2, 0.9)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-30.7",
+      "test_cases": [
+        "assert np.allclose(round(cnot_gate_fidelity(0.96, 0.25, 0.018, 0.42, 0.041, 0.77), 8), target)",
+        "assert np.allclose(round(cnot_gate_fidelity(1.0, 1.0, 0.0, 0.5, 0.0, 0.5), 8), target)",
+        "assert np.allclose(round(cnot_gate_fidelity(0.85, 0.0, 0.05, 0.6, 0.02, 0.9), 8), target)",
+        "assert np.allclose(round(cnot_gate_fidelity(0.7, 0.6, 0.003, 0.85, 0.03, 0.25), 8), target)",
+        "def run_model():\n    try:\n        cnot_gate_fidelity(1.2, 0.25, 0.018, 0.42, 0.041, 0.77)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-30.8",
+      "test_cases": [
+        "assert np.allclose(round(run_cnot_fidelity_pipeline(0.912, 0.25, 0.018, 0.42, 0.041, 0.77), 8), target)",
+        "assert np.allclose(round(run_cnot_fidelity_pipeline(0.95, 1.0, 0.01, 0.3, 0.01, 0.3), 8), target)",
+        "assert np.allclose(round(run_cnot_fidelity_pipeline(0.80, 0.0, 0.05, 0.6, 0.02, 0.9), 8), target)",
+        "assert np.allclose(round(run_cnot_fidelity_pipeline(0.97, 0.6, 0.003, 0.85, 0.03, 0.25), 8), target)",
+        "def run_model():\n    try:\n        run_cnot_fidelity_pipeline(0.999, 0.0, 0.2, 0.9, 0.2, 0.9)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "def run_model():\n    try:\n        run_cnot_fidelity_pipeline(0.912, 0.25, 0.018, 0.0, 0.041, 0.77)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "problem_id": "Mathematics-Computational_Mechanics-14",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Computational_Mechanics-14.1",
+      "test_cases": [
+        "import numpy as np\nmu_r = np.array([9.0e-7, 3.86125e-7, 3.86125e-7])\nmu_k = np.array([10.0, 20.0, 10.0])\nsigma_r = 4.56962e-7\nsigma_k = 2.0\nassert np.allclose(parameterise_hierarchical_lognormals(mu_r, mu_k, sigma_r, sigma_k), target)",
+        "import numpy as np\nmu_r = np.array([2.0e-7, 5.0e-7])\nmu_k = np.array([4.0, 11.0])\nsigma_r = 0.0\nsigma_k = 0.0\nassert np.allclose(parameterise_hierarchical_lognormals(mu_r, mu_k, sigma_r, sigma_k), target)",
+        "import numpy as np\nmu_r = np.array([1.0e-9, 2.0e-6])\nmu_k = np.array([0.25, 80.0])\nsigma_r = 7.5e-7\nsigma_k = 12.0\nassert np.allclose(parameterise_hierarchical_lognormals(mu_r, mu_k, sigma_r, sigma_k), target)",
+        "import numpy as np\ndef value_error_code(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nmu_r = np.array([-1.0e-7, 2.0e-7])\nmu_k = np.array([4.0, 8.0])\nsigma_r = 1.0e-7\nsigma_k = 1.0\nassert np.allclose(value_error_code(lambda: parameterise_hierarchical_lognormals(mu_r, mu_k, sigma_r, sigma_k)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-14.2",
+      "test_cases": [
+        "import numpy as np\nlog_params = np.array([-14.035551324356856, 0.4789159649348846, 2.282974736417405, 0.19804220043536505])\ntimes = np.array([3600.0, 7200.0, 14400.0])\nn_prep = 30\nfine_step = 1800.0\nrng_call = np.random.default_rng(1701)\nrng_gold = np.random.default_rng(1701)\nassert np.allclose(compute_shared_environment_integral(log_params, times, n_prep, fine_step, rng_call), target)",
+        "import numpy as np\nvu0 = 1.01e-6 * 9.95e7\nlog_params = np.array([np.log(4.0e-7), 0.0, np.log(vu0), 0.0])\ntimes = np.array([1800.0, 3600.0])\nn_prep = 5\nfine_step = 1800.0\nrng_call = np.random.default_rng(11)\nrng_gold = np.random.default_rng(11)\nassert np.allclose(compute_shared_environment_integral(log_params, times, n_prep, fine_step, rng_call), target)",
+        "import numpy as np\nlog_params = np.array([np.log(2.0e-7), 0.25, np.log(7.0), 0.4])\ntimes = np.array([900.0, 2700.0, 4500.0])\nn_prep = 17\nfine_step = 900.0\nrng_call = np.random.default_rng(2026)\nrng_gold = np.random.default_rng(2026)\nassert np.allclose(compute_shared_environment_integral(log_params, times, n_prep, fine_step, rng_call), target)",
+        "import numpy as np\ndef value_error_code(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nlog_params = np.array([np.log(3.0e-7), 0.2, np.log(9.0), 0.1])\ntimes = np.array([1000.0])\nn_prep = 5\nfine_step = 900.0\nrng_call = np.random.default_rng(8)\nrng_gold = np.random.default_rng(8)\nassert np.allclose(value_error_code(lambda: compute_shared_environment_integral(log_params, times, n_prep, fine_step, rng_call)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-14.3",
+      "test_cases": [
+        "import numpy as np\nfrom scipy.special import ndtri\nlog_params = np.array([-14.035551324356856, 0.4789159649348846, 2.282974736417405, 0.19804220043536505])\nenvironment_integral = np.array([2.8e11, 5.1e11, 8.7e11])\nq = (np.arange(64) + 0.5) / 64.0\nz = ndtri(q)\ncell_calibration = np.exp(5.3 + 0.35 * z)\nparticle_calibration = np.exp(3.0 + 0.25 * z)\nrng_call = np.random.default_rng(1701)\nrng_gold = np.random.default_rng(1701)\nassert np.allclose(simulate_hierarchical_fluorescence(log_params, environment_integral, 20, cell_calibration, particle_calibration, rng_call), target)",
+        "import numpy as np\nlog_params = np.array([np.log(4.0e-7), 0.0, np.log(8.0), 0.0])\nenvironment_integral = np.array([1.5e11, 3.0e11])\ncell_calibration = np.array([100.0, 120.0, 140.0])\nparticle_calibration = np.array([10.0, 20.0, 30.0])\nrng_call = np.random.default_rng(9)\nrng_gold = np.random.default_rng(9)\nassert np.allclose(simulate_hierarchical_fluorescence(log_params, environment_integral, 8, cell_calibration, particle_calibration, rng_call), target)",
+        "import numpy as np\nlog_params = np.array([np.log(7.0e-7), 0.2, np.log(15.0), 0.15])\nenvironment_integral = np.array([0.0, 4.0e12, 9.0e12])\ncell_calibration = np.linspace(80.0, 180.0, 11)\nparticle_calibration = np.linspace(5.0, 35.0, 13)\nrng_call = np.random.default_rng(2026)\nrng_gold = np.random.default_rng(2026)\nassert np.allclose(simulate_hierarchical_fluorescence(log_params, environment_integral, 11, cell_calibration, particle_calibration, rng_call), target)",
+        "import numpy as np\ndef value_error_code(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nlog_params = np.array([np.log(3.0e-7), 0.2, np.log(9.0), 0.1])\nenvironment_integral = np.array([1.0e11])\ncell_calibration = np.array([])\nparticle_calibration = np.array([10.0, 20.0])\nrng_call = np.random.default_rng(12)\nrng_gold = np.random.default_rng(12)\nassert np.allclose(value_error_code(lambda: simulate_hierarchical_fluorescence(log_params, environment_integral, 4, cell_calibration, particle_calibration, rng_call)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-14.4",
+      "test_cases": [
+        "import numpy as np\nobserved = np.array([[[1.0, 2.0, 3.0, 4.0], [2.0, 4.0, 6.0, 8.0]],\n                     [[1.5, 2.5, 3.5, 4.5], [3.0, 5.0, 7.0, 9.0]]])\nsimulated = observed.copy()\nassert np.allclose(compute_snapshot_discrepancy(observed, simulated, 200), target)",
+        "import numpy as np\nobserved = np.array([[[0.0, 0.5, 1.0, 1.5, 2.0]]])\nsimulated = np.array([[[1.0, 1.5, 2.0, 2.5, 3.0]]])\nassert np.allclose(compute_snapshot_discrepancy(observed, simulated, 101), target)",
+        "import numpy as np\nobserved = np.array([[[0.2, 0.4, 0.8, 1.6], [1.0, 2.0, 4.0, 8.0]]])\nsimulated = np.array([[[0.1, 0.3, 0.5, 0.7, 0.9, 1.1],\n                       [0.5, 1.5, 2.5, 3.5, 4.5, 5.5]]])\nassert np.allclose(compute_snapshot_discrepancy(observed, simulated, 257), target)",
+        "import numpy as np\ndef value_error_code(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nobserved = np.array([[1.0, 2.0, 3.0]])\nsimulated = np.array([[[1.0, 2.0, 3.0]]])\nassert np.allclose(value_error_code(lambda: compute_snapshot_discrepancy(observed, simulated, 101)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-14.5",
+      "test_cases": [
+        "import numpy as np\nfixture_rng = np.random.default_rng(17)\ntheta = np.array([4.0e-7, 5.0e-7, 6.0e-7, 8.0, 12.0, 16.0,\n                  8.0e-7, 2.0, 5.0e-7, 12.0, 2.0e-7, 4.0])\nscales = np.array([2e-7, 2e-7, 2e-7, 3.0, 3.0, 3.0, 2e-7, 0.5, 1e-7, 4.0, 1e-7, 1.0])[:, None]\nparticles = theta[:, None] + scales * fixture_rng.normal(size=(12, 30))\nrng_call = np.random.default_rng(424242)\nrng_gold = np.random.default_rng(424242)\nassert np.allclose(evaluate_hierarchical_prior_and_proposal(theta, particles, rng_call), target)",
+        "import numpy as np\ntheta = np.array([3.0e-7, 3.0e-7, 10.0, 10.0, 5.0e-7, 1.0,\n                  3.0e-7, 10.0, 0.0, 0.0])\nbase = theta[:, None]\nparticles = np.repeat(base, 8, axis=1)\nrng_call = np.random.default_rng(3)\nrng_gold = np.random.default_rng(3)\nassert np.allclose(evaluate_hierarchical_prior_and_proposal(theta, particles, rng_call), target)",
+        "import numpy as np\nfixture_rng = np.random.default_rng(2)\ntheta = np.array([4.0e-7, 5.0e-7, 8.0, 9.0, 3.0e-6, 2.0,\n                  4.0e-7, 10.0, 1.0e-7, 2.0])\nparticles = np.vstack([fixture_rng.normal(4.0e-7, 1.0e-7, 20),\n                       fixture_rng.normal(5.0e-7, 1.0e-7, 20),\n                       fixture_rng.normal(8.0, 1.0, 20),\n                       fixture_rng.normal(9.0, 1.0, 20),\n                       fixture_rng.normal(8.0e-7, 1.0e-7, 20),\n                       fixture_rng.normal(2.0, 0.2, 20),\n                       fixture_rng.normal(4.0e-7, 1.0e-7, 20),\n                       fixture_rng.normal(10.0, 1.0, 20),\n                       fixture_rng.normal(1.0e-7, 2.0e-8, 20),\n                       fixture_rng.normal(2.0, 0.2, 20)])\nrng_call = np.random.default_rng(99)\nrng_gold = np.random.default_rng(99)\nassert np.allclose(evaluate_hierarchical_prior_and_proposal(theta, particles, rng_call), target)",
+        "import numpy as np\ndef value_error_code(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\ntheta = np.ones(10)\nparticles = np.ones((9, 6))\nrng_call = np.random.default_rng(5)\nrng_gold = np.random.default_rng(5)\nassert np.allclose(value_error_code(lambda: evaluate_hierarchical_prior_and_proposal(theta, particles, rng_call)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-14.6",
+      "test_cases": [
+        "theta, rho, observed, times, cell_calibration, particle_calibration = _make_update_fixture(12, 8, 31)\nrng_call = np.random.default_rng(91)\nrng_gold = np.random.default_rng(91)\nassert np.allclose(advance_abc_smc_population(theta, rho, observed, times, 8, 5, 900.0, cell_calibration, particle_calibration, 101, 2, 0.5, 0.5, 6, rng_call), target)",
+        "theta, rho, observed, times, cell_calibration, particle_calibration = _make_update_fixture(10, 6, 52)\nrng_call = np.random.default_rng(123)\nrng_gold = np.random.default_rng(123)\nassert np.allclose(advance_abc_smc_population(theta, rho, observed, times, 6, 5, 900.0, cell_calibration, particle_calibration, 81, 1, 0.4, 0.4, 4, rng_call), target)",
+        "theta, rho, observed, times, cell_calibration, particle_calibration = _make_update_fixture(14, 7, 77)\nrng_call = np.random.default_rng(404)\nrng_gold = np.random.default_rng(404)\nassert np.allclose(advance_abc_smc_population(theta, rho, observed, times, 7, 5, 900.0, cell_calibration, particle_calibration, 121, 3, 0.2, 0.5, 9, rng_call), target)",
+        "import numpy as np\ndef value_error_code(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\ntheta = np.ones((10, 4))\nrho = np.arange(4.0)\nobserved = np.ones((1, 2, 3))\ntimes = np.array([900.0])\ncell_calibration = np.array([100.0])\nparticle_calibration = np.array([10.0])\nrng_call = np.random.default_rng(1)\nrng_gold = np.random.default_rng(1)\nassert np.allclose(value_error_code(lambda: advance_abc_smc_population(theta, rho, observed, times, 3, 2, 900.0, cell_calibration, particle_calibration, 21, 3, 0.2, 0.5, 2, rng_call)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-14.7",
+      "test_cases": [
+        "import numpy as np\ntheta_true = np.array([9.0e-7, 3.86125e-7, 3.86125e-7,\n                       10.0, 20.0, 10.0,\n                       4.56962e-7, 2.0, 3.86125e-7, 10.0, 0.0, 0.0])\ntimes = 3600.0 * np.array([1.0, 2.0, 4.0])\nassert np.allclose(run_hierarchical_affinity_benchmark(theta_true, times, 60, 30, 1800.0, 1000, 120, 20, 0.01, 0.5, 5000, 1701, 424242), target)",
+        "import numpy as np\ntheta_true = np.array([8.0e-7, 4.0e-7, 4.0e-7,\n                       9.0, 16.0, 11.0,\n                       3.5e-7, 1.5, 4.0e-7, 10.0, 0.0, 0.0])\ntimes = np.array([1800.0, 3600.0])\nassert np.allclose(run_hierarchical_affinity_benchmark(theta_true, times, 8, 5, 900.0, 101, 18, 2, 0.5, 0.5, 6, 41, 42), target)",
+        "import numpy as np\ntheta_true = np.array([5.5e-7, 7.5e-7, 3.5e-7,\n                       7.0, 13.0, 9.0,\n                       2.5e-7, 1.0, 4.0e-7, 9.0, 0.0, 0.0])\ntimes = np.array([900.0, 1800.0, 2700.0])\nassert np.allclose(run_hierarchical_affinity_benchmark(theta_true, times, 7, 4, 900.0, 81, 16, 2, 0.4, 0.5, 5, 99, 100), target)",
+        "import numpy as np\ndef value_error_code(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\ntheta_true = np.array([5.0e-7, 6.0e-7, 8.0, 9.0, 2.0e-7, 1.0, 5.0e-7, 8.0, 0.0, 0.0])\ntimes = np.array([900.0])\nassert np.allclose(value_error_code(lambda: run_hierarchical_affinity_benchmark(theta_true, times, 4, 2, 900.0, 21, 3, 1, 0.5, 0.5, 2, 3, 4)), target)"
+      ]
+    }
+  ]
+}

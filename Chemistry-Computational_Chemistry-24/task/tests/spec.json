@@ -1,0 +1,98 @@
+{
+  "problem_id": "Chemistry-Computational_Chemistry-24",
+  "sub_steps": [
+    {
+      "step_number": "Chemistry-Computational_Chemistry-24.1",
+      "test_cases": [
+        "assert np.allclose(parallel_rates(10.,3.,1.,1/3,1.,.1,.1), target)",
+        "assert np.allclose(parallel_rates(4.,2.,.5,.25,1.7,1.,1.), target)",
+        "assert np.allclose(parallel_rates(8.,.7,2.4,.9,.3,.04,3.2), target)",
+        "assert np.allclose(parallel_rates(.8,6.,.2,2.,5.,4.,.25), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-24.2",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(master_generator(10.,3.,1.,4.,1/3,1.,.1,.1,2.3,.9), target)",
+        "import numpy as np\nassert np.allclose(master_generator(4.,2.,.5,1.2,.25,1.7,1.,1.,.4,.4), target)",
+        "import numpy as np\nassert np.allclose(master_generator(8.,.7,2.4,.2,.9,.3,.04,3.2,7.,.05), target)",
+        "import numpy as np\nassert np.allclose(master_generator(.8,6.,.2,5.,2.,5.,4.,.25,.08,9.), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-24.3",
+      "test_cases": [
+        "q = np.array([[-15.3, 10.0, 3.0, 2.3, 0.0, 0.0], [5.0, -7.3, 0.0, 0.0, 2.3, 0.0], [0.3333333333333333, 0.0, -2.6333333333333333, 0.0, 0.0, 2.3], [0.9, 0.0, 0.0, -2.2, 1.0, 0.30000000000000004], [0.0, 0.9, 0.0, 11.0, -11.9, 0.0], [0.0, 0.0, 0.9, 3.333333333333333, 0.0, -4.233333333333333]], dtype=np.float64)\nassert np.allclose(product_first_passage(q,1.,10.), target)",
+        "q = np.array([[-6.4, 4.0, 2.0, 0.4, 0.0, 0.0], [1.7, -2.1, 0.0, 0.0, 0.4, 0.0], [0.25, 0.0, -0.65, 0.0, 0.0, 0.4], [0.4, 0.0, 0.0, -6.4, 4.0, 2.0], [0.0, 0.4, 0.0, 2.2, -2.6, 0.0], [0.0, 0.0, 0.4, 0.25, 0.0, -0.65]], dtype=np.float64)\nassert np.allclose(product_first_passage(q,.5,.5), target)",
+        "q = np.array([[-15.7, 8.0, 0.7, 7.0, 0.0, 0.0], [2.6, -9.6, 0.0, 0.0, 7.0, 0.0], [0.9, 0.0, -7.9, 0.0, 0.0, 7.0], [0.05, 0.0, 0.0, -2.61, 0.32, 2.2399999999999998], [0.0, 0.05, 0.0, 60.3, -60.349999999999994, 0.0], [0.0, 0.0, 0.05, 0.28125, 0.0, -0.33125]], dtype=np.float64)\nassert np.allclose(product_first_passage(q,2.4,60.), target)",
+        "q = np.array([[-6.88, 0.8, 6.0, 0.08, 0.0, 0.0], [5.2, -5.28, 0.0, 0.0, 0.08, 0.0], [2.0, 0.0, -2.08, 0.0, 0.0, 0.08], [9.0, 0.0, 0.0, -13.7, 3.2, 1.5], [0.0, 9.0, 0.0, 5.05, -14.05, 0.0], [0.0, 0.0, 9.0, 8.0, 0.0, -17.0]], dtype=np.float64)\nassert np.allclose(product_first_passage(q,.2,.05), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-24.4",
+      "test_cases": [
+        "fp = np.array([[1.2555918794814245, 0.21862023249579723, 0.7813797675042026], [0.9080712133003531, 0.26630039074403417, 0.7336996092559657], [2.0305260661693767, 0.13531186048373495, 0.8646881395162644], [1.3209849671974492, 0.11997829056267427, 0.8800217094373253], [0.26371840833342575, 0.030222574977504624, 0.9697774250224953], [1.7080527598922681, 0.12323818338053755, 0.8767618166194618]], dtype=np.float64)\nassert np.allclose(nonrenewal_turnover(fp), target)",
+        "import numpy as np; fp=np.zeros((6,3)); fp[:,0]=[2,1,3,4,1,2]; fp[:,1:]=[.5,.5]; fp[3,1:]=[.5,.5]; fp_gold=fp.copy()\nassert np.allclose(nonrenewal_turnover(fp), target)",
+        "fp = np.array([[12.275556372572034, 0.1462302020834065, 0.8537697979165936], [0.4602416626566863, 0.25332136096557095, 0.746678639034429], [25.927289745401875, 0.04843005698553946, 0.9515699430144606], [24.270742703763734, 0.03362032072786245, 0.9663796792721377], [0.13760124099853993, 0.0003770035503999534, 0.9996229964496001], [27.53965546476572, 0.0358557526158137, 0.9641442473841866]], dtype=np.float64)\nassert np.allclose(nonrenewal_turnover(fp), target)",
+        "fp = np.array([[129.08019552220654, 0.9927375016844241, 0.007262498315502956], [124.32381132581128, 0.9929562470094705, 0.007043752990459699], [129.5584246952091, 0.9927205610977796, 0.007279438902147162], [128.2768495109706, 0.9918205924323074, 0.008179407567620506], [125.35932736563377, 0.9890184473485246, 0.010981552651404968], [129.01415402027334, 0.9922970464316752, 0.007702953568252265]], dtype=np.float64)\nassert np.allclose(nonrenewal_turnover(fp), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-24.5",
+      "test_cases": [
+        "assert np.allclose(static_turnover(10.,3.,1.,4.,1/3), target)",
+        "assert np.allclose(static_turnover(4.,2.,.5,1.2,.25), target)",
+        "assert np.allclose(static_turnover(8.,.7,2.4,.2,.9), target)",
+        "assert np.allclose(static_turnover(.8,6.,.2,5.,2.), target)",
+        "assert np.allclose(static_turnover(10., 1e-12, 1., 4., 1/3), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-24.6",
+      "test_cases": [
+        "assert np.allclose(catalytic_efficiency(6.,1.3122806007045038), target)",
+        "assert np.allclose(catalytic_efficiency(2.,2.), target)",
+        "assert np.allclose(catalytic_efficiency(.1,5.), target)",
+        "assert np.allclose(catalytic_efficiency(100.,.07), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-24.7",
+      "test_cases": [
+        "q = np.array([[-15.3, 10.0, 3.0, 2.3, 0.0, 0.0], [5.0, -7.3, 0.0, 0.0, 2.3, 0.0], [0.3333333333333333, 0.0, -2.6333333333333333, 0.0, 0.0, 2.3], [0.9, 0.0, 0.0, -2.2, 1.0, 0.30000000000000004], [0.0, 0.9, 0.0, 11.0, -11.9, 0.0], [0.0, 0.0, 0.9, 3.333333333333333, 0.0, -4.233333333333333]], dtype=np.float64)\nassert np.allclose(stationary_distribution(q), target)",
+        "import numpy as np; q=np.array([[-2.,2.],[1.,-1.]]); q_gold=q.copy()\nassert np.allclose(stationary_distribution(q), target)",
+        "q = np.array([[-15.7, 8.0, 0.7, 7.0, 0.0, 0.0], [2.6, -9.6, 0.0, 0.0, 7.0, 0.0], [0.9, 0.0, -7.9, 0.0, 0.0, 7.0], [0.05, 0.0, 0.0, -2.61, 0.32, 2.2399999999999998], [0.0, 0.05, 0.0, 60.3, -60.349999999999994, 0.0], [0.0, 0.0, 0.05, 0.28125, 0.0, -0.33125]], dtype=np.float64)\nassert np.allclose(stationary_distribution(q), target)",
+        "q = np.array([[-6.88, 0.8, 6.0, 0.08, 0.0, 0.0], [5.2, -5.28, 0.0, 0.0, 0.08, 0.0], [2.0, 0.0, -2.08, 0.0, 0.0, 0.08], [9.0, 0.0, 0.0, -13.7, 3.2, 1.5], [0.0, 9.0, 0.0, 5.05, -14.05, 0.0], [0.0, 0.0, 9.0, 8.0, 0.0, -17.0]], dtype=np.float64)\nassert np.allclose(stationary_distribution(q), target)",
+        "q = np.array([[-15.3, 10.0, 3.0, 2.3, 0.0, 0.0], [5.0, -7.3, 0.0, 0.0, 2.3, 0.0], [0.3333333333333333, 0.0, -2.6333333333333333, 0.0, 0.0, 2.3], [0.9, 0.0, 0.0, -13.9, 10.0, 3.0], [0.0, 0.9, 0.0, 5.0, -5.9, 0.0], [0.0, 0.0, 0.9, 0.3333333333333333, 0.0, -1.2333333333333334]], dtype=np.float64)\nassert np.allclose(stationary_distribution(q), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-24.8",
+      "test_cases": [
+        "p = np.array([0.06810058465423734, 0.10143284702625358, 0.11171656831950909, 0.5528176155245115, 0.06605992972141972, 0.09987245475406878], dtype=np.float64)\nassert np.allclose(cycle_dissipation(p,10.,3.,1.,4.,1/3,1.,.1,.1,2.3,.9), target)",
+        "p = np.array([0.04323025839841213, 0.0990558162829954, 0.3577139253185925, 0.04712571184774343, 0.08774045150160456, 0.3651338366506521], dtype=np.float64)\nassert np.allclose(cycle_dissipation(p,4.,2.,.5,1.2,.25,1.7,1.,1.,.4,.4), target)",
+        "p = np.array([0.000791187696390276, 0.0006628297892326875, 0.0056381810959373205, 0.11247852789957513, 0.0006732881102318618, 0.8797559854086328], dtype=np.float64)\nassert np.allclose(cycle_dissipation(p,8.,.7,2.4,.2,.9,.3,.04,3.2,7.,.05), target)",
+        "p = np.array([0.24113663487219597, 0.03845577341214329, 0.7115970190284361, 0.003983998680076788, 0.0011263528575955293, 0.0037002211495523623], dtype=np.float64)\nassert np.allclose(cycle_dissipation(p,.8,6.,.2,5.,2.,5.,4.,.25,.08,9.), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-24.9",
+      "test_cases": [
+        "assert np.allclose(energy_efficiency(1.7147634614896477,4.572192865442705), target)",
+        "assert np.allclose(energy_efficiency(.5,2.), target)",
+        "assert np.allclose(energy_efficiency(10.,1.1), target)",
+        "assert np.allclose(energy_efficiency(.01,50.), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-24.10",
+      "test_cases": [
+        "data=dict(u0=10.0,u1=3.0,u2=1.0,w0=4.0,w1=1/3,beta0=1.0,x=.1,y=.1,gamma1=2.3,gamma2=.9)\nassert np.allclose(solve(data.copy()), target)",
+        "data=dict(u0=10.0,u1=3.0,u2=1.0,w0=4.0,w1=1/3,beta0=1.0,x=.1,y=.1,gamma1=2.3,gamma2=.9)\ndata['gamma1']=4.1;data['gamma2']=1.7\nassert np.allclose(solve(data.copy()), target)",
+        "data=dict(u0=10.0,u1=3.0,u2=1.0,w0=4.0,w1=1/3,beta0=1.0,x=.1,y=.1,gamma1=2.3,gamma2=.9)\ndata['x']=.2\nassert np.allclose(solve(data.copy()), target)",
+        "data=dict(u0=10.0,u1=3.0,u2=1.0,w0=4.0,w1=1/3,beta0=1.0,x=.1,y=.1,gamma1=2.3,gamma2=.9)\ndata['y']=.2\nassert np.allclose(solve(data.copy()), target)",
+        "data = dict(u0=10., u1=3., u2=1., w0=4., w1=1/3, beta0=1., x=.1, y=.1, gamma1=1e-4, gamma2=.9)\nassert np.allclose(solve(data.copy()), target)"
+      ]
+    }
+  ]
+}

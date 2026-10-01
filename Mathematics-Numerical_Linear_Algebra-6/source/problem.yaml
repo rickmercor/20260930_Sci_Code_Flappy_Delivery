@@ -1,0 +1,40 @@
+problem_id: "Mathematics-Numerical_Linear_Algebra-6"
+subject: "mathematics"
+subject_area: "Numerical Linear Algebra"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2604.09215"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_compute_kernel_normalization"
+    description: "Compute the spherical-kernel normalization used by the fracture threshold."
+    orchestrator: false
+  - number: 2
+    name: "02_update_bond_phase_history"
+    description: "Apply the irreversible bond-history and phase update."
+    orchestrator: false
+  - number: 3
+    name: "03_build_kinematic_moments"
+    description: "Assemble the phase-weighted first-order moment matrix at every material point."
+    orchestrator: false
+  - number: 4
+    name: "04_compute_bond_shape_gradients"
+    description: "Compute the volume-weighted first-order shape gradients of all active bonds."
+    orchestrator: false
+  - number: 5
+    name: "05_compute_point_deformation_gradients"
+    description: "Recover the nonlocal deformation gradient at every material point."
+    orchestrator: false
+  - number: 6
+    name: "06_update_bond_constitutive_state"
+    description: "Apply the bond-associated correction, elastic law, tensile driving force, and damage update."
+    orchestrator: false
+  - number: 7
+    name: "07_compute_internal_force_density"
+    description: "Assemble the bond-associated force state and internal force density."
+    orchestrator: false
+  - number: 8
+    name: "08_compute_nonlocal_response_index"
+    description: "Run the complete nonlocal damage-and-force pipeline and return one response index."
+    orchestrator: true

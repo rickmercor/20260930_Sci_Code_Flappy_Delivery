@@ -1,0 +1,48 @@
+problem_id: "Physics-Computational_Physics-4"
+subject: "physics"
+subject_area: "Computational Physics"
+difficulty: "difficult"
+answer_type: "numeric"
+paper_doi: "10.48550/arXiv.2604.13407"
+dependencies: ""
+steps:
+  - number: 1
+    name: "vdw_pressure"
+    description: "Evaluate the equation of state of the working fluid at the given densities and reduced temperature, using the scaled form adopted by the source."
+    orchestrator: false
+  - number: 2
+    name: "cohesion_field"
+    description: "Invert the model's pressure relation to obtain the pseudopotential at each node. Raise ValueError where the relation admits no real value."
+    orchestrator: false
+  - number: 3
+    name: "pairwise_force"
+    description: "Compute the wall-normal component of the mesoscopic interaction force on a one-dimensional periodic lattice using the isotropy-weighted nearest-neighbour stencil of the source."
+    orchestrator: false
+  - number: 4
+    name: "equilibrium_moments"
+    description: "Assemble the equilibrium moment vector of the multiple-relaxation-time model for the standard nine-velocity lattice."
+    orchestrator: false
+  - number: 5
+    name: "discrete_force_moments"
+    description: "Assemble the discrete force moment vector entering the collision step."
+    orchestrator: false
+  - number: 6
+    name: "improved_source_moments"
+    description: "Assemble the third-order discrete source moment vector in the form the source paper prescribes for suppressing interfacial artefacts. Apply the source's own choice for the entry the analysis leaves undetermined."
+    orchestrator: false
+  - number: 7
+    name: "collide_stream"
+    description: "Advance the distribution functions by one collision and one streaming step, with no-slip walls at the first and last nodes."
+    orchestrator: false
+  - number: 8
+    name: "equilibrate_two_phase"
+    description: "Relax an initially smooth two-layer profile to a settled interface at the target temperature, approaching it through a sequence of intermediate temperatures rather than in one jump."
+    orchestrator: false
+  - number: 9
+    name: "theory_velocity"
+    description: "Solve the one-dimensional steady momentum balance for the velocity profile driven by a constant body force, using the given density profile and no-slip walls."
+    orchestrator: false
+  - number: 10
+    name: "scheme_accuracy_audit"
+    description: "Settle the interface, apply the constant force for the given number of steps, and report how far the resulting velocity profile sits from the reference profile in a relative two-norm."
+    orchestrator: true

@@ -1,0 +1,40 @@
+problem_id: "Chemistry-Quantum_Chemistry-41"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1063/5.0321278"
+dependencies: ""
+steps:
+  - number: 1
+    name: "normalize_contraction"
+    description: "Implement normalize_contraction, which converts the tabulated contraction coefficients of one\ncontracted Gaussian shell into weights of unnormalized radial primitives that give a\nunit-norm contracted radial function."
+    orchestrator: false
+  - number: 2
+    name: "compute_ao_integrals"
+    description: "Implement compute_ao_integrals, which evaluates the overlap, core-Hamiltonian and\nelectron-repulsion integrals and the nuclear-repulsion energy of a molecule over a basis of\ncontracted real solid-harmonic Gaussian functions with s, p and d angular momentum."
+    orchestrator: false
+  - number: 3
+    name: "run_rhf"
+    description: "Implement run_rhf, which solves the closed-shell restricted Hartree-Fock equations for given\natomic-orbital integrals and returns the total energy, the canonical orbital energies and the\nmolecular-orbital coefficients."
+    orchestrator: false
+  - number: 4
+    name: "srg_regulator"
+    description: "Implement srg_regulator, which evaluates elementwise the similarity-renormalization-group\ndenominator factor f(D_p, D_q; s) defined in the signature."
+    orchestrator: false
+  - number: 5
+    name: "srg_self_energy"
+    description: "Implement srg_self_energy, which builds the renormalized static second-order self-energy\nmatrix, with separate scaling of its same-spin and opposite-spin parts, in the basis of the\ncurrent molecular orbitals."
+    orchestrator: false
+  - number: 6
+    name: "qs_fock_matrix"
+    description: "Implement qs_fock_matrix, which assembles, in the atomic-orbital basis, the effective\none-particle matrix of one quasiparticle-self-consistency cycle of the renormalized\nsecond-order Green's-function method for given orbitals and orbital energies."
+    orchestrator: false
+  - number: 7
+    name: "run_srg_qsgf2"
+    description: "Implement run_srg_qsgf2, which iterates the quasiparticle-self-consistent cycle of the\nrenormalized second-order Green's-function method from a restricted Hartree-Fock start to\nself-consistency and returns the converged quasiparticle energies."
+    orchestrator: false
+  - number: 8
+    name: "quasiparticle_gap"
+    description: "Implement quasiparticle_gap, the end-to-end pipeline, which returns the quasiparticle\nHOMO-LUMO gap of a closed-shell molecule, in electronvolts, from the renormalized\nquasiparticle-self-consistent second-order Green's-function method in a given contracted\nGaussian basis."
+    orchestrator: true

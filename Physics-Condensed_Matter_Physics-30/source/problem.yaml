@@ -1,0 +1,40 @@
+problem_id: "Physics-Condensed_Matter_Physics-30"
+subject: "physics"
+subject_area: "Condensed Matter Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1103/2f5l-scbv"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_gaussian_laplace_transform.py"
+    description: "Evaluate the half-line Laplace transform of Gaussian spectral basis functions for supplied nonnegative Laplace parameters."
+    orchestrator: false
+  - number: 2
+    name: "02_build_imaginary_time_kernel.py"
+    description: "Construct the imaginary-time spectral kernel for Gaussian basis functions using the forward and thermally reflected Laplace contributions."
+    orchestrator: false
+  - number: 3
+    name: "03_solve_kkt_newton.py"
+    description: "Solve the positive entropy-regularized spectral stationarity equations at a fixed regularization strength using a safeguarded Newton iteration."
+    orchestrator: false
+  - number: 4
+    name: "04_compute_regularization_sensitivity.py"
+    description: "Compute the implicit derivative of the regularized spectral amplitudes and chi-square discrepancy with respect to the logarithm of the regularization strength."
+    orchestrator: false
+  - number: 5
+    name: "05_trace_discrepancy_continuation.py"
+    description: "Trace the entropy-regularized solution branch in log regularization strength and locate the spectrum satisfying a prescribed chi-square discrepancy using predictor-corrector continuation and safeguarded Newton refinement."
+    orchestrator: false
+  - number: 6
+    name: "06_compute_zero_frequency_spectrum.py"
+    description: "Evaluate the reconstructed additional spectral density at zero frequency from the fitted Gaussian amplitudes."
+    orchestrator: false
+  - number: 7
+    name: "07_compute_conductivity_change.py"
+    description: "Convert harmonic and reconstructed zero-frequency spectral densities into harmonic conductivity, total conductivity, and percentage conductivity change."
+    orchestrator: false
+  - number: 8
+    name: "08_run_total_current_reconstruction.py"
+    description: "Run the complete total-current spectral reconstruction using log-alpha continuation and return the percentage change in thermal conductivity relative to the fixed harmonic reconstruction."
+    orchestrator: true

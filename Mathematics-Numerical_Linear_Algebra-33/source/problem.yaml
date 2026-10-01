@@ -1,0 +1,40 @@
+problem_id: "Mathematics-Numerical_Linear_Algebra-33"
+subject: "mathematics"
+subject_area: "Numerical Linear Algebra"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1553/etna_vol65s110"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_sep_orth_R_lead_entry"
+    description: "Return the leading entry of the last column of the separate-orthonormalization coupling factor"
+    orchestrator: false
+  - number: 2
+    name: "02_compressed_offdiag_energy"
+    description: "Return the squared Frobenius energy of the compressed Frechet off-diagonal block."
+    orchestrator: false
+  - number: 3
+    name: "03_frechet_action_start_overlap"
+    description: "Return the overlap of the approximate Frechet action with the starting vecto"
+    orchestrator: false
+  - number: 4
+    name: "04_exact_frechet_action_start_overlap"
+    description: "Return the overlap of the exact Frechet action with the starting vector"
+    orchestrator: false
+  - number: 5
+    name: "05_approximate_total_network_sensitivity"
+    description: "Approximate total-network communicability edge sensitivity via Krylov Frechet action"
+    orchestrator: false
+  - number: 6
+    name: "06_exact_total_network_sensitivity"
+    description: "Exact total-network communicability edge sensitivity from the block identity."
+    orchestrator: false
+  - number: 7
+    name: "07_estrada_edge_sensitivity"
+    description: "Estrada-index edge sensitivity for a directed edge"
+    orchestrator: false
+  - number: 8
+    name: "08_sensitivity_ratio_orchestrator"
+    description: "Orchestrator: approximate total-network sensitivity over Estrada edge sensitivity."
+    orchestrator: true

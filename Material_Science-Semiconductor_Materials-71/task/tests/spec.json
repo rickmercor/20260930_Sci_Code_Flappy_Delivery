@@ -1,0 +1,77 @@
+{
+  "problem_id": "Material_Science-Semiconductor_Materials-71",
+  "sub_steps": [
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-71.1",
+      "test_cases": [
+        "import numpy as np\nk_values = np.array([0.048, 0.052, 0.045])\nenergy_values = np.array([0.0393135912340984, 0.024891847042767198, 0.02465676303235815])\nalpha = 0.38\nhbar2_over_me = 7.6199642\nassert np.allclose(directional_band_masses(k_values, energy_values, alpha, hbar2_over_me), target)",
+        "import numpy as np\nk_values = np.array([0.05])\nenergy_values = np.array([0.01])\nalpha = 0.2\nhbar2_over_me = 7.6199642\nassert np.allclose(directional_band_masses(k_values, energy_values, alpha, hbar2_over_me), target)",
+        "import numpy as np\nk_values = np.array([1e-3, 2e-3, 3e-3])\nenergy_values = np.array([1e-5, 2.5e-5, 4e-5])\nalpha = 0.5\nhbar2_over_me = 7.6199642\nassert np.allclose(directional_band_masses(k_values, energy_values, alpha, hbar2_over_me), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-71.2",
+      "test_cases": [
+        "import numpy as np\ndirectional_masses = np.array([0.22, 0.41, 0.31])\nassert np.allclose(dos_geometric_mass(directional_masses), target)",
+        "import numpy as np\ndirectional_masses = np.array([1.0, 1.0, 1.0])\nassert np.allclose(dos_geometric_mass(directional_masses), target)",
+        "import numpy as np\ndirectional_masses = np.array([0.2, 5.0])\nassert np.allclose(dos_geometric_mass(directional_masses), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-71.3",
+      "test_cases": [
+        "m_star_over_me = 0.30352146549621584\nepsilon_s = 12.4\nrydberg_eV = 13.6\nassert np.allclose(continuum_ionization_energy(m_star_over_me, epsilon_s, rydberg_eV), target)",
+        "m_star_over_me = 0.358\nepsilon_s = 9.28\nrydberg_eV = 13.6\nassert np.allclose(continuum_ionization_energy(m_star_over_me, epsilon_s, rydberg_eV), target)",
+        "m_star_over_me = 1.0\nepsilon_s = 1.0\nrydberg_eV = 13.6\nassert np.allclose(continuum_ionization_energy(m_star_over_me, epsilon_s, rydberg_eV), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-71.4",
+      "test_cases": [
+        "epsilon_s = 12.4\nepsilon_inf = 5.1\nassert np.allclose(ionic_electronic_dielectric(epsilon_s, epsilon_inf), target)",
+        "epsilon_s = 9.28\nepsilon_inf = 3.15\nassert np.allclose(ionic_electronic_dielectric(epsilon_s, epsilon_inf), target)",
+        "epsilon_s = 6.67\nepsilon_inf = 3.14\nassert np.allclose(ionic_electronic_dielectric(epsilon_s, epsilon_inf), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-71.5",
+      "test_cases": [
+        "m_star_over_me = 0.30352146549621584\nepsilon_eff = 8.663013698630134\ne_ha = 27.2\nassert np.allclose(continuum_polaron_energy(m_star_over_me, epsilon_eff, e_ha), target)",
+        "m_star_over_me = 0.140\nepsilon_eff = 13.920100250626561\ne_ha = 27.2\nassert np.allclose(continuum_polaron_energy(m_star_over_me, epsilon_eff, e_ha), target)",
+        "m_star_over_me = 1.0\nepsilon_eff = 1.0\ne_ha = 27.2\nassert np.allclose(continuum_polaron_energy(m_star_over_me, epsilon_eff, e_ha), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-71.6",
+      "test_cases": [
+        "m_star_over_me = 0.30352146549621584\ntau = 1.4e-14\nelementary_charge = 1.602176634e-19\nelectron_mass_kg = 9.1093837015e-31\nassert np.allclose(scattering_time_mobility(m_star_over_me, tau, elementary_charge, electron_mass_kg), target)",
+        "m_star_over_me = 1.0\ntau = 1.0e-14\nelementary_charge = 1.602176634e-19\nelectron_mass_kg = 9.1093837015e-31\nassert np.allclose(scattering_time_mobility(m_star_over_me, tau, elementary_charge, electron_mass_kg), target)",
+        "m_star_over_me = 0.1\ntau = 5.0e-15\nelementary_charge = 1.602176634e-19\nelectron_mass_kg = 9.1093837015e-31\nassert np.allclose(scattering_time_mobility(m_star_over_me, tau, elementary_charge, electron_mass_kg), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-71.7",
+      "test_cases": [
+        "band_gap_eV = 8.40\ne_c_ref = 1.55\ne_g_ref = 6.2\nexponent = 2.5\nassert np.allclose(gap_scaled_critical_field(band_gap_eV, e_c_ref, e_g_ref, exponent), target)",
+        "band_gap_eV = 6.2\ne_c_ref = 1.55\ne_g_ref = 6.2\nexponent = 2.5\nassert np.allclose(gap_scaled_critical_field(band_gap_eV, e_c_ref, e_g_ref, exponent), target)",
+        "band_gap_eV = 1.1\ne_c_ref = 1.55\ne_g_ref = 6.2\nexponent = 2.5\nassert np.allclose(gap_scaled_critical_field(band_gap_eV, e_c_ref, e_g_ref, exponent), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-71.8",
+      "test_cases": [
+        "epsilon_s = 12.4\nmobility = 81.12599255724561\ne_c = 3.3116977239237904\ne_ion = 0.026846331495502956\ne_pol = -0.011672104974939354\nkT = 0.025\nion_ceiling_eV = 0.21\npol_ceiling_eV = 0.025\nassert np.allclose(prioritization_score(epsilon_s, mobility, e_c, e_ion, e_pol, kT, ion_ceiling_eV, pol_ceiling_eV), target)",
+        "epsilon_s = 12.4\nmobility = 81.12599255724561\ne_c = 3.3116977239237904\ne_ion = 0.25\ne_pol = -0.01\nkT = 0.025\nion_ceiling_eV = 0.21\npol_ceiling_eV = 0.025\nassert np.allclose(prioritization_score(epsilon_s, mobility, e_c, e_ion, e_pol, kT, ion_ceiling_eV, pol_ceiling_eV), target)",
+        "epsilon_s = 12.4\nmobility = 81.12599255724561\ne_c = 3.3116977239237904\ne_ion = 0.02\ne_pol = -0.04\nkT = 0.025\nion_ceiling_eV = 0.21\npol_ceiling_eV = 0.025\nassert np.allclose(prioritization_score(epsilon_s, mobility, e_c, e_ion, e_pol, kT, ion_ceiling_eV, pol_ceiling_eV), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-71.9",
+      "test_cases": [
+        "import numpy as np\nk_values = np.array([0.048, 0.052, 0.045])\nenergy_values = np.array([0.0393135912340984, 0.024891847042767198, 0.02465676303235815])\nalpha = 0.38\nepsilon_s = 12.4\nepsilon_inf = 5.1\nband_gap_eV = 8.40\ntau = 1.4e-14\nassert np.allclose(orchestrate_extreme_gap_prioritization(k_values, energy_values, alpha, epsilon_s, epsilon_inf, band_gap_eV, tau), target)",
+        "import numpy as np\nk_values = np.array([0.048, 0.052, 0.045])\nenergy_values = np.array([0.0393135912340984, 0.024891847042767198, 0.02465676303235815])\nalpha = 0.38\nepsilon_s = 12.4\nepsilon_inf = 5.1\nband_gap_eV = 6.2\ntau = 1.4e-14\nassert np.allclose(orchestrate_extreme_gap_prioritization(k_values, energy_values, alpha, epsilon_s, epsilon_inf, band_gap_eV, tau), target)",
+        "import numpy as np\nk_values = np.array([0.048, 0.052, 0.045])\nenergy_values = np.array([0.0393135912340984, 0.024891847042767198, 0.02465676303235815])\nalpha = 0.38\nepsilon_s = 12.4\nepsilon_inf = 5.1\nband_gap_eV = 8.40\ntau = 1.4e-14\npol_ceiling_eV = 0.01\nassert np.allclose(orchestrate_extreme_gap_prioritization(k_values, energy_values, alpha, epsilon_s, epsilon_inf, band_gap_eV, tau, pol_ceiling_eV=pol_ceiling_eV), target)"
+      ]
+    }
+  ]
+}

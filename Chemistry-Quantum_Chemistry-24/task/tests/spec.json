@@ -1,0 +1,69 @@
+{
+  "problem_id": "Chemistry-Quantum_Chemistry-24",
+  "sub_steps": [
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-24.1",
+      "test_cases": [
+        "import numpy as np\ndef pack(x):\n m,c,l=x; return np.concatenate((m.astype(float).ravel(),c.ravel(),np.array([l])))\ns=np.array([1,1,0,0,1,0,0,0]); e=np.array([[0,1],[1,2],[2,3],[3,0]])\nassert np.allclose(pack(hubbard_hop_channels(s,e,1.,2.,.05)), target)",
+        "import numpy as np\ndef pack(x):\n m,c,l=x; return np.concatenate((m.astype(float).ravel(),c.ravel(),np.array([l])))\ns=np.array([1,0,1,0,0,1,0,0]); e=np.array([[3,0],[2,3],[1,2],[0,1]])\nassert np.allclose(pack(hubbard_hop_channels(s,e,.7,3.,.1)), target)",
+        "import numpy as np\ndef pack(x):\n m,c,l=x; return np.concatenate((m.astype(float).ravel(),c.ravel(),np.array([l])))\ns=np.ones(6,dtype=int); e=np.array([[0,1],[1,2]])\nassert np.allclose(pack(hubbard_hop_channels(s,e,1.,4.,.02)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-24.2",
+      "test_cases": [
+        "import numpy as np\ndef pack(x):\n s,a=x; return np.concatenate((s.astype(float),np.array([a])))\ns=np.array([1,0,1,0]); m=np.array([[0,0,1],[1,0,1]]); c=np.array([.1,.2]); l=1.3\nassert np.allclose(pack(sample_hubbard_step(s,m,c,l,2.,.05,.2)), target)",
+        "import numpy as np\ndef pack(x):\n s,a=x; return np.concatenate((s.astype(float),np.array([a])))\ns=np.array([1,0,1,0]); m=np.array([[0,0,1],[1,0,1]]); c=np.array([.1,.2]); l=1.3\nassert np.allclose(pack(sample_hubbard_step(s,m,c,l,2.,.05,1/l)), target)",
+        "import numpy as np\ndef pack(x):\n s,a=x; return np.concatenate((s.astype(float),np.array([a])))\ns=np.array([1,1,0,0,0,0,0,0]); m=np.array([[0,0,3]]); c=np.array([.25]); l=1.25\nassert np.allclose(pack(sample_hubbard_step(s,m,c,l,0.,.1,.9)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-24.3",
+      "test_cases": [
+        "import numpy as np\ndef pack(x):\n s,a=x; return np.concatenate((s.astype(float).ravel(),a.ravel()))\ns=np.array([[1,1,0,0,1,0,0,0],[1,0,1,0,0,1,0,0],[0,1,0,1,0,0,1,0]]); e=np.array([[0,1],[1,2],[2,3],[3,0]]); u=np.array([[.02,.93,.41,.77,.11],[.88,.15,.62,.99,.34],[.51,.05,.95,.28,.83]])\nassert np.allclose(pack(propagate_hubbard_walkers(s,e,1.,2.,.05,u)), target)",
+        "import numpy as np\ndef pack(x):\n s,a=x; return np.concatenate((s.astype(float).ravel(),a.ravel()))\ns=np.array([[1,0,1,0,0,1,0,0],[0,1,0,1,1,0,0,0]]); e=np.array([[3,0],[2,3],[1,2],[0,1]]); u=np.random.default_rng(913).random((2,7))\nassert np.allclose(pack(propagate_hubbard_walkers(s,e,.8,1.5,.1,u)), target)",
+        "import numpy as np\ndef pack(x):\n s,a=x; return np.concatenate((s.astype(float).ravel(),a.ravel()))\ns=np.array([[1,0,1,0]]); e=np.array([[0,1]]); u=np.empty((1,0))\nassert np.allclose(pack(propagate_hubbard_walkers(s,e,1.,2.,.05,u)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-24.4",
+      "test_cases": [
+        "import numpy as np\nb=np.array([[1,0],[0,1]]); f=np.array([[[1,0],[0,1],[1,0]],[[0,1],[1,0],[0,1]]]); a=np.array([[2.,3.,-1.],[4.,5.,6.]])\nassert np.allclose(direct_partition_estimate(b,f,a), target)",
+        "import numpy as np\nb=np.eye(3,dtype=int); f=np.roll(np.repeat(b[:,None,:],2,axis=1),1,axis=2); a=np.ones((3,2))\nassert np.allclose(direct_partition_estimate(b,f,a), target)",
+        "import numpy as np\nb=np.array([[1,0,1,0]]); f=b.reshape(1,1,4); a=np.array([[-2.5]])\nassert np.allclose(direct_partition_estimate(b,f,a), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-24.5",
+      "test_cases": [
+        "import numpy as np\nb=np.array([[1,0],[0,1]]); f=np.array([[[1,0],[0,1]],[[0,1],[1,0]]]); a=np.array([[2.,-3.],[4.,5.]])\nassert np.allclose(midway_amplitude_samples(b,f,a), target)",
+        "import numpy as np\nb=np.eye(3,dtype=int); f=np.repeat(b[:,None,:],3,axis=1); a=np.arange(1.,10.).reshape(3,3)\nassert np.allclose(midway_amplitude_samples(b,f,a), target)",
+        "import numpy as np\nb=np.array([[1,0,0],[0,1,0],[0,0,1]]); f=np.array([[b[1]],[b[2]],[b[0]]]); a=np.array([[-1.],[2.],[-4.]])\nassert np.allclose(midway_amplitude_samples(b,f,a), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-24.6",
+      "test_cases": [
+        "import numpy as np\na=np.array([[[1.,0.],[0.,2.]],[[3.,0.],[0.,0.]],[[1.,-1.],[0.,2.]],[[1.,1.],[0.,-2.]]])\nassert np.allclose(sigma_mtp_estimates(a), target)",
+        "import numpy as np\na=np.array([[[1.]],[[3.]]])\nassert np.allclose(sigma_mtp_estimates(a), target)",
+        "import numpy as np\na=np.array([[[1+1j,0],[0,2-1j]],[[1-1j,0],[0,2+1j]],[[2+0j,1j],[-1j,0]],[[0,0],[0,4]]])\nassert np.allclose(sigma_mtp_estimates(a), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-24.7",
+      "test_cases": [
+        "import numpy as np\nq=np.array([12.,14.,16.])\nassert np.allclose(np.asarray(jackknife2_mtp(q)), target)",
+        "import numpy as np\nq=np.array([5.,5.,5.])\nassert np.allclose(np.asarray(jackknife2_mtp(q)), target)",
+        "import numpy as np\nq=np.array([1e-8,4e-8,2e-8])\nassert np.allclose(np.asarray(jackknife2_mtp(q)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-24.8",
+      "test_cases": [
+        "import numpy as np\nargs=_benchmark_fixture()\nassert np.allclose(hubbard_rmse_reduction(*args), target)",
+        "import numpy as np\nargs=list(_small_fixture(17,2,1,1,0.,(6,16,4))); args[3]=args[3][::-1].copy(); args[7]=np.nextafter(args[7],0.0); args=tuple(args)\nassert np.allclose(hubbard_rmse_reduction(*args), target)",
+        "import numpy as np\nargs=_small_fixture(91,3,1,1,1.5,(5,12,6))\nassert np.allclose(hubbard_rmse_reduction(*args), target)"
+      ]
+    }
+  ]
+}

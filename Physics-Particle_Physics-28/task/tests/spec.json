@@ -1,0 +1,102 @@
+{
+  "problem_id": "Physics-Particle_Physics-28",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Particle_Physics-28.1",
+      "test_cases": [
+        "import numpy as np\nimport copy\nm = 0.51099895; E0 = 4.2327 - m\nassert np.allclose(np.array(lepton_kinematics(*copy.deepcopy((2.0, m, E0)))), target)",
+        "import numpy as np\nimport copy\nm = 0.51099895; E0 = 4.2327 - m\nassert np.allclose(np.array(lepton_kinematics(*copy.deepcopy((m * (1.0 + 1.0e-9), m, E0)))), target)",
+        "import numpy as np\nimport copy\nm = 0.51099895; E0 = 4.2327 - m\nassert np.allclose(np.array(lepton_kinematics(*copy.deepcopy((E0 - 1.0e-6, m, E0)))), target)",
+        "import numpy as np\nimport copy\nassert np.allclose(np.array(lepton_kinematics(*copy.deepcopy((150.0, 105.6583755, 300.0)))), target)",
+        "import numpy as np\nimport copy\ndef run_model():\n    try:\n        lepton_kinematics(*copy.deepcopy((5.0, 0.51099895, 3.7217)))\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-28.2",
+      "test_cases": [
+        "import numpy as np\nimport copy\nm = 0.51099895; a = 1.0 / 137.035999084\nE0 = 4.2327 - m; mu = 2.0 * E0 * np.exp(-1.0)\nbeta = float(np.sqrt((2.0 - m) * (2.0 + m))) / 2.0\nassert np.allclose(fermi_function_msbar(*copy.deepcopy((beta, 12, mu, m, a))), target)",
+        "import numpy as np\nimport copy\nm = 0.51099895; a = 1.0 / 137.035999084\nmu = 5.0\nassert np.allclose(fermi_function_msbar(*copy.deepcopy((0.3, 26, mu, m, a))), target)",
+        "import numpy as np\nimport copy\nm = 0.51099895; a = 1.0 / 137.035999084\nmu = 5.0\nassert np.allclose(fermi_function_msbar(*copy.deepcopy((0.6, 26, mu, m, a))), target)",
+        "import numpy as np\nimport copy\nm = 0.51099895; a = 1.0 / 137.035999084\nmu = 5.0\nassert np.allclose(fermi_function_msbar(*copy.deepcopy((0.9, 26, mu, m, a))), target)",
+        "import numpy as np\nimport copy\nm = 0.51099895; a = 1.0 / 137.035999084\nmu = 5.0\nassert np.allclose(fermi_function_msbar(*copy.deepcopy((0.99, 26, mu, m, a))), target)",
+        "import numpy as np\nimport copy\nm = 0.51099895; a = 1.0 / 137.035999084\nassert np.allclose(fermi_function_msbar(*copy.deepcopy((0.02, 12, 2.7, m, a))), target)",
+        "import numpy as np\nimport copy\nm = 0.51099895\nassert np.allclose(fermi_function_msbar(*copy.deepcopy((0.5, 1, 1.0, m, 1.0e-4))), target)",
+        "import numpy as np\nimport copy\nm = 0.51099895\nassert np.allclose(fermi_function_msbar(*copy.deepcopy((0.5, 3, 1.0, m, 0.2))), target)",
+        "import numpy as np\nimport copy\ndef run_model():\n    try:\n        fermi_function_msbar(*copy.deepcopy((0.5, 140, 1.0, 0.51099895, 1.0 / 137.035999084)))\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-28.3",
+      "test_cases": [
+        "import numpy as np\nimport copy\nm = 0.51099895\nE0 = 4.2327 - m; mu = 2.0 * E0 * np.exp(-1.0)\np = float(np.sqrt((2.0 - m) * (2.0 + m)))\nbeta = p / 2.0\nEbar = E0 - 2.0\nassert np.allclose(sirlin_g1(*copy.deepcopy((beta, Ebar, mu, m))), target)",
+        "import numpy as np\nimport copy\nm = 0.51099895\nE0 = 4.2327 - m; mu = 2.0 * E0 * np.exp(-1.0)\nE = 0.6\np = float(np.sqrt((E - m) * (E + m)))\nbeta = p / E\nEbar = E0 - E\nassert np.allclose(sirlin_g1(*copy.deepcopy((beta, Ebar, mu, m))), target)",
+        "import numpy as np\nimport copy\nm = 0.51099895\nE0 = 4.2327 - m; mu = 2.0 * E0 * np.exp(-1.0)\nE = 1.0\np = float(np.sqrt((E - m) * (E + m)))\nbeta = p / E\nEbar = E0 - E\nassert np.allclose(sirlin_g1(*copy.deepcopy((beta, Ebar, mu, m))), target)",
+        "import numpy as np\nimport copy\nm = 0.51099895\nE0 = 4.2327 - m; mu = 2.0 * E0 * np.exp(-1.0)\nE = 2.5\np = float(np.sqrt((E - m) * (E + m)))\nbeta = p / E\nEbar = E0 - E\nassert np.allclose(sirlin_g1(*copy.deepcopy((beta, Ebar, mu, m))), target)",
+        "import numpy as np\nimport copy\nm = 0.51099895\nE0 = 4.2327 - m; mu = 2.0 * E0 * np.exp(-1.0)\nE = 3.5\np = float(np.sqrt((E - m) * (E + m)))\nbeta = p / E\nEbar = E0 - E\nassert np.allclose(sirlin_g1(*copy.deepcopy((beta, Ebar, mu, m))), target)",
+        "import numpy as np\nimport copy\nm = 0.51099895\nassert np.allclose(sirlin_g1(*copy.deepcopy((0.7, 1.2, 4.0, m))), target)",
+        "import numpy as np\nimport copy\nm = 0.51099895\nassert np.allclose(sirlin_g1(*copy.deepcopy((0.7, 1.2, 1.0, m))), target)",
+        "import numpy as np\nimport copy\nm = 0.51099895\nassert np.allclose(sirlin_g1(*copy.deepcopy((0.95, 1.0e-4, 2.7, m))), target)",
+        "import numpy as np\nimport copy\nm = 0.51099895\nassert np.allclose(sirlin_g1(*copy.deepcopy((0.01, 3.0, 2.7, m))), target)",
+        "import numpy as np\nimport copy\ndef run_model():\n    try:\n        sirlin_g1(*copy.deepcopy((1.0, 1.0, 2.7, 0.51099895)))\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-28.4",
+      "test_cases": [
+        "import math\n\nm = 0.51099895\nendpoint = 4.2327 - m\nmu = 2.0 * endpoint * math.exp(-1.0)\nbeta = math.sqrt((2.0 - m) * (2.0 + m)) / 2.0\nassert np.allclose(g2_alpha2z(beta, mu, m), target)",
+        "beta = 0.2\nmu = 2.7\nm = 0.51099895\nassert np.allclose(g2_alpha2z(beta, mu, m), target)",
+        "beta = 0.5\nmu = 2.7\nm = 0.51099895\nassert np.allclose(g2_alpha2z(beta, mu, m), target)",
+        "beta = 0.8\nmu = 2.7\nm = 0.51099895\nassert np.allclose(g2_alpha2z(beta, mu, m), target)",
+        "beta = 0.95\nmu = 2.7\nm = 0.51099895\nassert np.allclose(g2_alpha2z(beta, mu, m), target)",
+        "beta = 0.995\nmu = 2.7\nm = 0.51099895\nassert np.allclose(g2_alpha2z(beta, mu, m), target)",
+        "beta = 0.6\nmu = 8.0\nm = 0.51099895\nassert np.allclose(g2_alpha2z(beta, mu, m), target)",
+        "beta = 0.6\nmu = 2.0\nm = 0.51099895\nassert np.allclose(g2_alpha2z(beta, mu, m), target)",
+        "beta = 0.0001\nmu = 2.7\nm = 0.51099895\nassert np.allclose(g2_alpha2z(beta, mu, m), target)",
+        "beta = 0.999999\nmu = 2.7\nm = 0.51099895\nassert np.allclose(g2_alpha2z(beta, mu, m), target)",
+        "beta = 1e-08\nmu = 0.51099895\nm = 0.51099895\nassert np.allclose(g2_alpha2z(beta, mu, m), target)",
+        "beta = 1e-06\nmu = 0.51099895\nm = 0.51099895\nassert np.allclose(g2_alpha2z(beta, mu, m), target)",
+        "beta = 0.019999\nmu = 0.51099895\nm = 0.51099895\nassert np.allclose(g2_alpha2z(beta, mu, m), target)",
+        "beta = 0.020001\nmu = 0.51099895\nm = 0.51099895\nassert np.allclose(g2_alpha2z(beta, mu, m), target)",
+        "def rejects_nonpositive_scale(function):\n    try:\n        function(0.5, 0.0, 0.51099895)\n    except ValueError:\n        return 1\n    return 0\nassert np.allclose(rejects_nonpositive_scale(g2_alpha2z), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-28.5",
+      "test_cases": [
+        "import numpy as np\nimport copy\nm = 0.51099895; a = 1.0 / 137.035999084\nE0 = 4.2327 - m; mu = 2.0 * E0 * np.exp(-1.0)\nassert np.allclose(spectrum_weight(*copy.deepcopy((0.3, 12, E0, mu, m, a))), target)",
+        "import numpy as np\nimport copy\nm = 0.51099895; a = 1.0 / 137.035999084\nE0 = 4.2327 - m; mu = 2.0 * E0 * np.exp(-1.0)\nassert np.allclose(spectrum_weight(*copy.deepcopy((1.0, 12, E0, mu, m, a))), target)",
+        "import numpy as np\nimport copy\nm = 0.51099895; a = 1.0 / 137.035999084\nE0 = 4.2327 - m; mu = 2.0 * E0 * np.exp(-1.0)\nassert np.allclose(spectrum_weight(*copy.deepcopy((2.0, 12, E0, mu, m, a))), target)",
+        "import numpy as np\nimport copy\nm = 0.51099895; a = 1.0 / 137.035999084\nE0 = 4.2327 - m; mu = 2.0 * E0 * np.exp(-1.0)\nassert np.allclose(spectrum_weight(*copy.deepcopy((3.0, 12, E0, mu, m, a))), target)",
+        "import numpy as np\nimport copy\nm = 0.51099895; a = 1.0 / 137.035999084\nE0 = 4.2327 - m; mu = 2.0 * E0 * np.exp(-1.0)\nassert np.allclose(spectrum_weight(*copy.deepcopy((3.6, 12, E0, mu, m, a))), target)",
+        "import numpy as np\nimport copy\nm = 0.51099895; a = 1.0 / 137.035999084\nE0 = 8.2444 - m; mu = 2.0 * E0 * np.exp(-1.0)\nassert np.allclose(spectrum_weight(*copy.deepcopy((4.0, 26, E0, mu, m, a))), target)",
+        "import numpy as np\nimport copy\nm = 0.51099895; a = 1.0 / 137.035999084\nE0 = 4.2327 - m; mu = 2.0 * E0 * np.exp(-1.0)\npmax = np.sqrt(E0 * E0 - m * m)\nassert np.allclose(spectrum_weight(*copy.deepcopy((1.0e-3, 12, E0, mu, m, a))), target)",
+        "import numpy as np\nimport copy\nm = 0.51099895; a = 1.0 / 137.035999084\nE0 = 4.2327 - m; mu = 2.0 * E0 * np.exp(-1.0)\npmax = np.sqrt(E0 * E0 - m * m)\nassert np.allclose(spectrum_weight(*copy.deepcopy((pmax - 1.0e-4, 12, E0, mu, m, a))), target)",
+        "import numpy as np\nimport copy\nm = 0.51099895\nassert np.allclose(spectrum_weight(*copy.deepcopy((1.5, 1, 3.0, 1.0, m, 1.0e-6))), target)",
+        "import numpy as np\nimport copy\ndef run_model():\n    try:\n        spectrum_weight(*copy.deepcopy((5.0, 12, 3.7217, 2.7, 0.51099895, 1.0 / 137.035999084)))\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-28.6",
+      "test_cases": [
+        "import numpy as np\nimport copy\nm = 0.51099895; a = 1.0 / 137.035999084\nE0 = 4.2327 - m; mu = 2.0 * E0 * np.exp(-1.0)\nassert np.allclose(phase_space_average(*copy.deepcopy((12, E0, mu, m, a, 200))), target)",
+        "import numpy as np\nimport copy\nm = 0.51099895; a = 1.0 / 137.035999084\nassert np.allclose(phase_space_average(*copy.deepcopy((5, 1.90799 - m, 2.0 * (1.90799 - m) * np.exp(-1.0), m, a, 200))), target)",
+        "import numpy as np\nimport copy\nm = 0.51099895; a = 1.0 / 137.035999084\nassert np.allclose(phase_space_average(*copy.deepcopy((26, 8.2444 - m, 2.0 * (8.2444 - m) * np.exp(-1.0), m, a, 200))), target)",
+        "import numpy as np\nimport copy\nm = 0.51099895; a = 1.0 / 137.035999084\nE0 = 4.2327 - m; mu = 2.0 * E0 * np.exp(-1.0)\nassert np.allclose(phase_space_average(*copy.deepcopy((12, E0, mu, m, a, 1))), target)",
+        "import numpy as np\nimport copy\nm = 0.51099895; a = 1.0 / 137.035999084\nassert np.allclose(phase_space_average(*copy.deepcopy((20, 0.9, 1.5, m, a, 64))), target)",
+        "import numpy as np\nimport copy\ndef run_model():\n    try:\n        phase_space_average(*copy.deepcopy((12, 3.7217, 2.7, 0.51099895, 1.0 / 137.035999084, 0)))\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-28.7",
+      "test_cases": [
+        "import numpy as np\nimport copy\nm = 0.51099895; a = 1.0 / 137.035999084\nassert np.allclose(averaged_outer_correction(*copy.deepcopy((4.2327, 12, m, a, 200))), target)",
+        "import numpy as np\nimport copy\nm = 0.51099895; a = 1.0 / 137.035999084\nassert np.allclose(averaged_outer_correction(*copy.deepcopy((1.90799, 5, m, a, 200))), target)",
+        "import numpy as np\nimport copy\nm = 0.51099895; a = 1.0 / 137.035999084\nassert np.allclose(averaged_outer_correction(*copy.deepcopy((8.2444, 26, m, a, 200))), target)",
+        "import numpy as np\nimport copy\nm = 0.51099895; a = 1.0 / 137.035999084\nassert np.allclose(averaged_outer_correction(*copy.deepcopy((4.2327, 12, m, a, 1))), target)",
+        "import numpy as np\nimport copy\nm = 0.51099895\nassert np.allclose(averaged_outer_correction(*copy.deepcopy((1.5, 30, m, 1.0 / 137.035999084, 128))), target)",
+        "import numpy as np\nimport copy\nm = 0.51099895\nassert np.allclose(averaged_outer_correction(*copy.deepcopy((4.2327, 12, m, 1.0e-4, 64))), target)",
+        "import numpy as np\nimport copy\ndef run_model():\n    try:\n        averaged_outer_correction(*copy.deepcopy((0.8, 12, 0.51099895, 1.0 / 137.035999084, 64)))\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

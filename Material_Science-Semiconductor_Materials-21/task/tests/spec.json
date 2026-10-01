@@ -1,0 +1,80 @@
+{
+  "problem_id": "Material_Science-Semiconductor_Materials-21",
+  "sub_steps": [
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-21.1",
+      "test_cases": [
+        "import numpy as np\nkn = 10.0 ** 0.5\nassert np.allclose(compute_system_coefficients(kn, kn, kn), target)",
+        "import numpy as np\nkn = 2.5\nassert np.allclose(compute_system_coefficients(kn, kn, kn, C_e=0.8, C_p=1.25), target)",
+        "import numpy as np\nassert np.allclose(compute_system_coefficients(0.01, 1.0, 100.0, 0.4, 2.5, 1.3, 0.7), target)",
+        "import numpy as np\nassert np.allclose(compute_system_coefficients(1.0, 1.0, 1e-4), target)",
+        "import numpy as np\nassert np.allclose(compute_system_coefficients(1e-6, 1e-6, 1e-6), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-21.2",
+      "test_cases": [
+        "import numpy as np\nkn = 10.0 ** 0.5\nassert np.allclose(np.concatenate([compute_angular_moments(kn), compute_angular_moments(kn / 2.0)]), target)",
+        "import numpy as np\nassert np.allclose(compute_angular_moments(2.5), target)",
+        "import numpy as np\nassert np.allclose(compute_angular_moments(1.25), target)",
+        "import numpy as np\nassert np.allclose(compute_angular_moments(1000.0), target)",
+        "import numpy as np\nassert np.allclose(compute_angular_moments(1e-8), target)",
+        "import numpy as np\nassert np.allclose(compute_angular_moments(1e-4), target)",
+        "import numpy as np\nassert np.allclose(compute_angular_moments(0.0), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-21.3",
+      "test_cases": [
+        "import numpy as np\nkn = 10.0 ** 0.5\nco = np.array([1.5811388300841895, 0.15811388300841897, 0.15811388300841897, 0.5270462766947299, 0.5270462766947299, 0.13176156917368242, 0.3952847075210473, 0.039788735772973836, 0.039788735772973836, 0.019894367886486915, 0.059683103659460744], dtype=np.float64)\nme = np.array([5.024990079320119, 0.7541380535039052], dtype=np.float64)\nmp = np.array([8.00214144695107, 1.8256916669632417], dtype=np.float64)\nassert np.allclose(build_unaccelerated_matrix(co, me, mp), target)",
+        "import numpy as np\nco = np.array([1.25, 0.2, 0.2, 0.41, 0.41, 0.102, 0.305, 0.0311, 0.0311, 0.0204, 0.0512])\nme = np.array([5.982, 1.052])\nmp = np.array([9.204, 2.413])\nassert np.allclose(build_unaccelerated_matrix(co, me, mp), target)",
+        "import numpy as np\nco = np.array([40.0, 0.02, 0.05, 3.1, 0.2, 0.9, 12.0, 0.07, 0.005, 0.002, 0.06])\nme = np.array([12.0, 4.0])\nmp = np.array([0.05, 0.0002])\nassert np.allclose(build_unaccelerated_matrix(co, me, mp), target)",
+        "import numpy as np\nco = np.array([0.005, 100.0, 100.0, 0.0016, 0.0016, 0.0004, 0.0012, 0.0271, 0.0433, 0.0155, 0.0637])\niso = np.array([4 * np.pi, 4 * np.pi / 3])\nassert np.allclose(build_unaccelerated_matrix(co, iso, iso), target)",
+        "import numpy as np\nco = np.array([1.0, 0.5, 0.5, 0.2, 0.2, 0.1, 0.3, 0.0, 0.0, 0.03, 0.04])\nme = np.array([9.0, 2.0])\nmp = np.array([7.0, 1.5])\nassert np.allclose(build_unaccelerated_matrix(co, me, mp), target)",
+        "import numpy as np\nco = np.ones(11)\nme = np.array([np.nan, 1.0])\nmp = np.ones(2)\ndef run_model():\n    try:\n        build_unaccelerated_matrix(co, me, mp)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-21.4",
+      "test_cases": [
+        "import numpy as np\nkn = 10.0 ** 0.5\nco = np.array([1.5811388300841895, 0.15811388300841897, 0.15811388300841897, 0.5270462766947299, 0.5270462766947299, 0.13176156917368242, 0.3952847075210473, 0.039788735772973836, 0.039788735772973836, 0.019894367886486915, 0.059683103659460744], dtype=np.float64)\nme = np.array([5.024990079320119, 0.7541380535039052], dtype=np.float64)\nmp = np.array([8.00214144695107, 1.8256916669632417], dtype=np.float64)\nU = np.array([[0.19993800252788307, 0.19993800252788307], [0.15919754582534928, 0.4775926374760479]], dtype=np.float64)\nassert np.allclose(build_accelerated_operators(co, me, mp, U, kn), target)",
+        "import numpy as np\nco = np.array([1.25, 0.2, 0.2, 0.41, 0.41, 0.102, 0.305, 0.0311, 0.0311, 0.0204, 0.0512])\nme = np.array([5.982, 1.052])\nmp = np.array([9.204, 2.413])\nU = np.array([[0.186, 0.186], [0.188, 0.471]])\nassert np.allclose(build_accelerated_operators(co, me, mp, U, 2.5), target)",
+        "import numpy as np\nco = np.array([40.0, 0.02, 0.05, 3.1, 0.2, 0.9, 12.0, 0.07, 0.005, 0.002, 0.06])\nme = np.array([12.0, 4.0])\nmp = np.array([0.05, 0.0002])\nU = np.array([[0.84, 0.06], [0.0001, 0.003]])\nassert np.allclose(build_accelerated_operators(co, me, mp, U, 0.2, v_e=1.3, v_p=0.7), target)",
+        "import numpy as np\nco = np.array([0.008, 62.5, 62.5, 0.0021, 0.0021, 0.0005, 0.0016, 0.05, 0.0296, 0.02, 0.0596])\nme = np.array([12.44, 4.11])\nmp = np.array([12.56, 4.187])\nU = np.array([[0.62, 0.37], [0.25, 0.74]])\nassert np.allclose(build_accelerated_operators(co, me, mp, U, 0.01), target)",
+        "import numpy as np\nco = np.array([0.5, 0.3, 0.7, 0.2, 0.2, 0.1, 0.3, 0.04, 0.04, 0.02, 0.06])\nme = np.array([9.0, 2.0])\nmp = np.array([7.0, 1.5])\nU = np.zeros((2, 2))\nassert np.allclose(build_accelerated_operators(co, me, mp, U, 1.0), target)",
+        "import numpy as np\nco = np.ones(11)\nme = np.ones(2)\nmp = np.ones(2)\nU = np.array([[1.0, np.inf], [0.0, 1.0]])\ndef run_model():\n    try:\n        build_accelerated_operators(co, me, mp, U, 1.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-21.5",
+      "test_cases": [
+        "import numpy as np\nU = np.array([[0.186, 0.186], [0.188, 0.471]])\nO = np.array([[[0.610, 0.402], [-0.098, 0.505]],\n              [[0.081, 0.235], [0.037, 0.052]]])\nassert np.allclose(compute_spectral_radii(U, O), target)",
+        "import numpy as np\nU = np.array([[0.2, -0.6], [0.6, 0.2]])\nO = np.array([np.eye(2), np.array([[0.1, -0.4], [0.4, 0.1]])])\nassert np.allclose(compute_spectral_radii(U, O), target)",
+        "import numpy as np\nU = np.array([[-0.8, 0.1], [0.05, 0.2]])\nO = np.array([[[2.0, 0.5], [-0.5, 1.5]], [[-1.2, 0.3], [0.2, 0.4]]])\nassert np.allclose(compute_spectral_radii(U, O), target)",
+        "import numpy as np\nU = np.array([[0.5, 0.5], [0.25, 0.75]])\nO = np.array([[[100.0, -99.999], [-100.0, 100.001]],\n              [[0.004, -0.004], [-0.002, 0.002]]])\nassert np.allclose(compute_spectral_radii(U, O), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-21.6",
+      "test_cases": [
+        "import numpy as np\nkn = 1.5848931924611136\nassert np.allclose(compute_convergence_rates(kn, kn, kn), target)",
+        "import numpy as np\nkn = 10.0 ** 0.5\nassert np.allclose(compute_convergence_rates(kn, kn, kn), target)",
+        "import numpy as np\nassert np.allclose(compute_convergence_rates(0.05, 20.0, 20.0), target)",
+        "import numpy as np\nassert np.allclose(compute_convergence_rates(0.4, 2.0, 0.08, C_e=0.6, C_p=1.4, v_e=1.2, v_p=0.8), target)",
+        "import numpy as np\nassert np.allclose(compute_convergence_rates(1.0, 100.0, 0.01), target)",
+        "import numpy as np\nassert np.allclose(compute_convergence_rates(1e-4, 1e-4, 1e-4), target)",
+        "import numpy as np\nassert np.allclose(compute_convergence_rates(1e-2, 1e-2, 1e-2), target)",
+        "import numpy as np\nassert np.allclose(compute_convergence_rates(1e2, 1e2, 1e2), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-21.7",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(run_stability_sweep(1e-2, 1e2, 8), target)",
+        "import numpy as np\nassert np.allclose(run_stability_sweep(1e-3, 1e-1, 11), target)",
+        "import numpy as np\nassert np.allclose(run_stability_sweep(1.0, 1e3, 13, C_e=0.6, C_p=1.4, v_e=1.2, v_p=0.8), target)",
+        "import numpy as np\nassert np.allclose(run_stability_sweep(2.0, 2.0, 2), target)"
+      ]
+    }
+  ]
+}

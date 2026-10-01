@@ -1,0 +1,48 @@
+problem_id: "Mathematics-Computational_Finance-41"
+subject: "mathematics"
+subject_area: "Computational Finance"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.3934/era.2026316"
+dependencies: ""
+steps:
+  - number: 1
+    name: "clustered_grid"
+    description: "Construct the prescribed sinh-clustered log-price grid, including the uniform-grid limit and exact endpoints. Follow the complete domain and return-shape contract in the function docstring."
+    orchestrator: false
+  - number: 2
+    name: "floater_hormann_weights"
+    description: "Construct normalized Floater--Hormann barycentric weights on the supplied increasing nodes. Preserve the specified degree convention, common-sign normalization and input validation."
+    orchestrator: false
+  - number: 3
+    name: "rational_evaluation"
+    description: "Evaluate rational cardinal functions and their first two analytic derivatives at arbitrary query points, including exact and near-node limits. Preserve evaluation-row and interpolation-column ordering."
+    orchestrator: false
+  - number: 4
+    name: "merton_operators"
+    description: "Build the compensated Merton differential matrix and the global Gauss--Legendre interior jump matrix from the preceding interpolation routines. Keep the jump intensity and exterior tail separate as specified."
+    orchestrator: false
+  - number: 5
+    name: "american_boundary_tail"
+    description: "Compute the undiscounted American put boundary and analytic Gaussian exterior tail, using the complete domain, formula and return-shape contract in the raw docstring."
+    orchestrator: false
+  - number: 6
+    name: "imex_american"
+    description: "Advance both corrected prices and constraint multipliers with one IMEX-BDF1 startup and one IT correction per layer, followed by IMEX-BDF2. Return both complete histories and respect the explicitly specified boundary convention."
+    orchestrator: false
+  - number: 7
+    name: "put_greeks"
+    description: "Compute price, delta and gamma from analytic derivatives of the same rational interpolant at the supplied spot. Use the fixed-strike log-price chain rule and preserve full precision."
+    orchestrator: false
+  - number: 8
+    name: "merton_mean_jets"
+    description: "Derive and assemble analytic first and second jump-mean derivatives of the compensated differential operator, the quadrature jump operator and the American exterior integral. Return ordinary derivatives in the documented tensor order."
+    orchestrator: false
+  - number: 9
+    name: "differentiate_american"
+    description: "Derive and propagate first and second jump-mean derivatives through the complete discrete American IMEX-BDF1/BDF2 and IT evolution. Account for the derivative of the implicit matrix, jump extrapolation and carried constraint multiplier."
+    orchestrator: false
+  - number: 10
+    name: "solve"
+    description: "Compose the source-method primal solver and its analytic sensitivities to compute the second jump-mean derivative of the final rational Gamma."
+    orchestrator: true

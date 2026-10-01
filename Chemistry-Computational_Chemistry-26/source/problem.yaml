@@ -1,0 +1,56 @@
+problem_id: "Chemistry-Computational_Chemistry-26"
+subject: "chemistry"
+subject_area: "Computational Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2604.16134"
+dependencies: ""
+steps:
+  - number: 1
+    name: "oscillator_basis"
+    description: "Returns the ordered basis of the two-dimensional oscillator as an (N, 2) integer array of pairs (n_x, n_y) with n_x + n_y <= n_max, ordered by the shell n = n_x + n_y ascending and, within a shell, by n_x ascending, N = (n_max + 1)(n_max + 2)/2."
+    orchestrator: false
+  - number: 2
+    name: "ladder_operators"
+    description: "Returns the annihilation operators a_x and a_y of the two oscillator coordinates as a (2, N, N) array in the ordered basis."
+    orchestrator: false
+  - number: 3
+    name: "vibronic_operators"
+    description: "Returns the exact matrices, between the retained oscillator states, of Q_+, Q_-, the number operator n_vib and the vibrational angular momentum l_vib as a (4, N, N) complex array."
+    orchestrator: false
+  - number: 4
+    name: "static_model"
+    description: "Returns [E_0, g_exact, g_formula, <L_z>] for the frozen-distortion (static) relativistic Jahn-Teller model on the four electronic-spin states at zero classical field."
+    orchestrator: false
+  - number: 5
+    name: "model_hamiltonian"
+    description: "Assembles the full Hamiltonian H = H_soc + H_Zee + H_vib + H_JT + H_c + H_cZ of the cavity-modified dynamic relativistic E x e Jahn-Teller model on the product space in the stated index order as a (D, D) complex Hermitian matrix in cm^-1 with D = 4 N (n_ph + 1)."
+    orchestrator: false
+  - number: 6
+    name: "vibronic_spectrum"
+    description: "Returns the lowest n_levels levels of the molecular model without classical field and without cavity (n_ph = 0) as an (n_levels, 3) array of rows [E_k, |j_k|, <L_z S_z>_k] in ascending order of energy."
+    orchestrator: false
+  - number: 7
+    name: "ham_reduction"
+    description: "Returns [E_0, E_1 - E_0, p, q] for the spin-free linear E x e Jahn-Teller problem H = hw (n_vib + 1) + F (Q_+ |1><-1| + Q_- |-1><1|) on the orbital doublet times the oscillator basis."
+    orchestrator: false
+  - number: 8
+    name: "kramers_g_factor"
+    description: "Returns [E_0, g, <L_z>, <S_z>, E_2 - E_0] for the ground Kramers doublet of the full model at zero classical field."
+    orchestrator: false
+  - number: 9
+    name: "cavity_shift"
+    description: "Returns [g(g_c) - g(0), kappa_fd, g(0)]: the change of the exact Kramers-doublet g-factor produced by the cavity at the finite coupling g_c with n_ph photon states, the finite-coupling estimate kappa_fd = (g(g_c) - g(0)) (hwc/g_c)^2 of the leading coefficient, and the cavity-free g-factor."
+    orchestrator: false
+  - number: 10
+    name: "second_order_coefficient"
+    description: "Returns [kappa, w2 hwc, g(0)]: the exact leading cavity coefficient kappa of the ground Kramers doublet's g-factor, the second-order doublet energy shift expressed through the dimensionless w2 hwc, and the cavity-free g-factor, from second-order perturbation theory in the cavity Zeeman interaction."
+    orchestrator: false
+  - number: 11
+    name: "static_cavity"
+    description: "Returns [kappa_static, kappa_source_weak, kappa_source_strong, g(0)]: the exact second-order cavity coefficient of the frozen-distortion model (its four electronic-spin states times the photon numbers 0 and 1, H = H_static + hwc b^+ b + H_cZ) together with the two perturbative estimates of the same coefficient and the cavity-free static g-factor."
+    orchestrator: false
+  - number: 12
+    name: "rjt_audit"
+    description: "Orchestrates the chain and returns the audit table: a head row [kappa_p at the first cavity energy, followed by zeros] and one row per cavity energy with the 25 columns listed below."
+    orchestrator: true

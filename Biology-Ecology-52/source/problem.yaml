@@ -1,0 +1,48 @@
+problem_id: "Biology-Ecology-52"
+subject: "biology"
+subject_area: "Ecology"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1111/2041-210x.70376"
+dependencies: ""
+steps:
+  - number: 1
+    name: "trophic_positions"
+    description: "Return the trophic positions of every species of a food web from its diet-coefficient matrix Q, whose entry Q[i, j] is the proportion of prey j in the diet of predator i (rows of consumers sum to one, rows of primary producers are zero, the diagonal is zero because cannibalism is excluded). The trophic position of a predator is one plus the diet-weighted mean of the trophic positions of its prey, and primary producers have trophic position one; solve the resulting linear system y = (I - Q)^-1 1 exactly."
+    orchestrator: false
+  - number: 2
+    name: "pair_diet_coefficients"
+    description: "Return the two diet coefficients of a predator that feeds on exactly two prey, with trophic positions y_below and y_above (y_below < y_above), given that the predator's trophic position minus one equals centre and lies between the two prey positions: the coefficients are the unique proportions summing to one whose weighted mean of the prey positions equals centre. Return the array [coefficient of the lower prey, coefficient of the upper prey]."
+    orchestrator: false
+  - number: 3
+    name: "candidate_pairs"
+    description: "Return the candidate prey pairs of one predator at trophic specialization sigma according to the source's decomposition. The admissible prey of predator i are the other species whose trophic position lies inside the source's admissibility window around the centre c = positions[i] - 1, the window of half-width 3 sigma, from c - 3 sigma to c + 3 sigma (strict inequalities: a species exactly on the window's boundary or exactly at the centre is not admissible; the predator itself is never admissible); every admissible prey below the centre is paired with every admissible prey above it, so that the two-prey solution of step 02 applies to every pair. Return an integer array of shape (n_pairs, 2) whose rows are (index of the lower prey, index of the upper prey), ordered by lower-prey index and then by upper-prey index in increasing order of species index; the array has zero rows when no pair exists."
+    orchestrator: false
+  - number: 4
+    name: "pair_thresholds"
+    description: "Return, for every given candidate prey pair of one predator (rows (lower prey index, upper prey index) as produced by step 03), the admissibility threshold of the pair: the trophic specialization above which both of its prey lie inside the source's admissibility window of step 03, so that the pair is a candidate exactly for sigma strictly above the threshold. Return one threshold per pair, in the order of the input."
+    orchestrator: false
+  - number: 5
+    name: "marginal_pair_weights"
+    description: "Return the source's specialization-averaged weight of every given candidate prey pair of one predator (the pairs of step 03 at sigma = sigma_max, with their thresholds of step 04, in the same order) when the trophic specialization is unknown: the source's Bayesian weight of a pair at specialization sigma - its prior 1 / n(sigma), uniform over the n(sigma) pairs that are candidates at sigma, times its likelihood, the product of the Gaussian densities of mean zero and standard deviation sigma at the two prey offsets c - y_lower and y_upper - c, that is exp(-((c - y_lower)^2 + (y_upper - c)^2) / (2 sigma^2)) / (2 pi sigma^2) - averaged over sigma uniformly distributed on [0, sigma_max], that is integrated over sigma and divided by sigma_max, a pair contributing only above its threshold and the prior being evaluated at each sigma. Evaluate the average exactly, not by numerical quadrature. The weights are not normalised; the pair probabilities are their normalisation over the candidate pairs."
+    orchestrator: false
+  - number: 6
+    name: "superpose_row"
+    description: "Return the reconstructed diet row of one predator as the source's superposition of its candidate pairs: the pair weights (step 05) normalised to probabilities summing to one, and the row of length n_species whose entry for each prey is the probability-weighted sum, over the pairs containing that prey, of the prey's coefficient in the pair's two-prey diet (step 02). The row is zero outside the candidate prey."
+    orchestrator: false
+  - number: 7
+    name: "reconstruction_metrics"
+    description: "Return the reconstruction metrics comparing a reconstructed diet matrix with the true one, as the array [TP, FN, TN, FP, TPR, FPR, BA, mean error, similarity]. A link is a strictly positive coefficient and the diagonal is never a link: TP counts the links present in both webs, FN the true links missing from the reconstruction, TN the off-diagonal non-links of both, FP the reconstructed links absent from the true web; TPR = TP / L_true, FPR = (L - TP) / (n (n - 1) - L_true) with L_true and L the numbers of true and reconstructed links, BA = (TPR + 1 - FPR) / 2; the mean error is the sum of the absolute differences of all n^2 entries divided by n^2, and the similarity is the sum of the entry-wise products divided by the product of the two entry-wise (Frobenius) L2 norms."
+    orchestrator: false
+  - number: 8
+    name: "marginal_weight_derivatives"
+    description: "Return the exact first and second derivatives of the specialization-averaged weight of every given candidate prey pair of one predator (the weights of step 05 for the pairs of step 03 at sigma = sigma_max, in the same order) with respect to the trophic position of one species, all other positions, the pair list and sigma_max held fixed. The weights are those of step 05 evaluated at the displaced positions, with the centre c = positions[predator] - 1 moving with the predator's own position, the pair list kept as given and every quantity that step 05 derives from the positions (its offsets, the thresholds of step 04 and the candidate count of the prior at each sigma) taken as the functions of the positions that steps 04 and 05 define. Return the exact derivatives, analytically and to full double precision (finite differences of any order do not meet the accuracy required of this step), as an array of shape (n_pairs, 2) whose columns are the first and the second derivative, in the order of the input pairs, zero for every pair whose weight does not depend on the species' position. Raise ValueError if the derivative does not exist: a pair whose two prey offsets are equal to within a relative tolerance of 1e-12 (its threshold switches between the two prey), or pairs whose thresholds are equal to within an absolute tolerance of 1e-12 and would move apart under the perturbation."
+    orchestrator: false
+  - number: 9
+    name: "diet_row_derivatives"
+    description: "Return the exact first and second derivatives of the reconstructed diet row of one predator with respect to the trophic position of one species, all other positions and sigma_max held fixed. The row is the one steps 02-06 build from the positions: the candidate pairs at sigma_max (step 03), their thresholds (step 04) and averaged weights (step 05), the two-prey diet of each pair (step 02) and the superposition (step 06); the pair list is held fixed (it persists under small displacements) while the pair weights (whose derivatives are step 08), their normalisation to probabilities and the two-prey diets all move with the position. Return the exact derivatives, analytically, as an array of shape (n_species, 2) whose columns are the first and the second derivative of the row (zero outside the candidate prey). Raise ValueError if the predator has no candidate pair at sigma_max, if another species sits at the predator's centre or on the admissibility window at sigma_max to within an absolute tolerance of 1e-12 (the row has no derivative there), or if step 08 raises."
+    orchestrator: false
+  - number: 10
+    name: "similarity_laplacian"
+    description: "Orchestrator. For a true diet-coefficient matrix, compute the trophic positions of all species (step 01) and reconstruct the whole web from those positions alone: species whose position is 1 to within an absolute tolerance of 1e-12 are primary producers and get zero rows; species whose position is 2 to within the same tolerance are primary consumers and feed on the primary producers alone, in equal proportions; for every other consumer form its candidate pairs at sigma_max (step 03), their thresholds (step 04) and averaged weights (step 05), the two-prey diet of each pair (step 02), and its row by superposition (step 06). Then take the similarity of step 07 between the true and the reconstructed matrices (the sum of the entry-wise products divided by the product of the entry-wise L2 norms) as a function of the positions of the consumers reconstructed by pairs (the producers' and primary consumers' positions and rows are fixed), the reconstructed matrix moving with them through the row derivatives of step 09 while the true matrix is unchanged, and return its Laplacian with respect to those positions: the sum over them of the exact second partial derivatives of the similarity. Raise ValueError if the web has no producer, some other species sits at the centre of a consumer reconstructed by pairs to within an absolute tolerance of 1e-12 (the producers at a primary consumer's centre are its diet by the rule above, not an error), a consumer reconstructed by pairs has no candidate pair at sigma_max, or the derivatives do not exist (step 08 or step 09 raises). Call the earlier step functions rather than reimplementing them."
+    orchestrator: true

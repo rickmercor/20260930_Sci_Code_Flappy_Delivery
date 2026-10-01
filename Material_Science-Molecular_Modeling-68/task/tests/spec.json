@@ -1,0 +1,78 @@
+{
+  "problem_id": "Material_Science-Molecular_Modeling-68",
+  "sub_steps": [
+    {
+      "step_number": "Material_Science-Molecular_Modeling-68.1",
+      "test_cases": [
+        "import numpy as np\nrng = np.random.default_rng(11)\nG = rng.standard_normal((5, 12))\nassert np.allclose(average_descriptor(G), target)",
+        "import numpy as np\nG = np.array([[1.0, 2.0, 3.0]])\nassert np.allclose(average_descriptor(G), target)",
+        "import numpy as np\nG = np.array([[0.0, -1.0], [0.0, 1.0], [0.0, 0.0]])\nassert np.allclose(average_descriptor(G), target)",
+        "import numpy as np\nG = np.array([1.0, 2.0, 3.0])\ndef run_model():\n    try:\n        average_descriptor(G)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-68.2",
+      "test_cases": [
+        "import numpy as np\n\ndef _pca_summary(result, X, count):\n    \"\"\"Preserve the mean and output shapes; compare PCA scientific invariants.\"\"\"\n    if not isinstance(result, tuple) or len(result) != 2:\n        raise AssertionError(\"PCA must return a (mean, basis) tuple\")\n    mean, basis = (np.asarray(v) for v in result)\n    d = X.shape[1]\n    if mean.shape != (d,) or basis.shape != (d, count):\n        raise AssertionError(\"PCA output shape does not match its contract\")\n    if not (np.all(np.isfinite(mean)) and np.all(np.isfinite(basis))):\n        raise AssertionError(\"PCA returned non-finite values\")\n    centered = X - X.mean(axis=0)\n    scatter = centered.T @ centered\n    leading = np.linalg.eigvalsh(scatter)[::-1][:count]\n    scale = max(1.0, float(np.linalg.norm(scatter, ord=2)))\n    residual = (scatter @ basis - basis * leading[None, :]) / scale\n    # Both columns and ordering are tested. Sign changes and tied eigenspace\n    # rotations remain valid. Eigenvalues below the cutoff cannot pass.\n    return np.concatenate((\n        np.array([mean.ndim, *mean.shape, basis.ndim, *basis.shape], dtype=float),\n        mean.ravel(),\n        (basis.T @ basis).ravel(),\n        residual.ravel(),\n    ))\n\nS_ref = np.random.default_rng(7).standard_normal((20, 12))\nk = 3\nassert np.allclose(_pca_summary(compute_pca_basis(S_ref, k), S_ref, k), target)",
+        "import numpy as np\n\ndef _pca_summary(result, X, count):\n    \"\"\"Preserve the mean and output shapes; compare PCA scientific invariants.\"\"\"\n    if not isinstance(result, tuple) or len(result) != 2:\n        raise AssertionError(\"PCA must return a (mean, basis) tuple\")\n    mean, basis = (np.asarray(v) for v in result)\n    d = X.shape[1]\n    if mean.shape != (d,) or basis.shape != (d, count):\n        raise AssertionError(\"PCA output shape does not match its contract\")\n    if not (np.all(np.isfinite(mean)) and np.all(np.isfinite(basis))):\n        raise AssertionError(\"PCA returned non-finite values\")\n    centered = X - X.mean(axis=0)\n    scatter = centered.T @ centered\n    leading = np.linalg.eigvalsh(scatter)[::-1][:count]\n    scale = max(1.0, float(np.linalg.norm(scatter, ord=2)))\n    residual = (scatter @ basis - basis * leading[None, :]) / scale\n    # Both columns and ordering are tested. Sign changes and tied eigenspace\n    # rotations remain valid. Eigenvalues below the cutoff cannot pass.\n    return np.concatenate((\n        np.array([mean.ndim, *mean.shape, basis.ndim, *basis.shape], dtype=float),\n        mean.ravel(),\n        (basis.T @ basis).ravel(),\n        residual.ravel(),\n    ))\n\nS_ref = np.array([[1., 0.], [0., 1.], [-1., 0.], [0., -1.]])\nk = 2\nassert np.allclose(_pca_summary(compute_pca_basis(S_ref, k), S_ref, k), target)",
+        "import numpy as np\n\ndef _pca_summary(result, X, count):\n    \"\"\"Preserve the mean and output shapes; compare PCA scientific invariants.\"\"\"\n    if not isinstance(result, tuple) or len(result) != 2:\n        raise AssertionError(\"PCA must return a (mean, basis) tuple\")\n    mean, basis = (np.asarray(v) for v in result)\n    d = X.shape[1]\n    if mean.shape != (d,) or basis.shape != (d, count):\n        raise AssertionError(\"PCA output shape does not match its contract\")\n    if not (np.all(np.isfinite(mean)) and np.all(np.isfinite(basis))):\n        raise AssertionError(\"PCA returned non-finite values\")\n    centered = X - X.mean(axis=0)\n    scatter = centered.T @ centered\n    leading = np.linalg.eigvalsh(scatter)[::-1][:count]\n    scale = max(1.0, float(np.linalg.norm(scatter, ord=2)))\n    residual = (scatter @ basis - basis * leading[None, :]) / scale\n    # Both columns and ordering are tested. Sign changes and tied eigenspace\n    # rotations remain valid. Eigenvalues below the cutoff cannot pass.\n    return np.concatenate((\n        np.array([mean.ndim, *mean.shape, basis.ndim, *basis.shape], dtype=float),\n        mean.ravel(),\n        (basis.T @ basis).ravel(),\n        residual.ravel(),\n    ))\n\nS_ref = np.array([[1., 0.], [0., 1.], [-1., 0.], [0., -1.]])\nk = 1\nassert np.allclose(_pca_summary(compute_pca_basis(S_ref, k), S_ref, k), target)",
+        "import numpy as np\n\ndef _pca_summary(result, X, count):\n    \"\"\"Preserve the mean and output shapes; compare PCA scientific invariants.\"\"\"\n    if not isinstance(result, tuple) or len(result) != 2:\n        raise AssertionError(\"PCA must return a (mean, basis) tuple\")\n    mean, basis = (np.asarray(v) for v in result)\n    d = X.shape[1]\n    if mean.shape != (d,) or basis.shape != (d, count):\n        raise AssertionError(\"PCA output shape does not match its contract\")\n    if not (np.all(np.isfinite(mean)) and np.all(np.isfinite(basis))):\n        raise AssertionError(\"PCA returned non-finite values\")\n    centered = X - X.mean(axis=0)\n    scatter = centered.T @ centered\n    leading = np.linalg.eigvalsh(scatter)[::-1][:count]\n    scale = max(1.0, float(np.linalg.norm(scatter, ord=2)))\n    residual = (scatter @ basis - basis * leading[None, :]) / scale\n    # Both columns and ordering are tested. Sign changes and tied eigenspace\n    # rotations remain valid. Eigenvalues below the cutoff cannot pass.\n    return np.concatenate((\n        np.array([mean.ndim, *mean.shape, basis.ndim, *basis.shape], dtype=float),\n        mean.ravel(),\n        (basis.T @ basis).ravel(),\n        residual.ravel(),\n    ))\n\nS_ref = np.array([[1., 2., 3.], [2., 1., 0.]])\nk = 3\nassert np.allclose(_pca_summary(compute_pca_basis(S_ref, k), S_ref, k), target)",
+        "import numpy as np\nS_ref = np.array([[1.0, 0.0], [0.0, 1.0], [-1.0, 0.0]])\nk = 5\ndef run_model():\n    try:\n        compute_pca_basis(S_ref, k)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-68.3",
+      "test_cases": [
+        "import numpy as np\nrng = np.random.default_rng(7)\nS_ref = rng.standard_normal((20, 12))\nmu = S_ref.mean(axis=0)\nShat = S_ref - mu\n_, _, Vt = np.linalg.svd(Shat, full_matrices=False)\nV_k = Vt.T[:, :3]\nassert np.allclose(project_to_cv(S_ref, mu, V_k), target)",
+        "import numpy as np\nS = np.array([[0.5, -0.2]])\nmu = np.array([0.0, 0.0])\nV_k = np.array([[1.0], [0.0]])\nassert np.allclose(project_to_cv(S, mu, V_k), target)",
+        "import numpy as np\nS = np.array([[1.0, 0.0], [0.0, 1.0], [-1.0, 0.0], [0.0, -1.0]])\nmu = S.mean(axis=0)\nV_k = np.array([[1.0, 0.0], [0.0, 1.0]])\nassert np.allclose(project_to_cv(S, mu, V_k), target)",
+        "import numpy as np\nS = np.array([[1.0, 2.0, 3.0]])\nmu = np.array([0.0, 0.0])\nV_k = np.array([[1.0], [0.0]])\ndef run_model():\n    try:\n        project_to_cv(S, mu, V_k)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-68.4",
+      "test_cases": [
+        "import numpy as np\ns = np.array([0.70577083, -0.6775732, 0.14877657])\ns_j = np.array([0.1, -0.2, 0.05])\nsigma = 0.3\nassert np.allclose(gaussian_kernel(s, s_j, sigma), target)",
+        "import numpy as np\ns = np.array([0.3])\ns_j = np.array([0.3])\nsigma = 0.5\nassert np.allclose(gaussian_kernel(s, s_j, sigma), target)",
+        "import numpy as np\ns = np.array([-1.0])\ns_j = np.array([1.0])\nsigma = 0.5\nassert np.allclose(gaussian_kernel(s, s_j, sigma), target)",
+        "import numpy as np\ns = np.array([0.1, 0.2])\ns_j = np.array([0.0, 0.0])\nsigma = 0.0\ndef run_model():\n    try:\n        gaussian_kernel(s, s_j, sigma)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-68.5",
+      "test_cases": [
+        "import numpy as np\nrng_ref = np.random.default_rng(7)\nS_ref = rng_ref.standard_normal((20, 12))\nmu = S_ref.mean(axis=0)\nShat = S_ref - mu\n_, _, Vt = np.linalg.svd(Shat, full_matrices=False)\nV_k = Vt.T[:, :3]\nS_cv = (S_ref - mu) @ V_k\ns = np.array([0.70577083, -0.6775732, 0.14877657])\nsigma = 0.3\nassert np.allclose(density_estimate(s, S_cv, sigma), target)",
+        "import numpy as np\ns = np.array([0.3])\nS_cv = np.array([[0.3]])\nsigma = 0.5\nassert np.allclose(density_estimate(s, S_cv, sigma), target)",
+        "import numpy as np\ns = np.array([0.0])\nS_cv = np.array([[-1.0], [1.0]])\nsigma = 0.5\nassert np.allclose(density_estimate(s, S_cv, sigma), target)",
+        "import numpy as np\ns = np.array([0.0, 0.0])\nS_cv = np.empty((0, 2))\nsigma = 0.3\ndef run_model():\n    try:\n        density_estimate(s, S_cv, sigma)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-68.6",
+      "test_cases": [
+        "import numpy as np\nrng_ref = np.random.default_rng(7)\nS_ref = rng_ref.standard_normal((20, 12))\nmu = S_ref.mean(axis=0)\nShat = S_ref - mu\n_, _, Vt = np.linalg.svd(Shat, full_matrices=False)\nV_k = Vt.T[:, :3]\nS_cv = (S_ref - mu) @ V_k\nsigma = 0.3\nassert np.allclose(normalization_constant(S_cv, sigma), target)",
+        "import numpy as np\nS_cv = np.array([[0.2, -0.1], [0.5, 0.3]])\nsigma = 0.4\nassert np.allclose(normalization_constant(S_cv, sigma), target)",
+        "import numpy as np\nS_cv = np.array([[-1.0], [0.0], [0.0], [1.0]])\nsigma = 0.5\nassert np.allclose(normalization_constant(S_cv, sigma), target)",
+        "import numpy as np\nS_cv = np.array([[0.1, 0.2]])\nsigma = 0.3\ndef run_model():\n    try:\n        normalization_constant(S_cv, sigma)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-68.7",
+      "test_cases": [
+        "T = 300.0\ndelta_E = 15.0\nassert np.allclose(thermo_params(T, delta_E), target)",
+        "T = 500.0\ndelta_E = 5.0\nassert np.allclose(thermo_params(T, delta_E), target)",
+        "T = 300.0\ndelta_E = 0.03\nassert np.allclose(thermo_params(T, delta_E), target)",
+        "T = 0.0\ndelta_E = 15.0\ndef run_model():\n    try:\n        thermo_params(T, delta_E)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-68.8",
+      "test_cases": [
+        "import numpy as np\nrng_ref = np.random.default_rng(7)\nS_ref = rng_ref.standard_normal((20, 12))\nrng_cur = np.random.default_rng(11)\nG = rng_cur.standard_normal((5, 12))\nk = 3\nsigma = 0.3\nT = 300.0\ndelta_E = 15.0\nassert np.allclose(bias_potential(G, S_ref, k, sigma, T, delta_E), target)",
+        "import numpy as np\nrng_ref = np.random.default_rng(7)\nS_ref = rng_ref.standard_normal((20, 12))\nrng_cur = np.random.default_rng(11)\nG = rng_cur.standard_normal((5, 12))\nk = 1\nsigma = 0.3\nT = 300.0\ndelta_E = 15.0\nassert np.allclose(bias_potential(G, S_ref, k, sigma, T, delta_E), target)",
+        "import numpy as np\nrng_ref = np.random.default_rng(7)\nS_ref = rng_ref.standard_normal((20, 12))\nrng_cur = np.random.default_rng(11)\nG = rng_cur.standard_normal((5, 12))\nk = 3\nsigma = 1.0\nT = 500.0\ndelta_E = 5.0\nassert np.allclose(bias_potential(G, S_ref, k, sigma, T, delta_E), target)",
+        "import numpy as np\nrng_ref = np.random.default_rng(7)\nS_ref = rng_ref.standard_normal((20, 12))\nrng_cur = np.random.default_rng(11)\nG = rng_cur.standard_normal((5, 12))\nk = 50\nsigma = 0.3\nT = 300.0\ndelta_E = 15.0\ndef run_model():\n    try:\n        bias_potential(G, S_ref, k, sigma, T, delta_E)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+problem_id: "Chemistry-Quantum_Chemistry-20"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.48550/arXiv.2603.01573"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_fit_trigonometric_well"
+    description: "Fit the exactly solvable trigonometric double well to a symmetric proton-transfer scan and return the confining half-width with the two potential parameters."
+    orchestrator: false
+  - number: 2
+    name: "02_compute_well_energy_levels"
+    description: "Compute the lowest energy levels of the trigonometric double well exactly, in the reduced energy units of the model."
+    orchestrator: false
+  - number: 3
+    name: "03_evaluate_well_eigenfunction"
+    description: "Evaluate a normalized eigenfunction of the trigonometric double well and its coordinate derivative at given points, exactly up to rounding."
+    orchestrator: false
+  - number: 4
+    name: "04_compute_right_moving_flux"
+    description: "Compute the regularizing constant and the right-moving probability flux at the product-well minimum for a level below the barrier top of the trigonometric double well."
+    orchestrator: false
+  - number: 5
+    name: "05_compute_transmission_probability"
+    description: "Compute the quantum transmission probability through the barrier for a level below the barrier top from the scattering states matched at its inner turning points."
+    orchestrator: false
+  - number: 6
+    name: "06_compute_reduced_rate_constant"
+    description: "Compute the Boltzmann-averaged reduced proton-transfer rate constant of the trigonometric double well at a given reduced inverse temperature."
+    orchestrator: false
+  - number: 7
+    name: "07_compute_proton_transfer_rate"
+    description: "Compose every earlier step to obtain the thermal proton-transfer rate constant, in units of 1e12 per second, of a symmetric hydrogen bond described by a fitted trigonometric double well. Orchestrator: it fits the double well to the scan (fit_trigonometric_well), converts the temperature to the reduced inverse temperature of the fitted model and evaluates the reduced rate constant (compute_reduced_rate_constant, which uses compute_well_energy_levels, compute_right_moving_flux and compute_transmission_probability, the last two built on evaluate_well_eigenfunction), then converts that rate to per-second units, consuming each output rather than reimplementing any step."
+    orchestrator: true

@@ -1,0 +1,40 @@
+problem_id: "Material_Science-Semiconductor_Materials-31"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2607.08422"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_build_dual_partition"
+    description: "Construct quadratic nodal coordinates and their one-dimensional control intervals."
+    orchestrator: false
+  - number: 2
+    name: "02_compute_normal_kernel"
+    description: "Compute the exponentially fitted trace weights and three signed source-kernel moments."
+    orchestrator: false
+  - number: 3
+    name: "03_transform_quadratic_traces"
+    description: "Express the nine quadratic nodal basis functions in oriented face coordinates."
+    orchestrator: false
+  - number: 4
+    name: "04_compute_homogeneous_face"
+    description: "Evaluate the homogeneous integrated normal-flux functional of a quadratic element."
+    orchestrator: false
+  - number: 5
+    name: "05_compute_transverse_face"
+    description: "Evaluate the signed transverse contribution to the integrated normal flux."
+    orchestrator: false
+  - number: 6
+    name: "06_compute_source_face"
+    description: "Integrate the prescribed generation term against the signed normal-flux kernel."
+    orchestrator: false
+  - number: 7
+    name: "07_solve_carrier_balance"
+    description: "Assemble and solve the conservative quadratic carrier-balance equations."
+    orchestrator: false
+  - number: 8
+    name: "08_compute_carrier_population"
+    description: "Return the integrated carrier population from the complete discrete transport solve."
+    orchestrator: true

@@ -1,0 +1,44 @@
+problem_id: "Biology-Genetics-3"
+subject: "biology"
+subject_area: "Genetics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: " https://doi.org/10.48550/arXiv.2608.26488"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_generate_polarization_updates"
+    description: "Construct carrier updates for multiallelic polarization.\n\nMultiallelic polarization replaces an ancestral alternate by the former\n\nreference allele while retaining every non-ancestral alternate. For each site\n\nwith observed set C and original alternate carrier sets A_j, the\n\nformer-reference carriers are C minus the union of all A_j. Surviving\n\nalternates remain in input order and the former-reference replacement is last."
+    orchestrator: false
+  - number: 2
+    name: "02_encode_adaptive_reaches"
+    description: "Encode graph-node reaches with adaptive sparse or dense storage.\n\nA genotype representation graph node represents the union of the sample\n\nleaves below its children. The multitree property makes sibling reaches\n\ndisjoint. A reach with density d / N at least dense_threshold is stored\n\ndensely; otherwise it remains sparse. Integer bitmasks retain the exact reach\n\nwhile a flag records the adaptive choice."
+    orchestrator: false
+  - number: 3
+    name: "03_pack_batch_memberships"
+    description: "Pack a batch of mutation memberships into fixed-width words.\n\nShared mutation discovery stores one compatibility bit per update at each\n\nactive node. Consecutive updates occupy consecutive low-to-high bits in\n\nfixed-width words, so update i uses word floor(i / w) and bit i modulo w. Leaf\n\nwords are seeded from replacement carrier membership.\n\nInputs"
+    orchestrator: false
+  - number: 4
+    name: "04_discover_shared_candidates"
+    description: "Discover compatible graph nodes for a shared update batch.\n\nBatched candidate discovery propagates all mutation compatibilities in one\n\nreverse-topological pass. Leaf state is packed carrier membership. Each\n\ninternal word starts from the valid-bit mask for that word and is intersected\n\nwith the corresponding word of every child, including a zero-state child. Thus\n\na node retains update bit i exactly when D(n) is contained in S_i. A zero state\n\nprunes the branch above that node. Words use low-to-high bit order; unused high\n\nbits in every word, including the partial final word, are invalid."
+    orchestrator: false
+  - number: 5
+    name: "05_plan_snapshot_attachments"
+    description: "Plan mutation attachments against a read-only graph snapshot.\n\nMutation application consumes candidates discovered on one read-only graph\n\nsnapshot. An exact-reach node is reused directly; when several nodes reach\n\nexactly the carrier set, the smallest node identifier is reused. Otherwise\n\ncompatible internal nodes are considered by decreasing descendant count, with\n\nequal counts taken in increasing node-identifier order, disjoint reaches\n\nare retained, and uncovered carriers attach as leaves. Each plan stores an\n\nexact node identifier or a bitmask of snapshot child identifiers."
+    orchestrator: false
+  - number: 6
+    name: "06_apply_snapshot_batch"
+    description: "Apply a batch of attachment plans to the graph snapshot.\n\nA batch applies plans made against a fixed read-only snapshot. Exact matches\n\nattach to existing nodes. Every nonempty child mask appends a distinct mutation\n\nnode in row order, even when an earlier row appended an equivalent node,\n\nbecause intra-batch structure was absent during discovery."
+    orchestrator: false
+  - number: 7
+    name: "07_audit_independent_discovery"
+    description: "Audit independent per-mutation graph discovery.\n\nIndependent discovery starts from one mutation's carrier leaves and proceeds\n\nupward only through compatible nodes. A reached internal node is counted before\n\nits compatibility test; a compatible node is also counted as a candidate and\n\nactivates its parents. Packing each visit set as a node bitmask makes both\n\nper-mutation work and the shared union exact."
+    orchestrator: false
+  - number: 8
+    name: "08_compute_batch_work_ratio"
+    description: "Compute the shared-batch traversal work ratio.\n\nThe independent discovery work model sums visited nodes and generated\n\ncandidates across mutations. The batched model charges q packed-word\n\noperations per distinct visited node and the same total candidates, where q is\n\nthe ceiling of mutation count divided by word size. Their quotient measures\n\nbatched work relative to independent work."
+    orchestrator: false
+  - number: 9
+    name: "09_run_full_pipeline"
+    description: "Orchestrate the complete multiallelic GRG batch-cost benchmark.\n\n\n\nThe full calculation converts multiallelic polarization records into\n\n\n\nreplacement carrier sets, encodes the snapshot's reaches and packed mutation\n\n\n\nstate, discovers and applies fixed-snapshot attachments, verifies that every replacement\n\n\n\nreaches exactly its carriers, audits independent\n\n\n\ndiscovery on the unedited discovery snapshot, and evaluates the paper's\n\n\n\nbatched-to-independent work quotient. This orchestrator is the final Studio\n\n\n\nstep."
+    orchestrator: true

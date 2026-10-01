@@ -1,0 +1,40 @@
+problem_id: "Material_Science-Molecular_Modeling-32"
+subject: "materials"
+subject_area: "Molecular Modeling"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2606.11809"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_relaxed_reference_response"
+    description: "Compute an implicitly relaxed molecular reference and its second parameter response."
+    orchestrator: false
+  - number: 2
+    name: "02_anchored_band_response"
+    description: "Differentiate an anchored retained-band frame through spectral projection and mass weighting."
+    orchestrator: false
+  - number: 3
+    name: "03_projected_force_response"
+    description: "Evaluate moving-reference residual forces and Hessians through second parameter order."
+    orchestrator: false
+  - number: 4
+    name: "04_harmonic_frechet_response"
+    description: "Compute noncommuting first and second responses of the exact harmonic propagator."
+    orchestrator: false
+  - number: 5
+    name: "05_driven_band_jet_step"
+    description: "Propagate driven band dynamics and mixed variational responses through second order."
+    orchestrator: false
+  - number: 6
+    name: "06_periodic_orbit_response"
+    description: "Continue a forced periodic orbit and solve its first and second implicit parameter responses."
+    orchestrator: false
+  - number: 7
+    name: "07_metric_stretching_curvature"
+    description: "Differentiate finite-time stretching twice in a moving harmonic-energy metric."
+    orchestrator: false
+  - number: 8
+    name: "08_phase_averaged_curvature"
+    description: "Compute phase-averaged stretching curvature using parameter-dependent monodromy conjugacy."
+    orchestrator: true

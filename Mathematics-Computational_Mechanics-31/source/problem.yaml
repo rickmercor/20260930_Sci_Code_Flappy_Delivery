@@ -1,0 +1,36 @@
+problem_id: "Mathematics-Computational_Mechanics-31"
+subject: "mathematics"
+subject_area: "Computational Mechanics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1016/j.mechmat.2026.105837"
+dependencies: ""
+steps:
+  - number: 1
+    name: "step_01_crystal_acoustic_tensors"
+    description: "The one-dimensional displacement field retains three coupled components. Each hexagonal grain retains its full anisotropic stiffness. Crystal axes in the specimen frame are the columns of the active rotation $R=Z(\\varphi_1)X(\\Phi)Z(\\varphi_2)$, with right-handed rotations and angles in degrees. The acoustic tensor $A$ is defined by $\\sigma_{i1}=A_{ik}\\partial_1 u_k$. The engineering Voigt ordering is (11, 22, 33, 23, 13, 12); the sixfold axis is the third crystal axis. The independent constants are c11, c33, c12, c13 and c44; c22=c11, c23=c13, c55=c44 and c66=(c11-c12)/2."
+    orchestrator: false
+  - number: 2
+    name: "step_02_buffered_stiffness"
+    description: "The specimen occupies the first n_specimen voxels of an odd periodic grid, with three displacement components stored consecutively per voxel. A forward voxel difference defines strain and its adjoint defines the positive stiffness operator. Buffer voxels have zero density and acoustic tensor buffer_ratio times diag(mean_A11, mean_Atransverse, mean_Atransverse), where the means are voxel-weighted specimen averages and mean_Atransverse is half the sum of the transverse diagonal means. Construct the real stiffness matrix of this Fourier discretisation and its diagonal inertia coefficients. Neither matrix includes a voxel-volume factor."
+    orchestrator: false
+  - number: 3
+    name: "step_03_elastic_modes"
+    description: "Find all elastic natural modes of a specimen with positive specimen inertia and exactly zero buffer inertia. Buffer displacements are unconstrained and satisfy instantaneous mechanical equilibrium. Elastic displacement is measured relative to the specimen centre of mass; exclude the three rigid translations. Return specimen mode columns normalised in the specimen mass inner product, with positive frequencies in ascending order. Signs and orthonormal bases within repeated eigenspaces are unrestricted. The condensed stiffness maps specimen displacements to specimen forces when the buffer is in equilibrium."
+    orchestrator: false
+  - number: 4
+    name: "step_04_modal_residues"
+    description: "Determine the vector receptor displacement residue for unit scalar traction at the source in each distinct elastic eigenspace. Normalise the prescribed traction direction and represent surface traction as a voxel force density. Mode columns contain three consecutive components per specimen voxel and are mass-normalised. Starting at the lowest unused frequency, a cluster contains consecutive frequencies no greater than (1 + cluster_rtol) times that first frequency; represent it by the arithmetic-mean frequency. Residues must be invariant under sign changes and orthogonal basis changes within repeated eigenspaces."
+    orchestrator: false
+  - number: 5
+    name: "step_05_modal_impact_record"
+    description: "Compute each elastic eigenspace's receptor history under the difference of two Gaussian traction pulses of common amplitude and width, centred at pulse_centre and pulse_centre + pulse_width. Use average-acceleration Newmark integration with beta=1/4 and gamma=1/2, zero initial displacement, velocity and acceleration, and traction evaluated at each step's end time. Include the initial zero sample. Each residue maps its unit-inertia oscillator response into the three receptor components. Retain the finite-record phase of every cluster."
+    orchestrator: false
+  - number: 6
+    name: "step_06_finite_record_coherence"
+    description: "Measure interference between elastic eigenspaces in a frequency band. The numerator is the band sum of squared vector Fourier amplitudes of the total receptor displacement. The denominator is the sum of the corresponding powers of the individual eigenspace histories. Use the complete record, NumPy's default Fourier normalisation, no window and no zero padding, retaining non-negative bin centres in the closed band. The powers are unnormalised DFT sums. Their dimensionless ratio can exceed one."
+    orchestrator: false
+  - number: 7
+    name: "step_07_polycrystal_coherence"
+    description: "Compute the finite-record interference ratio from the grain orientations and physical configuration. Retain the rotated anisotropic acoustic tensors, the odd periodic grid, the massless compliant buffer, every elastic eigenspace and the prescribed finite-duration pulse experiment. The source is voxel zero. Compare the total receptor vector displacement power with the sum of isolated-eigenspace powers in the band. Recompute every intermediate quantity from the top-level inputs."
+    orchestrator: true

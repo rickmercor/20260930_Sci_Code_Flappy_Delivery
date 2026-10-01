@@ -1,0 +1,44 @@
+problem_id: "Physics-Astrophysics-10"
+subject: "physics"
+subject_area: "Astrophysics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.3847/psj/ae63b7"
+dependencies: ""
+steps:
+  - number: 1
+    name: "observation plan"
+    description: "Deterministic exposure and injection tables for the compact search."
+    orchestrator: false
+  - number: 2
+    name: "spherical orbit state"
+    description: "Map spherical orbit coordinates to a Cartesian Kepler state."
+    orchestrator: false
+  - number: 3
+    name: "apparent registration path"
+    description: "Light-time-corrected apparent offsets along a two-body orbit."
+    orchestrator: false
+  - number: 4
+    name: "matched filter statistics"
+    description: "Construct per-exposure PSF-matched numerator and precision maps."
+    orchestrator: false
+  - number: 5
+    name: "registered coadd"
+    description: "Register matched statistics on a barycentric canvas and coadd them."
+    orchestrator: false
+  - number: 6
+    name: "deduplicated candidates"
+    description: "Select one local likelihood maximum per injected trajectory."
+    orchestrator: false
+  - number: 7
+    name: "injection recoveries"
+    description: "Measure robust forced fluxes at the retained candidate positions."
+    orchestrator: false
+  - number: 8
+    name: "logistic completeness fit"
+    description: "Fit the unbinned logistic recovery efficiency curve."
+    orchestrator: false
+  - number: 9
+    name: "completeness magnitude"
+    description: "Run the complete deterministic pipeline and return the 50-percent-completeness magnitude."
+    orchestrator: true

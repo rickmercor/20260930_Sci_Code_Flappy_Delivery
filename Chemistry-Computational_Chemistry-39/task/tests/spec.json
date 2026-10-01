@@ -1,0 +1,77 @@
+{
+  "problem_id": "Chemistry-Computational_Chemistry-39",
+  "sub_steps": [
+    {
+      "step_number": "Chemistry-Computational_Chemistry-39.1",
+      "test_cases": [
+        "import numpy as np\nr=np.arange(48,dtype=float).reshape(4,4,3)/10; M=np.array([[.6,.4,0,0],[0,0,.25,.75]])\nassert np.allclose(map_atomistic_coordinates(r,M), target)",
+        "import numpy as np\nr=np.array([[[1.,-1.],[2.,3.],[4.,0.]]]); M=np.eye(3)\nassert np.allclose(map_atomistic_coordinates(r,M), target)",
+        "import numpy as np\nr=np.arange(30,dtype=float).reshape(5,3,2); M=np.array([[.2,.3,.5]])\nassert np.allclose(map_atomistic_coordinates(r,M), target)",
+        "import numpy as np\nr=np.array([[[1.],[-2.],[3.],[.5]],[[0.],[4.],[-1.],[2.]],[[2.],[1.],[.5],[-3.]]]); M=np.array([[.5,.25,.25,0.],[0.,.2,.3,.5]])\nassert np.allclose(map_atomistic_coordinates(r,M), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-39.2",
+      "test_cases": [
+        "import numpy as np\nrng=np.random.default_rng(3); f=rng.normal(size=(7,4,3)); M=np.array([[.6,.4,0,0],[0,0,.3,.7]])\nassert np.allclose(minimum_variance_force_map(M,f,.01), target)",
+        "import numpy as np\nrng=np.random.default_rng(9); f=rng.normal(size=(5,3,2)); M=np.eye(3)\nassert np.allclose(minimum_variance_force_map(M,f,.2), target)",
+        "import numpy as np\nf=np.array([[[1.,2.],[-1.,.5]],[[.2,-.4],[.7,1.1]]]); M=np.array([[.25,.75]])\nassert np.allclose(minimum_variance_force_map(M,f,.05), target)",
+        "import numpy as np\nrng=np.random.default_rng(27); f=rng.normal(size=(8,5,2)); M=np.array([[.55,.25,.20,0.,0.],[0.,.10,.25,.30,.35]])\nassert np.allclose(minimum_variance_force_map(M,f,0.0), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-39.3",
+      "test_cases": [
+        "import numpy as np\nR=np.arange(18,dtype=float).reshape(2,3,3)/5; z=np.linspace(-1,1,72).reshape(4,2,3,3)\nassert np.allclose(sample_probabilistic_cg(R,z,.2), target)",
+        "import numpy as np\nR=np.zeros((1,1,2)); z=np.array([[[[1.,-1.]]]])\nassert np.allclose(sample_probabilistic_cg(R,z,1e-6), target)",
+        "import numpy as np\nrng=np.random.default_rng(4); R=rng.normal(size=(5,2,1)); z=rng.normal(size=(3,5,2,1))\nassert np.allclose(sample_probabilistic_cg(R,z,.35), target)",
+        "import numpy as np\nR=np.array([[[1.,-2.],[.5,3.]],[[-1.,.25],[2.,-4.]]]); z=np.zeros((3,2,2,2))\nassert np.allclose(sample_probabilistic_cg(R,z,.7), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-39.4",
+      "test_cases": [
+        "import numpy as np\nf=np.arange(24,dtype=float).reshape(2,4,3)/7; M=np.array([[.6,.4,0,0],[0,0,.3,.7]]); R0=np.einsum('qa,fac->fqc',M,np.arange(24,dtype=float).reshape(2,4,3)/9); z=np.linspace(-1,1,36).reshape(3,2,2,3); R=R0[None]+.2*z\nassert np.allclose(build_extended_forces(f,M,R0,R,.2), target)",
+        "import numpy as np\nf=np.array([[[1.,-2.],[.5,.3]]]); M=np.array([[.4,.6]]); R0=np.zeros((1,1,2)); R=np.zeros((2,1,1,2))\nassert np.allclose(build_extended_forces(f,M,R0,R,.1), target)",
+        "import numpy as np\nrng=np.random.default_rng(6); f=rng.normal(size=(4,3,1)); M=np.eye(3); R0=rng.normal(size=(4,3,1)); R=R0[None]+.05*rng.normal(size=(5,4,3,1))\nassert np.allclose(build_extended_forces(f,M,R0,R,.05), target)",
+        "import numpy as np\nf=np.array([[[1.],[-2.],[.5]]]); M=np.array([[.6,.4,0.],[0.,.25,.75]]); R0=np.array([[[.2],[-.3]]]); R=np.array([[[[.3],[-.5]]],[[[.05],[.1]]]])\nassert np.allclose(build_extended_forces(f,M,R0,R,.25), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-39.5",
+      "test_cases": [
+        "import numpy as np\nrng=np.random.default_rng(5); G=rng.normal(size=(4,6,6,3)); T=np.array([[1.1,.2,-.1,.0],[-.2,.3,.5,.8]])\nassert np.allclose(fit_staged_force_map(G,T,.03), target)",
+        "import numpy as np\nrng=np.random.default_rng(8); G=rng.normal(size=(2,3,4,1)); T=np.eye(2)\nassert np.allclose(fit_staged_force_map(G,T,.1), target)",
+        "import numpy as np\nG=np.array([[[[1.],[2.],[-1.]],[[2.],[-1.],[.5]]],[[[.5],[1.5],[-.2]],[[1.2],[.4],[.8]]]]); T=np.array([[.4,.6]])\nassert np.allclose(fit_staged_force_map(G,T,.02), target)",
+        "import numpy as np\nrng=np.random.default_rng(29); G=rng.normal(size=(3,4,5,2)); T=np.array([[.7,.3,0.],[0.,.2,.8]])\nassert np.allclose(fit_staged_force_map(G,T,0.0), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-39.6",
+      "test_cases": [
+        "import numpy as np\nG=np.arange(96,dtype=float).reshape(2,4,4,3)/11; S=np.array([[1.,0.,.2,-.1],[0.,1.,-.3,.4]])\nassert np.allclose(project_extended_forces(G,S), target)",
+        "import numpy as np\nG=np.array([[[[1.,-1.],[2.,3.]]]]); S=np.eye(2)\nassert np.allclose(project_extended_forces(G,S), target)",
+        "import numpy as np\nrng=np.random.default_rng(15); G=rng.normal(size=(3,5,7,1)); S=rng.normal(size=(2,7))\nassert np.allclose(project_extended_forces(G,S), target)",
+        "import numpy as np\nG=np.arange(12,dtype=float).reshape(1,2,3,2)-3.; S=np.array([[0.,0.,0.],[1.,-1.,.5],[-.25,.75,1.]])\nassert np.allclose(project_extended_forces(G,S), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-39.7",
+      "test_cases": [
+        "import numpy as np\nrng=np.random.default_rng(2); R=rng.normal(size=(3,6,2,3)); H=np.array([[2.,-.4],[-.4,1.5]]); Y=-np.einsum('ij,sfjc->sfic',H,R)\nassert np.allclose(fit_conservative_precision(R,Y,1e-8), target)",
+        "import numpy as np\nR=np.linspace(-1,1,12).reshape(2,3,1,2); Y=-2.5*R\nassert np.allclose(fit_conservative_precision(R,Y,.01), target)",
+        "import numpy as np\nrng=np.random.default_rng(12); R=rng.normal(size=(2,5,3,1)); H=np.array([[3.,.2,-.1],[.2,2.,.4],[-.1,.4,1.7]]); Y=-np.einsum('ij,sfjc->sfic',H,R)+.05*rng.normal(size=R.shape)\nassert np.allclose(fit_conservative_precision(R,Y,.03), target)",
+        "import numpy as np\nrng=np.random.default_rng(44); R=rng.normal(size=(2,7,4,2)); H=np.array([[3.,-.4,.15,0.],[-.4,2.6,-.3,.1],[.15,-.3,2.2,-.25],[0.,.1,-.25,1.8]]); Y=-np.einsum('ij,sfjc->sfic',H,R)\nassert np.allclose(fit_conservative_precision(R,Y,0.0), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-39.8",
+      "test_cases": [
+        "import numpy as np\nargs=_benchmark_fixture()\nassert np.allclose(noised_pmf_precision_error(*args), target)",
+        "import numpy as np\nargs=_one_bead_fixture()\nassert np.allclose(noised_pmf_precision_error(*args), target)",
+        "import numpy as np\nargs=_overlap_fixture()\nassert np.allclose(noised_pmf_precision_error(*args), target)",
+        "import numpy as np\nargs=_four_atom_fixture()\nassert np.allclose(noised_pmf_precision_error(*args), target)"
+      ]
+    }
+  ]
+}

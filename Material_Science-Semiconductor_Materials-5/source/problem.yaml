@@ -1,0 +1,40 @@
+problem_id: "Material_Science-Semiconductor_Materials-5"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1103/pgk3-b57l"
+dependencies: ""
+steps:
+  - number: 1
+    name: "joint_operators"
+    description: "Construct the coupled emitter\u2013probe Hamiltonian family."
+    orchestrator: false
+  - number: 2
+    name: "bath_response"
+    description: "Evaluate the thermal phonon response on its analytic frequency strip."
+    orchestrator: false
+  - number: 3
+    name: "phonon_rate_series"
+    description: "Expand the paper\u2019s joint-system phonon rate operator in the probe coupling."
+    orchestrator: false
+  - number: 4
+    name: "phonon_superoperator"
+    description: "Construct the nonsecular phonon generator series."
+    orchestrator: false
+  - number: 5
+    name: "total_liouvillian"
+    description: "Assemble the shifted-resonance joint generator series."
+    orchestrator: false
+  - number: 6
+    name: "stationary_density"
+    description: "Recover the normalized stationary family coefficient by coefficient."
+    orchestrator: false
+  - number: 7
+    name: "subset_spectra"
+    description: "Extract the noninvasive physical spectra for every probe subset."
+    orchestrator: false
+  - number: 8
+    name: "connected_coincidence"
+    description: "Compute the noninvasive connected coincidence from the joint stationary family."
+    orchestrator: true

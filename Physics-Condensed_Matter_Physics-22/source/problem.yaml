@@ -1,0 +1,40 @@
+problem_id: "Physics-Condensed_Matter_Physics-22"
+subject: "physics"
+subject_area: "Condensed Matter Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1103/2f5l-scbv"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_compute_modal_properties.py"
+    description: "Compute the quantum harmonic heat capacities and equilibrium phonon lifetimes for the supplied vibrational modes. These modal properties provide the equilibrium-phonon quantities needed later for the Peierls--Boltzmann relaxation-time conductivity."
+    orchestrator: false
+  - number: 2
+    name: "02_construct_spectral_components.py"
+    description: "Construct the pairwise coefficients, resonance centers, and transport broadenings that define the singular and regular harmonic heat-current spectral contributions."
+    orchestrator: false
+  - number: 3
+    name: "03_transform_to_imaginary_time.py"
+    description: "Transform the singular and regular harmonic spectral contributions into their corresponding imaginary-time heat-current correlation components."
+    orchestrator: false
+  - number: 4
+    name: "04_fit_transport_reconstruction.py"
+    description: "Infer the mode-independent transport damping rate and regular-spectrum scale by minimizing the weighted mismatch between the reconstructed and supplied imaginary-time heat-current correlations over the specified parameter bounds."
+    orchestrator: false
+  - number: 5
+    name: "05_evaluate_zero_frequency_spectrum.py"
+    description: "Evaluate the singular, regular, and total fitted heat-current spectral density at zero frequency and obtain the transport lifetime associated with the fitted damping rate."
+    orchestrator: false
+  - number: 6
+    name: "06_compute_reconstructed_conductivity.py"
+    description: "Convert the fitted zero-frequency heat-current spectral density into the reconstructed isotropic thermal conductivity."
+    orchestrator: false
+  - number: 7
+    name: "07_compute_pb_rta_conductivity.py"
+    description: "Compute the independent Peierls--Boltzmann relaxation-time thermal conductivity from the modal quantum heat capacities, supplied mode velocities, and equilibrium phonon lifetimes."
+    orchestrator: false
+  - number: 8
+    name: "08_run_transport_reconstruction_pipeline.py"
+    description: "Run the complete transport reconstruction, evaluate the fitted zero-frequency Green--Kubo conductivity, independently evaluate the Peierls--Boltzmann relaxation-time conductivity, and return their ratio."
+    orchestrator: true

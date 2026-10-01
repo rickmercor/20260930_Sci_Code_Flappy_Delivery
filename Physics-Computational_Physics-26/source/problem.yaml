@@ -1,0 +1,52 @@
+problem_id: "Physics-Computational_Physics-26"
+subject: "physics"
+subject_area: "Computational Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2609.10165"
+dependencies: ""
+steps:
+  - number: 1
+    name: "signed_normal_distance"
+    description: "Return the signed distance from each cell centre to the spherical embedded boundary, measured along the boundary normal through that centre. The sign convention is positive on the solid side and negative on the fluid side. The solid is the ball interior and the fluid is everything outside it."
+    orchestrator: false
+  - number: 2
+    name: "boundary_normal"
+    description: "Return the unit normal to the spherical embedded boundary at each cell centre, oriented to point out of the solid and into the fluid region."
+    orchestrator: false
+  - number: 3
+    name: "normal_cell_thickness"
+    description: "Return the characteristic cell thickness measured in the boundary-normal direction. Divide each component of the unit normal by the mesh spacing in that same coordinate direction, take the Euclidean norm of the resulting triple, and return its reciprocal. It equals the spacing exactly when the normal is aligned with that axis and lies between the smallest and largest spacing otherwise, so it is not simply the smallest of the three."
+    orchestrator: false
+  - number: 4
+    name: "hybrid_ghost_tags"
+    description: "Tag every cell as fluid, solid, or a hybrid ghost cell. A cell whose signed distance is positive is a ghost candidate when that distance is at most one and a half times its thickness, which keeps a second layer of them on the solid side; a cell whose signed distance is negative is a ghost candidate when the distance measured into the fluid is strictly less than half its thickness. Then make one follow-up pass over the fluid-side candidates only: a fluid-side candidate with no solid cell among its six Cartesian neighbours becomes plain fluid. Solid-side candidates are all retained, because the deeper threshold admitted them deliberately. Both the candidacy tests and this follow-up pass classify neighbours by the sign of the signed distance, never by a tag this same call has already written. Cells at an array face have their off-grid neighbours replaced by the face cell itself."
+    orchestrator: false
+  - number: 5
+    name: "boundary_point"
+    description: "Return the point where the boundary normal through each cell centre meets the spherical embedded boundary. This is the location at which the boundary condition is imposed."
+    orchestrator: false
+  - number: 6
+    name: "stencil_multipliers"
+    description: "Return the per-direction integer by which the reconstruction stencil is widened at each cell. For each coordinate direction take twice the absolute value of the product of that direction's normal component with the signed distance, divide by that direction's mesh spacing, round up to the next integer, and take the larger of that and one. The multiplier is therefore one wherever the normal component vanishes or the cell sits close to the boundary."
+    orchestrator: false
+  - number: 7
+    name: "trilinear_value_weights"
+    description: "Return the three interpolation weights of the closed-form ghost-cell reconstruction that applies where the field value itself is prescribed at the boundary. The diagonally opposite stencil point sits one multiplier's worth of cells away in each direction, on the side the matching normal component points to, counting a vanishing component as the positive side. Each weight is then the ghost-cell coordinate minus the boundary-point coordinate, divided by the opposite stencil point's coordinate minus the boundary-point coordinate, taken in x for the first weight, in y for the second and in z for the third."
+    orchestrator: false
+  - number: 8
+    name: "trilinear_derivative_weights"
+    description: "Return the eight weights of the closed-form ghost-cell reconstruction that applies where the normal derivative is prescribed at the boundary: seven on the Cartesian neighbours, in the P1 to P7 order fixed below, and one on that prescribed derivative. The weights are defined by the interpolation problem itself. Over the stencil formed by the ghost cell and its seven Cartesian neighbours there is a unique function of the form C0 + C1 x + C2 y + C3 z + C4 xy + C5 yz + C6 xz + C7 xyz whose values at the seven neighbours are the seven neighbour values and whose gradient dotted with the outward unit normal equals the prescribed derivative at the boundary point. That function's value at the ghost cell depends linearly on those eight data; return the eight coefficients of that dependence, the seven neighbour coefficients first and the coefficient of the prescribed derivative last. The opposite stencil point sits one multiplier's worth of cells away in each direction, on the side the matching normal component points to, counting a vanishing component as the positive side, which is what keeps the problem non-degenerate. Writing i2, j2 and k2 for that point's indices in x, y and z, the seven neighbours in order are the points differing from the ghost cell in x alone, in y alone, in z alone, in x and y, in y and z, in x and z, and in all three."
+    orchestrator: false
+  - number: 9
+    name: "dependency_levels"
+    description: "Assign every ghost cell to a dependency level, so that the reconstruction of a ghost cell in one level needs only cells that are already resolved. A ghost cell is one tagged 2.0 or -2.0; every other cell carries -1.0. A ghost cell whose active stencil neighbours contain no other ghost cell is at level 0; otherwise its level is one more than the largest level among the ghost cells in its active stencil. Index the arrays [k, j, i] with k along z, j along y and i along x, so entry 0 of normals and mult belongs to the LAST index and entry 2 to the FIRST. Write i2, j2 and k2 for the index one multiplier's worth of cells away in x, y and z, on the side the matching normal component points to, counting a vanishing component as the positive side, and clamped to the array bounds. The seven stencil neighbours are then (k,j,i2), (k,j2,i), (k2,j,i), (k,j2,i2), (k2,j2,i), (k2,j,i2) and (k2,j2,i2). Omit a neighbour whenever reaching it changes a coordinate whose normal component is zero: its reconstruction weight vanishes, so it creates no dependency. Memoise, because the same cell is reached from many others. Raise ValueError if the dependencies contain a cycle, which an active stencil dependency that clamps back onto its own cell produces."
+    orchestrator: false
+  - number: 10
+    name: "sweep_reconstruct"
+    description: "Reconstruct every ghost value by visiting the dependency levels in increasing order, writing the values of one level before moving to the next. Within a level the ghost cells are independent of one another. Cells that are not ghosts are left untouched. A ghost cell is one tagged 2.0 or -2.0. The stencil is the general eight-term one: the ghost value is the sum over the seven stencil neighbours of that neighbour's weight times its current value, plus the eighth weight, so the caller supplies whichever closed form applies at each cell rather than the routine assuming one. Index the arrays [k, j, i] with k along z, j along y and i along x, so entry 0 of normals and mult belongs to the LAST index and entry 2 to the FIRST. With i2, j2 and k2 the indices one multiplier's worth of cells away in x, y and z, on the side the matching normal component points to, counting a vanishing component as the positive side, and clamped to the array bounds, the seven neighbours are taken in the order (k,j,i2), (k,j2,i), (k2,j,i), (k,j2,i2), (k2,j2,i), (k2,j,i2), (k2,j2,i2)."
+    orchestrator: false
+  - number: 11
+    name: "embedded_boundary_audit"
+    description: "Run the whole audit on the prescribed instance at the given refinement by chaining the earlier steps, and return the eight diagnostics that characterise it. The instance is the one the problem statement fixes; refine = 1 is that instance and larger integers subdivide each direction by that factor while keeping the same extents and the same sphere."
+    orchestrator: true

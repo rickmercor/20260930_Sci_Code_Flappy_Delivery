@@ -1,0 +1,36 @@
+problem_id: "Physics-Quantum_Information_Computing-35"
+subject: "physics"
+subject_area: "Quantum Information / Computing"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1103/fby6-xjbm"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_psc_square_pauli.py"
+    description: "Recover the Pauli square of a Pauli-square-root Clifford from canonical data."
+    orchestrator: false
+  - number: 2
+    name: "02_psc_conjugate_pauli.py"
+    description: "Conjugate a Pauli by a canonically represented Pauli-square-root Clifford."
+    orchestrator: false
+  - number: 3
+    name: "03_psc_commutator_signature.py"
+    description: "Extract the source Pauli commutator and its PSC parity relation."
+    orchestrator: false
+  - number: 4
+    name: "04_controlled_psc_fault_factor.py"
+    description: "Factor an arbitrary Pauli fault propagated through a controlled PSC."
+    orchestrator: false
+  - number: 5
+    name: "05_compact_psc_schedule_propagation.py"
+    description: "Propagate a fresh-ancilla PSC measurement schedule as a compact Clifford gate list."
+    orchestrator: false
+  - number: 6
+    name: "06_postselected_pauli_rank_statistics.py"
+    description: "Evaluate postselected phase-insensitive statistics from the compact propagated error."
+    orchestrator: false
+  - number: 7
+    name: "07_ensemble_compact_magic_fidelity.py"
+    description: "Combine exact compact-propagation branches into an accepted-ensemble magic-state fidelity."
+    orchestrator: true

@@ -1,0 +1,81 @@
+{
+  "problem_id": "Physics-Particle_Physics-39",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Particle_Physics-39.1",
+      "test_cases": [
+        "assert np.allclose(compute_deep_lpm_rate(0.338459206968295, 3.0, 0.3, 3.0, 0.015), target)",
+        "assert np.allclose(compute_deep_lpm_rate(0.5, 3.0, 0.3, 3.0, 0.015), target)",
+        "assert np.allclose(compute_deep_lpm_rate(0.2, 2.0, 0.25, 3.0, 0.02), target)",
+        "assert np.allclose(compute_deep_lpm_rate(0.7, 6.0, 0.2, 3.0, 0.01), target)",
+        "assert np.allclose(compute_deep_lpm_rate(0.37, 4.2, 0.28, 4.0, 0.017), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-39.2",
+      "test_cases": [
+        "assert np.allclose(compute_thermal_channel_rates(0.338459206968295, 3.0, 0.5, 0.3, 3.0, 0.015), target)",
+        "assert np.allclose(compute_thermal_channel_rates(0.5, 3.0, 0.5, 0.3, 3.0, 0.015), target)",
+        "assert np.allclose(compute_thermal_channel_rates(0.3, 1.2, 0.5, 0.3, 3.0, 0.015), target)",
+        "assert np.allclose(compute_thermal_channel_rates(0.4, 8.0, 0.25, 0.25, 3.0, 0.01), target)",
+        "assert np.allclose(compute_thermal_channel_rates(0.45, 1.0, 0.8, 0.3, 3.0, 0.015), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-39.3",
+      "test_cases": [
+        "import numpy as np\nz_nodes = np.array([\n    0.228146046218401,\n    0.338459206968295,\n    0.5,\n    0.661540793031705,\n    0.771853953781599,\n], dtype=float)\nweights = np.array([\n    0.071078065516857,\n    0.143588601149810,\n    0.170666666666667,\n    0.143588601149810,\n    0.071078065516857,\n], dtype=float)\nassert np.allclose(integrate_inelastic_hazard(3.0, 0.5, 0.3, 3.0, 0.015, z_nodes.copy(), weights.copy()), target)",
+        "import numpy as np\nz_nodes = np.array([\n    0.228146046218401,\n    0.338459206968295,\n    0.5,\n    0.661540793031705,\n    0.771853953781599,\n], dtype=float)\nweights = np.array([\n    0.071078065516857,\n    0.143588601149810,\n    0.170666666666667,\n    0.143588601149810,\n    0.071078065516857,\n], dtype=float)\nassert np.allclose(integrate_inelastic_hazard(1.015377620904885, 0.5, 0.3, 3.0, 0.015, z_nodes.copy(), weights.copy()), target)",
+        "import numpy as np\nz_nodes = np.array([0.25, 0.5, 0.75], dtype=float)\nweights = np.array([0.15, 0.30, 0.15], dtype=float)\nassert np.allclose(integrate_inelastic_hazard(2.5, 0.4, 0.25, 3.0, 0.012, z_nodes.copy(), weights.copy()), target)",
+        "import numpy as np\nz_nodes = np.array([0.21, 0.34, 0.58, 0.76], dtype=float)\nweights = np.array([0.07, 0.12, 0.19, 0.22], dtype=float)\nassert np.allclose(integrate_inelastic_hazard(2.2, 0.55, 0.27, 3.0, 0.013, z_nodes.copy(), weights.copy()), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-39.4",
+      "test_cases": [
+        "assert np.allclose(compute_designated_split_rate(0.338459206968295, 0.143588601149810, 3.0, 0.5, 0.3, 3.0, 0.015), target)",
+        "assert np.allclose(compute_designated_split_rate(0.5, 0.170666666666667, 3.0, 0.5, 0.3, 3.0, 0.015), target)",
+        "assert np.allclose(compute_designated_split_rate(0.3, 0.12, 1.2, 0.5, 0.3, 3.0, 0.015), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-39.5",
+      "test_cases": [
+        "import numpy as np\nz_nodes = np.array([0.228146046218401, 0.338459206968295, 0.5, 0.661540793031705, 0.771853953781599], dtype=float)\nweights = np.array([0.071078065516857, 0.143588601149810, 0.170666666666667, 0.143588601149810, 0.071078065516857], dtype=float)\nassert np.allclose(compute_daughter_shower_state(0.338459206968295, 3.0, 0.5, 0.3, 3.0, 0.015, z_nodes.copy(), weights.copy()), target)",
+        "import numpy as np\nz_nodes = np.array([0.228146046218401, 0.338459206968295, 0.5, 0.661540793031705, 0.771853953781599], dtype=float)\nweights = np.array([0.071078065516857, 0.143588601149810, 0.170666666666667, 0.143588601149810, 0.071078065516857], dtype=float)\nassert np.allclose(compute_daughter_shower_state(0.5, 3.0, 0.5, 0.3, 3.0, 0.015, z_nodes.copy(), weights.copy()), target)",
+        "import numpy as np\nz_nodes = np.array([0.25, 0.5, 0.75], dtype=float)\nweights = np.array([0.15, 0.30, 0.15], dtype=float)\nassert np.allclose(compute_daughter_shower_state(0.25, 1.4, 0.55, 0.28, 3.0, 0.014, z_nodes.copy(), weights.copy()), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-39.6",
+      "test_cases": [
+        "import numpy as np\nmomentum = 3.0\nalpha_s = 0.300\nc_a = 3.0\nqhat = 0.0150\nz_nodes = np.array([\n    0.228146046218401,\n    0.338459206968295,\n    0.500000000000000,\n    0.661540793031705,\n    0.771853953781599,\n], dtype=float)\nweights = np.array([\n    0.071078065516857,\n    0.143588601149810,\n    0.170666666666667,\n    0.143588601149810,\n    0.071078065516857,\n], dtype=float)\nbalance_observed = 0.05369259190766756\nsurvival_observed = 0.9286581077917495\ncalibration_length = 1.0\ntemperature_bounds = np.array([0.2, 0.8], dtype=float)\nassert np.allclose(infer_temperature_branches(momentum, alpha_s, c_a, qhat, z_nodes.copy(), weights.copy(), balance_observed, survival_observed, calibration_length, temperature_bounds.copy()), target)",
+        "import numpy as np\nmomentum = 4.0\nalpha_s = 0.300\nc_a = 3.0\nqhat = 0.0150\nz_nodes = np.array([\n    0.228146046218401,\n    0.338459206968295,\n    0.500000000000000,\n    0.661540793031705,\n    0.771853953781599,\n], dtype=float)\nweights = np.array([\n    0.071078065516857,\n    0.143588601149810,\n    0.170666666666667,\n    0.143588601149810,\n    0.071078065516857,\n], dtype=float)\nbalance_observed = 0.04646042843157781\nsurvival_observed = 0.9471547891394752\ncalibration_length = 1.0\ntemperature_bounds = np.array([0.3, 0.9], dtype=float)\nassert np.allclose(infer_temperature_branches(momentum, alpha_s, c_a, qhat, z_nodes.copy(), weights.copy(), balance_observed, survival_observed, calibration_length, temperature_bounds.copy()), target)",
+        "import numpy as np\nmomentum = 4.0\nalpha_s = 0.300\nc_a = 3.0\nqhat = 0.0150\nz_nodes = np.array([\n    0.228146046218401,\n    0.338459206968295,\n    0.500000000000000,\n    0.661540793031705,\n    0.771853953781599,\n], dtype=float)\nweights = np.array([\n    0.071078065516857,\n    0.143588601149810,\n    0.170666666666667,\n    0.143588601149810,\n    0.071078065516857,\n], dtype=float)\nbalance_observed = 0.04653681325033222\nsurvival_observed = 0.5500762863533156\ncalibration_length = 10.0\ntemperature_bounds = np.array([0.5, 0.7], dtype=float)\nassert np.allclose(infer_temperature_branches(momentum, alpha_s, c_a, qhat, z_nodes.copy(), weights.copy(), balance_observed, survival_observed, calibration_length, temperature_bounds.copy()), target)",
+        "import numpy as np\nmomentum = 4.0\nalpha_s = 0.300\nc_a = 3.0\nqhat = 0.0150\nz_nodes = np.array([\n    0.228146046218401,\n    0.338459206968295,\n    0.500000000000000,\n    0.661540793031705,\n    0.771853953781599,\n], dtype=float)\nweights = np.array([\n    0.071078065516857,\n    0.143588601149810,\n    0.170666666666667,\n    0.143588601149810,\n    0.071078065516857,\n], dtype=float)\nbalance_observed = 0.04653681324882403\nsurvival_observed = 0.5501097085915446\ncalibration_length = 10.0\ntemperature_bounds = np.array([0.5, 0.7], dtype=float)\nassert np.allclose(infer_temperature_branches(momentum, alpha_s, c_a, qhat, z_nodes.copy(), weights.copy(), balance_observed, survival_observed, calibration_length, temperature_bounds.copy()), target)",
+        "import numpy as np\nmomentum = 2.0\nalpha_s = 0.300\nc_a = 3.0\nqhat = 0.0150\nz_nodes = np.array([\n    0.228146046218401,\n    0.338459206968295,\n    0.500000000000000,\n    0.661540793031705,\n    0.771853953781599,\n], dtype=float)\nweights = np.array([\n    0.071078065516857,\n    0.143588601149810,\n    0.170666666666667,\n    0.143588601149810,\n    0.071078065516857,\n], dtype=float)\nbalance_observed = 0.06570496800160187\nsurvival_observed = 0.9260921463222397\ncalibration_length = 1.0\ntemperature_bounds = np.array([0.1, 0.5], dtype=float)\nassert np.allclose(infer_temperature_branches(momentum, alpha_s, c_a, qhat, z_nodes.copy(), weights.copy(), balance_observed, survival_observed, calibration_length, temperature_bounds.copy()), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-39.7",
+      "test_cases": [
+        "import numpy as np\nsegment_hazards = np.array(\n    [0.0740146296576149, 0.519412843255201],\n    dtype=float,\n)\nsplit_rates = np.array(\n    [0.0139125134083925],\n    dtype=float,\n)\nlength = 2.0\nassert np.allclose(integrate_exclusive_history_probability(segment_hazards.copy(), split_rates.copy(), length), target)",
+        "import numpy as np\nsegment_hazards = np.array(\n    [0.1, 0.4, 0.9],\n    dtype=float,\n)\nsplit_rates = np.array(\n    [0.7, 0.6],\n    dtype=float,\n)\nlength = 1.5\nassert np.allclose(integrate_exclusive_history_probability(segment_hazards.copy(), split_rates.copy(), length), target)",
+        "import numpy as np\nsegment_hazards = np.array(\n    [0.05, 0.3, 0.8, 1.2],\n    dtype=float,\n)\nsplit_rates = np.array(\n    [0.9, 0.7, 0.5],\n    dtype=float,\n)\nlength = 2.0\nassert np.allclose(integrate_exclusive_history_probability(segment_hazards.copy(), split_rates.copy(), length), target)",
+        "import numpy as np\nsegment_hazards = np.array(\n    [0.2, 0.200000001, 0.200000002, 0.7],\n    dtype=float,\n)\nsplit_rates = np.array(\n    [0.9, 0.8, 0.7],\n    dtype=float,\n)\nlength = 2.0\nassert np.allclose(integrate_exclusive_history_probability(segment_hazards.copy(), split_rates.copy(), length), target)",
+        "import numpy as np\nsegment_hazards = np.array(\n    [0.5, 0.5, 0.5],\n    dtype=float,\n)\nsplit_rates = np.array(\n    [1.0, 1.0],\n    dtype=float,\n)\nlength = 1.0\nassert np.allclose(integrate_exclusive_history_probability(segment_hazards.copy(), split_rates.copy(), length), target)",
+        "import numpy as np\nsegment_hazards = np.array(\n    [0.12, 0.120000000001, 0.9],\n    dtype=float,\n)\nsplit_rates = np.array(\n    [0.8, 0.6],\n    dtype=float,\n)\nlength = 1.7\nassert np.allclose(integrate_exclusive_history_probability(segment_hazards.copy(), split_rates.copy(), length), target)",
+        "import numpy as np\nsegment_hazards = np.array(\n    [0.300, 0.302],\n    dtype=float,\n)\nsplit_rates = np.array(\n    [0.070],\n    dtype=float,\n)\nlength = 2.0\nassert np.allclose(integrate_exclusive_history_probability(segment_hazards.copy(), split_rates.copy(), length), target)",
+        "import numpy as np\nsegment_hazards = np.full(105, 1000.0)\nsplit_rates = np.full(104, 1000.0)\nlength = 0.104\nassert np.allclose(integrate_exclusive_history_probability(segment_hazards.copy(), split_rates.copy(), length), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-39.8",
+      "test_cases": [
+        "import numpy as np\np0 = 3.0\nlength = 2.0\nalpha_s = 0.300\nc_a = 3.0\nqhat = 0.0150\nz_nodes = np.array([\n    0.228146046218401,\n    0.338459206968295,\n    0.500000000000000,\n    0.661540793031705,\n    0.771853953781599,\n], dtype=float)\nweights = np.array([\n    0.071078065516857,\n    0.143588601149810,\n    0.170666666666667,\n    0.143588601149810,\n    0.071078065516857,\n], dtype=float)\nsplit_index = 1\nbalance_observed = 0.05369259190766756\nsurvival_observed = 0.9286581077917495\ncalibration_length = 1.0\ntemperature_bounds = np.array([0.2, 0.8], dtype=float)\nassert np.allclose(solve_calibrated_thermal_shower_case(p0, length, alpha_s, c_a, qhat, z_nodes.copy(), weights.copy(), split_index, balance_observed, survival_observed, calibration_length, temperature_bounds.copy()), target)",
+        "import numpy as np\np0 = 8.0\nlength = 1.1\nalpha_s = 0.250\nc_a = 3.0\nqhat = 0.0100\nz_nodes = np.array([\n    0.228146046218401,\n    0.338459206968295,\n    0.500000000000000,\n    0.661540793031705,\n    0.771853953781599,\n], dtype=float)\nweights = np.array([\n    0.071078065516857,\n    0.143588601149810,\n    0.170666666666667,\n    0.143588601149810,\n    0.071078065516857,\n], dtype=float)\nsplit_index = 0\nbalance_observed = 0.02193140201836728\nsurvival_observed = 0.9783052878156464\ncalibration_length = 1.0\ntemperature_bounds = np.array([0.1, 2.0], dtype=float)\nassert np.allclose(solve_calibrated_thermal_shower_case(p0, length, alpha_s, c_a, qhat, z_nodes.copy(), weights.copy(), split_index, balance_observed, survival_observed, calibration_length, temperature_bounds.copy()), target)",
+        "import numpy as np\np0 = 4.0\nlength = 0.75\nalpha_s = 0.300\nc_a = 3.0\nqhat = 0.0150\nz_nodes = np.array([\n    0.228146046218401,\n    0.338459206968295,\n    0.500000000000000,\n    0.661540793031705,\n    0.771853953781599,\n], dtype=float)\nweights = np.array([\n    0.071078065516857,\n    0.143588601149810,\n    0.170666666666667,\n    0.143588601149810,\n    0.071078065516857,\n], dtype=float)\nsplit_index = 3\nbalance_observed = 0.04653681325033222\nsurvival_observed = 0.5500762863533156\ncalibration_length = 10.0\ntemperature_bounds = np.array([0.5, 0.7], dtype=float)\nassert np.allclose(solve_calibrated_thermal_shower_case(p0, length, alpha_s, c_a, qhat, z_nodes.copy(), weights.copy(), split_index, balance_observed, survival_observed, calibration_length, temperature_bounds.copy()), target)"
+      ]
+    }
+  ]
+}

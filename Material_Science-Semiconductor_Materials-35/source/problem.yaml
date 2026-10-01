@@ -1,0 +1,48 @@
+problem_id: "Material_Science-Semiconductor_Materials-35"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "Difficult"
+answer_type: "Single Numeric"
+paper_doi: "10.1103/hcqb-44hy"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_dc_current"
+    description: "Evaluate the quasi-static dc current density of the resonant-tunnelling diode for a parameterised characteristic."
+    orchestrator: false
+  - number: 2
+    name: "02_characteristic_scales"
+    description: "Locate the peak and valley of the characteristic and return the peak-to-valley separation and the maximum negative differential conductance."
+    orchestrator: false
+  - number: 3
+    name: "03_harmonic_coefficients"
+    description: "Compute the cycle average and cosine Fourier coefficients of the ac diode current under a cosine voltage swing."
+    orchestrator: false
+  - number: 4
+    name: "04_oscillation_amplitude"
+    description: "Solve the zero-order gain balance for the stable oscillation amplitude at a given bias and load."
+    orchestrator: false
+  - number: 5
+    name: "05_oscillation_edge"
+    description: "Find the upper edge of the oscillation region, the turning point at which the gain-balance branch ends, and the amplitude there."
+    orchestrator: false
+  - number: 6
+    name: "06_rectified_amplitude"
+    description: "Recover the zero-order oscillation amplitude from the dc current drawn by the oscillating diode."
+    orchestrator: false
+  - number: 7
+    name: "07_first_order_coefficients"
+    description: "Compute the first-order Poincare-Lindstedt quadrature, harmonic and frequency coefficients at one bias."
+    orchestrator: false
+  - number: 8
+    name: "08_large_signal_capacitance"
+    description: "Compute the large-signal diode capacitance seen by the resonator under the zero-order swing."
+    orchestrator: false
+  - number: 9
+    name: "09_bias_frequency"
+    description: "Evaluate the first-order oscillation frequency, the small parameter and the applicability criterion for a given resonator."
+    orchestrator: false
+  - number: 10
+    name: "10_resonator_capacitance"
+    description: "Recover the resonator capacitance, its inductance and the quantum-well capacitance peak from a dc current and three bias-dependent oscillation frequencies (final orchestrator)."
+    orchestrator: true

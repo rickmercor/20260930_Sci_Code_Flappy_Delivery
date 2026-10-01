@@ -1,0 +1,40 @@
+problem_id: "Physics-Optics-19"
+subject: "physics"
+subject_area: "Optics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1109/ICCV51701.2025.02603"
+dependencies: ""
+steps:
+  - number: 1
+    name: "trace_sequential_rays"
+    description: "Trace real rays through the sequential surface table. Return, for every ray, its intersection with the last surface, its unit direction after refraction there, the optical path length from its origin, and a validity flag. Solve aspheric intersections numerically to full double precision. A ray that misses a surface (no real intersection ahead of it), lands outside a semi-aperture or is totally internally reflected is invalid from then on, and its position, direction and path are NaN. Input directions need not be normalised; plane surfaces (curvature 0) and a non-air object medium must work."
+    orchestrator: false
+  - number: 2
+    name: "paraxial_exit_pupil"
+    description: "Return the axial position and radius of the exit pupil: the paraxial image of the aperture stop formed by all surfaces after it. The position is a signed coordinate on the same axis as the surface vertices and the radius a positive length; the pupil may be virtual, that is, lie before the last surface. Must handle a stop at the first vertex and a non-air object medium."
+    orchestrator: false
+  - number: 3
+    name: "reference_sphere_field"
+    description: "For one field direction, return the complex field the lens delivers onto the exit-pupil reference sphere. That sphere passes through the paraxial exit-pupil centre of Step 2, and its radius is the distance from its centre to that point. Rays start at the stop points stop_radius\u00b7sample at z = stop_z, all travelling along the field direction, and are traced with Step 1; each is then continued in the last medium until it meets that sphere on the cap containing the exit-pupil centre, which may lie behind the last surface. Return each ray's point on the sphere and its complex amplitude, with phase increasing with optical path and the chief ray's own value on the sphere as the zero of phase: amplitude 1 for a ray that reaches the sphere, 0 for a ray lost anywhere, whose point is set to the exit-pupil centre. Also return unit sphere normals pointing to the centre, the centre and the radius. Must call trace_sequential_rays and paraxial_exit_pupil by name; raise ValueError if the chief ray is lost."
+    orchestrator: false
+  - number: 4
+    name: "rayleigh_sommerfeld_psf"
+    description: "Propagate the sampled field to a rectangular grid of sensor points with the first Rayleigh\u2013Sommerfeld integral evaluated as a Monte-Carlo sum over the samples, and return the intensity. The obliquity factor uses the given normal at each sample; the kernel keeps the exact point-to-point distance (no paraxial or far-field simplification); every sample carries the same weight (equal-area stop samples, no Jacobian). Normalisation (task convention; the source prints a different prefactor): for N equal-phase samples of nonnegative amplitude a_i on a sphere of radius R, the intensity at the sphere centre is (mean a_i)\u00b2/(\u03bbR)\u00b2, so repeating every sample changes nothing. The sensor is in air; the field follows the Step 3 phase convention; the output is indexed [pixel_y, pixel_x]."
+    orchestrator: false
+  - number: 5
+    name: "chief_ray_landing"
+    description: "Build the scene's field-direction grid and map every sample to the sensor with its real chief ray (from the stop centre along the sample's direction, traced with Step 1 and continued to the sensor plane). Column j has tan\u03b8x equal to the j-th of Ws equally spaced values from tx_min to tx_max, and row i has tan\u03b8y equal to the i-th of Hs values from ty_min to ty_max (inclusive). Must call trace_sequential_rays by name; lost chief rays give NaN landings."
+    orchestrator: false
+  - number: 6
+    name: "weighted_latent_images"
+    description: "Split the scene into per-node latent images. The nodes form a separable sub-grid: node_rows are strictly increasing scene row indices from 0 to Hs-1, node_cols likewise for Ws (a single node on an axis, any index, has weight 1 everywhere along it; any other invalid list raises ValueError). Each sample is weighted, for every node, by the node's piecewise-linear weight along rows times that along columns, evaluated at the sample's own indices (weights sum to one per sample), and added into the pixel where its chief ray lands: column floor((x-x0)/p+W/2), row floor((y-y0)/p+H/2). Samples with NaN or off-sensor landings are dropped."
+    orchestrator: false
+  - number: 7
+    name: "sum_of_convolutions"
+    description: "Form the measurement as the sum over nodes of each node's latent image blurred by that node's kernel, after normalising each kernel to unit sum. Kernels are square with odd size K and centre c = (K-1)/2; kernels[gy, gx, c+dy, c+dx] is the share a point in pixel (row, col) sends to pixel (row+dy, col+dx). The output has the sensor's shape; light leaving the sensor is lost. Raise ValueError unless kernels are (Gy, Gx, K, K) with K odd and matching the node grid."
+    orchestrator: false
+  - number: 8
+    name: "render_measurement"
+    description: "Render the measurement of the scene through the lens, from the scene's field-direction bounds to the image on the sensor, using the five earlier steps. One PSF is rendered per node of the node_rows \u00d7 node_cols sub-grid; every kernel is kernel_size \u00d7 kernel_size with kernel_size odd, sampled at offsets spaced by the pixel pitch from that node's own sphere centre, with the centre index at zero offset. Must call chief_ray_landing, reference_sphere_field, rayleigh_sommerfeld_psf, weighted_latent_images and sum_of_convolutions by name, without inlined reimplementation."
+    orchestrator: true

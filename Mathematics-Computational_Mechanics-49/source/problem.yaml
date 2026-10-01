@@ -1,0 +1,36 @@
+problem_id: "Mathematics-Computational_Mechanics-49"
+subject: "mathematics"
+subject_area: "Computational Mechanics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2607.19330"
+dependencies: ""
+steps:
+  - number: 1
+    name: "step1_component_point_kinematics"
+    description: "Creates the deformation gradients and reduced strain-mode matrices required by the constitutive stages."
+    orchestrator: false
+  - number: 2
+    name: "step2_mooney_rivlin_state"
+    description: "Computes the Mooney-Rivlin constitutive state quantities and their directional variations."
+    orchestrator: false
+  - number: 3
+    name: "step3_mooney_rivlin_constitutive"
+    description: "Evaluates the first Piola-Kirchhoff stress and exact consistent tangent actions."
+    orchestrator: false
+  - number: 4
+    name: "step4_component_hyperreduced_system"
+    description: "Assembles the component-local hyperreduced residual and Jacobian."
+    orchestrator: false
+  - number: 5
+    name: "step5_global_reduced_system"
+    description: "Assembles the coupled global reduced residual and Jacobian from component contributions."
+    orchestrator: false
+  - number: 6
+    name: "step6_newton_update_diagnostics"
+    description: "Applies one undamped Newton correction and computes numerical diagnostics."
+    orchestrator: false
+  - number: 7
+    name: "step7_first_newton_coordinate"
+    description: "Runs the complete component-wise strain-space hyperreduction pipeline."
+    orchestrator: true

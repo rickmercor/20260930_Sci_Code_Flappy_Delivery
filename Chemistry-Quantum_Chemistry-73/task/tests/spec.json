@@ -1,0 +1,90 @@
+{
+  "problem_id": "Chemistry-Quantum_Chemistry-73",
+  "sub_steps": [
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-73.1",
+      "test_cases": [
+        "import numpy as np\nn = np.array([0.02, 0.1, 0.25, 0.5, 0.8])\nassert np.allclose(polarized_exchange_per_electron(n.copy(), 1.0), target)",
+        "import numpy as np\nn = np.array([[0.05, 0.3, 1.1], [2.0, 0.7, 0.012]])\nassert np.allclose(polarized_exchange_per_electron(n.copy(), 0.45), target)",
+        "import numpy as np\nn = np.array([0.0, 1e-9, 1e-6, 3e-4, 2e-3])\nassert np.allclose(polarized_exchange_per_electron(n.copy(), 1.0), target)",
+        "import numpy as np\nn = np.array([5.0, 12.0, 40.0])\nassert np.allclose(polarized_exchange_per_electron(n.copy(), 2.3), target)",
+        "import numpy as np\nx = np.linspace(-6.0, 6.0, 25)\nn = 0.6 * np.exp(-0.7 * (x - 0.4) ** 2) + 0.25 * np.exp(-1.3 * (x + 2.1) ** 2)\nassert np.allclose(polarized_exchange_per_electron(n.copy(), 1.0), target)",
+        "import numpy as np\ndef _probe(fn):\n    try:\n        fn(np.array([0.2, -0.01]), 1.0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_probe(polarized_exchange_per_electron), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-73.2",
+      "test_cases": [
+        "import numpy as np\nn = np.array([0.01, 0.07, 0.2, 0.45, 0.9])\nassert np.allclose(polarized_exchange_potential(n.copy(), 1.0), target)",
+        "import numpy as np\nx = np.linspace(-5.0, 5.0, 21)\nn = 0.35 * np.exp(-np.abs(x - 1.0)) + 0.15 * np.exp(-0.5 * (x + 1.5) ** 2)\nassert np.allclose(polarized_exchange_potential(n.copy(), 0.6), target)",
+        "import numpy as np\nn = np.array([0.0, 1e-10, 1e-7, 4e-4, 1.5e-3])\nassert np.allclose(polarized_exchange_potential(n.copy(), 1.0), target)",
+        "import numpy as np\nn = np.array([3.0, 8.0, 25.0, 120.0])\nassert np.allclose(polarized_exchange_potential(n.copy(), 1.7), target)",
+        "import numpy as np\ndef _probe(fn):\n    try:\n        fn(np.array([0.1, 0.2]), 0.0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_probe(polarized_exchange_potential), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-73.3",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(soft_coulomb_states(np.array([0.0]), 1.0, 0.1, 20.0, 3), target)",
+        "import numpy as np\nassert np.allclose(soft_coulomb_states(np.array([-2.6, 2.6]), 1.0, 0.1, 18.0, 2), target)",
+        "import numpy as np\nassert np.allclose(soft_coulomb_states(np.array([-1.3, 2.2]), 0.7, 0.05, 12.0, 2), target)",
+        "import numpy as np\nassert np.allclose(soft_coulomb_states(np.array([-3.0, 0.0, 3.0]), 1.2, 0.08, 16.0, 3), target)",
+        "import numpy as np\nassert np.allclose(soft_coulomb_states(np.array([0.5]), 1.0, 0.125, 2.5, 2), target)",
+        "import numpy as np\ndef _probe(fn):\n    try:\n        fn(np.array([0.0]), 1.0, 0.3, 10.0, 1)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_probe(soft_coulomb_states), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-73.4",
+      "test_cases": [
+        "import numpy as np\nh = 0.1\nx = -15.0 + h * np.arange(301)\nn = np.exp(-np.sqrt(x ** 2 + 1.0))\nn = n / (h * n.sum())\nz = np.zeros_like(n)\nassert np.allclose(hartree_exchange_energy(n.copy(), z.copy(), h, 1.0), target)",
+        "import numpy as np\nh = 0.1\nx = -15.0 + h * np.arange(301)\nn = np.exp(-np.sqrt(x ** 2 + 1.0))\nn = n / (h * n.sum())\nassert np.allclose(hartree_exchange_energy(0.5 * n, 0.5 * n, h, 1.0), target)",
+        "import numpy as np\nh = 0.05\nx = -12.0 + h * np.arange(481)\nnu = 0.8 * np.exp(-(x - 2.0) ** 2) + 0.3 * np.exp(-(x + 2.0) ** 2)\nnd = 0.2 * np.exp(-0.5 * (x + 1.0) ** 2)\nassert np.allclose(hartree_exchange_energy(nu.copy(), nd.copy(), h, 0.6), target)",
+        "import numpy as np\nh = 0.2\nx = -6.0 + h * np.arange(61)\nnu = np.where(np.abs(x) < 1.0, 0.5 * (1.0 - x ** 2), 0.0)\nnd = np.zeros_like(nu)\nassert np.allclose(hartree_exchange_energy(nu.copy(), nd.copy(), h, 1.4), target)",
+        "import numpy as np\nnu = np.array([0.0, 0.0, 2.5, 0.0])\nnd = np.array([0.0, 0.0, 1.5, 0.0])\nassert np.allclose(hartree_exchange_energy(nu.copy(), nd.copy(), 0.4, 0.9), target)",
+        "import numpy as np\ndef _probe(fn):\n    try:\n        fn(np.ones(5), np.ones(4), 0.1, 1.0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_probe(hartree_exchange_energy), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-73.5",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(lsda_ground_state_energy(np.array([0.0]), 1.0, 0.1, 20.0), target)",
+        "import numpy as np\nassert np.allclose(lsda_ground_state_energy(np.array([-1.1, 1.1]), 1.0, 0.1, 20.0), target)",
+        "import numpy as np\nassert np.allclose(lsda_ground_state_energy(np.array([-2.6, 2.6]), 1.0, 0.1, 20.0), target)",
+        "import numpy as np\nassert np.allclose(lsda_ground_state_energy(np.array([-4.25, 4.25]), 1.0, 0.1, 24.0), target)",
+        "import numpy as np\nassert np.allclose(lsda_ground_state_energy(np.array([-3.0, 0.0, 3.0]), 0.8, 0.08, 16.0), target)",
+        "import numpy as np\ndef _probe(fn):\n    try:\n        fn(np.array([-1.0, 1.5]), 1.0, 0.1, 10.0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_probe(lsda_ground_state_energy), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-73.6",
+      "test_cases": [
+        "import numpy as np\nh, L = 0.1, 15.0\nx = -L + h * np.arange(301)\nv = -1.0 / np.sqrt((x - 2.0) ** 2 + 1.0) - 1.0 / np.sqrt((x + 2.0) ** 2 + 1.0)\nH = np.diag(1.0 / h ** 2 + v) - 0.5 / h ** 2 * (np.eye(301, k=1) + np.eye(301, k=-1))\nw, U = np.linalg.eigh(H)\ng = U[:, 0] / np.sqrt(h)\nu = U[:, 1] / np.sqrt(h)\nassert np.allclose(maximally_localized_orbital(g.copy(), u.copy(), h, L), target)",
+        "import numpy as np\nh, L = 0.1, 15.0\nx = -L + h * np.arange(301)\nv = -1.0 / np.sqrt((x - 2.0) ** 2 + 1.0) - 1.0 / np.sqrt((x + 2.0) ** 2 + 1.0)\nH = np.diag(1.0 / h ** 2 + v) - 0.5 / h ** 2 * (np.eye(301, k=1) + np.eye(301, k=-1))\nw, U = np.linalg.eigh(H)\ng = U[:, 0] / np.sqrt(h)\nu = U[:, 1] / np.sqrt(h)\nt = 0.37\na = -(np.cos(t) * g + np.sin(t) * u)\nb = -np.sin(t) * g + np.cos(t) * u\nassert np.allclose(maximally_localized_orbital(a.copy(), b.copy(), h, L), target)",
+        "import numpy as np\nh, L = 0.05, 10.0\nx = -L + h * np.arange(401)\nv = -1.2 / np.sqrt((x + 1.8) ** 2 + 0.7) - 1.0 / np.sqrt((x - 2.1) ** 2 + 1.0)\nH = np.diag(1.0 / h ** 2 + v) - 0.5 / h ** 2 * (np.eye(401, k=1) + np.eye(401, k=-1))\nw, U = np.linalg.eigh(H)\np = U[:, 0] / np.sqrt(h)\nq = U[:, 1] / np.sqrt(h)\nassert np.allclose(maximally_localized_orbital(p.copy(), q.copy(), h, L), target)",
+        "import numpy as np\nh, L = 0.5, 4.0\nrng = np.random.default_rng(11)\nQ, _ = np.linalg.qr(rng.normal(size=(17, 2)))\na = Q[:, 0] / np.sqrt(h)\nb = Q[:, 1] / np.sqrt(h)\nassert np.allclose(maximally_localized_orbital(a.copy(), b.copy(), h, L), target)",
+        "import numpy as np\nh, L = 0.25, 2.0\nx = -L + h * np.arange(17)\nright = np.where(x >= 0.0, np.exp(-x), 0.0)\nright = right / np.sqrt(h * right @ right)\nmixed = np.exp(-0.3 * (x + 1.0) ** 2)\nmixed = mixed - h * (mixed @ right) * right\nmixed = mixed / np.sqrt(h * mixed @ mixed)\nassert np.allclose(maximally_localized_orbital(right.copy(), mixed.copy(), h, L), target)",
+        "import numpy as np\ndef _probe(fn):\n    try:\n        fn(np.ones(9), np.linspace(0.0, 1.0, 9), 0.5, 2.0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_probe(maximally_localized_orbital), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-73.7",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(dissociation_errors(2.0, 1.0, 0.1, 20.0), target)",
+        "import numpy as np\nassert np.allclose(dissociation_errors(5.0, 1.0, 0.1, 20.0), target)",
+        "import numpy as np\nassert np.allclose(dissociation_errors(8.5, 1.0, 0.1, 24.0), target)",
+        "import numpy as np\nassert np.allclose(dissociation_errors(4.0, 0.75, 0.08, 16.0), target)",
+        "import numpy as np\ndef _probe(fn):\n    try:\n        fn(0.0, 1.0, 0.1, 10.0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_probe(dissociation_errors), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-73.8",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(crossover_separation(1.0, 0.1, 20.0, 3.0, 8.0, 6), target)",
+        "import numpy as np\nassert np.allclose(crossover_separation(0.75, 0.08, 16.0, 2.5, 8.0, 5), target)",
+        "import numpy as np\nassert np.allclose(crossover_separation(1.3, 0.1, 22.0, 3.0, 9.0, 2), target)",
+        "import numpy as np\ndef _probe(fn):\n    try:\n        fn(1.0, 0.1, 20.0, 6.5, 8.0, 3)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_probe(crossover_separation), target)",
+        "import numpy as np\ndef _probe(fn):\n    try:\n        fn(1.0, 0.1, 20.0, 1.5, 3.5, 4)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_probe(crossover_separation), target)"
+      ]
+    }
+  ]
+}

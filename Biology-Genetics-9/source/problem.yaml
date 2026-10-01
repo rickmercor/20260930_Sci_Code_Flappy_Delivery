@@ -1,0 +1,44 @@
+problem_id: "Biology-Genetics-9"
+subject: "biology"
+subject_area: "Genetics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1371/journal.pgen.1011919"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_copying_state_posteriors.py"
+    description: "Copying-state posterior evidence"
+    orchestrator: false
+  - number: 2
+    name: "02_panel_statistics.py"
+    description: "Panel and switching evidence"
+    orchestrator: false
+  - number: 3
+    name: "03_window_records.py"
+    description: "Reported local copying records"
+    orchestrator: false
+  - number: 4
+    name: "04_fit_profiles.py"
+    description: "Fitted ancestry representation"
+    orchestrator: false
+  - number: 5
+    name: "05_ancestry_continuity.py"
+    description: "Clustering continuity evidence"
+    orchestrator: false
+  - number: 6
+    name: "06_initial_model.py"
+    description: "Initial ancestry parameters"
+    orchestrator: false
+  - number: 7
+    name: "07_ancestry_posterior.py"
+    description: "Ancestry-aware state probabilities"
+    orchestrator: false
+  - number: 8
+    name: "08_update_copying.py"
+    description: "Recalibrated copying matrix"
+    orchestrator: false
+  - number: 9
+    name: "09_solve_task.py"
+    description: "Continuity-selected ancestry inference"
+    orchestrator: true

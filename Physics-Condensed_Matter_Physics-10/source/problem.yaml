@@ -1,0 +1,40 @@
+problem_id: "Physics-Condensed_Matter_Physics-10"
+subject: "physics"
+subject_area: "Condensed Matter Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1088/1361-6668/ae91da"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_fermi_occupation"
+    description: "Evaluate the Fermi-Dirac occupation for an array of quasiparticle energies at a given temperature. The routine takes energies in millielectronvolts and a temperature in kelvin and returns occupations in the closed interval from zero to one, with the exponent clipped so that large ratios saturate instead of overflowing. Invalid input raises ValueError: the temperature must be a finite non-negative scalar and the energies must all be finite."
+    orchestrator: false
+  - number: 2
+    name: "02_gap_kernel"
+    description: "Evaluate the reduced BCS gap kernel for a positive gap, a non-negative temperature and a positive energy cutoff. The routine takes the gap magnitude and cutoff in millielectronvolts and the temperature in kelvin, then returns the constant-density-of-states momentum sum divided by that density of states as a single float. Invalid input raises ValueError: the gap and cutoff must be finite scalars strictly greater than zero and the temperature must be a finite non-negative scalar."
+    orchestrator: false
+  - number: 3
+    name: "03_equilibrium_gap"
+    description: "Solve the reduced BCS self-consistency condition for the positive equilibrium superconducting gap at a given temperature. The routine takes temperature in kelvin, a positive energy cutoff in millielectronvolts and a positive dimensionless coupling, then returns the gap in millielectronvolts as a single float. A collapsed superconducting solution returns zero rather than raising. Invalid input raises ValueError: temperature must be a finite non-negative scalar, while cutoff and coupling must be finite scalars strictly greater than zero."
+    orchestrator: false
+  - number: 4
+    name: "04_critical_temperature"
+    description: "Locate the critical temperature by bisecting the equilibrium superconducting gap over temperature. The routine takes a positive energy cutoff in millielectronvolts and a positive dimensionless coupling, then returns in kelvin the temperature where the gap reaches a threshold of 1e-6 millielectronvolts within the fixed search window from 0.01 to 100.0 kelvin. Invalid input raises ValueError: cutoff and coupling must be finite scalars strictly greater than zero, and the search bracket must contain a sign change."
+    orchestrator: false
+  - number: 5
+    name: "05_inertia_coefficient"
+    description: "Evaluate the reduced inertia coefficient for a positive gap, a non-negative temperature and a positive energy cutoff. The routine takes the gap magnitude and cutoff in millielectronvolts and the temperature in kelvin, then returns the coefficient divided by the constant density of states as a single float obtained by numerical quadrature over the band. Invalid input raises ValueError: the gap and cutoff must be finite scalars strictly greater than zero and the temperature must be a finite non-negative scalar."
+    orchestrator: false
+  - number: 6
+    name: "06_pulse_envelope"
+    description: "Evaluate a normalized asymmetric multi-cycle terahertz vector potential at an array of times. The routine takes times and pulse widths in picoseconds, frequency in terahertz and phase in radians, then returns a dimensionless NumPy array with the same shape as the times. Invalid input raises ValueError: the pulse center, both widths, frequency and phase must be finite scalars, both widths must be strictly greater than zero and every time must be finite."
+    orchestrator: false
+  - number: 7
+    name: "07_drive_coefficient"
+    description: "Evaluate the dimensionless coefficient multiplying the squared pulse in the gap equation of motion. The routine takes a finite non-negative drive strength, positive simulation and reference temperatures in kelvin, a positive cutoff in millielectronvolts and a positive dimensionless coupling, then returns the coefficient as a single float. Invalid input raises ValueError: drive strength must be a finite non-negative scalar, both temperatures, cutoff and coupling must be finite scalars strictly greater than zero and the equilibrium gap must not vanish at either temperature."
+    orchestrator: false
+  - number: 8
+    name: "08_run_pipeline"
+    description: "Chain every preceding step into the graded number by integrating the driven gap dynamics and returning the deepest suppression the pulse produces. The routine determines the critical temperature from the pairing parameters, places the simulation and reference temperatures at the requested fractions of it, builds the equilibrium gap and the inertia coefficient there, forms the drive coefficient, then integrates the equation of motion from equilibrium at rest and reports the minimum gap magnitude divided by its equilibrium value. Invalid input raises ValueError: every scalar argument must be finite, the cutoff, coupling, damping and t_max must be strictly positive, the drive strength must be non-negative, and the two temperature fractions must lie strictly between zero and one."
+    orchestrator: true

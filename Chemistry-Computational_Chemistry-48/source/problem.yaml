@@ -1,0 +1,36 @@
+problem_id: "Chemistry-Computational_Chemistry-48"
+subject: "chemistry"
+subject_area: "Computational Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: " https://doi.org/10.1021/acs.jctc.5c02013"
+dependencies: ""
+steps:
+  - number: 1
+    name: "validate_rism_data"
+    description: "Validate supplied charged and zero-charge 3D-RISM correlation data."
+    orchestrator: false
+  - number: 2
+    name: "compute_solvation_terms"
+    description: "Evaluate the three solvation free-energy functionals that the source paper\n\nuses as charged-state MILC descriptors, from supplied 3D-RISM total and\n\ndirect correlation fields."
+    orchestrator: false
+  - number: 3
+    name: "compute_pmv"
+    description: "Calculate the molecular partial molar volume (PMV) indicator from the supplied direct correlation field distribution integrals."
+    orchestrator: false
+  - number: 4
+    name: "build_descriptors"
+    description: "Build the MILC descriptor matrices from charged-state and zero-charge\n\nsolvation quantities and partial molar volumes."
+    orchestrator: false
+  - number: 5
+    name: "apply_milc"
+    description: "Apply MILC as a zero-intercept linear combination of descriptors."
+    orchestrator: false
+  - number: 6
+    name: "average_conformers"
+    description: "Consolidate the multi-conformer energy predictions into a single molecular free energy metric by evaluating the unweighted central tendency across the resolved structural snapshots."
+    orchestrator: false
+  - number: 7
+    name: "run_milc_pipeline"
+    description: "Orchestrate the complete MILC evaluation and return the molecular solvation\n\nfree energy."
+    orchestrator: true

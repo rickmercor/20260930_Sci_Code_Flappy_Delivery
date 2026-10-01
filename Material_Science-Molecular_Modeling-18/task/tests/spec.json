@@ -1,0 +1,118 @@
+{
+  "problem_id": "Material_Science-Molecular_Modeling-18",
+  "sub_steps": [
+    {
+      "step_number": "Material_Science-Molecular_Modeling-18.1",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(barker_henderson_radius(3.161, 488.75, 6.0, 52.367, 425.0), target)",
+        "import numpy as np\nassert np.allclose(barker_henderson_radius(3.161, 488.75, 6.0, 52.367, 300.0), target)",
+        "import numpy as np\nassert np.allclose(barker_henderson_radius(3.161, 488.75, 6.0, 52.367, 700.0), target)",
+        "import numpy as np\nassert np.allclose(barker_henderson_radius(3.740, 253.30, 6.0, 12.650, 425.0), target)",
+        "import numpy as np\nassert np.allclose(barker_henderson_radius(2.800, 900.00, 6.0, 20.000, 150.0), target)",
+        "import numpy as np\nassert np.allclose(barker_henderson_radius(3.161, 488.75, 6.0, 7.0, 425.0), target)",
+        "import numpy as np\nassert np.allclose(barker_henderson_radius(3.161, 488.75, 6.0, 52.367, 2000.0), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-18.2",
+      "test_cases": [
+        "import numpy as np\nZ = np.linspace(0.0, 14.0, 1401)\nassert np.allclose(steele_slit_potential(Z, 14.0, 3.161, 488.75, 3.4, 28.0, 0.114, 3.35, 0.61, 425.0), target)",
+        "import numpy as np\nZ = np.linspace(0.0, 8.0, 801)\nassert np.allclose(steele_slit_potential(Z, 8.0, 3.161, 488.75, 3.4, 28.0, 0.114, 3.35, 0.61, 425.0), target)",
+        "import numpy as np\nZ = np.linspace(0.0, 30.0, 601)\nassert np.allclose(steele_slit_potential(Z, 30.0, 3.161, 488.75, 3.4, 28.0, 0.114, 3.35, 0.61, 700.0), target)",
+        "import numpy as np\nZ = np.array([7.0])\nassert np.allclose(steele_slit_potential(Z, 14.0, 3.161, 488.75, 3.4, 28.0, 0.114, 3.35, 0.61, 425.0), target)",
+        "import numpy as np\nZ = np.array([0.0, 14.0])\nassert np.allclose(steele_slit_potential(Z, 14.0, 3.161, 488.75, 3.4, 28.0, 0.114, 3.35, 0.61, 425.0), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-18.3",
+      "test_cases": [
+        "import numpy as np\nR = np.full(801, 0.01)\nassert np.allclose(fmt_weighted_densities(R, 1.5675050365, 0.01), target)",
+        "import numpy as np\nZ = np.linspace(0.0, 14.0, 1401)\nR = 0.02*np.exp(-((Z-7.0)/1.5)**2)\nassert np.allclose(fmt_weighted_densities(R, 1.5675050365, 0.01), target)",
+        "import numpy as np\nR = np.zeros(401)\nR[200] = 0.5\nassert np.allclose(fmt_weighted_densities(R, 1.5675050365, 0.02), target)",
+        "import numpy as np\nZ = np.linspace(0.0, 8.0, 401)\nR = 0.015*(Z > 2.0)*(Z < 6.0)\nassert np.allclose(fmt_weighted_densities(R, 1.4, 0.02), target)",
+        "import numpy as np\nR = np.zeros(301)\nassert np.allclose(fmt_weighted_densities(R, 1.5675050365, 0.01), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-18.4",
+      "test_cases": [
+        "import numpy as np\nR=1.5675050365\nrb=0.01\nW=np.array([[rb],[R*rb],[4*np.pi*R**2*rb],[(4/3)*np.pi*R**3*rb],[0.0],[0.0]])\nassert np.allclose(white_bear_partials(W), target)",
+        "import numpy as np\nR=1.5675050365\nrb=0.03\nW=np.array([[rb],[R*rb],[4*np.pi*R**2*rb],[(4/3)*np.pi*R**3*rb],[0.2*R*rb],[0.2*4*np.pi*R**2*rb]])\nassert np.allclose(white_bear_partials(W), target)",
+        "import numpy as np\nW=np.zeros((6,5))\nassert np.allclose(white_bear_partials(W), target)",
+        "import numpy as np\nrng=np.random.default_rng(3)\nR=1.5675050365\nrb=rng.uniform(0.001,0.02,7)\nW=np.vstack([rb,R*rb,4*np.pi*R**2*rb,(4/3)*np.pi*R**3*rb,-0.3*R*rb,-0.3*4*np.pi*R**2*rb])\nassert np.allclose(white_bear_partials(W), target)",
+        "import numpy as np\nR=1.5675050365\nrb=np.array([1e-9,1e-6,1e-3])\nW=np.vstack([rb,R*rb,4*np.pi*R**2*rb,(4/3)*np.pi*R**3*rb,0*rb,0*rb])\nassert np.allclose(white_bear_partials(W), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-18.5",
+      "test_cases": [
+        "import numpy as np\nR=np.full(801,0.01)\nassert np.allclose(hard_sphere_functional_derivative(R, 1.5675050365, 0.01), target)",
+        "import numpy as np\nZ=np.linspace(0.0,14.0,1401)\nR=0.02*np.exp(-((Z-7.0)/1.5)**2)\nassert np.allclose(hard_sphere_functional_derivative(R, 1.5675050365, 0.01), target)",
+        "import numpy as np\nZ=np.linspace(0.0,8.0,401)\nR=0.015*(Z>2.0)*(Z<6.0)\nassert np.allclose(hard_sphere_functional_derivative(R, 1.4, 0.02), target)",
+        "import numpy as np\nR=np.zeros(301)\nassert np.allclose(hard_sphere_functional_derivative(R, 1.5675050365, 0.01), target)",
+        "import numpy as np\nrng=np.random.default_rng(11)\nR=rng.uniform(0.0,0.03,501)\nassert np.allclose(hard_sphere_functional_derivative(R, 1.5675050365, 0.01), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-18.6",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(bulk_residual_chemical_potential(0.010, 1.5675050365), target)",
+        "import numpy as np\nassert np.allclose(bulk_residual_chemical_potential(0.002, 1.5675050365), target)",
+        "import numpy as np\nassert np.allclose(bulk_residual_chemical_potential(0.020, 1.5675050365), target)",
+        "import numpy as np\nassert np.allclose(bulk_residual_chemical_potential(0.0, 1.5675050365), target)",
+        "import numpy as np\nassert np.allclose(bulk_residual_chemical_potential(0.010, 1.4), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-18.7",
+      "test_cases": [
+        "import numpy as np\nZ=np.linspace(0.0,14.0,1401)\nV_MODEL=steele_slit_potential(Z,14.0,3.161,488.75,3.4,28.0,0.114,3.35,0.61,425.0)\nassert np.allclose(equilibrium_density_profile(V_MODEL, 0.010, 1.5675050365, 0.01), target)",
+        "import numpy as np\nZ=np.linspace(0.0,8.0,801)\nV_MODEL=steele_slit_potential(Z,8.0,3.161,488.75,3.4,28.0,0.114,3.35,0.61,425.0)\nassert np.allclose(equilibrium_density_profile(V_MODEL, 0.004, 1.5675050365, 0.01), target)",
+        "import numpy as np\nZ=np.linspace(0.0,14.0,1401)\nV_MODEL=steele_slit_potential(Z,14.0,3.161,488.75,3.4,28.0,0.114,3.35,0.61,425.0)\nassert np.allclose(equilibrium_density_profile(V_MODEL, 0.002, 1.5675050365, 0.01), target)",
+        "import numpy as np\nV=np.zeros(401)\nassert np.allclose(equilibrium_density_profile(V, 0.010, 1.5675050365, 0.02), target)",
+        "import numpy as np\nZ=np.linspace(0.0,20.0,1001)\nV_MODEL=steele_slit_potential(Z,20.0,3.161,488.75,3.4,28.0,0.114,3.35,0.61,600.0)\nassert np.allclose(equilibrium_density_profile(V_MODEL, 0.005, 1.45, 0.02), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-18.8",
+      "test_cases": [
+        "import numpy as np\nR=1.5675050365\nrb=0.01\nW=np.array([[rb],[R*rb],[4*np.pi*R**2*rb],[(4/3)*np.pi*R**3*rb],[0.0],[0.0]])\nassert np.allclose(contact_pair_correlation(W, 3.135010073), target)",
+        "import numpy as np\nR=1.5675050365\nrb=0.02\nn2=4*np.pi*R**2*rb\nW=np.array([[rb],[R*rb],[n2],[(4/3)*np.pi*R**3*rb],[0.3*R*rb],[0.5*n2]])\nassert np.allclose(contact_pair_correlation(W, 3.135010073), target)",
+        "import numpy as np\nW=np.zeros((6,4))\nassert np.allclose(contact_pair_correlation(W, 3.135010073), target)",
+        "import numpy as np\nZ=np.linspace(0.0,14.0,1401)\nRHO=0.02*np.exp(-((Z-7.0)/1.5)**2)\nW_MODEL=fmt_weighted_densities(RHO,1.5675050365,0.01)\nassert np.allclose(contact_pair_correlation(W_MODEL, 3.135010073), target)",
+        "import numpy as np\nR=1.5675050365\nrb=np.array([0.001,0.01,0.03])\nn2=4*np.pi*R**2*rb\nW=np.vstack([rb,R*rb,n2,(4/3)*np.pi*R**3*rb,-0.2*R*rb,-0.9*n2])\nassert np.allclose(contact_pair_correlation(W, 3.135010073), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-18.9",
+      "test_cases": [
+        "import numpy as np\nG=np.array([1.55848])\nassert np.allclose(association_strength(G, 3.135010073, 3.161, 1210.0, 1.2644, 1.8440374, 425.0), target)",
+        "import numpy as np\nG=np.array([1.0,2.0,5.0,10.0])\nassert np.allclose(association_strength(G, 3.135010073, 3.161, 1210.0, 1.2644, 1.8440374, 425.0), target)",
+        "import numpy as np\nG=np.zeros(3)\nassert np.allclose(association_strength(G, 3.135010073, 3.161, 1210.0, 1.2644, 1.8440374, 425.0), target)",
+        "import numpy as np\nG=np.array([1.55848])\nassert np.allclose(association_strength(G, 3.135010073, 3.161, 1210.0, 1.2644, 1.8440374, 700.0), target)",
+        "import numpy as np\nG=np.linspace(1.0,4.0,6)\nassert np.allclose(association_strength(G, 3.0, 3.05, 1500.0, 1.22, 1.70, 350.0), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-18.10",
+      "test_cases": [
+        "import numpy as np\nN0=np.array([0.01])\nZ=np.array([1.0])\nD=np.array([68.9252])\nassert np.allclose(nonbonded_site_fraction(N0, Z, D), target)",
+        "import numpy as np\nN0=np.array([0.0,0.005,0.02,0.05])\nZ=np.ones(4)\nD=np.full(4,70.0)\nassert np.allclose(nonbonded_site_fraction(N0, Z, D), target)",
+        "import numpy as np\nN0=np.full(4,0.02)\nZ=np.array([1.0,0.9,0.6,0.0])\nD=np.full(4,120.0)\nassert np.allclose(nonbonded_site_fraction(N0, Z, D), target)",
+        "import numpy as np\nN0=np.full(3,0.01)\nZ=np.ones(3)\nD=np.array([0.0,1e-8,1e4])\nassert np.allclose(nonbonded_site_fraction(N0, Z, D), target)",
+        "import numpy as np\nrng=np.random.default_rng(5)\nN0=rng.uniform(0,0.05,7)\nZ=rng.uniform(0.5,1.0,7)\nD=rng.uniform(10,300,7)\nassert np.allclose(nonbonded_site_fraction(N0, Z, D), target)",
+        "import numpy as np\nN0=np.array([1e-20,1e-16,1e-12])\nZ=np.ones(3)\nD=np.ones(3)\nassert np.allclose(nonbonded_site_fraction(N0, Z, D), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-18.11",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(confined_nonbonded_fraction(14.0, 0.010, 425.0, 1401), target)",
+        "import numpy as np\nassert np.allclose(confined_nonbonded_fraction(14.0, 0.004, 425.0, 1401), target)",
+        "import numpy as np\nassert np.allclose(confined_nonbonded_fraction(8.0, 0.004, 425.0, 801), target)",
+        "import numpy as np\nassert np.allclose(confined_nonbonded_fraction(20.0, 0.010, 500.0, 1001), target)",
+        "import numpy as np\nassert np.allclose(confined_nonbonded_fraction(14.0, 0.010, 425.0, 201), target)"
+      ]
+    }
+  ]
+}

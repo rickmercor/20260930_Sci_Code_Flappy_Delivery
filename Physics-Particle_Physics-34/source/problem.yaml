@@ -1,0 +1,36 @@
+problem_id: "Physics-Particle_Physics-34"
+subject: "physics"
+subject_area: "Particle Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1007/JHEP02(2026)196"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_surface_descriptor"
+    description: "A connected orientable unpunctured surface is specified by genus g and positive boundary mark counts. For cubic scalar ribbon graphs, its triangulation has E=sum(marks)+3*b+6*g-6 arcs and L=2*g+b-1 loops, where b counts boundaries. At spacetime dimension 2 its degree is d=E-L. Return (g, sorted_marks, E, L, d), preserving repeated boundary counts. The finite domain has g in {0,1}, one through three boundaries and E from 0 through 11. The only allowed E=0 surface is the triangle (0,(3,)); disks with one or two marks are unstable. Accept integer scalars but not booleans or floating-point values, and raise ValueError outside the domain."
+    orchestrator: false
+  - number: 2
+    name: "02_nonseparating_cuts"
+    description: "Enumerate nonseparating cuts on a connected unpunctured surface. Accept genus 0 or 1, one through three positive integer boundary counts and E=sum(marks)+3*b+6*g-6 from 0 through 11, with only the triangle allowed at E=0. Reject booleans, floating-point counts and inputs outside this domain with ValueError. Return raw records (components, multiplicity), where components is a tuple containing one (genus, sorted_marks) descriptor. Do not aggregate records."
+    orchestrator: false
+  - number: 3
+    name: "03_separating_cuts"
+    description: "Enumerate raw separating cuts on a connected orientable unpunctured surface. Accept genus 0 or 1, one through three positive integer boundary counts and E=sum(marks)+3*b+6*g-6 from 0 through 11, with only the triangle allowed at E=0. Reject booleans, floating-point counts and out-of-domain inputs with ValueError. Sort parent marks, retaining repeated entries as distinct indexed boundaries."
+    orchestrator: false
+  - number: 4
+    name: "04_aggregate_cuts"
+    description: "Combine the raw nonseparating and separating curve families into unlabelled cut outcomes. Accept genus 0 or 1, one through three positive integer boundary counts and E=sum(marks)+3*b+6*g-6 from 0 through 11, with only the triangle allowed at E=0. Invalid counts, booleans and floating-point counts raise ValueError. Each output record is (components,multiplicity), sorted lexicographically by components. Each component is (genus,sorted_marks), and the components form an unordered multiset represented by a sorted tuple."
+    orchestrator: false
+  - number: 5
+    name: "05_reduced_surface_weight"
+    description: "Evaluate the reduced tropical weight h for a connected surface in spacetime dimension 2. Accept genus 0 or 1, one through three positive integer boundary counts and E=sum(marks)+3*b+6*g-6 from 0 through 11, with only the triangle allowed at E=0. Invalid counts, booleans and floating-point counts raise ValueError. The loop count is L=2*g+b-1 and the degree is d=E-L. The triangle (0,(3,)) has h=1 even though d=0."
+    orchestrator: false
+  - number: 6
+    name: "06_first_cut_distribution"
+    description: "Return (total_weight, probabilities) for the aggregated first-cut topology distribution, with probabilities in lexicographic component-descriptor order. Accept genus 0 or 1, one through three positive integer boundary mark counts and E=sum(marks)+3*b+6*g-6 from 1 through 11. Booleans, floating-point counts and other inputs raise ValueError; the E=0 triangle is not a first-cut query."
+    orchestrator: false
+  - number: 7
+    name: "07_surface_collision"
+    description: "Compose the canonical surface descriptor, nonseparating and separating cut enumeration, multiplicity aggregation, reduced surface recursion and first-cut normalization to return the probability that two independent first-cut draws have the same unlabelled component collection. Accept genus 0 or 1, one through three positive integer boundary counts and E=sum(marks)+3*b+6*g-6 from 1 through 11. Reject booleans, floating-point counts and other inputs with ValueError. The terminal triangle has no first-cut distribution and is rejected here."
+    orchestrator: true

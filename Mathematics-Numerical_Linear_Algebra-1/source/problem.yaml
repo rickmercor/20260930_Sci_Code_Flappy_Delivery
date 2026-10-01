@@ -1,0 +1,44 @@
+problem_id: "Mathematics-Numerical_Linear_Algebra-1"
+subject: "mathematics"
+subject_area: "Numerical Linear Algebra"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: " https://doi.org/10.3390/math13233781"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_assemble_upwind_convection_diffusion"
+    description: "Assemble a conservative exponentially fitted convection-diffusion operator on nonuniform cells with periodic and total-flux Robin boundaries."
+    orchestrator: false
+  - number: 2
+    name: "02_seed_power_pattern"
+    description: "Form the a-priori sparsity pattern of one column of the approximate inverse from the low powers of the matrix."
+    orchestrator: false
+  - number: 3
+    name: "03_initialize_adaptive_column"
+    description: "Start one column of the adaptive sparse approximate inverse from its a-priori pattern by solving the least-squares problem restricted to the rows that pattern reaches."
+    orchestrator: false
+  - number: 4
+    name: "04_select_residual_rows"
+    description: "Choose which residual entries drive one enlargement pass of a column, using a threshold relative to the residual norm and a cap on the number admitted."
+    orchestrator: false
+  - number: 5
+    name: "05_enlarge_column_pattern"
+    description: "Enlarge the sparsity pattern of a column so that the least-squares solution can act on the residual entries admitted in the current pass."
+    orchestrator: false
+  - number: 6
+    name: "06_advance_column_pattern"
+    description: "Carry out the pattern update of one enlargement pass of a column: pick the admissible residual rows of the current reduced problem, grow the pattern through them and record them as admitted."
+    orchestrator: false
+  - number: 7
+    name: "07_extend_reduced_qr"
+    description: "Extend a reduced least-squares factorization when residual admission introduces new column coordinates and new residual rows, and recover the full-space column and residual norm."
+    orchestrator: false
+  - number: 8
+    name: "08_compute_adaptive_column"
+    description: "Build one column of the adaptive residual-based sparse approximate inverse by solving on an initial pattern and then enlarging the pattern pass by pass under a residual tolerance, a relative admission threshold, a per-pass cap and a pass limit."
+    orchestrator: false
+  - number: 9
+    name: "09_evaluate_preconditioner_benchmark"
+    description: "Assemble the benchmark convection-diffusion matrix from its velocity field, build its adaptive residual-based sparse approximate inverse column by column and return the Frobenius norm of $AM - I$."
+    orchestrator: true

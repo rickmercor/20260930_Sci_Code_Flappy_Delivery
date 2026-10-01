@@ -1,0 +1,40 @@
+problem_id: "Physics-Optics-26"
+subject: "physics"
+subject_area: "Optics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2609.17785"
+dependencies: ""
+steps:
+  - number: 1
+    name: "field_multiplication_coefficients"
+    description: "Compute the multiplication coefficients of the lossy thermal cavity's damping eigenoperator of radial index $n$ and coherence order $k$: the coefficients of the eigenoperators produced when it is multiplied from the left or from the right by $a$ or $a^\\dagger$."
+    orchestrator: false
+  - number: 2
+    name: "atomic_multiplication_matrices"
+    description: "Compute the matrices of left and right multiplication by the collective ladders $S_+$ and $S_-$ on the paper's permutation-invariant atomic damping basis $R_m$ for $N$ emitters at pump parameter $s$."
+    orchestrator: false
+  - number: 3
+    name: "radial_blocks"
+    description: "Assemble the three $D$-by-$D$ blocks that couple radial level $n$ to levels $n-1$, $n$ and $n+1$ in the stationary sector of vanishing total coherence $K=k+(m_+-m_-)=0$, for the full pumped Tavis-Cummings Liouvillian of the model."
+    orchestrator: false
+  - number: 4
+    name: "asymptotic_transfer_matrix"
+    description: "Compute the large-radial-index limit $R_\\infty$ of the stationary transfer matrices $X_{n+1}=R_n X_n$, which terminates the downward matrix continued fraction."
+    orchestrator: false
+  - number: 5
+    name: "stationary_radial_coefficients"
+    description: "Obtain the stationary state of the $K=0$ sector as a downward matrix continued fraction started from the terminal transfer matrix of Step 4 at radial index $n_{\\max}$, and return its damping-basis coefficients at every radial level."
+    orchestrator: false
+  - number: 6
+    name: "exact_stationary_observables"
+    description: "Extract the exact stationary mean photon number, zero-delay second-order coherence, single-emitter excited-state population and inter-emitter pair coherence from the damping-basis coefficients of Step 5."
+    orchestrator: false
+  - number: 7
+    name: "second_order_closure_stationary"
+    description: "Compute the stationary mean photon number, excited-state population, atom-field coherence $Z_1$ and pair coherence $C$ predicted by the second-order cumulant closure of the moment hierarchy, as benchmarked in the paper."
+    orchestrator: false
+  - number: 8
+    name: "pair_coherence_closure_error"
+    description: "Chain the earlier steps into the full pipeline: build the exact stationary state with the damping-basis continued fraction (Steps 1-5), extract its pair coherence (Step 6), solve the second-order closure (Step 7), and return the closure error of the pair coherence. The reference implementation calls the earlier public functions by name rather than reproducing their contents."
+    orchestrator: true

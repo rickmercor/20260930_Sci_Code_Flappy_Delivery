@@ -1,0 +1,68 @@
+{
+  "problem_id": "Material_Science-Semiconductor_Materials-62",
+  "sub_steps": [
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-62.1",
+      "test_cases": [
+        "import numpy as np\ne = np.array([[0.020, 0.006, 0.004], [0.006, 0.015, 0.008], [0.004, 0.008, -0.018]])\nassert np.allclose(shear_strain_vector(e), target)",
+        "import numpy as np\ne = np.diag([0.01, 0.01, -0.009])\nassert np.allclose(shear_strain_vector(e), target)",
+        "import numpy as np\ne = np.array([[0.0, 0.004, 0.0], [0.004, 0.0, 0.006], [0.0, 0.006, 0.0]])\nassert np.allclose(shear_strain_vector(e), target)",
+        "import numpy as np\ne = np.array([[0.0, 0.1, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]])\ndef run_model():\n    try:\n        shear_strain_vector(e)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-62.2",
+      "test_cases": [
+        "import numpy as np\ndelta_g, delta_soff, P, a, b, d_cv = 0.417, 0.390, 0.905, 6.0, 1.8, 3.6\ne = np.array([[0.020, 0.006, 0.004], [0.006, 0.015, 0.008], [0.004, 0.008, -0.018]])\ne_s = np.array([0.008, 0.004, 0.006], dtype=np.float64)\nassert np.allclose(strained_band_gaps(delta_g, delta_soff, a, b, d_cv, e, e_s), target)",
+        "import numpy as np\ndelta_g, delta_soff, P, a, b, d_cv = 0.417, 0.390, 0.905, 6.0, 1.8, 3.6\ne = np.zeros((3, 3))\ne_s = np.array([0.0, 0.0, 0.0], dtype=np.float64)\nassert np.allclose(strained_band_gaps(delta_g, delta_soff, a, b, d_cv, e, e_s), target)",
+        "import numpy as np\ndelta_g, delta_soff, P, a, b, d_cv = 1.519, 0.341, 1.047, 8.33, 2.0, 4.8\ne = np.array([[0.0, 0.004, 0.0], [0.004, 0.0, 0.006], [0.0, 0.006, 0.0]])\ne_s = np.array([0.006, 0.0, 0.004], dtype=np.float64)\nassert np.allclose(strained_band_gaps(delta_g, delta_soff, a, b, d_cv, e, e_s), target)",
+        "import numpy as np\ndelta_g, delta_soff, a, b, d_cv = 0.417, 0.390, 6.0, 1.8, 3.6\ne = 0.05 * np.eye(3)\ne_s = np.zeros(3)\ndef run_model():\n    try:\n        strained_band_gaps(delta_g, delta_soff, a, b, d_cv, e, e_s)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-62.3",
+      "test_cases": [
+        "import numpy as np\ne = np.array([[0.020, 0.006, 0.004], [0.006, 0.015, 0.008], [0.004, 0.008, -0.018]])\nassert np.allclose(strain_tensor_factor(e), target)",
+        "import numpy as np\ne = np.zeros((3, 3))\nassert np.allclose(strain_tensor_factor(e), target)",
+        "import numpy as np\ne = np.array([[0.0, 0.004, 0.0], [0.004, 0.0, 0.006], [0.0, 0.006, 0.0]])\nassert np.allclose(strain_tensor_factor(e), target)",
+        "import numpy as np\ne = np.array([[0.0, 0.1, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]])\ndef run_model():\n    try:\n        strain_tensor_factor(e)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-62.4",
+      "test_cases": [
+        "import numpy as np\ndelta_g, delta_soff, P, a, b, d_cv = 0.417, 0.390, 0.905, 6.0, 1.8, 3.6\ne = np.array([[0.020, 0.006, 0.004], [0.006, 0.015, 0.008], [0.004, 0.008, -0.018]])\n\ngaps = np.array([0.3095268133886315, 0.3204731866113684, 0.7049999999999998], dtype=np.float64)\nadj = np.array([[1.003, 0.006, 0.004], [0.006, 0.998, 0.008], [0.004, 0.008, 0.965]], dtype=np.float64)\ndelta_lhb, delta_sob = gaps[0], gaps[2]\nassert np.allclose(isotropic_g_tensor(P, adj, delta_lhb, delta_sob), target)",
+        "import numpy as np\ndelta_g, delta_soff, P, a, b, d_cv = 0.417, 0.390, 0.905, 6.0, 1.8, 3.6\nadj = np.eye(3)\ndelta_lhb, delta_sob = delta_g, delta_g + delta_soff\nassert np.allclose(isotropic_g_tensor(P, adj, delta_lhb, delta_sob), target)",
+        "import numpy as np\ndelta_g, delta_soff, P, a, b, d_cv = 1.519, 0.341, 1.047, 8.33, 2.0, 4.8\ne = np.array([[0.0, 0.004, 0.0], [0.004, 0.0, 0.006], [0.0, 0.006, 0.0]])\n\ngaps = np.array([1.4843867077555457, 1.553613292244454, 1.8599999999999999], dtype=np.float64)\nadj = np.array([[1.0, 0.004, 0.0], [0.004, 1.0, 0.006], [0.0, 0.006, 1.0]], dtype=np.float64)\ndelta_lhb, delta_sob = gaps[0], gaps[2]\nassert np.allclose(isotropic_g_tensor(P, adj, delta_lhb, delta_sob), target)",
+        "import numpy as np\nP, adj, delta_lhb, delta_sob = 0.905, np.eye(3), -0.3, 0.7\ndef run_model():\n    try:\n        isotropic_g_tensor(P, adj, delta_lhb, delta_sob)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-62.5",
+      "test_cases": [
+        "import numpy as np\ndelta_g, delta_soff, P, a, b, d_cv = 0.417, 0.390, 0.905, 6.0, 1.8, 3.6\ne = np.array([[0.020, 0.006, 0.004], [0.006, 0.015, 0.008], [0.004, 0.008, -0.018]])\n\ngaps = np.array([0.3095268133886315, 0.3204731866113684, 0.7049999999999998], dtype=np.float64)\nadj = np.array([[1.003, 0.006, 0.004], [0.006, 0.998, 0.008], [0.004, 0.008, 0.965]], dtype=np.float64)\ndelta_lhb, delta_hhb = gaps[0], gaps[1]\nassert np.allclose(anisotropic_g_tensor(P, adj, delta_lhb, delta_hhb), target)",
+        "import numpy as np\ndelta_g, delta_soff, P, a, b, d_cv = 0.417, 0.390, 0.905, 6.0, 1.8, 3.6\nadj = np.eye(3)\ndelta_lhb, delta_hhb = delta_g, delta_g\nassert np.allclose(anisotropic_g_tensor(P, adj, delta_lhb, delta_hhb), target)",
+        "import numpy as np\ndelta_g, delta_soff, P, a, b, d_cv = 1.519, 0.341, 1.047, 8.33, 2.0, 4.8\ne = np.diag([0.01, 0.01, -0.009])\n\ngaps = np.array([1.4433699999999998, 1.41137, 1.7683699999999998], dtype=np.float64)\nadj = np.array([[0.999, 0.0, 0.0], [0.0, 0.999, 0.0], [0.0, 0.0, 0.98]], dtype=np.float64)\ndelta_lhb, delta_hhb = gaps[0], gaps[1]\nassert np.allclose(anisotropic_g_tensor(P, adj, delta_lhb, delta_hhb), target)",
+        "import numpy as np\nP, adj, delta_lhb, delta_hhb = 0.905, np.eye(2), 0.31, 0.32\ndef run_model():\n    try:\n        anisotropic_g_tensor(P, adj, delta_lhb, delta_hhb)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-62.6",
+      "test_cases": [
+        "import numpy as np\ng_iso = np.array([[-24.0, 0.1, 0.2], [0.1, -23.9, 0.3], [0.2, 0.3, -23.0]])\ng_ani = np.array([[1.0, 0.05, 0.06], [0.05, 1.1, 0.07], [0.06, 0.07, 2.3]])\nassert np.allclose(effective_g_tensor(g_iso, g_ani), target)",
+        "import numpy as np\ng_iso = np.diag([-15.0, -15.0, -15.0])\ng_ani = np.zeros((3, 3))\nassert np.allclose(effective_g_tensor(g_iso, g_ani), target)",
+        "import numpy as np\ng_iso = np.eye(3) * 2.0\ng_ani = np.full((3, 3), 0.5)\nassert np.allclose(effective_g_tensor(g_iso, g_ani), target)",
+        "import numpy as np\ng_iso = np.eye(2)\ng_ani = np.eye(3)\ndef run_model():\n    try:\n        effective_g_tensor(g_iso, g_ani)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-62.7",
+      "test_cases": [
+        "import numpy as np\ndelta_g, delta_soff, P, a, b, d_cv = 0.417, 0.390, 0.905, 6.0, 1.8, 3.6\ne = np.array([[0.020, 0.006, 0.004], [0.006, 0.015, 0.008], [0.004, 0.008, -0.018]])\nassert np.allclose(strain_g_anisotropy(delta_g, delta_soff, P, a, b, d_cv, e), target)",
+        "import numpy as np\ndelta_g, delta_soff, P, a, b, d_cv = 0.417, 0.390, 0.905, 6.0, 1.8, 3.6\ne = np.zeros((3, 3))\nassert np.allclose(strain_g_anisotropy(delta_g, delta_soff, P, a, b, d_cv, e), target)",
+        "import numpy as np\ndelta_g, delta_soff, P, a, b, d_cv = 1.519, 0.341, 1.047, 8.33, 2.0, 4.8\ne = np.diag([0.01, 0.01, -0.009])\nassert np.allclose(strain_g_anisotropy(delta_g, delta_soff, P, a, b, d_cv, e), target)",
+        "import numpy as np\ndelta_g, delta_soff, P, a, b, d_cv = 0.417, 0.390, 0.905, 6.0, 1.8, 3.6\ne = np.zeros((2, 2))\ndef run_model():\n    try:\n        strain_g_anisotropy(delta_g, delta_soff, P, a, b, d_cv, e)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

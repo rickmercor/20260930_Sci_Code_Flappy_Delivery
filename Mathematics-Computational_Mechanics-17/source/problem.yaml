@@ -1,0 +1,40 @@
+problem_id: "Mathematics-Computational_Mechanics-17"
+subject: "mathematics"
+subject_area: "Computational Mechanics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1103/rgg3-19pc"
+dependencies: ""
+steps:
+  - number: 1
+    name: "cell_transfer_matrix"
+    description: "Work in units in which the period, a reference conductivity and a reference volumetric heat capacity are one. The laminate repeats a cell of layers listed in order along $+x$, the first occupying $0 < x < h_1$. Return the transfer matrix that carries the state vector $(-q, \\theta)$ from the start of the period beginning at $x = \\mathrm{start}$, taken modulo the period, to the end of that period, together with its determinant and its trace."
+    orchestrator: false
+  - number: 2
+    name: "bloch_trace_retrieval"
+    description: "From the transfer matrix of the period beginning at $x = \\mathrm{start}$ (step 01), return the Bloch wavenumber $K_B$ of the free thermal waves $p(x) e^{\\pm K_B x + s t}$ of the laminate, $p$ periodic, taking the root with non-negative real part and with the imaginary part of $K_B l$ in $(-\\pi, \\pi]$, and the parameters $\\kappa_R$, $c_R$ and $\\chi_R$ of the uniform bianisotropic slab of length $l$ whose entropy coupling is $\\chi_R / s$, whose transfer matrix equals that of the period and whose wavenumber equals that $K_B$. Units are those of step 01, and $l$ is the sum of the thicknesses."
+    orchestrator: false
+  - number: 3
+    name: "forced_bloch_cell_response"
+    description: "For sources $r = r_0 e^{K x}$, $\\zeta = \\zeta_0 e^{K x}$ and $\\varphi = \\varphi_0 e^{K x}$ acting on the periodic laminate whose cell is listed in order along $+x$ from $x = 0$, return the amplitudes of the ensemble means over a uniformly distributed translation of the laminate, the sources being held fixed: $\\langle \\theta \\rangle = \\Theta e^{K x}$, $\\langle -q \\rangle = Q e^{K x}$ and $\\langle \\theta_R \\eta \\rangle = H e^{K x}$. Units are those of step 01."
+    orchestrator: false
+  - number: 4
+    name: "source_driven_constitutive_matrix"
+    description: "At complex wavenumber $K$ and Laplace variable $s$, return the source-driven effective matrix $L_{\\mathrm{eff}}$ of the laminate, the 2 by 2 matrix with rows $(\\kappa_{\\mathrm{eff}}, \\chi_{\\mathrm{eff}})$ and $(L_{21}, c_{\\mathrm{eff}})$, $L_{21}$ being the coefficient of the mean temperature gradient in the mean entropy, that maps the mean kinematic amplitudes $(K \\Theta - \\zeta_0, \\Theta - \\varphi_0)$ to the mean kinetic amplitudes $(Q, H)$ of step 03 for every combination of the three sources, and a consistency figure: the largest modulus of the deviation of $L_{\\mathrm{eff}} (K \\Theta - \\zeta_0, \\Theta - \\varphi_0)$ from $(Q, H)$ for a unit residual temperature, divided by the largest modulus of $Q$ and $H$ over the responses to a unit heat source, a unit residual gradient and a unit residual temperature. Units are those of step 01."
+    orchestrator: false
+  - number: 5
+    name: "willis_symmetry_certificate"
+    description: "Certify the effective matrix of the laminate at $(K, s)$ by computing it also at $-K$, for the mirrored cell (layers in reverse order) at $-K$, and for the period cut at $x = \\mathrm{start}$, and report three relative residuals, all measured on the scaled matrix with rows $(\\kappa_{\\mathrm{eff}}, \\chi_{\\mathrm{eff}})$ and $(s L_{21}, s \\, c_{\\mathrm{eff}})$, $L_{21}$ being the lower-left entry of the matrix of step 04. The adjoint residual is the largest of $|\\chi_{\\mathrm{eff}}(K) - s L_{21}(-K)|$, $|\\kappa_{\\mathrm{eff}}(K) - \\kappa_{\\mathrm{eff}}(-K)|$ and $|s \\, c_{\\mathrm{eff}}(K) - s \\, c_{\\mathrm{eff}}(-K)|$; the mirror residual is the largest of $|\\chi^{m}(-K) + \\chi_{\\mathrm{eff}}(K)|$, $|s L_{21}^{m}(-K) + s L_{21}(K)|$, $|\\kappa^{m}(-K) - \\kappa_{\\mathrm{eff}}(K)|$ and $|s \\, c^{m}(-K) - s \\, c_{\\mathrm{eff}}(K)|$, the superscript $m$ marking the mirrored cell; the translation residual is the largest entry-wise modulus of the difference between the scaled matrices of the two cuts. Each is divided by the largest entry modulus of the scaled matrix at $(K, s)$. Units are those of step 01."
+    orchestrator: false
+  - number: 6
+    name: "local_directional_impedance"
+    description: "Evaluate the effective matrix of step 04 at $K = 0$ and return its entries, the local wavenumber $k_{\\mathrm{eff}}$, with non-negative real part, of source-free disturbances of the local effective medium, and the forward and backward thermal impedances $Z_{+}$ and $Z_{-}$, defined as the temperature divided by the heat flux $q$ (not $-q$) of a disturbance $\\theta \\propto e^{-k_{\\mathrm{eff}} x}$ decaying along $+x$ and of a disturbance $\\theta \\propto e^{k_{\\mathrm{eff}} x}$ decaying along $-x$. Report also the pair residual $|\\chi_{\\mathrm{eff}} - s L_{21}| / |Z^{-1}|$, with $L_{21}$ the lower-left entry and $Z^{-1} = \\kappa_{\\mathrm{eff}} k_{\\mathrm{eff}}$. Units are those of step 01."
+    orchestrator: false
+  - number: 7
+    name: "effective_bloch_dispersion_root"
+    description: "Find a zero of the effective dispersion function of the laminate, $D(K, s) = -1 / \\Theta_r(K, s)$, where $\\Theta_r$ is the mean-temperature amplitude of the response to a unit heat source (step 03), by the secant method started from the two given complex wavenumbers. Stop when the secant update is at most tolerance times the modulus of the new iterate, returning that iterate without evaluating $D$ there; raise an error if this does not happen within max_iterations updates. Units are those of step 01."
+    orchestrator: false
+  - number: 8
+    name: "willis_heat_coupling_report"
+    description: "Given the physical layer data of the cell, listed in order along $+x$, an angular frequency and a wavenumber for fields varying as $e^{i k x + i \\omega t}$, and the reference scales, return the normalised source-driven effective matrix at that frequency and wavenumber, whose coupling $\\chi_{\\mathrm{eff}} l / \\kappa_0$ is the reported result, together with the certificates and contrasts of the other stages."
+    orchestrator: true

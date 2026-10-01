@@ -1,0 +1,77 @@
+{
+  "problem_id": "Physics-Astrophysics-37",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Astrophysics-37.1",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(mode_spectrum(), target)",
+        "import numpy as np\nassert np.allclose(mode_spectrum(num_modes=1, bw2=0.02, omega1=0.05, q=0.0, tan_alpha=1.0), target)",
+        "import numpy as np\ndef _probe(fn):\n    try:\n        fn(num_modes=0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_probe(mode_spectrum), target)",
+        "import numpy as np\nassert np.allclose(mode_spectrum(num_modes=15, bw2=0.30, omega1=0.02, q=2.5, tan_alpha=9.0, band_width=0.2), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-37.2",
+      "test_cases": [
+        "def _case_run(_tested_function, mode_spectrum):\n    import numpy as np\n    s = mode_spectrum()\n    p = np.linspace(0.3, 5.1, s.shape[1])\n    return _tested_function(p.copy(), s[1].copy())\nassert np.allclose(_case_run(total_field, mode_spectrum), target)",
+        "def _case_run(_tested_function, mode_spectrum):\n    import numpy as np\n    s = mode_spectrum()\n    z = np.zeros(s.shape[1])\n    return _tested_function(z.copy(), s[1].copy())\nassert np.allclose(_case_run(total_field, mode_spectrum), target)",
+        "import numpy as np\nassert np.allclose(total_field(np.array([1.25]), np.array([0.4]), tan_alpha=12.0), target)",
+        "import numpy as np\ndef _probe_field(fn):\n    try:\n        fn(np.array([0.1, 0.2]), np.array([0.3]))\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_probe_field(total_field), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-37.3",
+      "test_cases": [
+        "def _case_run(_tested_function, mode_spectrum):\n    import numpy as np\n    s = mode_spectrum()\n    p = np.linspace(0.3, 5.1, s.shape[1])\n    return _tested_function(p.copy(), s[0].copy(), s[1].copy())\nassert np.allclose(_case_run(field_gradient_tensor, mode_spectrum), target)",
+        "def _case_run(_tested_function, mode_spectrum):\n    import numpy as np\n    s = mode_spectrum()\n    z = np.zeros(s.shape[1])\n    return _tested_function(z.copy(), s[0].copy(), s[1].copy())\nassert np.allclose(_case_run(field_gradient_tensor, mode_spectrum), target)",
+        "import numpy as np\nassert np.allclose(field_gradient_tensor(np.array([2.0]), np.array([0.09]), np.array([0.25]), tan_alpha=0.5), target)",
+        "import numpy as np\ndef _probe_grad(fn):\n    try:\n        fn(np.array([0.1]), np.array([0.2]), np.array([0.3]), tan_alpha=-1.0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_probe_grad(field_gradient_tensor), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-37.4",
+      "test_cases": [
+        "def _case_run(_tested_function, field_gradient_tensor, mode_spectrum, total_field):\n    import numpy as np\n    s = mode_spectrum()\n    p = np.linspace(0.3, 5.1, s.shape[1])\n    bf = total_field(p.copy(), s[1].copy())\n    gt = field_gradient_tensor(p.copy(), s[0].copy(), s[1].copy())\n    return _tested_function(bf.copy(), gt.copy())\nassert np.allclose(_case_run(curvature_radius, field_gradient_tensor, mode_spectrum, total_field), target)",
+        "def _case_run(_tested_function, field_gradient_tensor, mode_spectrum, total_field):\n    import numpy as np\n    s = mode_spectrum()\n    z = np.zeros(s.shape[1])\n    bf0 = total_field(z.copy(), s[1].copy())\n    gt0 = field_gradient_tensor(z.copy(), s[0].copy(), s[1].copy())\n    return _tested_function(bf0.copy(), gt0.copy())\nassert np.allclose(_case_run(curvature_radius, field_gradient_tensor, mode_spectrum, total_field), target)",
+        "def _case_run(_tested_function, field_gradient_tensor, mode_spectrum, total_field):\n    import numpy as np\n    s5 = mode_spectrum(num_modes=2, bw2=0.45, omega1=0.31, q=0.4, tan_alpha=0.6)\n    p5 = np.array([0.77, 4.02])\n    bf5 = total_field(p5.copy(), s5[1].copy(), tan_alpha=0.6)\n    gt5 = field_gradient_tensor(p5.copy(), s5[0].copy(), s5[1].copy(), tan_alpha=0.6)\n    return _tested_function(bf5.copy(), gt5.copy())\nassert np.allclose(_case_run(curvature_radius, field_gradient_tensor, mode_spectrum, total_field), target)",
+        "import numpy as np\ndef _probe_rc(fn):\n    try:\n        fn(np.array([0.0, 0.0, 1.0]), np.zeros((3, 3)))\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_probe_rc(curvature_radius), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-37.5",
+      "test_cases": [
+        "def _case_run(_tested_function, field_gradient_tensor, mode_spectrum):\n    import numpy as np\n    s = mode_spectrum()\n    p = np.linspace(0.3, 5.1, s.shape[1])\n    gt = field_gradient_tensor(p.copy(), s[0].copy(), s[1].copy())\n    return _tested_function(gt.copy())\nassert np.allclose(_case_run(gradient_anisotropy_ratio, field_gradient_tensor, mode_spectrum), target)",
+        "def _case_run(_tested_function, field_gradient_tensor, mode_spectrum):\n    import numpy as np\n    s = mode_spectrum()\n    z = np.zeros(s.shape[1])\n    gt0 = field_gradient_tensor(z.copy(), s[0].copy(), s[1].copy())\n    return _tested_function(gt0.copy())\nassert np.allclose(_case_run(gradient_anisotropy_ratio, field_gradient_tensor, mode_spectrum), target)",
+        "def _case_run(_tested_function, field_gradient_tensor, mode_spectrum):\n    import numpy as np\n    s2 = mode_spectrum(num_modes=3, bw2=0.4, omega1=0.3, tan_alpha=0.2)\n    p2 = np.array([5.9, 1.1, 3.3])\n    gt2 = field_gradient_tensor(p2.copy(), s2[0].copy(), s2[1].copy(), tan_alpha=0.2)\n    return _tested_function(gt2.copy())\nassert np.allclose(_case_run(gradient_anisotropy_ratio, field_gradient_tensor, mode_spectrum), target)",
+        "import numpy as np\ndef _probe_ratio(fn):\n    try:\n        fn(np.zeros((3, 3)))\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_probe_ratio(gradient_anisotropy_ratio), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-37.6",
+      "test_cases": [
+        "def _case_run(_tested_function, mode_spectrum):\n    import numpy as np\n    s = mode_spectrum()\n    p = np.linspace(0.3, 5.1, s.shape[1])\n    return _tested_function(p.copy(), s.copy())\nassert np.allclose(_case_run(effective_curvature_parameter, mode_spectrum), target)",
+        "def _case_run(_tested_function, mode_spectrum):\n    import numpy as np\n    s = mode_spectrum()\n    z = np.zeros(s.shape[1])\n    return _tested_function(z.copy(), s.copy(), speed=0.25)\nassert np.allclose(_case_run(effective_curvature_parameter, mode_spectrum), target)",
+        "def _case_run(_tested_function, mode_spectrum):\n    import numpy as np\n    s3 = mode_spectrum(num_modes=2, bw2=0.5, omega1=0.4, q=0.5, tan_alpha=8.0)\n    p3 = np.array([4.7, 2.2])\n    return _tested_function(p3.copy(), s3.copy(), tan_alpha=8.0, speed=2.0)\nassert np.allclose(_case_run(effective_curvature_parameter, mode_spectrum), target)",
+        "def _case_run(_tested_function, mode_spectrum):\n    import numpy as np\n    s = mode_spectrum()\n\n    def _probe_par(fn):\n        try:\n            fn(np.zeros(s.shape[1]), s.copy(), speed=0.0)\n        except ValueError:\n            return 1\n        except Exception:\n            return 2\n        return 0\n    return _probe_par(_tested_function)\nassert np.allclose(_case_run(effective_curvature_parameter, mode_spectrum), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-37.7",
+      "test_cases": [
+        "def _case_run(_tested_function, effective_curvature_parameter, mode_spectrum):\n    import numpy as np\n\n    def _pack_minimum(result, spectrum, tan_alpha=4.4, speed=1.0):\n        r = np.asarray(result, dtype=float)\n        if r.shape != (spectrum.shape[1] + 1,) or not np.all(np.isfinite(r)) or r[0] <= 0.0:\n            return np.zeros(4, dtype=float)\n        phases = r[1:]\n        in_range = float(np.all((phases >= 0.0) & (phases < 2.0 * np.pi)))\n        again = effective_curvature_parameter(phases.copy(), spectrum.copy(), tan_alpha, speed)\n        consistent = float(abs(again - r[0]) <= 1e-09 * abs(again))\n        cos_alpha = 1.0 / np.sqrt(1.0 + tan_alpha * tan_alpha)\n        sin_alpha = tan_alpha * cos_alpha\n        scale = 0.5 * cos_alpha ** 3 / (speed * sin_alpha * np.sum(spectrum[0] * spectrum[1]))\n        return np.array([r[0] / scale - 1.0, 1.0, in_range, consistent])\n    s = mode_spectrum(num_modes=3, bw2=0.19, omega1=0.11, tan_alpha=4.4)\n    return _pack_minimum(_tested_function(s.copy(), num_starts=300, num_iterations=800), s)\nassert np.allclose(_case_run(phase_space_minimum, effective_curvature_parameter, mode_spectrum), target)",
+        "def _case_run(_tested_function, effective_curvature_parameter, mode_spectrum):\n    import numpy as np\n\n    def _pack_minimum(result, spectrum, tan_alpha=4.4, speed=1.0):\n        r = np.asarray(result, dtype=float)\n        if r.shape != (spectrum.shape[1] + 1,) or not np.all(np.isfinite(r)) or r[0] <= 0.0:\n            return np.zeros(4, dtype=float)\n        phases = r[1:]\n        in_range = float(np.all((phases >= 0.0) & (phases < 2.0 * np.pi)))\n        again = effective_curvature_parameter(phases.copy(), spectrum.copy(), tan_alpha, speed)\n        consistent = float(abs(again - r[0]) <= 1e-09 * abs(again))\n        cos_alpha = 1.0 / np.sqrt(1.0 + tan_alpha * tan_alpha)\n        sin_alpha = tan_alpha * cos_alpha\n        scale = 0.5 * cos_alpha ** 3 / (speed * sin_alpha * np.sum(spectrum[0] * spectrum[1]))\n        return np.array([r[0] / scale - 1.0, 1.0, in_range, consistent])\n    s1 = mode_spectrum(num_modes=1, bw2=0.19, omega1=0.11, tan_alpha=4.4)\n    return _pack_minimum(_tested_function(s1.copy(), num_starts=64, num_iterations=600), s1)\nassert np.allclose(_case_run(phase_space_minimum, effective_curvature_parameter, mode_spectrum), target)",
+        "def _case_run(_tested_function, effective_curvature_parameter, mode_spectrum):\n    import numpy as np\n\n    def _pack_minimum(result, spectrum, tan_alpha=4.4, speed=1.0):\n        r = np.asarray(result, dtype=float)\n        if r.shape != (spectrum.shape[1] + 1,) or not np.all(np.isfinite(r)) or r[0] <= 0.0:\n            return np.zeros(4, dtype=float)\n        phases = r[1:]\n        in_range = float(np.all((phases >= 0.0) & (phases < 2.0 * np.pi)))\n        again = effective_curvature_parameter(phases.copy(), spectrum.copy(), tan_alpha, speed)\n        consistent = float(abs(again - r[0]) <= 1e-09 * abs(again))\n        cos_alpha = 1.0 / np.sqrt(1.0 + tan_alpha * tan_alpha)\n        sin_alpha = tan_alpha * cos_alpha\n        scale = 0.5 * cos_alpha ** 3 / (speed * sin_alpha * np.sum(spectrum[0] * spectrum[1]))\n        return np.array([r[0] / scale - 1.0, 1.0, in_range, consistent])\n    s4 = mode_spectrum(num_modes=4, bw2=0.35, omega1=0.09, q=2.2, tan_alpha=7.0)\n    return _pack_minimum(_tested_function(s4.copy(), tan_alpha=7.0, speed=1.5, num_starts=200, seed=77, num_iterations=3000), s4, tan_alpha=7.0, speed=1.5)\nassert np.allclose(_case_run(phase_space_minimum, effective_curvature_parameter, mode_spectrum), target)",
+        "def _case_run(_tested_function, mode_spectrum):\n    import numpy as np\n    s = mode_spectrum()\n\n    def _probe_min(fn):\n        try:\n            fn(s.copy(), num_starts=0)\n        except ValueError:\n            return 1\n        except Exception:\n            return 2\n        return 0\n    return _probe_min(_tested_function)\nassert np.allclose(_case_run(phase_space_minimum, mode_spectrum), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-37.8",
+      "test_cases": [
+        "def _case_run(_tested_function, mode_spectrum):\n    import numpy as np\n\n    def _minimum_scale(spectrum, tan_alpha, speed):\n        cos_alpha = 1.0 / np.sqrt(1.0 + tan_alpha * tan_alpha)\n        sin_alpha = tan_alpha * cos_alpha\n        return 0.5 * cos_alpha ** 3 / (speed * sin_alpha * np.sum(spectrum[0] * spectrum[1]))\n\n    def _pack_scalar(value, scale):\n        v = np.asarray(value, dtype=float)\n        if v.shape != () or not np.isfinite(v.item()) or v.item() <= 0.0:\n            return np.zeros(2, dtype=float)\n        return np.array([v.item() / scale - 1.0, 1.0])\n    spectrum = mode_spectrum(num_modes=3)\n    scale = _minimum_scale(spectrum, 4.4, 1.0)\n    return _pack_scalar(_tested_function(num_modes=3, num_starts=300, num_iterations=800), scale)\nassert np.allclose(_case_run(chaos_onset_curvature_minimum, mode_spectrum), target)",
+        "def _case_run(_tested_function, mode_spectrum):\n    import numpy as np\n\n    def _minimum_scale(spectrum, tan_alpha, speed):\n        cos_alpha = 1.0 / np.sqrt(1.0 + tan_alpha * tan_alpha)\n        sin_alpha = tan_alpha * cos_alpha\n        return 0.5 * cos_alpha ** 3 / (speed * sin_alpha * np.sum(spectrum[0] * spectrum[1]))\n\n    def _pack_scalar(value, scale):\n        v = np.asarray(value, dtype=float)\n        if v.shape != () or not np.isfinite(v.item()) or v.item() <= 0.0:\n            return np.zeros(2, dtype=float)\n        return np.array([v.item() / scale - 1.0, 1.0])\n    spectrum = mode_spectrum(num_modes=2, bw2=0.05, omega1=0.3, q=1.0, tan_alpha=1.5)\n    scale = _minimum_scale(spectrum, 1.5, 1.0)\n    return _pack_scalar(_tested_function(num_modes=2, bw2=0.05, omega1=0.3, q=1.0, tan_alpha=1.5, num_starts=200, seed=5, num_iterations=600), scale)\nassert np.allclose(_case_run(chaos_onset_curvature_minimum, mode_spectrum), target)",
+        "def _case_run(_tested_function, mode_spectrum):\n    import numpy as np\n\n    def _minimum_scale(spectrum, tan_alpha, speed):\n        cos_alpha = 1.0 / np.sqrt(1.0 + tan_alpha * tan_alpha)\n        sin_alpha = tan_alpha * cos_alpha\n        return 0.5 * cos_alpha ** 3 / (speed * sin_alpha * np.sum(spectrum[0] * spectrum[1]))\n\n    def _pack_scalar(value, scale):\n        v = np.asarray(value, dtype=float)\n        if v.shape != () or not np.isfinite(v.item()) or v.item() <= 0.0:\n            return np.zeros(2, dtype=float)\n        return np.array([v.item() / scale - 1.0, 1.0])\n    spectrum = mode_spectrum(num_modes=5, bw2=0.22, omega1=0.06, q=2.0, tan_alpha=6.0)\n    scale = _minimum_scale(spectrum, 6.0, 0.8)\n    return _pack_scalar(_tested_function(num_modes=5, bw2=0.22, omega1=0.06, q=2.0, tan_alpha=6.0, speed=0.8, num_starts=250, seed=31, num_iterations=3000), scale)\nassert np.allclose(_case_run(chaos_onset_curvature_minimum, mode_spectrum), target)",
+        "import numpy as np\ndef _probe_end(fn):\n    try:\n        fn(num_modes=3, bw2=-0.1)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_probe_end(chaos_onset_curvature_minimum), target)"
+      ]
+    }
+  ]
+}

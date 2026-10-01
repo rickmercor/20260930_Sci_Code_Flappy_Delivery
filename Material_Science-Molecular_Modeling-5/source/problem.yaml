@@ -1,0 +1,48 @@
+problem_id: "Material_Science-Molecular_Modeling-5"
+subject: "materials"
+subject_area: "Molecular Modeling"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2604.07620"
+dependencies: ""
+steps:
+  - number: 1
+    name: "filter_kernels"
+    description: "Return, for a one-dimensional array of positive wavenumbers q (lengths are measured in the disk diameter, so q is dimensionless), the four reciprocal-space building blocks of the splitting scheme at splitting length sigma, coupling Gamma and total reduced ion density rho: the filter polynomial S(q) = 1 + (sigma q)^2 + (sigma q)^4 + (sigma q)^6 + (sigma q)^8; the long-range potential 2 pi Gamma/(q^2 S(q)); the screened long-range kernel 2 pi Gamma/(q^2 S(q) + kappa0^2), where kappa0^2 = 2 pi Gamma rho is the Debye-Hueckel parameter of the full ion density; and the derivative of the long-range potential with respect to sigma at fixed q. Reject a coupling or density that is not positive and finite, a negative splitting length, and any wavenumber that is not positive and finite."
+    orchestrator: false
+  - number: 2
+    name: "long_range_kernel"
+    description: "Return the real-space screened long-range kernel Gl(u) at the non-negative distances u: the inverse two-dimensional Fourier transform of the screened kernel of the previous step, that is Gamma times the integral over q from zero to infinity of q J0(q u) divided by q^2 S(q) + kappa0^2. The result must be accurate to a relative error of 1e-10 at every distance, including u = 0 where the kernel is finite, and must reduce to the Debye-Hueckel kernel Gamma K0(kappa0 u) when sigma = 0. The integrand is a rational function of q^2 whose denominator is a polynomial of degree five in q^2 with positive coefficients, so no oscillatory quadrature is needed if that structure is used. Reject invalid parameters and negative or non-finite distances."
+    orchestrator: false
+  - number: 3
+    name: "short_range_potential"
+    description: "Return the short-range part of the Coulomb potential at the positive distances u: the bare potential -Gamma ln u minus the unscreened long-range potential of step 1, which is Gamma times the integral over q from zero to infinity of (S(q) - 1)/(q S(q)) times J0(q u). This integral converges only conditionally at large q, so a truncated numerical quadrature is not acceptable: the result must be accurate to a relative error of 1e-10 for 0.1 <= u <= 10, must vanish identically when sigma = 0, must carry the logarithmic singularity of the bare potential as u tends to zero, and must decay to zero at distances large compared with sigma. Reject invalid parameters and distances that are not positive and finite."
+    orchestrator: false
+  - number: 4
+    name: "mayer_functions"
+    description: "Return the Mayer functions of the short-range scheme at the non-negative distances u for a pair of opposite unit charges and for a pair of like unit charges: both equal minus one inside the hard core u < 1, and outside it each is the Boltzmann factor of the total pair potential vs(u) + Gl(u) of the two previous steps minus one, with the sign convention that opposite charges attract, so their Mayer function is positive at contact when the potential is positive. Reject invalid parameters and negative or non-finite distances."
+    orchestrator: false
+  - number: 5
+    name: "variational_residual"
+    description: "Return the residual of the variational identity that fixes the splitting length: the integral over q from zero to infinity of q times [hbar++(q) - hbar+-(q) + 2 Glbar(q)] times the sigma-derivative of the long-range potential, where hbar++ and hbar+- are the two-dimensional Fourier transforms of the like-charge and opposite-charge Mayer functions of the previous step, including the hard-core disk whose transform is -2 pi J1(q)/q, and Glbar is the screened kernel of step 1. The residual must be accurate to 1e-8 in absolute terms for a positive sigma; it may be evaluated in reciprocal space or, by Parseval's theorem, as an equivalent radial integral in real space, but its value and sign must be those of the reciprocal-space definition. Reject invalid parameters and a non-positive splitting length."
+    orchestrator: false
+  - number: 6
+    name: "splitting_length"
+    description: "Return the splitting length sigma at which the variational residual of the previous step vanishes, for the given coupling and density. Bracket the sign change of the residual by scanning splitting lengths between 0.05 and 5 disk diameters, then converge the root to an absolute tolerance of 1e-12 with a bracketing root finder; the residual has a single sign change on that range for the states considered here. Reject invalid parameters and raise an error if no sign change is found."
+    orchestrator: false
+  - number: 7
+    name: "pair_convolutions"
+    description: "Return the first-order correlation corrections T++(r) and T+-(r) at the distances r >= 1 for a symmetric 1:1 electrolyte in which each species has number density rho/2. For species i and j, T_ij is the sum over the third species n of n_n times the two-dimensional convolution of the Mayer functions h_in and h_nj, minus q_i q_j q_n^2 n_n times the convolution of the screened kernel Gl with itself, where the convolution of two radial functions f and g is the integral over the plane of f(r') g(|r - r'|) and the Mayer functions include the hard-core disk on which they equal minus one. The result must be accurate to 1e-9 in absolute terms; the convolutions of functions that jump at the contact distance have to be evaluated with the geometry of the overlapping disks made explicit, not by a truncated Fourier quadrature. Reject invalid parameters and distances below one or non-finite."
+    orchestrator: false
+  - number: 8
+    name: "structure_factors"
+    description: "Return the partial structure factors S++(q) and S+-(q) and the charge-charge structure factor SZZ(q) at wavenumbers q in (0, 20]. The total correlation functions are H_ij = h_ij + (1 + h_ij) T_ij with the Mayer functions of step 4 and the corrections of step 7, and they equal minus one inside the hard core. With mole fractions one half, S_ij(q) is delta_ij/2 plus rho/4 times the two-dimensional Fourier transform of H_ij, including the hard-core disk, and SZZ is the charge-weighted combination of the partial structure factors normalised so that it tends to one for an ideal gas of point charges. The transforms must be accurate to 1e-8 in absolute terms, which requires the correlation functions on a radial grid extending far enough for the screened tails to have decayed. Reject invalid parameters and wavenumbers outside (0, 20]."
+    orchestrator: false
+  - number: 9
+    name: "excess_energy"
+    description: "Return three values of the reduced excess energy per ion, beta u_ex divided by rho: the energy of the scheme with the correlation corrections switched off, in which the total correlation functions are replaced by the Mayer functions; the energy at first order, with the total correlation functions H_ij of the previous step; and the Debye-Hueckel closed form (Gamma/2) K0(kappa0). The excess energy is half the sum over ordered pairs of species of the product of densities, the Coulomb potential and the pair distribution function integrated over the plane; with the hard core, electroneutrality and the 1:1 symmetry it reduces to (pi Gamma rho/2) times the integral from contact to infinity of u ln u times the difference between the opposite-charge and the like-charge total correlation functions. The first two values must be accurate to 1e-7 in absolute terms. Reject invalid parameters."
+    orchestrator: false
+  - number: 10
+    name: "coulomb_liquid_audit"
+    description: "Assemble the audit of the self-consistent scheme at coupling Gamma and density rho. Row 0: the variational splitting length, then the three excess-energy values of step 9 at that splitting length. Row 1: the reduced specific heat of the first-order scheme, which is the excess energy minus Gamma times its derivative with respect to Gamma at fixed density, with the splitting length re-solved at every coupling and the derivative converged to 1e-8 by Richardson extrapolation of central differences; the Debye-Hueckel specific heat (Gamma/4) kappa0 K1(kappa0); the opposite-charge structure factor at q = 2; and the charge structure factor at q = 0.5. Row 2: the coupling gamma0 in the bracket [gamma_lo, gamma_hi] at which the first-order excess energy changes sign at this density, converged to 1e-10 with a bracketing root finder over the full chain; the variational splitting length at gamma0; the total pair potential vs + Gl at contact for the input state; and T++ at contact for the input state. Row 3: the screened kernel Gl at u = 0; the variational residual at the trial splitting length 0.7; and the opposite-charge and like-charge Mayer functions at contact, all for the input state. Every entry must be produced by the corresponding earlier step. Reject invalid parameters, a bracket that is not ordered and positive, and a bracket on which the energy does not change sign."
+    orchestrator: true

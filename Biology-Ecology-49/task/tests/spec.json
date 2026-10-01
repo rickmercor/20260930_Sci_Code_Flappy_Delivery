@@ -1,0 +1,78 @@
+{
+  "problem_id": "Biology-Ecology-49",
+  "sub_steps": [
+    {
+      "step_number": "Biology-Ecology-49.1",
+      "test_cases": [
+        "import numpy as np\nrun_a = np.array([80.0, 1200.0, 6.0, 8.0, 1.8, 30.0])\nrun_b = np.array([45.0, 260.0, 2.5, 2.5, 0.8, 4.0])\nrun_c = np.array([210.0, 9.0e4, 11.0, 4.0, 3.2, 95.0])\nt_a = np.array([4.0, 20.0, 34.2857142857, 52.0, 76.0])\nt_b = np.array([0.05, 22.5, 44.9])\nt_c = np.linspace(2.0, 208.0, 9)\nassert np.allclose(migration_rate_coefficients(t_a, run_a), target)",
+        "import numpy as np\nrun_a = np.array([80.0, 1200.0, 6.0, 8.0, 1.8, 30.0])\nrun_b = np.array([45.0, 260.0, 2.5, 2.5, 0.8, 4.0])\nrun_c = np.array([210.0, 9.0e4, 11.0, 4.0, 3.2, 95.0])\nt_a = np.array([4.0, 20.0, 34.2857142857, 52.0, 76.0])\nt_b = np.array([0.05, 22.5, 44.9])\nt_c = np.linspace(2.0, 208.0, 9)\nassert np.allclose(migration_rate_coefficients(t_b, run_b), target)",
+        "import numpy as np\nrun_a = np.array([80.0, 1200.0, 6.0, 8.0, 1.8, 30.0])\nrun_b = np.array([45.0, 260.0, 2.5, 2.5, 0.8, 4.0])\nrun_c = np.array([210.0, 9.0e4, 11.0, 4.0, 3.2, 95.0])\nt_a = np.array([4.0, 20.0, 34.2857142857, 52.0, 76.0])\nt_b = np.array([0.05, 22.5, 44.9])\nt_c = np.linspace(2.0, 208.0, 9)\nassert np.allclose(migration_rate_coefficients(t_c, run_c), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-49.2",
+      "test_cases": [
+        "import numpy as np\nreach_a = np.array([20.0, 20.0, 2.0, 1.5, 1.2])\nrun_a = np.array([80.0, 1200.0, 6.0, 8.0, 1.8, 30.0])\nreach_b = np.array([6.0, 45.0, 0.6, 9.0, 0.4])\nrun_b = np.array([45.0, 260.0, 2.5, 2.5, 0.8, 4.0])\nreach_c = np.array([120.0, 8.0, 5.0, 0.25, 3.0])\nrun_c = np.array([210.0, 9.0e4, 11.0, 4.0, 3.2, 95.0])\nassert np.allclose(mean_sampled_concentration(26.0, 0.0, 1.0, reach_a, run_a, 0.012), target)",
+        "import numpy as np\nreach_a = np.array([20.0, 20.0, 2.0, 1.5, 1.2])\nrun_a = np.array([80.0, 1200.0, 6.0, 8.0, 1.8, 30.0])\nreach_b = np.array([6.0, 45.0, 0.6, 9.0, 0.4])\nrun_b = np.array([45.0, 260.0, 2.5, 2.5, 0.8, 4.0])\nreach_c = np.array([120.0, 8.0, 5.0, 0.25, 3.0])\nrun_c = np.array([210.0, 9.0e4, 11.0, 4.0, 3.2, 95.0])\nassert np.allclose(mean_sampled_concentration(45.0, 0.0, 6.0, reach_b, run_b, 3.5), target)",
+        "import numpy as np\nreach_a = np.array([20.0, 20.0, 2.0, 1.5, 1.2])\nrun_a = np.array([80.0, 1200.0, 6.0, 8.0, 1.8, 30.0])\nreach_b = np.array([6.0, 45.0, 0.6, 9.0, 0.4])\nrun_b = np.array([45.0, 260.0, 2.5, 2.5, 0.8, 4.0])\nreach_c = np.array([120.0, 8.0, 5.0, 0.25, 3.0])\nrun_c = np.array([210.0, 9.0e4, 11.0, 4.0, 3.2, 95.0])\nassert np.allclose(mean_sampled_concentration(150.0, 88.0, 4.0, reach_c, run_c, 0.0004), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-49.3",
+      "test_cases": [
+        "import numpy as np\nreach_a = np.array([20.0, 20.0, 2.0, 1.5, 1.2])\nreach_b = np.array([6.0, 45.0, 0.6, 9.0, 0.4])\nreach_c = np.array([120.0, 8.0, 5.0, 0.25, 3.0])\nassert np.allclose(sample_memory_horizon(0.0, reach_a), target)",
+        "import numpy as np\nreach_a = np.array([20.0, 20.0, 2.0, 1.5, 1.2])\nreach_b = np.array([6.0, 45.0, 0.6, 9.0, 0.4])\nreach_c = np.array([120.0, 8.0, 5.0, 0.25, 3.0])\nassert np.allclose(sample_memory_horizon(5.5, reach_b), target)",
+        "import numpy as np\nreach_a = np.array([20.0, 20.0, 2.0, 1.5, 1.2])\nreach_b = np.array([6.0, 45.0, 0.6, 9.0, 0.4])\nreach_c = np.array([120.0, 8.0, 5.0, 0.25, 3.0])\nassert np.allclose(sample_memory_horizon(34.0, reach_c), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-49.4",
+      "test_cases": [
+        "import numpy as np\nreach_a = np.array([20.0, 20.0, 2.0, 1.5, 1.2])\nreach_b = np.array([6.0, 45.0, 0.6, 9.0, 0.4])\nreach_c = np.array([120.0, 8.0, 5.0, 0.25, 3.0])\nreach_d = np.array([10.0, 12.0, 1.0, 3.0, 0.0])\ns_a = np.array([0.0, 0.05, 0.4, 2.0, 9.0])\ns_b = np.array([0.0, 0.002, 0.03, 0.5])\ns_c = np.linspace(0.0, 40.0, 9)\nassert np.allclose(washout_exponent(s_a, 3.9, 1.0, reach_a), target)",
+        "import numpy as np\nreach_a = np.array([20.0, 20.0, 2.0, 1.5, 1.2])\nreach_b = np.array([6.0, 45.0, 0.6, 9.0, 0.4])\nreach_c = np.array([120.0, 8.0, 5.0, 0.25, 3.0])\nreach_d = np.array([10.0, 12.0, 1.0, 3.0, 0.0])\ns_a = np.array([0.0, 0.05, 0.4, 2.0, 9.0])\ns_b = np.array([0.0, 0.002, 0.03, 0.5])\ns_c = np.linspace(0.0, 40.0, 9)\nassert np.allclose(washout_exponent(s_b, 0.6, 6.0, reach_b), target)",
+        "import numpy as np\nreach_a = np.array([20.0, 20.0, 2.0, 1.5, 1.2])\nreach_b = np.array([6.0, 45.0, 0.6, 9.0, 0.4])\nreach_c = np.array([120.0, 8.0, 5.0, 0.25, 3.0])\nreach_d = np.array([10.0, 12.0, 1.0, 3.0, 0.0])\ns_a = np.array([0.0, 0.05, 0.4, 2.0, 9.0])\ns_b = np.array([0.0, 0.002, 0.03, 0.5])\ns_c = np.linspace(0.0, 40.0, 9)\nassert np.allclose(washout_exponent(s_c, 260.0, 4.0, reach_c), target)",
+        "import numpy as np\nreach_a = np.array([20.0, 20.0, 2.0, 1.5, 1.2])\nreach_b = np.array([6.0, 45.0, 0.6, 9.0, 0.4])\nreach_c = np.array([120.0, 8.0, 5.0, 0.25, 3.0])\nreach_d = np.array([10.0, 12.0, 1.0, 3.0, 0.0])\ns_a = np.array([0.0, 0.05, 0.4, 2.0, 9.0])\ns_b = np.array([0.0, 0.002, 0.03, 0.5])\ns_c = np.linspace(0.0, 40.0, 9)\nassert np.allclose(washout_exponent(s_b, 1.5, 2.0, reach_d), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-49.5",
+      "test_cases": [
+        "import numpy as np\nreach_a = np.array([20.0, 20.0, 2.0, 1.5, 1.2])\nreach_b = np.array([6.0, 45.0, 0.6, 9.0, 0.4])\nreach_c = np.array([120.0, 8.0, 5.0, 0.25, 3.0])\ns_a = np.array([0.0, 0.5, 2.0, 5.0, 9.0, 10.8, 11.0, 12.0])\ns_b = np.array([0.0, 1.0, 4.0, 8.0, 10.0, 10.2])\ns_c = np.linspace(0.0, 40.0, 11)\nassert np.allclose(sample_weight_kernel(s_a, np.array([0.0, 2.0]), np.array([3.9, 2.6]), 1.0, reach_a, 0.012), target)",
+        "import numpy as np\nreach_a = np.array([20.0, 20.0, 2.0, 1.5, 1.2])\nreach_b = np.array([6.0, 45.0, 0.6, 9.0, 0.4])\nreach_c = np.array([120.0, 8.0, 5.0, 0.25, 3.0])\ns_a = np.array([0.0, 0.5, 2.0, 5.0, 9.0, 10.8, 11.0, 12.0])\ns_b = np.array([0.0, 1.0, 4.0, 8.0, 10.0, 10.2])\ns_c = np.linspace(0.0, 40.0, 11)\nassert np.allclose(sample_weight_kernel(s_b, np.array([0.0]), np.array([0.6]), 6.0, reach_b, 3.5), target)",
+        "import numpy as np\nreach_a = np.array([20.0, 20.0, 2.0, 1.5, 1.2])\nreach_b = np.array([6.0, 45.0, 0.6, 9.0, 0.4])\nreach_c = np.array([120.0, 8.0, 5.0, 0.25, 3.0])\ns_a = np.array([0.0, 0.5, 2.0, 5.0, 9.0, 10.8, 11.0, 12.0])\ns_b = np.array([0.0, 1.0, 4.0, 8.0, 10.0, 10.2])\ns_c = np.linspace(0.0, 40.0, 11)\nassert np.allclose(sample_weight_kernel(s_c, np.array([0.0, 30.0, 88.0]), np.array([260.0, 40.0, 5.0]), 4.0, reach_c, 0.0004), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-49.6",
+      "test_cases": [
+        "import numpy as np\nreach_a = np.array([20.0, 20.0, 2.0, 1.5, 1.2])\nrun_a = np.array([80.0, 1200.0, 6.0, 8.0, 1.8, 30.0])\nreach_b = np.array([6.0, 45.0, 0.6, 9.0, 0.4])\nrun_b = np.array([45.0, 260.0, 2.5, 2.5, 0.8, 4.0])\nreach_c = np.array([120.0, 8.0, 5.0, 0.25, 3.0])\nrun_c = np.array([210.0, 9.0e4, 11.0, 4.0, 3.2, 95.0])\nassert np.allclose(nondetection_probability(26.0, np.array([0.0, 2.0]), np.array([3.9, 2.6]), 1.0, reach_a, run_a, 0.012), target)",
+        "import numpy as np\nreach_a = np.array([20.0, 20.0, 2.0, 1.5, 1.2])\nrun_a = np.array([80.0, 1200.0, 6.0, 8.0, 1.8, 30.0])\nreach_b = np.array([6.0, 45.0, 0.6, 9.0, 0.4])\nrun_b = np.array([45.0, 260.0, 2.5, 2.5, 0.8, 4.0])\nreach_c = np.array([120.0, 8.0, 5.0, 0.25, 3.0])\nrun_c = np.array([210.0, 9.0e4, 11.0, 4.0, 3.2, 95.0])\nassert np.allclose(nondetection_probability(45.0, np.array([0.0]), np.array([0.6]), 6.0, reach_b, run_b, 3.5), target)",
+        "import numpy as np\nreach_a = np.array([20.0, 20.0, 2.0, 1.5, 1.2])\nrun_a = np.array([80.0, 1200.0, 6.0, 8.0, 1.8, 30.0])\nreach_b = np.array([6.0, 45.0, 0.6, 9.0, 0.4])\nrun_b = np.array([45.0, 260.0, 2.5, 2.5, 0.8, 4.0])\nreach_c = np.array([120.0, 8.0, 5.0, 0.25, 3.0])\nrun_c = np.array([210.0, 9.0e4, 11.0, 4.0, 3.2, 95.0])\nassert np.allclose(nondetection_probability(110.0, np.array([0.0, 30.0, 88.0]), np.array([2.0, 1.0, 0.5]), 4.0, reach_c, run_c, 0.0004), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-49.7",
+      "test_cases": [
+        "import numpy as np\nreach_a = np.array([20.0, 20.0, 2.0, 1.5, 1.2])\nrun_a = np.array([80.0, 1200.0, 6.0, 8.0, 1.8, 30.0])\nreach_b = np.array([6.0, 45.0, 0.6, 9.0, 0.4])\nrun_b = np.array([45.0, 260.0, 2.5, 2.5, 0.8, 4.0])\nreach_c = np.array([120.0, 8.0, 5.0, 0.25, 3.0])\nrun_d = np.array([90.0, 9.0e4, 4.0, 11.0, 3.2, 95.0])\nassert np.allclose(survey_window_days(0.0, 3.9, 1.0, reach_a, run_a, 0.012, 0.05, 22, 56), target)",
+        "import numpy as np\nreach_a = np.array([20.0, 20.0, 2.0, 1.5, 1.2])\nrun_a = np.array([80.0, 1200.0, 6.0, 8.0, 1.8, 30.0])\nreach_b = np.array([6.0, 45.0, 0.6, 9.0, 0.4])\nrun_b = np.array([45.0, 260.0, 2.5, 2.5, 0.8, 4.0])\nreach_c = np.array([120.0, 8.0, 5.0, 0.25, 3.0])\nrun_d = np.array([90.0, 9.0e4, 4.0, 11.0, 3.2, 95.0])\nassert np.allclose(survey_window_days(0.0, 0.6, 6.0, reach_b, run_b, 3.5, 0.05, 8, 45), target)",
+        "import numpy as np\nreach_a = np.array([20.0, 20.0, 2.0, 1.5, 1.2])\nrun_a = np.array([80.0, 1200.0, 6.0, 8.0, 1.8, 30.0])\nreach_b = np.array([6.0, 45.0, 0.6, 9.0, 0.4])\nrun_b = np.array([45.0, 260.0, 2.5, 2.5, 0.8, 4.0])\nreach_c = np.array([120.0, 8.0, 5.0, 0.25, 3.0])\nrun_d = np.array([90.0, 9.0e4, 4.0, 11.0, 3.2, 95.0])\nassert np.allclose(survey_window_days(88.0, 5.0, 4.0, reach_c, run_d, 0.0004, 0.002, 25, 75), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-49.8",
+      "test_cases": [
+        "import numpy as np\nreach_a = np.array([20.0, 20.0, 2.0, 1.5, 1.2])\nrun_a = np.array([80.0, 1200.0, 6.0, 8.0, 1.8, 30.0])\nreach_b = np.array([6.0, 45.0, 0.6, 9.0, 0.4])\nrun_b = np.array([45.0, 260.0, 2.5, 2.5, 0.8, 4.0])\nreach_c = np.array([120.0, 8.0, 5.0, 0.25, 3.0])\nrun_c = np.array([210.0, 9.0e4, 11.0, 4.0, 3.2, 95.0])\nassert np.allclose(planned_replicates(26.0, 2.0, 1.0, reach_a, run_a, 0.012, 1.3, 6.0), target)",
+        "import numpy as np\nreach_a = np.array([20.0, 20.0, 2.0, 1.5, 1.2])\nrun_a = np.array([80.0, 1200.0, 6.0, 8.0, 1.8, 30.0])\nreach_b = np.array([6.0, 45.0, 0.6, 9.0, 0.4])\nrun_b = np.array([45.0, 260.0, 2.5, 2.5, 0.8, 4.0])\nreach_c = np.array([120.0, 8.0, 5.0, 0.25, 3.0])\nrun_c = np.array([210.0, 9.0e4, 11.0, 4.0, 3.2, 95.0])\nassert np.allclose(planned_replicates(14.0, 0.0, 1.0, reach_a, run_a, 0.012, 1.3, 6.0), target)",
+        "import numpy as np\nreach_a = np.array([20.0, 20.0, 2.0, 1.5, 1.2])\nrun_a = np.array([80.0, 1200.0, 6.0, 8.0, 1.8, 30.0])\nreach_b = np.array([6.0, 45.0, 0.6, 9.0, 0.4])\nrun_b = np.array([45.0, 260.0, 2.5, 2.5, 0.8, 4.0])\nreach_c = np.array([120.0, 8.0, 5.0, 0.25, 3.0])\nrun_c = np.array([210.0, 9.0e4, 11.0, 4.0, 3.2, 95.0])\nassert np.allclose(planned_replicates(150.0, 88.0, 4.0, reach_c, run_c, 0.0004, 0.05, 900.0), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-49.9",
+      "test_cases": [
+        "import numpy as np\nreach_a = np.array([20.0, 20.0, 2.0, 1.5, 1.2])\nrun_a = np.array([80.0, 1200.0, 6.0, 8.0, 1.8, 30.0])\nreach_b = np.array([6.0, 45.0, 0.6, 9.0, 0.4])\nrun_b = np.array([45.0, 260.0, 2.5, 2.5, 0.8, 4.0])\nreach_c = np.array([120.0, 8.0, 5.0, 0.25, 3.0])\nrun_d = np.array([90.0, 9.0e4, 4.0, 11.0, 3.2, 95.0])\nassert np.allclose(survey_failure_probability(reach_a, run_a, 0.012, 1.0, 0.0, 3, 2.0, 1.3, 0.05, 6.0, 1, 79), target)",
+        "import numpy as np\nreach_a = np.array([20.0, 20.0, 2.0, 1.5, 1.2])\nrun_a = np.array([80.0, 1200.0, 6.0, 8.0, 1.8, 30.0])\nreach_b = np.array([6.0, 45.0, 0.6, 9.0, 0.4])\nrun_b = np.array([45.0, 260.0, 2.5, 2.5, 0.8, 4.0])\nreach_c = np.array([120.0, 8.0, 5.0, 0.25, 3.0])\nrun_d = np.array([90.0, 9.0e4, 4.0, 11.0, 3.2, 95.0])\nassert np.allclose(survey_failure_probability(reach_b, run_b, 3.5, 2.0, 0.0, 1, 2.0, 0.6, 0.3, 4.0, 6, 40), target)",
+        "import numpy as np\nreach_a = np.array([20.0, 20.0, 2.0, 1.5, 1.2])\nrun_a = np.array([80.0, 1200.0, 6.0, 8.0, 1.8, 30.0])\nreach_b = np.array([6.0, 45.0, 0.6, 9.0, 0.4])\nrun_b = np.array([45.0, 260.0, 2.5, 2.5, 0.8, 4.0])\nreach_c = np.array([120.0, 8.0, 5.0, 0.25, 3.0])\nrun_d = np.array([90.0, 9.0e4, 4.0, 11.0, 3.2, 95.0])\nassert np.allclose(survey_failure_probability(reach_c, run_d, 0.0004, 4.0, 0.0, 2, 88.0, 0.05, 0.035, 900.0, 25, 45), target)"
+      ]
+    }
+  ]
+}

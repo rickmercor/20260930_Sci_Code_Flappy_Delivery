@@ -1,0 +1,56 @@
+problem_id: "Mathematics-Computational_Mechanics-6"
+subject: "mathematics"
+subject_area: "Computational Mechanics"
+difficulty: "difficult"
+answer_type: "numeric"
+paper_doi: "10.48550/arXiv.2606.01355"
+dependencies: ""
+steps:
+  - number: 1
+    name: "bar_system_matrices"
+    description: "Assemble the discrete operators for a uniform axial bar discretised with linear elements: the elastic stiffness operator and the diagonal inertia used by an explicit integrator. Pack both into one array so the pair can be compared exactly."
+    orchestrator: false
+  - number: 2
+    name: "critical_time_step"
+    description: "Return the stability limit on the time step for explicit integration of the discretised bar, from the element size and the material wave speed."
+    orchestrator: false
+  - number: 3
+    name: "smooth_predictor"
+    description: "Advance the state one step using only the non-impulsive part of the dynamics, producing the configuration the contact treatment is built on."
+    orchestrator: false
+  - number: 4
+    name: "active_contact_set"
+    description: "Decide which unilateral constraints must carry an impulse over the coming step. The source fixes both the configuration this decision is taken on and whether the gap test is inclusive; follow it exactly."
+    orchestrator: false
+  - number: 5
+    name: "contact_response_operator"
+    description: "Build the operator that maps impulses on the active constraints to the constraint velocities they produce. It must be consistent with how this scheme feeds the impulse back into the configuration, so it is not the operator a purely kinematic argument gives; take its form from the source."
+    orchestrator: false
+  - number: 6
+    name: "contact_impulse"
+    description: "Given the response operator from the previous step, solve for the impulses on the active constraints. The right-hand side combines the incoming constraint velocity, the smooth acceleration contribution and the elastic term; how the coefficient of restitution enters it is fixed by the source. Impulses are nonnegative."
+    orchestrator: false
+  - number: 7
+    name: "nonsmooth_state_update"
+    description: "Given the smooth state and the impulse, close the step and return the end-of-step configuration, velocity and acceleration. The weight the impulsive velocity carries into the configuration is set by the source and is not the same as its weight into the velocity."
+    orchestrator: false
+  - number: 8
+    name: "cohesive_effective_opening"
+    description: "Combine the normal and tangential parts of an interface opening into the single scalar measure the interface law is written in terms of. The source fixes how the tangential part is weighted; follow it exactly."
+    orchestrator: false
+  - number: 9
+    name: "cohesive_damage_update"
+    description: "Advance the interface state variable given the current opening measure and its previous value. The source states whether the state may decrease when the interface closes again; follow it."
+    orchestrator: false
+  - number: 10
+    name: "cohesive_stiffness_cap"
+    description: "Return the interface stiffness ceiling used to keep the explicit time step usable, together with the state-variable threshold that corresponds to it. Both come from the source; the quantities the ceiling is built from are what matter."
+    orchestrator: false
+  - number: 11
+    name: "cohesive_traction"
+    description: "Return the traction the interface carries for the given opening and state. The source splits the law at the threshold from the previous step and gives a different expression on each side; reproduce both, and note the tangential weighting used here is not the one used to form the scalar opening measure."
+    orchestrator: false
+  - number: 12
+    name: "nsn_bar_impact"
+    description: "Run the whole scheme for a bar launched at a rigid obstacle, with a degradable interface at its midpoint, and report the end-of-run diagnostics. Call the earlier step functions in sequence; do not re-implement them. Conventions this driver fixes: the constrained node is index 0 and the bar moves toward the obstacle at negative velocity; the released element has zero-based index n_elements // 2 counted from the constrained end, so the interface opening is u[mid + 1] - u[mid]; the interface carries the same secant traction in compression as in tension; the traction evaluated at the end-of-step configuration, times the cross-sectional area, enters the end-of-step acceleration of the two interface nodes and hence this step's trapezoidal velocity update; a contact onset is a step whose active set is nonempty after a step whose active set was empty."
+    orchestrator: true

@@ -1,0 +1,94 @@
+{
+  "problem_id": "Physics-Particle_Physics-17",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Particle_Physics-17.1",
+      "test_cases": [
+        "import numpy as np\nedges = np.linspace(8.5, 11.5, 76)\nmu, sigma, alpha, n = 9.4507, 0.0553, 2.0, 1.0\nassert np.allclose(crystal_ball_bin_fractions(edges.copy(), mu, sigma, alpha, n), target)",
+        "import numpy as np\nedges = np.linspace(8.5, 11.5, 76)\nmu, sigma, alpha, n = 10.3454, 0.0937, 2.0, 2.0\nassert np.allclose(crystal_ball_bin_fractions(edges.copy(), mu, sigma, alpha, n), target)",
+        "import numpy as np\nedges = np.array([8.5, 11.5])\nassert np.allclose(crystal_ball_bin_fractions(edges.copy(), 9.45, 0.06, 2.0, 1.0), target)",
+        "import numpy as np\nedges = np.linspace(8.0, 9.0, 11)\nassert np.allclose(crystal_ball_bin_fractions(edges.copy(), 9.45, 0.06, 1.5, 0.7), target)",
+        "import numpy as np\nedges = np.array([9.0, 9.2, 9.33, 9.34, 9.45, 9.7, 10.0])\nassert np.allclose(crystal_ball_bin_fractions(edges.copy(), 9.45, 0.06, 2.0, 1.0), target)",
+        "import numpy as np\nedges = np.linspace(10.0, 11.0, 26)\nassert np.allclose(crystal_ball_bin_fractions(edges.copy(), 9.45, 0.055, 2.0, 1.0), target)",
+        "import numpy as np\nedges = np.linspace(8.5, 11.5, 76)\nassert np.allclose(crystal_ball_bin_fractions(edges.copy(), 9.45, 0.055, 2.0, 1.0 + 1e-13), target)",
+        "import numpy as np\nedges = np.linspace(7.0, 9.3, 24)\nassert np.allclose(crystal_ball_bin_fractions(edges.copy(), 9.45, 0.055, 2.0, 1.0 - 1e-12), target)",
+        "import numpy as np\nedges = np.linspace(8.5, 11.5, 76)\ndef run_model():\n    try:\n        crystal_ball_bin_fractions(edges.copy(), 9.45, 0.0, 2.0, 1.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nedges = np.array([8.5, 9.0, 9.0, 11.5])\ndef run_model():\n    try:\n        crystal_ball_bin_fractions(edges.copy(), 9.45, 0.06, 2.0, 1.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-17.2",
+      "test_cases": [
+        "import numpy as np\nedges = np.linspace(8.5, 11.5, 76)\nmasses = np.array([9.46040, 10.0234, 10.3551])\nyields = np.array([2925.5, 1339.3, 947.5])\nassert np.allclose(upsilon_signal_expected_counts(edges.copy(), yields.copy(), 9.4507, 0.0553, masses.copy()), target)",
+        "import numpy as np\nedges = np.linspace(8.5, 11.5, 31)\nmasses = np.array([9.46040, 10.0234, 10.3551])\nassert np.allclose(upsilon_signal_expected_counts(edges.copy(), np.array([0.0, 0.0, 1000.0]), 9.45, 0.07, masses.copy()), target)",
+        "import numpy as np\nedges = np.linspace(8.5, 11.5, 76)\nmasses = np.array([9.46040, 10.0234, 10.3551])\nassert np.allclose(upsilon_signal_expected_counts(edges.copy(), np.zeros(3), 9.45, 0.06, masses.copy()), target)",
+        "import numpy as np\nedges = np.linspace(8.5, 11.5, 31)\nmasses = np.array([9.46040, 10.0234, 10.3551])\nassert np.allclose(upsilon_signal_expected_counts(edges.copy(), np.array([100.0, 50.0, 25.0]), 10.55, 0.09, masses.copy()), target)",
+        "import numpy as np\nedges = np.linspace(8.0, 12.0, 41)\nmasses = np.array([9.0, 10.0, 11.0])\nassert np.allclose(upsilon_signal_expected_counts(edges.copy(), np.array([300.0, 200.0, 100.0]), 9.1, 0.05, masses.copy()), target)",
+        "import numpy as np\nedges = np.linspace(8.5, 11.5, 76)\nmasses = np.array([9.46040, 10.0234, 10.3551])\ndef run_model():\n    try:\n        upsilon_signal_expected_counts(edges.copy(), np.array([10.0, -1.0, 5.0]), 9.45, 0.06, masses.copy())\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-17.3",
+      "test_cases": [
+        "import numpy as np\nedges = np.linspace(8.5, 11.5, 76)\nassert np.allclose(quadratic_background_bin_fractions(edges.copy(), -0.6066, 0.1962), target)",
+        "import numpy as np\nedges = np.linspace(8.5, 11.5, 76)\nassert np.allclose(quadratic_background_bin_fractions(edges.copy(), 0.0, 0.0), target)",
+        "import numpy as np\nedges = np.array([8.5, 8.6, 9.5, 11.5])\nassert np.allclose(quadratic_background_bin_fractions(edges.copy(), 1.0, 0.0), target)",
+        "import numpy as np\nedges = np.linspace(8.5, 11.5, 76)\nassert np.allclose(quadratic_background_bin_fractions(edges.copy(), -10.0, 25.0), target)",
+        "import numpy as np\nedges = np.linspace(8.5, 11.5, 76)\nr1, r2 = 0.205, 0.21\nb1 = -(1.0 / r1 + 1.0 / r2)\nb2 = 1.0 / (r1 * r2)\nassert np.allclose(quadratic_background_bin_fractions(edges.copy(), b1, b2), target)",
+        "import numpy as np\nedges = np.linspace(8.5, 11.5, 76)\ndef run_model():\n    try:\n        quadratic_background_bin_fractions(edges.copy(), 3.0, 0.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-17.4",
+      "test_cases": [
+        "import numpy as np\nedges = np.linspace(8.5, 11.5, 76)\nmasses = np.array([9.46040, 10.0234, 10.3551])\nassert np.allclose(generate_pseudo_data(edges.copy(), np.array([2800.0, 1300.0, 900.0]), masses.copy() - 0.012, np.array([0.072, 0.077, 0.080]), 7000.0, 0.4, 13600), target)",
+        "import numpy as np\nedges = np.linspace(8.5, 11.5, 76)\nassert np.allclose(generate_pseudo_data(edges.copy(), np.zeros(3), np.array([9.4, 10.0, 10.3]), np.array([0.07, 0.07, 0.07]), 0.0, 0.4, 1), target)",
+        "import numpy as np\nedges = np.array([8.5, 9.0, 11.5])\nassert np.allclose(generate_pseudo_data(edges.copy(), np.array([500.0, 0.0, 300.0]), np.array([8.4, 10.0, 12.0]), np.array([0.2, 0.1, 0.5]), 50.0, 2.0, 7), target)",
+        "import numpy as np\nedges = np.linspace(8.5, 11.5, 76)\nassert np.allclose(generate_pseudo_data(edges.copy(), np.array([400.0, 300.0, 200.0]), np.array([9.2, 10.0, 11.3]), np.array([0.05, 0.06, 0.04]), 0.0, 0.4, 99), target)",
+        "import numpy as np\nedges = np.linspace(8.5, 11.5, 76)\ndef run_model():\n    try:\n        generate_pseudo_data(edges.copy(), np.ones(3), np.array([9.4, 10.0, 10.3]), np.array([0.07, 0.0, 0.07]), 10.0, 0.4, 1)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-17.5",
+      "test_cases": [
+        "import numpy as np\nedges = np.linspace(8.5, 11.5, 76)\nmasses = np.array([9.46040, 10.0234, 10.3551])\nyields = np.array([2800.0, 1300.0, 900.0])\nmeans = masses - 0.012\nwidths = np.array([0.072, 0.077, 0.080])\ncounts_model = generate_pseudo_data(edges.copy(), yields.copy(), means.copy(), widths.copy(), 7000.0, 0.4, 13600)\n\nstart = np.array([2500.0, 1200.0, 800.0, 7000.0, 9.45, 0.06, 0.0, 0.0])\nassert np.allclose(fit_upsilon_mass_spectrum(counts_model, edges.copy(), masses.copy(), start.copy())[:4], target)",
+        "import numpy as np\nedges = np.linspace(8.5, 11.5, 76)\nmasses = np.array([9.46040, 10.0234, 10.3551])\ntruth = np.array([3000.0, 1400.0, 1000.0, 6000.0, 9.452, 0.057, -0.5, 0.2])\ncounts_model = (upsilon_signal_expected_counts(edges.copy(), truth[:3].copy(), truth[4], truth[5], masses.copy()).sum(axis=0)\n                + truth[3] * quadratic_background_bin_fractions(edges.copy(), truth[6], truth[7]))\n\nstart = np.array([2500.0, 1200.0, 800.0, 7000.0, 9.45, 0.06, 0.0, 0.0])\nassert np.allclose(fit_upsilon_mass_spectrum(counts_model, edges.copy(), masses.copy(), start.copy()), target)",
+        "import numpy as np\nedges = np.linspace(8.5, 11.5, 76)\nmasses = np.array([9.46040, 10.0234, 10.3551])\nyields = np.array([280.0, 130.0, 90.0])\nmeans = masses - 0.012\nwidths = np.array([0.072, 0.077, 0.080])\ncounts_model = generate_pseudo_data(edges.copy(), yields.copy(), means.copy(), widths.copy(), 700.0, 0.4, 2022)\n\nstart = np.array([250.0, 120.0, 80.0, 700.0, 9.45, 0.06, 0.0, 0.0])\nassert np.allclose(fit_upsilon_mass_spectrum(counts_model, edges.copy(), masses.copy(), start.copy())[:4], target)",
+        "import numpy as np\nedges = np.linspace(8.5, 11.5, 76)\nmasses = np.array([9.46040, 10.0234, 10.3551])\ncounts = np.ones(75)\nbad = np.array([10.0, 10.0, 10.0, 10.0, 9.45, -0.06, 0.0, 0.0])\ndef run_model():\n    try:\n        fit_upsilon_mass_spectrum(counts, edges.copy(), masses.copy(), bad)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-17.6",
+      "test_cases": [
+        "assert np.allclose(cross_section_times_bf(947.5257, 37.4, 70.0, 100.0, 0.0, 0.6, 0.92, 0.90, 0.95, 0.38), target)",
+        "assert np.allclose(cross_section_times_bf(947.5257, 37.4, 70.0, 100.0, 0.6, 1.2, 0.92, 0.90, 0.95, 0.38), target)",
+        "assert np.allclose(cross_section_times_bf(0.0, 1.0, 0.0, 1.0, 0.0, 0.5, 1.0, 1.0, 1.0, 1.0), target)",
+        "assert np.allclose(cross_section_times_bf(3.0, 0.001, 199.9, 200.0, 1.19, 1.2, 0.5, 0.5, 0.1, 1e-4), target)",
+        "def run_model():\n    try:\n        cross_section_times_bf(10.0, 37.4, 70.0, 100.0, 0.0, 0.6, 0.9, 0.9, 0.95, 1.5)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-17.7",
+      "test_cases": [
+        "assert np.allclose(polarization_scale_factor(-0.5, 1.20, 0.75), target)",
+        "assert np.allclose(polarization_scale_factor(0.4, 1.32, 0.67), target)",
+        "assert np.allclose(polarization_scale_factor(1.0, 1.20, 0.75), target)",
+        "assert np.allclose(polarization_scale_factor(-1.0, 1.20, 0.75), target)",
+        "assert np.allclose(polarization_scale_factor(0.0, 4.0/3.0, 2.0/3.0), target)",
+        "assert np.allclose(polarization_scale_factor(0.3, 1.06, 0.90), target)",
+        "assert np.allclose(polarization_scale_factor(-0.999999, 1.20, 0.75), target)",
+        "def run_model():\n    try:\n        polarization_scale_factor(1.5, 1.20, 0.75)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "def run_model():\n    try:\n        polarization_scale_factor(0.2, 1.5, 0.7)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-17.8",
+      "test_cases": [
+        "assert np.allclose(upsilon_polarized_cross_section(-0.5, 13600, 2), target)",
+        "assert np.allclose(upsilon_polarized_cross_section(1.0, 13600, 0), target)",
+        "assert np.allclose(upsilon_polarized_cross_section(-1.0, 7, 1), target)",
+        "def run_model():\n    try:\n        upsilon_polarized_cross_section(-0.5, 13600, 3)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

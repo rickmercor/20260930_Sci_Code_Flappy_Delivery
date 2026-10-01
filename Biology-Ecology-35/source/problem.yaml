@@ -1,0 +1,40 @@
+problem_id: "Biology-Ecology-35"
+subject: "biology"
+subject_area: "Ecology"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.64898/2026.09.09.750346"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_waples_ne_estimate.py"
+    description: "Effective population size from a mean r^2 over unlinked pairs of loci, by Waples' relations for 30 or more individuals."
+    orchestrator: false
+  - number: 2
+    name: "02_expected_unlinked_r2.py"
+    description: "Expected mean r^2 over unlinked pairs of loci for a population of effective size Ne sampled with S diploid individuals."
+    orchestrator: false
+  - number: 3
+    name: "03_pseudo_replication_rho.py"
+    description: "Pseudo-replication parameter rho of the mean r^2 over all pairs of SNPs on different chromosomes."
+    orchestrator: false
+  - number: 4
+    name: "04_r2_confidence_limits.py"
+    description: "Two-sided confidence limits for the expected mean r^2 over unlinked pairs, allowing for pseudo-replication."
+    orchestrator: false
+  - number: 5
+    name: "05_ne_confidence_limits.py"
+    description: "Two-sided confidence limits for the effective population size from a mean r^2 over unlinked pairs, allowing for pseudo-replication."
+    orchestrator: false
+  - number: 6
+    name: "06_certification_probability.py"
+    description: "Probability that a future sample shows the effective population size to exceed a threshold."
+    orchestrator: false
+  - number: 7
+    name: "07_smallest_assured_sample.py"
+    description: "Smallest number of diploid individuals whose probability of showing the effective size to exceed a threshold reaches an assurance level."
+    orchestrator: false
+  - number: 8
+    name: "08_planned_upper_ne_limit.py"
+    description: "Expected upper confidence limit for the effective size at the smallest sample assured of showing it exceeds a threshold."
+    orchestrator: true

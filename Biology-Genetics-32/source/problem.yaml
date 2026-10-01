@@ -1,0 +1,52 @@
+problem_id: "Biology-Genetics-32"
+subject: "biology"
+subject_area: "Genetics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.48550/arXiv.2607.14664"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_build_loading_path"
+    description: "Tabulate the micro-environmental stimulus protocol and the interaction potential it induces at every node of a uniform partition of the observation window."
+    orchestrator: false
+  - number: 2
+    name: "02_evaluate_double_well"
+    description: "Evaluate the configurational free energy of a bistable chromatin landscape and the conjugate force it exerts, at an arbitrary set of states."
+    orchestrator: false
+  - number: 3
+    name: "03_solve_incremental_step"
+    description: "Advance a bistable chromatin state by one increment of the globally minimizing variational scheme, given the previous state and the interaction potential at the new node."
+    orchestrator: false
+  - number: 4
+    name: "04_return_map_step"
+    description: "Advance a state by one increment along a single branch of the landscape, holding it fixed while the drive stays inside the elastic range and otherwise returning it to the yield surface."
+    orchestrator: false
+  - number: 5
+    name: "05_integrate_energetic_evolution"
+    description: "Integrate the whole chromatin trajectory over a tabulated loading path by chaining the globally minimizing increment node by node."
+    orchestrator: false
+  - number: 6
+    name: "06_track_local_branch"
+    description: "Follow the state along the branch of equilibria of the initially occupied well alone, node by node, until that branch stops admitting a state inside its own well."
+    orchestrator: false
+  - number: 7
+    name: "07_energy_balance_defect"
+    description: "Measure by how much a discrete trajectory fails to close the exact energy balance of the continuous evolution over the whole loading path."
+    orchestrator: false
+  - number: 8
+    name: "08_measure_energy_consistency_order"
+    description: "Refine the partition over a sequence of step counts and fit the observed decay order of the energy-balance defect against the step size."
+    orchestrator: false
+  - number: 9
+    name: "09_summarize_cycle"
+    description: "Reduce a discrete trajectory over a loading path to the small set of quantities an experiment on the mark could actually report."
+    orchestrator: false
+  - number: 10
+    name: "10_identify_material_parameters"
+    description: "Recover the curvature, the two well positions and the dissipation threshold of a bistable rate-independent mark from the turning points of one closed hysteresis loop together with the free-energy difference between its two states."
+    orchestrator: false
+  - number: 11
+    name: "11_run_epigenetic_switch_comparison"
+    description: "Orchestrator of sub-problems 01-10, calling build_loading_path, evaluate_double_well, solve_incremental_step, return_map_step, integrate_energetic_evolution, track_local_branch, energy_balance_defect, measure_energy_consistency_order, summarize_cycle and identify_material_parameters to recover a bistable mark's landscape from one assay record, drive it through the same stimulus cycle under both selection principles, and return the ratio of the interaction potentials at which they carry it past the barrier.\n\nOrchestrator: yes - this is the final step; it integrates the earlier sub-problems (build_loading_path, evaluate_double_well, solve_incremental_step, return_map_step, integrate_energetic_evolution, track_local_branch, energy_balance_defect, measure_energy_consistency_order, summarize_cycle, identify_material_parameters) rather than reimplementing them."
+    orchestrator: true

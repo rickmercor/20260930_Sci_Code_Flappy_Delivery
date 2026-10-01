@@ -1,0 +1,77 @@
+{
+  "problem_id": "Mathematics-Computational_Mechanics-45",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Computational_Mechanics-45.1",
+      "test_cases": [
+        "import numpy as np\nx_1 = 0.0\nx_end = 0.10\ntheta = [-4.0, -5.0, -5.5, -6.0]\nx = [0.0, 0.025, 0.05, 0.10, 0.35, 0.9]\nassert np.allclose([[round(v, 12) for v in a.tolist()] for a in curvature_spline_values(x_1, x_end, theta, x)], target)",
+        "import numpy as np\nx_1 = 3.0\nx_end = 3.02\ntheta = [-1.0, -2.0, -3.0]\nx = [2.5, 3.0, 3.02, 3.5]\nassert np.allclose([[round(v, 12) for v in a.tolist()] for a in curvature_spline_values(x_1, x_end, theta, x)], target)",
+        "import numpy as np\ntheta = [-1.0, -2.0, -2.5, -3.0]\nx = [3.0, 3.1]\n\ndef run_model():\n    try:\n        curvature_spline_values(3.0, 3.0, theta, x)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-45.2",
+      "test_cases": [
+        "import numpy as np\n_CV_INVERSE = np.array([0.987946057131, 1.006082011162, 1.006082011162])\nstretch = 1.10\ncv_inverse = _CV_INVERSE.copy()\nassert np.allclose([[round(v, 12) for v in a.tolist()] for a in uniaxial_kinematics(stretch, cv_inverse)], target)",
+        "import numpy as np\n_CV_INVERSE = np.array([0.987946057131, 1.006082011162, 1.006082011162])\ncv_inverse = np.ones(3)\nassert np.allclose([[[round(v, 12) for v in a.tolist()] for a in uniaxial_kinematics(s, cv_inverse)] for s in (1.05, 1.0)], target)",
+        "import numpy as np\n_CV_INVERSE = np.array([0.987946057131, 1.006082011162, 1.006082011162])\ncv_inverse = np.ones(3)\n\ndef run_model():\n    try:\n        uniaxial_kinematics(0.0, cv_inverse)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-45.3",
+      "test_cases": [
+        "import numpy as np\n_ELASTIC_PRINCIPALS = np.array([1.089210527987, 0.958173343964, 0.958173343964])\nprincipal_values = _ELASTIC_PRINCIPALS.copy()\nassert np.allclose([round(v, 12) for v in isochoric_invariants(principal_values)], target)",
+        "import numpy as np\n_ELASTIC_PRINCIPALS = np.array([1.089210527987, 0.958173343964, 0.958173343964])\nprincipal_values = np.array([1.0, 1.0, 1.0])\nscaled = np.array([8.0, 8.0, 8.0])\nassert np.allclose([[round(v, 12) for v in isochoric_invariants(b)] for b in (principal_values, scaled)], target)",
+        "import numpy as np\n_ELASTIC_PRINCIPALS = np.array([1.089210527987, 0.958173343964, 0.958173343964])\nprincipal_values = np.array([1.2, 0.0, 0.8])\n\ndef run_model():\n    try:\n        isochoric_invariants(principal_values)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-45.4",
+      "test_cases": [
+        "import numpy as np\n_TRIAL_PRINCIPALS = np.array([1.1025, 0.952380952380952, 0.952380952380952])\nbeta_e = _TRIAL_PRINCIPALS.copy()\npsi1_spline = (3.0, 3.02, (-1.0, -2.0, -2.5, -3.0))\npsi2_spline = (0.0, 0.05, (-2.0, -3.0, -3.5, -4.0))\n\ndef run(fn):\n    tau_neq, J_tau = fn(beta_e, psi1_spline, psi2_spline)\n    return [[round(v, 12) for v in tau_neq.tolist()], round(float(J_tau), 12)]\nassert np.allclose(run(branch_kirchhoff_stress), target)",
+        "import numpy as np\n_TRIAL_PRINCIPALS = np.array([1.1025, 0.952380952380952, 0.952380952380952])\nbeta_e = np.array([1.0, 1.0, 1.0])\npsi1_spline = (3.0, 3.02, (-1.0, -2.0, -2.5, -3.0))\npsi2_spline = (0.0, 0.05, (-2.0, -3.0, -3.5, -4.0))\n\ndef run(fn):\n    tau_neq, J_tau = fn(beta_e, psi1_spline, psi2_spline)\n    return [[round(v, 12) for v in tau_neq.tolist()], round(float(J_tau), 12)]\nassert np.allclose(run(branch_kirchhoff_stress), target)",
+        "import numpy as np\n_TRIAL_PRINCIPALS = np.array([1.1025, 0.952380952380952, 0.952380952380952])\nbeta_e = np.array([1.1, -0.5, 0.9])\npsi1_spline = (3.0, 3.02, (-1.0, -2.0, -2.5, -3.0))\npsi2_spline = (0.0, 0.05, (-2.0, -3.0, -3.5, -4.0))\n\ndef run_model():\n    try:\n        branch_kirchhoff_stress(beta_e, psi1_spline, psi2_spline)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-45.5",
+      "test_cases": [
+        "import numpy as np\n_TRIAL_STRESS = np.array([0.126175604025, -0.063087802012, -0.063087802012])\n_TRIAL_J_TAU = 0.035820636865\ntau_neq = _TRIAL_STRESS.copy()\nJ_tau = _TRIAL_J_TAU\nphi_spline = (0.0, 0.10, (-4.0, -5.0, -5.5, -6.0))\nassert np.allclose([round(v, 12) for v in viscous_flow_rate(tau_neq, J_tau, phi_spline).tolist()], target)",
+        "import numpy as np\n_TRIAL_STRESS = np.array([0.126175604025, -0.063087802012, -0.063087802012])\n_TRIAL_J_TAU = 0.035820636865\ntau_neq = np.zeros(3)\nJ_tau = 0.0\nphi_spline = (0.0, 0.10, (-4.0, -5.0, -5.5, -6.0))\nassert np.allclose([round(v, 12) for v in viscous_flow_rate(tau_neq, J_tau, phi_spline).tolist()], target)",
+        "import numpy as np\n_TRIAL_STRESS = np.array([0.126175604025, -0.063087802012, -0.063087802012])\n_TRIAL_J_TAU = 0.035820636865\ntau_neq = _TRIAL_STRESS.copy()\nphi_spline = (0.0, 0.10, (-4.0, -5.0, -5.5, -6.0))\n\ndef run_model():\n    try:\n        viscous_flow_rate(tau_neq, -1.0, phi_spline)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-45.6",
+      "test_cases": [
+        "import numpy as np\nbeta_trial = np.array([1.1025, 0.952380952380952, 0.952380952380952])\npsi1_spline = (3.0, 3.02, (-1.0, -2.0, -2.5, -3.0))\npsi2_spline = (0.0, 0.05, (-2.0, -3.0, -3.5, -4.0))\nphi_spline = (0.0, 0.10, (-4.0, -5.0, -5.5, -6.0))\n\ndef run(fn):\n    beta_e = fn(beta_trial, 1.0, psi1_spline, psi2_spline, phi_spline)\n    return [\n        [round(v, 10) for v in beta_e.tolist()],\n        round(float(beta_e[0] * beta_e[1] * beta_e[2]), 10),\n    ]\nassert np.allclose(run(local_branch_update), target)",
+        "import numpy as np\nbeta_trial = np.ones(3)\npsi1_spline = (3.0, 3.02, (-1.0, -2.0, -2.5, -3.0))\npsi2_spline = (0.0, 0.05, (-2.0, -3.0, -3.5, -4.0))\nphi_spline = (0.0, 0.10, (-4.0, -5.0, -5.5, -6.0))\n\ndef run(fn):\n    beta_e = fn(beta_trial, 1.0, psi1_spline, psi2_spline, phi_spline)\n    return [round(v, 12) for v in beta_e.tolist()]\nassert np.allclose(run(local_branch_update), target)",
+        "import numpy as np\nbeta_trial = np.array([1.1025, 0.952380952380952, 0.952380952380952])\npsi1_spline = (3.0, 3.02, (-1.0, -2.0, -2.5, -3.0))\npsi2_spline = (0.0, 0.05, (-2.0, -3.0, -3.5, -4.0))\nphi_spline = (0.0, 0.10, (-4.0, -5.0, -5.5, -6.0))\n\ndef run_model():\n    try:\n        local_branch_update(beta_trial, 0.0, psi1_spline, psi2_spline, phi_spline)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-45.7",
+      "test_cases": [
+        "import numpy as np\n_J_TAU_SAMPLES = np.array([\n    0.027404751567, 0.092621156883, 0.176010389886, 0.264288891691,\n    0.348396808165, 0.422717768448, 0.484373582100, 0.532519125080,\n    0.567673569032, 0.591152905499, 0.604640443955, 0.609895897646,\n    0.608580572874, 0.602168056285, 0.591911541177, 0.578845012014,\n    0.563802275980, 0.547443569482, 0.530283693342, 0.512718462668,\n    0.273347354791, 0.130806279818, 0.049796804042, 0.010342445273,\n    0.000039345825, 0.010767951861, 0.037150426152, 0.075243421030,\n    0.122002872048, 0.175298253692, 0.233561109169, 0.295646827770,\n    0.360788531202, 0.428546941560, 0.498773882622, 0.571585197065,\n    0.647341668113, 0.726638180733, 0.810302338214, 0.899404430426\n])\nx_end = 0.10\nsamples = _J_TAU_SAMPLES.copy()\nassert np.allclose(round(float(adapt_domain_endpoint(x_end, samples, 5.0, 0.5)), 12), target)",
+        "import numpy as np\n_J_TAU_SAMPLES = np.array([\n    0.027404751567, 0.092621156883, 0.176010389886, 0.264288891691,\n    0.348396808165, 0.422717768448, 0.484373582100, 0.532519125080,\n    0.567673569032, 0.591152905499, 0.604640443955, 0.609895897646,\n    0.608580572874, 0.602168056285, 0.591911541177, 0.578845012014,\n    0.563802275980, 0.547443569482, 0.530283693342, 0.512718462668,\n    0.273347354791, 0.130806279818, 0.049796804042, 0.010342445273,\n    0.000039345825, 0.010767951861, 0.037150426152, 0.075243421030,\n    0.122002872048, 0.175298253692, 0.233561109169, 0.295646827770,\n    0.360788531202, 0.428546941560, 0.498773882622, 0.571585197065,\n    0.647341668113, 0.726638180733, 0.810302338214, 0.899404430426\n])\nsamples = np.array([0.7])\nassert np.allclose(round(float(adapt_domain_endpoint(0.10, samples, 5.0, 1.0)), 12), target)",
+        "import numpy as np\n_J_TAU_SAMPLES = np.array([\n    0.027404751567, 0.092621156883, 0.176010389886, 0.264288891691,\n    0.348396808165, 0.422717768448, 0.484373582100, 0.532519125080,\n    0.567673569032, 0.591152905499, 0.604640443955, 0.609895897646,\n    0.608580572874, 0.602168056285, 0.591911541177, 0.578845012014,\n    0.563802275980, 0.547443569482, 0.530283693342, 0.512718462668,\n    0.273347354791, 0.130806279818, 0.049796804042, 0.010342445273,\n    0.000039345825, 0.010767951861, 0.037150426152, 0.075243421030,\n    0.122002872048, 0.175298253692, 0.233561109169, 0.295646827770,\n    0.360788531202, 0.428546941560, 0.498773882622, 0.571585197065,\n    0.647341668113, 0.726638180733, 0.810302338214, 0.899404430426\n])\nsamples = _J_TAU_SAMPLES.copy()\n\ndef run_model():\n    try:\n        adapt_domain_endpoint(0.10, samples, 0.0, 0.5)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-45.8",
+      "test_cases": [
+        "import numpy as np\n_I1_SAMPLES = np.array([\n    3.005557215916, 3.018729148122, 3.035434808619, 3.052854779267,\n    3.069178077664, 3.083377283120, 3.094998401975, 3.103974751920,\n    3.110475390693, 3.114792210002, 3.117263037842, 3.118224045628,\n    3.117983618675, 3.116810598898, 3.114931359634, 3.112531801517,\n    3.109761722056, 3.106740017979, 3.103559860934, 3.100293418464,\n    3.054625773597, 3.026406338804, 3.010089355620, 3.002096411400,\n    3.000007924915, 3.002140956090, 3.007264767235, 3.014464872697,\n    3.023078322023, 3.032622189571, 3.042748521428, 3.053216415426,\n    3.063869368300, 3.074617695129, 3.085424672518, 3.096295594311,\n    3.107269229436, 3.118411336600, 3.129809982073, 3.141572462578\n])\ntheta_old = [-1.0, -2.0, -2.5, -3.0]\nsamples = _I1_SAMPLES.copy()\nassert np.allclose([round(v, 10) for v in project_spline_parameters(3.0, 3.02, theta_old, 3.05, samples).tolist()], target)",
+        "import numpy as np\n_I1_SAMPLES = np.array([\n    3.005557215916, 3.018729148122, 3.035434808619, 3.052854779267,\n    3.069178077664, 3.083377283120, 3.094998401975, 3.103974751920,\n    3.110475390693, 3.114792210002, 3.117263037842, 3.118224045628,\n    3.117983618675, 3.116810598898, 3.114931359634, 3.112531801517,\n    3.109761722056, 3.106740017979, 3.103559860934, 3.100293418464,\n    3.054625773597, 3.026406338804, 3.010089355620, 3.002096411400,\n    3.000007924915, 3.002140956090, 3.007264767235, 3.014464872697,\n    3.023078322023, 3.032622189571, 3.042748521428, 3.053216415426,\n    3.063869368300, 3.074617695129, 3.085424672518, 3.096295594311,\n    3.107269229436, 3.118411336600, 3.129809982073, 3.141572462578\n])\ntheta_old = [-1.0, -2.0, -2.5, -3.0]\nsamples = _I1_SAMPLES.copy()\nassert np.allclose([round(v, 8) for v in project_spline_parameters(3.0, 3.02, theta_old, 3.02, samples).tolist()], target)",
+        "import numpy as np\n_I1_SAMPLES = np.array([\n    3.005557215916, 3.018729148122, 3.035434808619, 3.052854779267,\n    3.069178077664, 3.083377283120, 3.094998401975, 3.103974751920,\n    3.110475390693, 3.114792210002, 3.117263037842, 3.118224045628,\n    3.117983618675, 3.116810598898, 3.114931359634, 3.112531801517,\n    3.109761722056, 3.106740017979, 3.103559860934, 3.100293418464,\n    3.054625773597, 3.026406338804, 3.010089355620, 3.002096411400,\n    3.000007924915, 3.002140956090, 3.007264767235, 3.014464872697,\n    3.023078322023, 3.032622189571, 3.042748521428, 3.053216415426,\n    3.063869368300, 3.074617695129, 3.085424672518, 3.096295594311,\n    3.107269229436, 3.118411336600, 3.129809982073, 3.141572462578\n])\ntheta_old = [-1.0, -2.0, -2.5, -3.0]\nsamples = _I1_SAMPLES.copy()\n\ndef run_model():\n    try:\n        project_spline_parameters(3.0, 3.02, theta_old, 2.5, samples)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-45.9",
+      "test_cases": [
+        "n_outer = 3\nassert np.allclose(round(float(run_full_pipeline(n_outer=n_outer)), 10), target)",
+        "n_outer = 0\nassert np.allclose([round(float(run_full_pipeline(n_outer=k)), 10) for k in (n_outer, 1)], target)",
+        "def run_model():\n    try:\n        run_full_pipeline(n_outer=-1)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

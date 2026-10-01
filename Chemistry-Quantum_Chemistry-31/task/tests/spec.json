@@ -1,0 +1,77 @@
+{
+  "problem_id": "Chemistry-Quantum_Chemistry-31",
+  "sub_steps": [
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-31.1",
+      "test_cases": [
+        "import numpy as np\nhcc=np.array([[2.0,0.3],[0.3,1.4]])\nhqc=np.array([[0.2,-0.1]])\nhqq=np.array([[0.8]])\nh=np.block([[hcc,hqc.T],[hqc,hqq]])\nassert np.allclose(reduce_neo_hessian(h.copy(),1), target)",
+        "import numpy as np\nh=np.diag([1.2,1.7,0.9]).astype(float)\nassert np.allclose(reduce_neo_hessian(h.copy(),1), target)",
+        "import numpy as np\nhcc=np.array([[1.1]])\nhqc=np.array([[0.08],[0.03]])\nhqq=np.array([[0.7,0.1],[0.1,0.6]])\nh=np.block([[hcc,hqc.T],[hqc,hqq]])\nassert np.allclose(reduce_neo_hessian(h.copy(),2), target)",
+        "import numpy as np\nh=np.array([[1.0,0.2,0.0],[0.1,1.0,0.0],[0.0,0.0,0.5]])\ndef check(fn):\n try: fn(h.copy(),1)\n except ValueError: return 1\n except Exception: return 2\n return 0\nassert np.allclose(check(reduce_neo_hessian), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-31.2",
+      "test_cases": [
+        "import numpy as np\nha=np.array([[1.4,0.1],[0.1,1.0]])\nhb=np.array([[1.1,-0.05],[-0.05,1.6]])\nga=np.array([0.3,-0.2])\ngb=np.array([-0.15,0.25])\nm=np.array([12.0,16.0])\nassert np.allclose(compute_crossing_descriptor(ha.copy(),hb.copy(),ga.copy(),gb.copy(),m.copy(),True), target)",
+        "import numpy as np\nha=np.array([[2.0]])\nhb=np.array([[1.0]])\nga=np.array([0.4])\ngb=np.array([-0.2])\nm=np.array([7.0])\nassert np.allclose(compute_crossing_descriptor(ha.copy(),hb.copy(),ga.copy(),gb.copy(),m.copy(),True), target)",
+        "import numpy as np\nha=np.diag([2.2,1.8])\nhb=np.diag([0.7,0.9])\nga=np.array([0.5,0.1])\ngb=np.array([0.12,-0.04])\nm=np.array([10.0,14.0])\nassert np.allclose(compute_crossing_descriptor(ha.copy(),hb.copy(),ga.copy(),gb.copy(),m.copy(),False), target)",
+        "import numpy as np\nha=np.eye(2); hb=np.eye(2); ga=np.array([0.2,-0.1]); gb=-ga; m=np.array([12.0,-1.0])\ndef check(fn):\n try: fn(ha.copy(),hb.copy(),ga.copy(),gb.copy(),m.copy(),True)\n except ValueError: return 1\n except Exception: return 2\n return 0\nassert np.allclose(check(compute_crossing_descriptor), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-31.3",
+      "test_cases": [
+        "import numpy as np\nr=np.array([4.4,4.7,5.0]); vr=np.array([0.,0.,.02,0.,.001]); vm=np.array([.004,-.001,.01,0.,.002]); vp=np.array([.001,.0002,.018,0.,.001]); c=np.array([.0004,-2.,-.3])\nassert np.allclose(evaluate_distance_profiles(r.copy(),vr.copy(),vm.copy(),vp.copy(),c.copy(),4.8,4.5), target)",
+        "import numpy as np\nr=np.array([4.5,4.6]); vr=np.zeros(5); vm=np.array([.003,0.,0.,0.,0.]); vp=np.zeros(5); c=np.array([.0002,-1.,0.])\nassert np.allclose(evaluate_distance_profiles(r.copy(),vr.copy(),vm.copy(),vp.copy(),c.copy(),4.5,4.5), target)",
+        "import numpy as np\nr=np.array([5.0]); vr=np.array([.1,.2,.3,.4,.5]); vm=vr+.01; vp=vr-.02; c=np.array([0.,-3.,-.5])\nassert np.allclose(evaluate_distance_profiles(r.copy(),vr.copy(),vm.copy(),vp.copy(),c.copy(),5.0,4.0), target)",
+        "import numpy as np\nr=np.array([4.5,4.5]); vr=np.zeros(5); vm=np.ones(5); vp=np.zeros(5); c=np.array([.001,-1.,0.])\ndef check(fn):\n try: fn(r.copy(),vr.copy(),vm.copy(),vp.copy(),c.copy(),4.5,4.4)\n except ValueError: return 1\n except Exception: return 2\n return 0\nassert np.allclose(check(evaluate_distance_profiles), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-31.4",
+      "test_cases": [
+        "import numpy as np\nv=np.array([0.0,1e-4,5e-4,2e-3])\nassert np.allclose(compute_holstein_transmission(v.copy(),3.5e-4,0.08), target)",
+        "import numpy as np\nv=np.array([0.0,0.2,1.0])\nassert np.allclose(compute_holstein_transmission(v.copy(),0.0,0.3), target)",
+        "import numpy as np\nv=np.array([1e-15,1e-10,1e-6])\nassert np.allclose(compute_holstein_transmission(v.copy(),1e-8,2.5), target)",
+        "import numpy as np\nv=np.array([-0.1,0.2])\ndef check(fn):\n try: fn(v.copy(),1e-4,0.1)\n except ValueError: return 1\n except Exception: return 2\n return 0\nassert np.allclose(check(compute_holstein_transmission), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-31.5",
+      "test_cases": [
+        "import numpy as np\nc=4.2e-4; dg=.091; mu=23000.; beta=3800.\nassert np.allclose(integrate_lz_coefficient(c,dg,mu,beta,48), target)",
+        "import numpy as np\nassert np.allclose(integrate_lz_coefficient(0.0,0.2,18000.0,4200.0,24), target)",
+        "import numpy as np\nc=.02; dg=.04; mu=8000.; beta=1200.\nassert np.allclose(integrate_lz_coefficient(c,dg,mu,beta,32), target)",
+        "import numpy as np\ndef check(fn):\n try: fn(1e-4,.1,10000.,3000.,7)\n except ValueError: return 1\n except Exception: return 2\n return 0\nassert np.allclose(check(integrate_lz_coefficient), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-31.6",
+      "test_cases": [
+        "import numpy as np\nfrom scipy.special import airy\nassert np.allclose(integrate_wc_coefficient(4e-4,.09,.046,23000.,3800.,-.003,64,True), target)",
+        "import numpy as np\nfrom scipy.special import airy\nassert np.allclose(integrate_wc_coefficient(0.0,.2,.1,12000.,2500.,0.0,24,True), target)",
+        "import numpy as np\nfrom scipy.special import airy\nassert np.allclose(integrate_wc_coefficient(.02,.03,.025,9000.,1500.,-.001,40,True), target)",
+        "import numpy as np\nfrom scipy.special import airy\ndef check(fn):\n try: fn(1e-4,.1,.05,10000.,5000.,-.2,32,True)\n except ValueError: return 1\n except Exception: return 2\n return 0\nassert np.allclose(check(integrate_wc_coefficient), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-31.7",
+      "test_cases": [
+        "import numpy as np\nfrom scipy.special import airy\ndef scaled_result(fn,r,p,beta,d,lz_order,wc_order,scale):\n value=fn(r,p,beta,d,lz_order,wc_order)\n if not isinstance(value,np.ndarray) or value.shape!=(4,): return np.full(4,1e100)\n if not np.issubdtype(value.dtype,np.number) or not np.isrealobj(value) or np.any(~np.isfinite(value)): return np.full(4,1e100)\n if value[0] < 0.0 or value[1] < 0.0 or value[2] <= 0.0: return np.full(4,1e100)\n return value/scale\nr=np.array([4.5,4.7,4.9,5.1]); vr=.012*(r-4.8)**2; vm=.004+.008*(r-4.9)**2; vp=.0004+.011*(r-4.85)**2; v=.00035*np.exp(-1.8*(r-4.8)); p=np.column_stack([vr,vm,vp,v]); d=np.array([22000.,.09,.045,5e-6]); scale=np.array([1e-11,1e-8,1e-1,1.0])\nassert np.allclose(scaled_result(compute_thermal_isotope_rates,r.copy(),p.copy(),3600.,d.copy(),32,40,scale), target)",
+        "import numpy as np\nfrom scipy.special import airy\ndef scaled_result(fn,r,p,beta,d,lz_order,wc_order,scale):\n value=fn(r,p,beta,d,lz_order,wc_order)\n if not isinstance(value,np.ndarray) or value.shape!=(4,): return np.full(4,1e100)\n if not np.issubdtype(value.dtype,np.number) or not np.isrealobj(value) or np.any(~np.isfinite(value)): return np.full(4,1e100)\n if value[0] < 0.0 or value[1] < 0.0 or value[2] <= 0.0: return np.full(4,1e100)\n return value/scale\nr=np.array([4.4,4.6,4.8,5.0]); vr=.01*(r-4.7)**2; vm=.0035+.006*(r-4.8)**2; vp=.0002+.009*(r-4.75)**2; v=np.zeros(4); p=np.column_stack([vr,vm,vp,v]); d=np.array([18000.,.11,.052,4e-6]); scale=np.array([1.0,1.0,1e-1,1.0])\nassert np.allclose(scaled_result(compute_thermal_isotope_rates,r.copy(),p.copy(),2800.,d.copy(),24,32,scale), target)",
+        "import numpy as np\nfrom scipy.special import airy\ndef scaled_result(fn,r,p,beta,d,lz_order,wc_order,scale):\n value=fn(r,p,beta,d,lz_order,wc_order)\n if not isinstance(value,np.ndarray) or value.shape!=(4,): return np.full(4,1e100)\n if not np.issubdtype(value.dtype,np.number) or not np.isrealobj(value) or np.any(~np.isfinite(value)): return np.full(4,1e100)\n if value[0] < 0.0 or value[1] < 0.0 or value[2] <= 0.0: return np.full(4,1e100)\n return value/scale\nr=np.array([4.8,5.0]); vr=np.array([0.,.0002]); vm=np.array([.003,.0031]); vp=np.array([.0001,.0002]); v=np.array([.00025,.00018]); p=np.column_stack([vr,vm,vp,v]); d=np.array([15000.,.07,.039,3e-6]); scale=np.array([1e-8,1e-7,1e-1,1.0])\nassert np.allclose(scaled_result(compute_thermal_isotope_rates,r.copy(),p.copy(),2000.,d.copy(),16,24,scale), target)",
+        "import numpy as np\nfrom scipy.special import airy\nr=np.array([4.8,4.7]); p=np.ones((2,4)); d=np.ones(4)\ndef check(fn):\n try: fn(r.copy(),p.copy(),3000.,d.copy(),16,16)\n except ValueError: return 1\n except Exception: return 2\n return 0\nassert np.allclose(check(compute_thermal_isotope_rates), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-31.8",
+      "test_cases": [
+        "import numpy as np\nfrom scipy.special import airy\nassert np.allclose(compute_neogrt_kie_shift(26091312,82.0,61,48,64), target)",
+        "import numpy as np\nfrom scipy.special import airy\nassert np.allclose(compute_neogrt_kie_shift(173,64.0,9,16,16), target)",
+        "import numpy as np\nfrom scipy.special import airy\nassert np.allclose(compute_neogrt_kie_shift(42,50.0,31,24,32), target)",
+        "import numpy as np\nfrom scipy.special import airy\ndef check(fn):\n try: fn(7,80.0,8,16,16)\n except ValueError: return 1\n except Exception: return 2\n return 0\nassert np.allclose(check(compute_neogrt_kie_shift), target)"
+      ]
+    }
+  ]
+}

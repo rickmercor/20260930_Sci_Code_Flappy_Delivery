@@ -1,0 +1,44 @@
+problem_id: "Physics-Particle_Physics-25"
+subject: "physics"
+subject_area: "Particle Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1007/JHEP01(2026)158"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_map_two_threshold_variable"
+    description: "Map the invariant mass squared onto the uniformising variable that opens the elastic and the inelastic two-particle cut together, on a selected Riemann sheet."
+    orchestrator: false
+  - number: 2
+    name: "02_map_left_hand_cut"
+    description: "Return the image of point under the conformal map from the unit disc slit along [-1, cut_branch_point] onto the unit disc, normalized to preserve the real axis within its domain, send origin_point to zero, and fix +1."
+    orchestrator: false
+  - number: 3
+    name: "03_map_four_sheet_variable"
+    description: "Compose the two-threshold variable with the slit-disc map to obtain the expansion variable of the four-sheet parametrisation."
+    orchestrator: false
+  - number: 4
+    name: "04_solve_asymptotic_behaviour"
+    description: "Measure how fast the expansion variable approaches its value at infinite invariant mass, and with what coefficient."
+    orchestrator: false
+  - number: 5
+    name: "05_evaluate_pole_factor"
+    description: "Evaluate the product of pole factors that carries the resonances of the parametrisation in the expansion variable."
+    orchestrator: false
+  - number: 6
+    name: "06_solve_series_coefficients"
+    description: "Fix the real coefficients of the truncated series from measured values of the amplitude and a prescribed high-energy fall-off."
+    orchestrator: false
+  - number: 7
+    name: "07_evaluate_series_form_factor"
+    description: "Evaluate the parametrised amplitude from its series coefficients and its pole product."
+    orchestrator: false
+  - number: 8
+    name: "08_extract_pole_residue"
+    description: "Extract the residue of a function at a simple pole from its values on a small circle about that pole."
+    orchestrator: false
+  - number: 9
+    name: "09_estimate_pole_residue"
+    description: "Compose every earlier step to obtain the modulus of the residue of the parametrised amplitude at a chosen resonance pole."
+    orchestrator: true

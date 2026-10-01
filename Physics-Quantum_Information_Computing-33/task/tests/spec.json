@@ -1,0 +1,86 @@
+{
+  "problem_id": "Physics-Quantum_Information_Computing-33",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Quantum_Information_Computing-33.1",
+      "test_cases": [
+        "import numpy as np\nk = 0\nassert np.allclose([np.round(np.asarray(single_qubit_pauli(k)).real, 12).tolist(), np.round(np.asarray(single_qubit_pauli(k)).imag, 12).tolist()], target)",
+        "import numpy as np\nk = 1\nassert np.allclose([np.round(np.asarray(single_qubit_pauli(k)).real, 12).tolist(), np.round(np.asarray(single_qubit_pauli(k)).imag, 12).tolist()], target)",
+        "import numpy as np\nk = 2\nassert np.allclose([np.round(np.asarray(single_qubit_pauli(k)).real, 12).tolist(), np.round(np.asarray(single_qubit_pauli(k)).imag, 12).tolist()], target)",
+        "import numpy as np\nk = 3\nassert np.allclose([np.round(np.asarray(single_qubit_pauli(k)).real, 12).tolist(), np.round(np.asarray(single_qubit_pauli(k)).imag, 12).tolist()], target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-33.2",
+      "test_cases": [
+        "import numpy as np\nn = 1\nk = 3\nassert np.allclose([np.round(np.asarray(n_qubit_pauli(n, k)).real, 12).tolist(), np.round(np.asarray(n_qubit_pauli(n, k)).imag, 12).tolist()], target)",
+        "import numpy as np\nn = 2\nk = 0\nassert np.allclose([np.round(np.asarray(n_qubit_pauli(n, k)).real, 12).tolist(), np.round(np.asarray(n_qubit_pauli(n, k)).imag, 12).tolist()], target)",
+        "import numpy as np\nn = 2\nk = 1\nassert np.allclose([np.round(np.asarray(n_qubit_pauli(n, k)).real, 12).tolist(), np.round(np.asarray(n_qubit_pauli(n, k)).imag, 12).tolist()], target)",
+        "import numpy as np\nn = 2\nk = 4\nassert np.allclose([np.round(np.asarray(n_qubit_pauli(n, k)).real, 12).tolist(), np.round(np.asarray(n_qubit_pauli(n, k)).imag, 12).tolist()], target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-33.3",
+      "test_cases": [
+        "import numpy as np\nn = 1\nplus = np.array([[0.5, 0.5], [0.5, 0.5]], dtype=complex)\nassert np.allclose(np.round(pauli_spectrum(plus, n), 12).tolist(), target)",
+        "import numpy as np\nn = 1\nzero = np.array([[1.0, 0.0], [0.0, 0.0]], dtype=complex)\nassert np.allclose(np.round(pauli_spectrum(zero, n), 12).tolist(), target)",
+        "import numpy as np\nn = 2\nplus = np.array([[0.5, 0.5], [0.5, 0.5]], dtype=complex)\npsi = np.kron(plus, plus)\nassert np.allclose(np.round(pauli_spectrum(psi, n), 12).tolist(), target)",
+        "import numpy as np\nn = 1\none = np.array([[0.0, 0.0], [0.0, 1.0]], dtype=complex)\nassert np.allclose(np.round(pauli_spectrum(one, n), 12).tolist(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-33.4",
+      "test_cases": [
+        "import numpy as np\nr = np.array([0.0, 0.0, 0.0])\nassert np.allclose([np.round(np.asarray(bloch_density_matrix(r)).real, 12).tolist(), np.round(np.asarray(bloch_density_matrix(r)).imag, 12).tolist()], target)",
+        "import numpy as np\nr = np.array([0.0, 0.0, 1.0])\nassert np.allclose([np.round(np.asarray(bloch_density_matrix(r)).real, 12).tolist(), np.round(np.asarray(bloch_density_matrix(r)).imag, 12).tolist()], target)",
+        "import numpy as np\nr = np.array([1.0, 1.0, 0.0]) / np.sqrt(2.0)\nassert np.allclose([np.round(np.asarray(bloch_density_matrix(r)).real, 12).tolist(), np.round(np.asarray(bloch_density_matrix(r)).imag, 12).tolist()], target)",
+        "import numpy as np\nr = np.array([0.6, 0.5, 0.3])\nassert np.allclose([np.round(np.asarray(bloch_density_matrix(r)).real, 12).tolist(), np.round(np.asarray(bloch_density_matrix(r)).imag, 12).tolist()], target)",
+        "import numpy as np\nr = np.array([-0.2, 0.7, -0.4])\nassert np.allclose([np.round(np.asarray(bloch_density_matrix(r)).real, 12).tolist(), np.round(np.asarray(bloch_density_matrix(r)).imag, 12).tolist()], target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-33.5",
+      "test_cases": [
+        "import numpy as np\nspec = np.array([1.0, 1.0, 0.0, 0.0])\nbeta = 2.0\nassert np.allclose(float(np.round(stabilizer_partition_function(spec, beta), 12)), target)",
+        "import numpy as np\nspec = np.array([1.0, 0.0, 0.0, -1.0])\nbeta = 1.0\nassert np.allclose(float(np.round(stabilizer_partition_function(spec, beta), 12)), target)",
+        "import numpy as np\nspec = np.array([1.0, 1.0 / np.sqrt(2.0), 1.0 / np.sqrt(2.0), 0.0])\nbeta = 2.0\nassert np.allclose(float(np.round(stabilizer_partition_function(spec, beta), 12)), target)",
+        "import numpy as np\nspec = np.array([1.0, 1.0, 0.0, 0.0])\nbeta = 0.0\nassert np.allclose(float(np.round(stabilizer_partition_function(spec, beta), 12)), target)",
+        "import numpy as np\nspec = np.array([1.0, 0.5, 0.5, 0.0])\nbeta = 800.0\nassert np.allclose(float(np.round(stabilizer_partition_function(spec, beta), 12)), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-33.6",
+      "test_cases": [
+        "import numpy as np\nr = np.array([0.6, 0.5, 0.3])\nnr = np.linalg.norm(r)\nw = np.array([(1.0 + nr) / 2.0, (1.0 - nr) / 2.0])\nvecs = np.array([r / nr, -r / nr])\nbeta = 2.0\ndef run(fn):\n    try:\n        return [0.0, float(np.round(fn(r, w, vecs, beta), 10))]\n    except ValueError:\n        return [1.0, 0.0]\nassert np.allclose(run(decomposition_spf), target)",
+        "import numpy as np\nr = np.array([0.3, 0.3, 0.3])\nw = np.array([0.3, 0.3, 0.35, 0.05])\nvecs = np.array([[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0], [0.0, 0.0, -1.0]])\nbeta = 2.0\ndef run(fn):\n    try:\n        return [0.0, float(np.round(fn(r, w, vecs, beta), 10))]\n    except ValueError:\n        return [1.0, 0.0]\nassert np.allclose(run(decomposition_spf), target)",
+        "import numpy as np\nr = np.array([1.0, 1.0, 0.0]) / np.sqrt(2.0)\nw = np.array([1.0])\nvecs = r.reshape(1, 3)\nbeta = 2.0\ndef run(fn):\n    try:\n        return [0.0, float(np.round(fn(r, w, vecs, beta), 10))]\n    except ValueError:\n        return [1.0, 0.0]\nassert np.allclose(run(decomposition_spf), target)",
+        "import numpy as np\nr = np.array([0.6, 0.5, 0.3])\nn1 = np.array([0.0, 0.0, 1.0])\np = (1.0 - r @ r) / (2.0 * (1.0 - r @ n1))\nn2 = (r - p * n1) / (1.0 - p)\nw = np.array([p, 1.0 - p])\nvecs = np.array([n1, n2])\nbeta = 1.0\ndef run(fn):\n    try:\n        return [0.0, float(np.round(fn(r, w, vecs, beta), 10))]\n    except ValueError:\n        return [1.0, 0.0]\nassert np.allclose(run(decomposition_spf), target)",
+        "import numpy as np\nr = np.array([0.6, 0.5, 0.3])\nw = np.array([0.5, 0.5])\nvecs = np.array([[1.0, 0.0, 0.0], [0.0, 1.0, 0.0]])\nbeta = 2.0\ndef run(fn):\n    try:\n        return [0.0, float(np.round(fn(r, w, vecs, beta), 10))]\n    except ValueError:\n        return [1.0, 0.0]\nassert np.allclose(run(decomposition_spf), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-33.7",
+      "test_cases": [
+        "import numpy as np\nr = np.array([0.6, 0.5, 0.3])\nbeta = 2.0\nassert np.allclose(float(np.round(roof_spf(r, beta), 8)), target)",
+        "import numpy as np\nr = np.array([0.3, 0.3, 0.3])\nbeta = 2.0\nassert np.allclose(float(np.round(roof_spf(r, beta), 8)), target)",
+        "import numpy as np\nr = np.array([1.0, 1.0, 0.0]) / np.sqrt(2.0)\nbeta = 2.0\nassert np.allclose(float(np.round(roof_spf(r, beta), 8)), target)",
+        "import numpy as np\nr = 0.8 * np.array([1.0, 1.0, 0.0]) / np.sqrt(2.0)\nbeta = 2.0\nassert np.allclose(float(np.round(roof_spf(r, beta), 8)), target)",
+        "import numpy as np\nr = np.array([0.6, 0.5, 0.3])\nbeta = 1.0\nassert np.allclose(float(np.round(roof_spf(r, beta), 8)), target)",
+        "import numpy as np\nr = np.array([0.6, 0.5, 0.3])\nbeta = 0.0\nassert np.allclose(float(np.round(roof_spf(r, beta), 8)), target)",
+        "import numpy as np\nr = np.array([0.0, 0.0, 0.999999])\nbeta = 2.0\nassert np.allclose(float(np.round(roof_spf(r, beta), 8)), target)",
+        "import numpy as np\nr = np.array([0.3, 0.3, 0.3])\nbeta = 1000000.0\nassert np.allclose(float(np.round(roof_spf(r, beta), 8)), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-33.8",
+      "test_cases": [
+        "import numpy as np\nr = np.array([0.6, 0.5, 0.3])\nbeta = 2.0\nassert np.allclose(float(np.round(noisy_magic_roof_work(r, beta), 8)), target)",
+        "import numpy as np\nr = np.array([0.3, 0.3, 0.3])\nbeta = 2.0\nassert np.allclose(float(np.round(noisy_magic_roof_work(r, beta), 8)), target)",
+        "import numpy as np\nr = np.array([1.0, 1.0, 0.0]) / np.sqrt(2.0)\nbeta = 2.0\nassert np.allclose(float(np.round(noisy_magic_roof_work(r, beta), 8)), target)",
+        "import numpy as np\nr = np.array([0.6, 0.5, 0.3])\nbeta = 1.0\nassert np.allclose(float(np.round(noisy_magic_roof_work(r, beta), 8)), target)",
+        "import numpy as np\nr = 0.8 * np.array([1.0, 1.0, 0.0]) / np.sqrt(2.0)\nbeta = 2.0\nassert np.allclose(float(np.round(noisy_magic_roof_work(r, beta), 8)), target)",
+        "import numpy as np\nr = np.array([0.0, 0.0, 0.999999])\nbeta = 2.0\nassert np.allclose(float(np.round(noisy_magic_roof_work(r, beta), 8)), target)"
+      ]
+    }
+  ]
+}

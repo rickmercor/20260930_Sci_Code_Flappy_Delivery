@@ -1,0 +1,85 @@
+{
+  "problem_id": "Mathematics-Numerical_Linear_Algebra-61",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-61.1",
+      "test_cases": [
+        "import numpy as np\nm, n, seed = 12, 8, 7\ns = np.array([8.0, 6.0, 4.5, 1.1, 0.8, 0.55, 0.4, 0.3])\nassert np.allclose(construct_consistent_system(m, n, s, seed), target)",
+        "import numpy as np\nm, n, seed = 5, 3, 1\ns = np.array([3.0, 1.2, 0.4])\nassert np.allclose(construct_consistent_system(m, n, s, seed), target)",
+        "import numpy as np\nm, n, seed = 3, 2, 0\ns = np.array([2.0, 0.5])\nassert np.allclose(construct_consistent_system(m, n, s, seed), target)",
+        "import numpy as np\ns = np.array([-1.0, 0.5])\ndef run_model():\n    try:\n        construct_consistent_system(3, 2, s, 0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ns = np.array([2.0, 1.0])\ndef run_model():\n    try:\n        construct_consistent_system(2, 2, s, 0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-61.2",
+      "test_cases": [
+        "import numpy as np\nm, n, seed = 12, 8, 7\ns = np.array([8.0, 6.0, 4.5, 1.1, 0.8, 0.55, 0.4, 0.3])\nrng = np.random.default_rng(seed)\nU, _ = np.linalg.qr(rng.standard_normal((m, n)), mode=\"reduced\")\nV, _ = np.linalg.qr(rng.standard_normal((n, n)), mode=\"reduced\")\nA = U @ np.diag(s) @ V.T\nb = A @ rng.standard_normal(n)\npack = np.concatenate(([float(m), float(n)], A.ravel(), b))\nindices = np.array([2, 8, 3])\nassert np.allclose(extract_row_blocks(pack, indices), target)",
+        "import numpy as np\nm, n, seed = 5, 3, 1\ns = np.array([3.0, 1.2, 0.4])\nrng = np.random.default_rng(seed)\nU, _ = np.linalg.qr(rng.standard_normal((m, n)), mode=\"reduced\")\nV, _ = np.linalg.qr(rng.standard_normal((n, n)), mode=\"reduced\")\nA = U @ np.diag(s) @ V.T\nb = A @ rng.standard_normal(n)\npack = np.concatenate(([float(m), float(n)], A.ravel(), b))\nindices = np.array([0])\nassert np.allclose(extract_row_blocks(pack, indices), target)",
+        "import numpy as np\nm, n, seed = 3, 2, 0\ns = np.array([2.0, 0.5])\nrng = np.random.default_rng(seed)\nU, _ = np.linalg.qr(rng.standard_normal((m, n)), mode=\"reduced\")\nV, _ = np.linalg.qr(rng.standard_normal((n, n)), mode=\"reduced\")\nA = U @ np.diag(s) @ V.T\nb = A @ rng.standard_normal(n)\npack = np.concatenate(([float(m), float(n)], A.ravel(), b))\nindices = np.array([1])\nassert np.allclose(extract_row_blocks(pack, indices), target)",
+        "import numpy as np\npack = np.concatenate(([5.0, 3.0], np.arange(15.0), np.arange(5.0)))\nindices = np.array([0, 0])\ndef run_model():\n    try:\n        extract_row_blocks(pack, indices)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\npack = np.concatenate(([5.0, 3.0], np.arange(15.0), np.arange(5.0)))\nindices = np.array([0, 1, 2, 3, 4])\ndef run_model():\n    try:\n        extract_row_blocks(pack, indices)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-61.3",
+      "test_cases": [
+        "import numpy as np\nA_p = np.array([[1.0, 0.0, 0.5], [0.0, 2.0, -1.0]])\nb_p = np.array([1.0, -0.5])\nA_r = np.array([[0.3, 0.1, 0.2], [0.0, 1.0, 0.4], [0.2, 0.0, 0.8]])\nb_r = np.array([0.1, 0.2, 0.3])\nmp, n, mr = 2, 3, 3\nblock_pack = np.concatenate(([float(mp), float(n), float(mr)], A_p.ravel(), b_p, A_r.ravel(), b_r))\nassert np.allclose(constraint_initial_iterate(block_pack), target)",
+        "import numpy as np\nA_p = np.array([[2.0, 1.0]])\nb_p = np.array([1.0])\nA_r = np.array([[1.0, 0.0], [0.0, 1.0], [1.0, 1.0]])\nb_r = np.array([0.0, 0.0, 0.0])\nblock_pack = np.concatenate(([1.0, 2.0, 3.0], A_p.ravel(), b_p, A_r.ravel(), b_r))\nassert np.allclose(constraint_initial_iterate(block_pack), target)",
+        "import numpy as np\nA_p = np.eye(2)\nb_p = np.array([3.0, -1.0])\nA_r = np.array([[1.0, 2.0]])\nb_r = np.array([0.5])\nblock_pack = np.concatenate(([2.0, 2.0, 1.0], A_p.ravel(), b_p, A_r.ravel(), b_r))\nassert np.allclose(constraint_initial_iterate(block_pack), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        constraint_initial_iterate(np.array([1.0, 2.0]))\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        constraint_initial_iterate(np.zeros(6))\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-61.4",
+      "test_cases": [
+        "import numpy as np\nm_r, q, n_steps, seed = 9, 2, 3, 11\nassert np.allclose(draw_gaussian_sketches(m_r, q, n_steps, seed), target)",
+        "import numpy as np\nm_r, q, n_steps, seed = 4, 2, 2, 4\nassert np.allclose(draw_gaussian_sketches(m_r, q, n_steps, seed), target)",
+        "import numpy as np\nm_r, q, n_steps, seed = 2, 1, 1, 0\nassert np.allclose(draw_gaussian_sketches(m_r, q, n_steps, seed), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        draw_gaussian_sketches(3, 0, 1, 0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        draw_gaussian_sketches(2, 1, 0, 0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-61.5",
+      "test_cases": [
+        "import numpy as np\nA_p = np.array([[1.0, 0.0, 0.5], [0.0, 2.0, -1.0]])\nb_p = np.array([1.0, -0.5])\nA_r = np.array([[0.3, 0.1, 0.2], [0.0, 1.0, 0.4], [0.2, 0.0, 0.8]])\nb_r = np.array([0.1, 0.2, 0.3])\nblock_pack = np.concatenate(([2.0, 3.0, 3.0], A_p.ravel(), b_p, A_r.ravel(), b_r))\nx = np.array([0.2, -0.1, 0.4])\nS = np.array([[1.0, 0.0], [0.5, 1.0], [0.0, -1.0]])\nassert np.allclose(projected_sketched_direction(block_pack, x, S), target)",
+        "import numpy as np\nA_p = np.array([[2.0, 1.0]])\nb_p = np.array([1.0])\nA_r = np.array([[1.0, 0.0], [0.0, 1.0]])\nb_r = np.array([0.0, 0.0])\nblock_pack = np.concatenate(([1.0, 2.0, 2.0], A_p.ravel(), b_p, A_r.ravel(), b_r))\nx = np.linalg.pinv(A_p) @ b_p\nS = np.array([[0.7], [-0.2]])\nassert np.allclose(projected_sketched_direction(block_pack, x, S), target)",
+        "import numpy as np\nA_p = np.eye(2)\nb_p = np.array([0.0, 0.0])\nA_r = np.array([[1.0, 2.0], [3.0, 4.0], [0.5, -1.0]])\nb_r = np.array([1.0, 0.0, -1.0])\nblock_pack = np.concatenate(([2.0, 2.0, 3.0], A_p.ravel(), b_p, A_r.ravel(), b_r))\nx = np.zeros(2)\nS = np.ones((3, 2))\nassert np.allclose(projected_sketched_direction(block_pack, x, S), target)",
+        "import numpy as np\nA_p = np.array([[1.0, 0.0]])\nb_p = np.array([0.0])\nA_r = np.array([[0.0, 1.0]])\nb_r = np.array([0.0])\nblock_pack = np.concatenate(([1.0, 2.0, 1.0], A_p.ravel(), b_p, A_r.ravel(), b_r))\nx = np.zeros(2)\nS = np.ones((1, 2))\ndef run_model():\n    try:\n        projected_sketched_direction(block_pack, np.zeros(3), S)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA_p = np.array([[1.0, 0.0]])\nb_p = np.array([0.0])\nA_r = np.array([[0.0, 1.0]])\nb_r = np.array([0.0])\nblock_pack = np.concatenate(([1.0, 2.0, 1.0], A_p.ravel(), b_p, A_r.ravel(), b_r))\nx = np.zeros(2)\nS = np.ones((2, 1))\ndef run_model():\n    try:\n        projected_sketched_direction(block_pack, x, S)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-61.6",
+      "test_cases": [
+        "import numpy as np\nd = np.array([1.0, 2.0, 3.0])\nwindow = np.zeros((3, 0))\nassert np.allclose(window_orthogonalize(d, window), target)",
+        "import numpy as np\nd = np.array([3.0, 4.0])\nwindow = np.array([[1.0], [0.0]])\nassert np.allclose(window_orthogonalize(d, window), target)",
+        "import numpy as np\nd = np.array([1.0, 1.0, 1.0, 1.0])\nwindow = np.array([[1.0, 0.0], [0.0, 1.0], [0.0, 0.0], [0.0, 0.0]])\nassert np.allclose(window_orthogonalize(d, window), target)",
+        "import numpy as np\nd = np.array([1.0, 0.0])\nwindow = np.array([[1.0], [2.0], [3.0]])\ndef run_model():\n    try:\n        window_orthogonalize(d, window)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nd = np.array([1.0, 2.0])\nwindow = np.array([[0.0], [0.0]])\ndef run_model():\n    try:\n        window_orthogonalize(d, window)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-61.7",
+      "test_cases": [
+        "import numpy as np\nA_r = np.array([[1.0, 0.0], [0.0, 1.0], [1.0, 1.0]])\nb_r = np.array([1.0, 2.0, 0.0])\nx = np.zeros(2)\nS = np.array([[1.0, 0.0], [0.0, 1.0], [0.5, 0.5]])\np = np.array([1.0, -0.5])\nassert np.allclose(line_search_step(A_r, b_r, x, S, p), target)",
+        "import numpy as np\nA_r = np.array([[2.0, 1.0]])\nb_r = np.array([1.0])\nx = np.array([0.0, 0.0])\nS = np.array([[1.0]])\np = np.array([0.0, 1.0])\nassert np.allclose(line_search_step(A_r, b_r, x, S, p), target)",
+        "import numpy as np\nA_r = np.eye(3)\nb_r = np.array([1.0, -1.0, 0.5])\nx = np.array([0.2, 0.1, -0.3])\nS = np.ones((3, 2))\np = np.array([0.4, 0.0, -0.1])\nassert np.allclose(line_search_step(A_r, b_r, x, S, p), target)",
+        "import numpy as np\nA_r = np.eye(2)\nb_r = np.zeros(2)\nx = np.zeros(2)\nS = np.eye(2)\np = np.zeros(2)\ndef run_model():\n    try:\n        line_search_step(A_r, b_r, x, S, p)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA_r = np.eye(2)\nb_r = np.zeros(2)\nx = np.zeros(2)\nS = np.ones((3, 1))\np = np.array([1.0, 0.0])\ndef run_model():\n    try:\n        line_search_step(A_r, b_r, x, S, p)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-61.8",
+      "test_cases": [
+        "import numpy as np\nm, n, q, n_steps, ell, coord = 12, 8, 2, 3, 2, 0\ns = np.array([8.0, 6.0, 4.5, 1.1, 0.8, 0.55, 0.4, 0.3])\nindices = np.array([2, 8, 3])\ndata_seed, sketch_seed = 7, 11\nassert np.allclose(run_constrained_sketch_entry(m, n, s, data_seed, sketch_seed, indices, q, n_steps, ell, coord), target)",
+        "import numpy as np\nm, n, q, n_steps, ell, coord = 5, 3, 2, 2, 2, 0\ns = np.array([3.0, 1.2, 0.4])\nindices = np.array([0])\ndata_seed, sketch_seed = 1, 4\nassert np.allclose(run_constrained_sketch_entry(m, n, s, data_seed, sketch_seed, indices, q, n_steps, ell, coord), target)",
+        "import numpy as np\nm, n, q, n_steps, ell, coord = 3, 2, 1, 1, 1, 1\ns = np.array([2.0, 0.5])\nindices = np.array([1])\ndata_seed, sketch_seed = 0, 2\nassert np.allclose(run_constrained_sketch_entry(m, n, s, data_seed, sketch_seed, indices, q, n_steps, ell, coord), target)",
+        "import numpy as np\ns = np.array([3.0, 1.2, 0.4])\nindices = np.array([0])\ndef run_model():\n    try:\n        run_constrained_sketch_entry(5, 3, s, 1, 4, indices, 2, 2, 2, 3)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ns = np.array([3.0, 1.2, 0.4])\nindices = np.array([0])\ndef run_model():\n    try:\n        run_constrained_sketch_entry(5, 3, s, 1, 4, indices, 2, 0, 2, 0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

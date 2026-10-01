@@ -1,0 +1,68 @@
+{
+  "problem_id": "Mathematics-Computational_Finance-36",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Computational_Finance-36.1",
+      "test_cases": [
+        "K=1.2; S_max=8.4; epsilon=0.07; M=21\nassert np.allclose(build_smoothed_payoff(K,S_max,epsilon,M), target)",
+        "K=1.0; S_max=8.0; epsilon=1e-6; M=16\nassert np.allclose(build_smoothed_payoff(K,S_max,epsilon,M), target)",
+        "K=1.0; S_max=2.0; epsilon=0.25; M=2\nassert np.allclose(build_smoothed_payoff(K,S_max,epsilon,M), target)",
+        "K=1.0; S_max=2.0; epsilon=0.25; M=1\ndef run_model():\n    try: build_smoothed_payoff(K,S_max,epsilon,M); return 0\n    except ValueError: return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-36.2",
+      "test_cases": [
+        "r=0.035; sigma=0.35; T=1.1; S_max=8.4; M=21; N=25\nassert np.allclose(compute_nsfd_coefficients(r,sigma,T,S_max,M,N), target)",
+        "r=0.04; sigma=0.4; T=1.0; S_max=8.0; M=2; N=1\nassert np.allclose(compute_nsfd_coefficients(r,sigma,T,S_max,M,N), target)",
+        "r=0.02; sigma=0.25; T=0.5; S_max=4.0; M=7; N=9\nassert np.allclose(compute_nsfd_coefficients(r,sigma,T,S_max,M,N), target)",
+        "r=0.0; sigma=0.35; T=1.0; S_max=8.0; M=5; N=5\ndef run_model():\n    try: compute_nsfd_coefficients(r,sigma,T,S_max,M,N); return 0\n    except ValueError: return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-36.3",
+      "test_cases": [
+        "import numpy as np\nM=21; previous=np.linspace(0.0,7.2,M+1)\ncoefficients = np.array([[5.063431089143575, -661.9776398622266, 7.0634310891435765, 0.0015411864089451832], [13.328673307793387, -679.5081242995262, 16.328673307793373, 0.0015411864089451832], [25.083467507208763, -704.017712698357, 29.083467507208788, 0.0015411864089451832], [40.335604811616186, -735.5219873071718, 45.335604811616186, 0.0015411864089451832], [59.08674530145184, -774.0242682868433, 65.08674530145201, 0.0015411864089451832], [81.33742618785688, -819.5256300596527, 88.33742618785644, 0.0015411864089451832], [107.08786541655365, -872.0265085170456, 115.08786541655253, 0.0015411864089451832], [136.33816533740566, -931.52710835875, 145.33816533740483, 0.0015411864089451832], [169.0883792677139, -998.0275362193685, 179.08837926771517, 0.0015411864089451832], [205.33853723064524, -1071.527852145234, 216.33853723064922, 0.0015411864089451832], [245.08865719195666, -1152.0280920678542, 257.08865719195813, 0.0015411864089451832], [288.3387504413232, -1239.5282785665852, 301.33875044132253, 0.0015411864089451832], [335.08882436413205, -1334.028426412197, 349.08882436412546, 0.0015411864089451832], [385.3388839581267, -1435.5285456001966, 400.33888395813034, 0.0015411864089451832], [439.08893270234165, -1544.0286430886247, 455.0889327023435, 0.0015411864089451832], [496.3389730806344, -1659.5287238452104, 513.3389730806366, 0.0015411864089451832], [557.0890069046072, -1782.028791493163, 575.0890069046164, 0.0015411864089451832], [621.3390355195295, -1911.5288487229975, 640.3390355195286, 0.0015411864089451832], [689.0890599425538, -2048.0288975690155, 709.0890599425221, 0.0015411864089451832], [760.3390809562034, -2191.5289395963164, 781.3390809561736, 0.0015411864089451832]], dtype=np.float64)\nS_max=8.4; K=1.2; r=0.035; t=0.044\nassert np.allclose(assemble_nsfd_timestep(previous,coefficients,S_max,K,r,t,M), target)",
+        "import numpy as np\nM=2; previous=np.array([0.0,0.1,1.0]); coefficients = np.array([[5.9252134240241014, -39.353760092496046, 7.925213424024102, 0.04081077419238821]], dtype=np.float64); S_max=2.0; K=1.0; r=0.04; t=1.0\nassert np.allclose(assemble_nsfd_timestep(previous,coefficients,S_max,K,r,t,M), target)",
+        "import numpy as np\nM=5; previous=np.ones(M+1); coefficients = np.array([[4.41862538832642, -911.3373433692104, 6.4186253883264195, 0.0011117286237489754], [11.742984994794897, -926.9860625821474, 14.742984994794904, 0.0011117286237489754], [22.1842180177819, -948.8685286281215, 26.18421801778188, 0.0011117286237489754], [35.74838263094327, -976.9968578544441, 40.7483826309432, 0.0011117286237489754]], dtype=np.float64); S_max=4.0; K=0.8; r=0.02; t=0.5\nassert np.allclose(assemble_nsfd_timestep(previous,coefficients,S_max,K,r,t,M), target)",
+        "import numpy as np\nM=4; previous=np.ones(M); coefficients=np.ones((M-1,4)); coefficients[:,3]=0.1; S_max=4.0; K=1.0; r=0.02; t=0.5\ndef run_model():\n    try: assemble_nsfd_timestep(previous,coefficients,S_max,K,r,t,M); return 0\n    except ValueError: return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-36.4",
+      "test_cases": [
+        "import numpy as np\nK=1.2\nS_max=8.4\nepsilon=0.07\nM=21\nN=25\nr=0.035\nsigma=0.35\nT=1.1\ninitial = np.array([[0.0, 0.0], [0.4, 0.0], [0.8, 0.0], [1.2000000000000002, 0.009570312500000112], [1.6, 0.40000000000000013], [2.0, 0.8], [2.4000000000000004, 1.2000000000000004], [2.8000000000000003, 1.6000000000000003], [3.2, 2.0], [3.6, 2.4000000000000004], [4.0, 2.8], [4.4, 3.2], [4.800000000000001, 3.6000000000000005], [5.2, 4.0], [5.6000000000000005, 4.4], [6.0, 4.8], [6.4, 5.2], [6.800000000000001, 5.6000000000000005], [7.2, 6.0], [7.6000000000000005, 6.4], [8.0, 6.8], [8.4, 7.2]], dtype=np.float64)\ncoefficients = np.array([[5.063431089143575, -661.9776398622266, 7.0634310891435765, 0.0015411864089451832], [13.328673307793387, -679.5081242995262, 16.328673307793373, 0.0015411864089451832], [25.083467507208763, -704.017712698357, 29.083467507208788, 0.0015411864089451832], [40.335604811616186, -735.5219873071718, 45.335604811616186, 0.0015411864089451832], [59.08674530145184, -774.0242682868433, 65.08674530145201, 0.0015411864089451832], [81.33742618785688, -819.5256300596527, 88.33742618785644, 0.0015411864089451832], [107.08786541655365, -872.0265085170456, 115.08786541655253, 0.0015411864089451832], [136.33816533740566, -931.52710835875, 145.33816533740483, 0.0015411864089451832], [169.0883792677139, -998.0275362193685, 179.08837926771517, 0.0015411864089451832], [205.33853723064524, -1071.527852145234, 216.33853723064922, 0.0015411864089451832], [245.08865719195666, -1152.0280920678542, 257.08865719195813, 0.0015411864089451832], [288.3387504413232, -1239.5282785665852, 301.33875044132253, 0.0015411864089451832], [335.08882436413205, -1334.028426412197, 349.08882436412546, 0.0015411864089451832], [385.3388839581267, -1435.5285456001966, 400.33888395813034, 0.0015411864089451832], [439.08893270234165, -1544.0286430886247, 455.0889327023435, 0.0015411864089451832], [496.3389730806344, -1659.5287238452104, 513.3389730806366, 0.0015411864089451832], [557.0890069046072, -1782.028791493163, 575.0890069046164, 0.0015411864089451832], [621.3390355195295, -1911.5288487229975, 640.3390355195286, 0.0015411864089451832], [689.0890599425538, -2048.0288975690155, 709.0890599425221, 0.0015411864089451832], [760.3390809562034, -2191.5289395963164, 781.3390809561736, 0.0015411864089451832]], dtype=np.float64)\nassert np.allclose(solve_nsfd_surface(initial.copy(),coefficients.copy(),r,T,K,S_max,M,N), target)",
+        "import numpy as np\nK=1.0\nS_max=2.0\nepsilon=0.25\nM=2\nN=1\nr=0.04\nsigma=0.4\nT=1.0\ninitial = np.array([[0.0, 0.0], [1.0, 0.0341796875], [2.0, 1.0]], dtype=np.float64)\ncoefficients = np.array([[5.9252134240241014, -39.353760092496046, 7.925213424024102, 0.04081077419238821]], dtype=np.float64)\nassert np.allclose(solve_nsfd_surface(initial.copy(),coefficients.copy(),r,T,K,S_max,M,N), target)",
+        "import numpy as np\nK=0.8\nS_max=4.0\nepsilon=0.1\nM=7\nN=9\nr=0.02\nsigma=0.25\nT=0.5\ninitial = np.array([[0.0, 0.0], [0.5714285714285714, 0.0], [1.1428571428571428, 0.34285714285714275], [1.7142857142857142, 0.9142857142857141], [2.2857142857142856, 1.4857142857142855], [2.8571428571428568, 2.057142857142857], [3.4285714285714284, 2.628571428571428], [4.0, 3.2]], dtype=np.float64)\ncoefficients = np.array([[4.41862538832642, -911.3373433692104, 6.4186253883264195, 0.0011117286237489754], [11.742984994794897, -926.9860625821474, 14.742984994794904, 0.0011117286237489754], [22.1842180177819, -948.8685286281215, 26.18421801778188, 0.0011117286237489754], [35.74838263094327, -976.9968578544441, 40.7483826309432, 0.0011117286237489754], [52.43677098322174, -1011.3736345590012, 58.43677098322184, 0.0011117286237489754], [72.24980137170442, -1051.9996953359662, 79.24980137170424, 0.0011117286237489754]], dtype=np.float64)\nassert np.allclose(solve_nsfd_surface(initial.copy(),coefficients.copy(),r,T,K,S_max,M,N), target)",
+        "import numpy as np\nK=1.1\nS_max=6.0\nepsilon=0.12\nM=6\nN=6\nr=0.05\nsigma=0.30\nT=0.6\ninitial = np.array([[0.0, 0.0], [1.0, 0.001095854554701793], [2.0, 0.8999999999999999], [3.0, 1.9], [4.0, 2.9], [5.0, 3.9], [6.0, 4.9]], dtype=np.float64)\ncoefficients = np.array([[2.1637361288857715, -206.82788892426873, 4.163736128885773, 0.00501252085940096], [6.161109222984299, -215.82263511246578, 9.161109222984301, 0.00501252085940096], [11.960275489327, -228.42096764515122, 15.96027548932702, 0.00501252085940096], [19.55990272894005, -244.62022212437736, 24.559902728940123, 0.00501252085940096], [28.959703556420113, -264.4198237793374, 34.95970355642007, 0.00501252085940096]], dtype=np.float64)\nassert np.allclose(solve_nsfd_surface(initial.copy(),coefficients.copy(),r,T,K,S_max,M,N), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-36.5",
+      "test_cases": [
+        "r=0.035; sigma=0.35; T=1.1; K=1.2; S_max=8.4; M=21; N=25\nassert np.allclose(compute_black_scholes_reference(r,sigma,T,K,S_max,M,N), target)",
+        "r=0.04; sigma=0.4; T=1.0; K=1.0; S_max=2.0; M=1; N=1\nassert np.allclose(compute_black_scholes_reference(r,sigma,T,K,S_max,M,N), target)",
+        "r=0.02; sigma=0.25; T=0.5; K=0.8; S_max=4.0; M=7; N=9\nassert np.allclose(compute_black_scholes_reference(r,sigma,T,K,S_max,M,N), target)",
+        "r=0.035; sigma=0.35; T=1.1; K=1.2; S_max=8.4; M=21; N=0\ndef run_model():\n    try: compute_black_scholes_reference(r,sigma,T,K,S_max,M,N); return 0\n    except ValueError: return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-36.6",
+      "test_cases": [
+        "import numpy as np\na=np.array([[0.0,1.0],[2.0,3.0]]); b=np.array([[0.0,0.5],[2.5,2.0]])\nassert np.allclose(compute_max_nodal_error(a,b), target)",
+        "import numpy as np\na=np.zeros((1,1)); b=np.zeros((1,1))\nassert np.allclose(compute_max_nodal_error(a,b), target)",
+        "import numpy as np\na=np.array([[1.0,-2.0],[3.0,-4.0]]); b=np.zeros((2,2))\nassert np.allclose(compute_max_nodal_error(a,b), target)",
+        "import numpy as np\na=np.zeros((2,2)); b=np.zeros((2,3))\ndef run_model():\n    try: compute_max_nodal_error(a,b); return 0\n    except ValueError: return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-36.7",
+      "test_cases": [
+        "r=0.035; sigma=0.35; T=1.1; K=1.2; S_max=8.4; epsilon=0.07; M=21; N=25\nassert np.allclose(run_nsfd_benchmark(r,sigma,T,K,S_max,epsilon,M,N), target)",
+        "r=0.04; sigma=0.4; T=1.0; K=1.0; S_max=8.0; epsilon=1e-6; M=16; N=16\nassert np.allclose(run_nsfd_benchmark(r,sigma,T,K,S_max,epsilon,M,N), target)",
+        "r=0.02; sigma=0.25; T=0.5; K=0.8; S_max=4.0; epsilon=0.1; M=7; N=9\nassert np.allclose(run_nsfd_benchmark(r,sigma,T,K,S_max,epsilon,M,N), target)",
+        "r=0.035; sigma=0.35; T=1.1; K=1.2; S_max=8.4; epsilon=0.07; M=1; N=25\ndef run_model():\n    try: run_nsfd_benchmark(r,sigma,T,K,S_max,epsilon,M,N); return 0\n    except ValueError: return 1\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+problem_id: "Biology-Genetics-15"
+subject: "biology"
+subject_area: "Genetics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.64898/2026.02.23.706325"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_locus_stationary_moments.py"
+    description: "Stationary moments of the trait-increasing allele frequency at one locus under stabilizing selection with dominance."
+    orchestrator: false
+  - number: 2
+    name: "02_architecture_mean_and_variances.py"
+    description: "Mean trait value and the additive and dominance components of the genetic variance of a locus-class architecture at a given mean-trait deviation."
+    orchestrator: false
+  - number: 3
+    name: "03_equilibrium_trait_deviation.py"
+    description: "Self-consistent equilibrium deviation of the mean trait value from the selection optimum."
+    orchestrator: false
+  - number: 4
+    name: "04_neutral_variance_components.py"
+    description: "Additive and dominance components of the genetic variance under mutation and drift alone, in closed form."
+    orchestrator: false
+  - number: 5
+    name: "05_variance_ratio_curve.py"
+    description: "Equilibrium genetic variance relative to its neutral value along a grid of selection strengths."
+    orchestrator: false
+  - number: 6
+    name: "06_equilibrium_state_at_strength.py"
+    description: "Equilibrium summaries of the polygenic system at one selection strength, including the relaxation time of the mean trait in generations."
+    orchestrator: false
+  - number: 7
+    name: "07_relaxation_time_at_variance_crossing.py"
+    description: "E-folding time of the mean trait's autocorrelation at the first grid strength where the equilibrium genetic variance falls below its neutral value."
+    orchestrator: true

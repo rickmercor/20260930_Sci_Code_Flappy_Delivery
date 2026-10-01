@@ -1,0 +1,69 @@
+{
+  "problem_id": "Mathematics-Computational_Mechanics-18",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Computational_Mechanics-18.1",
+      "test_cases": [
+        "import numpy as _n\nknots=_n.array([-1.5,-1.5,-1.5,0.,1.5,1.5,1.5]);p=2;xi=0.3\nassert np.allclose(bspline_basis(knots, p, xi), target)",
+        "import numpy as _n\nknots=_n.array([-1.5,-1.5,-1.5,0.,1.5,1.5,1.5]);p=2;xi=-0.7\nassert np.allclose(bspline_basis(knots, p, xi), target)",
+        "import numpy as _n\nknots=_n.array([0.,0.,0.,1.,2.,3.,3.,3.]);p=2;xi=1.4\nassert np.allclose(bspline_basis(knots, p, xi), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-18.2",
+      "test_cases": [
+        "E=1.0;nu=0.3;rho=1.0;V=0.4\nassert np.allclose(wave_factor(E, nu, rho, V), target)",
+        "E=2.0;nu=0.25;rho=1.5;V=0.3\nassert np.allclose(wave_factor(E, nu, rho, V), target)",
+        "E=1.5;nu=0.35;rho=0.8;V=0.5\nassert np.allclose(wave_factor(E, nu, rho, V), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-18.3",
+      "test_cases": [
+        "import numpy as _n\nnode_xy=_n.array([[0.,0.],[0.5,0.],[1.0,1.0],[1.5,1.5],[-1.5,0.5]]);h_L=1.0\nassert np.allclose(q_weight(node_xy, h_L), target)",
+        "import numpy as _n\nnode_xy=_n.array([[0.2,-0.3],[0.9,0.9],[1.2,0.4],[-1.0,-1.0],[0.6,1.3]]);h_L=0.8\nassert np.allclose(q_weight(node_xy, h_L), target)",
+        "import numpy as _n\nnode_xy=_n.array([[0.,0.],[2.0,0.],[0.7,0.7],[-0.4,1.1],[1.4,-1.4]]);h_L=1.2\nassert np.allclose(q_weight(node_xy, h_L), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-18.4",
+      "test_cases": [
+        "import numpy as _n\nsigma=_n.array([1.2,0.8,0.3]);eps=_n.array([0.011,0.006,0.004]);rho=1.0;vel=_n.array([0.2,0.1])\nassert np.allclose(energy_densities(sigma, eps, rho, vel), target)",
+        "import numpy as _n\nsigma=_n.array([2.0,-0.5,0.9]);eps=_n.array([0.02,-0.004,0.012]);rho=1.5;vel=_n.array([-0.3,0.25])\nassert np.allclose(energy_densities(sigma, eps, rho, vel), target)",
+        "import numpy as _n\nsigma=_n.array([0.5,0.5,0.0]);eps=_n.array([0.005,0.005,0.0]);rho=0.8;vel=_n.array([0.0,0.4])\nassert np.allclose(energy_densities(sigma, eps, rho, vel), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-18.5",
+      "test_cases": [
+        "import numpy as _n\n_xs=_n.array([-1.5,-0.5,0.5,1.5])\nloc=[]\nfor _j in range(3):\n    for _i in range(3):\n        loc.append(_n.array([[_xs[_i],_xs[_j]],[_xs[_i+1],_xs[_j]],[_xs[_i+1],_xs[_j+1]],[_xs[_i],_xs[_j+1]]]))\nE=1.0;nu=0.3;p=2\ngknx=_n.array([-1.5,-1.5,-1.5,0.,1.5,1.5,1.5]);gkny=gknx.copy()\nassert np.allclose(coupling_matrix(gknx, gkny, p, loc, E, nu), target)",
+        "import numpy as _n\n_xs=_n.array([-1.5,-0.5,0.5,1.5])\nloc=[]\nfor _j in range(3):\n    for _i in range(3):\n        loc.append(_n.array([[_xs[_i],_xs[_j]],[_xs[_i+1],_xs[_j]],[_xs[_i+1],_xs[_j+1]],[_xs[_i],_xs[_j+1]]]))\nE=2.0;nu=0.25;p=2\ngknx=_n.array([-1.5,-1.5,-1.5,0.,1.5,1.5,1.5]);gkny=gknx.copy()\nassert np.allclose(coupling_matrix(gknx, gkny, p, loc, E, nu), target)",
+        "import numpy as _n\n_xs=_n.array([-1.5,-0.5,0.5,1.5])\nloc=[]\nfor _j in range(3):\n    for _i in range(3):\n        loc.append(_n.array([[_xs[_i],_xs[_j]],[_xs[_i+1],_xs[_j]],[_xs[_i+1],_xs[_j+1]],[_xs[_i],_xs[_j+1]]]))\nE=1.5;nu=0.35;p=2\ngknx=_n.array([-1.5,-1.5,-1.5,0.,1.5,1.5,1.5]);gkny=gknx.copy()\nassert np.allclose(coupling_matrix(gknx, gkny, p, loc, E, nu), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-18.6",
+      "test_cases": [
+        "import numpy as _n\n_xs=_n.array([-1.5,-0.5,0.5,1.5])\nloc=[]\nfor _j in range(3):\n    for _i in range(3):\n        loc.append(_n.array([[_xs[_i],_xs[_j]],[_xs[_i+1],_xs[_j]],[_xs[_i+1],_xs[_j+1]],[_xs[_i],_xs[_j+1]]]))\nVS=1.0\nu=_n.zeros((9,4,2)); ud=_n.zeros((9,4,2)); udd=_n.zeros((9,4,2)); qnod=_n.zeros((9,4))\nfor _e,_xy in enumerate(loc):\n    for _k in range(4):\n        _x,_y=_xy[_k]\n        u[_e,_k]=[0.30*_x+0.12*_x*_y+0.06*_y*_y, 0.18*_y+0.15*_x*_y+0.09*_x*_x]\n        _vx=0.20*_y-0.10*_x; _vy=0.16*_x+0.05*_y\n        ud[_e,_k]=[VS*_vx, VS*_vy]; udd[_e,_k]=[-0.6*VS*_vx,-0.6*VS*_vy]\n    _r=_n.sqrt(_xy[:,0]**2+_xy[:,1]**2); qnod[_e]=(_r<=1.5).astype(float)\nE=1.0;nu=0.3;rho=1.0\nassert np.allclose(dynamic_j_integral(loc, u, ud, udd, qnod, E, nu, rho, False), target)",
+        "import numpy as _n\n_xs=_n.array([-1.5,-0.5,0.5,1.5])\nloc=[]\nfor _j in range(3):\n    for _i in range(3):\n        loc.append(_n.array([[_xs[_i],_xs[_j]],[_xs[_i+1],_xs[_j]],[_xs[_i+1],_xs[_j+1]],[_xs[_i],_xs[_j+1]]]))\nVS=1.2\nu=_n.zeros((9,4,2)); ud=_n.zeros((9,4,2)); udd=_n.zeros((9,4,2)); qnod=_n.zeros((9,4))\nfor _e,_xy in enumerate(loc):\n    for _k in range(4):\n        _x,_y=_xy[_k]\n        u[_e,_k]=[0.30*_x+0.12*_x*_y+0.06*_y*_y, 0.18*_y+0.15*_x*_y+0.09*_x*_x]\n        _vx=0.20*_y-0.10*_x; _vy=0.16*_x+0.05*_y\n        ud[_e,_k]=[VS*_vx, VS*_vy]; udd[_e,_k]=[-0.6*VS*_vx,-0.6*VS*_vy]\n    _r=_n.sqrt(_xy[:,0]**2+_xy[:,1]**2); qnod[_e]=(_r<=1.5).astype(float)\nE=1.5;nu=0.35;rho=0.8\nassert np.allclose(dynamic_j_integral(loc, u, ud, udd, qnod, E, nu, rho, False), target)",
+        "import numpy as _n\n_xs=_n.array([-1.5,-0.5,0.5,1.5])\nloc=[]\nfor _j in range(3):\n    for _i in range(3):\n        loc.append(_n.array([[_xs[_i],_xs[_j]],[_xs[_i+1],_xs[_j]],[_xs[_i+1],_xs[_j+1]],[_xs[_i],_xs[_j+1]]]))\nVS=1.0\nu=_n.zeros((9,4,2)); ud=_n.zeros((9,4,2)); udd=_n.zeros((9,4,2)); qnod=_n.zeros((9,4))\nfor _e,_xy in enumerate(loc):\n    for _k in range(4):\n        _x,_y=_xy[_k]\n        u[_e,_k]=[0.30*_x+0.12*_x*_y+0.06*_y*_y, 0.18*_y+0.15*_x*_y+0.09*_x*_x]\n        _vx=0.20*_y-0.10*_x; _vy=0.16*_x+0.05*_y\n        ud[_e,_k]=[VS*_vx, VS*_vy]; udd[_e,_k]=[-0.6*VS*_vx,-0.6*VS*_vy]\n    _r=_n.sqrt(_xy[:,0]**2+_xy[:,1]**2); qnod[_e]=(_r<=1.5).astype(float)\nE=1.0;nu=0.3;rho=1.0\nassert np.allclose(dynamic_j_integral(loc, u, ud, udd, qnod, E, nu, rho, True), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-18.7",
+      "test_cases": [
+        "J=0.29;A_I=1.0837;E=1.0;nu=0.3\nassert np.allclose(dsif(J, A_I, E, nu, True), target)",
+        "J=0.23;A_I=1.0837;E=1.0;nu=0.3\nassert np.allclose(dsif(J, A_I, E, nu, False), target)",
+        "J=0.5;A_I=1.876;E=1.5;nu=0.35\nassert np.allclose(dsif(J, A_I, E, nu, True), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-18.8",
+      "test_cases": [
+        "crack_velocity = 0.4\nassert np.allclose(hsiga_audit(crack_velocity), target)",
+        "crack_velocity = 0.3\nassert np.allclose(hsiga_audit(crack_velocity), target)",
+        "crack_velocity = 0.5\nassert np.allclose(hsiga_audit(crack_velocity), target)"
+      ]
+    }
+  ]
+}

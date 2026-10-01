@@ -1,0 +1,36 @@
+problem_id: "Chemistry-Computational_Chemistry-66"
+subject: "chemistry"
+subject_area: "Computational Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1063/5.0336084"
+dependencies: ""
+steps:
+  - number: 1
+    name: "Bjerrum length, cell volume and the reduced surface parameter"
+    description: "Return the Bjerrum length, the lattice cell volume and the reduced surface parameter of a uniformly charged plane facing a solvent of given permittivity and temperature."
+    orchestrator: false
+  - number: 2
+    name: "Reservoir composition closed by electroneutrality"
+    description: "Return the reservoir volume fraction of every ionic species, with the last one fixed by electroneutrality, followed by the reservoir solvent fraction."
+    orchestrator: false
+  - number: 3
+    name: "Local composition of a size-asymmetric electrolyte at a given potential"
+    description: "Return the local volume fraction of every ionic species, and the logarithm of the local solvent fraction relative to its reservoir value, at a point of given reduced electrostatic potential."
+    orchestrator: false
+  - number: 4
+    name: "Potential and composition in contact with a charged wall"
+    description: "Return the reduced electrostatic potential at a positively charged planar wall, together with the volume fractions of every ionic species and of the solvent in contact with it."
+    orchestrator: false
+  - number: 5
+    name: "Adsorbed amounts and mean adsorption distances"
+    description: "Return the adsorbed amount per unit area and the mean adsorption distance of every ionic species next to a positively charged planar wall, together with the charge-balance ratio of the layer and the reduced wall potential."
+    orchestrator: false
+  - number: 6
+    name: "Surface charge at which two counterions share a mean adsorption distance"
+    description: "Return the surface charge density, inside a given bracket, at which two ionic species have equal mean adsorption distances at a positively charged wall."
+    orchestrator: false
+  - number: 7
+    name: "Onset of stratification ordered by charge per volume"
+    description: "Return the threshold surface charge density, defined as the infimum above which the counterions' mean adsorption distances stay strictly ordered by charge per unit volume up to the top of a given charge window."
+    orchestrator: true

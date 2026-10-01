@@ -1,0 +1,68 @@
+problem_id: "Physics-Optics-44"
+subject: "physics"
+subject_area: "Optics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2609.06600"
+dependencies: ""
+steps:
+  - number: 1
+    name: "response_spectrum"
+    description: "Return the spectral transfer function of the medium's nonlocal response on the given angular-frequency grid. The response in real space is the normalized Gaussian with characteristic length sigma, so that convolving an intensity profile with it is a multiplication on this grid. Raise ValueError if sigma is not strictly positive."
+    orchestrator: false
+  - number: 2
+    name: "width_acceleration"
+    description: "Return the second derivative of the beam width with respect to propagation distance that the reduced description of this medium predicts, for a beam of the given width carrying the given power in a medium with the given local Kerr coefficient, confinement strength and nonlocal length. The relation is the one the source derives by reducing the full propagation equation to the beam's collective coordinates. Raise ValueError if the width, the power or the nonlocal length is not strictly positive."
+    orchestrator: false
+  - number: 3
+    name: "width_curvature"
+    description: "Return the squared frequency of small oscillations of the width about the given width, defined as minus the derivative of the predicted width acceleration with respect to the width, evaluated at that width and at the given medium parameters. Raise ValueError if the width, the power or the response length is not strictly positive."
+    orchestrator: false
+  - number: 4
+    name: "potential_change"
+    description: "Return the change in the effective potential of the reduced description between two widths, that is its value at the second width minus its value at the first. The potential is the function whose negative derivative with respect to the width is the predicted width acceleration, so only differences of it are defined. Raise ValueError if either width, the power or the response length is not strictly positive."
+    orchestrator: false
+  - number: 5
+    name: "equilibrium_width"
+    description: "Return the beam width at which the reduced description predicts no width acceleration, for the given power, local Kerr coefficient, confinement strength and nonlocal length. Locate it by bisection on the bracket from lo to hi, halving the bracket two hundred times and returning its midpoint. Raise ValueError if the bracket is not ordered and positive, or if the predicted acceleration does not change sign across it."
+    orchestrator: false
+  - number: 6
+    name: "adiabatic_reference"
+    description: "Return the width a beam would sit at if the response length were ramped linearly from sigma_i to sigma_f over a distance zf and the beam were able to follow that change arbitrarily closely, evaluated at the distance z. Clamp the normalized distance to the closed unit interval. Raise ValueError if zf is not strictly positive or if the ramped response length reaches zero or below."
+    orchestrator: false
+  - number: 7
+    name: "minimum_jerk_width"
+    description: "Return the prescribed beam width and its second derivative with respect to propagation distance at the given distance, for the smooth interpolation the source adopts between the initial and final widths over a total distance zf. The interpolation is the quintic in the normalized distance whose value matches the endpoints and whose first and second derivatives vanish at both of them. Clamp the normalized distance to the closed unit interval. Raise ValueError if zf is not strictly positive."
+    orchestrator: false
+  - number: 8
+    name: "inverse_control"
+    description: "Return the value one medium parameter must take so that the reduced description produces exactly the given width and width acceleration, with the other two parameters held at their supplied values. The knob is named by the string 'sigma' for the nonlocal length, 'gamma' for the local Kerr coefficient, or 'alpha2' for the squared confinement strength. The supplied value of the parameter being solved for is ignored in every case. Raise ValueError if the width or the power is not strictly positive, if the knob name is not one of the three, or if no positive nonlocal length reproduces the requested pair."
+    orchestrator: false
+  - number: 9
+    name: "propagate_field"
+    description: "March the complex field through the medium and return it after the last step. Use the symmetric split-step scheme in which each step applies half of the diffraction operator in the frequency domain, then the whole nonlinear and confinement phase in the coordinate domain, then the remaining half of diffraction. Element j of controls is the value the named knob takes on step j, with the other two parameters held at their supplied values. Raise ValueError if dz is not strictly positive, if controls is not a non-empty one-dimensional array, if u0 does not match the grid length, or if the knob name is not one of the three."
+    orchestrator: false
+  - number: 10
+    name: "stationary_soliton"
+    description: "Return the real, non-negative profile the medium relaxes to under the prescribed number of imaginary-distance steps, on the grid the earlier steps use. Start from the unit-width Gaussian rescaled to carry the given power, and take each step as half of the diffraction operator, then the full nonlinear and confinement factor, then the remaining half, rescaling to the given power after every step. Return the pointwise magnitude of the field after the final rescaling, so a sample whose real part is negative contributes its magnitude and not zero. Raise ValueError if the step size is not strictly positive, if the step count is not a positive integer, or if the power is not strictly positive."
+    orchestrator: false
+  - number: 11
+    name: "beam_width"
+    description: "Return the beam width of the given field on the given coordinate grid, defined so that a Gaussian intensity profile of the form used by the reduced description returns exactly its own width parameter. Measure the spread about the field's own intensity centroid, not about the origin. Raise ValueError if the field and the grid have different shapes, if the spacing is not strictly positive, or if the field carries no power."
+    orchestrator: false
+  - number: 12
+    name: "overlap_fidelity"
+    description: "Return the squared magnitude of the normalized overlap between a complex field and a target profile sampled on the same uniform grid of spacing dx: the squared magnitude of the integral of the conjugated target times the field, divided by the product of the two fields' powers. Raise ValueError if the two arrays have different shapes, if dx is not strictly positive, or if either field carries no power."
+    orchestrator: false
+  - number: 13
+    name: "confinement_floor"
+    description: "Return the smallest value the squared confinement strength takes anywhere along a compression protocol of length zf. The width is driven from the equilibrium width the medium supports at sigma_i to the equilibrium width it supports at sigma_f, following the minimum-jerk interpolation between them on the closed interval from zero to zf. At every propagation distance the squared confinement strength is the one value that reproduces that width together with its second derivative, with the nonlocal length held fixed at sigma_i and the Kerr coefficient held at gamma throughout: the confinement is the only parameter that moves. Search the closed interval including both endpoints and locate the minimum to an absolute accuracy of 1e-10 in the propagation distance. A negative result means the protocol demands a locally antiguiding profile somewhere along the way. Raise ValueError if zf is not strictly positive."
+    orchestrator: false
+  - number: 14
+    name: "antiguiding_onset"
+    description: "Return the shortest compression protocol that stays everywhere guiding: the protocol length in the closed interval from lo to hi at which the smallest squared confinement strength demanded anywhere along the protocol is exactly zero. Protocols shorter than this demand a locally antiguiding profile, longer ones do not. The protocol is the same one the previous quantity describes, built from the same two equilibrium widths and the same minimum-jerk interpolation. Locate the crossing to an absolute accuracy of 1e-10 in the protocol length. Raise ValueError unless lo and hi satisfy 0 < lo < hi, or if the interval does not bracket a change of sign."
+    orchestrator: false
+  - number: 15
+    name: "shortcut_audit"
+    description: "Run the whole audit at the prescribed configuration and return the eleven reported quantities in the order given below. The refinement multiplies both the number of grid points and the number of propagation steps; the 2001 equally spaced distances at which the adiabatic reference is sampled for the adiabatic-following measure do not change with it. Raise ValueError if refine is not a positive integer."
+    orchestrator: true

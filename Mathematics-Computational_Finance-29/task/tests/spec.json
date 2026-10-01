@@ -1,0 +1,61 @@
+{
+  "problem_id": "Mathematics-Computational_Finance-29",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Computational_Finance-29.1",
+      "test_cases": [
+        "import numpy as np\ncfg = dict(tenors=[0.0, 1.0/365.0, 2.0/365.0, 3.0/365.0, 4.0/365.0, 5.0/365.0], atm_vols=[0.19, 0.215, 0.205, 0.23, 0.22], vov=0.6, rho=-0.65, eta0=0.4, alpha0=0.10, delta0=0.0741, s0=100.0, m_put=-2.0, m_call=2.0, n_nodes=4000, u_max=20.0)\nassert np.allclose(displacement_levels(cfg['tenors'], cfg['atm_vols']), target)",
+        "import numpy as np\nassert np.allclose(displacement_levels([0.0, 2.0/365.0], [0.24]), target)",
+        "import numpy as np\nassert np.allclose(displacement_levels([0.0, 1.0/365.0, 2.0/365.0, 3.0/365.0, 7.0/365.0], [0.15, 0.16, 0.18, 0.17]), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-29.2",
+      "test_cases": [
+        "import numpy as np\ncfg = dict(tenors=[0.0, 1.0/365.0, 2.0/365.0, 3.0/365.0, 4.0/365.0, 5.0/365.0], atm_vols=[0.19, 0.215, 0.205, 0.23, 0.22], vov=0.6, rho=-0.65, eta0=0.4, alpha0=0.10, delta0=0.0741, s0=100.0, m_put=-2.0, m_call=2.0, n_nodes=4000, u_max=20.0)\nsh = np.array([0.0, 0.047381549409384355, -0.0066287917910775596, 0.10244657631779519, -0.015644042258373042], dtype=np.float64)\nlv = 1.0 + sh / cfg['atm_vols'][0]\nassert np.allclose(displacement_functionals(cfg['tenors'], lv, cfg['tenors'][-1]), target)",
+        "import numpy as np\nassert np.allclose(displacement_functionals([0.0, 0.5, 1.0], [1.0, 1.0], 1.0), target)",
+        "import numpy as np\nassert np.allclose(displacement_functionals([0.0, 1.0, 2.0, 3.0], [1.0, 2.0, 0.5], 2.0), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-29.3",
+      "test_cases": [
+        "import numpy as np\ncfg = dict(tenors=[0.0, 1.0/365.0, 2.0/365.0, 3.0/365.0, 4.0/365.0, 5.0/365.0], atm_vols=[0.19, 0.215, 0.205, 0.23, 0.22], vov=0.6, rho=-0.65, eta0=0.4, alpha0=0.10, delta0=0.0741, s0=100.0, m_put=-2.0, m_call=2.0, n_nodes=4000, u_max=20.0)\n\ns0v = cfg['atm_vols'][0]\nF = np.array([0.01836603043296778, 0.000120713599878434, 0.00010548483617159958, 0.00010736348960843793, 4.70437246053387e-07, 6.252130657364797e-07, 5.6937723974383e-07, 2.42862886593511e-09], dtype=np.float64)\nassert np.allclose(expansion_blocks(1.5, cfg['tenors'][-1], s0v, cfg['vov'], cfg['rho'], cfg['eta0'], cfg['alpha0'], cfg['delta0'], F), target)",
+        "import numpy as np\nF = np.array([0.01, 5e-05, 5e-05, 5e-05, 1.6666666666666668e-07, 1.6666666666666668e-07, 1.6666666666666668e-07, 4.166666666666667e-10], dtype=np.float64)\nassert np.allclose(expansion_blocks(0.0, 0.01, 0.2, 0.5, -0.5, 0.3, 0.0, 0.05, F), target)",
+        "import numpy as np\nF = np.array([0.01583, 8.5805e-05, 6.784999999999998e-05, 7.625e-05, 2.389833333333333e-07, 3.7468183333333335e-07, 3.456983333333333e-07, 1.2270830041666665e-09], dtype=np.float64)\nassert np.allclose(expansion_blocks(np.array([0.5, 2.5 - 0.02j, 4.0]), 0.011, 0.25, 0.9, -0.8, 0.6, 0.2, -0.1, F), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-29.4",
+      "test_cases": [
+        "import numpy as np\ncfg = dict(tenors=[0.0, 1.0/365.0, 2.0/365.0, 3.0/365.0, 4.0/365.0, 5.0/365.0], atm_vols=[0.19, 0.215, 0.205, 0.23, 0.22], vov=0.6, rho=-0.65, eta0=0.4, alpha0=0.10, delta0=0.0741, s0=100.0, m_put=-2.0, m_call=2.0, n_nodes=4000, u_max=20.0)\nsh = np.array([0.0, 0.047381549409384355, -0.0066287917910775596, 0.10244657631779519, -0.015644042258373042], dtype=np.float64)\ns0v = cfg['atm_vols'][0]\nassert np.allclose(continuous_cf_expansion(1.0, cfg['tenors'][-1], s0v, cfg['vov'], cfg['rho'], cfg['eta0'], cfg['alpha0'], cfg['delta0'], cfg['tenors'], sh), target)",
+        "import numpy as np\nassert np.allclose(continuous_cf_expansion(0.0, 0.01, 0.2, 0.5, -0.5, 0.3, 0.0, 0.05, [0.0, 0.01], [0.0]), target)",
+        "import numpy as np\nassert np.allclose(continuous_cf_expansion(np.array([0.5, 2.0 - 0.02j, 4.0]), 0.011, 0.25, 0.9, -0.8, 0.6, 0.2, -0.1, [0.0, 0.004, 0.011], [0.0, 0.05]), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-29.5",
+      "test_cases": [
+        "import numpy as np\ncfg = dict(tenors=[0.0, 1.0/365.0, 2.0/365.0, 3.0/365.0, 4.0/365.0, 5.0/365.0], atm_vols=[0.19, 0.215, 0.205, 0.23, 0.22], vov=0.6, rho=-0.65, eta0=0.4, alpha0=0.10, delta0=0.0741, s0=100.0, m_put=-2.0, m_call=2.0, n_nodes=4000, u_max=20.0)\nsh = np.array([0.0, 0.047381549409384355, -0.0066287917910775596, 0.10244657631779519, -0.015644042258373042], dtype=np.float64)\nmodel = dict(sigma0=cfg['atm_vols'][0], vov=cfg['vov'], rho=cfg['rho'], eta0=cfg['eta0'], alpha0=cfg['alpha0'], delta0=cfg['delta0'], tenors=cfg['tenors'], shifts=sh)\nassert np.allclose(fourier_call_price(model, cfg['s0'], 95.0, cfg['tenors'][-1], cfg['n_nodes'], cfg['u_max']), target)",
+        "import numpy as np\nmodel = dict(sigma0=0.2, vov=0.0, rho=0.0, eta0=0.0, alpha0=0.0, delta0=0.0, tenors=[0.0, 0.25], shifts=[0.0])\nassert np.allclose(fourier_call_price(model, 100.0, 100.0, 0.25, 2000, 16.0), target)",
+        "import numpy as np\nmodel = dict(sigma0=0.25, vov=0.9, rho=-0.8, eta0=0.6, alpha0=0.2, delta0=-0.1, tenors=[0.0, 0.004, 0.011], shifts=[0.0, 0.05])\nassert np.allclose(fourier_call_price(model, 50.0, 52.0, 0.011, 1500, 12.0), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-29.6",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(implied_volatility(5.081956382691, 100.0, 94.98, 5.0/365.0), target)",
+        "import numpy as np\nassert np.allclose(implied_volatility(3.9877611676744, 100.0, 100.0, 0.25), target)",
+        "import numpy as np\nassert np.allclose(implied_volatility(0.0102897587, 100.0, 105.28, 5.0/365.0), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-29.7",
+      "test_cases": [
+        "import numpy as np\ncfg = dict(tenors=[0.0, 1.0/365.0, 2.0/365.0, 3.0/365.0, 4.0/365.0, 5.0/365.0], atm_vols=[0.19, 0.215, 0.205, 0.23, 0.22], vov=0.6, rho=-0.65, eta0=0.4, alpha0=0.10, delta0=0.0741, s0=100.0, m_put=-2.0, m_call=2.0, n_nodes=4000, u_max=20.0)\nassert np.allclose(risk_reversal(cfg), target)",
+        "import numpy as np\ncfg = dict(tenors=[0.0, 1.0/365.0, 2.0/365.0, 3.0/365.0], atm_vols=[0.25, 0.24, 0.26], vov=0.4, rho=-0.5, eta0=0.2, alpha0=0.0, delta0=0.05, s0=100.0, m_put=-1.5, m_call=1.5, n_nodes=3000, u_max=16.0)\nassert np.allclose(risk_reversal(cfg), target)",
+        "import numpy as np\ncfg = dict(tenors=[0.0, 1.0/365.0, 2.0/365.0, 3.0/365.0, 5.0/365.0], atm_vols=[0.18, 0.185, 0.19, 0.188], vov=0.4, rho=-0.7, eta0=0.15, alpha0=0.05, delta0=0.0504, s0=2500.0, m_put=-1.0, m_call=1.0, n_nodes=4000, u_max=20.0)\nassert np.allclose(risk_reversal(cfg), target)"
+      ]
+    }
+  ]
+}

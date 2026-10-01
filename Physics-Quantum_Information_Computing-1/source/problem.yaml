@@ -1,0 +1,40 @@
+problem_id: "Physics-Quantum_Information_Computing-1"
+subject: "physics"
+subject_area: "Quantum Information / Computing"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.48550/arXiv.2511.20998"
+dependencies: ""
+steps:
+  - number: 1
+    name: "compute_central_difference_coefficients"
+    description: "Construct the symmetric central finite-difference coefficient rows for derivative orders $q=1,\\ldots,q_{\\max}$, where $J=\\texttt{degree}$ and $q_{\\max}=\\texttt{max\\_order}\\le 2J$, on the integer stencil $j=-J,\\ldots,J$. Each row must differentiate every polynomial of degree at most $2J$ exactly at the origin and obey centered-stencil parity: odd derivative rows are antisymmetric and even derivative rows are symmetric."
+    orchestrator: false
+  - number: 2
+    name: "compute_msd_preprocessing"
+    description: "Compute the symmetry-sector energy-center shift, the minimized shifted spectral norm, the optimized finite-difference time shift, and the two coefficient-dependent constants that balance finite-sampling and truncation perturbations. Evaluate the optimized time shift through logarithms so that a representable result remains finite even when direct powers of the spectral norm would overflow."
+    orchestrator: false
+  - number: 3
+    name: "build_shifted_propagators"
+    description: "Build the propagator tensor for symmetric finite-difference shifts $j=-J,\\ldots,J$, where $J=\\texttt{degree}$. For row index $k'$ and column index $k$, use the signed sample index $m=\\texttt{stride}\\,(k-k')+j$ and set the corresponding entry to $g_m$. Read $g_m$ from the supplied nonnegative-time scalar sequence for $m\\ge 0$ and use $g_m=\\overline{g_{-m}}$ for $m<0$."
+    orchestrator: false
+  - number: 4
+    name: "reconstruct_projected_matrices"
+    description: "Use the centered finite-difference rows and the symmetric-shift propagator tensor to reconstruct the overlap matrix and approximate projected powers of the shifted Hamiltonian. Let $\\delta_t=\\texttt{delta\\_t}$. Obtain the overlap matrix from the zero-shift slice. For derivative order $q$, multiply the corresponding weighted propagator sum by $i^q/\\delta_t^q$. Replace the overlap matrix and every reconstructed power matrix $A$ by its Hermitian part $(A+A^\\dagger)/2$."
+    orchestrator: false
+  - number: 5
+    name: "solve_resolved_krylov_ground_state"
+    description: "Regularize the nonorthogonal projected eigenproblem by diagonalizing the overlap matrix, retaining precisely the modes whose eigenvalues satisfy the strict relative rule $s_i > \\texttt{relative\\_cutoff}\\,s_{\\max}$, and solving in that positive resolved subspace. Return the lowest shifted energy and the corresponding full-basis coefficient vector in the original nonorthogonal Krylov coordinates, normalized so that $v^\\dagger S v=1$, with a deterministic phase."
+    orchestrator: false
+  - number: 6
+    name: "compute_projected_hamiltonian_moments"
+    description: "Evaluate shifted-Hamiltonian moments from the projected power matrices, the overlap matrix, and the approximate Krylov ground-state coefficients in the original nonorthogonal basis. Set the zeroth moment to one and use the physical quotient $\\mu_q=v^\\dagger M^{(q)}v/(v^\\dagger S v)$ for every supplied power matrix, returning only real values after checking roundoff-scale imaginary residues."
+    orchestrator: false
+  - number: 7
+    name: "run_moment_lanczos"
+    description: "Continue the energy estimate with the determinant form of the moment-Lanczos recurrence through at most $max_order$. Use the task conventions $L_-1 = 1$, $L_0 = 1$, $M_-1 = 0$, and $M_0 = mu_1$; after each tridiagonal energy is formed, terminate before accepting a strict energy increase. After an accepted order below $max_order$, evaluate the next squared off-diagonal coefficient before attempting another order and terminate if it is negative or exactly zero. Do not evaluate a next off-diagonal candidate after accepting $max_order$. Return stop code 0 for completion, 1 for a negative square, 2 for an energy increase, and 3 for exact zero termination."
+    orchestrator: false
+  - number: 8
+    name: "run_msd_energy_pipeline"
+    description: "Run the complete deterministic symmetric time-shift Krylov and moment-Lanczos pipeline, with central-difference degree $J=\\texttt{degree}$. The public orchestrator must call each preceding public step in order, use derivative rows through order $2J$, use derivative order $q=1$ for preprocessing and the projected Hamiltonian, solve with the supplied strict overlap cutoff, compute moments through order $2J$, and use maximum Lanczos order $J$; return only the final mitigated energy."
+    orchestrator: true

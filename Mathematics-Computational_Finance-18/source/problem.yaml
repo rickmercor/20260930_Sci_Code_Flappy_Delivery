@@ -1,0 +1,36 @@
+problem_id: "Mathematics-Computational_Finance-18"
+subject: "mathematics"
+subject_area: "Computational Finance"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.3390/math14162952"
+dependencies: ""
+steps:
+  - number: 1
+    name: "regularized_kernel"
+    description: "Evaluate the regularized fractional kernel of Eq (19) on a 1-D grid of nonnegative lags. Apply the regularization the source prescribes at its stated resolution scale; it must leave the kernel finite at zero lag and preserve the fractional decay at resolved lags. Raise ValueError if alpha is outside (0, 1/2), if delta_star is not positive, if t is not a non-empty 1-D array, or if any lag is negative."
+    orchestrator: false
+  - number: 2
+    name: "bernstein_density"
+    description: "Evaluate the density of the representing measure of the SAME regularized kernel used in the previous step, at strictly positive frequencies x. This is the density whose mixture of decaying exponentials reproduces that kernel; its form follows from the regularization the source fixed. Raise ValueError if alpha is outside (0, 1/2), if delta_star is not positive, if x is not a non-empty 1-D array, or if any x is not strictly positive."
+    orchestrator: false
+  - number: 3
+    name: "block_quadrature_nodes"
+    description: "Build the quadrature nodes and weights of Eq (25) for the frequency axis. Use the partition of the positive axis that the source prescribes, with the quadrature rule it assigns to each block, at n_quad points per block; the integer m sets the prescribed breakpoint. Return the blocks in increasing order of frequency, with the nodes of each block in ascending order. Weights are returned RELATIVE TO THE REPRESENTING DENSITY, so that multiplying them elementwise by that density at these nodes gives the exponential-sum weights. Raise ValueError if alpha is outside (0, 1/2), if m is not a nonnegative integer, or if n_quad is not a positive integer."
+    orchestrator: false
+  - number: 4
+    name: "lift_fidelity_error_bp"
+    description: "Build the quadrature nodes and density-relative weights (previous step), evaluate the representing density at those nodes and form the exponential-sum weights omega = q * w(x). Evaluate the regularized kernel on a uniform grid of n_grid points spanning zero to dt inclusive and integrate its square over the step by the composite Simpson rule. Compute the one-step variance, over a step of length dt, of the omega-weighted aggregate of the Ornstein-Uhlenbeck factor increments that the lift uses in place of the Volterra noise, per unit instantaneous variance of the driving noise. Return the ratio of that one-step variance to the integrated square, minus one, all multiplied by ten thousand. Call the earlier step functions rather than reimplementing them. Raise ValueError if dt is not positive, or if n_grid is not an odd integer of at least three."
+    orchestrator: false
+  - number: 5
+    name: "lifted_moment_blocks"
+    description: "Build the affine drift and the jump blocks of the lifted state z = (U_1, ..., U_N, lam_S, lam_V), types ordered (price jumps S, variance jumps V), for the source's lifted model with variance V = v0 + sum_k omega_k U_k and the positive-part truncation inactive. Return (A, c, j_s, j_v, Q_s, Q_v): the matrix A and vector c of the continuous drift A z + c; for each jump type k the mean jump vector j_k, whose entry i is the expected change of z_i at a type-k jump; and the matrix Q_k, whose entry (i, j) is the expected product of the changes of z_i and z_j at a type-k jump. Raise ValueError if x and omega are not non-empty 1-D arrays of equal length, if any rate is not finite and strictly positive, if kappa, theta, v0 or mu_v is not finite and nonnegative, if lam_inf, eta or beta has the wrong shape or a non-finite entry, if a baseline or excitation is negative, or if a decay rate is not positive."
+    orchestrator: false
+  - number: 6
+    name: "lifted_moment_generator"
+    description: "Build the generator G of the closed linear system for the first and second moments of the lifted state from the drift and jump blocks of the previous step, the volatility of variance xi, the exponential-sum weights omega and v0. Coordinates of the moment vector y: the second moments S_ij = E[z_i z_j] for i <= j in row-major order (n(n+1)/2 entries), then the first moments m_i = E[z_i] (n entries), then the constant 1; return G with dy/dt = G y, shape (n(n+1)/2 + n + 1) square, where the price-jump and variance-jump intensities are the coordinates z_N and z_{N+1}. Raise ValueError if the block shapes are inconsistent with n = len(omega) + 2, if any block is not finite, or if xi or v0 is not finite and nonnegative."
+    orchestrator: false
+  - number: 7
+    name: "variance_intensity_correlation"
+    description: "Orchestrator. Build the nodes and density-relative weights and form the exponential-sum weights (steps 3 and 2). Compute the lift-fidelity error over dt on the n_grid grid (step 4) and raise ValueError if it is not finite or exceeds 100 basis points in magnitude; evaluate the kernel at zero lag (step 1) and raise ValueError if the weights do not sum to it within one percent. Build the drift and jump blocks (step 5) and the moment generator (step 6). Start every factor at zero and both intensities at their baselines, so the initial second moments are the outer product of the initial means and the constant coordinate is one. Propagate the moment vector to the horizon with the matrix exponential of G times the horizon, recover the covariance matrix of the state as S - m m^T, and return the correlation between the variance V = v0 + omega . U and the variance-jump intensity: their covariance divided by the product of their standard deviations. Call the earlier step functions rather than reimplementing any of them. Raise ValueError if the horizon is not a positive finite number or if either variance at the horizon is not positive."
+    orchestrator: true

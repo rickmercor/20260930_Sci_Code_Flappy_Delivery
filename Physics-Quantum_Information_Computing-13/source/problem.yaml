@@ -1,0 +1,44 @@
+problem_id: "Physics-Quantum_Information_Computing-13"
+subject: "physics"
+subject_area: "Quantum Information / Computing"
+difficulty: "medium"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2608.27211"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_matrix_supports.py"
+    description: "Identify the active row and column indices of a binary syndrome-like matrix."
+    orchestrator: false
+  - number: 2
+    name: "02_beta_neighborhood.py"
+    description: "Compute one strict fractional neighborhood on either side of the bipartite graph."
+    orchestrator: false
+  - number: 3
+    name: "03_grow_beta_region.py"
+    description: "Run the alternating neighborhood expansion for a fixed number of rounds."
+    orchestrator: false
+  - number: 4
+    name: "04_deterministic_peeling.py"
+    description: "Construct the benchmark's uniquely specified peeling and partner set."
+    orchestrator: false
+  - number: 5
+    name: "05_gf2_inverse.py"
+    description: "Invert a square binary matrix exactly over $\\mathbb F_2$."
+    orchestrator: false
+  - number: 6
+    name: "06_embedded_inverse.py"
+    description: "Invert a selected square submatrix of $H$ and embed the inverse back into the full $A\\times B$ index space."
+    orchestrator: false
+  - number: 7
+    name: "07_decode_x_sector.py"
+    description: "Assemble the previous graph-growth, peeling, and embedded-inverse components into the Pauli-$X$ half of the decoder."
+    orchestrator: false
+  - number: 8
+    name: "08_decode_z_sector.py"
+    description: "Implement the transposed Pauli-$Z$ half of the decoder."
+    orchestrator: false
+  - number: 9
+    name: "09_run_quantum_expander_decoder.py"
+    description: "Run the two previously implemented sector decoders and reduce their four corrections to the single benchmark scalar."
+    orchestrator: true

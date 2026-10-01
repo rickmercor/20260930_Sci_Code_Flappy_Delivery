@@ -1,0 +1,36 @@
+problem_id: "Chemistry-Computational_Chemistry-60"
+subject: "chemistry"
+subject_area: "Computational Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1021/acs.jctc.5c01792"
+dependencies: ""
+steps:
+  - number: 1
+    name: "density_pair"
+    description: "Form the AO-basis difference density."
+    orchestrator: false
+  - number: 2
+    name: "ordered_pair"
+    description: "Build the ordered overlap-factor pair from the AO overlap S."
+    orchestrator: false
+  - number: 3
+    name: "coefficient_pair"
+    description: "Construct the occupation-change spectrum."
+    orchestrator: false
+  - number: 4
+    name: "image_matrix"
+    description: "Map the initial-state AO density with the supplied overlap factors."
+    orchestrator: false
+  - number: 5
+    name: "frame_matrix"
+    description: "Form the unoccupied projector of the mapped initial-state density."
+    orchestrator: false
+  - number: 6
+    name: "group_values"
+    description: "Return the two unoccupied-block populations of this instance."
+    orchestrator: false
+  - number: 7
+    name: "evaluate_instance"
+    description: "Evaluate the supplied AO densities and overlap."
+    orchestrator: true

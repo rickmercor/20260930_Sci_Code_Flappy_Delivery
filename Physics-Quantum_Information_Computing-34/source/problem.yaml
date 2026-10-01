@@ -1,0 +1,48 @@
+problem_id: "Physics-Quantum_Information_Computing-34"
+subject: "physics"
+subject_area: "Quantum Information / Computing"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2510.26895"
+dependencies: ""
+steps:
+  - number: 1
+    name: "collision_coefficients"
+    description: "Resolve the first two finite-collision coefficients after tracing the ancilla."
+    orchestrator: false
+  - number: 2
+    name: "normalizer_coefficients"
+    description: "Resolve the noncommuting inverse-square-root coefficients of the evolving prior."
+    orchestrator: false
+  - number: 3
+    name: "petz_coefficients"
+    description: "Assemble the first two exact Petz recovery coefficients from the forward adjoint and normalization."
+    orchestrator: false
+  - number: 4
+    name: "reverse_coefficients"
+    description: "Resolve the affine dependence of both tabletop reverse coefficients on the reset Bloch vector."
+    orchestrator: false
+  - number: 5
+    name: "prior_trajectory"
+    description: "Propagate the reference state through the exact nonstationary forward collision sequence."
+    orchestrator: false
+  - number: 6
+    name: "shared_reset_objective"
+    description: "Build the single-reset objective from the complete complex second-order mismatch along the prior trajectory."
+    orchestrator: false
+  - number: 7
+    name: "physical_reset"
+    description: "Find the global physical reset under a Bloch-radius bound and longitudinal-polarization floor."
+    orchestrator: false
+  - number: 8
+    name: "transition_recovery_maps"
+    description: "Construct exact coherent transition-weighted recovery channels for each collision."
+    orchestrator: false
+  - number: 9
+    name: "reversal_error"
+    description: "Compose the forward and reverse sequences and measure their normalized-Choi discrepancy."
+    orchestrator: false
+  - number: 10
+    name: "design_reversal"
+    description: "Combine every preceding scientific step into the global reversal design."
+    orchestrator: true

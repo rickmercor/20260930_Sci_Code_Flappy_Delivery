@@ -1,0 +1,36 @@
+problem_id: "Chemistry-Quantum_Chemistry-72"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1021/acs.jpca.6c04213"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_channel_matrix"
+    description: "Step 01: Coupled-channel matrix of an atom plus rigid rotor for given J and parity. Coupled-channel interaction matrix of an atom and a rigid linear rotor for a given total angular momentum and parity."
+    orchestrator: false
+  - number: 2
+    name: "02_propagate_log_derivative"
+    description: "Step 02: Johnson log-derivative propagation with node count. Log-derivative propagation of the coupled-channel equations with a multichannel node count."
+    orchestrator: false
+  - number: 3
+    name: "03_matching_spectrum"
+    description: "Step 03: Matching-matrix spectrum and node-count split. Matching matrix of a bound-state calculation and the two parts of the multichannel node count."
+    orchestrator: false
+  - number: 4
+    name: "04_tracked_eigenvalue"
+    description: "Step 04: Eigenvalue that belongs to a given bound state. The eigenvalue of the matching matrix that belongs to a given bound state, and the energies at which it can be followed."
+    orchestrator: false
+  - number: 5
+    name: "05_bound_state_energies"
+    description: "Step 05: All bound states in an energy window. All coupled-channel bound states in an energy window, converged on individual eigenvalues of the matching matrix."
+    orchestrator: false
+  - number: 6
+    name: "06_scale_for_level"
+    description: "Step 06: Potential scaling factor for a level at fixed energy. Potential scaling factor that places a chosen coupled-channel bound state at a fixed energy."
+    orchestrator: false
+  - number: 7
+    name: "07_predicted_partner_energy"
+    description: "Step 07: Predicted partner level after refitting the scale (orchestrator). Energy of a partner bound state predicted after the potential has been scaled to reproduce one observed state."
+    orchestrator: true

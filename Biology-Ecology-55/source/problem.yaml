@@ -1,0 +1,44 @@
+problem_id: "Biology-Ecology-55"
+subject: "biology"
+subject_area: "Ecology"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: " https://doi.org/10.48550/arXiv.2609.17232"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_01_enumerate_supports"
+    description: "A generalized Lotka-Volterra system with N species can have an equilibrium on any subset of the species pool. Exhaustive state characterization therefore begins with the 2^N binary support masks, including the all-zero extinction support. Ordering masks first by richness and then lexicographically makes the enumeration deterministic while preserving the one-to-one relation between a row and a candidate subcommunity."
+    orchestrator: false
+  - number: 2
+    name: "02_02_solve_support_equilibria"
+    description: "For generalized Lotka-Volterra dynamics in vector form, dx/dt = diag(x)(r + A x), a candidate equilibrium on support I solves A_II x_I = -r_I and has zero abundance outside I. A support is admissible only when this restricted system is nonsingular and every resident abundance is strictly greater than the numerical tolerance. The empty support represents extinction and gives the zero vector; inadmissible supports are retained as all-NaN rows so later classifications stay aligned with the support enumeration."
+    orchestrator: false
+  - number: 3
+    name: "03_03_compute_invasion_rates"
+    description: "At a generalized Lotka-Volterra state x, the per-capita growth vector is g(x) = r + A x. Entries on the support vanish at equilibrium, while entries outside the support are invasion growth rates. Non-positive invasion growth for every absent species is the saturation, or non-invasibility, condition. Rows that do not represent admissible candidate equilibria remain all-NaN so they cannot enter later classification."
+    orchestrator: false
+  - number: 4
+    name: "04_04_compute_spectral_abscissae"
+    description: "Local asymptotic stability of a generalized Lotka-Volterra equilibrium is determined by the Jacobian J(x) = diag(r + Ax) + diag(x)A. Its spectral abscissa is the largest real part among the eigenvalues. A candidate is asymptotically stable only when this scalar is strictly negative, while rejected supports retain NaN values for alignment with the exhaustive support list."
+    orchestrator: false
+  - number: 5
+    name: "05_05_classify_stable_states"
+    description: "A GLV candidate is retained as a stable state only when it is an admissible steady state, no absent species has a positive invasion rate, and the full ecological Jacobian has spectral abscissa below -tol. The strict spectral margin excludes neutral equilibria, while the non-invasibility test implements saturation before stability. Invalid support solutions remain ordinary zero classifications rather than disappearing from the support-indexed arrays."
+    orchestrator: false
+  - number: 6
+    name: "06_06_summarize_system_richness"
+    description: "For one parameterized ecological system p, the stable-state multiplicity S_p is the total number of stable equilibria, and S_p^k counts those equilibria whose support contains exactly k species. These counts retain the identity of the system that generated the states. The compact summary [S_p, S_p^0, ..., S_p^N] is the deterministic input to the system-centered probability construction."
+    orchestrator: false
+  - number: 7
+    name: "07_07_build_system_probability_vectors"
+    description: "The system-centered probability vector F_p has entries indexed by the no-state outcome and richness values 0 through N. If a system has no retained state, all probability mass is assigned to the no-state entry. Otherwise, the no-state entry is zero and each richness entry is S_p^k/S_p, so every system with states contributes one normalized distribution regardless of its multiplicity."
+    orchestrator: false
+  - number: 8
+    name: "08_08_compare_richness_weightings"
+    description: "Conditioned on systems with S_p > 0, the system-centered richness probability is the mean of F_p^k across systems, while the state-centered probability pools all states before normalizing. These weight systems differently whenever multiplicity covaries with within-system richness composition. The signed pooling bias at richness k is p_state^k - p_system^k, positive when high-multiplicity systems disproportionately contribute states of that richness."
+    orchestrator: false
+  - number: 9
+    name: "09_09_run_full_pipeline"
+    description: "The full pipeline enumerates every support once, solves and classifies all equilibrium candidates for each interaction matrix, summarizes stable-state multiplicity by richness, constructs one normalized probability vector per system, and compares system-centered with pooled-state weighting. The returned scalar is the signed excess p_state^k - p_system^k at target_richness k. This file is the orchestrator and is the step marked final in Studio."
+    orchestrator: true

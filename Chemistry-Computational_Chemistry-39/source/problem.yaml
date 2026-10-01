@@ -1,0 +1,40 @@
+problem_id: "Chemistry-Computational_Chemistry-39"
+subject: "chemistry"
+subject_area: "Computational Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1038/s41467-026-70818-0"
+dependencies: ""
+steps:
+  - number: 1
+    name: "Map Atomistic Coordinates"
+    description: "Map every atomistic Cartesian frame to its coarse-grained bead coordinates using the supplied linear coordinate map."
+    orchestrator: false
+  - number: 2
+    name: "minimum_variance_force_map"
+    description: "Determine the compatible linear force map that minimizes the empirical second moment of the mapped atomistic forces with quadratic ridge regularization."
+    orchestrator: false
+  - number: 3
+    name: "sample_probabilistic_cg"
+    description: "Apply the Gaussian conditional coarse-graining map to deterministic mapped coordinates using the supplied standard-normal draws."
+    orchestrator: false
+  - number: 4
+    name: "build_extended_forces"
+    description: "Construct the atom-first joint-force tensor for the extended atomistic and noised coarse-grained system."
+    orchestrator: false
+  - number: 5
+    name: "fit_staged_force_map"
+    description: "Fit the bead-space stage of the force-and-noise aggregation while keeping the noise-variable coefficient fixed to identity."
+    orchestrator: false
+  - number: 6
+    name: "06_project_extended_forces"
+    description: "Project every extended-system force observation onto the noised coarse-grained beads using the fitted extended force map."
+    orchestrator: false
+  - number: 7
+    name: "fit_conservative_precision"
+    description: "Fit one symmetric harmonic precision matrix to the projected force targets using shared upper-triangle parameters."
+    orchestrator: false
+  - number: 8
+    name: "noised_pmf_precision_error"
+    description: "Run the complete seven-step probabilistic force-matching pipeline and compare the fitted symmetric precision with the exact Gaussian-broadened precision."
+    orchestrator: true

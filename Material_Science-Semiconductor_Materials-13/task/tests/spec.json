@@ -1,0 +1,139 @@
+{
+  "problem_id": "Material_Science-Semiconductor_Materials-13",
+  "sub_steps": [
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-13.1",
+      "test_cases": [
+        "import numpy as np\ntemperature = np.arange(300.0, 480.0 + 1e-9, 3.0)\nassert np.allclose(np.log10(compute_emission_rate(temperature, 0.711, 1.8e-15)) + 1000.0, target)",
+        "import numpy as np\ntemperature = np.array([351.0, 399.0, 450.0])\nassert np.allclose(np.log10(compute_emission_rate(temperature, 0.658, 9.1e-15)) + 1000.0, target)",
+        "import numpy as np\ntemperature = np.array([399.0])\nassert np.allclose(np.log10(compute_emission_rate(temperature, 0.711, 1.8e-15, 0.28)) + 1000.0, target)",
+        "import numpy as np\ntemperature = np.array([300.0, 480.0])\nassert np.allclose(np.log10(compute_emission_rate(temperature, 1.35, 5.0e-16)) + 1000.0, target)",
+        "import numpy as np\ntemperature = np.array([400.0])\ndef run_model():\n    try:\n        compute_emission_rate(temperature, 0.0, 1.8e-15)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        compute_emission_rate(np.array([0.0, 400.0]), 0.711, 1.8e-15)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-13.2",
+      "test_cases": [
+        "import numpy as np\ntemperature = np.arange(360.0, 450.0 + 1e-9, 30.0)\nea = np.array([0.711, 0.658])\nsg = np.array([1.8e-15, 9.1e-15])\ndc = np.array([-0.75, -0.05])\nassert np.allclose(generate_capacitance_transients(temperature, ea, sg, dc, 204.5, 1.0e5, 2000, 0.0032, 350.0, 20260722) + 1000.0, target)",
+        "import numpy as np\ntemperature = np.array([399.0])\nea = np.array([0.711])\nsg = np.array([1.8e-15])\ndc = np.array([-0.75])\nassert np.allclose(generate_capacitance_transients(temperature, ea, sg, dc, 204.5, 1.0e5, 500, 0.0, 350.0, 1) + 1000.0, target)",
+        "import numpy as np\ntemperature = np.array([372.0, 450.0])\nea = np.array([0.711, 0.658])\nsg = np.array([1.8e-15, 9.1e-15])\ndc = np.array([-0.75, -0.05])\nassert np.allclose(generate_capacitance_transients(temperature, ea, sg, dc, 204.5, 1.0e5, 1, 0.0032, 350.0, 7) + 1000.0, target)",
+        "import numpy as np\ntemperature = np.array([400.0, 420.0])\nea = np.array([0.711, 0.658, 0.540])\nsg = np.array([1.8e-15, 9.1e-15, 3.0e-16])\ndc = np.array([-0.75, -0.05, 0.02])\nassert np.allclose(generate_capacitance_transients(temperature, ea, sg, dc, 180.0, 5.0e4, 1000, 0.001, 350.0, 99) + 1000.0, target)",
+        "import numpy as np\ntemperature = np.array([400.0])\ndef run_model():\n    try:\n        generate_capacitance_transients(temperature, np.array([0.711, 0.658]), np.array([1.8e-15]), np.array([-0.75]), 204.5, 1.0e5, 100, 0.0, 350.0, 1)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ntemperature = np.array([400.0])\nea = np.array([0.711])\nsg = np.array([1.8e-15])\ndc = np.array([-0.75])\ndef run_model():\n    try:\n        generate_capacitance_transients(temperature, ea, sg, dc, 204.5, 1.0e5, 0, 0.0, 350.0, 1)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-13.3",
+      "test_cases": [
+        "import numpy as np\ntimes = np.arange(1, 100001) / 1.0e5\ncapacitance = 204.5 - 0.75 * np.exp(-61.468 * times) - 0.05 * np.exp(-1451.65 * times)\nassert np.allclose(bin_transient_logarithmic(times, capacitance, 100) * np.array([1.0e8, 1.0, 1.0]) + 1000.0, target)",
+        "import numpy as np\ntimes = np.arange(1, 30001) / 4.0e4\ncapacitance = 160.0 - 0.5 * np.exp(-85.0 * times)\nassert np.allclose(bin_transient_logarithmic(times, capacitance, 75) * np.array([1.0e8, 1.0, 1.0]) + 1000.0, target)",
+        "import numpy as np\ntimes = np.arange(1, 20001) / 5.0e4\ncapacitance = 180.0 - 0.4 * np.exp(-250.0 * times)\nassert np.allclose(bin_transient_logarithmic(times, capacitance, 60) * np.array([1.0e8, 1.0, 1.0]) + 1000.0, target)",
+        "import numpy as np\ntimes = np.arange(1, 1001) / 1.0e4\ncapacitance = 100.0 - 0.3 * np.exp(-40.0 * times)\nassert np.allclose(bin_transient_logarithmic(times, capacitance, 1) * np.array([1.0e8, 1.0, 1.0]) + 1000.0, target)",
+        "import numpy as np\ntimes = np.arange(1, 51) / 1.0e3\ncapacitance = 50.0 - 0.2 * np.exp(-100.0 * times)\nassert np.allclose(bin_transient_logarithmic(times, capacitance, 400) * np.array([1.0e8, 1.0, 1.0]) + 1000.0, target)",
+        "import numpy as np\ndef run_model():\n    try:\n        bin_transient_logarithmic(np.arange(1, 11) / 100.0, np.zeros(9), 5)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        bin_transient_logarithmic(np.array([0.1, 0.05, 0.2]), np.zeros(3), 3)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-13.4",
+      "test_cases": [
+        "import numpy as np\ntimes = np.geomspace(1.0e-5, 1.0, 60)\ncounts = np.maximum(np.round(np.geomspace(1.0, 5000.0, 60)), 1.0)\nvalues = 204.5 - 0.75 * np.exp(-61.468 * times) - 0.05 * np.exp(-1451.65 * times)\nbinned = np.column_stack([times, values, counts])\nemission_grid = np.geomspace(0.1, 1.0e5, 150)\nassert np.allclose(build_inversion_system(binned, emission_grid) + 1000.0, target)",
+        "import numpy as np\ntimes = np.geomspace(1.0e-5, 0.8, 45)\ncounts = np.maximum(np.round(np.geomspace(1.0, 3000.0, 45)), 1.0)\nv1 = 204.5 - 0.75 * np.exp(-61.468 * times) - 0.05 * np.exp(-1451.65 * times)\nv2 = 204.6 - 0.68 * np.exp(-88.0 * times) - 0.08 * np.exp(-980.0 * times)\nbinned = np.stack([np.column_stack([times, v1, counts]),\n                    np.column_stack([times, v2, counts[::-1]])])\nemission_grid = np.geomspace(0.5, 2.0e4, 75)\nassert np.allclose(build_inversion_system(binned, emission_grid) + 1000.0, target)",
+        "import numpy as np\ntimes = np.geomspace(1.0e-5, 1.0, 40)\ncounts = np.full(40, 3.0)\nvalues = 204.5 - 0.6 * np.exp(-90.0 * times)\nbinned = np.column_stack([times, values, counts])\nemission_grid = np.geomspace(1.0, 1.0e4, 50)\nassert np.allclose(build_inversion_system(binned, emission_grid) + 1000.0, target)",
+        "import numpy as np\ntimes = np.geomspace(1.0e-4, 0.5, 25)\ncounts = np.geomspace(1.0, 900.0, 25)\nvalues = 120.0 - 0.3 * np.exp(-15.0 * times) - 0.04 * np.exp(-800.0 * times)\nbinned = np.column_stack([times, values, counts])\nemission_grid = np.geomspace(0.5, 5.0e3, 80)\nassert np.allclose(build_inversion_system(binned, emission_grid) + 1000.0, target)",
+        "import numpy as np\nbinned = np.array([[0.01, 200.0, 4.0]])\nemission_grid = np.array([100.0])\nassert np.allclose(build_inversion_system(binned, emission_grid) + 1000.0, target)",
+        "import numpy as np\ntimes = np.geomspace(1.0e-4, 1.0, 30)\ncounts = np.full(30, 10.0)\nvalues = 150.0 + 0.2 * np.exp(-70.0 * times)\nbinned = np.column_stack([times, values, counts])\nemission_grid = np.geomspace(1.0, 1.0e4, 40)\nassert np.allclose(build_inversion_system(binned, emission_grid) + 1000.0, target)",
+        "import numpy as np\nbinned = np.array([[0.01, 200.0, 4.0], [0.1, 199.0, 40.0]])\ndef run_model():\n    try:\n        build_inversion_system(binned, np.array([0.0, 10.0]))\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        build_inversion_system(np.zeros((5, 2)), np.geomspace(1.0, 100.0, 10))\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-13.5",
+      "test_cases": [
+        "import numpy as np\ntimes = np.geomspace(1.0e-5, 1.0, 89)\ncounts = np.maximum(np.round(np.geomspace(1.0, 8000.0, 89)), 1.0)\nvalues = 204.5 - 0.75 * np.exp(-61.468 * times) - 0.05 * np.exp(-1451.65 * times)\ngrid = np.geomspace(0.1, 1.0e5, 150)\nw = np.sqrt(counts)\nsystem = np.column_stack([np.exp(-np.outer(times, grid)) * w[:, None], -(values - values[-1]) * w])\nassert np.allclose(float(np.sum(solve_regularized_spectrum(system, 0.01))), target)",
+        "import numpy as np\ntimes = np.geomspace(1.0e-5, 0.8, 55)\ncounts = np.maximum(np.round(np.geomspace(1.0, 4000.0, 55)), 1.0)\ngrid = np.geomspace(0.5, 2.0e4, 70)\nw = np.sqrt(counts)\nv1 = 204.5 - 0.72 * np.exp(-65.0 * times) - 0.06 * np.exp(-1300.0 * times)\nv2 = 204.7 - 0.58 * np.exp(-105.0 * times) - 0.11 * np.exp(-760.0 * times)\nkernel = np.exp(-np.outer(times, grid)) * w[:, None]\ns1 = np.column_stack([kernel, -(v1 - v1[-1]) * w])\ns2 = np.column_stack([kernel, -(v2 - v2[-1]) * w])\nsystem = np.stack([s1, s2])\nassert np.allclose(solve_regularized_spectrum(system, 0.015) + 1000.0, target)",
+        "import numpy as np\ntimes = np.geomspace(1.0e-5, 1.0, 89)\ncounts = np.maximum(np.round(np.geomspace(1.0, 8000.0, 89)), 1.0)\nvalues = 204.5 - 0.75 * np.exp(-61.468 * times) - 0.05 * np.exp(-1451.65 * times)\ngrid = np.geomspace(0.1, 1.0e5, 150)\nw = np.sqrt(counts)\nsystem = np.column_stack([np.exp(-np.outer(times, grid)) * w[:, None], -(values - values[-1]) * w])\ndef summarize(density):\n    density = np.asarray(density, dtype=float)\n    kernel = system[:, :-1]\n    rhs = system[:, -1]\n    objective = (np.linalg.norm(kernel @ density - rhs) ** 2\n                 + 0.01 ** 2 * np.dot(density, density))\n    return np.array([float(np.all(density >= -1.0e-12)),\n                     float(np.round(objective, 10))])\nassert np.allclose(summarize(solve_regularized_spectrum(system, 0.01)), target)",
+        "import numpy as np\ntimes = np.geomspace(1.0e-4, 1.0, 50)\ncounts = np.geomspace(1.0, 2000.0, 50)\nvalues = 150.0 - 0.4 * np.exp(-200.0 * times)\ngrid = np.geomspace(1.0, 1.0e4, 60)\nw = np.sqrt(counts)\nsystem = np.column_stack([np.exp(-np.outer(times, grid)) * w[:, None], -(values - values[-1]) * w])\nassert np.allclose(float(np.sum(solve_regularized_spectrum(system, 0.2))), target)",
+        "import numpy as np\ntimes = np.geomspace(1.0e-4, 1.0, 40)\ncounts = np.full(40, 5.0)\nvalues = 100.0 - 0.5 * np.exp(-120.0 * times)\ngrid = np.geomspace(1.0, 1.0e4, 30)\nw = np.sqrt(counts)\nsystem = np.column_stack([np.exp(-np.outer(times, grid)) * w[:, None], -(values - values[-1]) * w])\nassert np.allclose(float(np.sum(solve_regularized_spectrum(system, 0.0))), target)",
+        "import numpy as np\ntimes = np.geomspace(1.0e-4, 1.0, 30)\ncounts = np.full(30, 8.0)\nvalues = 150.0 + 0.2 * np.exp(-70.0 * times)\ngrid = np.geomspace(1.0, 1.0e4, 25)\nw = np.sqrt(counts)\nsystem = np.column_stack([np.exp(-np.outer(times, grid)) * w[:, None], -(values - values[-1]) * w])\nassert np.allclose(float(np.sum(solve_regularized_spectrum(system, 0.01))), target)",
+        "import numpy as np\nsystem = np.ones((6, 5))\ndef run_model():\n    try:\n        solve_regularized_spectrum(system, -0.1)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        solve_regularized_spectrum(np.ones((6, 1)), 0.01)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-13.6",
+      "test_cases": [
+        "import numpy as np\ngrid = np.geomspace(0.1, 1.0e5, 150)\ndensity = np.zeros(150)\ndensity[[70, 71]] = [0.56, 0.19]\ndensity[[110, 111]] = [0.029, 0.021]\nassert np.allclose(extract_spectral_peaks(density, grid, 2) + 1000.0, target)",
+        "import numpy as np\ngrid = np.geomspace(0.1, 1.0e5, 150)\ndensity = np.zeros(150)\ndensity[[70, 71]] = [0.56, 0.19]\ndensity[[110, 111]] = [0.029, 0.021]\nassert np.allclose(extract_spectral_peaks(density, grid, 2) + 1000.0, target)",
+        "import numpy as np\ngrid = np.geomspace(1.0, 1.0e4, 80)\nx = np.arange(80.0)\ndensity = 0.7 * np.exp(-0.5 * ((x - 30.0) / 3.0) ** 2) + 0.2 * np.exp(-0.5 * ((x - 45.0) / 4.0) ** 2)\nassert np.allclose(extract_spectral_peaks(density, grid, 2) + 1000.0, target)",
+        "import numpy as np\ngrid = np.geomspace(0.1, 1.0e5, 150)\ndensity = np.zeros(150)\ndensity[[70, 71]] = [0.56, 0.19]\ndensity[[110, 111]] = [0.029, 0.021]\nassert np.allclose(extract_spectral_peaks(density, grid, 1) + 1000.0, target)",
+        "import numpy as np\ngrid = np.geomspace(1.0, 1.0e4, 40)\ndensity = np.zeros(40)\nassert np.allclose(extract_spectral_peaks(density, grid, 2) + 1000.0, target)",
+        "import numpy as np\ngrid = np.geomspace(1.0, 1.0e4, 40)\ndensity = np.zeros(40)\ndensity[15] = 0.4\nassert np.allclose(extract_spectral_peaks(density, grid, 5) + 1000.0, target)",
+        "import numpy as np\ngrid = np.geomspace(1.0, 1.0e4, 10)\ndef run_model():\n    try:\n        extract_spectral_peaks(np.linspace(-1.0, 1.0, 10), grid, 2)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ngrid = np.geomspace(1.0, 1.0e4, 10)\ndensity = np.zeros(10)\ndensity[4] = 1.0\ndef run_model():\n    try:\n        extract_spectral_peaks(density, grid, 0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-13.7",
+      "test_cases": [
+        "import numpy as np\nkb = 8.617333262e-5\nkj = 1.380649e-23\nh = 6.62607015e-34\nm = 0.063 * 9.1093837015e-31\nT = np.arange(372.0, 450.0 + 1e-9, 3.0)\nv = np.sqrt(3.0 * kj * T / m) * 100.0\nnc = 2.0 * (2.0 * np.pi * m * kj * T / h ** 2) ** 1.5 * 1e-6\ne = 1.8e-15 * v * nc * np.exp(-0.711 / (kb * T))\nassert np.allclose(fit_arrhenius_parameters(T, e) * np.array([1.0e3, 1.0e18]) + 1000.0, target)",
+        "import numpy as np\nkb = 8.617333262e-5\nkj = 1.380649e-23\nh = 6.62607015e-34\nm = 0.063 * 9.1093837015e-31\nT = np.arange(372.0, 450.0 + 1e-9, 3.0)\nv = np.sqrt(3.0 * kj * T / m) * 100.0\nnc = 2.0 * (2.0 * np.pi * m * kj * T / h ** 2) ** 1.5 * 1e-6\ne = 9.1e-15 * v * nc * np.exp(-0.658 / (kb * T))\nassert np.allclose(fit_arrhenius_parameters(T, e) * np.array([1.0e3, 1.0e18]) + 1000.0, target)",
+        "import numpy as np\nT = np.array([372.0, 390.0, 408.0, 426.0, 444.0])\ne = np.array([12.4, 39.5, 118.0, 331.0, 880.0])\nassert np.allclose(fit_arrhenius_parameters(T, e) * np.array([1.0e3, 1.0e18]) + 1000.0, target)",
+        "import numpy as np\nT = np.array([372.0, 450.0])\ne = np.array([12.4, 880.0])\nassert np.allclose(fit_arrhenius_parameters(T, e) * np.array([1.0e3, 1.0e18]) + 1000.0, target)",
+        "import numpy as np\nT = np.array([372.0, 390.0, 408.0, 426.0, 444.0])\ne = np.array([12.4, 39.5, 118.0, 331.0, 880.0])\nassert np.allclose(fit_arrhenius_parameters(T, e, 0.28) * np.array([1.0e3, 1.0e18]) + 1000.0, target)",
+        "import numpy as np\ndef run_model():\n    try:\n        fit_arrhenius_parameters(np.array([372.0, 450.0]), np.array([0.0, 880.0]))\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        fit_arrhenius_parameters(np.array([400.0, 400.0]), np.array([12.4, 12.5]))\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-13.8",
+      "test_cases": [
+        "import numpy as np\ntimes = np.geomspace(1.0e-5, 1.0, 89)\ncounts = np.maximum(np.round(np.geomspace(1.0, 8000.0, 89)), 1.0)\nvalues = 204.5 - 0.75 * np.exp(-61.468 * times) - 0.05 * np.exp(-1451.65 * times)\nbinned = np.column_stack([times, values, counts])\nrates = np.array([61.468, 1451.65])\nassert np.allclose(fit_constrained_amplitudes(binned, rates) + 1000.0, target)",
+        "import numpy as np\ntimes = np.geomspace(1.0e-5, 0.8, 70)\ncounts = np.maximum(np.round(np.geomspace(1.0, 5000.0, 70)), 1.0)\nr1 = np.array([61.468, 1451.65])\nr2 = np.array([92.0, 870.0])\nv1 = 204.5 - 0.75 * np.exp(-r1[0] * times) - 0.05 * np.exp(-r1[1] * times)\nv2 = 207.2 - 0.42 * np.exp(-r2[0] * times) - 0.13 * np.exp(-r2[1] * times)\nbinned = np.stack([np.column_stack([times, v1, counts]),\n                    np.column_stack([times, v2, counts[::-1]])])\nrates = np.stack([r1, r2])\nassert np.allclose(fit_constrained_amplitudes(binned, rates) + 1000.0, target)",
+        "import numpy as np\ntimes = np.geomspace(1.0e-5, 1.0, 89)\ncounts = np.maximum(np.round(np.geomspace(1.0, 8000.0, 89)), 1.0)\nvalues = 204.5 - 0.75 * np.exp(-61.468 * times) - 0.05 * np.exp(-1451.65 * times)\nbinned = np.column_stack([times, values, counts])\nrates = np.array([61.468, 1379.07])\nassert np.allclose(fit_constrained_amplitudes(binned, rates) + 1000.0, target)",
+        "import numpy as np\nrng = np.random.default_rng(5)\ntimes = np.geomspace(1.0e-5, 1.0, 89)\ncounts = np.maximum(np.round(np.geomspace(1.0, 8000.0, 89)), 1.0)\nvalues = (204.5 - 0.75 * np.exp(-61.468 * times) - 0.05 * np.exp(-1451.65 * times)\n          + rng.standard_normal(89) * 0.0032 / np.sqrt(counts))\nbinned = np.column_stack([times, values, counts])\nrates = np.array([61.468, 1451.65])\nassert np.allclose(fit_constrained_amplitudes(binned, rates) + 1000.0, target)",
+        "import numpy as np\ntimes = np.geomspace(1.0e-4, 1.0, 50)\ncounts = np.geomspace(1.0, 2000.0, 50)\nvalues = 150.0 - 0.4 * np.exp(-200.0 * times)\nbinned = np.column_stack([times, values, counts])\nrates = np.array([200.0])\nassert np.allclose(fit_constrained_amplitudes(binned, rates) + 1000.0, target)",
+        "import numpy as np\ntimes = np.geomspace(1.0e-5, 1.0, 89)\ncounts = np.maximum(np.round(np.geomspace(1.0, 8000.0, 89)), 1.0)\nvalues = 204.5 - 0.75 * np.exp(-61.468 * times) - 0.05 * np.exp(-1451.65 * times)\nbinned = np.column_stack([times, values, counts])\nrates = np.array([61.468, 1451.65, 4.0e5])\nassert np.allclose(fit_constrained_amplitudes(binned, rates) + 1000.0, target)",
+        "import numpy as np\nbinned = np.column_stack([np.geomspace(1.0e-4, 1.0, 20), np.full(20, 100.0), np.full(20, 5.0)])\ndef run_model():\n    try:\n        fit_constrained_amplitudes(binned, np.array([0.0, 100.0]))\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nbinned = np.column_stack([np.array([0.01, 0.1]), np.array([100.0, 99.5]), np.array([2.0, 20.0])])\ndef run_model():\n    try:\n        fit_constrained_amplitudes(binned, np.array([10.0, 100.0, 1000.0]))\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-13.9",
+      "test_cases": [
+        "import numpy as np\ndeflection = np.array([-0.612, -0.037])\nassert np.allclose(compute_defect_concentration(deflection, 2.0e16, 204.5) / 1.0e12 + 1000.0, target)",
+        "import numpy as np\ndeflection = np.array([-0.612, -0.037])\nassert np.allclose(compute_defect_concentration(deflection, 2.0e16, 204.5) / 1.0e12 + 1000.0, target)",
+        "import numpy as np\ndeflection = np.array([-0.612, -0.037])\nassert np.allclose(compute_defect_concentration(deflection, 2.0e16, 204.5, 1.37) / 1.0e12 + 1000.0, target)",
+        "import numpy as np\nassert np.allclose(compute_defect_concentration(0.04, 5.0e15, 120.0) / 1.0e12 + 1000.0, target)",
+        "import numpy as np\ndeflection = np.array([0.31, 0.006])\nassert np.allclose(compute_defect_concentration(deflection, 1.0e16, 95.0, 0.82) / 1.0e12 + 1000.0, target)",
+        "import numpy as np\ndef run_model():\n    try:\n        compute_defect_concentration(np.array([0.75]), 0.0, 204.5)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        compute_defect_concentration(np.array([0.75]), 2.0e16, -204.5)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-13.10",
+      "test_cases": [
+        "import numpy as np\nrng = np.random.default_rng(3)\ntemperature = np.arange(300.0, 480.0 + 1e-9, 3.0)\ninside = (temperature >= 370.0) & (temperature <= 450.0)\ndeflection = np.column_stack([\n    np.where(inside, 0.7506, 0.7506 * np.exp(0.4 * rng.standard_normal(temperature.size))),\n    np.where(inside, 0.0538, 0.0538 * np.exp(0.8 * rng.standard_normal(temperature.size))),\n])\nassert np.allclose(average_active_window(temperature, deflection, 370.0, 450.0) + 1000.0, target)",
+        "import numpy as np\nrng = np.random.default_rng(3)\ntemperature = np.arange(300.0, 480.0 + 1e-9, 3.0)\ninside = (temperature >= 370.0) & (temperature <= 450.0)\ndeflection = np.column_stack([\n    np.where(inside, 0.7506, 0.7506 * np.exp(0.4 * rng.standard_normal(temperature.size))),\n    np.where(inside, 0.0538, 0.0538 * np.exp(0.8 * rng.standard_normal(temperature.size))),\n])\nassert np.allclose(average_active_window(temperature, deflection, 300.0, 480.0) + 1000.0, target)",
+        "import numpy as np\ntemperature = np.arange(360.0, 460.0 + 1e-9, 5.0)\ndeflection = np.column_stack([\n    0.75 + 0.002 * np.sin(temperature),\n    0.054 + 0.001 * np.cos(temperature),\n])\nassert np.allclose(average_active_window(temperature, deflection, 370.0, 450.0) + 1000.0, target)",
+        "import numpy as np\ntemperature = np.arange(300.0, 480.0 + 1e-9, 3.0)\ndeflection = np.column_stack([np.full(temperature.size, 0.75), np.full(temperature.size, 0.05)])\nassert np.allclose(average_active_window(temperature, deflection, 399.0, 399.0) + 1000.0, target)",
+        "import numpy as np\ntemperature = np.arange(370.0, 450.0 + 1e-9, 10.0)\ndeflection = np.column_stack([\n    np.full(temperature.size, 0.75),\n    np.full(temperature.size, 0.05),\n    np.zeros(temperature.size),\n])\nassert np.allclose(float(np.sum(average_active_window(temperature, deflection, 370.0, 450.0)[:2])), target)",
+        "import numpy as np\ntemperature = np.arange(300.0, 480.0 + 1e-9, 3.0)\ndeflection = np.column_stack([np.full(temperature.size, 0.75), np.full(temperature.size, 0.05)])\ndef run_model():\n    try:\n        average_active_window(temperature, deflection, 500.0, 520.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ntemperature = np.arange(300.0, 480.0 + 1e-9, 3.0)\ndeflection = np.column_stack([np.full(temperature.size, 0.75), np.full(temperature.size, 0.05)])\ndef run_model():\n    try:\n        average_active_window(temperature, deflection, 450.0, 370.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-13.11",
+      "test_cases": [
+        "import numpy as np\ntemperature = np.arange(366.0, 456.0 + 1e-9, 6.0)\nea = np.array([0.711, 0.658])\nsg = np.array([1.8e-15, 9.1e-15])\ndc = np.array([-0.75, -0.05])\nassert np.allclose(run_dlts_concentration_pipeline(temperature, ea, sg, dc, n_samples=20000, n_bins=70), target)",
+        "import numpy as np\ntemperature = np.arange(372.0, 450.0 + 1e-9, 6.0)\nea = np.array([0.711, 0.658])\nsg = np.array([1.8e-15, 9.1e-15])\ndc = np.array([-0.75, -0.05])\nassert np.allclose(run_dlts_concentration_pipeline(temperature, ea, sg, dc, n_samples=20000, n_bins=70, noise_ref=0.0), target)",
+        "import numpy as np\ntemperature = np.arange(366.0, 456.0 + 1e-9, 6.0)\nea = np.array([0.711, 0.658])\nsg = np.array([1.8e-15, 9.1e-15])\ndc = np.array([-0.75, -0.25])\nassert np.allclose(run_dlts_concentration_pipeline(temperature, ea, sg, dc, n_samples=20000, n_bins=70), target)",
+        "import numpy as np\ntemperature = np.arange(366.0, 456.0 + 1e-9, 6.0)\nea = np.array([0.711, 0.658])\nsg = np.array([1.8e-15, 9.1e-15])\ndc = np.array([-0.75, -0.05])\nassert np.allclose(run_dlts_concentration_pipeline(temperature, ea, sg, dc, n_samples=20000, n_bins=70, regularization=0.05), target)",
+        "import numpy as np\ntemperature = np.arange(366.0, 456.0 + 1e-9, 6.0)\nea = np.array([0.74, 0.68, 0.61])\nsg = np.array([2.0e-15, 4.0e-15, 8.0e-15])\ndc = np.array([-0.25, -0.45, -0.12])\nassert np.allclose(run_dlts_concentration_pipeline(temperature, ea, sg, dc, n_samples=20000, n_bins=70), target)",
+        "import numpy as np\ntemperature = np.arange(372.0, 450.0 + 1e-9, 6.0)\ndef run_model():\n    try:\n        run_dlts_concentration_pipeline(temperature, np.array([0.711]), np.array([1.8e-15]), np.array([-0.75]), n_samples=5000, n_bins=50)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ntemperature = np.arange(372.0, 450.0 + 1e-9, 6.0)\nea = np.array([0.711, 0.658])\nsg = np.array([1.8e-15, 9.1e-15])\ndc = np.array([-0.75, -0.05])\ndef run_model():\n    try:\n        run_dlts_concentration_pipeline(temperature, ea, sg, dc, n_samples=5000, n_bins=50, window_low=400.0, window_high=401.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

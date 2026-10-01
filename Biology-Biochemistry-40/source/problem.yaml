@@ -1,0 +1,48 @@
+problem_id: "Biology-Biochemistry-40"
+subject: "biology"
+subject_area: "Biochemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1038/s41467-026-71957-0"
+dependencies: ""
+steps:
+  - number: 1
+    name: "compute_overall_moiety_change"
+    description: "Compute the aligned net moiety-count change between the supplied products and reactants."
+    orchestrator: false
+  - number: 2
+    name: "enumerate_balanced_rule_multisets"
+    description: "Enumerate every bounded rule multiset whose summed moiety change matches the overall transformation and return the source-ranked rows."
+    orchestrator: false
+  - number: 3
+    name: "order_balanced_rule_multisets"
+    description: "Determine the canonical source-admissible order, if one exists, for every balanced rule multiset."
+    orchestrator: false
+  - number: 4
+    name: "collect_source_feasible_mechanisms"
+    description: "Scan the ranked balanced rows, skip unorderable rows, and collect the requested number of source-feasible ordered mechanisms."
+    orchestrator: false
+  - number: 5
+    name: "encode_mechanism_arrow_sets"
+    description: "Construct the unique arrow-environment feature collection for every collected mechanism."
+    orchestrator: false
+  - number: 6
+    name: "compute_mechanism_reference_jaccard"
+    description: "Compute all pairwise candidate-to-reference Jaccard similarities over aligned arrow-environment features."
+    orchestrator: false
+  - number: 7
+    name: "summarize_mechanism_similarity"
+    description: "Assign each mechanism its closest reference analog and corresponding maximum similarity score."
+    orchestrator: false
+  - number: 8
+    name: "rerank_source_mechanisms"
+    description: "Rerank the source-feasible mechanisms by assigned similarity score under the deterministic tie convention."
+    orchestrator: false
+  - number: 9
+    name: "compute_similarity_confidence_margin"
+    description: "Return the difference between the first- and second-ranked similarity scores."
+    orchestrator: false
+  - number: 10
+    name: "resolve_mechanism_similarity_margin"
+    description: "Compose the complete bounded source-matched mechanism search and return its similarity-confidence margin."
+    orchestrator: true

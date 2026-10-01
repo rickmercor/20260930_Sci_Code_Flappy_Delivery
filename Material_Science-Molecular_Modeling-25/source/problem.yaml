@@ -1,0 +1,40 @@
+problem_id: "Material_Science-Molecular_Modeling-25"
+subject: "materials"
+subject_area: "Molecular Modeling"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2605.29743"
+dependencies: ""
+steps:
+  - number: 1
+    name: "dwlc_bond_energy"
+    description: "Builds the reduced bending energy of one anharmonic bond on the periodic grid of directions."
+    orchestrator: false
+  - number: 2
+    name: "dwlc_marginals"
+    description: "Computes the single-segment angular densities of the open chain."
+    orchestrator: false
+  - number: 3
+    name: "dwlc_extension"
+    description: "Evaluates the per segment projections on the force direction and the extension reduced by the contour length."
+    orchestrator: false
+  - number: 4
+    name: "dwlc_closure_exponent"
+    description: "Measures the connected part of the neighbouring pair distribution on the central block of directions."
+    orchestrator: false
+  - number: 5
+    name: "dwlc_apparent_persistence"
+    description: "Reads the measured connected combination backwards to give the persistence length a harmonic reading would assign at each bend angle."
+    orchestrator: false
+  - number: 6
+    name: "dwlc_tangent_correlation"
+    description: "Computes the tangent correlation between a reference segment and every other segment."
+    orchestrator: false
+  - number: 7
+    name: "dwlc_nematic_profile"
+    description: "Evaluates the plane nematic order parameter of every segment from its angular density."
+    orchestrator: false
+  - number: 8
+    name: "dwlc_audit"
+    description: "Builds a 27-regime physical response tensor and reduces it to a source-dependent robustness audit."
+    orchestrator: true

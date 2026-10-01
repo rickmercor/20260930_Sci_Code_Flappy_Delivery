@@ -1,0 +1,75 @@
+{
+  "problem_id": "Physics-Quantum_Information_Computing-23",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Quantum_Information_Computing-23.1",
+      "test_cases": [
+        "import numpy as np\ncode = 0\nassert np.allclose(two_qubit_pauli(code), target)",
+        "import numpy as np\ncode = 5\nassert np.allclose(two_qubit_pauli(code), target)",
+        "import numpy as np\ncode = 10\nassert np.allclose(two_qubit_pauli(code), target)",
+        "def run_model():\n    try:\n        two_qubit_pauli(16)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-23.2",
+      "test_cases": [
+        "import numpy as np\ntheta, phi = 0.0, np.pi\nassert np.allclose(fsim_unitary(theta, phi), target)",
+        "import numpy as np\ntheta, phi = 0.0, 0.0\nassert np.allclose(fsim_unitary(theta, phi), target)",
+        "import numpy as np\ntheta, phi = np.pi / 2.0, 0.0\nassert np.allclose(fsim_unitary(theta, phi), target)",
+        "def run_model():\n    try:\n        fsim_unitary(float('nan'), 0.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-23.3",
+      "test_cases": [
+        "import numpy as np\nunitary = np.eye(4, dtype=complex)\nassert np.allclose(pauli_transfer_matrix(unitary.copy()), target)",
+        "import numpy as np\nunitary = np.diag([1.0, 1.0, 1.0, -1.0]).astype(complex)\nassert np.allclose(pauli_transfer_matrix(unitary.copy()), target)",
+        "import numpy as np\nunitary = np.array([[(1+0j), 0j, 0j, 0j], [0j, (1+0j), 0j, 0j], [0j, 0j, (1+0j), 0j], [0j, 0j, 0j, (1+0j)]], dtype=np.complex128)\nassert np.allclose(pauli_transfer_matrix(unitary.copy()), target)",
+        "import numpy as np\nunitary = np.zeros((4, 4), dtype=complex)\ndef run_model():\n    try:\n        pauli_transfer_matrix(unitary.copy())\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-23.4",
+      "test_cases": [
+        "import numpy as np\nchi = np.eye(16, dtype=float)\ntau = 0.5\nassert np.allclose(retained_pair_table(chi.copy(), tau), target)",
+        "import numpy as np\nchi = np.eye(16, dtype=float)\ntau = 1.5\nassert np.allclose(retained_pair_table(chi.copy(), tau), target)",
+        "import numpy as np\nchi = np.array([[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 6.123233995736766e-17, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, -6.123233995736766e-17, 0.0], [0.0, -6.123233995736766e-17, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 6.123233995736766e-17, 1.0, 0.0], [0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 6.123233995736766e-17, 0.0, 0.0, -6.123233995736766e-17, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 6.123233995736766e-17, 0.0, 0.0, 6.123233995736766e-17, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, -6.123233995736766e-17, 0.0, 0.0, 0.0, -1.0, 6.123233995736766e-17, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, -6.123233995736766e-17, 0.0, 0.0, 6.123233995736766e-17, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, -6.123233995736766e-17, 0.0, 0.0, 6.123233995736766e-17, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, -6.123233995736766e-17, -1.0, 0.0, 0.0, 0.0, 6.123233995736766e-17, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 1.0, -6.123233995736766e-17, 0.0, 0.0, -6.123233995736766e-17, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 6.123233995736766e-17, 0.0, 0.0, -6.123233995736766e-17, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0], [0.0, 1.0, -6.123233995736766e-17, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 6.123233995736766e-17, 0.0], [0.0, 6.123233995736766e-17, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -6.123233995736766e-17, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0]], dtype=np.float64)\ntau = 1.0e-4\nassert np.allclose(retained_pair_table(chi.copy(), tau), target)",
+        "import numpy as np\nchi = np.eye(16, dtype=float)\ndef run_model():\n    try:\n        retained_pair_table(chi.copy(), -0.1)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nchi = np.eye(16, dtype=complex)\nchi[1, 1] = 1.0 + 0.3j\ndef run_model():\n    try:\n        retained_pair_table(chi.copy(), 0.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nchi = np.zeros((16, 16), dtype=float)\nchi[0, 0] = 1.0\ntau = 0.0\nassert np.allclose(retained_pair_table(chi.copy(), tau), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-23.5",
+      "test_cases": [
+        "import numpy as np\npair_a = np.array([0.0, 5.0, 1.0])\npair_b = np.array([0.0, 1.0, 0.5])\nassert np.allclose(pair_jointly_accessible(pair_a.copy(), pair_b.copy()), target)",
+        "import numpy as np\npair_a = np.array([5.0, 5.0, 1.0])\npair_b = np.array([10.0, 10.0, 0.5])\nassert np.allclose(pair_jointly_accessible(pair_a.copy(), pair_b.copy()), target)",
+        "import numpy as np\npair_a = np.array([1.0, 4.0, 0.2])\npair_b = np.array([4.0, 1.0, 0.3])\nassert np.allclose(pair_jointly_accessible(pair_a.copy(), pair_b.copy()), target)",
+        "import numpy as np\npair_a = np.array([16.0, 0.0, 1.0])\npair_b = np.array([0.0, 0.0, 1.0])\ndef run_model():\n    try:\n        pair_jointly_accessible(pair_a.copy(), pair_b.copy())\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-23.6",
+      "test_cases": [
+        "import numpy as np\npair_table = np.array([\n    [5.0, 5.0, 1.0],\n    [10.0, 10.0, 0.5],\n    [0.0, 1.0, 0.25],\n], dtype=float)\nassert np.allclose(partition_shot_overhead(pair_table.copy()), target)",
+        "import numpy as np\npair_table = np.zeros((0, 3), dtype=float)\nassert np.allclose(partition_shot_overhead(pair_table.copy()), target)",
+        "import numpy as np\nc2 = (2.0 + np.sqrt(2.0)) / 4.0\ns2 = (2.0 - np.sqrt(2.0)) / 4.0\npair_table = np.array([\n    [15.0, 15.0, 1.0],\n    [3.0, 3.0, c2],\n    [12.0, 12.0, c2],\n    [3.0, 12.0, s2],\n    [12.0, 3.0, s2],\n], dtype=float)\nassert np.allclose(partition_shot_overhead(pair_table.copy()), target)",
+        "import numpy as np\npair_table = np.array([[1.0, 2.0, 3.0, 4.0]], dtype=float)\ndef run_model():\n    try:\n        partition_shot_overhead(pair_table.copy())\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\npair_table = np.array([[16.0, 0.0, 1.0]], dtype=float)\ndef run_model():\n    try:\n        partition_shot_overhead(pair_table.copy())\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\npair_table = np.array([[0.5, 1.0, 1.0]], dtype=float)\ndef run_model():\n    try:\n        partition_shot_overhead(pair_table.copy())\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\npair_table = np.array([[1.0, 1.0, 0.0]], dtype=float)\ndef run_model():\n    try:\n        partition_shot_overhead(pair_table.copy())\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-23.7",
+      "test_cases": [
+        "import numpy as np\ntheta, phi, tau = 0.0, np.pi, 1.0e-4\nassert np.allclose(total_effective_support(theta, phi, tau), target)",
+        "import numpy as np\ntheta, phi, tau = np.pi / 2.0, 0.0, 1.0e-4\nassert np.allclose(total_effective_support(theta, phi, tau), target)",
+        "import numpy as np\ntheta, phi, tau = 0.0, np.pi / 2.0, 1.0e-4\nassert np.allclose(total_effective_support(theta, phi, tau), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        total_effective_support(0.0, 0.0, -1.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ntheta, phi, tau = 0.0, 0.0, 0.0\nassert np.allclose(total_effective_support(theta, phi, tau), target)",
+        "import numpy as np\ntheta, phi, tau = 0.0, np.pi, 0.0\nassert np.allclose(total_effective_support(theta, phi, tau), target)"
+      ]
+    }
+  ]
+}

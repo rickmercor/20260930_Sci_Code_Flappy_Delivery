@@ -1,0 +1,40 @@
+problem_id: "Physics-Computational_Physics-6"
+subject: "physics"
+subject_area: "Computational Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1038/s41467-026-76322-9"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_recover_field_geometry.py"
+    description: "Recover the local geometric information used by the field-derived transformation. For each nonzero design-state temperature gradient, calculate its magnitude, the reference-to-local gradient scale factor, and the rotation matrix whose first column is aligned with the local gradient direction."
+    orchestrator: false
+  - number: 2
+    name: "02_build_dual_jacobian.py"
+    description: "Construct the local geometric transformation used by the field-derived thermal-metamaterial method. For each cell, combine the recovered scale factor and gradient-aligned rotation with the conductivity-dependent transverse stretch, then calculate the determinant of the local Jacobian."
+    orchestrator: false
+  - number: 3
+    name: "03_compute_principal_conductivities.py"
+    description: "Calculate the two principal thermal conductivities required by the omnidirectional counterpart of each local unidirectional design. Keep the conductivity along the design-state temperature-gradient direction equal to the physical-equivalence conductivity and calculate the orthogonal principal conductivity from the field-derived construction."
+    orchestrator: false
+  - number: 4
+    name: "04_construct_conductivity_tensors.py"
+    description: "Construct the anisotropic thermal-conductivity tensor of each omnidirectional cell. Rotate the two principal conductivities from the local gradient-aligned basis into the common coordinate basis using the rotation recovered from the design-state temperature gradient."
+    orchestrator: false
+  - number: 5
+    name: "05_transform_heat_capacity.py"
+    description: "Calculate the transformed volumetric heat capacity required for transient conduction in each omnidirectional cell. Use the determinant of the recovered local Jacobian to transform the background thermal-storage property."
+    orchestrator: false
+  - number: 6
+    name: "06_evaluate_offset_response.py"
+    description: "Apply the specified fabrication-axis offsets to the ideal local anisotropic conductivity tensors and evaluate the transient response for one or more Hessian states. Rotate each ideal tensor using the signed counterclockwise offset, contract the realized tensor with the local temperature Hessian including the mixed-derivative term, divide by the transformed volumetric heat capacity, and combine the local rates using the prescribed area weights."
+    orchestrator: false
+  - number: 7
+    name: "07_infer_calibration_parameters.py"
+    description: "Recover all distinct fabrication-offset and background volumetric heat-capacity parameter sets that reproduce the measured transient calibration responses within the prescribed bounds. Solve the coupled bounded nonlinear inverse problem using one shared parameter vector across all calibration experiments, retain every distinct solution whose maximum absolute response residual is below the numerical tolerance, and return the solutions in deterministic lexicographic order."
+    orchestrator: false
+  - number: 8
+    name: "08_run_inverse_duality_pipeline.py"
+    description: "Run the complete inverse physical-geometric duality pipeline. Recover the ideal field-derived geometry and conductivity tensors, recover all bounded calibration parameter sets, use the independent laminate-orientation measurement together with the source-paper realization convention to select the physically admissible branch, construct the transformed heat capacities for that branch, and evaluate the independent prediction state without refitting."
+    orchestrator: true

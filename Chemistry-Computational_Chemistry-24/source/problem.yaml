@@ -1,0 +1,48 @@
+problem_id: "Chemistry-Computational_Chemistry-24"
+subject: "chemistry"
+subject_area: "Computational Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1021/acscatal.6c05102"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_parallel_rates"
+    description: "Return the type-B kinetic and inhibition-equilibrium quantities for a supplied two-landscape catalytic instance."
+    orchestrator: false
+  - number: 2
+    name: "02_master_generator"
+    description: "Return the six-state transition-rate generator for one active site."
+    orchestrator: false
+  - number: 3
+    name: "03_product_first_passage"
+    description: "Return next-product event statistics for every microscopic starting state."
+    orchestrator: false
+  - number: 4
+    name: "04_nonrenewal_turnover"
+    description: "Return long-run turnover statistics from the next-product summaries."
+    orchestrator: false
+  - number: 5
+    name: "05_static_turnover"
+    description: "Return the mean turnover time for the inhibited static type-A reference."
+    orchestrator: false
+  - number: 6
+    name: "06_catalytic_efficiency"
+    description: "Return the source-defined catalytic-efficiency scalar from static and dynamic mean turnover times."
+    orchestrator: false
+  - number: 7
+    name: "07_stationary_distribution"
+    description: "Return the long-run six-state occupancies of the dynamic catalyst."
+    orchestrator: false
+  - number: 8
+    name: "08_cycle_dissipation"
+    description: "Return the single-site loop currents, affinities, product flux, and dissipation per product."
+    orchestrator: false
+  - number: 9
+    name: "09_energy_efficiency"
+    description: "Return the source-defined energy-efficiency scalar from the supplied energetic and catalytic quantities."
+    orchestrator: false
+  - number: 10
+    name: "10_solve"
+    description: "Return the requested energy-efficiency benchmark for one complete kinetic instance."
+    orchestrator: true

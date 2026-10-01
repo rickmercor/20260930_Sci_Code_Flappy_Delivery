@@ -1,0 +1,44 @@
+problem_id: "Mathematics-Numerical_Linear_Algebra-2"
+subject: "mathematics"
+subject_area: "Numerical Linear Algebra"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2609.01031"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_generate_deterministic_inputs"
+    description: "Generate the numerical inputs required by the subsequent randomized preconditioning subproblems and return them as a single state. Use one NumPy default_rng(seed), draw $G\\in\\mathbb{R}^{p\\times p}$, then $C\\in\\mathbb{R}^{p\\times m}$, then $\\Omega\\in\\mathbb{R}^{m\\times k}$, all via standard_normal, and form $E=GG^T+pI_p$."
+    orchestrator: false
+  - number: 2
+    name: "02_solve_diagonal_and_exact_actions"
+    description: "Given the SPD block $E$, constraint matrix $C$, and sketch matrix $\\Omega$, compute the inverse actions required by the subsequent randomized preconditioning subproblems and return the resulting state."
+    orchestrator: false
+  - number: 3
+    name: "03_form_sample_matrix"
+    description: "Form the sample matrix required by the subsequent randomized preconditioning subproblems from the outputs of the preceding step."
+    orchestrator: false
+  - number: 4
+    name: "04_thin_qr_orthonormal_basis"
+    description: "Extract the orthonormal basis required by the subsequent randomized preconditioning subproblems from the sample matrix."
+    orchestrator: false
+  - number: 5
+    name: "05_form_regularized_core"
+    description: "Construct the core matrix required by the subsequent randomized preconditioning subproblem from the previously computed state and sketch."
+    orchestrator: false
+  - number: 6
+    name: "06_assemble_low_rank_correction"
+    description: "Assemble the low-rank correction matrix required by the subsequent randomized preconditioning subproblem from the previously computed basis and core."
+    orchestrator: false
+  - number: 7
+    name: "07_differentiate_correction_sketch"
+    description: "Compute the first and mixed second derivatives of the recovered correction under the two-parameter sketch perturbation $\\Omega(s,t)=\\Omega+sP+tQ$."
+    orchestrator: false
+  - number: 8
+    name: "08_mixed_generalized_projector_derivative"
+    description: "Compute the mixed derivative of the invariant projector onto the leading generalized eigenspace of a symmetric matrix pencil with a varying positive-definite metric."
+    orchestrator: false
+  - number: 9
+    name: "09_full_pipeline_mixed_sketch_sensitivity"
+    description: "Run the randomized correction, its sketch derivatives, and the generalized spectral sensitivity calculation, returning $\\|\\Pi_{st}\\|_F$."
+    orchestrator: true

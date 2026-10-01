@@ -1,0 +1,77 @@
+{
+  "problem_id": "Biology-Genetics-13",
+  "sub_steps": [
+    {
+      "step_number": "Biology-Genetics-13.1",
+      "test_cases": [
+        "import numpy as np\nimport numpy as np\nalternate = np.array([[0, 0, 1, 1], [1, 0, 1, 0]], dtype=np.uint8)\nobserved = np.ones((2, 4), dtype=np.uint8)\nancestral = np.array([1, 0], dtype=np.uint8)\nassert np.allclose(polarize_carrier_sets(alternate, observed, ancestral).tolist(), target)",
+        "import numpy as np\nimport numpy as np\nalternate = np.array([[0]], dtype=np.uint8)\nobserved = np.array([[0]], dtype=np.uint8)\nancestral = np.array([1], dtype=np.uint8)\nassert np.allclose(polarize_carrier_sets(alternate, observed, ancestral).tolist(), target)",
+        "import numpy as np\nimport numpy as np\nalternate = np.array([[1, 0]], dtype=np.uint8)\nobserved = np.array([[0, 1]], dtype=np.uint8)\nancestral = np.array([1], dtype=np.uint8)\ndef run_model():\n    try:\n        polarize_carrier_sets(alternate, observed, ancestral)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-13.2",
+      "test_cases": [
+        "import numpy as np\nimport numpy as np\ncarriers = np.array([[1, 0, 1], [0, 1, 1], [1, 1, 0], [0, 0, 1], [1, 0, 0]], dtype=np.uint8)\nword_size = 4\nassert np.allclose(pack_leaf_memberships(carriers, word_size=word_size).tolist(), target)",
+        "import numpy as np\nimport numpy as np\ncarriers = np.array([[1]], dtype=np.uint8)\nword_size = 1\nassert np.allclose(pack_leaf_memberships(carriers, word_size=word_size).tolist(), target)",
+        "import numpy as np\nimport numpy as np\ncarriers = np.array([[1, 2]], dtype=int)\ndef run_model():\n    try:\n        pack_leaf_memberships(carriers, word_size=4)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-13.3",
+      "test_cases": [
+        "def _pack_encoding(enc):\n    out = []\n    for key in (\"descendant_lists\", \"storage\"):\n        rows = enc[key]\n        out.append(float(len(rows)))\n        for row in rows:\n            out.append(float(len(row)))\n            out.extend(float(v) for v in row)\n    out.extend(float(v) for v in enc[\"dense_flags\"])\n    out.extend(float(v) for v in enc[\"cardinalities\"])\n    return out\nchildren = [[], [], [], [], [0, 1], [2, 3], [4, 5]]\nn_samples = 4\ndense_threshold = 0.75\nassert np.allclose(_pack_encoding(encode_adaptive_descendants(children, n_samples, dense_threshold)), target)",
+        "def _pack_encoding(enc):\n    out = []\n    for key in (\"descendant_lists\", \"storage\"):\n        rows = enc[key]\n        out.append(float(len(rows)))\n        for row in rows:\n            out.append(float(len(row)))\n            out.extend(float(v) for v in row)\n    out.extend(float(v) for v in enc[\"dense_flags\"])\n    out.extend(float(v) for v in enc[\"cardinalities\"])\n    return out\nchildren = [[]]\nn_samples = 1\ndense_threshold = 1.0\nassert np.allclose(_pack_encoding(encode_adaptive_descendants(children, n_samples, dense_threshold)), target)",
+        "children = [[], [], [0, 1], [2, 0]]\nn_samples = 2\ndense_threshold = 0.5\ndef run_model():\n    try:\n        encode_adaptive_descendants(children, n_samples, dense_threshold)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-13.4",
+      "test_cases": [
+        "def _pack_lol(rows):\n    out = [float(len(rows))]\n    for row in rows:\n        out.append(float(len(row)))\n        out.extend(float(v) for v in row)\n    return out\ndef _pack_discovery(d):\n    out = []\n    for key in (\"node_states\", \"candidate_lists\", \"candidate_sizes\"):\n        out.extend(_pack_lol(d[key]))\n    out.append(float(len(d[\"visited_nodes\"])))\n    out.extend(float(v) for v in d[\"visited_nodes\"])\n    return out\nimport numpy as np\nchildren = [[], [], [], [], [0, 1], [2, 3], [4, 5]]\nn_samples = 4\npacked = np.array([[1], [3], [2], [0]], dtype=np.int64)\ndescendants = [[0], [1], [2], [3], [0, 1], [2, 3], [0, 1, 2, 3]]\nn_updates = 2\nword_size = 2\nassert np.allclose(_pack_discovery(discover_shared_candidates(children, n_samples, packed, descendants, n_updates, word_size)), target)",
+        "def _pack_lol(rows):\n    out = [float(len(rows))]\n    for row in rows:\n        out.append(float(len(row)))\n        out.extend(float(v) for v in row)\n    return out\ndef _pack_discovery(d):\n    out = []\n    for key in (\"node_states\", \"candidate_lists\", \"candidate_sizes\"):\n        out.extend(_pack_lol(d[key]))\n    out.append(float(len(d[\"visited_nodes\"])))\n    out.extend(float(v) for v in d[\"visited_nodes\"])\n    return out\nimport numpy as np\nchildren = [[]]\nn_samples = 1\npacked = np.array([[1]], dtype=np.int64)\ndescendants = [[0]]\nn_updates = 1\nword_size = 1\nassert np.allclose(_pack_discovery(discover_shared_candidates(children, n_samples, packed, descendants, n_updates, word_size)), target)",
+        "import numpy as np\nchildren = [[], [], [0, 1]]\nn_samples = 2\npacked = np.array([[1], [1]], dtype=np.int64)\ndescendants = [[0], [1], [0, 1]]\nn_updates = 1\nword_size = 1\npacked[0, 0] = 2\ndef run_model():\n    try:\n        discover_shared_candidates(children, n_samples, packed, descendants, n_updates, word_size)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-13.5",
+      "test_cases": [
+        "def _pack_lol(rows):\n    out = [float(len(rows))]\n    for row in rows:\n        out.append(float(len(row)))\n        out.extend(float(v) for v in row)\n    return out\ndef _pack_plan(p):\n    out = [float(len(p[\"exact_nodes\"]))]\n    out.extend(float(v) for v in p[\"exact_nodes\"])\n    for key in (\"selected_candidates\", \"uncovered_samples\", \"target_lists\"):\n        out.extend(_pack_lol(p[key]))\n    out.extend(float(v) for v in p[\"creates_node\"])\n    return out\nimport numpy as np\ncandidates = [[4]]\ndescendants = [[0], [1], [2], [3], [0, 1], [2, 3], [0, 1, 2, 3]]\ntargets = np.array([[1, 1, 1, 0]], dtype=np.uint8)\nn_samples = 4\nassert np.allclose(_pack_plan(plan_greedy_attachments(candidates, descendants, targets, n_samples)), target)",
+        "def _pack_lol(rows):\n    out = [float(len(rows))]\n    for row in rows:\n        out.append(float(len(row)))\n        out.extend(float(v) for v in row)\n    return out\ndef _pack_plan(p):\n    out = [float(len(p[\"exact_nodes\"]))]\n    out.extend(float(v) for v in p[\"exact_nodes\"])\n    for key in (\"selected_candidates\", \"uncovered_samples\", \"target_lists\"):\n        out.extend(_pack_lol(p[key]))\n    out.extend(float(v) for v in p[\"creates_node\"])\n    return out\nimport numpy as np\ncandidates = [[2]]\ndescendants = [[0], [1], [0, 1]]\ntargets = np.array([[1, 1]], dtype=np.uint8)\nn_samples = 2\nassert np.allclose(_pack_plan(plan_greedy_attachments(candidates, descendants, targets, n_samples)), target)",
+        "import numpy as np\ncandidates = [[2]]\ndescendants = [[0], [1], [0, 1]]\ntargets = np.array([[1, 0]], dtype=np.uint8)\nn_samples = 2\ndef run_model():\n    try:\n        plan_greedy_attachments(candidates, descendants, targets, n_samples)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-13.6",
+      "test_cases": [
+        "def _pack_lol(rows):\n    out = [float(len(rows))]\n    for row in rows:\n        out.append(float(len(row)))\n        out.extend(float(v) for v in row)\n    return out\ndef _pack_batch(b):\n    out = _pack_lol(b[\"children\"])\n    out.append(float(len(b[\"attachment_nodes\"])))\n    out.extend(float(v) for v in b[\"attachment_nodes\"])\n    out.append(float(len(b[\"new_node_ids\"])))\n    out.extend(float(v) for v in b[\"new_node_ids\"])\n    out.append(float(b[\"edge_count\"]))\n    return out\nchildren = [[], [], [], [], [0, 1], [2, 3]]\nplan = {\"exact_nodes\": [-1, -1], \"selected_candidates\": [[4], [4]], \"uncovered_samples\": [[2], [3]], \"creates_node\": [1, 1]}\nn_samples = 4\nassert np.allclose(_pack_batch(apply_snapshot_batch(children, plan, n_samples)), target)",
+        "def _pack_lol(rows):\n    out = [float(len(rows))]\n    for row in rows:\n        out.append(float(len(row)))\n        out.extend(float(v) for v in row)\n    return out\ndef _pack_batch(b):\n    out = _pack_lol(b[\"children\"])\n    out.append(float(len(b[\"attachment_nodes\"])))\n    out.extend(float(v) for v in b[\"attachment_nodes\"])\n    out.append(float(len(b[\"new_node_ids\"])))\n    out.extend(float(v) for v in b[\"new_node_ids\"])\n    out.append(float(b[\"edge_count\"]))\n    return out\nchildren = [[], [], [0, 1]]\nplan = {\"exact_nodes\": [2], \"selected_candidates\": [[]], \"uncovered_samples\": [[]], \"creates_node\": [0]}\nn_samples = 2\nassert np.allclose(_pack_batch(apply_snapshot_batch(children, plan, n_samples)), target)",
+        "children = [[], [], [0, 1]]\nplan = {\"exact_nodes\": [-1], \"selected_candidates\": [[3]], \"uncovered_samples\": [[]], \"creates_node\": [1]}\nn_samples = 2\ndef run_model():\n    try:\n        apply_snapshot_batch(children, plan, n_samples)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-13.7",
+      "test_cases": [
+        "import numpy as np\nimport numpy as np\nchildren = [[], [], [], [], [0, 1], [2, 3], [4, 5]]\nn_samples = 4\ncarriers = np.array([[1, 1, 0, 0], [0, 1, 1, 0]], dtype=np.uint8)\nassert np.allclose(trace_independent_visits(children, n_samples, carriers)['visit_matrix'].tolist(), target)",
+        "import numpy as np\nimport numpy as np\nchildren = [[]]\nn_samples = 1\ncarriers = np.array([[1]], dtype=np.uint8)\nassert np.allclose(trace_independent_visits(children, n_samples, carriers)['visited_counts'], target)",
+        "import numpy as np\nimport numpy as np\nchildren = [[], [], [0, 1]]\nn_samples = 2\ncarriers = np.array([[0, 0]], dtype=np.uint8)\ndef run_model():\n    try:\n        trace_independent_visits(children, n_samples, carriers)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-13.8",
+      "test_cases": [
+        "def _pack_overlap(o):\n    return [\n        float(o[\"independent_visits\"]),\n        float(o[\"distinct_visits\"]),\n        float(o[\"word_count\"]),\n        float(o[\"overlap_factor\"]),\n        float(o[\"shared_advantage\"]),\n    ]\nimport numpy as np\nvisits = np.array([[1, 1, 0, 1], [0, 1, 1, 1], [1, 1, 1, 1]], dtype=np.uint8)\nword_size = 2\nassert np.allclose(_pack_overlap(compute_overlap_factor(visits, word_size=word_size)), target)",
+        "def _pack_overlap(o):\n    return [\n        float(o[\"independent_visits\"]),\n        float(o[\"distinct_visits\"]),\n        float(o[\"word_count\"]),\n        float(o[\"overlap_factor\"]),\n        float(o[\"shared_advantage\"]),\n    ]\nimport numpy as np\nvisits = np.array([[1]], dtype=np.uint8)\nword_size = 1\nassert np.allclose(_pack_overlap(compute_overlap_factor(visits, word_size=word_size)), target)",
+        "import numpy as np\nvisits = np.array([[1, 2]], dtype=int)\ndef run_model():\n    try:\n        compute_overlap_factor(visits, word_size=2)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-13.9",
+      "test_cases": [
+        "import numpy as np\nimport numpy as np\nchildren = [[], [], [], [], [0, 1], [2, 3], [4, 5]]\nn_samples = 4\nalternate = np.array([[0, 0, 0, 1], [1, 1, 0, 0]], dtype=np.uint8)\nobserved = np.ones((2, 4), dtype=np.uint8)\nancestral = np.ones(2, dtype=np.uint8)\naudit = np.array([[1, 1, 1, 0], [0, 1, 1, 1]], dtype=np.uint8)\nassert np.allclose(float(run_full_pipeline(children, n_samples, alternate, observed, ancestral, audit, word_size=2, dense_threshold=0.5)), target)",
+        "import numpy as np\nimport numpy as np\nchildren = [[], [], [0, 1]]\nn_samples = 2\nalternate = np.array([[0, 0]], dtype=np.uint8)\nobserved = np.ones((1, 2), dtype=np.uint8)\nancestral = np.ones(1, dtype=np.uint8)\naudit = np.array([[1, 1]], dtype=np.uint8)\nassert np.allclose(float(run_full_pipeline(children, n_samples, alternate, observed, ancestral, audit, word_size=1, dense_threshold=1.0)), target)",
+        "import numpy as np\nimport numpy as np\nchildren = [[], [], [0, 1]]\nn_samples = 2\nalternate = np.array([[0, 0]], dtype=np.uint8)\nobserved = np.ones((1, 2), dtype=np.uint8)\nancestral = np.ones(1, dtype=np.uint8)\naudit = np.array([[1, 1]], dtype=np.uint8)\ndef run_model():\n    try:\n        run_full_pipeline(children, n_samples, alternate, observed, ancestral, audit, dense_threshold=1.5)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

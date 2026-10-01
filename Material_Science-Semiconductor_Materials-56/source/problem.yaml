@@ -1,0 +1,48 @@
+problem_id: "Material_Science-Semiconductor_Materials-56"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2607.03226"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_build_spectral_model"
+    description: "Sample the isotropic phonon spectrum of the testbed material and return, for every sampled shell, its angular frequency, its group velocity and the volumetric heat capacity it contributes at the reference temperature."
+    orchestrator: false
+  - number: 2
+    name: "02_calibrate_umklapp_coefficient"
+    description: "Fix the strength of the anharmonic scattering term of the lifetime model by requiring the bulk relaxation-time-approximation conductivity of the sampled spectrum to reproduce a prescribed value."
+    orchestrator: false
+  - number: 3
+    name: "03_discretize_phonon_bands"
+    description: "Compress the sampled spectrum into a small set of representative phonon bands of equal contribution to the bulk conductivity, each carrying one heat capacity, one group velocity and one relaxation time."
+    orchestrator: false
+  - number: 4
+    name: "04_build_angular_quadrature"
+    description: "Build the discrete-ordinates set for one-dimensional cross-plane transport, returning the direction cosines and the solid-angle weights that integrate a distribution over the full sphere."
+    orchestrator: false
+  - number: 5
+    name: "05_assemble_transport_operator"
+    description: "Assemble the reusable finite-volume transport matrices for every band-direction pair on the one-dimensional mesh, combining the collision term with the upwinded advection term and the thermalising wall condition."
+    orchestrator: false
+  - number: 6
+    name: " 06_distribute_mode_source"
+    description: "Convert a volumetric dissipation profile into the per-band, per-direction source density that enters each band-direction transport equation."
+    orchestrator: false
+  - number: 7
+    name: "07_solve_transport_sweep"
+    description: "Reuse the preassembled band-direction transport operators to solve every transport equation once for a frozen lattice-temperature field and return the resulting deviational energy-density tensor."
+    orchestrator: false
+  - number: 8
+    name: "08_compute_macroscopic_fields"
+    description: "Reduce the band-direction energy tensor to the three macroscopic fields the outer iteration needs: the lattice temperature implied by the collision balance, the heat flux, and the divergence of that flux."
+    orchestrator: false
+  - number: 9
+    name: "9_update_macroscopic_temperature"
+    description: "Solve the macroscopic diffusion equation for the temperature field driven by the dissipation and by the divergence of the non-Fourier part of the heat flux, between isothermal walls."
+    orchestrator: false
+  - number: 10
+    name: "10_run_self_heating_pipeline"
+    description: "Chain the sub-problem functions 01-09 end to end on the film testbed and return the self-heating amplification factor, the peak kinetic temperature rise divided by the peak Fourier temperature rise."
+    orchestrator: true

@@ -1,0 +1,40 @@
+problem_id: "Physics-Condensed_Matter_Physics-45"
+subject: "physics"
+subject_area: "Condensed Matter Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1103/b2ny-jh15"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_compute_spin_casimir.py"
+    description: "Compute the finite-spin Casimir retained by the semiclassical spin-correlation mapping."
+    orchestrator: false
+  - number: 2
+    name: "02_compute_bond_quantities.py"
+    description: "Compute the equal-time Heisenberg bond correlation and the corresponding semiclassical exchange energy."
+    orchestrator: false
+  - number: 3
+    name: "03_compute_dimer_rhs.py"
+    description: "Evaluate the four real semiclassical correlation derivatives for the isolated dissipative Heisenberg dimer."
+    orchestrator: false
+  - number: 4
+    name: "04_integrate_dimer.py"
+    description: "Propagate the four semiclassical correlation variables from the initial state to specified observation times."
+    orchestrator: false
+  - number: 5
+    name: "05_compute_calibration_residuals.py"
+    description: "Compute the four calibration residuals, their unweighted sum of squares, and the residual sensitivities with respect to $J$ and $\\eta$ by propagating the tangent dynamics."
+    orchestrator: false
+  - number: 6
+    name: "06_fit_dimer_parameters.py"
+    description: "Determine the bounded global calibration minimum and refine it using the propagated residual-sensitivity Jacobian."
+    orchestrator: false
+  - number: 7
+    name: "07_find_first_correlation_crossing.py"
+    description: "Continue the dimer trajectory and determine the earliest time after a supplied starting time at which the bond correlation reaches a target value."
+    orchestrator: false
+  - number: 8
+    name: "08_solve_dimer_calibration.py"
+    description: "Calibrate $J$ and $\\eta$ from the four measurements and return the first post-calibration crossing of the supplied bond-correlation target."
+    orchestrator: true

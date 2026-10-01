@@ -1,0 +1,40 @@
+problem_id: "Mathematics-Computational_Finance-5"
+subject: "mathematics"
+subject_area: "Computational Finance"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: " https://doi.org/10.48550/arXiv.2607.25599"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_matched_arrival_rate"
+    description: "Calibrate immigration while preserving the expected total number of jumps.\n\n\n\nThe activation process starts at q0. Arrivals have intensity lambda+alpha*Q\n\nand increase Q by one; expirations have intensity beta*Q and decrease Q by\n\none. Choose the constant baseline lambda(alpha) so E[N(T)-N(0)]=target,\n\nwhere N counts arrivals and alpha is the clustering rate. Return lambda\n\nand its first two ordinary derivatives with respect to alpha. Hold T,\n\ntarget, beta and q0 fixed. Derive the expectation from these birth and\n\ndeath dynamics, and evaluate the derivatives analytically."
+    orchestrator: false
+  - number: 2
+    name: "02_queue_kernel_curvature"
+    description: "Differentiate the persistent marked-queue transition law twice.\n\n\n\nQ increases by one at rate lambda(alpha)+alpha*Q and decreases by one at\n\nrate beta*Q. Every increase adds an independent N(mu_J,sigma_J**2) mark to\n\nthe uncompensated sum M. The initial state q is fixed. lambda_jet contains\n\nlambda, d lambda/d alpha, and d2 lambda/d alpha2 at the nominal alpha.\n\nThe remaining model parameters and the time interval are held fixed.\n\n\n\nFor q,j=0,...,max_state, and each frequency v[k], compute the value and\n\nfirst two ordinary alpha derivatives of\n\nE[exp(1j*v[k]*(M(tau)-M(0))) * 1{Q(tau)=j} | Q(0)=q].\n\nThe last axis enumerates the real frequencies, the middle two enumerate\n\ninitial and terminal queue states, and the leading axis contains derivative\n\norders 0,1,2. Order two is the second derivative, not half of it.\n\n\n\nThe state process is infinite; trajectories above max_state that return\n\nbefore tau contribute. Do not renormalize the retained endpoint states.\n\nObtain the derivatives from the exact joint generating function through\n\nanalytic differentiation. Finite differences, numerical Fourier inversion,\n\nsimulation, time integration and finite-state generator exponentiation are\n\nnot permitted in this function. No diffusion factor or discount is included."
+    orchestrator: false
+  - number: 3
+    name: "03_diffusion_discount_factor"
+    description: "Transform and discount the independent continuous log-value increment. For a window of length tau, the continuous increment is normal with mean (mu-sigma**2/2)*tau and variance sigma**2*tau. Compute its characteristic function at the supplied real frequencies, multiplied by exp(-rho*tau). The drift mu and discount rate rho are separate project parameters."
+    orchestrator: false
+  - number: 4
+    name: "04_call_payoff_cosine_coeffs"
+    description: "Implement $call_payoff_cosine_coeffs$ for a terminal call payoff. On a finite interval $[a_p, b_p]$ of the terminal log-value $y$, define the frequencies $w_k = k * pi / (b_p - a_p)$ for $k = 0, ..., N_in - 1$ and the projections of the payoff $max(exp(y) - K, 0)$ onto the shifted cosine basis, V_k = (2 / (b_p - a_p)) * integral over [a_p, b_p] of max(exp(y) - K, 0) * cos(w_k * (y - a_p)) dy .\n\nReturn the vector of those projections. They must be evaluated exactly rather than by numerical quadrature: the interval reaches log-values near 20 in the intended use, the integrand therefore reaches magnitudes near `1e8`, and a quadrature rule loses the leading digits of the alternating sum that the later steps form from these coefficients."
+    orchestrator: false
+  - number: 5
+    name: "05_state_continuation_jet"
+    description: "Propagate value coefficients and clustering derivatives through queue states. kernel_jet[d,q,j,k] contains the d-th ordinary alpha derivative, d=0,1,2, of the marked transition transform from state q to state j at frequency k. payoff_jet[d,j,k] contains the corresponding derivatives of the real cosine payoff coefficient in terminal state j. The complex diffusion vector is independent of alpha and already includes the window's discount factor.\n\nReturn the value and first two derivatives of the complex coefficients C[q,k] = diffusion[k] * sum_j kernel[0,q,j,k]*payoff[0,j,k] These are unprimed coefficients: the half weight of frequency zero is applied when evaluating the trigonometric expansion, not in this step."
+    orchestrator: false
+  - number: 6
+    name: "06_queue_exercise_boundaries"
+    description: "Find the numerical exercise boundary separately for every activation state. For row q of C define V_q(x)=sum_k' Re(C[q,k]*exp(1j*omega[k]*(x-a_next))). The prime halves k=0. Solve V_q(x_q)=cost for every row on the supplied outer interval [a,b], using absolute and relative root tolerances 1e-12. Require V_q(a)<cost<V_q(b). Valid inputs have exactly one crossing and positive slope there; these properties are guaranteed apart from the explicitly checked endpoint bracket."
+    orchestrator: false
+  - number: 7
+    name: "07_queue_payoff_jet"
+    description: "Project the compound payoff and its clustering derivatives analytically. For activation state q, C[d,q,k] is the d-th ordinary parameter derivative of the complex coefficient of a finite continuation curve V_q(x), d=0,1,2. The curve uses Re(C*exp(1j*omega*(x-a_next))), with k=0 half weighted. At nominal parameter alpha the supplied root r_q solves V_q(r_q)=cost, with positive x derivative. The cost, intervals and frequencies are fixed as alpha varies; the coefficients and exercise boundaries vary.\n\nReturn the value and first two alpha derivatives of the normalized outer projection 2/(b-a) integral from r_q(alpha) to b of (V_q(x,alpha)-cost)*cos(nu[n]*(x-a)) dx, for every q and outer mode n. Evaluate the integrals and boundary-motion terms analytically, without numerical quadrature or finite differences. Equal inner and outer frequencies, and both zero frequencies, are admissible."
+    orchestrator: false
+  - number: 8
+    name: "08_persistent_clustering_curvature"
+    description: "Compute clustering curvature of a staged investment right at fixed jump count. At times[0],...,times[d-1] the firm may pay costs[i] to continue. At times[d] it receives max(S-Kterm,0). The continuous log increment over dt is normal with mean (mu-sigma**2/2)*dt and variance sigma**2*dt. The independent marked Queue-Hawkes component of step 2 runs over the entire horizon, without resetting activation at decision dates. Marks are uncompensated. Discount every time interval at rho. \n\nFor each alpha near its nominal value, choose a single baseline arrival rate using matched_arrival_rate(times[-1],target,alpha,beta,q0). This global calibration is shared by all increments. Define V(alpha) using the finite analytic COS recursion, conditioned on every activation state 0,...,max_state at each date. Exact transition coefficients include excursions above the cutoff between dates. At any retained date, including terminal maturity, continuation/payoff is set to zero for states above the cutoff, without renormalization of the remaining states. Return d2 V/d alpha2. All other scalar parameters, date intervals, frequency counts and activation cutoff are held fixed. Differentiate the transition kernels, calibrated baseline and every moving exercise boundary analytically. Do not finite-difference prices or integrate intermediate payoffs numerically.\n\nUse all seven preceding functions: matched_arrival_rate, queue_kernel_curvature, diffusion_discount_factor, call_payoff_cosine_coeffs, state_continuation_jet, queue_exercise_boundaries and queue_payoff_jet. Frequencies on each date are k*pi/(b-a), k=0,...,N-1. The terminal call coefficients are identical in every retained queue state and have zero alpha derivatives. At the initial state x=log(S0), use the usual half weight on frequency zero."
+    orchestrator: true

@@ -1,0 +1,44 @@
+problem_id: "Biology-Ecology-7"
+subject: "biology"
+subject_area: "Ecology"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2609.09343"
+dependencies: ""
+steps:
+  - number: 1
+    name: "single_pest_orbit"
+    description: "Determine the post-spray density of the positive periodic orbit for a single pest strain evolving on a one-dimensional boundary face. The population follows logistic growth between sprays and is instantaneously multiplied by the prescribed pulse factor at each intervention. Identify the positive fixed point of the resulting pulse-to-pulse dynamics rather than estimating it from a finite-time simulation. The calculation must reject parameter regimes in which a positive periodic orbit does not exist."
+    orchestrator: false
+  - number: 2
+    name: "stroboscopic_map"
+    description: "Evaluate one complete post-spray-to-post-spray cycle of the four-species periodically pulsed community. Starting from a specified nonnegative post-spray state, evolve the continuous ecological system for exactly one spray interval and then apply the componentwise multiplicative pulse. Depending on the requested component, return either the corresponding post-spray state coordinate or the continuous per-capita growth integral accumulated during the interval. Preserve the distinction between continuous evolution and the instantaneous intervention."
+    orchestrator: false
+  - number: 3
+    name: "pest_face_mean_density"
+    description: "Compute the period-averaged density of a specified pest strain on a positive periodic orbit supported entirely on a pest-only boundary face. The calculation must use the pulse-adjusted periodic balance of the selected face rather than substituting an equilibrium density from the unsprayed model. Return the average density over one complete inter-spray interval for the requested resident strain, while validating that the selected face actually supports a positive periodic state."
+    orchestrator: false
+  - number: 4
+    name: "face_orbit_post_pulse"
+    description: "Locate the positive periodic orbit supported on a specified boundary face by solving the fixed-point equations of the post-spray one-interval map. Use the supplied post-spray state as the starting point for the nonlinear solve and return the requested species coordinate at the post-spray section. The result must correspond to a genuinely positive periodic orbit of the pulsed system and satisfy the fixed-point residual requirement in maximum norm."
+    orchestrator: false
+  - number: 5
+    name: "stroboscopic_floquet_radius"
+    description: "Determine the largest modulus of the Floquet multipliers associated with perturbations that remain within a specified boundary face. Differentiate the post-spray one-interval map at the supplied periodic state, restrict the resulting Jacobian to the coordinates corresponding to species present on the face, and compute its spectral radius. Do not include transverse directions corresponding to absent species."
+    orchestrator: false
+  - number: 6
+    name: "pulsed_invasion_rate"
+    description: "Compute the long-term per-unit-time growth rate of a specified species along a boundary periodic orbit. Integrate that species' continuous per-capita growth rate over one complete inter-spray interval and incorporate the species-specific logarithmic contribution from its own multiplicative pulse. Normalize the complete period growth by the physical spray interval. The calculation must be valid both for resident species and for species absent from the boundary orbit."
+    orchestrator: false
+  - number: 7
+    name: "boundary_census"
+    description: "Enumerate the positive periodic population states supported on the proper non-empty boundary faces of the four-species pulsed community. Determine which faces actually carry positive periodic orbits under the current pulse vector, rather than assuming that every orbit of the corresponding untreated system persists after intervention. Count the non-trivial boundary periodic orbits while excluding the origin, and maintain consistency across the face-level orbit calculations."
+    orchestrator: false
+  - number: 8
+    name: "permanence_margin"
+    description: "Construct the finest Morse decomposition of the pulsed boundary attractor and determine the permanence certificate associated with each Morse component. For each component containing multiple boundary invariant orbits, identify a single common probability weighting over the relevant species growth rates and solve the resulting max-min optimization problem. The component value is the largest guaranteed weighted growth shared across all invariant orbits represented by that component. Return the minimum component value over the complete boundary decomposition."
+    orchestrator: false
+  - number: 9
+    name: "critical_pulse_scale"
+    description: "Determine the unique pulse-strength scale at which the signed normalized permanence margin changes sign. The spray interval and ecological parameters remain fixed, while a single dimensionless scale modifies the logarithmic strength of every multiplicative pulse relative to the reference pulse vector. For every trial scale, independently rebuild the pulsed boundary dynamics, identify the existing periodic boundary orbits, reconstruct the finest Morse decomposition, recompute all pulse-adjusted invasion rates, solve the associated weighted max-min certificates, and evaluate the resulting permanence margin. The Morse decomposition is compared with the reference decomposition at each trial value; a change in decomposition invalidates the supplied fixed-bracket calculation. Locate the zero of the fully recomputed margin within the supplied bracket to the required absolute tolerance."
+    orchestrator: true

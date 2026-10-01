@@ -1,0 +1,114 @@
+{
+  "problem_id": "Physics-Condensed_Matter_Physics-21",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-21.1",
+      "test_cases": [
+        "import numpy as np\nlow = np.array([1.00, 0.32, 0.018])\nhigh = np.array([2.60, 4.80, 3.500])\nmu = 1.00\nassert np.allclose(allowed_density_bounds(mu, low.copy(), high.copy()), target)",
+        "import numpy as np\nlow = np.array([1.00, 0.32, 0.018])\nhigh = np.array([2.60, 4.80, 3.500])\nmu = 1.40\nassert np.allclose(allowed_density_bounds(mu, low.copy(), high.copy()), target)",
+        "import numpy as np\nlow = np.array([1.00, 0.32, 0.018])\nhigh = np.array([2.60, 4.80, 3.500])\nmu = 2.20\nassert np.allclose(allowed_density_bounds(mu, low.copy(), high.copy()), target)",
+        "import numpy as np\nlow = np.array([1.00, 0.32, 0.018])\nhigh = np.array([2.60, 4.80, 3.500])\nmu = 2.60\nassert np.allclose(allowed_density_bounds(mu, low.copy(), high.copy()), target)",
+        "import numpy as np\nlow = np.array([1.05, 0.40, 0.025])\nhigh = np.array([2.40, 4.00, 2.800])\nmu = 1.80\nassert np.allclose(allowed_density_bounds(mu, low.copy(), high.copy()), target)",
+        "import numpy as np\nlow = np.array([1.00, 0.32, 0.018])\nhigh = np.array([2.60, 4.80, 3.500])\nmu = 3.10\ndef run_model():\n    try:\n        allowed_density_bounds(mu, low.copy(), high.copy())\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nlow = np.array([1.00, 0.32, 0.018])\nhigh = np.array([2.60, 4.80, 6.200])\nmu = 1.50\ndef run_model():\n    try:\n        allowed_density_bounds(mu, low.copy(), high.copy())\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-21.2",
+      "test_cases": [
+        "import numpy as np\nlow = np.array([1.00, 0.32, 0.018])\nhigh = np.array([2.60, 4.80, 3.500])\nmu = 1.40\nn = 0.60\nassert np.allclose(allowed_pressure_bounds(mu, n, low.copy(), high.copy()), target)",
+        "import numpy as np\nlow = np.array([1.00, 0.32, 0.018])\nhigh = np.array([2.60, 4.80, 3.500])\nmu = 1.40\nn = 1.80\nassert np.allclose(allowed_pressure_bounds(mu, n, low.copy(), high.copy()), target)",
+        "import numpy as np\nlow = np.array([1.00, 0.32, 0.018])\nhigh = np.array([2.60, 4.80, 3.500])\nmu = 1.40\nn = 0.44799999999999995\nassert np.allclose(allowed_pressure_bounds(mu, n, low.copy(), high.copy()), target)",
+        "import numpy as np\nlow = np.array([1.00, 0.32, 0.018])\nhigh = np.array([2.60, 4.80, 3.500])\nmu = 2.40\nn = 4.20\nassert np.allclose(allowed_pressure_bounds(mu, n, low.copy(), high.copy()), target)",
+        "import numpy as np\nlow = np.array([1.05, 0.40, 0.025])\nhigh = np.array([2.40, 4.00, 2.800])\nmu = 1.80\nn = 2.00\nassert np.allclose(allowed_pressure_bounds(mu, n, low.copy(), high.copy()), target)",
+        "import numpy as np\nlow = np.array([1.00, 0.32, 0.018])\nhigh = np.array([2.60, 4.80, 3.500])\nmu = 1.40\nn = 0.10\ndef run_model():\n    try:\n        allowed_pressure_bounds(mu, n, low.copy(), high.copy())\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nlow = np.array([1.00, 0.32, 0.018])\nhigh = np.array([2.60, 4.80, 3.500])\nmu = 1.40\nn = 9.00\ndef run_model():\n    try:\n        allowed_pressure_bounds(mu, n, low.copy(), high.copy())\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-21.3",
+      "test_cases": [
+        "import numpy as np\nlow = np.array([1.00, 0.32, 0.018])\nhigh = np.array([2.60, 4.80, 3.500])\nq = 0.5\nassert np.allclose(chemical_potential_quantile(q, low.copy(), high.copy()), target)",
+        "import numpy as np\nlow = np.array([1.00, 0.32, 0.018])\nhigh = np.array([2.60, 4.80, 3.500])\nq = 0.2\nassert np.allclose(chemical_potential_quantile(q, low.copy(), high.copy()), target)",
+        "import numpy as np\nlow = np.array([1.00, 0.32, 0.018])\nhigh = np.array([2.60, 4.80, 3.500])\nq = 0.85\nassert np.allclose(chemical_potential_quantile(q, low.copy(), high.copy()), target)",
+        "import numpy as np\nlow = np.array([1.00, 0.32, 0.018])\nhigh = np.array([2.60, 4.80, 3.500])\nq = 0.0\nassert np.allclose(chemical_potential_quantile(q, low.copy(), high.copy()), target)",
+        "import numpy as np\nlow = np.array([1.00, 0.32, 0.018])\nhigh = np.array([2.60, 4.80, 3.500])\nq = 1.0\nassert np.allclose(chemical_potential_quantile(q, low.copy(), high.copy()), target)",
+        "import numpy as np\nlow = np.array([1.05, 0.40, 0.025])\nhigh = np.array([2.40, 4.00, 2.800])\nq = 0.5\nassert np.allclose(chemical_potential_quantile(q, low.copy(), high.copy()), target)",
+        "import numpy as np\nlow = np.array([1.00, 0.32, 0.018])\nhigh = np.array([2.60, 4.80, 3.500])\nq = 1.4\ndef run_model():\n    try:\n        chemical_potential_quantile(q, low.copy(), high.copy())\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-21.4",
+      "test_cases": [
+        "import numpy as np\nlow = np.array([1.00, 0.32, 0.018])\nhigh = np.array([2.60, 4.80, 3.500])\nq = np.array([0.5, 0.5, 0.5])\nassert np.allclose(quantile_point_in_volume(q.copy(), low.copy(), high.copy()), target)",
+        "import numpy as np\nlow = np.array([1.00, 0.32, 0.018])\nhigh = np.array([2.60, 4.80, 3.500])\nq = np.array([0.5, 0.5, 0.2])\nassert np.allclose(quantile_point_in_volume(q.copy(), low.copy(), high.copy()), target)",
+        "import numpy as np\nlow = np.array([1.00, 0.32, 0.018])\nhigh = np.array([2.60, 4.80, 3.500])\nq = np.array([0.35, 0.7, 0.5])\nassert np.allclose(quantile_point_in_volume(q.copy(), low.copy(), high.copy()), target)",
+        "import numpy as np\nlow = np.array([1.00, 0.32, 0.018])\nhigh = np.array([2.60, 4.80, 3.500])\nq = np.array([0.02, 0.0, 0.0])\nassert np.allclose(quantile_point_in_volume(q.copy(), low.copy(), high.copy()), target)",
+        "import numpy as np\nlow = np.array([1.00, 0.32, 0.018])\nhigh = np.array([2.60, 4.80, 3.500])\nq = np.array([0.98, 1.0, 1.0])\nassert np.allclose(quantile_point_in_volume(q.copy(), low.copy(), high.copy()), target)",
+        "import numpy as np\nlow = np.array([1.05, 0.40, 0.025])\nhigh = np.array([2.40, 4.00, 2.800])\nq = np.array([0.5, 0.5, 0.5])\nassert np.allclose(quantile_point_in_volume(q.copy(), low.copy(), high.copy()), target)",
+        "import numpy as np\nlow = np.array([1.00, 0.32, 0.018])\nhigh = np.array([2.60, 4.80, 3.500])\nq = np.array([0.5, -0.1, 0.5])\ndef run_model():\n    try:\n        quantile_point_in_volume(q.copy(), low.copy(), high.copy())\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nlow = np.array([1.775893133518957, 1.8966459940619773, 0.7901034144969973])\nhigh = np.array([1.8749986667842924, 2.177831555471652, 0.9920739149035971])\nq = np.array([0.5, 0.5, 0.5])\nassert np.allclose(quantile_point_in_volume(q.copy(), low.copy(), high.copy()), target)",
+        "import numpy as np\nlow = np.array([1.00, 0.32, 0.018])\nhigh = np.array([2.60, 4.80, 3.500])\nq = np.array([0.0, 0.2, 0.8])\nassert np.allclose(quantile_point_in_volume(q.copy(), low.copy(), high.copy()), target)",
+        "import numpy as np\nlow = np.array([1.00, 0.32, 0.018])\nhigh = np.array([2.60, 4.80, 3.500])\nq = np.array([1.0, 0.8, 0.2])\nassert np.allclose(quantile_point_in_volume(q.copy(), low.copy(), high.copy()), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-21.5",
+      "test_cases": [
+        "import numpy as np\nlow = np.array([1.00, 0.32, 0.018])\nhigh = np.array([2.60, 4.80, 3.500])\nq = np.array([0.5, 0.5, 0.5])\ndepth = 0\nassert np.allclose(self_similar_refine(low.copy(), high.copy(), depth, q.copy()), target)",
+        "import numpy as np\nlow = np.array([1.00, 0.32, 0.018])\nhigh = np.array([2.60, 4.80, 3.500])\nq = np.array([0.5, 0.5, 0.5])\ndepth = 1\nassert np.allclose(self_similar_refine(low.copy(), high.copy(), depth, q.copy()), target)",
+        "import numpy as np\nlow = np.array([1.00, 0.32, 0.018])\nhigh = np.array([2.60, 4.80, 3.500])\nq = np.array([0.5, 0.5, 0.5])\ndepth = 3\nassert np.allclose(self_similar_refine(low.copy(), high.copy(), depth, q.copy()), target)",
+        "import numpy as np\nlow = np.array([1.00, 0.32, 0.018])\nhigh = np.array([2.60, 4.80, 3.500])\nq = np.array([0.3, 0.6, 0.4])\ndepth = 3\nassert np.allclose(self_similar_refine(low.copy(), high.copy(), depth, q.copy()), target)",
+        "import numpy as np\nlow = np.array([1.05, 0.40, 0.025])\nhigh = np.array([2.40, 4.00, 2.800])\nq = np.array([0.5, 0.5, 0.5])\ndepth = 2\nassert np.allclose(self_similar_refine(low.copy(), high.copy(), depth, q.copy()), target)",
+        "import numpy as np\nlow = np.array([1.00, 0.32, 0.018])\nhigh = np.array([2.60, 4.80, 3.500])\nq = np.array([0.5, 0.5, 0.5])\ndepth = -1\ndef run_model():\n    try:\n        self_similar_refine(low.copy(), high.copy(), depth, q.copy())\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nlow = np.array([1.00, 0.32, 0.018])\nhigh = np.array([2.60, 4.80, 3.500])\nq = np.array([0.5, 0.5, 0.5])\ndepth = 2.5\ndef run_model():\n    try:\n        self_similar_refine(low.copy(), high.copy(), depth, q.copy())\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-21.6",
+      "test_cases": [
+        "import numpy as np\ngrid = np.linspace(0.32, 4.80, 201)\nc = 0.20\nassert np.allclose(diffusion_profile(grid.copy(), c), target)",
+        "import numpy as np\ngrid = np.linspace(0.32, 4.80, 201)\nc = 0.05\nassert np.allclose(diffusion_profile(grid.copy(), c), target)",
+        "import numpy as np\ngrid = np.array([0.32, 2.50, 4.80])\nc = 0.20\nassert np.allclose(diffusion_profile(grid.copy(), c), target)",
+        "import numpy as np\ngrid = np.geomspace(0.32, 4.80, 64)\nc = 0.40\nassert np.allclose(diffusion_profile(grid.copy(), c), target)",
+        "import numpy as np\ngrid = np.linspace(0.32, 4.80, 51)\nc = 0.0\ndef run_model():\n    try:\n        diffusion_profile(grid.copy(), c)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ngrid = np.array([0.32, 2.50, 2.50, 4.80])\nc = 0.20\ndef run_model():\n    try:\n        diffusion_profile(grid.copy(), c)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-21.7",
+      "test_cases": [
+        "import numpy as np\ngrid = np.linspace(0.32, 4.80, 201)\nmu = 1.00 + 1.60*(grid - 0.32)/(4.80 - 0.32)\nmu = mu + 0.02*np.sin(11.0*(grid - 0.32))\nc = 0.20\nsteps = 4000\nassert np.allclose(diffuse_chemical_potential(grid.copy(), mu.copy(), c, steps), target)",
+        "import numpy as np\ngrid = np.linspace(0.32, 4.80, 201)\nmu = 1.00 + 1.60*(grid - 0.32)/(4.80 - 0.32)\nmu = mu + 0.02*np.sin(11.0*(grid - 0.32))\nc = 0.08\nsteps = 4000\nassert np.allclose(diffuse_chemical_potential(grid.copy(), mu.copy(), c, steps), target)",
+        "import numpy as np\ngrid = np.linspace(0.32, 4.80, 201)\nmu = 1.00 + 1.60*(grid - 0.32)/(4.80 - 0.32)\nmu = mu + 0.02*np.sin(11.0*(grid - 0.32))\nc = 0.20\nsteps = 1\nassert np.allclose(diffuse_chemical_potential(grid.copy(), mu.copy(), c, steps), target)",
+        "import numpy as np\ngrid = np.linspace(0.32, 4.80, 201)\nmu = 1.00 + 1.60*(grid - 0.32)/(4.80 - 0.32)\nc = 0.20\nsteps = 4000\nassert np.allclose(diffuse_chemical_potential(grid.copy(), mu.copy(), c, steps), target)",
+        "import numpy as np\ngrid = np.linspace(0.32, 4.80, 101)\nmu = 1.00 + 1.60*(grid - 0.32)/(4.80 - 0.32) + 0.02*np.sin(11.0*(grid - 0.32))\nc = 0.20\nsteps = 2000\nassert np.allclose(diffuse_chemical_potential(grid.copy(), mu.copy(), c, steps), target)",
+        "import numpy as np\ngrid = np.geomspace(0.32, 4.80, 201)\nmu = 1.00 + 1.60*(grid - 0.32)/(4.80 - 0.32)\nc = 0.20\nsteps = 10\ndef run_model():\n    try:\n        diffuse_chemical_potential(grid.copy(), mu.copy(), c, steps)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ngrid = np.linspace(0.32, 4.80, 201)\nmu = 1.00 + 1.60*(grid - 0.32)/(4.80 - 0.32)\nmu = mu + 0.02*np.sin(11.0*(grid - 0.32))\nc = 0.20\nsteps = 0\ndef run_model():\n    try:\n        diffuse_chemical_potential(grid.copy(), mu.copy(), c, steps)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-21.8",
+      "test_cases": [
+        "import numpy as np\ngrid = np.linspace(0.32, 4.80, 201)\nmu = 1.00 + 1.60*(grid - 0.32)/(4.80 - 0.32)\nassert np.allclose(sound_speed_squared(grid.copy(), mu.copy()), target)",
+        "import numpy as np\ngrid = np.linspace(0.32, 4.80, 201)\nmu = 1.00 + 1.60*(grid - 0.32)/(4.80 - 0.32) + 0.02*np.sin(11.0*(grid - 0.32))\nassert np.allclose(sound_speed_squared(grid.copy(), mu.copy()), target)",
+        "import numpy as np\ngrid = np.linspace(0.32, 4.80, 201)\nmu = 1.00 + 1.60*np.clip((grid - 1.50)/(4.80 - 1.50), 0.0, None)\nassert np.allclose(sound_speed_squared(grid.copy(), mu.copy()), target)",
+        "import numpy as np\ngrid = np.array([0.32, 2.50, 4.80])\nmu = np.array([1.00, 1.90, 2.60])\nassert np.allclose(sound_speed_squared(grid.copy(), mu.copy()), target)",
+        "import numpy as np\ngrid = np.linspace(0.32, 4.80, 51)\nmu = np.linspace(-0.1, 2.6, 51)\ndef run_model():\n    try:\n        sound_speed_squared(grid.copy(), mu.copy())\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ngrid = np.linspace(0.32, 4.80, 51)\nmu = np.linspace(1.0, 2.6, 50)\ndef run_model():\n    try:\n        sound_speed_squared(grid.copy(), mu.copy())\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-21.9",
+      "test_cases": [
+        "import numpy as np\nlow = np.array([1.00, 0.32, 0.018])\nhigh = np.array([2.60, 4.80, 3.500])\nq = np.array([0.5, 0.5, 0.5])\ndepth = 6\nc = 0.20\npoints = 201\nsteps = 4000\nassert np.allclose(bridge_boundary_flux(low.copy(), high.copy(), depth, q.copy(), c, points, steps), target)",
+        "import numpy as np\nlow = np.array([1.00, 0.32, 0.018])\nhigh = np.array([2.60, 4.80, 3.500])\nq = np.array([0.5, 0.5, 0.5])\ndepth = 0\nc = 0.20\npoints = 201\nsteps = 4000\nassert np.allclose(bridge_boundary_flux(low.copy(), high.copy(), depth, q.copy(), c, points, steps), target)",
+        "import numpy as np\nlow = np.array([1.00, 0.32, 0.018])\nhigh = np.array([2.60, 4.80, 3.500])\nq = np.array([0.35, 0.65, 0.40])\ndepth = 4\nc = 0.20\npoints = 201\nsteps = 4000\nassert np.allclose(bridge_boundary_flux(low.copy(), high.copy(), depth, q.copy(), c, points, steps), target)",
+        "import numpy as np\nlow = np.array([1.00, 0.32, 0.018])\nhigh = np.array([2.60, 4.80, 3.500])\nq = np.array([0.5, 0.5, 0.5])\ndepth = 4\nc = 0.10\npoints = 201\nsteps = 4000\nassert np.allclose(bridge_boundary_flux(low.copy(), high.copy(), depth, q.copy(), c, points, steps), target)",
+        "import numpy as np\nlow = np.array([1.05, 0.40, 0.025])\nhigh = np.array([2.40, 4.00, 2.800])\nq = np.array([0.5, 0.5, 0.5])\ndepth = 4\nc = 0.20\npoints = 201\nsteps = 4000\nassert np.allclose(bridge_boundary_flux(low.copy(), high.copy(), depth, q.copy(), c, points, steps), target)",
+        "import numpy as np\nlow = np.array([1.00, 0.32, 0.018])\nhigh = np.array([2.60, 4.80, 3.500])\nq = np.array([0.5, 0.5, 0.5])\ndepth = 6\nc = 0.20\npoints = 2\nsteps = 4000\ndef run_model():\n    try:\n        bridge_boundary_flux(low.copy(), high.copy(), depth, q.copy(), c, points, steps)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nlow = np.array([1.00, 0.32, 0.018])\nhigh = np.array([2.60, 4.80, 3.500])\nq = np.array([0.5, 0.5, 0.5])\ndepth = 20\nc = 0.20\npoints = 201\nsteps = 4000\ndef run_model():\n    try:\n        bridge_boundary_flux(low.copy(), high.copy(), depth, q.copy(), c, points, steps)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

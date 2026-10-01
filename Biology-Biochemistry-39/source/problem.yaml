@@ -1,0 +1,48 @@
+problem_id: "Biology-Biochemistry-39"
+subject: "biology"
+subject_area: "Biochemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1186/s13015-025-00278-6"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_build_loop_tree"
+    description: "Convert a dot-bracket secondary structure into the loop tree of its base pairs and exterior loop, flagging every loop that holds unpaired positions."
+    orchestrator: false
+  - number: 2
+    name: "02_screen_design_obstructions"
+    description: "Count the two loop motifs that make a target undesignable under base-pair maximization and report the shortest helix of the loop tree."
+    orchestrator: false
+  - number: 3
+    name: "03_enumerate_proper_loop_assignments"
+    description: "List every assignment of pair identities to the child pairs of one loop that leaves the loop locally proper for a given closing pair."
+    orchestrator: false
+  - number: 4
+    name: "04_count_level_constrained_designs"
+    description: "Count the locally proper designs of a loop tree whose unpaired positions and weak pairs fall on prescribed level residues, resolved by the number of strong pairs."
+    orchestrator: false
+  - number: 5
+    name: "05_tabulate_assignment_counts"
+    description: "Tabulate, for every modular assignment of residues to unpaired positions, the proper designs whose weak pairs avoid those residues, resolved by the number of strong pairs."
+    orchestrator: false
+  - number: 6
+    name: "06_find_minimal_modulus"
+    description: "Find the smallest level modulus at which the target admits at least one separated design."
+    orchestrator: false
+  - number: 7
+    name: "07_count_distinct_separated_designs"
+    description: "Count the distinct designs that are separated for at least one modular assignment, resolved by the number of strong pairs."
+    orchestrator: false
+  - number: 8
+    name: "08_evaluate_gc_ensemble"
+    description: "Evaluate the expected G+C fraction of GC-weighted distinct designs and the mean number of proposals an exact rejection sampler spends per accepted design."
+    orchestrator: false
+  - number: 9
+    name: "09_calibrate_gc_weight"
+    description: "Bisect the GC Boltzmann weight until the expected G+C fraction of the weighted distinct designs meets a target."
+    orchestrator: false
+  - number: 10
+    name: "10_estimate_gc_weight"
+    description: "Compose every earlier step to find the GC weight at which the distinct separated designs of a target, at its smallest admissible modulus, reach a target expected G+C fraction."
+    orchestrator: true

@@ -1,0 +1,40 @@
+problem_id: "Mathematics-Numerical_Linear_Algebra-26"
+subject: "mathematics"
+subject_area: "Numerical Linear Algebra"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: " https://doi.org/10.48550/arXiv.2510.19518"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_schrodinger_rhs"
+    description: "Implement schrodinger_rhs for a discrete nonlinear Schr\u00f6dinger lattice.\n\nGiven the complex state matrix A, a same-sized square coupling matrix B, and a nonnegative real coefficient alpha, return the complex velocity field F(A) = dA/dt. Reject incompatible matrix shapes or a negative coefficient with ValueError."
+    orchestrator: false
+  - number: 2
+    name: "02_rk4_integrate"
+    description: "Implement rk4_integrate for a matrix-valued ordinary differential equation.\n\nAdvance the initial matrix A0 from t0 to t_end with the classical fixed-step four-stage Runge-Kutta method and return the matrix at the final time. The routine is used for both the short pre-propagation and the full-order reference trajectory; reject a nonpositive step size or a reversed interval with ValueError."
+    orchestrator: false
+  - number: 3
+    name: "03_qdeim_select"
+    description: "Implement qdeim_select for a real or complex orthonormal basis.\n\nFor an m-by-r matrix U with r <= m, return the r selected row indices in the exact QDEIM pivot order so that U[indices, :] defines the interpolation submatrix. The selection procedure must be recovered from the QDEIM literature; reject nonmatrix or incompatible inputs with ValueError."
+    orchestrator: false
+  - number: 4
+    name: "04_oblique_project"
+    description: "Implement oblique_project for a rank-r matrix state.\n\nGiven orthonormal factors U and V of Y = U Sigma V* and a same-sized matrix Z, return the complex oblique projection of Z onto the tangent space at Y. The data-sparse interpolation formula must be recovered from the literature on interpolatory dynamical low-rank approximation."
+    orchestrator: false
+  - number: 5
+    name: "05_prk2_qdeim_step"
+    description: "Implement one prk2_qdeim_step on the rank-r matrix manifold.\n\nAdvance Y_i = U diag(s) Vh by one positive step h under rhs_fn and return the updated factors (U_new, s_new, Vh_new) at the requested rank. Recover the stage structure, coefficients, oblique projections, and rank retractions from the literature on second-order PRK-DEIM integration."
+    orchestrator: false
+  - number: 6
+    name: "06_prk2_qdeim_integrate"
+    description: "Implement prk2_qdeim_integrate over a fixed time interval.\n\nStarting from Y_0 = U0 diag(s0) Vh0, repeatedly call the earlier prk2_qdeim_step routine to advance from t0 to t_end and return the rank-r factors at the final time. Reject a nonpositive step size or a reversed interval with ValueError."
+    orchestrator: false
+  - number: 7
+    name: "07_kron_qdeim_indices"
+    description: "Implement the two-stage Kronecker QDEIM sampling construction.\n\nUse the orthonormal factor bases left and right together with the reduced core basis to return exactly r distinct full Kronecker-row indices in pivot order. Preserve the source construction's reduced selection and C-order row mapping, and reject nonfinite, nonorthonormal, rank-deficient, or incompatible inputs with ValueError."
+    orchestrator: false
+  - number: 8
+    name: "08_dlra_deim_pipeline"
+    description: "Implement dlra_deim_pipeline as the final end-to-end orchestrator.\n\nBuild the discrete nonlinear Schr\u00f6dinger initial state and coupling matrix, use the earlier full-order integrator to obtain the pre-propagated and reference states, initialise the rank-r factors, certify the Kronecker sampling construction, and call the earlier low-rank integrator through the final time. Return a dictionary containing the relative Frobenius error, its integer accuracy score floor(-log10(rel_error)), and the number of low-rank time steps."
+    orchestrator: true

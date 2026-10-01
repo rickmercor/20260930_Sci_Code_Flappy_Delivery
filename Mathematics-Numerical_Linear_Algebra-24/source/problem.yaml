@@ -1,0 +1,40 @@
+problem_id: "Mathematics-Numerical_Linear_Algebra-24"
+subject: "mathematics"
+subject_area: "Numerical Linear Algebra"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1111/cgf.70386"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_build_selection_matrices"
+    description: "Build the local-to-global selectors used by element assembly.\n\n\n\nFor ordered element indices `$I_e = (i, j)$$, the 0/1 matrix$$S_e$`\n\nextracts `$(x_i, x_j)$` from the global vector. Its transpose scatters local\n\nHessian contributions through ``S_e.T @ H_e @ S_e``."
+    orchestrator: false
+  - number: 2
+    name: "02_compute_local_residual_scores"
+    description: "Compute the element priority scores.\n\n\n\nEach score summarizes the assembled residual restricted to the two degrees of\n\nfreedom of one element, `$S_e g$`, as a single nonnegative number. The ordered\n\nscore vector sets the order in which elements are considered by the\n\nfactorization stage, and the summary chosen here fixes which elements tie\n\nagainst a given threshold. Which summary of `$S_e g$` is meant is fixed by the\n\nestablished convention and is not restated here."
+    orchestrator: false
+  - number: 3
+    name: "03_project_element_hessian"
+    description: "Apply the local spectral projection to one element Hessian.\n\n\n\nFor ``H_e = Q_e D_e Q_e.T``, replace each diagonal value by\n\n`$Dhat_e[ii] = max(D_e[ii], epsilon)$` and form ``Hhat_e = Q_e Dhat_e Q_e.T``.\n\nThe positive floor differs from a zero-clamp positive-semidefinite projection."
+    orchestrator: false
+  - number: 4
+    name: "04_assemble_global_hessian"
+    description: "Assemble the global Newton Hessian from local contributions.\n\n\n\nThe finite-element relation is ``H = M + sum_e S_e.T @ H_e @ S_e``. This\n\nunprojected assembly is the first matrix whose factorization is attempted, before any\n\nlocal curvature is modified."
+    orchestrator: false
+  - number: 5
+    name: "05_select_projection_mask"
+    description: "Select the next set of elements to project.\n\n\n\nAn element that has not yet been processed becomes eligible when its score\n\nstands in the required relation to the current threshold. The boundary case, a\n\nscore exactly equal to the threshold, is decided by the established convention\n\nrather than by an arbitrary choice, and that convention is not restated here.\n\nWhen the caller signals the fallback regime, every unprocessed element is\n\nselected regardless of score."
+    orchestrator: false
+  - number: 6
+    name: "06_find_accepted_hessian"
+    description: "Report the state at which the assembled system becomes factorizable.\n\n\n\nThe starting point is the unprojected assembly ``H = M + sum(S_e.T @ H_e @\n\nS_e)``. If it already admits a Cholesky factorization, the state is reported\n\nwith nothing projected. Otherwise elements are admitted to the projected set\n\nin successive rounds governed by the threshold, each admitted element\n\ncontributing ``S_e.T @ (Hhat_e - H_e) @ S_e`` exactly once and never twice,\n\nuntil a round leaves the assembly factorizable.\n\n\n\nHow the threshold is initialized when none is yet in force, how it moves from\n\none round to the next, and the level at which the elements still remaining are\n\nadmitted unconditionally are all fixed by the established convention and are\n\nnot restated here.\n\n\n\nThe returned state carries both the threshold in force at acceptance and the\n\ncumulative projected set, because a later iteration resumes from that state\n\nrather than starting fresh."
+    orchestrator: false
+  - number: 7
+    name: "07_solve_newton_step"
+    description: "Solve the accepted Newton system and preserve the descent convention.\n\n\n\nOnce Cholesky certifies `$H_acc$` as positive definite, the step solves\n\n`$H_acc @ delta_x = -g$`. The sign is essential because the final squared\n\ndecrement is ``-g.T @ delta_x`` and a valid step satisfies ``g.T @ delta_x < 0``."
+    orchestrator: false
+  - number: 8
+    name: "08_compute_progressive_decrement"
+    description: "Run the multi-iteration pipeline and report its final scalar.\n\n\n\nEach iteration builds the selectors, scores the elements from that iteration's\n\nresidual, determines the accepted state starting from the threshold currently\n\nin force, and solves the accepted system. The threshold is state that persists\n\nacross iterations rather than being restarted at each one; exactly what a\n\nlater iteration inherits from its predecessor's accepted threshold is fixed by\n\nthe established convention and is not restated here.\n\n\n\nThe returned scalar is the squared Newton decrement of the final iteration,\n\n``lambda_squared = -g.T @ delta_x``."
+    orchestrator: true

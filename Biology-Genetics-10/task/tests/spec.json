@@ -1,0 +1,73 @@
+{
+  "problem_id": "Biology-Genetics-10",
+  "sub_steps": [
+    {
+      "step_number": "Biology-Genetics-10.1",
+      "test_cases": [
+        "import numpy as np\nalt_counts = np.array([6, 9, 29, 12, 31, 4, 23, 15])\nn_haplotypes = 40\ndef pack(result):\n    return np.stack(result).astype(float, copy=False)\nassert np.allclose(pack(compute_fixed_margins(alt_counts, n_haplotypes)), target)",
+        "import numpy as np\nalt_counts = np.array([0, 1])\nn_haplotypes = 1\ndef pack(result):\n    return np.stack(result).astype(float, copy=False)\nassert np.allclose(pack(compute_fixed_margins(alt_counts, n_haplotypes)), target)",
+        "import numpy as np\nalt_counts = np.array([2, 5])\nn_haplotypes = 4\ndef run_model():\n    try:\n        compute_fixed_margins(alt_counts, n_haplotypes)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-10.2",
+      "test_cases": [
+        "import numpy as np\n_THRESHOLDS = np.array(\n    [1.000490545619381, 0.7332357810248108, -0.5813930077385457,\n     0.5104216363344174, -0.7332357810248108, 1.2278262639421003,\n     -0.18445243845167293, 0.31060942561200097]\n)\nworking_loadings = np.array([2.2, 1.7, -1.9, 1.25, -1.55, 0.85, -1.15, 1.45])\nthresholds = _THRESHOLDS.copy()\npsi_min = 0.15\ndef pack(result):\n    return np.stack(result).astype(float, copy=False)\nassert np.allclose(pack(map_factor_parameters(working_loadings, thresholds, psi_min)), target)",
+        "import numpy as np\n_THRESHOLDS = np.array(\n    [1.000490545619381, 0.7332357810248108, -0.5813930077385457,\n     0.5104216363344174, -0.7332357810248108, 1.2278262639421003,\n     -0.18445243845167293, 0.31060942561200097]\n)\npsi_min = 0.2\nworking_loadings = np.array([-2.0, 0.0])\nthresholds = np.array([0.0, 0.5])\ndef pack(result):\n    return np.stack(result).astype(float, copy=False)\nassert np.allclose(pack(map_factor_parameters(working_loadings, thresholds, psi_min)), target)",
+        "import numpy as np\n_THRESHOLDS = np.array(\n    [1.000490545619381, 0.7332357810248108, -0.5813930077385457,\n     0.5104216363344174, -0.7332357810248108, 1.2278262639421003,\n     -0.18445243845167293, 0.31060942561200097]\n)\nworking_loadings = np.array([3.0, 0.5])\nthresholds = np.array([0.0, 0.0])\npsi_min = 0.2\ndef run_model():\n    try:\n        map_factor_parameters(working_loadings, thresholds, psi_min)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-10.3",
+      "test_cases": [
+        "import numpy as np\n_LOADINGS = np.array(\n    [0.9103664774626048, 0.8619342151577695, -0.8849182223819824,\n     0.7808688094430303, -0.8402966482242443, 0.6476484200955405,\n     -0.7546055221635047, 0.8232127859153063]\n)\n_UNIQUENESS = np.array(\n    [0.17123287671232873, 0.25706940874035994, 0.21691973969631234,\n     0.3902439024390244, 0.293901542952276, 0.5805515239477504,\n     0.4305705059203445, 0.322320709105568]\n)\n_THRESHOLDS = np.array(\n    [1.000490545619381, 0.7332357810248108, -0.5813930077385457,\n     0.5104216363344174, -0.7332357810248108, 1.2278262639421003,\n     -0.18445243845167293, 0.31060942561200097]\n)\nloadings = _LOADINGS.copy()\nuniqueness = _UNIQUENESS.copy()\nthresholds = _THRESHOLDS.copy()\nlead_state = 1\nquadrature_order = 64\nfactor_bound = 8.0\ndef pack(result):\n    return np.concatenate([np.asarray(value, dtype=float).ravel() for value in result])\nassert np.allclose(pack(build_conditional_mixture(loadings, uniqueness, thresholds, lead_state, quadrature_order, factor_bound)), target)",
+        "import numpy as np\n_LOADINGS = np.array(\n    [0.9103664774626048, 0.8619342151577695, -0.8849182223819824,\n     0.7808688094430303, -0.8402966482242443, 0.6476484200955405,\n     -0.7546055221635047, 0.8232127859153063]\n)\n_UNIQUENESS = np.array(\n    [0.17123287671232873, 0.25706940874035994, 0.21691973969631234,\n     0.3902439024390244, 0.293901542952276, 0.5805515239477504,\n     0.4305705059203445, 0.322320709105568]\n)\n_THRESHOLDS = np.array(\n    [1.000490545619381, 0.7332357810248108, -0.5813930077385457,\n     0.5104216363344174, -0.7332357810248108, 1.2278262639421003,\n     -0.18445243845167293, 0.31060942561200097]\n)\nloadings = np.array([0.5, -0.5])\nuniqueness = np.array([0.75, 0.75])\nthresholds = np.array([0.0, 0.0])\nlead_state = 0\nquadrature_order = 8\nfactor_bound = 4.0\ndef pack(result):\n    return np.concatenate([np.asarray(value, dtype=float).ravel() for value in result])\nassert np.allclose(pack(build_conditional_mixture(loadings, uniqueness, thresholds, lead_state, quadrature_order, factor_bound)), target)",
+        "import numpy as np\n_LOADINGS = np.array(\n    [0.9103664774626048, 0.8619342151577695, -0.8849182223819824,\n     0.7808688094430303, -0.8402966482242443, 0.6476484200955405,\n     -0.7546055221635047, 0.8232127859153063]\n)\n_UNIQUENESS = np.array(\n    [0.17123287671232873, 0.25706940874035994, 0.21691973969631234,\n     0.3902439024390244, 0.293901542952276, 0.5805515239477504,\n     0.4305705059203445, 0.322320709105568]\n)\n_THRESHOLDS = np.array(\n    [1.000490545619381, 0.7332357810248108, -0.5813930077385457,\n     0.5104216363344174, -0.7332357810248108, 1.2278262639421003,\n     -0.18445243845167293, 0.31060942561200097]\n)\nloadings = np.array([0.5, 0.4])\nuniqueness = np.array([0.75, 0.84])\nthresholds = np.array([0.0, 0.0])\ndef run_model():\n    try:\n        build_conditional_mixture(loadings, uniqueness, thresholds, 2, 16, 8.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\n_LOADINGS = np.array(\n    [0.9103664774626048, 0.8619342151577695, -0.8849182223819824,\n     0.7808688094430303, -0.8402966482242443, 0.6476484200955405,\n     -0.7546055221635047, 0.8232127859153063]\n)\n_UNIQUENESS = np.array(\n    [0.17123287671232873, 0.25706940874035994, 0.21691973969631234,\n     0.3902439024390244, 0.293901542952276, 0.5805515239477504,\n     0.4305705059203445, 0.322320709105568]\n)\n_THRESHOLDS = np.array(\n    [1.000490545619381, 0.7332357810248108, -0.5813930077385457,\n     0.5104216363344174, -0.7332357810248108, 1.2278262639421003,\n     -0.18445243845167293, 0.31060942561200097]\n)\nloadings = np.array([0.8, -0.55, 0.35])\nuniqueness = np.array([0.36, 0.6975, 0.8775])\nthresholds = np.array([0.9, -0.4, 0.25])\nquadrature_order = 12\nfactor_bound = 1.25\ndef pack_states(function):\n    _, weights_0, _ = function(loadings, uniqueness, thresholds, 0, quadrature_order, factor_bound)\n    _, weights_1, _ = function(loadings, uniqueness, thresholds, 1, quadrature_order, factor_bound)\n    return np.concatenate((weights_0, weights_1))\nassert np.allclose(pack_states(build_conditional_mixture), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-10.4",
+      "test_cases": [
+        "import numpy as np\npartner_loadings = np.array([0.8619342151577695, -0.8849182223819824, 0.7808688094430303, -0.8402966482242443, 0.6476484200955405, -0.7546055221635047, 0.8232127859153063])\npartner_thresholds = np.array([0.7332357810248108, -0.5813930077385457, 0.5104216363344174, -0.7332357810248108, 1.2278262639421003, -0.18445243845167293, 0.31060942561200097])\nassert np.allclose(enumerate_factor_modes(partner_loadings, partner_thresholds).tolist(), target)",
+        "import numpy as np\npartner_loadings = np.array([0.0, 0.0])\npartner_thresholds = np.array([-0.2, 0.3])\nassert np.allclose(enumerate_factor_modes(partner_loadings, partner_thresholds).tolist(), target)",
+        "import numpy as np\npartner_loadings = np.array([0.5, -0.5])\npartner_thresholds = np.array([0.0])\ndef run_model():\n    try:\n        enumerate_factor_modes(partner_loadings, partner_thresholds)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\npartner_loadings = np.array([1.0, 2.0, -1.0, 0.0])\npartner_thresholds = np.array([0.5, 1.0, -0.5, -0.2])\nassert np.allclose(enumerate_factor_modes(partner_loadings, partner_thresholds).tolist(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-10.5",
+      "test_cases": [
+        "import numpy as np\nconfigurations = np.array([[0, 0], [0, 1], [1, 0], [1, 1]], dtype=np.uint8)\nmixture_weights = np.array([0.4, 0.6])\npartner_probabilities = np.array([[0.2, 0.8], [0.7, 0.3]])\nassert np.allclose(score_conditional_candidates(configurations, mixture_weights, partner_probabilities), target)",
+        "import numpy as np\nconfigurations = np.array([[0], [1]], dtype=np.uint8)\nmixture_weights = np.array([1.0])\npartner_probabilities = np.array([[0.25]])\nassert np.allclose(score_conditional_candidates(configurations, mixture_weights, partner_probabilities), target)",
+        "import numpy as np\nconfigurations = np.array([[0, 1]], dtype=np.uint8)\nmixture_weights = np.array([0.5, 0.5])\npartner_probabilities = np.array([[0.2], [0.8]])\ndef run_model():\n    try:\n        score_conditional_candidates(configurations, mixture_weights, partner_probabilities)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-10.6",
+      "test_cases": [
+        "import numpy as np\nmode_candidates = np.array([[0, 0, 1], [0, 1, 1], [1, 1, 0]], dtype=np.uint8)\nmode_probabilities = np.array([0.1, 0.5, 0.2])\nassert np.allclose(expand_mode_candidates(mode_candidates, mode_probabilities).tolist(), target)",
+        "import numpy as np\nmode_candidates = np.array([[0], [1]], dtype=np.uint8)\nmode_probabilities = np.array([0.5, 0.5])\nassert np.allclose(expand_mode_candidates(mode_candidates, mode_probabilities).tolist(), target)",
+        "import numpy as np\nmode_candidates = np.array([[0, 1], [1, 0]], dtype=np.uint8)\nmode_probabilities = np.array([0.2, -0.1])\ndef run_model():\n    try:\n        expand_mode_candidates(mode_candidates, mode_probabilities)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nmode_candidates = np.array([[1, 1, 1], [0, 0, 0]], dtype=np.uint8)\nmode_probabilities = np.array([0.5, 0.5])\nassert np.allclose(expand_mode_candidates(mode_candidates, mode_probabilities).tolist(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-10.7",
+      "test_cases": [
+        "import numpy as np\nconfigurations = np.array([[0, 0, 1], [1, 0, 1], [0, 1, 1], [1, 1, 1]], dtype=np.uint8)\nconditional_probabilities = np.array([0.1, 0.4, 0.3, 0.2])\ntop_l = 3\ndef pack(result):\n    mean_burden, top_configurations, top_probabilities, top_mass = result\n    return np.concatenate((\n        np.array([mean_burden], dtype=float),\n        np.asarray(top_configurations, dtype=float).ravel(),\n        np.asarray(top_probabilities, dtype=float).ravel(),\n        np.array([top_mass], dtype=float),\n    ))\nassert np.allclose(pack(summarize_top_burden(configurations, conditional_probabilities, top_l)), target)",
+        "import numpy as np\nconfigurations = np.array([[0], [1]], dtype=np.uint8)\nconditional_probabilities = np.array([0.5, 0.5])\ntop_l = 1\ndef pack(result):\n    mean_burden, top_configurations, top_probabilities, top_mass = result\n    return np.concatenate((\n        np.array([mean_burden], dtype=float),\n        np.asarray(top_configurations, dtype=float).ravel(),\n        np.asarray(top_probabilities, dtype=float).ravel(),\n        np.array([top_mass], dtype=float),\n    ))\nassert np.allclose(pack(summarize_top_burden(configurations, conditional_probabilities, top_l)), target)",
+        "import numpy as np\nconfigurations = np.array([[0, 1], [1, 0]], dtype=np.uint8)\nconditional_probabilities = np.array([0.5, 0.5])\ntop_l = 3\ndef run_model():\n    try:\n        summarize_top_burden(configurations, conditional_probabilities, top_l)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nconfigurations = np.array([[1, 1, 1], [0, 1, 1], [1, 0, 0], [0, 0, 0]], dtype=np.uint8)\nconditional_probabilities = np.array([0.2, 0.2, 0.5, 0.1])\ntop_l = 2\ndef pack(result):\n    mean_burden, top_configurations, top_probabilities, top_mass = result\n    return np.concatenate((\n        np.array([mean_burden], dtype=float),\n        np.asarray(top_configurations, dtype=float).ravel(),\n        np.asarray(top_probabilities, dtype=float).ravel(),\n        np.array([top_mass], dtype=float),\n    ))\nassert np.allclose(pack(summarize_top_burden(configurations, conditional_probabilities, top_l)), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-10.8",
+      "test_cases": [
+        "import numpy as np\nalt_counts = np.array([6, 9, 29, 12, 31, 4, 23, 15])\nn_haplotypes = 40\nworking_loadings = np.array([2.2, 1.7, -1.9, 1.25, -1.55, 0.85, -1.15, 1.45])\npsi_min = 0.15\nquadrature_order = 64\nfactor_bound = 8.0\ntop_l = 4\nassert np.allclose(float(run_haploperturb_benchmark(alt_counts, n_haplotypes, working_loadings, psi_min, quadrature_order, factor_bound, top_l)), target)",
+        "import numpy as np\nalt_counts = np.array([2, 1, 3])\nn_haplotypes = 4\nworking_loadings = np.array([1.0, 0.7, -0.6])\npsi_min = 0.3\nquadrature_order = 16\nfactor_bound = 6.0\ntop_l = 2\nassert np.allclose(float(run_haploperturb_benchmark(alt_counts, n_haplotypes, working_loadings, psi_min, quadrature_order, factor_bound, top_l)), target)",
+        "import numpy as np\nalt_counts = np.array([2, 1, 3])\nn_haplotypes = 4\nworking_loadings = np.array([3.0, 0.7, -0.6])\npsi_min = 0.3\nquadrature_order = 16\nfactor_bound = 6.0\ntop_l = 2\ndef run_model():\n    try:\n        run_haploperturb_benchmark(alt_counts, n_haplotypes, working_loadings, psi_min, quadrature_order, factor_bound, top_l)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

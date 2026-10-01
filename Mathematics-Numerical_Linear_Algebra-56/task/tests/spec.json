@@ -1,0 +1,93 @@
+{
+  "problem_id": "Mathematics-Numerical_Linear_Algebra-56",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-56.1",
+      "test_cases": [
+        "import numpy as np\nA=np.array([[1,2],[3,4]],float); b=np.array([1,2]); x0=np.zeros(2)\nassert np.allclose(prepare_least_squares_problem(A,b,x0), target)",
+        "import numpy as np\nA=np.array([[1.],[2.],[3.]]); b=np.array([1.,0.,-1.]); x0=np.array([.5])\nassert np.allclose(prepare_least_squares_problem(A,b,x0), target)",
+        "import numpy as np\nA=np.array([[2,-1,0]],int); b=np.array([3]); x0=np.array([1,2,3])\nassert np.allclose(prepare_least_squares_problem(A,b,x0), target)",
+        "import numpy as np\nA=np.array([1.,2.]); b=np.array([1.,2.]); x0=np.array([0.])\ndef run_model():\n    try: prepare_least_squares_problem(A,b,x0); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA=np.eye(2); b=np.ones(3); x0=np.zeros(2)\ndef run_model():\n    try: prepare_least_squares_problem(A,b,x0); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA=np.array([[1.,np.nan]]); b=np.array([1.]); x0=np.zeros(2)\ndef run_model():\n    try: prepare_least_squares_problem(A,b,x0); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-56.2",
+      "test_cases": [
+        "import numpy as np\nA=np.array([[3.,0.],[4.,2.]])\nassert np.allclose(normalized_coordinate_sketch(A,1), target)",
+        "import numpy as np\nA=np.eye(3)*2\nassert np.allclose(normalized_coordinate_sketch(A,3), target)",
+        "import numpy as np\nA=np.array([[1.,-2.],[2.,1.],[-1.,3.]])\nassert np.allclose(normalized_coordinate_sketch(A,2), target)",
+        "import numpy as np\nA=np.eye(2); index=0\ndef run_model():\n    try: normalized_coordinate_sketch(A,index); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA=np.array([[1.,0.],[2.,0.]]); index=2\ndef run_model():\n    try: normalized_coordinate_sketch(A,index); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA=np.eye(2); index=1.0\ndef run_model():\n    try: normalized_coordinate_sketch(A,index); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-56.3",
+      "test_cases": [
+        "import numpy as np\nA=np.array([[2.,0.,1.],[1.,3.,0.],[0.,1.,2.]])\nr=np.array([1.,-2.,.5]); S=np.array([0.,.2,0.])\nassert np.allclose(rcgls_sketch_seed(A,r,S), target)",
+        "import numpy as np\nA=np.array([[1.,2.],[3.,-1.],[2.,1.]])\nr=np.array([.5,1.,-2.]); S=np.array([[1.,0.],[0.,.5]])\nassert np.allclose(rcgls_sketch_seed(A,r,S), target)",
+        "import numpy as np\nA=np.array([[2.,1.],[0.,3.],[1.,-1.]])\nr=np.array([1.,-2.,.5]); S=np.array([0.,1./np.sqrt(11.)])\nassert np.allclose(rcgls_sketch_seed(A,r,S), target)",
+        "import numpy as np\nA=np.eye(2); r=np.ones(3); S=np.array([1.,0.])\ndef run_model():\n    try: rcgls_sketch_seed(A,r,S); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA=np.eye(2); r=np.ones(2); S=np.zeros(2)\ndef run_model():\n    try: rcgls_sketch_seed(A,r,S); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA=np.eye(2); r=np.array([1.,np.nan]); S=np.array([1.,0.])\ndef run_model():\n    try: rcgls_sketch_seed(A,r,S); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-56.4",
+      "test_cases": [
+        "import numpy as np\nA=np.array([[2.,0.],[1.,3.],[0.,1.]])\nr=np.array([.5,-1.,2.]); S=np.array([0.,1./np.sqrt(10.)]); p=np.array([.4,0.]); v=A@p\nassert np.allclose(rcgls_conjugate_direction(A,r,S,p,v), target)",
+        "import numpy as np\nA=np.array([[1.,2.,0.],[0.,1.,3.],[2.,-1.,1.],[1.,0.,1.]])\np=np.array([.2,-.1,.3]); v=A@p\nr=np.array([1.,-1.2058823529411766,1.2941176470588234,-.14117647058823535])\nS=np.array([0.,0.,1./np.sqrt(11.)])\nassert np.allclose(rcgls_conjugate_direction(A,r,S,p,v), target)",
+        "import numpy as np\nA=np.array([[1.,0.],[0.,2.],[1.,1.]])\np=np.array([.5,.25]); v=A@p\nr=np.array([.6470588235294117,1.6470588235294117,-1.5294117647058822])\nS=np.eye(2)\nassert np.allclose(rcgls_conjugate_direction(A,r,S,p,v), target)",
+        "import numpy as np\nA=np.eye(2); r=np.ones(2); S=np.array([1.,0.]); p=np.array([1.,0.]); v=np.array([2.,0.])\ndef run_model():\n    try: rcgls_conjugate_direction(A,r,S,p,v); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA=np.eye(2); r=np.ones(2); S=np.array([1.,0.]); p=np.zeros(2); v=np.zeros(2)\ndef run_model():\n    try: rcgls_conjugate_direction(A,r,S,p,v); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA=np.eye(2); r=np.array([1.,np.nan]); S=np.array([1.,0.]); p=np.array([1.,0.]); v=A@p\ndef run_model():\n    try: rcgls_conjugate_direction(A,r,S,p,v); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-56.5",
+      "test_cases": [
+        "import numpy as np\nA=np.array([[2.,0.,1.],[1.,3.,0.],[0.,1.,2.],[1.,-1.,1.]])\nb=np.array([1.,2.,-1.,.5]); x0=np.zeros(3); indices=[1,3,2]; scales=[2.0,0.5,3.0]\nassert np.allclose(rcgls_residual_history(A,b,x0,indices,scales), target)",
+        "import numpy as np\nA=np.array([[2.,1.],[0.,3.],[1.,-1.]])\nb=np.array([1.,-2.,.5]); x0=np.array([.2,-.1]); indices=[2]; scales=[-4.0]\nassert np.allclose(rcgls_residual_history(A,b,x0,indices,scales), target)",
+        "import numpy as np\nA=np.array([[-.98912135,-.36778665,1.28792526,.19397442],[.92023090,.57710379,-.63646365,.54195222],[-.31659545,-.32238912,.09716732,-1.52593041],[1.19216610,-.67108968,1.00026942,.13632112],[1.53203308,-.65996941,-.31179486,.33776913],[-2.20747110,.82792144,1.54163039,1.12680679],[.75476964,-.14597789,1.28190223,1.07403062],[.39262084,.00511431,-.36176687,-1.23023220]])\nb=np.array([1.22622929,-2.17204389,-.37014735,.16438007,.85988118,1.76166124,.99332378,-.29152143]); x0=np.zeros(4); indices=[3,1,2,3,4,1]; scales=[2.0,0.5,4.0,0.25,8.0,0.125]\nassert np.allclose(rcgls_residual_history(A,b,x0,indices,scales), target)",
+        "import numpy as np\nA=np.eye(2); b=np.ones(2); x0=np.zeros(2); indices=[]; scales=[]\ndef run_model():\n    try: rcgls_residual_history(A,b,x0,indices,scales); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA=np.eye(2); b=np.ones(2); x0=np.zeros(2); indices=[1,2]; scales=[1.0,0.0]\ndef run_model():\n    try: rcgls_residual_history(A,b,x0,indices,scales); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA=np.eye(2); b=np.ones(2); x0=np.zeros(2); indices=[1,2]; scales=[1.0]\ndef run_model():\n    try: rcgls_residual_history(A,b,x0,indices,scales); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-56.6",
+      "test_cases": [
+        "import numpy as np\nA=np.array([[1.,0.],[0.,1.],[1.,1.],[2.,-1.],[1.,2.]])\nb=np.array([1.,-1.,.2,2.,.5])\nassert np.allclose(least_squares_orthonormal_reference(A,b,4,'real'), target)",
+        "import numpy as np\nA=np.array([[1.,2.],[2.,4.],[3.,6.],[1.,0.],[0.,1.]])\nb=np.array([1.,0.,1.,.5,-.25])\nassert np.allclose(least_squares_orthonormal_reference(A,b,4,'real'), target)",
+        "import numpy as np\nA=np.array([[1.,0.],[0.,1.],[1.,1.],[2.,-1.]])\nb=np.array([1.,2.,0.,1.])\nassert np.allclose(least_squares_orthonormal_reference(A,b,3,'complex'), target)",
+        "import numpy as np\nA=np.eye(2); b=np.array([1.,2.])\ndef run_model():\n    try: least_squares_orthonormal_reference(A,b,2,'real'); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA=np.array([[1.,0.],[0.,1.],[1.,1.]]); b=np.array([1.,2.,0.])\ndef run_model():\n    try: least_squares_orthonormal_reference(A,b,2,'real'); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA=np.array([[1.,0.],[0.,1.],[1.,1.]]); b=np.array([1.,2.,0.])\ndef run_model():\n    try: least_squares_orthonormal_reference(A,b,3.0,'complex'); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-56.7",
+      "test_cases": [
+        "import numpy as np\nr=np.array([8.,6.8,5.6,4.8])\nassert np.allclose(rcgls_benchmark_crossing(r,4.0,1.5), target)",
+        "import numpy as np\nr=np.array([3.,2.8,2.])\nassert np.allclose(rcgls_benchmark_crossing(r,2.0,1.5), target)",
+        "import numpy as np\nr=np.array([9.,4.5,3.])\nassert np.allclose(rcgls_benchmark_crossing(r,3.0,1.0), target)",
+        "import numpy as np\nr=np.array([8.,7.2])\ndef run_model():\n    try: rcgls_benchmark_crossing(r,4.,1.5); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nr=np.array([1.,np.nan])\ndef run_model():\n    try: rcgls_benchmark_crossing(r,1.,1.5); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nr=np.array([1.])\ndef run_model():\n    try: rcgls_benchmark_crossing(r,0.,1.5); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-56.8",
+      "test_cases": [
+        "import numpy as np\nA=np.array([[1.,0.],[0.,1.],[1.,1.],[2.,-1.],[1.,2.]])\nb=np.array([1.,-1.,.2,2.,.5]); x0=np.zeros(2); indices=[2,1,2]\nassert np.allclose(rcgls_method_certified_field_sensitivity(A,b,x0,indices,4), target)",
+        "import numpy as np\nA=np.array([[2.,1.],[1.,-1.],[0.,2.],[3.,1.],[1.,.5],[2.,-2.]])\nb=np.array([1.,2.,-1.,0.,.5,1.]); x0=np.array([.1,-.2]); indices=[2,1,2,1]\nassert np.allclose(rcgls_method_certified_field_sensitivity(A,b,x0,indices,5), target)",
+        "import numpy as np\nA=np.array([[-.98912135,-.36778665,1.28792526,.19397442],[.92023090,.57710379,-.63646365,.54195222],[-.31659545,-.32238912,.09716732,-1.52593041],[1.19216610,-.67108968,1.00026942,.13632112],[1.53203308,-.65996941,-.31179486,.33776913],[-2.20747110,.82792144,1.54163039,1.12680679],[.75476964,-.14597789,1.28190223,1.07403062],[.39262084,.00511431,-.36176687,-1.23023220]])\nb=np.array([1.22622929,-2.17204389,-.37014735,.16438007,.85988118,1.76166124,.99332378,-.29152143]); x0=np.zeros(4); indices=[3,1,2,3,4,1]\nassert np.allclose(rcgls_method_certified_field_sensitivity(A,b,x0,indices,7), target)",
+        "import numpy as np\nA=np.eye(2); b=np.zeros(2); x0=np.zeros(2); indices=[1,2]\ndef run_model():\n    try: rcgls_method_certified_field_sensitivity(A,b,x0,indices,2); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA=np.eye(2); b=np.ones(2); x0=np.zeros(2); indices=[]\ndef run_model():\n    try: rcgls_method_certified_field_sensitivity(A,b,x0,indices,2); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA=np.eye(2); b=np.array([1.,2.]); x0=np.zeros(2); indices=[1,2]\ndef run_model():\n    try: rcgls_method_certified_field_sensitivity(A,b,x0,indices,3); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

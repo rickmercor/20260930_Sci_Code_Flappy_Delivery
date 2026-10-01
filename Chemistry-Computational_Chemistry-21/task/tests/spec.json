@@ -1,0 +1,85 @@
+{
+  "problem_id": "Chemistry-Computational_Chemistry-21",
+  "sub_steps": [
+    {
+      "step_number": "Chemistry-Computational_Chemistry-21.1",
+      "test_cases": [
+        "assert np.allclose(two_electron_ground_state(1.0, 2.5, 1.5), target)",
+        "assert np.allclose(two_electron_ground_state(1.0, 0.0, 0.0), target)",
+        "assert np.allclose(two_electron_ground_state(1.0, 1.0, 0.0), target)",
+        "assert np.allclose(two_electron_ground_state(2.0, 3.0, 4.0), target)",
+        "assert np.allclose(two_electron_ground_state(1.0, 5.0, -8.0), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-21.2",
+      "test_cases": [
+        "assert np.allclose(nc_ks_inversion(1.0, 1.25, 0.0, 0.0), target)",
+        "assert np.allclose(nc_ks_inversion(1.0, 1.0, 0.0, 0.3), target)",
+        "assert np.allclose(nc_ks_inversion(1.0, 1.3, 0.2, 0.1), target)",
+        "assert np.allclose(nc_ks_inversion(2.0, 0.6, 0.1, 0.5), target)",
+        "assert np.allclose(nc_ks_inversion(1.0, 1.5, 0.4, 0.2), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-21.3",
+      "test_cases": [
+        "assert np.allclose(ensemble_eexx_hx_potential(1.0, 2.5, 1.25, 0.0, 0.0), target)",
+        "assert np.allclose(ensemble_eexx_hx_potential(1.0, 1.0, 1.0, 0.1, 0.2), target)",
+        "assert np.allclose(ensemble_eexx_hx_potential(1.0, 1.5, 1.3, 0.1, 0.05), target)",
+        "assert np.allclose(ensemble_eexx_hx_potential(2.0, 2.0, 0.7, 0.2, 0.0), target)",
+        "assert np.allclose(ensemble_eexx_hx_potential(0.5, 3.0, 1.4, 0.0, 0.3), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-21.4",
+      "test_cases": [
+        "assert np.allclose(ensemble_pt2_correlation_potential(1.0, 2.5, 1.25, 0.0, 0.0), target)",
+        "assert np.allclose(ensemble_pt2_correlation_potential(1.0, 1.0, 1.0, 0.1, 0.1), target)",
+        "assert np.allclose(ensemble_pt2_correlation_potential(1.0, 1.5, 1.3, 0.1, 0.05), target)",
+        "assert np.allclose(ensemble_pt2_correlation_potential(2.0, 2.0, 0.8, 0.2, 0.0), target)",
+        "assert np.allclose(ensemble_pt2_correlation_potential(1.0, 3.0, 1.1, 0.0, 0.15), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-21.5",
+      "test_cases": [
+        "assert np.allclose(exact_ground_state_hxc(1.0, 2.5, 1.5), target)",
+        "assert np.allclose(exact_ground_state_hxc(1.0, 0.2, 1.0), target)",
+        "assert np.allclose(exact_ground_state_hxc(1.0, 1.5, 3.0), target)",
+        "assert np.allclose(exact_ground_state_hxc(1.0, 1.0, 0.0), target)",
+        "assert np.allclose(exact_ground_state_hxc(2.0, 4.0, 3.0), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-21.6",
+      "test_cases": [
+        "assert np.allclose(pt2_double_scaled_weight_derivatives(1.0, 2.5, 1.5), target)",
+        "assert np.allclose(pt2_double_scaled_weight_derivatives(1.0, 1.5, 3.0), target)",
+        "assert np.allclose(pt2_double_scaled_weight_derivatives(1.0, 2.0, 2.4), target)",
+        "assert np.allclose(pt2_double_scaled_weight_derivatives(2.0, 3.0, -1.0), target)",
+        "assert np.allclose(pt2_double_scaled_weight_derivatives(1.0, 0.5, 4.0), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-21.7",
+      "test_cases": [
+        "assert np.allclose(nc_zero_weight_fukui(1.0, 2.0, 2.4, 0.672463035844448, -1), target)",
+        "assert np.allclose(nc_zero_weight_fukui(1.0, 2.0, 2.4, 0.8, -1), target)",
+        "assert np.allclose(nc_zero_weight_fukui(1.0, 1.5, 3.0, -0.2, 1), target)",
+        "assert np.allclose(nc_zero_weight_fukui(2.0, 3.0, -1.0, 0.5, -1), target)",
+        "assert np.allclose(nc_zero_weight_fukui(1.0, 0.3, 1.0, 0.0, 1), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-21.8",
+      "test_cases": [
+        "assert np.allclose(pt2_double_scaled_fukui(1.0, 2.5, 1.5, -1), target)",
+        "assert np.allclose(pt2_double_scaled_fukui(1.0, 2.5, 1.5, 1), target)",
+        "assert np.allclose(pt2_double_scaled_fukui(1.0, 1.5, 3.0, 1), target)",
+        "assert np.allclose(pt2_double_scaled_fukui(1.0, 2.0, 2.4, -1), target)",
+        "assert np.allclose(pt2_double_scaled_fukui(1.0, 3.0, 1.0, -1), target)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "problem_id": "Mathematics-Computational_Finance-9",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Computational_Finance-9.1",
+      "test_cases": [
+        "import numpy as np\nimport numpy as np\nsigma0, nu, rho, T = 35.0, 0.7, -0.3, 2.0\nassert np.allclose(list(scale_constants(sigma0, nu, rho, T)), target)",
+        "import numpy as np\nimport numpy as np\nsigma0, nu, rho, T = 12.5, 0.25, 0.6, 0.5\nassert np.allclose(list(scale_constants(sigma0, nu, rho, T)), target)",
+        "import numpy as np\nimport numpy as np\nsigma0, nu, rho, T = 100.0, 1.4, 0.0, 5.0\nassert np.allclose(list(scale_constants(sigma0, nu, rho, T)), target)",
+        "import numpy as np\nimport numpy as np\ndef run_model_rho():\n    try:\n        scale_constants(35.0, 0.7, 1.0, 2.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model_rho(), target)",
+        "import numpy as np\nimport numpy as np\ndef run_model_nu():\n    try:\n        scale_constants(35.0, 0.0, -0.3, 2.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model_nu(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-9.2",
+      "test_cases": [
+        "import numpy as np\nimport numpy as np\nT, X0 = 2.0, 100.0\nstrikes = np.array([70.0, 80.0, 90.0, 100.0, 110.0, 120.0, 130.0])\nsigma = np.sqrt(1.0 - 0.09) * 45.613268929246582\ndef flat_terms(t):\n    return [float(x) for part in t for x in np.asarray(part).ravel()]\nassert np.allclose(flat_terms(normal_call_terms(T, X0, strikes, sigma)), target)",
+        "import numpy as np\nimport numpy as np\nT, X0 = 0.25, 50.0\nstrikes = np.array([30.0, 50.0, 75.5])\nsigma = 8.0\ndef flat_terms(t):\n    return [float(x) for part in t for x in np.asarray(part).ravel()]\nassert np.allclose(flat_terms(normal_call_terms(T, X0, strikes, sigma)), target)",
+        "import numpy as np\nimport numpy as np\nT, X0 = 5.0, -12.0\nstrikes = np.linspace(-40.0, 40.0, 9)\nsigma = 3.5\ndef flat_terms(t):\n    return [float(x) for part in t for x in np.asarray(part).ravel()]\nassert np.allclose(flat_terms(normal_call_terms(T, X0, strikes, sigma)), target)",
+        "import numpy as np\nimport numpy as np\nstrikes = np.array([90.0, 100.0])\ndef run_model_sigma():\n    try:\n        normal_call_terms(1.0, 100.0, strikes, -2.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model_sigma(), target)",
+        "import numpy as np\nimport numpy as np\nstrikes = np.zeros((2, 3))\ndef run_model_shape():\n    try:\n        normal_call_terms(1.0, 100.0, strikes, 20.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model_shape(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-9.3",
+      "test_cases": [
+        "import numpy as np\npairs=[(0, -0.5), (1, 0.5), (2, 0.5), (4, 1.5)]\nassert np.allclose([normalized_moment(b,a,0.06125) for b,a in pairs], target)",
+        "import numpy as np\npairs=[(0, 0), (1, 0), (0, 12.5), (4, 13.5)]\nassert np.allclose([normalized_moment(b,a,0.04) for b,a in pairs], target)",
+        "import numpy as np\npairs=[(0, -0.5), (1, 2.5), (3, 3.5)]\nassert np.allclose([normalized_moment(b,a,0.2) for b,a in pairs], target)",
+        "import numpy as np\npairs=[(0, 6.5), (2, 7.5)]\nassert np.allclose([normalized_moment(b,a,0.1) for b,a in pairs], target)",
+        "import numpy as np\ndef run_model_invalid():\n    try:\n        normalized_moment(2,0.,.1)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model_invalid(), target)",
+        "import numpy as np\ndef run_model_invalid():\n    try:\n        normalized_moment(0,0.,.01)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model_invalid(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-9.4",
+      "test_cases": [
+        "import numpy as np\nimport numpy as np\ndef packed(e):\n    return np.concatenate([e['base_even'],e['base_odd']]+e['high_even']+e['high_odd'])\nassert np.allclose(packed(expectation_vector(4,12,1.0,0.7,0.125)), target)",
+        "import numpy as np\nimport numpy as np\ndef packed(e):\n    return np.concatenate([e['base_even'],e['base_odd']]+e['high_even']+e['high_odd'])\nassert np.allclose(packed(expectation_vector(1,0,35.0,0.7,0.125)), target)",
+        "import numpy as np\nimport numpy as np\ndef packed(e):\n    return np.concatenate([e['base_even'],e['base_odd']]+e['high_even']+e['high_odd'])\nassert np.allclose(packed(expectation_vector(3,5,2.0,1.0,0.1)), target)",
+        "import numpy as np\ndef run_model_invalid():\n    try:\n        expectation_vector(5,2,35.,.7,.125)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model_invalid(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-9.5",
+      "test_cases": [
+        "import numpy as np\nimport numpy as np\n# Fixed numerical inputs; no reference execution is needed to construct them.\ne = {'base_even': [1.0050811017968906,\n               1.0151979195928866,\n               1.1093878590592978,\n               1.3068131977718953,\n               1.6536850904119902,\n               2.2408141982273477,\n               3.2416409476012054,\n               4.992348213248177,\n               8.163530444465644,\n               14.138683846134683,\n               25.875564735743847,\n               49.93158930932141,\n               101.38617838757484],\n 'base_odd': [-0.04331231909561211,\n              -0.1352053822472552,\n              -0.25317824183427035,\n              -0.4284901591555836,\n              -0.7142463326441342,\n              -1.2100378952145394,\n              -2.113166571403283,\n              -3.8306520501457024,\n              -7.233117597927456,\n              -14.249354739956868,\n              -29.303900739578154,\n              -62.90531197812034,\n              -140.89196947017004],\n 'high_even': [[0.12374948313032026,\n                0.1325016122367931,\n                0.1686724757111233,\n                0.24414769925845914,\n                0.3870187171426814,\n                0.6562333814002171,\n                1.1751573540361404,\n                2.208110770089141,\n                4.33898939086138,\n                8.900403460359467,\n                19.036518845149374,\n                42.417592193995496,\n                98.38994903776144],\n               [0.0457295696953653,\n                0.05173919539135861,\n                0.07486666519855432,\n                0.12557125352774037,\n                0.22931829757148303,\n                0.44321429695370795,\n                0.8963816213210469,\n                1.888582009773773,\n                4.137281800480468,\n                9.414604146375918,\n                22.238355606465422,\n                54.495604513282835,\n                138.46115729467252]],\n 'high_odd': [[-0.016005349393377864,\n               -0.05191006394878933,\n               -0.10425673490278496,\n               -0.19379832589383517,\n               -0.3604154005610063,\n               -0.6873161612275093,\n               -1.3561565527039972,\n               -2.7779248702540547,\n               -5.913959031552621,\n               -13.087732558472425,\n               -30.100658237712594,\n               -71.91518274392513,\n               -178.38472336952304]]}\nv = 1.0155097011894159\nassert np.allclose(coefficient_matrix(e,4,12,-0.6,0.125,v), target)",
+        "import numpy as np\nimport numpy as np\n# Fixed numerical inputs; no reference execution is needed to construct them.\ne = {'base_even': [35.17783856289117],\n 'base_odd': [-0.04331231909561211],\n 'high_even': [],\n 'high_odd': []}\nv = 35.542839541629554\nassert np.allclose(coefficient_matrix(e,1,0,0.0,0.125,v), target)",
+        "import numpy as np\nimport numpy as np\n# Fixed numerical inputs; no reference execution is needed to construct them.\ne = {'base_even': [2.0165449388989147,\n               0.5123494056900023,\n               0.1476027431404012,\n               0.04777482181246777,\n               0.01722979798176267],\n 'base_odd': [-0.04919334627807177,\n              -0.03932726367245014,\n              -0.019706855390545945,\n              -0.009278920313856907,\n              -0.004453523183008216],\n 'high_even': [[0.19677338511228595,\n                0.05483917355180021,\n                0.01978632430602322,\n                0.008450788167946949,\n                0.004030254346622753]],\n 'high_odd': [[-0.014416931931200118,\n               -0.012238747233442301,\n               -0.006810481790582288,\n               -0.0036617460054718153,\n               -0.0020345406943626317]]}\nv = 2.0510574645840385\nassert np.allclose(coefficient_matrix(e,3,4,0.4,0.1,v), target)",
+        "import numpy as np\ndef run_model_invalid():\n    try:\n        coefficient_matrix({},0,0,0.,1.,1.)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model_invalid(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-9.6",
+      "test_cases": [
+        "import numpy as np\nimport numpy as np\nA=np.array([[1.0, 2.0, 3.0], [-0.5, 1.0, -0.2]]); k=np.array([8.0, 10.0, 12.0]); base=tuple(np.zeros_like(k) for _ in range(3))\nassert np.allclose(np.concatenate(matrix_values(A,10.0,k,-0.6,base)), target)",
+        "import numpy as np\nimport numpy as np\nA=np.array([[2.0]]); k=np.array([0.0, 1.0, 0.0]); base=tuple(np.zeros_like(k) for _ in range(3))\nassert np.allclose(np.concatenate(matrix_values(A,0.0,k,0.0,base)), target)",
+        "import numpy as np\nimport numpy as np\nA=np.array([[0.0, 0.0, 1.0, -0.5], [1.0, 0.0, 0.0, 0.2], [0.0, 2.0, 1.0, 0.0]]); k=np.array([1.0, 1.9, 3.0]); base=tuple(np.zeros_like(k) for _ in range(3))\nassert np.allclose(np.concatenate(matrix_values(A,2.0,k,0.5,base)), target)",
+        "import numpy as np\ndef run_model_invalid():\n    try:\n        matrix_values(np.ones((1,1)),0.,np.array([0.]),1.,(np.zeros(1),)*3)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model_invalid(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-9.7",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(matrix_expansion_gamma(), target)",
+        "import numpy as np\nassert np.allclose(matrix_expansion_gamma(sigma0=20.,nu=1.,T=.1,rho=.4,M_max=3,N_max=8,strikes=(97.,100.,103.),report_strike=103.), target)",
+        "import numpy as np\nassert np.allclose(matrix_expansion_gamma(T=.2,nu=.5,rho=0.,M_max=1,N_max=6,report_strike=100.), target)",
+        "import numpy as np\ndef run_model_invalid():\n    try:\n        matrix_expansion_gamma(rho=.8)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model_invalid(), target)",
+        "import numpy as np\ndef run_model_invalid():\n    try:\n        matrix_expansion_gamma(report_strike=80.)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model_invalid(), target)"
+      ]
+    }
+  ]
+}

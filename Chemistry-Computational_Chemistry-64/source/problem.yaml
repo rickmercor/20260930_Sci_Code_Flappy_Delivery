@@ -1,0 +1,40 @@
+problem_id: "Chemistry-Computational_Chemistry-64"
+subject: "chemistry"
+subject_area: "Computational Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1063/5.0322870"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_commutator_words"
+    description: "Expand Tr[mu_order [mu_(order-1), [... [mu_0, rho] ...]]]."
+    orchestrator: false
+  - number: 2
+    name: "02_electronic_paths"
+    description: "Enumerate closed electronic paths supported by the complete dipole operator."
+    orchestrator: false
+  - number: 3
+    name: "03_contour_gaussian"
+    description: "Compute the exact thermal generating kernel of ordered HT insertions."
+    orchestrator: false
+  - number: 4
+    name: "04_ht_coefficients"
+    description: "Resolve a Gaussian dipole moment into powers of the common HT scale lambda."
+    orchestrator: false
+  - number: 5
+    name: "05_pathway_coefficients"
+    description: "Evaluate one closed electronic path in an ordered dipole correlation."
+    orchestrator: false
+  - number: 6
+    name: "06_word_coefficients"
+    description: "Sum the exact electronic-path contributions to one dipole correlation word."
+    orchestrator: false
+  - number: 7
+    name: "07_response_coefficients"
+    description: "Evaluate the causal M-th order response as a polynomial in HT scale lambda."
+    orchestrator: false
+  - number: 8
+    name: "08_solve"
+    description: "Compute the contribution omitted by a second-order HT truncation."
+    orchestrator: true

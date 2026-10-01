@@ -1,0 +1,40 @@
+problem_id: "Mathematics-Numerical_Linear_Algebra-19"
+subject: "mathematics"
+subject_area: "Numerical Linear Algebra"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.3390/math13233781"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_initial_pattern.py"
+    description: "Determine one NRSAI column's initial active rows and coefficient positions from the exact numerical patterns of the identity, C, and C squared."
+    orchestrator: false
+  - number: 2
+    name: "02_fit_column.py"
+    description: "Fit one inverse column on a prescribed coefficient support and return its coefficients, full residual, and squared residual norm exactly."
+    orchestrator: false
+  - number: 3
+    name: "03_partition_decision.py"
+    description: "Partition a squared-tolerance rectangle into the next NRSAI decisions at one fixed residual state."
+    orchestrator: false
+  - number: 4
+    name: "04_expand_pattern.py"
+    description: "Expand the active coefficient and row sets from selected residual rows, retaining every selection in the column history."
+    orchestrator: false
+  - number: 5
+    name: "05_column_regions.py"
+    description: "Resolve every terminal support of one NRSAI column over a closed or half-open squared-tolerance box."
+    orchestrator: false
+  - number: 6
+    name: "06_joint_patterns.py"
+    description: "Intersect the column partitions at a common parameter pair and retain the distinct combined support patterns that meet the shared storage budget."
+    orchestrator: false
+  - number: 7
+    name: "07_evaluate_patterns.py"
+    description: "Assemble the two inverse approximations on fixed supports and evaluate their original-system relative residuals after the prescribed restarted GMRES solves."
+    orchestrator: false
+  - number: 8
+    name: "08_solve_shared_budget.py"
+    description: "Resolve the complete shared-parameter domain and return the smallest worst-right-hand-side left-to-right residual ratio under the storage budget."
+    orchestrator: true

@@ -1,0 +1,40 @@
+problem_id: "Physics-Quantum_Information_Computing-39"
+subject: "physics"
+subject_area: "Quantum Information / Computing"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1103/5z1m-122d"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_build_collective_generators"
+    description: "Build the uniform bath generator and the undriven collective generator."
+    orchestrator: false
+  - number: 2
+    name: "02_resolve_quench_modes"
+    description: "Resolve a normalized quench into stationary and weighted transient contributions."
+    orchestrator: false
+  - number: 3
+    name: "03_select_entangling_mode"
+    description: "Select a transient conjugate pair by its physically admissible entanglement score."
+    orchestrator: false
+  - number: 4
+    name: "04_integrate_local_half_steps"
+    description: "Integrate the sinusoidal collective drive on both halves of every interval."
+    orchestrator: false
+  - number: 5
+    name: "05_contract_auxiliary_cycle"
+    description: "Dress the uniform auxiliary map and contract the chronological cycle."
+    orchestrator: false
+  - number: 6
+    name: "06_recover_periodic_qubit_states"
+    description: "Recover the attracting auxiliary cycle and its reduced qubit micromotion."
+    orchestrator: false
+  - number: 7
+    name: "07_evaluate_stabilization_grid"
+    description: "Evaluate the period-averaged entanglement estimator for each candidate drive."
+    orchestrator: false
+  - number: 8
+    name: "08_compute_stabilized_entanglement"
+    description: "Select the transient resonance and compute the strongest driven entanglement estimator."
+    orchestrator: true

@@ -1,0 +1,36 @@
+problem_id: "Material_Science-Molecular_Modeling-4"
+subject: "materials"
+subject_area: "Molecular Modeling"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1063/5.0295478"
+dependencies: ""
+steps:
+  - number: 1
+    name: "cluster_energy"
+    description: "Compute the total potential energy of a cluster of flexible A-B-A monomers: harmonic B-A bonds and the harmonic A1-B-A2 angle inside every monomer, plus intermonomer Lennard-Jones interactions, B with B and every A with every A, using the parameter values fixed in the problem statement. Validate the coordinate array and raise ValueError on malformed input."
+    orchestrator: false
+  - number: 2
+    name: "cluster_gradient"
+    description: "Compute the exact analytic gradient of the cluster potential with respect to every coordinate, distributing bond and angle forces correctly among the three atoms of each monomer and applying action-reaction between Lennard-Jones partners. Same validation as the energy."
+    orchestrator: false
+  - number: 3
+    name: "block_mass_scaled_hessian"
+    description: "Build the per-monomer mass-scaled Hessian blocks as exact analytic second derivatives of the bond, angle, and Lennard-Jones terms, assembled per block, symmetrized, and scaled by the inverse square-root masses on both sides. The grading tolerance is set so that finite-difference approximations of any order fail; only exact derivatives pass."
+    orchestrator: false
+  - number: 4
+    name: "reference_configuration"
+    description: "Rebuild every monomer at the isolated-monomer internal minimum inside its own frame using the exact frame contract from the problem statement: origin at B, x along the normalized bond bisector, z along the normalized cross product of the two bond vectors, y completing the right-handed frame, A1 at plus half the equilibrium angle from x toward y and A2 at minus half, both at the equilibrium bond length. Handle the near-collinear degeneracy exactly as the statement prescribes: when the sine of the bond angle falls below the stated threshold the plane normal comes from the deterministic basis-vector fallback, and zero-length bonds or a degenerate bisector raise ValueError."
+    orchestrator: false
+  - number: 5
+    name: "shr_relax"
+    description: "Perform exactly num_iters updates of the paper\u2019s subspace relaxation iteration, with the mass scaling and the treatment of the pseudoinverse across iterations following the source, and no tolerance-based exit. Validate the iteration count."
+    orchestrator: false
+  - number: 6
+    name: "harmonic_thermo"
+    description: "From a potential energy value, the selected frequencies, and a temperature, compute the classical and quantum coarse-grained free energies and the total classical and quantum positional mode variances of the paper\u2019s backmapping construction, using the exact forms the paper gives. Validate the inputs."
+    orchestrator: false
+  - number: 7
+    name: "shr_audit"
+    description: "The final orchestrator. For each supplied configuration, chain the earlier sub-problem functions to produce the twenty declared columns. Columns 0 to 13 are the reference and relaxed potential energies, classical and quantum coarse-grained free energies, the fixed-geometry free energy from zero relaxation, the classical gap, smallest and largest selected frequency, total classical and quantum backmapping variances, the first and second update displacement norms, and the two strict-inequality flags. With num_iters equal to zero it must reproduce the fixed-geometry rigidification identically. Columns 14 to 17 are the backmapping covariance audit summed over every monomer of the configuration, each monomer contributing its own B atom at the relaxed point: the largest eigenvalue of the quantum covariance, its anisotropy, the signed alignment of its principal axis with that monomer's plane normal, and the quantum to classical trace ratio, with the principal-axis sign fixed by the declared frame and flip convention. Column 19 is the source\u2019s Eq 6 minimum-energy-manifold residual at the relaxed point, summed over every monomer, with the stiff-subspace pseudoinverse and the mass scaling applied exactly as the source defines that manifold condition. Column 18 is the signed frame twist between the reference and relaxed points, also summed over every monomer, under the declared row-stacking, product-order, axis-extraction, and sign conventions."
+    orchestrator: true

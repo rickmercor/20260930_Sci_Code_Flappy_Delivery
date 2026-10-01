@@ -1,0 +1,74 @@
+{
+  "problem_id": "Physics-Condensed_Matter_Physics-6",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-6.1",
+      "test_cases": [
+        "import numpy as np\n\ndef pack_network(fn, Kh, Kv, h):\n    e, n, d, t, b = fn(Kh.copy(), Kv.copy(), h.copy())\n    return (e, n, d, t, b)\n\ndef expect_value_error(fn, Kh, Kv, h):\n    try:\n        fn(Kh.copy(), Kv.copy(), h.copy())\n    except ValueError:\n        return 1.0\n    return 0.0\n\nKh=np.array([[0.31],[0.47]])\nKv=np.array([[0.42,0.35]])\nh=np.array([[0.03,-0.06],[0.08,-0.04]])\nassert np.allclose(pack_network(build_ising_tensor_network,Kh,Kv,h), target)",
+        "import numpy as np\n\ndef pack_network(fn, Kh, Kv, h):\n    e, n, d, t, b = fn(Kh.copy(), Kv.copy(), h.copy())\n    return (e, n, d, t, b)\n\ndef expect_value_error(fn, Kh, Kv, h):\n    try:\n        fn(Kh.copy(), Kv.copy(), h.copy())\n    except ValueError:\n        return 1.0\n    return 0.0\n\nKh=np.array([[0.52]])\nKv=np.empty((0,2))\nh=np.array([[0.09,-0.11]])\nassert np.allclose(pack_network(build_ising_tensor_network,Kh,Kv,h), target)",
+        "import numpy as np\n\ndef pack_network(fn, Kh, Kv, h):\n    e, n, d, t, b = fn(Kh.copy(), Kv.copy(), h.copy())\n    return (e, n, d, t, b)\n\ndef expect_value_error(fn, Kh, Kv, h):\n    try:\n        fn(Kh.copy(), Kv.copy(), h.copy())\n    except ValueError:\n        return 1.0\n    return 0.0\n\nKh=np.empty((1,0))\nKv=np.empty((0,1))\nh=np.array([[0.17]])\nassert np.allclose(pack_network(build_ising_tensor_network,Kh,Kv,h), target)",
+        "import numpy as np\n\ndef pack_network(fn, Kh, Kv, h):\n    e, n, d, t, b = fn(Kh.copy(), Kv.copy(), h.copy())\n    return (e, n, d, t, b)\n\ndef expect_value_error(fn, Kh, Kv, h):\n    try:\n        fn(Kh.copy(), Kv.copy(), h.copy())\n    except ValueError:\n        return 1.0\n    return 0.0\n\nKh=np.array([[0.2,0.3]])\nKv=np.empty((0,2))\nh=np.array([[0.0,0.0]])\nassert np.allclose(expect_value_error(build_ising_tensor_network,Kh,Kv,h), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-6.2",
+      "test_cases": [
+        "import numpy as np\n\ndef run_bp(build_fn, solve_fn, Kh, Kv, h, tol):\n    e,n,d,t,_ = build_fn(Kh.copy(),Kv.copy(),h.copy())\n    return solve_fn(e.copy(),n.copy(),d.copy(),t.copy(),tol)\n\nKh=np.array([[0.31],[0.47]])\nKv=np.array([[0.42,0.35]])\nh=np.array([[0.03,-0.06],[0.08,-0.04]])\nassert np.allclose(run_bp(build_ising_tensor_network,solve_bp_messages,Kh,Kv,h,1e-13), target)",
+        "import numpy as np\n\ndef run_bp(build_fn, solve_fn, Kh, Kv, h, tol):\n    e,n,d,t,_ = build_fn(Kh.copy(),Kv.copy(),h.copy())\n    return solve_fn(e.copy(),n.copy(),d.copy(),t.copy(),tol)\n\nKh=np.empty((1,0))\nKv=np.empty((0,1))\nh=np.array([[0.17]])\nassert np.allclose(run_bp(build_ising_tensor_network,solve_bp_messages,Kh,Kv,h,1e-13), target)",
+        "import numpy as np\n\ndef run_bp(build_fn, solve_fn, Kh, Kv, h, tol):\n    e,n,d,t,_ = build_fn(Kh.copy(),Kv.copy(),h.copy())\n    return solve_fn(e.copy(),n.copy(),d.copy(),t.copy(),tol)\n\nKh=np.array([[0.72]])\nKv=np.empty((0,2))\nh=np.array([[0.21,-0.16]])\nassert np.allclose(run_bp(build_ising_tensor_network,solve_bp_messages,Kh,Kv,h,1e-13), target)",
+        "import numpy as np\n\ndef run_bp(build_fn, solve_fn, Kh, Kv, h, tol):\n    e,n,d,t,_ = build_fn(Kh.copy(),Kv.copy(),h.copy())\n    return solve_fn(e.copy(),n.copy(),d.copy(),t.copy(),tol)\n\nKh=np.array([[0.28,0.51],[0.44,0.33]])\nKv=np.array([[0.37,0.46,0.31]])\nh=np.array([[0.04,-0.05,0.09],[-0.02,0.07,-0.03]])\nassert np.allclose(run_bp(build_ising_tensor_network,solve_bp_messages,Kh,Kv,h,1e-10), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-6.3",
+      "test_cases": [
+        "import numpy as np\n\ndef run_vacuum(build_fn, solve_fn, vacuum_fn, Kh, Kv, h):\n    e,n,d,t,_ = build_fn(Kh.copy(),Kv.copy(),h.copy())\n    m = solve_fn(e.copy(),n.copy(),d.copy(),t.copy(),1e-13)\n    sf,ov,p0,pp,f0 = vacuum_fn(e.copy(),n.copy(),d.copy(),t.copy(),m.copy())\n    return (sf,ov,p0,pp,float(f0))\n\nKh=np.array([[0.31],[0.47]])\nKv=np.array([[0.42,0.35]])\nh=np.array([[0.03,-0.06],[0.08,-0.04]])\nassert np.allclose(run_vacuum(build_ising_tensor_network,solve_bp_messages,compute_bp_vacuum,Kh,Kv,h), target)",
+        "import numpy as np\n\ndef run_vacuum(build_fn, solve_fn, vacuum_fn, Kh, Kv, h):\n    e,n,d,t,_ = build_fn(Kh.copy(),Kv.copy(),h.copy())\n    m = solve_fn(e.copy(),n.copy(),d.copy(),t.copy(),1e-13)\n    sf,ov,p0,pp,f0 = vacuum_fn(e.copy(),n.copy(),d.copy(),t.copy(),m.copy())\n    return (sf,ov,p0,pp,float(f0))\n\nKh=np.empty((1,0))\nKv=np.empty((0,1))\nh=np.array([[0.17]])\nassert np.allclose(run_vacuum(build_ising_tensor_network,solve_bp_messages,compute_bp_vacuum,Kh,Kv,h), target)",
+        "import numpy as np\n\ndef run_vacuum(build_fn, solve_fn, vacuum_fn, Kh, Kv, h):\n    e,n,d,t,_ = build_fn(Kh.copy(),Kv.copy(),h.copy())\n    m = solve_fn(e.copy(),n.copy(),d.copy(),t.copy(),1e-13)\n    sf,ov,p0,pp,f0 = vacuum_fn(e.copy(),n.copy(),d.copy(),t.copy(),m.copy())\n    return (sf,ov,p0,pp,float(f0))\n\nKh=np.array([[0.72]])\nKv=np.empty((0,2))\nh=np.array([[0.21,-0.16]])\nassert np.allclose(run_vacuum(build_ising_tensor_network,solve_bp_messages,compute_bp_vacuum,Kh,Kv,h), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-6.4",
+      "test_cases": [
+        "import numpy as np\nedges=np.array([[0,1],[0,2],[1,3],[2,3]],dtype=int)\nassert np.allclose(enumerate_connected_generalized_loops(edges.copy(),4), target)",
+        "import numpy as np\nedges=np.array([[0,1],[1,2],[2,3]],dtype=int)\nassert np.allclose(enumerate_connected_generalized_loops(edges.copy(),3), target)",
+        "import numpy as np\nedges=np.array([[0,1],[0,2],[0,3],[0,4],[1,2],[3,4]],dtype=int)\nassert np.allclose(enumerate_connected_generalized_loops(edges.copy(),6), target)",
+        "import numpy as np\nedges=np.array([[0,1],[0,2],[1,3],[2,3]],dtype=int)\nassert np.allclose(enumerate_connected_generalized_loops(edges.copy(),3), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-6.5",
+      "test_cases": [
+        "import numpy as np\n\ndef run_weights(build_fn, solve_fn, vacuum_fn, loop_fn, weight_fn, Kh, Kv, h, cutoff):\n    e,n,d,t,b = build_fn(Kh.copy(),Kv.copy(),h.copy())\n    m = solve_fn(e.copy(),n.copy(),d.copy(),t.copy(),1e-13)\n    sf,_,p0,pp,_ = vacuum_fn(e.copy(),n.copy(),d.copy(),t.copy(),m.copy())\n    ls = loop_fn(e.copy(),cutoff)\n    return weight_fn(e.copy(),h.copy(),b.copy(),p0.copy(),pp.copy(),sf.copy(),ls.copy())\n\nKh=np.array([[0.40],[0.33]])\nKv=np.array([[0.28,0.45]])\nh=np.array([[0.04,-0.07],[0.02,0.05]])\nassert np.allclose(run_weights(build_ising_tensor_network,solve_bp_messages,compute_bp_vacuum,enumerate_connected_generalized_loops,compute_normalized_loop_weights,Kh,Kv,h,4), target)",
+        "import numpy as np\n\ndef run_weights(build_fn, solve_fn, vacuum_fn, loop_fn, weight_fn, Kh, Kv, h, cutoff):\n    e,n,d,t,b = build_fn(Kh.copy(),Kv.copy(),h.copy())\n    m = solve_fn(e.copy(),n.copy(),d.copy(),t.copy(),1e-13)\n    sf,_,p0,pp,_ = vacuum_fn(e.copy(),n.copy(),d.copy(),t.copy(),m.copy())\n    ls = loop_fn(e.copy(),cutoff)\n    return weight_fn(e.copy(),h.copy(),b.copy(),p0.copy(),pp.copy(),sf.copy(),ls.copy())\n\nKh=np.array([[0.31,0.47],[0.38,0.29]])\nKv=np.array([[0.42,0.35,0.51]])\nh=np.array([[0.03,-0.06,0.08],[-0.04,0.05,-0.02]])\nassert np.allclose(run_weights(build_ising_tensor_network,solve_bp_messages,compute_bp_vacuum,enumerate_connected_generalized_loops,compute_normalized_loop_weights,Kh,Kv,h,6), target)",
+        "import numpy as np\n\ndef run_weights(build_fn, solve_fn, vacuum_fn, loop_fn, weight_fn, Kh, Kv, h, cutoff):\n    e,n,d,t,b = build_fn(Kh.copy(),Kv.copy(),h.copy())\n    m = solve_fn(e.copy(),n.copy(),d.copy(),t.copy(),1e-13)\n    sf,_,p0,pp,_ = vacuum_fn(e.copy(),n.copy(),d.copy(),t.copy(),m.copy())\n    ls = loop_fn(e.copy(),cutoff)\n    return weight_fn(e.copy(),h.copy(),b.copy(),p0.copy(),pp.copy(),sf.copy(),ls.copy())\n\nKh=np.array([[0.72]])\nKv=np.empty((0,2))\nh=np.array([[0.21,-0.16]])\nassert np.allclose(run_weights(build_ising_tensor_network,solve_bp_messages,compute_bp_vacuum,enumerate_connected_generalized_loops,compute_normalized_loop_weights,Kh,Kv,h,2), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-6.6",
+      "test_cases": [
+        "import numpy as np\n\ndef run_clusters(loop_fn, cluster_fn, edges, cutoff):\n    ls = loop_fn(edges.copy(),cutoff)\n    m,c,w = cluster_fn(edges.copy(),ls.copy(),cutoff)\n    return (m,c,w)\n\nedges=np.array([[0,1],[0,2],[1,2]],dtype=int)\nassert np.allclose(run_clusters(enumerate_connected_generalized_loops,enumerate_connected_loop_clusters,edges,9), target)",
+        "import numpy as np\n\ndef run_clusters(loop_fn, cluster_fn, edges, cutoff):\n    ls = loop_fn(edges.copy(),cutoff)\n    m,c,w = cluster_fn(edges.copy(),ls.copy(),cutoff)\n    return (m,c,w)\n\nedges=np.array([[0,1],[0,2],[0,3],[0,4],[1,2],[3,4]],dtype=int)\nassert np.allclose(run_clusters(enumerate_connected_generalized_loops,enumerate_connected_loop_clusters,edges,6), target)",
+        "import numpy as np\n\ndef run_clusters(loop_fn, cluster_fn, edges, cutoff):\n    ls = loop_fn(edges.copy(),cutoff)\n    m,c,w = cluster_fn(edges.copy(),ls.copy(),cutoff)\n    return (m,c,w)\n\nedges=np.array([[0,1],[0,2],[1,2],[3,4],[3,5],[4,5]],dtype=int)\nassert np.allclose(run_clusters(enumerate_connected_generalized_loops,enumerate_connected_loop_clusters,edges,6), target)",
+        "import numpy as np\n\ndef run_clusters(loop_fn, cluster_fn, edges, cutoff):\n    ls = loop_fn(edges.copy(),cutoff)\n    m,c,w = cluster_fn(edges.copy(),ls.copy(),cutoff)\n    return (m,c,w)\n\nedges=np.array([[0,1],[0,2],[1,3],[2,3]],dtype=int)\nassert np.allclose(run_clusters(enumerate_connected_generalized_loops,enumerate_connected_loop_clusters,edges,4), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-6.7",
+      "test_cases": [
+        "import numpy as np\n\ndef run_midchain(build_fn, solve_fn, vacuum_fn, loop_fn, weight_fn, cluster_fn, eval_fn, Kh, Kv, h, cutoff):\n    e,n,d,t,b = build_fn(Kh.copy(),Kv.copy(),h.copy())\n    m = solve_fn(e.copy(),n.copy(),d.copy(),t.copy(),1e-13)\n    sf,_,p0,pp,_ = vacuum_fn(e.copy(),n.copy(),d.copy(),t.copy(),m.copy())\n    ls = loop_fn(e.copy(),cutoff)\n    lw = weight_fn(e.copy(),h.copy(),b.copy(),p0.copy(),pp.copy(),sf.copy(),ls.copy())\n    mult,coef,_ = cluster_fn(e.copy(),ls.copy(),cutoff)\n    vals,delta = eval_fn(lw.copy(),mult.copy(),coef.copy())\n    return (vals,float(delta))\n\nKh=np.array([[0.31,0.47],[0.38,0.29]])\nKv=np.array([[0.42,0.35,0.51]])\nh=np.array([[0.03,-0.06,0.08],[-0.04,0.05,-0.02]])\nassert np.allclose(run_midchain(build_ising_tensor_network,solve_bp_messages,compute_bp_vacuum,enumerate_connected_generalized_loops,compute_normalized_loop_weights,enumerate_connected_loop_clusters,evaluate_cluster_correction,Kh,Kv,h,6), target)",
+        "import numpy as np\n\ndef run_midchain(build_fn, solve_fn, vacuum_fn, loop_fn, weight_fn, cluster_fn, eval_fn, Kh, Kv, h, cutoff):\n    e,n,d,t,b = build_fn(Kh.copy(),Kv.copy(),h.copy())\n    m = solve_fn(e.copy(),n.copy(),d.copy(),t.copy(),1e-13)\n    sf,_,p0,pp,_ = vacuum_fn(e.copy(),n.copy(),d.copy(),t.copy(),m.copy())\n    ls = loop_fn(e.copy(),cutoff)\n    lw = weight_fn(e.copy(),h.copy(),b.copy(),p0.copy(),pp.copy(),sf.copy(),ls.copy())\n    mult,coef,_ = cluster_fn(e.copy(),ls.copy(),cutoff)\n    vals,delta = eval_fn(lw.copy(),mult.copy(),coef.copy())\n    return (vals,float(delta))\n\nKh=np.array([[0.31,0.47],[0.38,0.29]])\nKv=np.array([[0.42,0.35,0.51]])\nh=np.array([[0.03,-0.06,0.08],[-0.04,0.05,-0.02]])\nassert np.allclose(run_midchain(build_ising_tensor_network,solve_bp_messages,compute_bp_vacuum,enumerate_connected_generalized_loops,compute_normalized_loop_weights,enumerate_connected_loop_clusters,evaluate_cluster_correction,Kh,Kv,h,8), target)",
+        "import numpy as np\nlw=np.array([0.2])\nmult=np.array([[1],[2],[3]],dtype=int)\ncoef=np.array([1.0,-0.5,1.0/3.0])\nassert np.allclose(evaluate_cluster_correction(lw.copy(),mult.copy(),coef.copy()), target)",
+        "import numpy as np\nlw=np.array([0.14,-0.06])\nmult=np.empty((0,2),dtype=int)\ncoef=np.empty(0)\nassert np.allclose(evaluate_cluster_correction(lw.copy(),mult.copy(),coef.copy()), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-6.8",
+      "test_cases": [
+        "import numpy as np\nKh=np.array([[0.368,0.464,0.304],[0.400,0.336,0.496],[0.432,0.288,0.384]])\nKv=np.array([[0.352,0.448,0.416,0.320],[0.480,0.384,0.304,0.432]])\nh=np.array([[0.07,-0.04,0.02,0.09],[-0.05,0.06,-0.08,0.03],[0.04,-0.06,0.05,-0.02]])\nassert np.allclose(compute_cluster_free_energy(Kh.copy(),Kv.copy(),h.copy(),10,1e-13), target)",
+        "import numpy as np\nKh=np.empty((1,0))\nKv=np.empty((0,1))\nh=np.array([[0.11]])\nassert np.allclose(compute_cluster_free_energy(Kh.copy(),Kv.copy(),h.copy(),0,1e-13), target)",
+        "import numpy as np\nKh=np.array([[0.31,0.47],[0.38,0.29]])\nKv=np.array([[0.42,0.35,0.51]])\nh=np.array([[0.03,-0.06,0.08],[-0.04,0.05,-0.02]])\nassert np.allclose(compute_cluster_free_energy(Kh.copy(),Kv.copy(),h.copy(),6,1e-13), target)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+problem_id: "Mathematics-Numerical_Linear_Algebra-52"
+subject: "mathematics"
+subject_area: "Numerical Linear Algebra"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2608.13714"
+dependencies: ""
+steps:
+  - number: 1
+    name: "Step 01: Build Augmented Randomized Block"
+    description: "Construct the initial block used by the block Krylov procedures from a target vector and reproducible randomized directions."
+    orchestrator: false
+  - number: 2
+    name: "Step 02: Classical Block Orthonormalization"
+    description: "Prepare an augmented starting block for the classical block Krylov strategy. The routine validates the block and produces a column-orthonormal starting basis suitable for subsequent classical Krylov reduction."
+    orchestrator: false
+  - number: 3
+    name: "Step 03: Global Block Normalization"
+    description: "Prepare the augmented starting block for the global block Krylov strategy."
+    orchestrator: false
+  - number: 4
+    name: "Step 04: Classical Block Arnoldi Reduction"
+    description: "Construct the classical block Krylov basis and its reduced representation for a specified matrix, starting block, and depth. The routine validates the dimensions and iteratively generates the requested block Krylov basis."
+    orchestrator: false
+  - number: 5
+    name: "Step 05: Global Block Arnoldi Reduction"
+    description: "Construct the global block Krylov basis and its reduced representation for a specified matrix, starting block, and depth."
+    orchestrator: false
+  - number: 6
+    name: "Step 06: Classical Matrix-Function Approximation"
+    description: "Compute a matrix-function approximation associated with the classical reduced Krylov representation."
+    orchestrator: false
+  - number: 7
+    name: "Step 07: Global Matrix-Function Approximation"
+    description: "Compute a matrix-function approximation associated with the global reduced Krylov representation. The routine validates the reduced representation and the unnormalized starting block, evaluates the reduced matrix function, and maps the result back to the original space."
+    orchestrator: false
+  - number: 8
+    name: "Step 08: Block Krylov Strategy Gap"
+    description: "Assemble the randomized initialization, classical and global reductions, and corresponding matrix-function approximations into one deterministic comparison. The routine returns the Euclidean distance between the two resulting approximations."
+    orchestrator: true

@@ -1,0 +1,89 @@
+{
+  "problem_id": "Chemistry-Quantum_Chemistry-70",
+  "sub_steps": [
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-70.1",
+      "test_cases": [
+        "import numpy as np\nbra = np.array([[0.8, 0.3, 0.0], [0.5, 0.5, 0.2], [1.6, 0.1, 0.05]])\nket = np.array([[0.3, 0.9, 0.1], [2.0, 0.4, 0.0], [0.7, 0.7, 0.6], [0.2, 1.1, 0.3]])\nassert np.allclose(ecg_overlap(bra.copy(), ket.copy(), 'even'), target)",
+        "import numpy as np\nbra = np.array([[0.8, 0.3, 0.0], [0.5, 0.5, 0.2], [1.6, 0.1, 0.05]])\nket = np.array([[0.3, 0.9, 0.1], [2.0, 0.4, 0.0], [0.7, 0.7, 0.6], [0.2, 1.1, 0.3]])\nassert np.allclose(ecg_overlap(bra.copy(), ket.copy(), 'odd'), target)",
+        "import numpy as np\ne = np.array([[1.0, 1.0, 0.0], [0.25, 0.25, 0.0], [0.4, 3.0, 0.0]])\nassert np.allclose(ecg_overlap(e.copy(), e.copy(), 'odd'), target)",
+        "import numpy as np\nb = np.array([[0.0, 0.6, 0.9]])\nk = np.array([[0.4, 0.0, 1.5], [0.05, 0.02, 0.01]])\nassert np.allclose(ecg_overlap(b.copy(), k.copy(), 'even'), target)",
+        "import numpy as np\ne = np.array([[0.0, 1.0, 0.0]])\ndef _probe(fn):\n    try:\n        fn(e, e, 'odd')\n    except ValueError:\n        return 1\n    return 0\nassert np.allclose(_probe(ecg_overlap), target)",
+        "import numpy as np\ne = np.array([[1.0, 1.0, 0.1]])\ndef _probe(fn):\n    try:\n        fn(e, e, 'singlet')\n    except ValueError:\n        return 1\n    return 0\nassert np.allclose(_probe(ecg_overlap), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-70.2",
+      "test_cases": [
+        "import numpy as np\nbra = np.array([[0.8, 0.3, 0.0], [0.5, 0.5, 0.2], [1.6, 0.1, 0.05]])\nket = np.array([[0.3, 0.9, 0.1], [2.0, 0.4, 0.0], [0.7, 0.7, 0.6], [0.2, 1.1, 0.3]])\nassert np.allclose(ecg_kinetic(bra.copy(), ket.copy(), 'even'), target)",
+        "import numpy as np\nbra = np.array([[0.8, 0.3, 0.0], [0.5, 0.5, 0.2], [1.6, 0.1, 0.05]])\nket = np.array([[0.3, 0.9, 0.1], [2.0, 0.4, 0.0], [0.7, 0.7, 0.6], [0.2, 1.1, 0.3]])\nassert np.allclose(ecg_kinetic(bra.copy(), ket.copy(), 'odd'), target)",
+        "import numpy as np\ne = np.array([[4.0, 0.25, 0.0], [1.0, 1.0, 0.0], [0.25, 4.0, 0.0]])\nassert np.allclose(ecg_kinetic(e.copy(), e.copy(), 'even'), target)",
+        "import numpy as np\nb = np.array([[0.01, 0.02, 3.0]])\nk = np.array([[30.0, 0.05, 0.0], [0.0, 0.3, 0.4]])\nassert np.allclose(ecg_kinetic(b.copy(), k.copy(), 'odd'), target)",
+        "import numpy as np\ne = np.array([[1.0, -0.1, 0.5]])\ndef _probe(fn):\n    try:\n        fn(e, e, 'even')\n    except ValueError:\n        return 1\n    return 0\nassert np.allclose(_probe(ecg_kinetic), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-70.3",
+      "test_cases": [
+        "import numpy as np\nbra = np.array([[0.8, 0.3, 0.0], [0.5, 0.5, 0.2], [1.6, 0.1, 0.05]])\nket = np.array([[0.3, 0.9, 0.1], [2.0, 0.4, 0.0], [0.7, 0.7, 0.6], [0.2, 1.1, 0.3]])\nassert np.allclose(ecg_coulomb(bra.copy(), ket.copy(), 'even', 2.0), target)",
+        "import numpy as np\nbra = np.array([[0.8, 0.3, 0.0], [0.5, 0.5, 0.2], [1.6, 0.1, 0.05]])\nket = np.array([[0.3, 0.9, 0.1], [2.0, 0.4, 0.0], [0.7, 0.7, 0.6], [0.2, 1.1, 0.3]])\nassert np.allclose(ecg_coulomb(bra.copy(), ket.copy(), 'odd', 2.0), target)",
+        "import numpy as np\ne = np.array([[0.05, 0.05, 0.0], [0.02, 0.3, 0.1], [0.3, 0.02, 0.0]])\nassert np.allclose(ecg_coulomb(e.copy(), e.copy(), 'odd', 1.0), target)",
+        "import numpy as np\nb = np.array([[2.5, 1.5, 0.0], [0.4, 0.6, 0.2]])\nk = np.array([[0.0, 0.8, 1.2]])\nassert np.allclose(ecg_coulomb(b.copy(), k.copy(), 'even', 10.0), target)",
+        "import numpy as np\ne = np.array([[1.0, 0.5, 0.1]])\ndef _probe(fn):\n    try:\n        fn(e, e, 'odd', 0.0)\n    except ValueError:\n        return 1\n    return 0\nassert np.allclose(_probe(ecg_coulomb), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-70.4",
+      "test_cases": [
+        "import numpy as np\nee = np.array([[0.8, 0.3, 0.0], [0.5, 0.5, 0.2], [1.6, 0.1, 0.05]])\neo = np.array([[0.3, 0.9, 0.1], [2.0, 0.4, 0.0], [0.7, 0.7, 0.6], [0.2, 1.1, 0.3]])\nassert np.allclose(ecg_dipole(ee.copy(), eo.copy(), 'length'), target)",
+        "import numpy as np\nee = np.array([[0.8, 0.3, 0.0], [0.5, 0.5, 0.2], [1.6, 0.1, 0.05]])\neo = np.array([[0.3, 0.9, 0.1], [2.0, 0.4, 0.0], [0.7, 0.7, 0.6], [0.2, 1.1, 0.3]])\nassert np.allclose(ecg_dipole(ee.copy(), eo.copy(), 'velocity'), target)",
+        "import numpy as np\nee = np.array([[0.6, 0.2, 0.0], [0.3, 0.3, 0.3]])\neo = np.array([[0.9, 0.9, 0.0], [0.1, 2.0, 0.0]])\nassert np.allclose(ecg_dipole(ee.copy(), eo.copy(), 'length'), target)",
+        "import numpy as np\nee = np.array([[0.02, 0.05, 0.5]])\neo = np.array([[40.0, 0.01, 0.0], [0.0, 0.5, 0.7]])\nassert np.allclose(ecg_dipole(ee.copy(), eo.copy(), 'velocity'), target)",
+        "import numpy as np\ne = np.array([[1.0, 0.5, 0.1]])\ndef _probe(fn):\n    try:\n        fn(e, e, 'acceleration')\n    except ValueError:\n        return 1\n    return 0\nassert np.allclose(_probe(ecg_dipole), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-70.5",
+      "test_cases": [
+        "import numpy as np\ng = [0.08, 0.25, 0.8, 2.5]\ne = np.array([(g[i], g[j], c) for i in range(4) for j in range(i, 4) for c in (0.0, 0.15)])\ndef parts(table):\n    t = np.asarray(table, dtype=complex)\n    return np.concatenate([t[:, 0].real, t[:, 0].imag, np.abs(t[:, 1:]).ravel()])\nassert np.allclose(parts(rotated_levels(e.copy(), 'even', 2.0, 0.0, 1e-12)), target)",
+        "import numpy as np\ninner, outer = [0.6, 2.4, 9.0, 36.0], [0.015, 0.05, 0.15, 0.5]\nrows = [(a, b, 0.0) for a in inner for b in outer] + [(b, a, 0.0) for a in inner for b in outer]\nrows += [(a, a, 0.2) for a in (0.1, 0.5)]\ne = np.array(rows)\ndef parts(table):\n    t = np.asarray(table, dtype=complex)[:8]\n    return np.concatenate([t[:, 0].real, t[:, 0].imag, np.abs(t[:, 1:]).ravel()])\nassert np.allclose(parts(rotated_levels(e.copy(), 'odd', 2.0, 0.25, 1e-12)), target)",
+        "import numpy as np\ng = [0.08, 0.25, 0.8, 2.5]\ne = np.array([(g[i], g[j], c) for i in range(4) for j in range(i, 4) for c in (0.0, 0.15)])\ndef parts(table):\n    t = np.asarray(table, dtype=complex)\n    return np.concatenate([t[:, 0].real, t[:, 0].imag, np.abs(t[:, 1:]).ravel()])\nassert np.allclose(np.asarray(rotated_levels(e.copy(), 'even', 2.0, 0.18, 1e-12), dtype=complex)[:4, 1:].real, target)",
+        "import numpy as np\ninner, outer = [0.6, 2.4, 9.0, 36.0], [0.015, 0.05, 0.15, 0.5]\nrows = [(a, b, 0.0) for a in inner for b in outer] + [(b, a, 0.0) for a in inner for b in outer]\nrows += [(a, a, 0.2) for a in (0.1, 0.5)]\ne = np.array(rows)\ndef parts(table):\n    t = np.asarray(table, dtype=complex)[:8]\n    return np.concatenate([t[:, 0].real, t[:, 0].imag, np.abs(t[:, 1:]).ravel()])\nassert np.allclose(float(np.abs(np.asarray(rotated_levels(e.copy(), 'odd', 2.0, 0.3, 1e-10), dtype=complex)[0, 0].imag)), target)",
+        "import numpy as np\ninner, outer = [0.6, 2.4, 9.0, 36.0], [0.015, 0.05, 0.15, 0.5]\nrows = [(a, b, 0.0) for a in inner for b in outer] + [(b, a, 0.0) for a in inner for b in outer]\nrows += [(a, a, 0.2) for a in (0.1, 0.5)]\ne = np.array(rows)\ndef parts(table):\n    t = np.asarray(table, dtype=complex)[:8]\n    return np.concatenate([t[:, 0].real, t[:, 0].imag, np.abs(t[:, 1:]).ravel()])\ne = e * 2.25\nassert np.allclose(parts(rotated_levels(e.copy(), 'odd', 3.0, 0.2, 1e-4)), target)",
+        "import numpy as np\ne = np.array([[0.3, 0.3, 0.05]])\nassert np.allclose(np.asarray(rotated_levels(e.copy(), 'even', 2.0, 0.1, 1e-10), dtype=complex)[0, 0].real, target)",
+        "import numpy as np\ne = np.array([[0.3, 0.3, 0.05]])\ndef _probe(fn):\n    try:\n        fn(e, 'even', 2.0, 0.9, 1e-10)\n    except ValueError:\n        return 1\n    return 0\nassert np.allclose(_probe(rotated_levels), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-70.6",
+      "test_cases": [
+        "import numpy as np\ng = [0.08, 0.25, 0.8, 2.5]\nee = np.array([(g[i], g[j], c) for i in range(4) for j in range(i, 4) for c in (0.0, 0.15)])\ninner, outer = [0.6, 2.4, 9.0, 36.0], [0.015, 0.05, 0.15, 0.5]\nrows = [(a, b, 0.0) for a in inner for b in outer] + [(b, a, 0.0) for a in inner for b in outer]\nrows += [(a, a, 0.2) for a in (0.1, 0.5)]\neo = np.array(rows)\ndef logged(table):\n    t = np.asarray(table, dtype=float).reshape(-1, 3)\n    return np.column_stack([t[:, 0], t[:, 1], np.log(t[:, 2])])\nassert np.allclose(logged(bound_line_rates(ee.copy(), eo.copy(), 2.0, 1e-12)), target)",
+        "import numpy as np\ng = [0.08, 0.25, 0.8, 2.5]\nee = np.array([(g[i], g[j], c) for i in range(4) for j in range(i, 4) for c in (0.0, 0.15)])\ninner, outer = [0.6, 2.4, 9.0, 36.0], [0.015, 0.05, 0.15, 0.5]\nrows = [(a, b, 0.0) for a in inner for b in outer] + [(b, a, 0.0) for a in inner for b in outer]\nrows += [(a, a, 0.2) for a in (0.1, 0.5)]\neo = np.array(rows)\ndef logged(table):\n    t = np.asarray(table, dtype=float).reshape(-1, 3)\n    return np.column_stack([t[:, 0], t[:, 1], np.log(t[:, 2])])\nassert np.allclose(logged(bound_line_rates(ee * 2.25, eo * 2.25, 3.0, 1e-12)), target)",
+        "import numpy as np\ng = [0.08, 0.25, 0.8, 2.5]\nee = np.array([(g[i], g[j], c) for i in range(4) for j in range(i, 4) for c in (0.0, 0.15)])\ninner, outer = [0.6, 2.4, 9.0, 36.0], [0.015, 0.05, 0.15, 0.5]\nrows = [(a, b, 0.0) for a in inner for b in outer] + [(b, a, 0.0) for a in inner for b in outer]\nrows += [(a, a, 0.2) for a in (0.1, 0.5)]\neo = np.array(rows)\ndef logged(table):\n    t = np.asarray(table, dtype=float).reshape(-1, 3)\n    return np.column_stack([t[:, 0], t[:, 1], np.log(t[:, 2])])\nassert np.allclose(float(len(np.asarray(bound_line_rates(ee.copy(), eo.copy(), 2.0, 1e-6), dtype=float).reshape(-1, 3))), target)",
+        "import numpy as np\nee = np.array([[0.02, 0.02, 0.0]])\neo = np.array([[40.0, 40.0, 0.0]])\ndef shape_code(table):\n    t = np.asarray(table, dtype=float).reshape(-1, 3)\n    return 10.0 * t.shape[0] + t.shape[1]\nassert np.allclose(shape_code(bound_line_rates(ee.copy(), eo.copy(), 2.0, 1e-10)), target)",
+        "import numpy as np\ne = np.array([[0.3, 0.3, 0.05]])\ndef _probe(fn):\n    try:\n        fn(e, e, -2.0, 1e-10)\n    except ValueError:\n        return 1\n    return 0\nassert np.allclose(_probe(bound_line_rates), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-70.7",
+      "test_cases": [
+        "import numpy as np\ng = [0.08, 0.25, 0.8, 2.5]\nee = np.array([(g[i], g[j], c) for i in range(4) for j in range(i, 4) for c in (0.0, 0.15)])\ninner, outer = [0.6, 2.4, 9.0, 36.0], [0.015, 0.05, 0.15, 0.5]\nrows = [(a, b, 0.0) for a in inner for b in outer] + [(b, a, 0.0) for a in inner for b in outer]\nrows += [(a, a, 0.2) for a in (0.1, 0.5)]\neo = np.array(rows)\ngrid = np.linspace(-1.95, -0.85, 12)\nassert np.allclose(dissociation_spectrum(ee.copy(), eo.copy(), 2.0, 0.25, 1e-12, grid.copy()), target)",
+        "import numpy as np\ng = [0.08, 0.25, 0.8, 2.5]\nee = np.array([(g[i], g[j], c) for i in range(4) for j in range(i, 4) for c in (0.0, 0.15)])\ninner, outer = [0.6, 2.4, 9.0, 36.0], [0.015, 0.05, 0.15, 0.5]\nrows = [(a, b, 0.0) for a in inner for b in outer] + [(b, a, 0.0) for a in inner for b in outer]\nrows += [(a, a, 0.2) for a in (0.1, 0.5)]\neo = np.array(rows)\ngrid = np.linspace(-1.95, -0.85, 12)\nassert np.allclose(dissociation_spectrum(ee.copy(), eo.copy(), 2.0, 0.14, 1e-12, grid.copy()), target)",
+        "import numpy as np\ng = [0.08, 0.25, 0.8, 2.5]\nee = np.array([(g[i], g[j], c) for i in range(4) for j in range(i, 4) for c in (0.0, 0.15)])\ninner, outer = [0.6, 2.4, 9.0, 36.0], [0.015, 0.05, 0.15, 0.5]\nrows = [(a, b, 0.0) for a in inner for b in outer] + [(b, a, 0.0) for a in inner for b in outer]\nrows += [(a, a, 0.2) for a in (0.1, 0.5)]\neo = np.array(rows)\ngrid = np.linspace(-1.95, -0.85, 12)\ngrid = np.linspace(-4.4, -2.0, 9)\nassert np.allclose(dissociation_spectrum(ee * 2.25, eo * 2.25, 3.0, 0.2, 1e-12, grid.copy()), target)",
+        "import numpy as np\ng = [0.08, 0.25, 0.8, 2.5]\nee = np.array([(g[i], g[j], c) for i in range(4) for j in range(i, 4) for c in (0.0, 0.15)])\ninner, outer = [0.6, 2.4, 9.0, 36.0], [0.015, 0.05, 0.15, 0.5]\nrows = [(a, b, 0.0) for a in inner for b in outer] + [(b, a, 0.0) for a in inner for b in outer]\nrows += [(a, a, 0.2) for a in (0.1, 0.5)]\neo = np.array(rows)\ngrid = np.linspace(-1.95, -0.85, 12)\nassert np.allclose(dissociation_spectrum(ee.copy(), eo.copy(), 2.0, 0.25, 1e-12, np.array([-1.5])), target)",
+        "import numpy as np\ng = [0.08, 0.25, 0.8, 2.5]\nee = np.array([(g[i], g[j], c) for i in range(4) for j in range(i, 4) for c in (0.0, 0.15)])\ninner, outer = [0.6, 2.4, 9.0, 36.0], [0.015, 0.05, 0.15, 0.5]\nrows = [(a, b, 0.0) for a in inner for b in outer] + [(b, a, 0.0) for a in inner for b in outer]\nrows += [(a, a, 0.2) for a in (0.1, 0.5)]\neo = np.array(rows)\ngrid = np.linspace(-1.95, -0.85, 12)\ndef _probe(fn):\n    try:\n        fn(ee, eo, 2.0, 0.0, 1e-12, grid)\n    except ValueError:\n        return 1\n    return 0\nassert np.allclose(_probe(dissociation_spectrum), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-70.8",
+      "test_cases": [
+        "import numpy as np\ng = [0.08, 0.25, 0.8, 2.5]\nee = np.array([(g[i], g[j], c) for i in range(4) for j in range(i, 4) for c in (0.0, 0.15)])\ninner, outer = [0.6, 2.4, 9.0, 36.0], [0.015, 0.05, 0.15, 0.5]\nrows = [(a, b, 0.0) for a in inner for b in outer] + [(b, a, 0.0) for a in inner for b in outer]\nrows += [(a, a, 0.2) for a in (0.1, 0.5)]\neo = np.array(rows)\nassert np.allclose(shake_fraction(ee.copy(), eo.copy(), 2.0, 0.25, 1e-12, 200), target)",
+        "import numpy as np\ng = [0.08, 0.25, 0.8, 2.5]\nee = np.array([(g[i], g[j], c) for i in range(4) for j in range(i, 4) for c in (0.0, 0.15)])\ninner, outer = [0.6, 2.4, 9.0, 36.0], [0.015, 0.05, 0.15, 0.5]\nrows = [(a, b, 0.0) for a in inner for b in outer] + [(b, a, 0.0) for a in inner for b in outer]\nrows += [(a, a, 0.2) for a in (0.1, 0.5)]\neo = np.array(rows)\nassert np.allclose(shake_fraction(ee * 2.25, eo * 2.25, 3.0, 0.18, 1e-12, 200), target)",
+        "import numpy as np\ng = [0.08, 0.25, 0.8, 2.5]\nee = np.array([(g[i], g[j], c) for i in range(4) for j in range(i, 4) for c in (0.0, 0.15)])\ninner, outer = [0.6, 2.4, 9.0, 36.0], [0.015, 0.05, 0.15, 0.5]\nrows = [(a, b, 0.0) for a in inner for b in outer] + [(b, a, 0.0) for a in inner for b in outer]\nrows += [(a, a, 0.2) for a in (0.1, 0.5)]\neo = np.array(rows)\ndef spread(fn):\n    lo = fn(ee.copy(), eo.copy(), 2.0, 0.18, 1e-12, 200)\n    hi = fn(ee.copy(), eo.copy(), 2.0, 0.38, 1e-12, 200)\n    return float(abs(lo - hi))\nassert np.allclose(spread(shake_fraction), target)",
+        "import numpy as np\ng = [0.08, 0.25, 0.8, 2.5]\nee = np.array([(g[i], g[j], c) for i in range(4) for j in range(i, 4) for c in (0.0, 0.15)])\ninner, outer = [0.6, 2.4, 9.0, 36.0], [0.015, 0.05, 0.15, 0.5]\nrows = [(a, b, 0.0) for a in inner for b in outer] + [(b, a, 0.0) for a in inner for b in outer]\nrows += [(a, a, 0.2) for a in (0.1, 0.5)]\neo = np.array(rows)\nassert np.allclose(shake_fraction(ee.copy(), eo.copy(), 2.0, 0.25, 1e-12, 2), target)",
+        "import numpy as np\ng = [0.08, 0.25, 0.8, 2.5]\nee = np.array([(g[i], g[j], c) for i in range(4) for j in range(i, 4) for c in (0.0, 0.15)])\ninner, outer = [0.6, 2.4, 9.0, 36.0], [0.015, 0.05, 0.15, 0.5]\nrows = [(a, b, 0.0) for a in inner for b in outer] + [(b, a, 0.0) for a in inner for b in outer]\nrows += [(a, a, 0.2) for a in (0.1, 0.5)]\neo = np.array(rows)\neo_c = eo[(eo[:, 0] > 0.06) & (eo[:, 1] > 0.06)]\nassert np.allclose(shake_fraction(ee.copy(), eo_c.copy(), 2.0, 0.25, 1e-12, 200), target)",
+        "import numpy as np\nee = np.array([[0.02, 0.02, 0.0]])\neo = np.array([[40.0, 40.0, 0.0]])\ndef _probe(fn):\n    try:\n        fn(ee, eo, 2.0, 0.25, 1e-10, 50)\n    except ValueError:\n        return 1\n    return 0\nassert np.allclose(_probe(shake_fraction), target)"
+      ]
+    }
+  ]
+}

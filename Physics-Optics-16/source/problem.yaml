@@ -1,0 +1,40 @@
+problem_id: "Physics-Optics-16"
+subject: "physics"
+subject_area: "Optics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.2528/PIERC25091202"
+dependencies: ""
+steps:
+  - number: 1
+    name: "Reciprocal-permittivity Fourier coupling"
+    description: "Construct the reciprocal-permittivity convolution matrix of the periodic binary layer specified by harmonics, fill, offset, and epsilon_high, together with its derivative with respect to this call's fill argument."
+    orchestrator: false
+  - number: 2
+    name: "Ordered TM operators"
+    description: "Construct the coupled TM operators from the reciprocal-permittivity convolution matrix and its supplied directional derivative.\n\n\n\nForm P = C inverse, Q = K C K - I, and the ordered product M = P Q, where K is the diagonal matrix of the supplied transverse wavevectors. Compute the directional derivatives of all three matrices while holding K fixed.\n\n\n\nPreserve matrix multiplication order: P and Q need not commute. Evaluate inverse actions through linear solves. This step receives numerical arrays directly and does not call the first step internally."
+    orchestrator: false
+  - number: 3
+    name: "Rotated rational root and tangent"
+    description: "Implement the rotated rational matrix-square-root iteration and its exact directional tangent using the algorithm, branch convention, stopping rule, and restrictions stated in the main problem.\n\nReturns\n\n-------\n\nReturn the tuple:\n\n(G, dG, update_count, final_residual, rho_2, d_rho_2)\n\nin exactly that order.\n\n- G: complex128 NumPy array of shape (N, N), containing the branch-selected matrix square root.\n\n- dG: complex128 NumPy array of shape (N, N), containing its directional derivative through the executed rational iterations.\n\n- update_count: Python integer counting completed updates, excluding initialization.\n\n- final_residual: Python float equal to the converged Frobenius residual ||I - Z @ Y||_F.\n\n- rho_2: Python float equal to ||I - Z_2 @ Y_2||_F after exactly two completed updates, recorded before the third correction.\n\n- d_rho_2: Python float equal to the directional derivative of rho_2 with respect to the supplied tangent direction.\n\nA successful return satisfies:\n\n- 0 <= update_count <= 50\n\n- final_residual < 1e-13\n\nIf convergence has not occurred after 50 completed updates, raise RuntimeError instead of returning an unconverged result. A singular linear solve may raise LinAlgError.\n\nThe final_residual is the converged iteration residual ||I - Z @ Y||_F, while rho_2 and d_rho_2 are the residual norm and its directional derivative after exactly two completed updates. Do not return a derivative of final_residual or of update_count."
+    orchestrator: false
+  - number: 4
+    name: "Transformed modal matrix"
+    description: "Construct the source's transformed companion modal matrix for the magnetic-field state defined in the main problem, and its directional derivative."
+    orchestrator: false
+  - number: 5
+    name: "Layer propagation"
+    description: "Calculate the source's forward layer-propagation matrix for the supplied root and fixed dimensionless depth, and its directional derivative induced by tangent."
+    orchestrator: false
+  - number: 6
+    name: "Gap-referenced layer scattering"
+    description: "Construct the source's gap-referenced amplitude-scattering matrix for one homogeneous layer and its directional derivative from the supplied transformed modal and propagation matrices."
+    orchestrator: false
+  - number: 7
+    name: "Ordered Redheffer composition"
+    description: "Compose the left subsystem followed by the right subsystem using the physical scattering convention of the main problem, and obtain the derivative of the complete cascade."
+    orchestrator: false
+  - number: 8
+    name: "Final sensitivity orchestrator"
+    description: "Orchestrate the fixed two-layer calculation using the seven preceding public functions and the conventions in the main problem.\n\n\n\nOnly fill_first varies; all second-layer tangents are zero. Return one float64 array ordered as\n\n\n\n[J, rho_2, D, T_plus1, R_total, T_total,\n\n updates_layer1, updates_layer2, d_flux_total].\n\n\n\nUse layer 1\u2019s two-update residual diagnostics for J and rho_2. The remaining entries come from the converged two-layer optical calculation.\t\t"
+    orchestrator: true

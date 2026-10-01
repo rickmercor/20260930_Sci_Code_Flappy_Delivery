@@ -1,0 +1,95 @@
+{
+  "problem_id": "Material_Science-Semiconductor_Materials-40",
+  "sub_steps": [
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-40.1",
+      "test_cases": [
+        "import numpy as np\nA = 10.0\nN_n = 6\nL_max = 5\nassert np.allclose(box_spectrum(A, N_n, L_max), target)",
+        "import numpy as np\nA = 5.0\nN_n = 3\nL_max = 2\nassert np.allclose(box_spectrum(A, N_n, L_max), target)",
+        "import numpy as np\nA = 15.0\nN_n = 8\nL_max = 7\nassert np.allclose(box_spectrum(A, N_n, L_max), target)",
+        "import numpy as np\n# boundary: the smallest basis, a single s state whose zero is pi\nA = 2.5\nN_n = 1\nL_max = 0\nassert np.allclose(box_spectrum(A, N_n, L_max), target)",
+        "import numpy as np\n# invalid input: a non-positive radius is not a sphere and must raise ValueError\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: box_spectrum(-1.0, 3, 2)), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-40.2",
+      "test_cases": [
+        "import numpy as np\nA = 10.0\nk = 0\nne2, le2, ne1, le1 = 1, 0, 1, 0\nnh2, lh2, nh1, lh1 = 1, 0, 1, 0\nN_r = 2001\nassert np.allclose(float(coulomb_integral(A, k, ne2, le2, ne1, le1, nh2, lh2, nh1, lh1, N_r)), target)",
+        "import numpy as np\nA = 10.0\nk = 1\nne2, le2, ne1, le1 = 1, 1, 1, 0\nnh2, lh2, nh1, lh1 = 1, 0, 1, 1\nN_r = 2001\nassert np.allclose(float(coulomb_integral(A, k, ne2, le2, ne1, le1, nh2, lh2, nh1, lh1, N_r)), target)",
+        "import numpy as np\nA = 15.0\nk = 2\nne2, le2, ne1, le1 = 2, 2, 1, 0\nnh2, lh2, nh1, lh1 = 3, 1, 1, 1\nN_r = 2001\nassert np.allclose(float(coulomb_integral(A, k, ne2, le2, ne1, le1, nh2, lh2, nh1, lh1, N_r)), target)",
+        "import numpy as np\nA = 5.0\nk = 0\nne2, le2, ne1, le1 = 2, 1, 2, 1\nnh2, lh2, nh1, lh1 = 1, 2, 3, 2\nN_r = 1001\nassert np.allclose(float(coulomb_integral(A, k, ne2, le2, ne1, le1, nh2, lh2, nh1, lh1, N_r)), target)",
+        "import numpy as np\n# boundary: k = 3 is the only multipole order the triangle rule allows between these s and f states\nA = 7.5\nk = 3\nne2, le2, ne1, le1 = 1, 3, 2, 0\nnh2, lh2, nh1, lh1 = 2, 0, 1, 3\nN_r = 2001\nassert np.allclose(float(coulomb_integral(A, k, ne2, le2, ne1, le1, nh2, lh2, nh1, lh1, N_r)), target)",
+        "import numpy as np\n# invalid input: an even number of Simpson points is not a Simpson grid and must raise ValueError\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: coulomb_integral(10.0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 2000)), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-40.3",
+      "test_cases": [
+        "import numpy as np\nA = 10.0\nme = 0.07\nmh = 0.13\neps = 12.85\nN_n = 3\nL_max = 2\nL = 0\nN_r = 2001\nm = 5\nassert np.allclose(pair_levels(A, me, mh, eps, N_n, L_max, L, N_r, m), target)",
+        "import numpy as np\nA = 10.0\nme = 0.07\nmh = 0.13\neps = 12.85\nN_n = 3\nL_max = 2\nL = 1\nN_r = 2001\nm = 6\nassert np.allclose(pair_levels(A, me, mh, eps, N_n, L_max, L, N_r, m), target)",
+        "import numpy as np\nA = 15.0\nme = 0.07\nmh = 0.13\neps = 12.85\nN_n = 6\nL_max = 5\nL = 0\nN_r = 2001\nm = 4\nassert np.allclose(pair_levels(A, me, mh, eps, N_n, L_max, L, N_r, m), target)",
+        "import numpy as np\n# boundary: equal masses, where the two bare p-like states of the L = 1 block are degenerate\nA = 5.0\nme = 0.5\nmh = 0.5\neps = 17.0\nN_n = 4\nL_max = 3\nL = 1\nN_r = 1001\nm = 4\nassert np.allclose(pair_levels(A, me, mh, eps, N_n, L_max, L, N_r, m), target)",
+        "import numpy as np\n# invalid input: only the L = 0 and L = 1 blocks are defined, so L = 2 must raise ValueError\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: pair_levels(10.0, 0.07, 0.13, 12.85, 2, 1, 2, 401, 2)), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-40.4",
+      "test_cases": [
+        "import numpy as np\nA = 10.0\nme = 0.07\nmh = 0.13\neps = 12.85\nN_n = 3\nL_max = 2\nN_r = 2001\nm = 6\nassert np.allclose(thz_transitions(A, me, mh, eps, N_n, L_max, N_r, m), target)",
+        "import numpy as np\nA = 15.0\nme = 0.07\nmh = 0.13\neps = 12.85\nN_n = 6\nL_max = 5\nN_r = 2001\nm = 4\nassert np.allclose(thz_transitions(A, me, mh, eps, N_n, L_max, N_r, m), target)",
+        "import numpy as np\n# boundary: equal masses, where the symmetric combination of the two p-like states carries no dipole\nA = 5.0\nme = 0.5\nmh = 0.5\neps = 17.0\nN_n = 4\nL_max = 3\nN_r = 1001\nm = 4\nassert np.allclose(thz_transitions(A, me, mh, eps, N_n, L_max, N_r, m), target)",
+        "import numpy as np\nA = 8.0\nme = 0.067\nmh = 0.45\neps = 12.85\nN_n = 4\nL_max = 3\nN_r = 2001\nm = 3\nassert np.allclose(thz_transitions(A, me, mh, eps, N_n, L_max, N_r, m), target)",
+        "import numpy as np\n# invalid input: at least one L = 1 eigenstate must be requested, so m = 0 must raise ValueError\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: thz_transitions(10.0, 0.07, 0.13, 12.85, 2, 1, 401, 0)), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-40.5",
+      "test_cases": [
+        "import numpy as np\nA = 10.0\nme = 0.07\nmh = 0.13\nN_r = 2001\nassert np.allclose(bare_response(A, me, mh, N_r), target)",
+        "import numpy as np\nA = 15.0\nme = 0.07\nmh = 0.13\nN_r = 2001\nassert np.allclose(bare_response(A, me, mh, N_r), target)",
+        "import numpy as np\n# boundary: equal masses give equal electron and hole transitions\nA = 5.0\nme = 0.5\nmh = 0.5\nN_r = 1001\nassert np.allclose(bare_response(A, me, mh, N_r), target)",
+        "import numpy as np\nA = 8.0\nme = 0.067\nmh = 0.45\nN_r = 2001\nassert np.allclose(bare_response(A, me, mh, N_r), target)",
+        "import numpy as np\n# invalid input: a vanishing radius is not a sphere and must raise ValueError\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: bare_response(0.0, 0.07, 0.13, 1001)), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-40.6",
+      "test_cases": [
+        "import numpy as np\nA = 10.0\nme = 0.07\nmh = 0.13\neps = 12.85\nN_r = 2001\nassert np.allclose(minimal_scr(A, me, mh, eps, N_r), target)",
+        "import numpy as np\nA = 15.0\nme = 0.07\nmh = 0.13\neps = 12.85\nN_r = 2001\nassert np.allclose(minimal_scr(A, me, mh, eps, N_r), target)",
+        "import numpy as np\n# boundary: a light electron, m_e/M = 0.25, where the kinetic splitting dominates the coupling\nA = 5.0\nme = 0.05\nmh = 0.15\neps = 12.85\nN_r = 1001\nassert np.allclose(minimal_scr(A, me, mh, eps, N_r), target)",
+        "import numpy as np\nA = 8.0\nme = 0.067\nmh = 0.45\neps = 12.85\nN_r = 2001\nassert np.allclose(minimal_scr(A, me, mh, eps, N_r), target)",
+        "import numpy as np\n# invalid input: a negative permittivity is unphysical and must raise ValueError\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: minimal_scr(10.0, 0.07, 0.13, -12.85, 1001)), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-40.7",
+      "test_cases": [
+        "import numpy as np\nA = 15.0\nme = 0.07\nmh = 0.13\neps = 12.85\nN_g = 1000\nassert np.allclose(wcr_model(A, me, mh, eps, N_g), target)",
+        "import numpy as np\nA = 10.0\nme = 0.07\nmh = 0.13\neps = 12.85\nN_g = 1000\nassert np.allclose(wcr_model(A, me, mh, eps, N_g), target)",
+        "import numpy as np\nA = 30.0\nme = 0.067\nmh = 0.45\neps = 12.85\nN_g = 1000\nassert np.allclose(wcr_model(A, me, mh, eps, N_g), target)",
+        "import numpy as np\n# boundary: the Coulomb term omitted (eps infinite), the strongly confined limit of the model\nA = 15.0\nme = 0.07\nmh = 0.13\neps = np.inf\nN_g = 1000\nassert np.allclose(wcr_model(A, me, mh, eps, N_g), target)",
+        "import numpy as np\nA = 6.0\nme = 0.5\nmh = 0.5\neps = 17.0\nN_g = 800\nassert np.allclose(wcr_model(A, me, mh, eps, N_g), target)",
+        "import numpy as np\n# invalid input: a grid below the stated minimum cannot reach the required convergence and must raise ValueError\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: wcr_model(15.0, 0.07, 0.13, 12.85, 100)), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-40.8",
+      "test_cases": [
+        "import numpy as np\nme = 0.07\nmh = 0.13\neps = 12.85\nN_n = 4\nL_max = 3\nN_r = 1001\nA_lo = 3.0\nA_hi = 9.0\nlevel = 1.1\nassert np.allclose(float(independence_radius(me, mh, eps, N_n, L_max, N_r, A_lo, A_hi, level)), target)",
+        "import numpy as np\nme = 0.09\nmh = 0.11\neps = 12.85\nN_n = 4\nL_max = 3\nN_r = 1001\nA_lo = 0.5\nA_hi = 2.5\nlevel = 1.1\nassert np.allclose(float(independence_radius(me, mh, eps, N_n, L_max, N_r, A_lo, A_hi, level)), target)",
+        "import numpy as np\n# boundary: a five percent level, reached at a smaller radius than the ten percent one\nme = 0.07\nmh = 0.13\neps = 12.85\nN_n = 3\nL_max = 2\nN_r = 1001\nA_lo = 2.0\nA_hi = 8.0\nlevel = 1.05\nassert np.allclose(float(independence_radius(me, mh, eps, N_n, L_max, N_r, A_lo, A_hi, level)), target)",
+        "import numpy as np\n# invalid input: an inverted bracket must raise ValueError\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: independence_radius(0.07, 0.13, 12.85, 2, 1, 401, 9.0, 3.0, 1.1)), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-40.9",
+      "test_cases": [
+        "import numpy as np\nme = 0.07\nmh = 0.13\neps = 12.85\nradii = [5.0, 10.0]\nN_n = 6\nL_max = 5\nN_r = 2001\nN_g = 1000\nA_star = 15.0\nA_lo = 3.0\nA_hi = 9.0\nlevel = 1.1\nassert np.allclose(confinement_audit(me, mh, eps, radii, N_n, L_max, N_r, N_g, A_star, A_lo, A_hi, level), target)",
+        "import numpy as np\n# boundary: a single audit radius and near-equal masses\nme = 0.09\nmh = 0.11\neps = 12.85\nradii = [4.0]\nN_n = 4\nL_max = 3\nN_r = 1001\nN_g = 800\nA_star = 8.0\nA_lo = 0.5\nA_hi = 2.5\nlevel = 1.1\nassert np.allclose(confinement_audit(me, mh, eps, radii, N_n, L_max, N_r, N_g, A_star, A_lo, A_hi, level), target)",
+        "import numpy as np\nme = 0.07\nmh = 0.13\neps = 12.85\nradii = [10.0]\nN_n = 6\nL_max = 5\nN_r = 2001\nN_g = 1000\nA_star = 15.0\nA_lo = 4.0\nA_hi = 8.0\nlevel = 1.1\nassert np.allclose(float(np.asarray(confinement_audit(me, mh, eps, radii, N_n, L_max, N_r, N_g, A_star, A_lo, A_hi, level))[0, 0]), target)",
+        "import numpy as np\n# invalid input: an empty list of audit radii leaves no rows to fill and must raise ValueError\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: confinement_audit(0.07, 0.13, 12.85, [], 2, 1, 401, 500, 15.0, 3.0, 9.0, 1.1)), target)"
+      ]
+    }
+  ]
+}

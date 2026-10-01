@@ -1,0 +1,40 @@
+problem_id: "Chemistry-Quantum_Chemistry-64"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1021/acs.jpca.6c03228"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_s_type_one_electron_integrals"
+    description: "Step 01 - One-electron and z-coordinate integrals over contracted s-type Gaussians."
+    orchestrator: false
+  - number: 2
+    name: "02_s_type_electron_repulsion"
+    description: "Step 02 - Electron repulsion integrals over contracted s-type Gaussians."
+    orchestrator: false
+  - number: 3
+    name: "03_rhf_canonical_orbitals"
+    description: "Step 03 - Canonical closed-shell RHF orbitals."
+    orchestrator: false
+  - number: 4
+    name: "04_ccsd_lambda_ground_state"
+    description: "Step 04 - Ground-state CCSD cluster and Lambda amplitudes in spin orbitals."
+    orchestrator: false
+  - number: 5
+    name: "05_tdccsd_time_derivative"
+    description: "Step 05 - Time derivative of the bivariational TD-CCSD amplitudes in a field."
+    orchestrator: false
+  - number: 6
+    name: "06_tdccsd_propagate"
+    description: "Step 06 - Runge-Kutta propagation of TD-CCSD through a trigonometric-envelope pulse."
+    orchestrator: false
+  - number: 7
+    name: "07_configuration_weights"
+    description: "Step 07 - Configuration weights of a coupled-cluster bra-ket pair."
+    orchestrator: false
+  - number: 8
+    name: "08_dark_weight_change"
+    description: "Step 08 - Pulse-induced change in the weight of a dark determinant of a hydrogen chain (orchestrator)."
+    orchestrator: true

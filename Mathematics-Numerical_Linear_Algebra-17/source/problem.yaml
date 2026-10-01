@@ -1,0 +1,48 @@
+problem_id: "Mathematics-Numerical_Linear_Algebra-17"
+subject: "mathematics"
+subject_area: "Numerical Linear Algebra"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.48550/arXiv.2601.10248"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_assemble_sketched_instance"
+    description: "Build a packed SPD eigenproblem together with one Gaussian sketch. Form A from a thin QR of Gaussians drawn by default_rng(data_seed), draw b from that generator, then draw Omega from default_rng(sketch_seed). Pack (n, d, A.ravel(), b, Omega.ravel()). Require n >= 2, d >= 1, and positive s."
+    orchestrator: false
+  - number: 2
+    name: "02_start_krylov_pack"
+    description: "From a packed sketched instance, Omega-normalize the start vector and pack an m-column Krylov state with that first column accepted and no Hessenberg columns written yet. Pack (n, m, n_hess, U.ravel(), H.ravel(), leftover, h_next) with n_hess = 0. Require 1 <= m < n and d >= m."
+    orchestrator: false
+  - number: 3
+    name: "03_sketched_action_pack"
+    description: "Return the packed sketched action of w against the columns of U: the coefficient vector, the leftover, and the leftover continuation scale measured by Omega. Pack (k, h, leftover, scale). Require d >= k >= 1."
+    orchestrator: false
+  - number: 4
+    name: "04_append_krylov_column"
+    description: "Incorporate one packed sketched action into the Krylov state. A non-final column is accepted into the basis; the final action is stored as leftover and continuation scale rather than as an extra basis column. The action width must equal n_hess + 1."
+    orchestrator: false
+  - number: 5
+    name: "05_leftover_euclidean_coeffs"
+    description: "From a completed Krylov pack (all Hessenberg columns written), return the coefficients that make the leftover Euclidean-orthogonal to the accepted basis."
+    orchestrator: false
+  - number: 6
+    name: "06_restore_last_column"
+    description: "Using those coefficients, restore last-vector similarity on the uncorrected Hessenberg and return the corrected m-by-m matrix. Only the last column changes."
+    orchestrator: false
+  - number: 7
+    name: "07_dominant_real_eigenvalue"
+    description: "Return the largest real eigenvalue of a square matrix as a native Python float. Reject a matrix whose eigenvalues are not all real."
+    orchestrator: false
+  - number: 8
+    name: "08_compress_ritz_pack"
+    description: "Compress a completed, corrected order-m sketched Krylov decomposition to order l for a restart. Take the completed Krylov pack, the Euclidean leftover coefficients hhat, and the corrected matrix Hbar; keep the orthonormal Schur vectors V_l of Hbar for its l largest eigenvalues (descending, each column signed so its largest-magnitude entry is positive); return the pack (n, l, (U V_l).ravel(), (V_l^T Hbar V_l).ravel(), leftover - U hhat, V_l^T (h_next e_m)). The carried vector is not rescaled. Require 1 <= l < m, real eigenvalues, and a gap between the l-th and (l+1)-th eigenvalues."
+    orchestrator: false
+  - number: 9
+    name: "09_expand_krylov_cycle"
+    description: "Expand an order-l Krylov decomposition A U_l = U_l H_l + uhat c_l^T back to order m by m - l sketched Gram-Schmidt steps. Place U_l, then uhat unchanged, as the first l + 1 columns; put H_l in the leading block and c_l in row l; for each new action w = A U[:, k] solve the sketched least-squares problem min ||Omega U[:, :k+1] h - Omega w||_2, subtract, and Omega-normalize. Return the standard completed Krylov pack (n, m, m, U.ravel(), H.ravel(), leftover, h_next). Require l + 1 <= m < n and d >= m."
+    orchestrator: false
+  - number: 10
+    name: "10_run_restarted_correction_norm"
+    description: "Run one full restart cycle of similarity-restoring randomized Krylov-Schur: assemble the sketched instance, start the Krylov pack, expand it for m sketched actions, solve the Euclidean leftover coefficients and restore the last column, check the corrected Ritz value lies in the spectrum, compress to order l, re-expand to order m, solve the leftover coefficients again, restore and check again, and return the Euclidean norm of the second coefficient vector. Require 2 <= m < n, d >= m, 1 <= l < m. Call every earlier public step and use every output."
+    orchestrator: true

@@ -1,0 +1,40 @@
+problem_id: "Physics-Condensed_Matter_Physics-7"
+subject: "physics"
+subject_area: "Condensed Matter Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.48550/arXiv.2511.19209"
+dependencies: ""
+steps:
+  - number: 1
+    name: "compute_link_acceptance"
+    description: "Compute the acceptance probability for one continuous-time diagonal-link insertion or removal. Use the pre-move local count and return a native float in the closed interval [0, 1]."
+    orchestrator: false
+  - number: 2
+    name: "apply_link_move"
+    description: "Apply one supplied strict Metropolis decision to an independent copy of a local link-count vector. The returned numeric array contains the updated counts followed by the 0/1 decision."
+    orchestrator: false
+  - number: 3
+    name: "compute_ssm_projection_amplitudes"
+    description: "Construct overlaps of spin-$z$ basis words with the two projection sectors used for the periodic Shastry\u2013Sutherland lattice. Bit $x+Ly$ is zero for spin up and one for spin down. The visible helper fixes the oriented diagonal and horizontal dimer covers."
+    orchestrator: false
+  - number: 4
+    name: "compute_pdms_contribution"
+    description: "Construct the signed normalized projected-density and shifted-energy contribution from one post-decision configuration. The two matrix contributions share the same oriented boundary-amplitude outer product."
+    orchestrator: false
+  - number: 5
+    name: "average_sector_blocks"
+    description: "Average equal-weight signed projected-matrix samples within every independent block and take the symmetric part of each block mean while preserving both symmetry sectors and both matrix channels."
+    orchestrator: false
+  - number: 6
+    name: "compute_bootstrap_rank_pair_scan"
+    description: "Evaluate an ordered list of retained-rank pairs with one common nonparametric block-bootstrap table. Each row records support, logarithmic robust spread, the full-record intersector gap, its valid-bootstrap mean, and the additive first-order bootstrap bias correction."
+    orchestrator: false
+  - number: 7
+    name: "select_stable_bias_corrected_gap"
+    description: "Select the first ordered rank pair whose bootstrap support and robust logarithmic spread satisfy the inclusive stability thresholds, then return its positive additive bootstrap-bias-corrected intersector gap."
+    orchestrator: false
+  - number: 8
+    name: "run_ssm_bootstrap_gap"
+    description: "Run the complete two-sector projected-density benchmark on a periodic Shastry-Sutherland lattice. Generate state-dependent sample pairs after each strict link decision, construct the Q=+1 and Q=-1 block matrices, scan ordered retained-rank pairs with a common bootstrap table, and return the first stable pair's additive bootstrap-bias-corrected intersector gap."
+    orchestrator: true

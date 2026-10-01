@@ -1,0 +1,40 @@
+problem_id: "Physics-Computational_Physics-9"
+subject: "physics"
+subject_area: "Computational Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1051/0004-6361/202557659"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_build_density_grid"
+    description: "Build the cell-centered coordinate cube of the shearing box and evaluate the single-mode, vertically Gaussian source density on it."
+    orchestrator: false
+  - number: 2
+    name: "02_compute_shear_wavevectors"
+    description: "Build the shear-corrected in-plane wave-vector grids of the fully periodic frame at time t."
+    orchestrator: false
+  - number: 3
+    name: "03_greens_function_hat"
+    description: "Evaluate the analytical Fourier-space Green's function of the truncated free-space kernel elementwise on wavenumber grids."
+    orchestrator: false
+  - number: 4
+    name: "04_zero_pad_density"
+    description: "Zero-pad the density cube along its vertical (last) axis to emulate the aperiodic vertical convolution."
+    orchestrator: false
+  - number: 5
+    name: "05_spectral_convolution_potential"
+    description: "Solve for the gravitational potential with a single 3D FFT convolution against the Fourier-space kernel and crop to the physical cells."
+    orchestrator: false
+  - number: 6
+    name: "06_analytic_layer_potential"
+    description: "Evaluate the closed-form error-function reference potential of a truncated Gaussian single-mode layer with vacuum vertical boundaries."
+    orchestrator: false
+  - number: 7
+    name: "07_relative_error_rms"
+    description: "Compute the RMS relative error between two potentials after shifting each so its minimum equals 1."
+    orchestrator: false
+  - number: 8
+    name: "08_run_benchmark_pipeline"
+    description: "Chain the sub-problem functions 01-07 end to end on the mixed-boundary benchmark and return the RMS relative-error norm."
+    orchestrator: true

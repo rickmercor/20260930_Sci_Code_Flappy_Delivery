@@ -1,0 +1,44 @@
+problem_id: "Chemistry-Quantum_Chemistry-12"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2607.29359"
+dependencies: ""
+steps:
+  - number: 1
+    name: "ppp_hamiltonian"
+    description: "Return the one-electron matrix h and the site-site interaction matrix V of an open Pariser-Parr-Pople chain of K sites, stacked as an array of shape (2, K, K). With sites numbered i = 0..K-1: the nearest-neighbour hopping is h_{i,i+1} = h_{i+1,i} = -t (1 + delta (-1)^i); the interaction is the Ohno form V_ij = U / sqrt(1 + (U |i - j| / kappa)^2) for i != j and V_ii = U; the diagonal of h is h_ii = eps_i - sum_{j != i} V_ij, i.e. the site energy shifted by the interaction with a +1 neutralising background on every site. All other elements of h are zero. Raise ValueError if eps_site is not one-dimensional with at least two entries, or if t <= 0, U <= 0, kappa <= 0 or |delta| >= 1."
+    orchestrator: false
+  - number: 2
+    name: "rhf_reference"
+    description: "Return the restricted closed-shell Hartree-Fock reference of the density-density Hamiltonian whose two-electron integrals in the site basis are (pq|rs) = delta_pq delta_rs V_pr, with n_pairs doubly occupied orbitals: start from the eigenvectors of h, iterate the closed-shell density D = 2 C_occ C_occ^T with the damping D <- (D + D_new)/2 until max|D_new - D| < 1e-12, then diagonalise the Fock matrix built from the converged D once more. Return an array of shape (K + 1, K): row 0 holds the orbital energies in ascending order and rows 1..K the coefficient matrix C (columns = orbitals in the same order), each column phase-fixed so that its first component of magnitude above 1e-8 is positive. Raise ValueError if h and V are not symmetric K x K matrices with K >= 2, if n_pairs is not in 1..K-1, or if the iteration does not converge in 5000 steps."
+    orchestrator: false
+  - number: 3
+    name: "mo_two_electron_integrals"
+    description: "Return the chemists' two-electron integrals of the density-density Hamiltonian in the orbital basis C: (pq|rs) = sum_{ij} C_ip C_iq V_ij C_jr C_js, as an array of shape (K, K, K, K) indexed [p, q, r, s]. Raise ValueError if V or C is not K x K."
+    orchestrator: false
+  - number: 4
+    name: "static_screened_interaction"
+    description: "Return the statically screened interaction W0 - the zero-frequency screened interaction of the direct random-phase approximation (spin-summed, real orbitals), the screening used by GW and by the source's Bethe-Salpeter kernel - in the orbital basis, as an array with the same index layout as the integrals, W0[p, q, r, s] = (pq|W0|rs) in chemists' notation; the occupied-virtual pairs (i, a) run over i = 0..n_occ-1 (occupied) and a = n_occ..K-1 (virtual). Raise ValueError if eri is not (K, K, K, K) for K = len(eps), if n_occ is not in 1..K-1, or if any occupied-virtual gap e_a - e_i is not positive."
+    orchestrator: false
+  - number: 5
+    name: "bse_excitations"
+    description: "Solve the source's spin-adapted Bethe-Salpeter excitation problem for the singlet manifold (triplet = 0) or the triplet manifold (triplet = 1). The occupied-virtual pairs (i, a), i = 0..n_occ-1, a = n_occ..K-1, are ordered i-major and a-minor; eri and W0 are chemists'-notation arrays with the layout of steps 03 and 04. Keep the n = n_occ (K - n_occ) positive roots Omega_nu in ascending order; normalise each eigenvector to sum_{ia} (X^2 - Y^2) = 1 and fix its sign so that the component of X + Y of largest magnitude is positive. Return an array of shape (2n + 1, n): row 0 = Omega, rows 1..n = X (row nu, column = pair), rows n+1..2n = Y. Raise ValueError if the shapes are inconsistent, n_occ is out of range, triplet is not 0 or 1, the reference is unstable, or a squared excitation energy is not positive."
+    orchestrator: false
+  - number: 6
+    name: "self_energy_residues"
+    description: "Return the residue tensor of the source's minimal positive-semidefinite self-energy for every excitation nu of a singlet solution of step 05 and every intermediate orbital k, as an array R of shape (n, K, K, K) indexed [nu, k, p, q]: R[nu, k] is the rank-one residue matrix of that pole, normalised so that the self-energy of step 07 is exactly the sum of R over its poles with no further factor. The source writes the hole-intermediate case (occupied k); for a virtual intermediate k = c use the particle reading in which the roles of X and Y in b are exchanged - this resolves the source's 'treated identically' for the particle branch and is fixed by the exact second-order limit. The sums run over the occupied-virtual pairs of step 05 in the same order; (pq|rs) are the bare integrals and (pq|W0|rs) the screened ones, both in chemists' notation. Raise ValueError if the shapes are inconsistent or n_occ is out of range."
+    orchestrator: false
+  - number: 7
+    name: "psd_self_energy"
+    description: "Return the source's minimal positive-semidefinite self-energy at a real frequency omega as the real symmetric (K, K) matrix: the residue matrices R of step 06 summed over the singlet excitations Omega_nu of step 05 and over the intermediate orbitals, each divided by omega minus its pole (singlets only; no imaginary broadening). Raise ValueError if the shapes are inconsistent, n_occ is out of range, or omega lies within 1e-12 of a pole."
+    orchestrator: false
+  - number: 8
+    name: "quasiparticle_energy"
+    description: "Return the one-shot quasiparticle energy of orbital p (0-based) on the Hartree-Fock reference: the solution of omega = e_p + Sigma_pp(omega) with the self-energy of step 07, found graphically as the root of f(omega) = omega - e_p - Sigma_pp(omega) nearest e_p by bisection: start from the bracket [e_p - 0.5, e_p + 0.5], widen both ends by 0.25 (at most 40 times) until f changes sign across it, then bisect keeping the sub-bracket in which f changes sign until its width is below 1e-12 and return its midpoint. No linearisation. Raise ValueError if p is out of range or no root is bracketed."
+    orchestrator: false
+  - number: 9
+    name: "psd_ionization_potential"
+    description: "Orchestrator. Return the first ionisation potential of the PPP chain at the source's PSD-I level, IP = -e_HOMO^QP, by calling the earlier steps rather than re-implementing them: the Hamiltonian (step 01), the Hartree-Fock reference (02), the orbital-basis integrals (03), the static RPA screening (04), the singlet Bethe-Salpeter solution (05; also solve the triplet manifold and raise ValueError if either manifold has a non-positive excitation energy), the self-energy residues (06), the self-energy (07) and the graphical quasiparticle energy (08) of the highest occupied orbital p = n_pairs - 1; verify that the returned energy satisfies e = e_p + Sigma_pp(e) to 1e-9 with step 07 and raise ValueError otherwise. Raise ValueError for invalid model parameters as in the earlier steps."
+    orchestrator: true

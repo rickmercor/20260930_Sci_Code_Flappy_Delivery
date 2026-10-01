@@ -1,0 +1,48 @@
+problem_id: "Chemistry-Quantum_Chemistry-52"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2604.16013"
+dependencies: ""
+steps:
+  - number: 1
+    name: "Orthonormal One Electron Element"
+    description: "One-electron integral of the twelve-Gaussian model in its Loewdin-orthonormal basis."
+    orchestrator: false
+  - number: 2
+    name: "Orthonormal Two Electron Element"
+    description: "Two-electron integral of the twelve-Gaussian model in its Loewdin-orthonormal basis."
+    orchestrator: false
+  - number: 3
+    name: "Active Effective One Electron Element"
+    description: "Active-space effective one-electron operator of the Dyall zeroth-order Hamiltonian."
+    orchestrator: false
+  - number: 4
+    name: "Dyall Inactive Orbital Energy"
+    description: "Inactive orbital energies of the Dyall zeroth-order Hamiltonian."
+    orchestrator: false
+  - number: 5
+    name: "Active Reference Energy"
+    description: "Reference energy of the interacting active space of the Dyall partition."
+    orchestrator: false
+  - number: 6
+    name: "Charged Channel Energy"
+    description: "Charged-sector channel energies of the zeroth-order Green's function."
+    orchestrator: false
+  - number: 7
+    name: "Mrrpa Excitation Energy"
+    description: "Excitation energies of the multi-reference random-phase approximation."
+    orchestrator: false
+  - number: 8
+    name: "Static Screened Interaction Element"
+    description: "Static limit of the screened interaction built from the MR-RPA couplings."
+    orchestrator: false
+  - number: 9
+    name: "Static Self Energy Norm"
+    description: "Frobenius norm of the static part of the multi-reference self-energy."
+    orchestrator: false
+  - number: 10
+    name: "Mrgw Satellite Energy"
+    description: "Multi-reference GW satellite energy: the closed pipeline and the final answer."
+    orchestrator: true

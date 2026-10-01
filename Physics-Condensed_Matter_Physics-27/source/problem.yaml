@@ -1,0 +1,44 @@
+problem_id: "Physics-Condensed_Matter_Physics-27"
+subject: "physics"
+subject_area: "Condensed Matter Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1021/acs.jctc.6c00095"
+dependencies: "import numpy as np\nfrom scipy.linalg import expm"
+steps:
+  - number: 1
+    name: "jw_pair_phases"
+    description: "Compute the Jordan-Wigner pair string phases alpha[m, n, q] that dress the fermion hopping\nbetween sites m and n in the cluster described by cfg."
+    orchestrator: false
+  - number: 2
+    name: "z_fock"
+    description: "Compute the Fock matrix F^z of the longitudinal part sum over bonds of J Delta s^z_p s^z_q of\nthe Hamiltonian for a Slater determinant with density matrix rho."
+    orchestrator: false
+  - number: 3
+    name: "hf_energy"
+    description: "Evaluate the total energy E[rho] = <Phi|H|Phi> of a Slater determinant of the\nJordan-Wigner-mapped spin Hamiltonian from its density matrix rho, including the strings of the\ntransverse couplings."
+    orchestrator: false
+  - number: 4
+    name: "fock_matrix"
+    description: "Compute the Fock matrix F_kl = dE/d rho_lk of the Jordan-Wigner-mapped spin Hamiltonian,\nlongitudinal and string (transverse) parts together, for a Slater determinant with density\nmatrix rho."
+    orchestrator: false
+  - number: 5
+    name: "fock_kernel"
+    description: "Compute the Fock kernel K_pqrs = dF_pq/d rho_rs, the derivative of the Fock matrix of the\nJordan-Wigner-mapped spin Hamiltonian with respect to the density matrix, in the site basis."
+    orchestrator: false
+  - number: 6
+    name: "orbital_hessian"
+    description: "Build the orbital Hessian blocks A and B of the Jordan-Wigner Hartree-Fock energy in the\ncanonical orbital basis of the Fock matrix F[rho]."
+    orchestrator: false
+  - number: 7
+    name: "hf_solution"
+    description: "Find the density matrix of the lowest-energy Hartree-Fock-stable Slater determinant of the\nJordan-Wigner-mapped spin Hamiltonian in the M = 0 sector."
+    orchestrator: false
+  - number: 8
+    name: "rpa_correlation"
+    description: "Compute the random-phase-approximation correlation energy of a Hartree-Fock-stable determinant\nfrom its orbital Hessian blocks A and B."
+    orchestrator: false
+  - number: 9
+    name: "total_energy"
+    description: "Compute E_HF + E_c(RPA) for the lowest-energy Hartree-Fock-stable Jordan-Wigner determinant of\nthe spin cluster described by cfg."
+    orchestrator: true

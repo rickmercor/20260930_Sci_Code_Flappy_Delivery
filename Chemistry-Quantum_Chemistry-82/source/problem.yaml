@@ -1,0 +1,36 @@
+problem_id: "Chemistry-Quantum_Chemistry-82"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1021/acs.jctc.6c00466"
+dependencies: ""
+steps:
+  - number: 1
+    name: "build_shg_frequency_grid"
+    description: "Use the source's second-harmonic-generation frequency prescription. For a positive first-excitation estimate omega_max, evaluate the five integer indices from zero through four at the source denominator eight. Return the numerical frequency vector."
+    orchestrator: false
+  - number: 2
+    name: "compute_effective_hyperpolarizability"
+    description: "Apply the source's unit-sphere representation. For each incident unit direction u, contract the final two tensor axes with u twice so the kth output component is the sum of beta[k,i,j] u[i] u[j]. Preserve the input Cartesian frame."
+    orchestrator: false
+  - number: 3
+    name: "compute_relative_rms_total"
+    description: "Use the source's relative RMS total error. Form the effective basis and reference vector fields, take the 4*pi-normalized spherical RMS norm of their difference, and divide by the spherical mean magnitude of the reference vector field from source equation 29. Report dimensionless fractions, without percentage scaling. If the row-major directional error array is e[n,k], return its checksum sum over n and k of (3n+k+1)e[n,k] together with the ratio and reference scale."
+    orchestrator: false
+  - number: 4
+    name: "compute_signed_projection_metrics"
+    description: "Apply the source's signed projection diagnostic. Project the basis effective vector onto the reference effective vector, normalize by the squared reference norm, subtract one, and partition directions by sign. Within each nonempty sign region, compute the quadrature-weighted RMS norm of the full directional error vector and divide by the common spherical mean magnitude of the reference effective-response vectors from source equation 29. If s[n] is the signed projection error, also return the checksum sum_n (n+1)s[n] and each sign region's quadrature weight divided by 4*pi; an empty sign region contributes zero RMS error."
+    orchestrator: false
+  - number: 5
+    name: "compute_component_rms_anisotropy"
+    description: "Use the source's component-wise RMS analysis. Compute one spherical RMS error c[k] for each Cartesian output component, normalize each by the common spherical mean MRA vector magnitude from source equation 29, then report the three-vector, its maximum-to-minimum ratio, and the checksum c[0]+2c[1]+3c[2]. Report dimensionless fractions, without percentage scaling."
+    orchestrator: false
+  - number: 6
+    name: "select_convergence_clusters"
+    description: "Follow the source's Gaussian-mixture clustering with BIC model selection. For each candidate count q from one through max_clusters, fit a full-covariance mixture by standard EM and use BIC=-2 log L+p log n with p=(q-1)+qd+qd(d+1)/2. The benchmark starts with the point farthest from the grand mean and repeatedly adds the point maximizing its minimum squared distance to selected means; all components start with the biased empirical covariance plus regularization times the identity and equal weights. Stop after 250 iterations or when the log-likelihood change is at most 1e-10 times one plus the previous magnitude, choose the smallest-BIC candidate, and relabel components by lexicographically sorted means. Return the selected count, numeric labels, BIC vector, mean posterior entropy, and the second-smallest minus smallest BIC.\n\n\n\nRetain the likelihood and responsibilities from the last E-step, before its M-step, for BIC and entropy; do not run an additional E-step. Add 1e-15 to the component responsibility sums in each M-step. Farthest-point ties use the lowest row index, and BIC ties use the smallest component count."
+    orchestrator: false
+  - number: 7
+    name: "compute_directional_basis_audit"
+    description: "Construct the fixture with default_rng(seed). For n=direction_count and j=0,...,n-1, set phi=(1+sqrt(5))/2, z=1-2(j+0.5)/n, rho=sqrt(1-z^2), azimuth=2pij/phi, normalize [rho cos(azimuth),rho sin(azimuth),z], and assign weight 4pi/n. Draw reference then mode arrays of shape (molecule_count,3,3,3) from normal distributions with scales 0.42 and 1.0, symmetrize their final two axes, add 1.05+0.06m, -0.72+0.025m, and 0.48+0.035(m mod 5) to reference entries [0,0,0], [1,1,1], and [2,2,2], and Frobenius-normalize each mode. Use base_bias=[0.24,0.075,0.12,0.026,0.052,0.006], anis_scale=[0.19,0.105,0.12,0.065,0.07,0.028], group_anisotropy=[0.38,0.42,0.72,2.25], groups m mod 4, and the row-major group_sign matrix [[1,-0.85,1,0.15],[0.75,-0.65,-0.45,0.05],[0.85,-0.72,0.8,0.10],[0.55,-0.52,-0.35,0.02],[0.68,-0.60,0.55,0.08],[0.34,-0.28,-0.22,0.01]]. At frequency index f, let x = omega[f]/omega_max, scale = 1 + 0.24 \u00d7 x + 0.11 \u00d7 x^2, beta_mra = scale \u00d7 reference + 0.035 \u00d7 f \u00d7 mode, bias = base_bias[b] \u00d7 group_sign[b,group], modulation = 1 + 0.09 \u00d7 sin((m+1)(f+1)), and beta_basis = (1 + bias \u00d7 modulation) \u00d7 beta_mra + anis_scale[b] \u00d7 group_anisotropy[group] \u00d7 (0.58 + 0.07 \u00d7 f) \u00d7 mode. Call Steps 1 through 5 for every molecule, family, and frequency; set the twelve features to frequency means of alternating positive-region and negative-region normalized vector-error RMS values; and call Step 6. Define R, P, N, and A as full-cube means, C as relative[molecule_count//2,3,2], K as the row-major weighted feature checksum, D as the last-frequency mean relative error minus the static mean, and G, H, B from Step 6. Return J and all diagnostics, where J=R+0.35(P+N)+0.025A+0.02H+0.0005B+0.1|D|+0.005G."
+    orchestrator: true

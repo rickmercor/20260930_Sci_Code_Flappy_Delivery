@@ -1,0 +1,40 @@
+problem_id: "Physics-Optics-49"
+subject: "physics"
+subject_area: "Optics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2609.04587"
+dependencies: ""
+steps:
+  - number: 1
+    name: "hbn_uniaxial_permittivities"
+    description: "Evaluate the two principal relative permittivities of hexagonal boron nitride (hBN), the ordinary (in-plane) component eps_o and the extraordinary (optical-axis) component eps_e, at a given mid-infrared wavenumber, each modelled by a single lossless Lorentz phonon resonance."
+    orchestrator: false
+  - number: 2
+    name: "thin_film_effective_permittivity"
+    description: "Compute the effective topological-insulator-side permittivity eps_2,eff seen by the evanescent surface-wave field when the topological insulator is not a semi-infinite bulk but a thin film of thickness d on a dielectric substrate."
+    orchestrator: false
+  - number: 3
+    name: "finite_coupling_band_edge"
+    description: "Compute the upper band-edge wavenumber omega_* of the lossless surface-wave window, the frequency inside the ordinary Reststrahlen band at which the localized HM/TI surface wave ceases to exist, including the finite topological (axion) interface coupling alpha."
+    orchestrator: false
+  - number: 4
+    name: "surface_wave_bandwidth_fraction"
+    description: "Compute the surface-wave bandwidth fraction f_SW, the fraction of the ordinary Reststrahlen band that is occupied by the allowed lossless surface-wave window, using the band edge from the previous step."
+    orchestrator: false
+  - number: 5
+    name: "axion_dispersion_mismatch"
+    description: "Evaluate the mismatch of the lossless HM/TI surface-wave dispersion relation for the tangential optical-axis configuration (optical axis in the interface plane, perpendicular to the propagation direction) at a trial real effective index n = beta/k0, for hBN on the hyperbolic side."
+    orchestrator: false
+  - number: 6
+    name: "surface_wave_effective_index"
+    description: "Find the real effective index n = beta/k0 of the localized lossless HM/TI surface wave (tangential optical axis, hBN hyperbolic side) at a given wavenumber, by locating the zero of the dispersion mismatch from the previous step on the localized interval."
+    orchestrator: false
+  - number: 7
+    name: "surface_wave_penetration_depths"
+    description: "Convert a converged effective index into the three lossless transverse penetration depths of the surface wave (tangential optical axis, hBN hyperbolic side): into the TI side (delta_TI), and the TE-like (delta_1) and TM-like (delta_2) depths into the hyperbolic medium, in nanometres."
+    orchestrator: false
+  - number: 8
+    name: "run_hm_ti_surface_wave_pipeline"
+    description: "Chain the earlier steps for an hBN / thin-film Bi2Se3-on-substrate interface (tangential optical axis, axion coupling alpha = alpha_fs for a jump Delta_theta = pi): build the effective TI-side permittivity, locate the finite-coupling band edge, choose the operating wavenumber at a given fractional position inside the allowed window, solve for the effective index, and return the total surface-wave thickness. The reference implementation calls the earlier public functions by name."
+    orchestrator: true

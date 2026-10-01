@@ -1,0 +1,69 @@
+{
+  "problem_id": "Biology-Biochemistry-22",
+  "sub_steps": [
+    {
+      "step_number": "Biology-Biochemistry-22.1",
+      "test_cases": [
+        "import numpy as np\n\nsequence = np.array([0, 1, 2], dtype=int)\nalphabet_size = 3\nassert np.allclose(encode_sequence(sequence, alphabet_size).tolist(), target)",
+        "import numpy as np\n\nsequence = np.array([0], dtype=int)\nalphabet_size = 1\nassert np.allclose(encode_sequence(sequence, alphabet_size).tolist(), target)",
+        "import numpy as np\n\nsequence = np.array([0, 3], dtype=int)\nalphabet_size = 3\n\ndef _model_error_code():\n    try:\n        encode_sequence(sequence, alphabet_size)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_model_error_code(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-22.2",
+      "test_cases": [
+        "import numpy as np\n\nq = np.eye(3, dtype=float)\nq_init = q.copy()\nweights = np.array([\n    [1.2, -0.3, 0.5],\n    [0.1, 1.0, -0.4],\n    [-0.2, 0.3, 0.9],\n])\ncontact_matrix = np.array([\n    [0.2, -0.1, 0.3],\n    [-0.1, 0.4, 0.0],\n    [0.3, 0.0, 0.5],\n])\nbias = -0.5\ncontact_scale = 0.7\npenalty_scale = 0.25\nassert np.allclose((lambda r: [float(r[0]), r[1].tolist()])(surrogate_score_gradient(q, q_init, weights, contact_matrix, bias, contact_scale, penalty_scale)), target)",
+        "import numpy as np\n\nq = np.zeros((2, 1), dtype=float)\nq_init = np.zeros((2, 1), dtype=float)\nweights = np.zeros((2, 1), dtype=float)\ncontact_matrix = np.zeros((1, 1), dtype=float)\nbias = 0.0\ncontact_scale = 0.0\npenalty_scale = 0.0\nassert np.allclose((lambda r: [float(r[0]), r[1].tolist()])(surrogate_score_gradient(q, q_init, weights, contact_matrix, bias, contact_scale, penalty_scale)), target)",
+        "import numpy as np\n\nq = np.zeros((3, 2), dtype=float)\nq_init = np.zeros((3, 2), dtype=float)\nweights = np.zeros((2, 2), dtype=float)\ncontact_matrix = np.eye(2, dtype=float)\n\ndef _model_error_code():\n    try:\n        surrogate_score_gradient(\n            q,\n            q_init,\n            weights,\n            contact_matrix,\n            0.0,\n            1.0,\n            0.1,\n        )\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_model_error_code(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-22.3",
+      "test_cases": [
+        "import numpy as np\n\nscore = 2.81\nscore_gradient = np.array([\n    [1.0, -0.5],\n    [0.25, 2.0],\n], dtype=float)\nassert np.allclose((lambda r: [float(r[0]), r[1].tolist()])(potential_energy_gradient(score, score_gradient)), target)",
+        "import numpy as np\n\nscore = 0.0\nscore_gradient = np.zeros((1, 1), dtype=float)\nassert np.allclose((lambda r: [float(r[0]), r[1].tolist()])(potential_energy_gradient(score, score_gradient)), target)",
+        "import numpy as np\n\nscore = 1000.0\nscore_gradient = np.array([1.0, -1.0], dtype=float)\nassert np.allclose((lambda r: [float(r[0]), r[1].tolist()])(potential_energy_gradient(score, score_gradient)), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-22.4",
+      "test_cases": [
+        "import numpy as np\n\nq_init = np.eye(3, dtype=float)\nrng = np.random.default_rng(101)\nmomentum = rng.normal(size=(3, 3))\nweights = np.array([\n    [1.2, -0.3, 0.5],\n    [0.1, 1.0, -0.4],\n    [-0.2, 0.3, 0.9],\n])\ncontact_matrix = np.array([\n    [0.2, -0.1, 0.3],\n    [-0.1, 0.4, 0.0],\n    [0.3, 0.0, 0.5],\n])\nassert np.allclose((lambda r: [r[0].tolist(), r[1].tolist()])(reflective_leapfrog(q_init, momentum, weights, contact_matrix, -0.5, 0.7, 0.25, 0.6, 4)), target)",
+        "import numpy as np\n\nq_init = np.array([\n    [1.0, 0.0],\n    [0.0, 1.0],\n])\nmomentum = np.zeros((2, 2), dtype=float)\nweights = np.zeros((2, 2), dtype=float)\ncontact_matrix = np.zeros((2, 2), dtype=float)\nassert np.allclose((lambda r: [r[0].tolist(), r[1].tolist()])(reflective_leapfrog(q_init, momentum, weights, contact_matrix, 0.0, 0.0, 0.0, 0.5, 1)), target)",
+        "import numpy as np\n\nq_init = np.array([\n    [0.2, 0.8],\n    [0.7, 0.3],\n])\nmomentum = np.array([\n    [8.0, -7.0],\n    [6.0, -9.0],\n])\nweights = np.zeros((2, 2), dtype=float)\ncontact_matrix = np.zeros((2, 2), dtype=float)\nassert np.allclose((lambda r: [r[0].tolist(), r[1].tolist()])(reflective_leapfrog(q_init, momentum, weights, contact_matrix, 0.0, 0.0, 0.0, 0.75, 2)), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-22.5",
+      "test_cases": [
+        "import numpy as np\n\nq = np.array([\n    [0.1192628894, 0.9953579896, 0.3501094789],\n    [0.2279118299, 0.9746816529, 0.5493973299],\n    [0.2182691570, 0.4970384001, 0.1224047010],\n])\nassert np.allclose((lambda r: [r[0].tolist(), r[1].tolist()])(discretize_positions(q)), target)",
+        "import numpy as np\n\nq = np.array([\n    [0.5, 0.5, 0.1],\n    [0.0, 0.0, 0.0],\n])\nassert np.allclose((lambda r: [r[0].tolist(), r[1].tolist()])(discretize_positions(q)), target)",
+        "import numpy as np\n\nq = np.array([\n    [0.2, np.nan],\n    [0.8, 0.2],\n])\n\ndef _model_error_code():\n    try:\n        discretize_positions(q)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_model_error_code(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-22.6",
+      "test_cases": [
+        "import numpy as np\ninitial_potential = 0.058462278476133105\nproposed_potential = 0.5629153335603464\ninitial_momentum = np.array([\n    [-0.7901525000, -2.0346254818, 0.6033017469],\n    [0.7442945299, -0.3096867999, 0.3673213729],\n    [1.7103942915, 1.0607978401, 0.7076390208],\n])\nfinal_momentum = np.array([\n    [0.3803222950, -2.2300194621, -0.5609133016],\n    [-0.7366985570, 0.5099835120, -0.0304002259],\n    [1.8004504986, 0.9969539751, 0.3082515997],\n])\nuniform_draw = 0.22452433073513123\nassert np.allclose(metropolis_acceptance(initial_potential, proposed_potential, initial_momentum, final_momentum, uniform_draw), target)",
+        "import numpy as np\ninitial_potential = 0.08277152245355257\nproposed_potential = 2.2155195231797546\ninitial_momentum = np.array([\n    [1.8117203538, -0.7290535593, -1.0856264862],\n    [-0.4019110540, -1.1525924203, 1.5082245980],\n    [0.8799003751, 0.6376331108, 1.4098711969],\n])\nfinal_momentum = np.array([\n    [-1.9132710827, -0.7039197978, 0.9817374805],\n    [0.0598004913, -0.9481679373, -1.4507826771],\n    [0.9764979763, -0.4476376400, 1.3969381613],\n])\nuniform_draw = 0.914502769923609\nassert np.allclose(metropolis_acceptance(initial_potential, proposed_potential, initial_momentum, final_momentum, uniform_draw), target)",
+        "import numpy as np\ninitial_potential = 1.0\nproposed_potential = 1.0\ninitial_momentum = np.zeros((1, 1), dtype=float)\nfinal_momentum = np.zeros((1, 1), dtype=float)\nuniform_draw = np.nextafter(1.0, 0.0)\nassert np.allclose(metropolis_acceptance(initial_potential, proposed_potential, initial_momentum, final_momentum, uniform_draw), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-22.7",
+      "test_cases": [
+        "import numpy as np\n\nq_init = np.eye(3, dtype=float)\n\ncandidates = np.array([\n    np.eye(3)[[1, 1, 1]],\n    np.eye(3)[[1, 0, 0]],\n])\n\nweights_ensemble = np.array([\n    [\n        [1.2, -0.3, 0.5],\n        [0.1, 1.0, -0.4],\n        [-0.2, 0.3, 0.9],\n    ],\n    [\n        [0.8, 0.4, -0.2],\n        [-0.3, 1.1, 0.2],\n        [0.5, -0.4, 0.7],\n    ],\n    [\n        [1.0, -0.2, 0.3],\n        [0.2, 0.7, 0.6],\n        [-0.1, 0.8, 0.5],\n    ],\n])\n\ncontact_matrix = np.array([\n    [0.2, -0.1, 0.3],\n    [-0.1, 0.4, 0.0],\n    [0.3, 0.0, 0.5],\n])\n\nbiases = np.array([-0.5, -0.3, -0.4])\ncontact_scales = np.array([0.7, 0.5, 0.6])\npenalty_scales = np.array([0.25, 0.30, 0.20])\nassert np.allclose(ensemble_ucb(candidates, q_init, weights_ensemble, contact_matrix, biases, contact_scales, penalty_scales).tolist(), target)",
+        "import numpy as np\n\nq_init = np.eye(2, dtype=float)\ncandidates = q_init[None, :, :]\nweights_ensemble = np.zeros((1, 2, 2), dtype=float)\ncontact_matrix = np.zeros((2, 2), dtype=float)\nbiases = np.array([0.25])\ncontact_scales = np.array([0.0])\npenalty_scales = np.array([0.0])\nassert np.allclose(ensemble_ucb(candidates, q_init, weights_ensemble, contact_matrix, biases, contact_scales, penalty_scales).tolist(), target)",
+        "import numpy as np\n\nq_init = np.eye(2, dtype=float)\ncandidates = np.empty((0, 2, 2), dtype=float)\nweights_ensemble = np.zeros((1, 2, 2), dtype=float)\ncontact_matrix = np.zeros((2, 2), dtype=float)\nbiases = np.array([0.0])\ncontact_scales = np.array([0.0])\npenalty_scales = np.array([0.0])\n\ndef _model_error_code():\n    try:\n        ensemble_ucb(\n            candidates,\n            q_init,\n            weights_ensemble,\n            contact_matrix,\n            biases,\n            contact_scales,\n            penalty_scales,\n        )\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_model_error_code(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-22.8",
+      "test_cases": [
+        "import numpy as np\ninitial_sequence = np.array([0, 1, 2, 3, 0], dtype=int)\nalphabet_size = 4\nparameter_rng = np.random.default_rng(7049)\nweights_ensemble = parameter_rng.normal(\n    0.0, 0.85, size=(5, 5, 4)\n).astype(np.float64)\nraw_contact = parameter_rng.normal(\n    0.0, 0.35, size=(4, 4)\n).astype(np.float64)\ncontact_matrix = (raw_contact + raw_contact.T) / 2.0\nbiases = parameter_rng.normal(\n    -0.15, 0.30, size=5\n).astype(np.float64)\ncontact_scales = parameter_rng.uniform(\n    0.35, 0.95, size=5\n).astype(np.float64)\npenalty_scales = parameter_rng.uniform(\n    0.12, 0.42, size=5\n).astype(np.float64)\nseeds = parameter_rng.integers(\n    1000, 100000, size=5, dtype=np.int64\n)\nepsilon = float(parameter_rng.uniform(0.48, 0.82))\nn_steps = 12\nassert np.allclose(optimize_protein_candidate(initial_sequence, alphabet_size, weights_ensemble, contact_matrix, biases, contact_scales, penalty_scales, seeds, epsilon, n_steps), target)",
+        "import numpy as np\ninitial_sequence = np.array([0, 1], dtype=int)\nalphabet_size = 2\nweights_ensemble = np.zeros((1, 2, 2), dtype=float)\ncontact_matrix = np.zeros((2, 2), dtype=float)\nbiases = np.array([-0.25])\ncontact_scales = np.array([0.0])\npenalty_scales = np.array([0.0])\nseeds = np.array([17], dtype=int)\nepsilon = 0.2\nn_steps = 1\nassert np.allclose(optimize_protein_candidate(initial_sequence, alphabet_size, weights_ensemble, contact_matrix, biases, contact_scales, penalty_scales, seeds, epsilon, n_steps), target)",
+        "import numpy as np\ninitial_sequence = np.array([0, 1], dtype=int)\nalphabet_size = 2\nweights_ensemble = np.zeros((1, 2, 2), dtype=float)\ncontact_matrix = np.zeros((2, 2), dtype=float)\nbiases = np.array([0.0])\ncontact_scales = np.array([0.0])\npenalty_scales = np.array([0.0])\nseeds = np.array([-1], dtype=int)\nepsilon = 0.2\nn_steps = 1\n\ndef _model_error_code():\n    try:\n        optimize_protein_candidate(\n            initial_sequence,\n            alphabet_size,\n            weights_ensemble,\n            contact_matrix,\n            biases,\n            contact_scales,\n            penalty_scales,\n            seeds,\n            epsilon,\n            n_steps,\n        )\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_model_error_code(), target)"
+      ]
+    }
+  ]
+}

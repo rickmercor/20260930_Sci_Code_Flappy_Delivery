@@ -1,0 +1,48 @@
+problem_id: "Material_Science-Semiconductor_Materials-75"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1103/64lc-9d5w"
+dependencies: ""
+steps:
+  - number: 1
+    name: "Free-electron states on the conduction-band shell at X"
+    description: "Enumerate the plane-wave triples of the free-electron states at the X point of the diamond structure that lie on a requested dimensionless energy shell, sorted lexicographically."
+    orchestrator: false
+  - number: 2
+    name: "The group of the wave vector at the X point"
+    description: "Build the thirty-two operations of the group of the wave vector at X as point matrices with their translations, in a fixed deterministic order."
+    orchestrator: false
+  - number: 3
+    name: "The two Bloch functions that spawn the valleys"
+    description: "Project the plane-wave shell onto the X1 representation and impose compatibility with the bands running from X to the zone centre, returning the two valley basis functions."
+    orchestrator: false
+  - number: 4
+    name: "Matrix representation of the group on the valley doublet"
+    description: "Represent every operation of the group by a two-by-two matrix on the valley doublet."
+    orchestrator: false
+  - number: 5
+    name: "Crystal signs and time-reversal parities of the valley operators"
+    description: "Return the sign of each valley Pauli matrix under each crystal operation together with its time-reversal parity."
+    orchestrator: false
+  - number: 6
+    name: "Which background fields may couple to which valley operator"
+    description: "Decide, for each of twenty-nine candidate field combinations, which valley operators it may couple to under both the crystal symmetry and time reversal."
+    orchestrator: false
+  - number: 7
+    name: "Kinetic momentum correlation and ellipticity tensor of the dot"
+    description: "Return the ground-state expectation of the symmetrised product of the in-plane kinetic momenta of the elliptical dot in a perpendicular magnetic field, and the ellipticity tensor of the dot."
+    orchestrator: false
+  - number: 8
+    name: "The three components of the valley-magnetic field"
+    description: "Sum the allowed channels with their coupling constants into the three components of the valley-magnetic field of a dot with a given polar vector."
+    orchestrator: false
+  - number: 9
+    name: "Wafer statistics with a random polar vector"
+    description: "Average the alloy Rice law over the dot-to-dot spread of the polar vector and return the spread of the time-reversal-odd component together with the percentage of the wafer below a splitting threshold, without and with that spread."
+    orchestrator: false
+  - number: 10
+    name: "End to end, the fraction of the wafer below threshold"
+    description: "Run the whole pipeline and return the percentage of the wafer whose valley splitting falls below the threshold when both the germanium matrix element and the polar vector vary from dot to dot."
+    orchestrator: true

@@ -1,0 +1,36 @@
+problem_id: "Chemistry-Quantum_Chemistry-32"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2605.26887"
+dependencies: ""
+steps:
+  - number: 1
+    name: "semielliptic_dos"
+    description: "Evaluate the non-interacting density of states of the Bethe lattice with half-bandwidth D on a 1-D grid of energies, normalised to unit integral and identically zero outside the band."
+    orchestrator: false
+  - number: 2
+    name: "half_filled_moments"
+    description: "Return the six moments mu_0 ... mu_5 of the source's approximate moment closure for the half-filled Hubbard model on the Bethe lattice, given the interaction U, the half-bandwidth D and the nearest-neighbour bond amplitude. This is the source's self-consistent moment map, in which the second and fourth moments depend on the bond amplitude through the scaled Bethe hopping t = D/2 and the coordination-scaled t^2 z_NN; it is not the exact equation-of-motion moment sequence of the Hubbard Hamiltonian. The odd moments vanish at particle-hole symmetry."
+    orchestrator: false
+  - number: 3
+    name: "resolvable_rank"
+    description: "Determine the numerically resolvable pole rank of the moment sequence at the requested order from the singular-value spectrum of its Hankel moment matrix, using the source's relative criterion with threshold tau."
+    orchestrator: false
+  - number: 4
+    name: "jacobi_matrix"
+    description: "Build the symmetric tridiagonal Jacobi matrix of the rank-point Gauss-Christoffel quadrature rule from the moment sequence, following the source's factorisation route through the Hankel moment matrix."
+    orchestrator: false
+  - number: 5
+    name: "quadrature_nodes_weights"
+    description: "Return the Gauss-Christoffel nodes and weights encoded by a symmetric Jacobi matrix and the zeroth moment, with the nodes in ascending order and the weights in the matching order."
+    orchestrator: false
+  - number: 6
+    name: "bond_amplitude_closure"
+    description: "Evaluate the nearest-neighbour bond amplitude <c+ c> of one spin from a discrete spectral measure given by nodes and weights, using the source's closure kernel built on the bare Bethe density of states, with particle-hole symmetry enforced at the level of the moment update as the source prescribes: the amplitude is one half of the full-line sum over all poles of w_i t rho_0(eps_i) with the scaled Bethe hopping t = D/2, for any particle-hole-symmetric input measure, so a pole at zero energy contributes half its weight and a pole at or beyond the band edge contributes nothing."
+    orchestrator: false
+  - number: 7
+    name: "self_consistent_central_weight"
+    description: "Run the inner moment-quadrature self-consistency loop of the source at the given pole order for the half-filled Hubbard model on the Bethe lattice, seeded from the given bond amplitude, and return the weight of the pole closest to zero energy at convergence. Compose the earlier steps: form the moments, select the resolvable rank, build the Jacobi matrix, extract nodes and weights, close the bond amplitude, mix the new moments linearly with the previous ones using the given mixing factor, and stop when the source's relative moment criterion falls below delta over the nonzero moments."
+    orchestrator: true

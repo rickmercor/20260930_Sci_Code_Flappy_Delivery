@@ -1,0 +1,44 @@
+problem_id: "Biology-Ecology-10"
+subject: "biology"
+subject_area: "Ecology"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1016/j.ecolmodel.2026.111797"
+dependencies: ""
+steps:
+  - number: 1
+    name: "step_01_temperature_response_factors.py"
+    description: "Compute process-specific temperature multipliers from Q10 coefficients."
+    orchestrator: false
+  - number: 2
+    name: "step_02_phytoplankton_process_rates.py"
+    description: "Compute eight ordered phytoplankton growth, mortality, respiration, loss, nutrient-uptake, and oxygen-budget values from the explicit formulas below."
+    orchestrator: false
+  - number: 3
+    name: "step_03_organic_matter_transformations.py"
+    description: "Compute seven ordered mineralization and transformation values for labile POC, semilabile POC, and DOC from the explicit rate laws below."
+    orchestrator: false
+  - number: 4
+    name: "step_04_nitrogen_oxygen_fluxes.py"
+    description: "Compute five ordered nitrification, denitrification, and oxygen-consumption values from the explicit redox rate laws below."
+    orchestrator: false
+  - number: 5
+    name: "step_05_oxypom_reduced_rhs.py"
+    description: "Assemble the seven-state reduced OxyPOM derivative and four diagnostic fluxes from the explicit forcing functions and mass-balance equations below."
+    orchestrator: false
+  - number: 6
+    name: "step_06_ammonium_sliding_field.py"
+    description: "Evaluate the one-sided ammonium rates and the Filippov sliding vector field on the critical-ammonium switching surface of the reduced OxyPOM model."
+    orchestrator: false
+  - number: 7
+    name: "step_07_integrate_filippov_cycle_rk4.py"
+    description: "Integrate one forcing period of the Filippov solution of the reduced OxyPOM model, handling arrival at, sliding on, crossing of, and exit from the critical-ammonium surface, and apply the terminal renewal map."
+    orchestrator: false
+  - number: 8
+    name: "step_08_filippov_periodic_q10_elasticities.py"
+    description: "Converge the renewed Filippov cycle to its periodic fixed point and return its ten cycle diagnostics, their total log-Q10 elasticities, and the stability radius of the renewal map."
+    orchestrator: false
+  - number: 9
+    name: "step_09_filippov_q10_sensitivity_norm.py"
+    description: "Run the complete Filippov periodic-sensitivity workflow and return the Frobenius norm of its 10-by-6 log-Q10 elasticity matrix."
+    orchestrator: true

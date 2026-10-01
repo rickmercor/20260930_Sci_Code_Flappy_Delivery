@@ -1,0 +1,44 @@
+problem_id: "Mathematics-Computational_Mechanics-20"
+subject: "mathematics"
+subject_area: "Computational Mechanics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2608.16750"
+dependencies: ""
+steps:
+  - number: 1
+    name: "stiffened_gas_pressure"
+    description: "Return the pressure of one phase from its density and specific internal energy under the stiffened-gas equation of state the source uses, given that phase's two constants."
+    orchestrator: false
+  - number: 2
+    name: "interface_closures"
+    description: "Return the source's two interface quantities for a two-phase mixture, the interface pressure first and the interface velocity component second. Both are averages of the corresponding phasic quantities over the two phases, but they are NOT averaged with the same weights: one uses a weight built from the volume fractions alone and the other a weight built from the phasic masses. Which weight belongs to which quantity is the source's closure; recover it from the paper. The volume fraction given is that of phase one, so phase two carries its complement."
+    orchestrator: false
+  - number: 3
+    name: "interface_distance"
+    description: "Return the source's interface distance-like function for the phase field with FINITE NON-ZERO bounds, in which the volume fraction asymptotes to a small positive value and its complement rather than to zero and one. It is the interface thickness times the logarithm of a ratio formed from the volume fraction, and that ratio is NOT the one used for the unbounded phase field: the bound enters it. The exact ratio is derived in the source's appendix; recover it from there rather than from the main text. Add the very small constant 1e-100 to numerator and denominator to control the limit, and clamp each of them at zero first so the function stays finite in floating point at and beyond the bounds. Form each clamped quantity so that a volume fraction sitting exactly on either bound gives exactly zero before the constant is added, rather than a rounding residue of order 1e-16."
+    orchestrator: false
+  - number: 4
+    name: "interface_normal"
+    description: "Return the interface normal of a two-dimensional periodic field, computed from the interface distance-like function rather than from the volume fraction itself, as the source recommends. The gradient is taken with second-order central differences along each axis on the periodic grid, and the normal is that gradient divided by its own magnitude; where the magnitude is exactly zero the normal is the zero vector."
+    orchestrator: false
+  - number: 5
+    name: "interface_regularization_flux"
+    description: "Return the source's volumetric interface-regularisation flux for the bounded phase field on a two-dimensional periodic grid: a vector field with a diffusion term proportional to the gradient of the volume fraction and a sharpening term proportional to one minus the squared hyperbolic tangent of the distance-like function over twice the thickness, directed along the interface normal. Both terms carry a prefactor built from the bound, and the two prefactors are different powers of the same quantity; the sharpening term also carries a fixed denominator. Recover the prefactors from the source's bounded transport equation. Take gradients with second-order central differences along each axis on the periodic grid, and take the normal from the distance-like function."
+    orchestrator: false
+  - number: 6
+    name: "volume_fraction_rhs"
+    description: "Return the right-hand side of the source's bounded volume-fraction transport equation on a two-dimensional periodic grid, written for a time-stepper as the time derivative of the volume fraction: the negative divergence of the volume fraction times the interface velocity, plus the extra non-conservative term the source's equation carries, plus the divergence of the regularisation flux. Take every divergence with second-order central differences along each axis on the periodic grid."
+    orchestrator: false
+  - number: 7
+    name: "phasic_mass_rhs"
+    description: "Return the right-hand side of one phase's mass equation on a two-dimensional periodic grid, written for a time-stepper as the time derivative of the phasic mass per unit volume: the negative divergence of the phasic mass flux, plus the divergence of that phase's mass-regularisation flux. The source forms the mass-regularisation flux from the volumetric regularisation flux and the phase's own explicitly recovered density, and the two phases carry it with opposite signs. Take every divergence with second-order central differences along each axis on the periodic grid."
+    orchestrator: false
+  - number: 8
+    name: "advance"
+    description: "Take one time step of the coupled volume-fraction and phasic-mass system on a two-dimensional periodic grid with a two-stage strong-stability-preserving Runge-Kutta method, given the current volume fraction, the two phasic masses per unit volume, the two prescribed phasic velocity fields and the two uniform phasic pressures. Within each stage recover each phasic density by dividing its mass by its volume fraction floored at the bound, form the interface velocity from the source's closure, and evaluate the three right-hand sides; do not clip the volume fraction at any point."
+    orchestrator: false
+  - number: 9
+    name: "vortex_audit"
+    description: "Run the source's bounded interface regularisation through a prescribed two-dimensional vortex on three fixed configurations and audit the interface it produces, assembling the run from the earlier steps: initialise a circular blob of phase one with the bounded equilibrium profile, advance the coupled volume-fraction and phasic-mass system with the two-stage Runge-Kutta step, and record one row of diagnostics per configuration. The interface-length measure in the last column, the space integral of the volume fraction times its complement, is the quantity the audit is built around."
+    orchestrator: true

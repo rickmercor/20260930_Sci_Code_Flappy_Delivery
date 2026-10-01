@@ -1,0 +1,40 @@
+problem_id: "Biology-Biochemistry-47"
+subject: "biology"
+subject_area: "Biochemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1371/journal.pcbi.1013493"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_compute_cycle_observables"
+    description: "Compute the microscopic rate constants and steady-state observables of a reversible three-step enzyme cycle from its six reaction-coordinate free energies.\n\nThe reaction coordinate is ordered as free enzyme plus substrate, binding transition state, enzyme\u2013substrate complex, chemical transition state, enzyme\u2013product complex, and product-release transition state. Convert each barrier into its corresponding microscopic rate constant using transition-state theory at the specified temperature and the common prefactor (k_B T/h).\n\nDo not treat the steady-state observables as independent textbook expressions. Derive them from the steady-state balance of the coupled enzyme\u2013substrate and enzyme\u2013product occupancies for the full reversible cycle\n[\n\\mathrm{E}+\\mathrm{S}\\rightleftharpoons\\mathrm{ES}\\rightleftharpoons\\mathrm{EP}\\rightarrow\\mathrm{E}+\\mathrm{P}.\n]\nUse that balance to obtain, in order, the dissociation constant (K_D), turnover number (k_{\\mathrm{cat}}), Michaelis constant (K_M), and catalytic efficiency (k_{\\mathrm{cat}}/K_M). The result must retain both the reverse chemical step and finite product release; do not substitute a two-step Michaelis\u2013Menten approximation.\n\nThe function accepts either one reaction coordinate or a batch with a trailing axis of length six. It returns the five microscopic rate constants in the order association, dissociation, forward chemical, reverse chemical, release, followed by the four steady-state observables in the order (K_D), (k_{\\mathrm{cat}}), (K_M), and (k_{\\mathrm{cat}}/K_M)."
+    orchestrator: false
+  - number: 2
+    name: "02_simulate_mutant_free_energies"
+    description: "Build the deterministic library of single-mutant reaction coordinates by perturbing every sub-state free energy of the wild type independently."
+    orchestrator: false
+  - number: 3
+    name: "03_compute_variant_fold_changes"
+    description: "Convert each variant's perturbed reaction coordinate into its fold-changes in the five microscopic rate constants and in the four steady-state observables of the cycle."
+    orchestrator: false
+  - number: 4
+    name: "compute_double_mutant_epistasis"
+    description: "Compute mechanism-manufactured epistasis for every ordered pair of single mutants and for all four steady-state kinetic observables, without receiving precomputed observable-level fold changes.\n\n\n\nUnder the free-energy-additive null model, the two single-mutant microscopic rate-constant fold vectors multiply componentwise with the wild-type microscopic rate vector. Independently reconstruct each single mutant\u2019s KD, kcat, KM, and kcat/KM from its microscopic rates, so that the conventional observable-level expectation is derived rather than supplied. Evaluate the additive-null double mutant from its combined microscopic rates and divide each observable by that reconstructed expectation.\n\n\n\nReturn a tensor ordered as KD, kcat, KM, and kcat/KM. Retain diagonal pairs: combining a variant with itself is a valid additive-null double-mutant construction."
+    orchestrator: false
+  - number: 5
+    name: "05_summarize_epistasis"
+    description: "Reduce a matrix of double-mutant epistasis values to the four summary statistics that characterise how much interaction a mechanism manufactures on its own."
+    orchestrator: false
+  - number: 6
+    name: "06_decompose_measured_epistasis"
+    description: "Split the epistasis measured in a real double mutant into the part manufactured by the catalytic cycle and the part that requires a genuine interaction between the two substitutions."
+    orchestrator: false
+  - number: 7
+    name: "07_compute_cryptic_epistasis_score"
+    description: "Express a measured enzyme's manufactured epistasis in units of the manufactured epistasis its own mechanism generates for typical non-interacting variant pairs."
+    orchestrator: false
+  - number: 8
+    name: "08_run_cryptic_epistasis_pipeline"
+    description: "Chain the sub-problem functions 01-07 end to end and return the cryptic epistasis score of the characterised double mutant.\n\nOrchestrator: yes - this is the final step; it integrates the earlier sub-problems (compute_cycle_observables, simulate_mutant_free_energies, compute_variant_fold_changes, compute_double_mutant_epistasis, summarize_epistasis, decompose_measured_epistasis, compute_cryptic_epistasis_score) rather than reimplementing them."
+    orchestrator: true

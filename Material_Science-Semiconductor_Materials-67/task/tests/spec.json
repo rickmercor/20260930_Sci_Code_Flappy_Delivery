@@ -1,0 +1,83 @@
+{
+  "problem_id": "Material_Science-Semiconductor_Materials-67",
+  "sub_steps": [
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-67.1",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(local_plasmon_wavenumber(500.0, 8.0e11, 150.0, 12.8, 12.8, 0.067), target)",
+        "import numpy as np\nassert np.allclose(local_plasmon_wavenumber(500.0, 1.2e12, 600.0, 12.8, 12.8, 0.067), target)",
+        "import numpy as np\nassert np.allclose(local_plasmon_wavenumber(0.5, 2.0e12, 50.0, 12.8, 12.8, 0.067), target)",
+        "import numpy as np\nassert np.allclose(local_plasmon_wavenumber(2000.0, 1.0e10, 50000.0, 12.9, 3.9, 0.067), target)",
+        "import numpy as np\nassert np.allclose(local_plasmon_wavenumber(300.0, 6.0e12, 25.0, 9.5, 9.5, 0.22), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        local_plasmon_wavenumber(500.0, 8.0e11, -150.0, 12.8, 12.8, 0.067)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-67.2",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(bloch_phase_cosine(500.0, 6.0, 0.44, 3.0e11, 3.0e12, 300.0, 1500.0, 12.8, 12.8, 7.0, 0.067), target)",
+        "import numpy as np\nassert np.allclose(bloch_phase_cosine(800.0, 6.0, 0.2, 3.0e11, 3.0e12, 300.0, 1500.0, 12.8, 12.8, 7.0, 0.067), target)",
+        "import numpy as np\nassert np.allclose(bloch_phase_cosine(150.0, 8.0, 0.5, 4.0e11, 1.6e12, 200.0, 200.0, 12.8, 12.8, 12.8, 0.067), target)",
+        "import numpy as np\nassert np.allclose(bloch_phase_cosine(400.0, 8.0, 0.3, 1.0e11, 1.6e12, 320.0, 50000.0, 12.8, 12.8, 12.8, 0.067), target)",
+        "import numpy as np\nassert np.allclose(bloch_phase_cosine(900.0, 6.0, 0.62, 3.0e11, 3.0e12, 100.0, 300.0, 12.8, 12.8, 4.0, 0.067), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        bloch_phase_cosine(500.0, 6.0, 1.2, 3.0e11, 3.0e12, 300.0, 1500.0, 12.8, 12.8, 7.0, 0.067)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-67.3",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(zone_center_modes(6.0, 0.2, 3.0e11, 3.0e12, 300.0, 1500.0, 12.8, 12.8, 7.0, 0.067, 2), target)",
+        "import numpy as np\nassert np.allclose(zone_center_modes(6.0, 0.6, 3.0e11, 3.0e12, 300.0, 1500.0, 12.8, 12.8, 7.0, 0.067, 2), target)",
+        "import numpy as np\nassert np.allclose(zone_center_modes(8.0, 0.5, 4.0e11, 1.6e12, 200.0, 200.0, 12.8, 12.8, 12.8, 0.067, 3), target)",
+        "import numpy as np\nassert np.allclose(zone_center_modes(8.0, 0.15, 1.0e11, 1.6e12, 320.0, 50000.0, 12.8, 12.8, 12.8, 0.067, 2), target)",
+        "import numpy as np\nassert np.allclose(zone_center_modes(6.0, 0.4406, 3.0e11, 3.0e12, 300.0, 1500.0, 12.8, 12.8, 7.0, 0.067, 1), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        zone_center_modes(6.0, 0.3, 3.0e11, 3.0e12, 300.0, 1500.0, 12.8, 12.8, 7.0, 0.067, 0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-67.4",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(plasmon_effective_mass(6.0, 0.2, 3.0e11, 3.0e12, 300.0, 1500.0, 12.8, 12.8, 7.0, 0.067, 'bright'), target)",
+        "import numpy as np\nassert np.allclose(plasmon_effective_mass(6.0, 0.6, 3.0e11, 3.0e12, 300.0, 1500.0, 12.8, 12.8, 7.0, 0.067, 'dark'), target)",
+        "import numpy as np\nassert np.allclose(plasmon_effective_mass(8.0, 0.5, 4.0e11, 1.6e12, 200.0, 200.0, 12.8, 12.8, 12.8, 0.067, 'bright'), target)",
+        "import numpy as np\nassert np.allclose(plasmon_effective_mass(8.0, 0.6, 1.0e11, 1.6e12, 320.0, 50000.0, 12.8, 12.8, 12.8, 0.067, 'bright'), target)",
+        "import numpy as np\nassert np.allclose(plasmon_effective_mass(4.0, 0.35, 6.0e12, 9.0e12, 25.0, 250.0, 9.5, 9.5, 9.5, 0.22, 'dark'), target)",
+        "import numpy as np\nassert np.allclose(plasmon_effective_mass(6.0, 0.4416, 3.0e11, 3.0e12, 300.0, 1500.0, 12.8, 12.8, 7.0, 0.067, 'bright'), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        plasmon_effective_mass(6.0, 0.3, 3.0e11, 3.0e12, 300.0, 1500.0, 12.8, 12.8, 7.0, 0.067, 'grey')\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-67.5",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(degeneracy_point(6.0, 3.0e11, 3.0e12, 300.0, 1500.0, 12.8, 12.8, 7.0, 0.067), target)",
+        "import numpy as np\nassert np.allclose(degeneracy_point(8.0, 4.0e11, 1.6e12, 200.0, 200.0, 12.8, 12.8, 12.8, 0.067), target)",
+        "import numpy as np\nassert np.allclose(degeneracy_point(6.0, 8.0e11, 3.0e12, 300.0, 300.0, 12.8, 12.8, 3.97, 0.067), target)",
+        "import numpy as np\nassert np.allclose(degeneracy_point(4.0, 6.0e12, 9.0e12, 25.0, 250.0, 9.5, 9.5, 9.5, 0.22), target)",
+        "import numpy as np\nassert np.allclose(degeneracy_point(6.0, 3.0e11, 3.0e12, 100.0, 300.0, 12.8, 12.8, 4.0, 0.067), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        degeneracy_point(6.0, 3.0e11, 0.0, 300.0, 1500.0, 12.8, 12.8, 7.0, 0.067)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-67.6",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(degeneracy_linear_velocity(6.0, 3.0e11, 3.0e12, 300.0, 1500.0, 12.8, 12.8, 7.0, 0.067), target)",
+        "import numpy as np\nassert np.allclose(degeneracy_linear_velocity(8.0, 4.0e11, 1.6e12, 200.0, 200.0, 12.8, 12.8, 12.8, 0.067), target)",
+        "import numpy as np\nassert np.allclose(degeneracy_linear_velocity(6.0, 8.0e11, 3.0e12, 300.0, 300.0, 12.8, 12.8, 3.97, 0.067), target)",
+        "import numpy as np\nassert np.allclose(degeneracy_linear_velocity(4.0, 6.0e12, 9.0e12, 25.0, 250.0, 9.5, 9.5, 9.5, 0.22), target)",
+        "import numpy as np\nassert np.allclose(degeneracy_linear_velocity(6.0, 3.0e11, 3.0e12, 100.0, 300.0, 12.8, 12.8, 4.0, 0.067), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        degeneracy_linear_velocity(6.0, 3.0e11, 3.0e12, 300.0, 1500.0, 12.8, 12.8, 7.0, -0.067)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-67.7",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(bright_mass_slope_at_degeneracy(6.0, 3.0e11, 3.0e12, 300.0, 1500.0, 12.8, 12.8, 7.0, 0.067), target)",
+        "import numpy as np\nassert np.allclose(bright_mass_slope_at_degeneracy(8.0, 4.0e11, 1.6e12, 200.0, 200.0, 12.8, 12.8, 12.8, 0.067), target)",
+        "import numpy as np\nassert np.allclose(bright_mass_slope_at_degeneracy(6.0, 8.0e11, 3.0e12, 300.0, 300.0, 12.8, 12.8, 3.97, 0.067), target)",
+        "import numpy as np\nassert np.allclose(bright_mass_slope_at_degeneracy(4.0, 6.0e12, 9.0e12, 25.0, 250.0, 9.5, 9.5, 9.5, 0.22), target)",
+        "import numpy as np\nassert np.allclose(bright_mass_slope_at_degeneracy(6.0, 3.0e11, 3.0e12, 100.0, 300.0, 12.8, 12.8, 4.0, 0.067), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        bright_mass_slope_at_degeneracy(6.0, 3.0e11, 3.0e12, 300.0, float('nan'), 12.8, 12.8, 7.0, 0.067)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

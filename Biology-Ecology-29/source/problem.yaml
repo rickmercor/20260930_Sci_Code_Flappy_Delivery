@@ -1,0 +1,40 @@
+problem_id: "Biology-Ecology-29"
+subject: "biology"
+subject_area: "Ecology"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1007/s11538-026-01672-w"
+dependencies: ""
+steps:
+  - number: 1
+    name: "use_probabilities"
+    description: "Return the conditional resource-use probabilities for a resource matrix: resource_matrix[i, j] is the abundance (or resource-use value) of species i in resource state j, and the result holds, for every species, the probability that one of its individuals is associated with each resource state. A species whose row is entirely zero receives a row of zeros."
+    orchestrator: false
+  - number: 2
+    name: "resource_entropies"
+    description: "Return the four information quantities for a resource matrix, as the array [H(X), H(Y), H(XY), H_Y(X)]: the entropy of the resource states, the entropy of the species, their joint entropy, and the conditional entropy of the resource states given the species, all in nats, computed from the pooled-community probabilities."
+    orchestrator: false
+  - number: 3
+    name: "state_contributions"
+    description: "Return the contribution of each resource state to the source's standardized resource heterogeneity M(X) (the quantity the source denotes delta_j), given the resource matrix, the use probabilities of step 01 and the entropies of step 02. The contributions sum to M(X); a state used by no species, or used in identical proportions by every species, contributes zero."
+    orchestrator: false
+  - number: 4
+    name: "modified_weights"
+    description: "Return the source's modified weighting factor of each resource state (denoted ed_j) from the state contributions of step 03 and n_occupied, the number of resource states that are used by at least one species in the complete resource matrix the analysis refers to (the source's r'). The factors are strictly positive for every state, including states used by no species, and sum to 1."
+    orchestrator: false
+  - number: 5
+    name: "adjusted_probabilities"
+    description: "Return the source's adjusted resource-use probabilities p*_ij of every species in a resource matrix for the given per-state weighting factors and the source's matrix-expansion constant k: each species' abundances are divided by its weighted, k-scaled total abundance Y*_i. A species whose row is entirely zero receives a row of zeros."
+    orchestrator: false
+  - number: 6
+    name: "niche_breadth"
+    description: "Return the source's standardized niche breadth beta' of one species from its row of adjusted probabilities (step 05), the per-state weighting factors used to form them, and the matrix-expansion constant k. The breadth equals 1 for a species that uses every resource state equally and is smaller for a species that concentrates its use on fewer states."
+    orchestrator: false
+  - number: 7
+    name: "niche_overlap"
+    description: "Return the source's weighted information-theoretic niche overlap gamma' between two species from their rows of adjusted probabilities (step 05), the per-state weighting factors used to form them, and the matrix-expansion constant k. The overlap is 0 for species using disjoint resource states and 1 for species with identical adjusted distributions."
+    orchestrator: false
+  - number: 8
+    name: "generalist_pair_overlap"
+    description: "Orchestrator. For a resource matrix and the matrix-expansion constant k, return the source's noncircular niche overlap gamma' (step 07) between the two species with the largest noncircular niche breadths beta' (step 06), every weighting factor being the source's modified factor of step 04 built from steps 01-03 under the source's noncircularity rule: the factors used for one species' breadth come from the resource matrix with that species removed, and the factors used for a pair's overlap come from the matrix with both species removed, while the count of occupied states passed to step 04 is always that of the complete matrix. Adjusted probabilities (step 05) of the focal species are formed from their own rows with those factors. Raise ValueError if the two largest breadths are not uniquely determined (a tie at the first or second rank) or if fewer than three species are present. Call the earlier step functions rather than reimplementing them."
+    orchestrator: true

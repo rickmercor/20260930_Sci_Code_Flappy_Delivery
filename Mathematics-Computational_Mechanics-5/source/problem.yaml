@@ -1,0 +1,48 @@
+problem_id: "Mathematics-Computational_Mechanics-5"
+subject: "mathematics"
+subject_area: "Computational Mechanics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2603.18905"
+dependencies: ""
+steps:
+  - number: 1
+    name: "hex_stiffness"
+    description: "Build the element stiffness matrix of one trilinear hexahedron of the displacement space the source uses, Eq. (14a), for an isotropic linear elastic solid. The element is a rectangular box aligned with the axes. Use the tensor-product Gauss rule that integrates this element exactly, and order the twenty four degrees of freedom node by node with the three components contiguous within each node. Take the eight local nodes in the counter-clockwise order (-1,-1,-1), (1,-1,-1), (1,1,-1), (-1,1,-1) around the lower face, followed by the same four corners on the upper face. That local ordering belongs to the element itself and is not the lexicographic ordering used to number the nodes of a block."
+    orchestrator: false
+  - number: 2
+    name: "block_stiffness"
+    description: "Assemble the global stiffness matrix of one of the two subdomains. The block occupies the unit square in x and y, is meshed with n by n elements in plan and a single element through the thickness, and every element is the box whose stiffness matrix is supplied. Number the nodes with x fastest, then y, then z, and give each node three consecutive degrees of freedom. When an element is gathered into the global matrix its eight nodes are taken in the element's own counter-clockwise local order, not in the global lexicographic order."
+    orchestrator: false
+  - number: 3
+    name: "mortar_mass"
+    description: "Assemble the first of the two interface operators of Eq. (11), pairing every multiplier basis function with the displacement basis functions of the non-mortar side over the interface. The multipliers are the vector piecewise constants of Eq. (14b), one per non-mortar interface face; the displacements are the traces of the trilinear block functions. Each of the three components pairs only with its own component."
+    orchestrator: false
+  - number: 4
+    name: "mortar_coupling"
+    description: "Assemble the second interface operator of Eq. (11), pairing every multiplier with the displacement basis functions of the mortar side after they have been mapped onto the non-mortar interface. The two interface grids do not match, so the integrand is discontinuous over a non-mortar face; the source names this the major algorithmic challenge of the method and it must be integrated as the source intends rather than approximated."
+    orchestrator: false
+  - number: 5
+    name: "macroelement_masks"
+    description: "Identify the local patch the source builds around one internal node of the mortar interface grid, as the configuration defines it: the mortar faces touching that node, together with every non-mortar face whose area overlaps the region they cover. Return the membership of both sets as a single indicator vector, mortar faces after non-mortar faces, each face numbered with the x index fastest."
+    orchestrator: false
+  - number: 6
+    name: "local_scaling"
+    description: "Form the local approximation of Eq. (19) on the patch of one mortar node. Gather the two blocks' stiffness entries for the patch displacement degrees of freedom and the two interface operators for its multiplier degrees of freedom, then combine them into an operator on the patch multiplier space. The source states exactly which part of the gathered stiffness it retains and why, immediately below the equation, and that choice is what fixes the magnitude of everything downstream."
+    orchestrator: false
+  - number: 7
+    name: "stabilization_matrix"
+    description: "Assemble the global stabilising operator of Eq. (16) by the procedure of Algorithm 1. Sweep the internal nodes of the mortar interface grid; on each patch form the local approximation and derive from it the second order tensor that scales the contribution of every internal edge of the patch, per Eq. (20); then place that contribution into the global operator through the jump structure the bilinear form implies. Take an internal edge to be one shared by two non-mortar faces that both belong to the patch and that are neighbours across a coordinate direction. The sweep visits some edges more than once, and Algorithm 1 says what to do about that."
+    orchestrator: false
+  - number: 8
+    name: "infsup_constant"
+    description: "Evaluate the discrete inf-sup constant of the saddle point problem through the characterisation the source derives, Eq. (24). Build the constrained operator on the multiplier space from the given stiffness and constraint operators, add the given stabilising operator to it, and extract the constant from the extreme generalised eigenvalue against the given scaled multiplier metric. Return the constant itself, not its square, and never a negative number."
+    orchestrator: false
+  - number: 9
+    name: "interface_tractions"
+    description: "Solve the stabilised saddle point system of Eq. (17) for the interface multipliers under the given load, and return only the multipliers. The stabilising operator enters the constraint block of the system, and it enters with the sign that Eq. (17) gives it. There is no load on the constraint equations."
+    orchestrator: false
+  - number: 10
+    name: "mortar_audit"
+    description: "Run the whole audit over the three interface grid pairs of the configuration. For each pair assemble both blocks, both interface operators and the stabilising operator, then evaluate the inf-sup constant twice, once without the stabilising term and once with it, in the clamped setting of the configuration; and solve the loaded setting twice, once under the graded surface traction and once under the uniform one. Record one row per grid pair. The mesh size and the multiplier metric that enter the inf-sup characterisation are the ones the source's own derivation uses."
+    orchestrator: true

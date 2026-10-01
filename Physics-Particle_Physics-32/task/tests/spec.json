@@ -1,0 +1,63 @@
+{
+  "problem_id": "Physics-Particle_Physics-32",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Particle_Physics-32.1",
+      "test_cases": [
+        "import numpy as np\nfrom copy import deepcopy\nsamples=np.array([[0,0,97],[0,1,35],[0,2,19],[0,3,7],[1,0,21],[1,1,12],[1,2,81],[1,3,77],[2,0,25],[2,1,98],[2,2,89],[2,3,89],[3,0,58],[3,1,91],[3,2,51],[3,3,99]],dtype=np.int64)\nfactors=np.array([[1,1,0],[2,0,1],[4,1,1],[5,2,100]],dtype=np.int64)\npowers=np.ones(4,dtype=np.int64)\np=101\nassert np.allclose(clear_denominator_samples(*deepcopy((samples, factors, powers, p))), target)",
+        "import numpy as np\nfrom copy import deepcopy\nsamples=np.array([[0,0,7]],dtype=np.int64)\nfactors=np.array([[1,0,0]],dtype=np.int64)\npowers=np.array([0],dtype=np.int64)\np=101\nassert np.allclose(clear_denominator_samples(*deepcopy((samples, factors, powers, p))), target)",
+        "import numpy as np\nfrom copy import deepcopy\ndef _expect_value_error(function, arguments):\n    try:\n        function(*arguments)\n    except ValueError:\n        return 1\n    raise AssertionError('Expected ValueError')\nsamples=np.array([[100,0,2]],dtype=np.int64)\nfactors=np.array([[1,1,0]],dtype=np.int64)\npowers=np.array([1],dtype=np.int64)\np=101\narguments=(samples,factors,powers,p)\nassert np.allclose(_expect_value_error(clear_denominator_samples, deepcopy(arguments)), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-32.2",
+      "test_cases": [
+        "import numpy as np\nfrom copy import deepcopy\ncleared=np.array([[0,0,42],[0,1,80],[0,2,55],[0,3,86],[1,0,11],[1,1,67],[1,2,56],[1,3,97],[2,0,20],[2,1,3],[2,2,16],[2,3,77],[3,0,75],[3,1,96],[3,2,42],[3,3,32]],dtype=np.int64)\np=101\nassert np.allclose(interpolate_bivariate(*deepcopy((cleared, 3, 3, p))), target)",
+        "import numpy as np\nfrom copy import deepcopy\ncleared=np.array([[8,9,13]],dtype=np.int64)\np=101\nassert np.allclose(interpolate_bivariate(*deepcopy((cleared, 0, 0, p))), target)",
+        "import numpy as np\nfrom copy import deepcopy\ndef _expect_value_error(function, arguments):\n    try:\n        function(*arguments)\n    except ValueError:\n        return 1\n    raise AssertionError('Expected ValueError')\ncleared=np.array([[0,0,1],[1,0,2]],dtype=np.int64)\np=101\narguments=(cleared,1,1,p)\nassert np.allclose(_expect_value_error(interpolate_bivariate, deepcopy(arguments)), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-32.3",
+      "test_cases": [
+        "import numpy as np\nfrom copy import deepcopy\ncoefficients=np.array([[42,25,10,3],[52,15,99,0],[17,5,0,0],[1,0,0,0]],dtype=np.int64)\nfactors=np.array([[1,1,0],[2,0,1],[4,1,1],[5,2,100]],dtype=np.int64)\npairs=np.array([[0,1],[1,2],[0,3],[2,3]],dtype=np.int64)\np=101\nassert np.allclose(pair_ideal_membership(*deepcopy((coefficients, factors, pairs, p))), target)",
+        "import numpy as np\nfrom copy import deepcopy\ncoefficients=np.zeros((2,2),dtype=np.int64)\nfactors=np.array([[1,1,0],[2,0,1]],dtype=np.int64)\npairs=np.array([[0,1]],dtype=np.int64)\np=101\nassert np.allclose(pair_ideal_membership(*deepcopy((coefficients, factors, pairs, p))), target)",
+        "import numpy as np\nfrom copy import deepcopy\ndef _expect_value_error(function, arguments):\n    try:\n        function(*arguments)\n    except ValueError:\n        return 1\n    raise AssertionError('Expected ValueError')\ncoefficients=np.array([[1]],dtype=np.int64)\nfactors=np.array([[1,1,0]],dtype=np.int64)\npairs=np.array([[0,1]],dtype=np.int64)\np=101\narguments=(coefficients,factors,pairs,p)\nassert np.allclose(_expect_value_error(pair_ideal_membership, deepcopy(arguments)), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-32.4",
+      "test_cases": [
+        "import numpy as np\nfrom copy import deepcopy\nflags=np.array([1,1,0,1],dtype=np.int64)\npairs=np.array([[0,1],[1,2],[0,3],[2,3]],dtype=np.int64)\nassert np.allclose(encode_accepted_pair_ideals(*deepcopy((flags, pairs, 4))), target)",
+        "import numpy as np\nfrom copy import deepcopy\nflags=np.array([1],dtype=np.int64)\npairs=np.array([[0,1]],dtype=np.int64)\nassert np.allclose(encode_accepted_pair_ideals(*deepcopy((flags, pairs, 2))), target)",
+        "import numpy as np\nfrom copy import deepcopy\ndef _expect_value_error(function, arguments):\n    try:\n        function(*arguments)\n    except ValueError:\n        return 1\n    raise AssertionError('Expected ValueError')\nflags=np.array([0],dtype=np.int64)\npairs=np.array([[0,1]],dtype=np.int64)\narguments=(flags,pairs,2)\nassert np.allclose(_expect_value_error(encode_accepted_pair_ideals, deepcopy(arguments)), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-32.5",
+      "test_cases": [
+        "import numpy as np\nfrom copy import deepcopy\ncoefficients=np.array([[42,25,10,3],[52,15,99,0],[17,5,0,0],[1,0,0,0]],dtype=np.int64)\nfactors=np.array([[1,1,0],[2,0,1],[4,1,1],[5,2,100]],dtype=np.int64)\nideals=np.array([[[1,0,0,0],[0,1,0,0]],[[0,1,0,0],[0,0,1,0]],[[0,0,1,0],[0,0,0,1]]],dtype=np.int64)\np=101\nassert np.allclose(simplified_intersection_generators(*deepcopy((coefficients, factors, ideals, p))), target)",
+        "import numpy as np\nfrom copy import deepcopy\ncoefficients=np.array([[42,25,10,3],[52,15,99,0],[17,5,0,0],[1,0,0,0]],dtype=np.int64)\nfactors=np.array([[1,1,0],[2,0,1],[4,1,1],[5,2,100]],dtype=np.int64)\nideals=np.array([[[1,0,0,0],[0,1,0,0]]],dtype=np.int64)\np=101\nassert np.allclose(simplified_intersection_generators(*deepcopy((coefficients, factors, ideals, p))), target)",
+        "import numpy as np\nfrom copy import deepcopy\ndef _expect_value_error(function, arguments):\n    try:\n        function(*arguments)\n    except ValueError:\n        return 1\n    raise AssertionError('Expected ValueError')\ncoefficients=np.array([[1]],dtype=np.int64)\nfactors=np.array([[1,1,0],[2,0,1],[4,1,1],[5,2,100]],dtype=np.int64)\nideals=np.zeros((1,2,3),dtype=np.int64)\np=101\narguments=(coefficients,factors,ideals,p)\nassert np.allclose(_expect_value_error(simplified_intersection_generators, deepcopy(arguments)), target)",
+        "import numpy as np\nfrom copy import deepcopy\ncoefficients=np.array([[1]],dtype=int)\nfactors=np.array([[0,1,0],[1,1,0],[2,1,0]],dtype=int)\nideals=np.array([[[1,0,0],[0,1,0]],[[0,1,0],[0,0,1]]],dtype=int)\np=101\nassert np.allclose(simplified_intersection_generators(*deepcopy((coefficients, factors, ideals, p))), target)",
+        "import numpy as np\nfrom copy import deepcopy\ncoefficients=np.array([[0],[1]],dtype=int)\nfactors=np.array([[0,1,0],[0,0,1],[0,1,1],[0,1,100]],dtype=int)\nideals=np.array([[[1,0,0,0],[0,1,0,0]],[[0,0,1,0],[0,0,0,1]]],dtype=int)\np=101\nassert np.allclose(simplified_intersection_generators(*deepcopy((coefficients, factors, ideals, p))), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-32.6",
+      "test_cases": [
+        "import numpy as np\nfrom copy import deepcopy\ncoefficients=np.array([[42,25,10,3],[52,15,99,0],[17,5,0,0],[1,0,0,0]],dtype=np.int64)\nfactors=np.array([[1,1,0],[2,0,1],[4,1,1],[5,2,100]],dtype=np.int64)\ngenerators=np.array([[0,1,0,1],[0,1,1,0],[1,0,1,0]],dtype=np.int64)\np=101\nassert np.allclose(fit_canonical_pfd_numerators(*deepcopy((coefficients, factors, generators, 1, p))), target)",
+        "import numpy as np\nfrom copy import deepcopy\ncoefficients=np.array([[7]],dtype=np.int64)\nfactors=np.array([[1,0,0]],dtype=np.int64)\ngenerators=np.array([[0]],dtype=np.int64)\np=101\nassert np.allclose(fit_canonical_pfd_numerators(*deepcopy((coefficients, factors, generators, 0, p))), target)",
+        "import numpy as np\nfrom copy import deepcopy\ndef _expect_value_error(function, arguments):\n    try:\n        function(*arguments)\n    except ValueError:\n        return 1\n    raise AssertionError('Expected ValueError')\ncoefficients=np.array([[7]],dtype=np.int64)\nfactors=np.array([[1,0,0]],dtype=np.int64)\ngenerators=np.array([[0]],dtype=np.int64)\np=101\narguments=(coefficients,factors,generators,-1,p)\nassert np.allclose(_expect_value_error(fit_canonical_pfd_numerators, deepcopy(arguments)), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-32.7",
+      "test_cases": [
+        "import numpy as np\nfrom copy import deepcopy\nsamples=np.array([[0,0,97],[0,1,35],[0,2,19],[0,3,7],[1,0,21],[1,1,12],[1,2,81],[1,3,77],[2,0,25],[2,1,98],[2,2,89],[2,3,89],[3,0,58],[3,1,91],[3,2,51],[3,3,99]],dtype=np.int64)\nfactors=np.array([[1,1,0],[2,0,1],[4,1,1],[5,2,100]],dtype=np.int64)\npowers=np.ones(4,dtype=np.int64)\npairs=np.array([[0,1],[1,2],[0,3],[2,3]],dtype=np.int64)\np=101\nheldout=np.array([[7,11],[13,17],[19,23]],dtype=np.int64)\nassert np.allclose(run_pfd_pipeline(*deepcopy((samples, factors, powers, pairs, p, heldout))), target)",
+        "import numpy as np\nfrom copy import deepcopy\nsamples=np.array([[0,0,97],[0,1,35],[0,2,19],[0,3,7],[1,0,21],[1,1,12],[1,2,81],[1,3,77],[2,0,25],[2,1,98],[2,2,89],[2,3,89],[3,0,58],[3,1,91],[3,2,51],[3,3,99]],dtype=np.int64)\nfactors=np.array([[1,1,0],[2,0,1],[4,1,1],[5,2,100]],dtype=np.int64)\npowers=np.ones(4,dtype=np.int64)\npairs=np.array([[0,1],[1,2],[0,3],[2,3]],dtype=np.int64)\np=101\nheldout=np.array([[7,11]],dtype=np.int64)\nassert np.allclose(run_pfd_pipeline(*deepcopy((samples, factors, powers, pairs, p, heldout))), target)",
+        "import numpy as np\nfrom copy import deepcopy\nsamples=np.array([[0,0,97],[0,1,35],[0,2,19],[0,3,7],[1,0,21],[1,1,12],[1,2,81],[1,3,77],[2,0,25],[2,1,98],[2,2,89],[2,3,89],[3,0,58],[3,1,91],[3,2,51],[3,3,99]],dtype=np.int64)\nfactors=np.array([[1,1,0],[2,0,1],[4,1,1],[5,2,100]],dtype=np.int64)\npowers=np.ones(4,dtype=np.int64)\npairs=np.array([[0,1],[1,2],[0,3],[2,3]],dtype=np.int64)\np=101\ndef _expect_value_error(function, arguments):\n    try:\n        function(*arguments)\n    except ValueError:\n        return 1\n    raise AssertionError('Expected ValueError')\nheldout=np.array([[100,0]],dtype=np.int64)\narguments=(samples,factors,powers,pairs,p,heldout)\nassert np.allclose(_expect_value_error(run_pfd_pipeline, deepcopy(arguments)), target)"
+      ]
+    }
+  ]
+}

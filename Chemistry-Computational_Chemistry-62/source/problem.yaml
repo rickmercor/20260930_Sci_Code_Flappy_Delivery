@@ -1,0 +1,40 @@
+problem_id: "Chemistry-Computational_Chemistry-62"
+subject: "chemistry"
+subject_area: "Computational Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1098/rspa.2026.0200"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_free_ion_volume_fractions"
+    description: "Effective volumes of the salt ions relative to water and the volume fractions of the ions that remain free in the bath once the complex has taken up salt."
+    orchestrator: false
+  - number: 2
+    name: "02_screening_wavenumber_squared"
+    description: "Wavenumber-dependent squared inverse screening length of the free, Gaussian-smeared salt ions in units of the water size."
+    orchestrator: false
+  - number: 3
+    name: "03_log_doping_constants"
+    description: "Logarithms of the doping constants of the z binding modes of a z-valent cation, each corrected by the random-phase correlation integral of the free ions."
+    orchestrator: false
+  - number: 4
+    name: "04_doping_at_fixed_swelling"
+    description: "Site fractions of all binding modes from their coupled mass-action laws at a prescribed polymer volume fraction, including free-salt depletion."
+    orchestrator: false
+  - number: 5
+    name: "05_swelling_polymer_fraction"
+    description: "Polymer volume fraction at which the free energy of the doped, crosslinked complex is stationary with respect to its water content."
+    orchestrator: false
+  - number: 6
+    name: "06_equilibrium_doping"
+    description: "Self-consistent mode site fractions and polymer volume fraction of the complex swollen to equilibrium in the salt solution."
+    orchestrator: false
+  - number: 7
+    name: "07_dominant_mode_transitions"
+    description: "Salt concentrations, below a given upper limit, at which the binding mode holding the most cations changes as salt is added."
+    orchestrator: false
+  - number: 8
+    name: "08_mixed_mode_takeover_concentration"
+    description: "Salt concentration above which the mixed binding mode holds more cations than every other mode; for a divalent cation, where the mixed and bridged modes hold equal numbers of cations."
+    orchestrator: true

@@ -1,0 +1,40 @@
+problem_id: "Chemistry-Quantum_Chemistry-70"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1140/epjd/s10053-026-01206-y"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_ecg_overlap"
+    description: "Step 01: Overlap matrix of antisymmetrized L = 1 correlated Gaussians. Overlap matrix between spatially antisymmetric two-electron explicitly correlated Gaussian functions of total orbital angular momentum one, for either parity."
+    orchestrator: false
+  - number: 2
+    name: "02_ecg_kinetic"
+    description: "Step 02: Kinetic-energy matrix. Kinetic-energy matrix between the antisymmetrized L = 1 correlated Gaussians of either parity, for two electrons around an infinitely heavy nucleus."
+    orchestrator: false
+  - number: 3
+    name: "03_ecg_coulomb"
+    description: "Step 03: Coulomb potential-energy matrix. Coulomb potential-energy matrix, nuclear attraction plus electron repulsion, between antisymmetrized L = 1 correlated Gaussians."
+    orchestrator: false
+  - number: 4
+    name: "04_ecg_dipole"
+    description: "Step 04: Electric-dipole coupling matrix between the two parities. Electric-dipole coupling matrix between even-parity and odd-parity antisymmetrized L = 1 correlated Gaussians, in the length or the velocity form."
+    orchestrator: false
+  - number: 5
+    name: "05_rotated_levels"
+    description: "Step 05: Complex-rotated L = 1 triplet levels and coefficients. Complex-rotated L = 1 triplet levels and expansion coefficients of a two-electron atom in a correlated-Gaussian basis of one parity."
+    orchestrator: false
+  - number: 6
+    name: "06_bound_line_rates"
+    description: "Step 06: E1 rates of the lines to the bound odd-parity levels. Partial electric-dipole rates of the lines from the lowest even-parity L = 1 triplet state to the bound odd-parity L = 1 triplet levels."
+    orchestrator: false
+  - number: 7
+    name: "07_dissociation_spectrum"
+    description: "Step 07: Energy-resolved rate into the continuum final states. Energy-resolved rate of the radiative transitions that leave the atom in the continuum above the one-electron threshold."
+    orchestrator: false
+  - number: 8
+    name: "08_shake_fraction"
+    description: "Step 08: Shake fraction of the radiative width (orchestrator). Orchestrator: fraction of the total electric-dipole radiative width of the lowest even-parity L = 1 triplet state that does not end on the lowest odd-parity L = 1 triplet level."
+    orchestrator: true

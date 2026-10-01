@@ -1,0 +1,44 @@
+problem_id: "Physics-Astrophysics-32"
+subject: "physics"
+subject_area: "Astrophysics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1103/pb4k-ng6l"
+dependencies: ""
+steps:
+  - number: 1
+    name: "load ringdown data"
+    description: "Recorded spherical 22 and 64 ringdown multipoles and differences."
+    orchestrator: false
+  - number: 2
+    name: "interpolate spin tables"
+    description: "Componentwise interpolation of the supplied Kerr-mode state table and pairing with remnant mass."
+    orchestrator: false
+  - number: 3
+    name: "synthesize quadratic response"
+    description: "Angular construction of two spherical quadratic responses."
+    orchestrator: false
+  - number: 4
+    name: "build linearized templates"
+    description: "Build the mixed-mode parent design used by the analytic amplitude posterior."
+    orchestrator: false
+  - number: 5
+    name: "build correlated covariances"
+    description: "Numerical-error covariances for the two spherical multipoles."
+    orchestrator: false
+  - number: 6
+    name: "evaluate conditional posteriors"
+    description: "Analytic Cartesian-amplitude posterior for the spherical-22 parent."
+    orchestrator: false
+  - number: 7
+    name: "score heldout h64"
+    description: "Posterior prediction of the driven spherical-64 child."
+    orchestrator: false
+  - number: 8
+    name: "normalize spin weights"
+    description: "Marginalize remnant mass and normalize the spin posterior."
+    orchestrator: false
+  - number: 9
+    name: "infer remnant spin"
+    description: "Final binary-black-hole remnant-spin inference."
+    orchestrator: true

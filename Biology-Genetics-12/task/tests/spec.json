@@ -1,0 +1,85 @@
+{
+  "problem_id": "Biology-Genetics-12",
+  "sub_steps": [
+    {
+      "step_number": "Biology-Genetics-12.1",
+      "test_cases": [
+        "import numpy as np\nalleles = np.array([[[0, 0], [0, 1], [1, 0]],\n                    [[1, 1], [1, 0], [0, 0]]], dtype=int)\nmasked_sites = np.array([[0, 1], [1, 0]], dtype=int)\nassert np.allclose(encode_phased_genotypes(alleles, masked_sites).tolist(), target)",
+        "import numpy as np\nalleles = np.array([[[1, 0]]], dtype=int)\nmasked_sites = np.empty((0, 2), dtype=int)\nassert np.allclose(encode_phased_genotypes(alleles, masked_sites).tolist(), target)",
+        "import numpy as np\nalleles = np.array([[[0, 2]]], dtype=int)\nmasked_sites = np.empty((0, 2), dtype=int)\ndef run_model():\n    try:\n        encode_phased_genotypes(alleles, masked_sites)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-12.2",
+      "test_cases": [
+        "import numpy as np\nencoded = np.array(\n    [\n        [[1, 1], [0, 2], [3, 3], [4, 4], [1, 1]],\n        [[4, 4], [3, 3], [2, 2], [0, 1], [2, 2]],\n    ],\n    dtype=int,\n)\ngenomic_positions = np.array([10.0, 12.0, 20.0, 21.0, 35.0])\nwindow_size = 4\noverlap = 2\nassert np.allclose(segment_genotype_windows(encoded, genomic_positions, window_size, overlap).tolist(), target)",
+        "import numpy as np\nencoded = np.array([[[0, 4]]], dtype=int)\ngenomic_positions = np.array([1.0])\nwindow_size = 1\noverlap = 0\nassert np.allclose(segment_genotype_windows(encoded, genomic_positions, window_size, overlap).tolist(), target)",
+        "import numpy as np\nencoded = np.array(\n    [\n        [[1, 1], [0, 2], [3, 3], [4, 4], [1, 1]],\n        [[4, 4], [3, 3], [2, 2], [0, 1], [2, 2]],\n    ],\n    dtype=int,\n)\ngenomic_positions = np.array([10.0, 12.0, 20.0, 21.0, 35.0])\ndef run_model():\n    try:\n        segment_genotype_windows(encoded, genomic_positions, window_size=3, overlap=3)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-12.3",
+      "test_cases": [
+        "import numpy as np\nsegments = np.array(\n    [\n        [\n            [\n                [5, 5, 9, -1],\n                [1, 1, 10, 0],\n                [0, 2, 15, 1],\n                [4, 4, 20, 2],\n                [6, 6, 21, -1],\n                [7, 7, 0, -1],\n            ]\n        ]\n    ],\n    dtype=float,\n)\nassert np.allclose(build_genomic_bias(segments).tolist(), target)",
+        "import numpy as np\nsegments = np.array([[[[5, 5, 0, -1], [1, 1, 1, 0],\n                              [6, 6, 2, -1]]]], dtype=float)\nassert np.allclose(build_genomic_bias(segments).tolist(), target)",
+        "import numpy as np\nsegments = np.array(\n    [\n        [\n            [\n                [5, 5, 9, -1],\n                [1, 1, 10, 0],\n                [0, 2, 15, 1],\n                [4, 4, 20, 2],\n                [6, 6, 21, -1],\n                [7, 7, 0, -1],\n            ]\n        ]\n    ],\n    dtype=float,\n)\nsegments[0, 0, 3], segments[0, 0, 4] = segments[0, 0, 4].copy(), segments[0, 0, 3].copy()\ndef run_model():\n    try:\n        build_genomic_bias(segments)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-12.4",
+      "test_cases": [
+        "import numpy as np\nsegments = np.array(\n    [\n        [\n            [\n                [5, 5, 9, -1],\n                [1, 1, 10, 0],\n                [0, 2, 15, 1],\n                [3, 3, 20, 2],\n                [6, 6, 21, -1],\n                [7, 7, 0, -1],\n            ]\n        ]\n    ],\n    dtype=float,\n)\nembedding_dim = 4\nrope_base = 10000.0\nassert np.allclose(project_rotary_qkv(segments, embedding_dim, rope_base).tolist(), target)",
+        "import numpy as np\nsegments = np.array([[[[0, 4, 1, 0]]]], dtype=float)\nembedding_dim = 2\nrope_base = 2.0\nassert np.allclose(project_rotary_qkv(segments, embedding_dim, rope_base).tolist(), target)",
+        "import numpy as np\nsegments = np.array(\n    [\n        [\n            [\n                [5, 5, 9, -1],\n                [1, 1, 10, 0],\n                [0, 2, 15, 1],\n                [3, 3, 20, 2],\n                [6, 6, 21, -1],\n                [7, 7, 0, -1],\n            ]\n        ]\n    ],\n    dtype=float,\n)\ndef run_model():\n    try:\n        project_rotary_qkv(segments, embedding_dim=3)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-12.5",
+      "test_cases": [
+        "import numpy as np\nprojected = (\n    np.arange(1, 1 + 1 * 1 * 4 * 4 * 2, dtype=float).reshape(1, 1, 4, 4, 2) / 13.0\n)\nbias_pack = np.array([[[[0.0, 1.0], [0.2, 1.0], [1.0, 1.0], [0.0, 0.0]]]])\nbeta = -1.4\nassert np.allclose(apply_genomic_attention(projected, bias_pack, beta).tolist(), target)",
+        "import numpy as np\nprojected = (\n    np.arange(1, 1 + 1 * 1 * 4 * 4 * 2, dtype=float).reshape(1, 1, 4, 4, 2) / 13.0\n)[:, :, :1].copy()\nbias_pack = np.array([[[[0.0, 1.0], [0.2, 1.0], [1.0, 1.0], [0.0, 0.0]]]])[:, :, :1].copy()\nbeta = 0.0\nassert np.allclose(apply_genomic_attention(projected, bias_pack, beta).tolist(), target)",
+        "import numpy as np\nprojected = (\n    np.arange(1, 1 + 1 * 1 * 4 * 4 * 2, dtype=float).reshape(1, 1, 4, 4, 2) / 13.0\n)\nbias_pack = np.array([[[[0.0, 1.0], [0.2, 1.0], [1.0, 1.0], [0.0, 0.0]]]])\nbias_pack[..., 1] = 0.0\ndef run_model():\n    try:\n        apply_genomic_attention(projected, bias_pack)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-12.6",
+      "test_cases": [
+        "import numpy as np\nprojected = (\n    np.arange(1, 1 + 1 * 1 * 3 * 4 * 4, dtype=float).reshape(1, 1, 3, 4, 4) / 19.0\n)\nattention_output = np.array(\n    [[[[0.2, -0.1, 0.4, 0.0], [0.3, 0.2, -0.2, 0.1], [-0.1, 0.5, 0.2, 0.3]]]]\n)\nencoder_depth = 6\nassert np.allclose(normalize_attention_residual(projected, attention_output, encoder_depth).tolist(), target)",
+        "import numpy as np\nprojected = (\n    np.arange(1, 1 + 1 * 1 * 3 * 4 * 4, dtype=float).reshape(1, 1, 3, 4, 4) / 19.0\n)[:, :, :1].copy()\nattention_output = np.array(\n    [[[[0.2, -0.1, 0.4, 0.0], [0.3, 0.2, -0.2, 0.1], [-0.1, 0.5, 0.2, 0.3]]]]\n)[:, :, :1].copy()\nencoder_depth = 1\nassert np.allclose(normalize_attention_residual(projected, attention_output, encoder_depth).tolist(), target)",
+        "import numpy as np\nprojected = (\n    np.arange(1, 1 + 1 * 1 * 3 * 4 * 4, dtype=float).reshape(1, 1, 3, 4, 4) / 19.0\n)\nattention_output = np.array(\n    [[[[0.2, -0.1, 0.4, 0.0], [0.3, 0.2, -0.2, 0.1], [-0.1, 0.5, 0.2, 0.3]]]]\n)\ndef run_model():\n    try:\n        normalize_attention_residual(projected, attention_output, encoder_depth=0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-12.7",
+      "test_cases": [
+        "import numpy as np\nhidden = np.linspace(-1.2, 1.3, 1 * 1 * 6 * 4).reshape(1, 1, 6, 4)\nencoder_depth = 1\nbottleneck_factor = 2.0\nkernel_size = 3\nassert np.allclose(apply_cnn_bottleneck(hidden, encoder_depth, bottleneck_factor, kernel_size).tolist(), target)",
+        "import numpy as np\nhidden = np.array([[[[-1.0, 1.0], [0.0, 0.5]]]])\nencoder_depth = 2\nbottleneck_factor = 0.5\nkernel_size = 1\nassert np.allclose(apply_cnn_bottleneck(hidden, encoder_depth, bottleneck_factor, kernel_size).tolist(), target)",
+        "import numpy as np\nhidden = np.zeros((1, 1, 3, 2))\ndef run_model():\n    try:\n        apply_cnn_bottleneck(hidden)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-12.8",
+      "test_cases": [
+        "import math\ndef _pin(result):\n    flat = [v for row in result for v in row]\n    return (sum(math.sin(0.31 * (i + 1)) * v for i, v in enumerate(flat))\n            + 10000.0 * len(result))\nimport numpy as np\nhidden = np.linspace(-0.8, 0.9, 1 * 2 * 4 * 4).reshape(1, 2, 4, 4)\nsegments = np.array(\n    [\n        [\n            [[5, 5, 9, -1], [0, 2, 10, 0], [3, 3, 12, 1], [6, 6, 13, -1]],\n            [[5, 5, 11, -1], [3, 3, 12, 1], [0, 4, 18, 2], [6, 6, 19, -1]],\n        ]\n    ],\n    dtype=float,\n)\nmasked_sites = np.array([[0, 0], [0, 2]])\nassert np.allclose(_pin(merge_masked_probabilities(hidden, segments, masked_sites).tolist()), target)",
+        "import math\ndef _pin(result):\n    flat = [v for row in result for v in row]\n    return (sum(math.sin(0.31 * (i + 1)) * v for i, v in enumerate(flat))\n            + 10000.0 * len(result))\nimport numpy as np\nhidden = np.linspace(-0.8, 0.9, 1 * 2 * 4 * 4).reshape(1, 2, 4, 4)\nsegments = np.array(\n    [\n        [\n            [[5, 5, 9, -1], [0, 2, 10, 0], [3, 3, 12, 1], [6, 6, 13, -1]],\n            [[5, 5, 11, -1], [3, 3, 12, 1], [0, 4, 18, 2], [6, 6, 19, -1]],\n        ]\n    ],\n    dtype=float,\n)\nmasked_sites = np.empty((0, 2), dtype=int)\nassert np.allclose(_pin(merge_masked_probabilities(hidden, segments, masked_sites).tolist()), target)",
+        "import numpy as np\nhidden = np.linspace(-0.8, 0.9, 1 * 2 * 4 * 4).reshape(1, 2, 4, 4)\nsegments = np.array(\n    [\n        [\n            [[5, 5, 9, -1], [0, 2, 10, 0], [3, 3, 12, 1], [6, 6, 13, -1]],\n            [[5, 5, 11, -1], [3, 3, 12, 1], [0, 4, 18, 2], [6, 6, 19, -1]],\n        ]\n    ],\n    dtype=float,\n)\nmasked_sites = np.array([[0, 1]])\ndef run_model():\n    try:\n        merge_masked_probabilities(hidden, segments, masked_sites)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-12.9",
+      "test_cases": [
+        "import numpy as np\npooled = np.array(\n    [[0, 1, 2, 0.1, 0.6, 0.2, 0.1], [1, 3, 4, 0.2, 0.1, 0.1, 0.6]],\n    dtype=float,\n)\nassert np.allclose(score_masked_likelihood(pooled), target)",
+        "import numpy as np\npooled = np.array([[0, 0, 1, 1.0, 0.0, 0.0, 0.0]])\nassert np.allclose(score_masked_likelihood(pooled), target)",
+        "import numpy as np\npooled = np.array(\n    [[0, 1, 2, 0.1, 0.6, 0.2, 0.1], [1, 3, 4, 0.2, 0.1, 0.1, 0.6]],\n    dtype=float,\n)\npooled[0, 3:] = [0.2, 0.2, 0.2, 0.2]\ndef run_model():\n    try:\n        score_masked_likelihood(pooled)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-12.10",
+      "test_cases": [
+        "beta = -1.4\noverlap = 3\nassert np.allclose(float(run_full_pipeline(beta=beta, overlap=overlap)), target)",
+        "beta = 0.0\noverlap = 0\nassert np.allclose(float(run_full_pipeline(beta=beta, overlap=overlap)), target)",
+        "def run_model():\n    try:\n        run_full_pipeline(overlap=6)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

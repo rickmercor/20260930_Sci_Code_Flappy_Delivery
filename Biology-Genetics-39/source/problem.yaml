@@ -1,0 +1,36 @@
+problem_id: "Biology-Genetics-39"
+subject: "biology"
+subject_area: "Genetics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2606.24415"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_constraint_relations"
+    description: "Turn a set of required rooted triples, together with the triples a constraint-level repair has already discharged, into the relation of pairwise least-common-ancestor constraints they impose on the 1- and 2-element leaf subsets, and into the closure of that relation under the three properties every realizing DAG must respect."
+    orchestrator: false
+  - number: 2
+    name: "02_realizability_flags"
+    description: "Decide whether a relation of pairwise least-common-ancestor constraints can be realized by any directed acyclic graph, by evaluating the two conditions of the realization criterion against the direct relation and its closure."
+    orchestrator: false
+  - number: 3
+    name: "03_forced_triple_flags"
+    description: "Decide, for each triple in a list, whether a constraint relation restricted to that triple's three leaf pairs is exactly the constraint pattern of the triple, so that every realizing graph is already committed to displaying it."
+    orchestrator: false
+  - number: 4
+    name: "04_canonical_dag"
+    description: "Turn a closed constraint relation into the canonical directed acyclic graph that realizes it, by collapsing the leaf pairs the relation forces to share one least common ancestor and keeping only the covering comparisons of the resulting partial order as arcs."
+    orchestrator: false
+  - number: 5
+    name: "05_phylogenetic_network"
+    description: "Complete a canonical DAG into a phylogenetic network by destroying the least common ancestor of every leaf pair that only a forbidden triple mentions and then joining any remaining roots under one new root."
+    orchestrator: false
+  - number: 6
+    name: "06_displayed_triple_flags"
+    description: "Test each triple in a list against the ancestor-based display condition in a given DAG, resolving first which leaf pairs of that DAG have a unique least common ancestor at all."
+    orchestrator: false
+  - number: 7
+    name: "07_triple_resolution_rate"
+    description: "Chain the sub-problem functions 01-06 end to end on the required and forbidden triple sets and return the fraction of three-leaf subsets that the resulting phylogenetic network resolves."
+    orchestrator: true

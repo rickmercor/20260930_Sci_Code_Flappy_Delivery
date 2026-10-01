@@ -1,0 +1,78 @@
+{
+  "problem_id": "Mathematics-Computational_Finance-21",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Computational_Finance-21.1",
+      "test_cases": [
+        "params = {'aL': -2.4, 'aR': 2.4, 'n': 40, 'kappa': 4.2, 'm': 0.0, 'sigma': 1.0}\nassert np.allclose(min_offdiagonal_entry(params), target)",
+        "params = {'aL': -1.8, 'aR': 1.8, 'n': 10, 'kappa': 3.1, 'm': 0.0, 'sigma': 0.25}\nassert np.allclose(min_offdiagonal_entry(params), target)",
+        "params = {'aL': -1.0, 'aR': 1.0, 'n': 8, 'kappa': 0.0, 'm': 0.0, 'sigma': 0.3}\nassert np.allclose(min_offdiagonal_entry(params), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-21.2",
+      "test_cases": [
+        "params = {'aL': -2.4, 'aR': 2.4, 'n': 40, 'kappa': 4.2, 'm': 0.0, 'sigma': 1.0}\nassert np.allclose(stationary_minimum_mass(params), target)",
+        "params = {'aL': -1.8, 'aR': 1.8, 'n': 10, 'kappa': 3.1, 'm': 0.0, 'sigma': 0.25}\nassert np.allclose(stationary_minimum_mass(params), target)",
+        "params = {'aL': -1.0, 'aR': 1.0, 'n': 8, 'kappa': 0.0, 'm': 0.0, 'sigma': 0.3}\nassert np.allclose(stationary_minimum_mass(params), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-21.3",
+      "test_cases": [
+        "params = {'aL': -2.4, 'aR': 2.4, 'n': 40, 'kappa': 4.2, 'm': 0.0, 'sigma': 1.0, 'glo': 1e-06, 'ghi': 64.0, 'tol_pos': -1e-12, 'nbis': 200}\nassert np.allclose(first_order_threshold(params), target)",
+        "params = {'aL': -1.8, 'aR': 1.8, 'n': 10, 'kappa': 3.1, 'm': 0.0, 'sigma': 0.25, 'glo': 1e-06, 'ghi': 64.0, 'tol_pos': -1e-12, 'nbis': 200}\nassert np.allclose(first_order_threshold(params), target)",
+        "params = {'aL': -1.0, 'aR': 1.0, 'n': 8, 'kappa': 0.0, 'm': 0.0, 'sigma': 0.3, 'glo': 1e-06, 'ghi': 64.0, 'tol_pos': -1e-12, 'nbis': 200}\nassert np.allclose(first_order_threshold(params), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-21.4",
+      "test_cases": [
+        "params = {'aL': -2.4, 'aR': 2.4, 'n': 40, 'kappa': 4.2, 'm': 0.0, 'sigma': 1.0, 'glo': 1e-06, 'ghi': 64.0, 'tol_pos': -1e-12, 'nbis': 200}\nassert np.allclose(second_order_threshold(params), target)",
+        "params = {'aL': -1.8, 'aR': 1.8, 'n': 10, 'kappa': 3.1, 'm': 0.0, 'sigma': 0.25, 'glo': 1e-06, 'ghi': 64.0, 'tol_pos': -1e-12, 'nbis': 200}\nassert np.allclose(second_order_threshold(params), target)",
+        "params = {'aL': -1.0, 'aR': 1.0, 'n': 8, 'kappa': 0.0, 'm': 0.0, 'sigma': 0.3, 'glo': 1e-06, 'ghi': 64.0, 'tol_pos': -1e-12, 'nbis': 200}\nassert np.allclose(second_order_threshold(params), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-21.5",
+      "test_cases": [
+        "params = {'aL': -2.4, 'aR': 2.4, 'n': 40, 'kappa': 4.2, 'm': 0.0, 'sigma': 1.0, 's': 0.025, 'k': 21}\nassert np.allclose(directional_factor_delta_action(params), target)",
+        "params = {'aL': -1.8, 'aR': 1.8, 'n': 10, 'kappa': 3.1, 'm': 0.0, 'sigma': 0.25, 's': 0.1, 'k': 9}\nassert np.allclose(directional_factor_delta_action(params), target)",
+        "params = {'aL': -2.4, 'aR': 2.4, 'n': 40, 'kappa': 4.2, 'm': 0.0, 'sigma': 1.0, 's': 0.5, 'k': 21}\nassert np.allclose(directional_factor_delta_action(params), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-21.6",
+      "test_cases": [
+        "params = {'xL': -2.4, 'xR': 2.4, 'nx': 40, 'kx': 4.2, 'mx': 0.0, 'Sxx': 1.0, 'yL': -1.8, 'yR': 1.8, 'ny': 10, 'ky': 3.1, 'my': 0.0, 'Syy': 0.25, 'rho': 0.4, 'x0': 0.3, 'y0': -0.25, 'wx': 0.45, 'wy': 0.5, 'isp': 21, 'jsp': 6, 'fsp': 0.35, 'dt': 0.05, 'nt': 6, 'iq': 21, 'jq': 6}\nassert np.allclose(mixed_action_at_node(params), target)",
+        "params = {'xL': -2.4, 'xR': 2.4, 'nx': 40, 'kx': 4.2, 'mx': 0.0, 'Sxx': 1.0, 'yL': -1.8, 'yR': 1.8, 'ny': 10, 'ky': 3.1, 'my': 0.0, 'Syy': 0.25, 'rho': -0.4, 'x0': 0.3, 'y0': -0.25, 'wx': 0.45, 'wy': 0.5, 'isp': 21, 'jsp': 6, 'fsp': 0.35, 'dt': 0.05, 'nt': 6, 'iq': 21, 'jq': 6}\nassert np.allclose(mixed_action_at_node(params), target)",
+        "params = {'xL': -2.4, 'xR': 2.4, 'nx': 40, 'kx': 4.2, 'mx': 0.0, 'Sxx': 1.0, 'yL': -1.8, 'yR': 1.8, 'ny': 10, 'ky': 3.1, 'my': 0.0, 'Syy': 0.25, 'rho': 0.0, 'x0': 0.3, 'y0': -0.25, 'wx': 0.45, 'wy': 0.5, 'isp': 21, 'jsp': 6, 'fsp': 0.35, 'dt': 0.05, 'nt': 6, 'iq': 21, 'jq': 6}\nassert np.allclose(mixed_action_at_node(params), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-21.7",
+      "test_cases": [
+        "params = {'xL': -2.4, 'xR': 2.4, 'nx': 40, 'kx': 4.2, 'mx': 0.0, 'Sxx': 1.0, 'yL': -1.8, 'yR': 1.8, 'ny': 10, 'ky': 3.1, 'my': 0.0, 'Syy': 0.25, 'rho': 0.4, 'x0': 0.3, 'y0': -0.25, 'wx': 0.45, 'wy': 0.5, 'isp': 21, 'jsp': 6, 'fsp': 0.35, 'dt': 0.05, 'nt': 6}; import numpy as np; nx=int(params['nx']); ny=int(params['ny']); hx=(params['xR']-params['xL'])/nx; hy=(params['yR']-params['yL'])/ny; cx=params['xL']+(np.arange(1,nx+1)-0.5)*hx; cy=params['yL']+(np.arange(1,ny+1)-0.5)*hy; X,Y=np.meshgrid(cx,cy,indexing='ij'); q=np.exp(-((X-params['x0'])**2/(2*params['wx']**2)+(Y-params['y0'])**2/(2*params['wy']**2))); q=(1.0-params['fsp'])*q/(q.sum()*hx*hy); q[int(params['isp'])-1,int(params['jsp'])-1]+=params['fsp']/(hx*hy); p=q.reshape(-1)\nassert np.allclose(float(composite_step_density(params, p).min()), target)",
+        "params = {'xL': -2.4, 'xR': 2.4, 'nx': 40, 'kx': 4.2, 'mx': 0.0, 'Sxx': 1.0, 'yL': -1.8, 'yR': 1.8, 'ny': 10, 'ky': 3.1, 'my': 0.0, 'Syy': 0.25, 'rho': 0.4, 'x0': 0.3, 'y0': -0.25, 'wx': 0.45, 'wy': 0.5, 'isp': 21, 'jsp': 6, 'fsp': 0.2, 'dt': 0.05, 'nt': 6}; import numpy as np; nx=int(params['nx']); ny=int(params['ny']); hx=(params['xR']-params['xL'])/nx; hy=(params['yR']-params['yL'])/ny; cx=params['xL']+(np.arange(1,nx+1)-0.5)*hx; cy=params['yL']+(np.arange(1,ny+1)-0.5)*hy; X,Y=np.meshgrid(cx,cy,indexing='ij'); q=np.exp(-((X-params['x0'])**2/(2*params['wx']**2)+(Y-params['y0'])**2/(2*params['wy']**2))); q=(1.0-params['fsp'])*q/(q.sum()*hx*hy); q[int(params['isp'])-1,int(params['jsp'])-1]+=params['fsp']/(hx*hy); p=q.reshape(-1)\nassert np.allclose(float(composite_step_density(params, p)[196]), target)",
+        "params = {'xL': -2.4, 'xR': 2.4, 'nx': 40, 'kx': 4.2, 'mx': 0.0, 'Sxx': 1.0, 'yL': -1.8, 'yR': 1.8, 'ny': 10, 'ky': 3.1, 'my': 0.0, 'Syy': 0.25, 'rho': 0.4, 'x0': 0.3, 'y0': -0.25, 'wx': 0.45, 'wy': 0.5, 'isp': 21, 'jsp': 6, 'fsp': 0.35, 'dt': 0.04, 'nt': 6}; import numpy as np; nx=int(params['nx']); ny=int(params['ny']); hx=(params['xR']-params['xL'])/nx; hy=(params['yR']-params['yL'])/ny; cx=params['xL']+(np.arange(1,nx+1)-0.5)*hx; cy=params['yL']+(np.arange(1,ny+1)-0.5)*hy; X,Y=np.meshgrid(cx,cy,indexing='ij'); q=np.exp(-((X-params['x0'])**2/(2*params['wx']**2)+(Y-params['y0'])**2/(2*params['wy']**2))); q=(1.0-params['fsp'])*q/(q.sum()*hx*hy); q[int(params['isp'])-1,int(params['jsp'])-1]+=params['fsp']/(hx*hy); p=q.reshape(-1)\nassert np.allclose(float(composite_step_density(params, p).max()), target)",
+        "params = {'xL': -2.4, 'xR': 2.4, 'nx': 40, 'kx': 4.2, 'mx': 0.0, 'Sxx': 1.0, 'yL': -1.8, 'yR': 1.8, 'ny': 10, 'ky': 3.1, 'my': 0.0, 'Syy': 0.25, 'rho': 0.4, 'x0': 0.3, 'y0': -0.25, 'wx': 0.45, 'wy': 0.5, 'isp': 21, 'jsp': 6, 'fsp': 0.0, 'dt': 0.05, 'nt': 6}; import numpy as np; nx=int(params['nx']); ny=int(params['ny']); hx=(params['xR']-params['xL'])/nx; hy=(params['yR']-params['yL'])/ny; cx=params['xL']+(np.arange(1,nx+1)-0.5)*hx; cy=params['yL']+(np.arange(1,ny+1)-0.5)*hy; X,Y=np.meshgrid(cx,cy,indexing='ij'); q=np.exp(-((X-params['x0'])**2/(2*params['wx']**2)+(Y-params['y0'])**2/(2*params['wy']**2))); q=(1.0-params['fsp'])*q/(q.sum()*hx*hy); q[int(params['isp'])-1,int(params['jsp'])-1]+=params['fsp']/(hx*hy); p=q.reshape(-1)\nassert np.allclose(float(composite_step_density(params, p)[0]), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-21.8",
+      "test_cases": [
+        "params = {'xL': -2.4, 'xR': 2.4, 'nx': 40, 'kx': 4.2, 'mx': 0.0, 'Sxx': 1.0, 'yL': -1.8, 'yR': 1.8, 'ny': 10, 'ky': 3.1, 'my': 0.0, 'Syy': 0.25, 'rho': 0.4, 'x0': 0.3, 'y0': -0.25, 'wx': 0.45, 'wy': 0.5, 'isp': 21, 'jsp': 6, 'fsp': 0.35, 'dt': 0.05, 'nt': 3, 'istar': 20, 'jstar': 7}\nassert np.allclose(run_nodal_value(params), target)",
+        "params = {'xL': -2.4, 'xR': 2.4, 'nx': 40, 'kx': 4.2, 'mx': 0.0, 'Sxx': 1.0, 'yL': -1.8, 'yR': 1.8, 'ny': 10, 'ky': 3.1, 'my': 0.0, 'Syy': 0.25, 'rho': 0.4, 'x0': 0.3, 'y0': -0.25, 'wx': 0.45, 'wy': 0.5, 'isp': 21, 'jsp': 6, 'fsp': 0.35, 'dt': 0.05, 'nt': 6, 'istar': 24, 'jstar': 4}\nassert np.allclose(run_nodal_value(params), target)",
+        "params = {'xL': -2.4, 'xR': 2.4, 'nx': 40, 'kx': 4.2, 'mx': 0.0, 'Sxx': 1.0, 'yL': -1.8, 'yR': 1.8, 'ny': 10, 'ky': 3.1, 'my': 0.0, 'Syy': 0.25, 'rho': 0.4, 'x0': 0.3, 'y0': -0.25, 'wx': 0.45, 'wy': 0.5, 'isp': 21, 'jsp': 6, 'fsp': 0.35, 'dt': 0.05, 'nt': 0, 'istar': 20, 'jstar': 7}\nassert np.allclose(run_nodal_value(params), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-21.9",
+      "test_cases": [
+        "params = {'xL': -2.4, 'xR': 2.4, 'nx': 40, 'kx': 4.2, 'mx': 0.0, 'Sxx': 1.0, 'yL': -1.8, 'yR': 1.8, 'ny': 10, 'ky': 3.1, 'my': 0.0, 'Syy': 0.25, 'rho': 0.4, 'x0': 0.3, 'y0': -0.25, 'wx': 0.45, 'wy': 0.5, 'isp': 21, 'jsp': 6, 'fsp': 0.35, 'dt': 0.05, 'nt': 6, 'istar': 20, 'jstar': 7, 'glo': 1e-06, 'ghi': 64.0, 'tol_pos': -1e-12, 'nbis': 200}\nassert np.allclose(dfadi_positivity_benchmark(params), target)",
+        "params = {'xL': -2.4, 'xR': 2.4, 'nx': 40, 'kx': 4.2, 'mx': 0.0, 'Sxx': 1.0, 'yL': -1.8, 'yR': 1.8, 'ny': 10, 'ky': 3.1, 'my': 0.0, 'Syy': 0.25, 'rho': 0.4, 'x0': 0.3, 'y0': -0.25, 'wx': 0.45, 'wy': 0.5, 'isp': 21, 'jsp': 6, 'fsp': 0.35, 'dt': 0.04, 'nt': 8, 'istar': 20, 'jstar': 7, 'glo': 1e-06, 'ghi': 64.0, 'tol_pos': -1e-12, 'nbis': 200}\nassert np.allclose(dfadi_positivity_benchmark(params), target)",
+        "params = {'xL': -2.4, 'xR': 2.4, 'nx': 40, 'kx': 4.2, 'mx': 0.0, 'Sxx': 1.0, 'yL': -1.8, 'yR': 1.8, 'ny': 10, 'ky': 3.1, 'my': 0.0, 'Syy': 0.25, 'rho': 0.4, 'x0': 0.3, 'y0': -0.25, 'wx': 0.45, 'wy': 0.5, 'isp': 21, 'jsp': 6, 'fsp': 0.2, 'dt': 0.05, 'nt': 6, 'istar': 20, 'jstar': 7, 'glo': 1e-06, 'ghi': 64.0, 'tol_pos': -1e-12, 'nbis': 200}\nassert np.allclose(dfadi_positivity_benchmark(params), target)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "problem_id": "Physics-Optics-10",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Optics-10.1",
+      "test_cases": [
+        "v = reduced_dispersion_coefficients(9.0, 2.5)\nassert np.allclose(np.round(v, 8), target)",
+        "v = reduced_dispersion_coefficients(-6.0, 2.5)\nassert np.allclose(np.round(v, 8), target)",
+        "v = reduced_dispersion_coefficients(0.0, 0.0)\nassert np.allclose(np.round(v, 8), target)",
+        "def run_model():\n    try:\n        reduced_dispersion_coefficients(9.0, -1.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-10.2",
+      "test_cases": [
+        "v = equatorial_critical_gamma0_sq(-6.0)\nassert np.allclose(round(v, 8), target)",
+        "v = equatorial_critical_gamma0_sq(-11.0)\nassert np.allclose(round(v, 8), target)",
+        "v = equatorial_critical_gamma0_sq(-4.5)\nassert np.allclose(round(v, 8), target)",
+        "def run_model():\n    try:\n        equatorial_critical_gamma0_sq(-4.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "def run_model():\n    try:\n        equatorial_critical_gamma0_sq(-12.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "def run_model():\n    try:\n        equatorial_critical_gamma0_sq(-15.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "def run_model():\n    try:\n        equatorial_critical_gamma0_sq(9.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-10.3",
+      "test_cases": [
+        "v = classify_ep_sector(9.0, 2.5)\nassert np.allclose(v, target)",
+        "v = classify_ep_sector(4.5, 1.9)\nassert np.allclose(v, target)",
+        "v = classify_ep_sector(-6.0, 3.0)\nassert np.allclose(v, target)",
+        "v = classify_ep_sector(-6.0, 2.0)\nassert np.allclose(v, target)",
+        "v = classify_ep_sector(-15.0, 3.0)\nassert np.allclose(v, target)",
+        "v = classify_ep_sector(-15.0, 1.5)\nassert np.allclose(v, target)",
+        "v = classify_ep_sector(0.0, 1.0)\nassert np.allclose(v, target)",
+        "def run_model():\n    try:\n        classify_ep_sector(9.0, -1.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-10.4",
+      "test_cases": [
+        "v = ep_ring_kz_squared(9.0, 2.5, 1.0)\nassert np.allclose(round(v, 8), target)",
+        "v = ep_ring_kz_squared(9.0, 2.5, 2.0)\nassert np.allclose(round(v, 8), target)",
+        "v = ep_ring_kz_squared(-15.0, 3.0, 1.0)\nassert np.allclose(round(v, 6), target)",
+        "v = ep_ring_kz_squared(-6.0, 2.5, 1.0)\nassert np.allclose(round(v, 6), target)",
+        "def run_model():\n    try:\n        ep_ring_kz_squared(9.0, 2.5, -1.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "def run_model():\n    try:\n        ep_ring_kz_squared(9.0, 1.0, 1.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-10.5",
+      "test_cases": [
+        "v = ep_ring_transverse_squared(9.0, 2.5, 1.0)\nassert np.allclose(round(v, 8), target)",
+        "v = ep_ring_transverse_squared(9.0, 2.5, 2.0)\nassert np.allclose(round(v, 8), target)",
+        "v = ep_ring_transverse_squared(-15.0, 3.0, 1.0)\nassert np.allclose(round(v, 6), target)",
+        "v = ep_ring_transverse_squared(-6.0, 2.5, 1.0)\nassert np.allclose(round(v, 6), target)",
+        "def run_model():\n    try:\n        ep_ring_transverse_squared(9.0, 2.5, 0.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "def run_model():\n    try:\n        ep_ring_transverse_squared(9.0, 1.0, 1.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-10.6",
+      "test_cases": [
+        "v = combine_ep_wavevector(81.0/28.0, 33.0/14.0)\nassert np.allclose(np.round(v, 8), target)",
+        "v = combine_ep_wavevector(0.0, 5.25)\nassert np.allclose(np.round(v, 8), target)",
+        "v = combine_ep_wavevector(2.0, 2.0)\nassert np.allclose(np.round(v, 8), target)",
+        "def run_model():\n    try:\n        combine_ep_wavevector(-1.0, 2.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-10.7",
+      "test_cases": [
+        "assert np.allclose(round(run_metamaterial_ep_pipeline(9.0, 2.5, 1.0), 6), target)",
+        "assert np.allclose(round(run_metamaterial_ep_pipeline(9.0, 2.5, 2.0), 6), target)",
+        "assert np.allclose(round(run_metamaterial_ep_pipeline(-15.0, 3.0, 1.0), 6), target)",
+        "import numpy as np\ndef positive_finite(fn):\n    value = fn(9.0, 2.5, 1.0)\n    return bool(np.isfinite(value) and value > 0.0)\nassert np.allclose(positive_finite(run_metamaterial_ep_pipeline), target)",
+        "def run_model():\n    try:\n        run_metamaterial_ep_pipeline(9.0, 1.0, 1.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "problem_id": "Physics-Particle_Physics-31",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Particle_Physics-31.1",
+      "test_cases": [
+        "import numpy as np\nb=np.array([1.255458,0.076295438118,-0.035757230423273274,-0.075823351552458039254394,-0.083749978089300131915797567674,-0.078338731191377881605205437737333754,-0.068275581072225571993077829698251907397434,-0.057419982857692864178695909526227899110314926714,-0.047357424351643017636639948800385481733980392431793594,-0.038625674826665615587987604470468827548796529186628134990074,-0.031299339343808186683923366066895834773625422979666139953711748154],dtype=float)\nassert np.allclose(np.round(compute_log_derivative_coefficients(b),12), target)",
+        "import numpy as np\nb=np.array([2.0,1.0,0.5,0.25,0.125,0.0625,0.03125],dtype=float)\nassert np.allclose(np.round(compute_log_derivative_coefficients(b),12), target)",
+        "import numpy as np\nb=np.array([1.25,-0.5,0.0,0.0,0.0,0.0,0.0],dtype=float)\nassert np.allclose(np.round(compute_log_derivative_coefficients(b),12), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-31.2",
+      "test_cases": [
+        "import numpy as np\nc=np.array([0.060771,-0.060655960547,-0.175767949961623479,-0.254210533421592269403791,-0.301159493447749769008969911999,-0.326106315744614322485936659263474047,-0.336471851249179010399929864467206626537119,-0.337243559154630177357962321708726123322431250431,-0.331672505490807096899101287418561408111207028195519199,-0.321904529323547068016655331121902730433961992623601257581247])\nassert np.allclose(choose_source_configuration(c), target)",
+        "import numpy as np\nc=np.array([0.5,0.25,0.125,0.0625,0.03125,0.015625,0.0078125,0.00390625])\nassert np.allclose(choose_source_configuration(c), target)",
+        "import numpy as np\nc=np.array([0.2,0.1])\nassert np.allclose(choose_source_configuration(c), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-31.3",
+      "test_cases": [
+        "import numpy as np\nc=np.array([0.060771,-0.060655960547,-0.175767949961623479,-0.254210533421592269403791,-0.301159493447749769008969911999,-0.326106315744614322485936659263474047,-0.336471851249179010399929864467206626537119,-0.337243559154630177357962321708726123322431250431,-0.331672505490807096899101287418561408111207028195519199,-0.321904529323547068016655331121902730433961992623601257581247])\nassert np.allclose(np.round(build_hankel_probe(c,1,5),12), target)",
+        "import numpy as np\nc=np.array([0.5,0.25,0.125,0.0625,0.03125])\nassert np.allclose(np.round(build_hankel_probe(c,0,1),12), target)",
+        "import numpy as np\nc=np.array([0.1,0.12,0.10825,0.087,0.065700625,0.04773825,0.03379793140625])\nassert np.allclose(np.round(build_hankel_probe(c,1,3),12), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-31.4",
+      "test_cases": [
+        "import numpy as np\nc=np.array([0.060771,-0.060655960547,-0.175767949961623479,-0.254210533421592269403791,-0.301159493447749769008969911999,-0.326106315744614322485936659263474047,-0.336471851249179010399929864467206626537119,-0.337243559154630177357962321708726123322431250431,-0.331672505490807096899101287418561408111207028195519199,-0.321904529323547068016655331121902730433961992623601257581247]); H=np.array([[c[1+i+j] for j in range(5)] for i in range(5)])\nassert np.allclose(infer_finite_spectrum_size(H,1e-10), target)",
+        "import numpy as np\nc=np.array([0.5,0.25,0.125,0.0625,0.03125]); H=np.array([[c[1+i+j] for j in range(2)] for i in range(2)])\nassert np.allclose(infer_finite_spectrum_size(H,1e-10), target)",
+        "import numpy as np\nc=np.array([0.1,0.12,0.10825,0.087,0.065700625,0.04773825,0.03379793140625]); H=np.array([[c[1+i+j] for j in range(3)] for i in range(3)])\nassert np.allclose(infer_finite_spectrum_size(H,1e-10), target)",
+        "import numpy as np\nH=np.zeros((2,2), dtype=float)\nassert np.allclose(infer_finite_spectrum_size(H,1e-10), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-31.5",
+      "test_cases": [
+        "import numpy as np\nc=np.array([0.060771,-0.060655960547,-0.175767949961623479,-0.254210533421592269403791,-0.301159493447749769008969911999,-0.326106315744614322485936659263474047,-0.336471851249179010399929864467206626537119,-0.337243559154630177357962321708726123322431250431,-0.331672505490807096899101287418561408111207028195519199,-0.321904529323547068016655331121902730433961992623601257581247])\npack=lambda out: (np.round(out[0],12),np.round(out[1],12))\nassert np.allclose(pack(build_shifted_hankel_pencil(c,1,4)), target)",
+        "import numpy as np\nc=np.array([0.5,0.25,0.125,0.0625])\npack=lambda out: (np.round(out[0],12),np.round(out[1],12))\nassert np.allclose(pack(build_shifted_hankel_pencil(c,1,1)), target)",
+        "import numpy as np\nc=np.array([0.5,0.5,0.40625,0.3125,0.236328125,0.177734375])\npack=lambda out: (np.round(out[0],12),np.round(out[1],12))\nassert np.allclose(pack(build_shifted_hankel_pencil(c,1,2)), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-31.6",
+      "test_cases": [
+        "import numpy as np\nc=np.array([0.060771,-0.060655960547,-0.175767949961623479,-0.254210533421592269403791,-0.301159493447749769008969911999,-0.326106315744614322485936659263474047,-0.336471851249179010399929864467206626537119,-0.337243559154630177357962321708726123322431250431,-0.331672505490807096899101287418561408111207028195519199]); C=np.array([[c[1+i+j] for j in range(4)] for i in range(4)]); Cs=np.array([[c[2+i+j] for j in range(4)] for i in range(4)])\nassert np.allclose(np.round(recover_spectral_locations(C,Cs,1e-10),10), target)",
+        "import numpy as np\nC=np.array([[0.25]]); Cs=np.array([[0.125]])\nassert np.allclose(np.round(recover_spectral_locations(C,Cs,1e-10),10), target)",
+        "import numpy as np\nc=np.array([0.1,0.12,0.10825,0.087,0.065700625]); C=np.array([[c[1+i+j] for j in range(2)] for i in range(2)]); Cs=np.array([[c[2+i+j] for j in range(2)] for i in range(2)])\nassert np.allclose(np.round(recover_spectral_locations(C,Cs,1e-10),10), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-31.7",
+      "test_cases": [
+        "import numpy as np\nb=np.array([1.255458,0.076295438118,-0.035757230423273274,-0.075823351552458039254394,-0.083749978089300131915797567674,-0.078338731191377881605205437737333754,np.nan,-0.057419982857692864178695909526227899110314926714,-0.047357424351643017636639948800385481733980392431793594,-0.038625674826665615587987604470468827548796529186628134990074,-0.031299339343808186683923366066895834773625422979666139953711748154],dtype=float)\nassert np.allclose(round(recover_missing_eft_coefficient(b,1e-10,1e-10),12), target)",
+        "import numpy as np\nb=2*np.array([1.255458,0.076295438118,-0.035757230423273274,-0.075823351552458039254394,-0.083749978089300131915797567674,-0.078338731191377881605205437737333754,-0.068275581072225571993077829698251907397434,-0.057419982857692864178695909526227899110314926714,-0.047357424351643017636639948800385481733980392431793594,-0.038625674826665615587987604470468827548796529186628134990074,-0.031299339343808186683923366066895834773625422979666139953711748154],dtype=float); b[6]=np.nan\nassert np.allclose(round(recover_missing_eft_coefficient(b,1e-10,1e-10),12), target)",
+        "import numpy as np\nb=0.5*np.array([1.255458,0.076295438118,-0.035757230423273274,-0.075823351552458039254394,-0.083749978089300131915797567674,-0.078338731191377881605205437737333754,-0.068275581072225571993077829698251907397434,-0.057419982857692864178695909526227899110314926714,-0.047357424351643017636639948800385481733980392431793594,-0.038625674826665615587987604470468827548796529186628134990074,-0.031299339343808186683923366066895834773625422979666139953711748154],dtype=float); b[6]=np.nan\nassert np.allclose(round(recover_missing_eft_coefficient(b,1e-10,1e-10),12), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-31.8",
+      "test_cases": [
+        "import numpy as np\nc=np.array([0.060771,-0.060655960547,-0.175767949961623479,-0.254210533421592269403791,-0.301159493447749769008969911999,-0.326106315744614322485936659263474047,-0.336471851249179010399929864467206626537119,-0.337243559154630177357962321708726123322431250431]); C=np.array([[c[1+i+j] for j in range(4)] for i in range(4)]); spec=np.array([[0.919798,1.0871952319965906],[0.802520,1.2460748641778398],[0.485921,2.0579476910855880],[0.307872,3.2481031077850535]]); pack=lambda out: (np.round(out[0],10),np.round(out[1],10))\nassert np.allclose(pack(classify_spectral_locations(C,1,spec)), target)",
+        "import numpy as np\nC=np.array([[0.25]]); spec=np.array([[0.5,2.0]]); pack=lambda out: (np.round(out[0],10),np.round(out[1],10))\nassert np.allclose(pack(classify_spectral_locations(C,1,spec)), target)",
+        "import numpy as np\nc=np.array([0.1,0.12,0.10825,0.087]); C=np.array([[c[1+i+j] for j in range(2)] for i in range(2)]); spec=np.array([[0.65,1.0/0.65],[0.55,1.0/0.55]]); pack=lambda out: (np.round(out[0],10),np.round(out[1],10))\nassert np.allclose(pack(classify_spectral_locations(C,1,spec)), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-31.9",
+      "test_cases": [
+        "import numpy as np\nb=np.array([1.255458,0.076295438118,-0.035757230423273274,-0.075823351552458039254394,-0.083749978089300131915797567674,-0.078338731191377881605205437737333754,-0.068275581072225571993077829698251907397434,-0.057419982857692864178695909526227899110314926714,-0.047357424351643017636639948800385481733980392431793594,-0.038625674826665615587987604470468827548796529186628134990074,-0.031299339343808186683923366066895834773625422979666139953711748154]); cl=np.array([[1.0871952319965906,-1.0],[1.2460748641778398,1.0],[2.0579476910855880,1.0],[3.2481031077850535,-1.0]]); pack=lambda out: (np.round(out[0],10),np.round(out[1],10),round(float(out[2]),12))\nassert np.allclose(pack(reconstruct_rational_amplitude(b,cl)), target)",
+        "import numpy as np\nb=np.array([2.0,1.0,0.5,0.25,0.125,0.0625,0.03125]); cl=np.array([[2.0,1.0]]); pack=lambda out: (np.round(out[0],10),np.round(out[1],10),round(float(out[2]),12))\nassert np.allclose(pack(reconstruct_rational_amplitude(b,cl)), target)",
+        "import numpy as np\nb=np.array([1.25,-0.5,0.0,0.0,0.0,0.0,0.0]); cl=np.array([[2.5,-1.0]]); pack=lambda out: (np.round(out[0],10),np.round(out[1],10),round(float(out[2]),12))\nassert np.allclose(pack(reconstruct_rational_amplitude(b,cl)), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-31.10",
+      "test_cases": [
+        "import numpy as np\nb=np.array([1.255458,0.076295438118,-0.035757230423273274,-0.075823351552458039254394,-0.083749978089300131915797567674,-0.078338731191377881605205437737333754,np.nan,-0.057419982857692864178695909526227899110314926714,-0.047357424351643017636639948800385481733980392431793594,-0.038625674826665615587987604470468827548796529186628134990074,-0.031299339343808186683923366066895834773625422979666139953711748154],dtype=float)\nassert np.allclose(evaluate_inverse_eft_reconstruction(b,1e-10,1e-10,1e-8,0.37), target)",
+        "import numpy as np\nb=np.array([2.0,1.0,0.5,0.25,0.125,0.0625,0.03125,0.015625,0.0078125],dtype=float)\nassert np.allclose(evaluate_inverse_eft_reconstruction(b,1e-10,1e-10,1e-8,0.4), target)",
+        "import numpy as np\nb=np.array([1.2,0.6,0.45,0.3375,0.253125,0.18984375,0.1423828125,0.106787109375,0.08009033203125],dtype=float)\nassert np.allclose(evaluate_inverse_eft_reconstruction(b,1e-10,1e-10,1e-8,0.3), target)"
+      ]
+    }
+  ]
+}

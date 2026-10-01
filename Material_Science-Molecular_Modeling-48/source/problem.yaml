@@ -1,0 +1,40 @@
+problem_id: "Material_Science-Molecular_Modeling-48"
+subject: "materials"
+subject_area: "Molecular Modeling"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1186/s41313-026-00086-4"
+dependencies: ""
+steps:
+  - number: 1
+    name: "eam_pair_and_density"
+    description: "Evaluate the embedded-atom pair potential $\\\\phi(r)$ and the electron-density function $f(r)$ of the source paper's EAM parameterisation, ****together with their first derivatives**** with respect to $r$, at an array of interatomic distances. Return all four stacked along a new leading axis, in the order $[\\\\phi,\\\\, f,\\\\, \\\\phi',\\\\, f']$, so that the shape is `(4,) + r.shape`. Both functions are ****hard-truncated****: every one of the four is exactly $0$ where $r \\\\ge r_{\\\\mathrm{cut}}$, with no shifting and no smoothing. The derivatives are graded because the forces of step 3 and the equilibrium lattice constant of step 4 are built from them analytically, not by differencing."
+    orchestrator: false
+  - number: 2
+    name: "eam_embedding"
+    description: "Evaluate the ****piecewise**** embedding function $F(\\\\rho)$ of the same parameterisation, and its first derivative $F'(\\\\rho)$, at an array of local electron densities. Return the two stacked along a new leading axis, in the order $[F,\\\\, F']$, so that the shape is `(2,) + rho.shape`. The three branches are selected by $\\\\rho < \\\\rho_n$, $\\\\rho_n \\\\le \\\\rho < \\\\rho_0$ and $\\\\rho_0 \\\\le \\\\rho$, with $\\\\rho_n = 0.85\\\\rho_e$ and $\\\\rho_0 = 1.15\\\\rho_e$; the half-open convention at both knots is graded. ****All three branches matter****: the third one, the only place where $\\\\eta$ and $F_e$ appear, is what makes those two parameters identifiable at all, and a candidate who implements only the polynomial branches will find later steps failing with a singular information matrix rather than returning a wrong number."
+    orchestrator: false
+  - number: 3
+    name: "eam_energy_forces"
+    description: "Evaluate the total energy and ****all per-atom forces**** of a periodic configuration under the EAM potential of steps 1 and 2, and return them as one flat array, the energy first and then the forces in atom-major, Cartesian-minor order: $[E, F_0x, F_0y, F_0z, F_1x, ...]$, of length $3N+1$. The box is orthorhombic, given either as a scalar edge length or as a length-3 vector, and the sums run over ****all periodic images within the cutoff****, not the minimum image alone - at the box sizes used here $L < 2r_{\\\\mathrm{cut}}$, so an atom interacts with more than one image of some neighbours and with images of itself. The forces are graded as analytic derivatives, and their embedding contribution is the point of this step."
+    orchestrator: false
+  - number: 4
+    name: "bcc_indicator_properties"
+    description: "Return the ****five indicator properties of the BCC crystal that the source paper adopts as its quantities of interest****, computed from the potential itself, in the order $[a_0,\\\\; E_{\\\\mathrm{coh}},\\\\; c_{11},\\\\; c_{12},\\\\; c_{44}]$ - the equilibrium lattice constant in angstrom, the cohesive energy in eV per atom, and the three cubic elastic constants in GPa. ****Nothing beyond the conventions below is derived for you:**** set up the ideal BCC lattice sum, locate its energy minimum, and obtain the elastic constants as second derivatives of the energy per atom with respect to homogeneous strain. The crystal is centrosymmetric, so no internal relaxation is needed."
+    orchestrator: false
+  - number: 5
+    name: "log_parameter_jacobian"
+    description: "Return the Jacobian of an arbitrary vector-valued model output with respect to the ****logarithms**** of a chosen subset of the potential's parameters, by central differences. Column $j$ of the result is $\\\\partial(\\\\text{output})/\\\\partial\\\\theta_j$ with $\\\\theta_j = \\\\log|p_j|$ at fixed sign, evaluated as $\\\\big[\\\\mathrm{func}(p\\\\ \\\\text{with}\\\\ p_j \\\\to p_je^{h}) - \\\\mathrm{func}(p\\\\ \\\\text{with}\\\\ p_j \\\\to p_je^{-h})\\\\big]/(2h)$, every other entry of `params` held fixed. ****The perturbation is multiplicative, not additive in $\\\\log p$****, which is the only formulation that works for the one master parameter that is negative; taking a logarithm of it directly is a domain error. The output of `func` is flattened to one dimension before differencing, so a scalar-valued `func` gives a Jacobian with one row."
+    orchestrator: false
+  - number: 6
+    name: "data_fisher_matrices"
+    description: "Build the two ****pooled Fisher information matrices**** of the candidate training data: one accumulated over the configuration-energy data, one over the per-atom force data. Return them stacked as an array of shape $(2, P, P)$ with $P$ the number of master parameters, energy first. ****The per-datum Fisher information is not given: derive it**** from the definition in the source paper for the Gaussian model implied by the paper's weighted sum of squared energy and force residuals, and note that the three Cartesian components of one atom's force share that atom's single weight, so an atom is one datum, not three. The matrices returned here are **unweighted** pools - the weights are the common scales that step 7 determines - so each is the plain sum of its data's per-datum matrices."
+    orchestrator: false
+  - number: 7
+    name: "minimal_information_scale"
+    description: "Given a pooled data information matrix and the Jacobian of the target quantities of interest with their target uncertainties, return the ****smallest common weight scale $t \\\\ge 0$ for which the source paper's information-matching condition holds****. ****Neither the target's information matrix nor the matching condition is given: derive both**** - the first from how a scalar prediction with a prescribed uncertainty translates into an information requirement, the second from the paper. Then reduce the condition to something computable: with a single free scale it is not a semidefinite program but a symmetric-definite generalised eigenvalue problem, and the answer is a single eigenvalue. Raise a `ValueError` if the pooled matrix is singular, because then no finite common weight can satisfy the condition in the deficient directions."
+    orchestrator: false
+  - number: 8
+    name: "alim_uncertainty_ratio_sum"
+    description: "Run the whole benchmark. Build the pool of $n_conf$ candidate configurations from the closed form below; evaluate the pooled energy and force information matrices at the fixed EAM parameters; combine them into one pooled matrix using the fixed ratio of the energy weight to the force weight; evaluate the Jacobian of the five indicator properties; find the smallest common weight scale that satisfies the information-matching condition; form the total information matrix at that scale; ****propagate it back to a predicted uncertainty for each of the five indicator properties**** using the source paper's propagation formula; and return the ****sum of the five ratios of predicted to target uncertainty****. Setting `data='E'` restricts the pool to configuration energies and `data='F'` to per-atom forces; $delta=None$ means the source paper's own target uncertainties for the five indicator properties, in the order of step 4."
+    orchestrator: true

@@ -1,0 +1,48 @@
+problem_id: "Material_Science-Semiconductor_Materials-16"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "difficult"
+answer_type: "numeric"
+paper_doi: "https://doi.org/10.48550/arXiv.2608.23289"
+dependencies: ""
+steps:
+  - number: 1
+    name: "hopping_vectors"
+    description: "Return the fifteen bond vectors of a 1T-MX2 monolayer, stacked in one array in this order: the six metal-chalcogen bonds, then three in-plane nearest-neighbour vectors, then three in-plane next-nearest-neighbour vectors, then three vectors reaching from one chalcogen plane to the other. Within each of those four families, list the vectors in order of increasing azimuthal angle about the metal site, measured from the positive x axis. Only half of each in-plane family is listed, since a later step supplies the opposite members. The source fixes a convention here that the natural reading does not; follow the source."
+    orchestrator: false
+  - number: 2
+    name: "bloch_hamiltonian"
+    description: "Return the eleven-band Bloch Hamiltonian at one wavevector, built from the bond vectors of the first step and the parameter vector, when deriv is -1; when deriv is 0, 1 or 2 return instead its derivative with respect to that Cartesian component of the wavevector. Place every block so the result is Hermitian, and put the crystal-field-split on-site energies on the diagonal. The source fixes a convention here that the natural reading does not; follow the source."
+    orchestrator: false
+  - number: 3
+    name: "brillouin_zone"
+    description: "Return the two primitive reciprocal lattice vectors of the triangular lattice followed by the zone centre, the edge midpoint and the zone corner, stacked in one array in that order, for the real-space primitive vectors given in the problem statement. The source fixes a convention here that the natural reading does not; follow the source."
+    orchestrator: false
+  - number: 4
+    name: "indirect_gap"
+    description: "Return the band gap of the monolayer, sampling the zone on a uniform grid of n_grid by n_grid points anchored at the zone centre and spanned by the two reciprocal lattice vectors, with the given number of occupied bands. The source fixes a convention here that the natural reading does not; follow the source."
+    orchestrator: false
+  - number: 5
+    name: "effective_mass"
+    description: "Return the effective mass of one band at one band extremum along one direction in momentum space, in units of the free electron mass, by fitting a parabola to that band on n_points samples spaced dk apart and centred on the extremum. The source fixes a convention here that the natural reading does not; follow the source."
+    orchestrator: false
+  - number: 6
+    name: "interband_transitions"
+    description: "Return one row for every interband transition available on the same uniform zone grid: its energy, and the squared magnitude of the velocity matrix element between the two states along the given axis. Rows run over grid points in the order the grid is generated, and within a grid point over the pairs of bands an optical transition can connect. The source fixes a convention here that the natural reading does not; follow the source."
+    orchestrator: false
+  - number: 7
+    name: "quantum_metric"
+    description: "Return the zone-averaged quantum metric of the occupied states along the axis the transition list was built for, from that list and the linear size of the grid it was built on. The source fixes a convention here that the natural reading does not; follow the source."
+    orchestrator: false
+  - number: 8
+    name: "optical_conductivity"
+    description: "Return the real part of the diagonal interband optical conductivity at each photon energy in omega, from the transition list, the linear grid size, and a broadening eta that replaces each sharp transition by a normalised Lorentzian of that half width. Return it per unit cell area, in units of the conductance quantum. The source fixes a convention here that the natural reading does not; follow the source."
+    orchestrator: false
+  - number: 9
+    name: "spectral_weight"
+    description: "Return the integral of the real part of the optical conductivity divided by photon energy, taken by the trapezoidal rule over the photon energies supplied and the conductivity sampled at them. The source fixes a convention here that the natural reading does not; follow the source."
+    orchestrator: false
+  - number: 10
+    name: "tb_optics_report"
+    description: "Run the whole analysis on one monolayer and report it. Build the geometry and the zone once and pass them down. Take the band gap on the declared grid; the lowest vertical transition at the zone centre; the effective masses of the highest occupied band at the zone centre towards the edge midpoint and towards the corner, and of the lowest empty band at the edge midpoint towards the zone centre and on towards the corner, all with the declared fit spacing and sample count; the single mass describing that anisotropic lower valley as a whole; then build the transition list along the first Cartesian axis and from it both pi times the zone-averaged quantum metric and, on a uniform grid of n_omega photon energies spanning the declared window, the conductivity and its integrated spectral weight; and finally report how far apart those last two are, as a percentage of the first. The source fixes a convention here that the natural reading does not; follow the source."
+    orchestrator: true

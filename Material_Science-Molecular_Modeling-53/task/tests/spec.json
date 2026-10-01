@@ -1,0 +1,75 @@
+{
+  "problem_id": "Material_Science-Molecular_Modeling-53",
+  "sub_steps": [
+    {
+      "step_number": "Material_Science-Molecular_Modeling-53.1",
+      "test_cases": [
+        "import numpy as _n\nl=_n.array([0.8,1.0,1.3,2.0,3.0]);De=1.0;a=2.15;le=1.0\nassert np.allclose(morse_potential(l, De, a, le), target)",
+        "import numpy as _n\nl=_n.linspace(0.7,2.5,7);De=2.0;a=1.8;le=1.1\nassert np.allclose(morse_potential(l, De, a, le), target)",
+        "import numpy as _n\nl=_n.array([1.0,1.5,2.2]);De=0.5;a=2.6;le=0.95\nassert np.allclose(morse_potential(l, De, a, le), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-53.2",
+      "test_cases": [
+        "import numpy as np\nDe=1.0;a=2.15;le=1.0;beta=279.0;kphi=1820.0/(np.pi**2*279.0);phi_e=69.0*np.pi/180.0\nassert np.allclose(bending_kernel(beta, kphi, phi_e), target)",
+        "import numpy as np\nbeta=279.0;kphi=1000.0/(np.pi**2*279.0);phi_e=60.0*np.pi/180.0\nassert np.allclose(bending_kernel(beta, kphi, phi_e), target)",
+        "import numpy as np\nbeta=150.0;kphi=2500.0/(np.pi**2*150.0);phi_e=75.0*np.pi/180.0\nassert np.allclose(bending_kernel(beta, kphi, phi_e), target)",
+        "import numpy as np\nbeta=279.0;kphi=18.2/(np.pi**2*279.0);phi_e=69.0*np.pi/180.0\nassert np.allclose(bending_kernel(beta, kphi, phi_e), target)",
+        "import numpy as np\nbeta=279.0;kphi=1820.0/(np.pi**2*279.0);phi_e=0.05\nassert np.allclose(bending_kernel(beta, kphi, phi_e), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-53.3",
+      "test_cases": [
+        "import numpy as np\nlt=2.4;f=0.20;De=1.0;a=2.15;le=1.0;beta=279.0;kphi=1820.0/(np.pi**2*279.0);phi_e=69.0*np.pi/180.0\nassert np.allclose(local_intact_weight(lt, f, beta, De, a, le), target)",
+        "import numpy as np\nlt=2.55;f=0.15;De=1.0;a=2.15;le=1.0;beta=279.0;kphi=1820.0/(np.pi**2*279.0);phi_e=69.0*np.pi/180.0\nassert np.allclose(local_intact_weight(lt, f, beta, De, a, le), target)",
+        "import numpy as np\nlt=2.3;f=0.25;De=1.0;a=2.15;le=1.0;beta=279.0;kphi=1820.0/(np.pi**2*279.0);phi_e=69.0*np.pi/180.0\nassert np.allclose(local_intact_weight(lt, f, beta, De, a, le), target)",
+        "import numpy as np\nlt=1.05;f=0.20;De=1.0;a=2.15;le=1.0;beta=279.0;kphi=1820.0/(np.pi**2*279.0);phi_e=69.0*np.pi/180.0\nassert np.allclose(local_intact_weight(lt, f, beta, De, a, le), target)",
+        "import numpy as np\nlt=5.5;f=0.05;De=1.0;a=2.15;le=1.0;beta=279.0;kphi=1820.0/(np.pi**2*279.0);phi_e=69.0*np.pi/180.0\nassert np.allclose(local_intact_weight(lt, f, beta, De, a, le), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-53.4",
+      "test_cases": [
+        "import numpy as np\nDe=1.0;a=2.15;le=1.0;beta=279.0;kphi=1820.0/(np.pi**2*279.0);phi_e=69.0*np.pi/180.0\nf=0.20;thresholds=np.full(5,2.4);Q=bending_kernel(beta,kphi,phi_e)\nassert np.allclose(tm_angular_weights(thresholds, f, beta, De, a, le, Q), target)",
+        "import numpy as np\nDe=1.0;a=2.15;le=1.0;beta=279.0;kphi=1820.0/(np.pi**2*279.0);phi_e=69.0*np.pi/180.0\nf=0.15;thresholds=np.full(4,2.55);Q=bending_kernel(beta,kphi,phi_e)\nassert np.allclose(tm_angular_weights(thresholds, f, beta, De, a, le, Q), target)",
+        "import numpy as np\nDe=1.0;a=2.15;le=1.0;beta=279.0;kphi=1820.0/(np.pi**2*279.0);phi_e=69.0*np.pi/180.0\nf=0.25;thresholds=np.array([2.3,2.35,2.31]);Q=bending_kernel(beta,kphi,phi_e)\nassert np.allclose(tm_angular_weights(thresholds, f, beta, De, a, le, Q), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-53.5",
+      "test_cases": [
+        "import numpy as np\nDe=1.0;a=2.15;le=1.0;beta=279.0;kphi=1820.0/(np.pi**2*279.0);phi_e=69.0*np.pi/180.0\nf=0.20;Q=bending_kernel(beta,kphi,phi_e)\nw_i=tm_angular_weights(np.full(5,2.4),f,beta,De,a,le,Q)[0]\nl=np.array([1.0,1.5,2.0,2.4])\nassert np.allclose(tm_pmf(l, w_i, f, beta, De, a, le), target)",
+        "import numpy as np\nDe=1.0;a=2.15;le=1.0;beta=279.0;kphi=1820.0/(np.pi**2*279.0);phi_e=69.0*np.pi/180.0\nf=0.15;Q=bending_kernel(beta,kphi,phi_e)\nw_i=tm_angular_weights(np.full(4,2.55),f,beta,De,a,le,Q)[1]\nl=np.linspace(0.9,2.5,6)\nassert np.allclose(tm_pmf(l, w_i, f, beta, De, a, le), target)",
+        "import numpy as np\nDe=1.0;a=2.15;le=1.0;beta=279.0;kphi=1820.0/(np.pi**2*279.0);phi_e=69.0*np.pi/180.0\nf=0.25;Q=bending_kernel(beta,kphi,phi_e)\nw_i=tm_angular_weights(np.array([2.3,2.35,2.31]),f,beta,De,a,le,Q)[2]\nl=np.array([1.1,1.8,2.3])\nassert np.allclose(tm_pmf(l, w_i, f, beta, De, a, le), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-53.6",
+      "test_cases": [
+        "import numpy as np\nDe=1.0;a=2.15;le=1.0;beta=279.0;kphi=1820.0/(np.pi**2*279.0);phi_e=69.0*np.pi/180.0\nN=5;f=0.20\nassert np.allclose(self_consistent_thresholds(N, f, beta, De, a, le, kphi, phi_e), target)",
+        "import numpy as np\nDe=1.0;a=2.15;le=1.0;beta=279.0;kphi=1820.0/(np.pi**2*279.0);phi_e=69.0*np.pi/180.0\nN=4;f=0.15\nassert np.allclose(self_consistent_thresholds(N, f, beta, De, a, le, kphi, phi_e), target)",
+        "import numpy as np\nDe=1.0;a=2.15;le=1.0;beta=279.0;kphi=1820.0/(np.pi**2*279.0);phi_e=69.0*np.pi/180.0\nN=3;f=0.25\nassert np.allclose(self_consistent_thresholds(N, f, beta, De, a, le, kphi, phi_e), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-53.7",
+      "test_cases": [
+        "import numpy as np\nDe=1.0;a=2.15;le=1.0;beta=279.0;kphi=1820.0/(np.pi**2*279.0);phi_e=69.0*np.pi/180.0\nN=5;f=0.20\nassert np.allclose(bond_barriers(N, f, beta, De, a, le, kphi, phi_e), target)",
+        "import numpy as np\nDe=1.0;a=2.15;le=1.0;beta=279.0;kphi=1820.0/(np.pi**2*279.0);phi_e=69.0*np.pi/180.0\nN=4;f=0.15\nassert np.allclose(bond_barriers(N, f, beta, De, a, le, kphi, phi_e), target)",
+        "import numpy as np\nDe=1.0;a=2.15;le=1.0;beta=279.0;kphi=1820.0/(np.pi**2*279.0);phi_e=69.0*np.pi/180.0\nN=3;f=0.25\nassert np.allclose(bond_barriers(N, f, beta, De, a, le, kphi, phi_e), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-53.8",
+      "test_cases": [
+        "force_scale = 1.0\nassert np.allclose(scission_audit(force_scale), target)",
+        "force_scale = 0.95\nassert np.allclose(scission_audit(force_scale), target)",
+        "force_scale = 1.1\nassert np.allclose(scission_audit(force_scale), target)",
+        "force_scale = 0.4\nassert np.allclose(scission_audit(force_scale), target)",
+        "force_scale = 2.6\nassert np.allclose(scission_audit(force_scale), target)"
+      ]
+    }
+  ]
+}

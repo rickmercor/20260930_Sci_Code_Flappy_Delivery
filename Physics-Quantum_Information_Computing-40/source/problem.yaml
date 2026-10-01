@@ -1,0 +1,44 @@
+problem_id: "Physics-Quantum_Information_Computing-40"
+subject: "physics"
+subject_area: "Quantum Information / Computing"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: " https://doi.org/10.1103/6k5x-ztqt"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_min_sum_bp_trace.py"
+    description: "Run standard min-sum BP and return posterior LLRs, hard decisions, final warm-start edge messages, and convergence status for every executed iteration."
+    orchestrator: false
+  - number: 2
+    name: "02_seed_beam_state.py"
+    description: "Convert the initial BP trace into the single numerical seed path used by the bounded search."
+    orchestrator: false
+  - number: 3
+    name: "03_masked_bp_trace.py"
+    description: "Run min-sum BP after applying fixed-node masks, source-defined syndrome modification, and parent-message warm start."
+    orchestrator: false
+  - number: 4
+    name: "04_expand_beam_state.py"
+    description: "Branch one active path at its selected node, evaluate fixed values zero and one, and compute each child's next branch and reliability score."
+    orchestrator: false
+  - number: 5
+    name: "05_prune_beam_states.py"
+    description: "Keep at most the requested beam width of highest-reliability candidate paths."
+    orchestrator: false
+  - number: 6
+    name: "06_minimum_weight_correction.py"
+    description: "Deduplicate valid corrections and select the member with minimum Bernoulli log-likelihood weight."
+    orchestrator: false
+  - number: 7
+    name: "07_beam_search_decode.py"
+    description: "Execute the complete source search for one syndrome, including initialization, masked branching, descending-score exploration, pruning, unique-result collection, and weighted selection."
+    orchestrator: false
+  - number: 8
+    name: "08_beam_search_profile.py"
+    description: "Evaluate the full decoder across the ordered beam widths and summarize correction quality and search work."
+    orchestrator: false
+  - number: 9
+    name: "09_cumulative_beam_profile_path.py"
+    description: "Normalize the four beam-width profiles and sum the Euclidean distances between consecutive profiles."
+    orchestrator: true

@@ -1,0 +1,44 @@
+problem_id: "Material_Science-Molecular_Modeling-34"
+subject: "materials"
+subject_area: "Molecular Modeling"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2608.09375"
+dependencies: ""
+steps:
+  - number: 1
+    name: "sw_bulk_coexistence"
+    description: "Locate the bulk liquid-vapor coexistence of a one-component square-well fluid."
+    orchestrator: false
+  - number: 2
+    name: "fmt_weight_functions"
+    description: "Build the planar fundamental-measure (FMT) weight functions of a hard sphere."
+    orchestrator: false
+  - number: 3
+    name: "sw_meanfield_kernel"
+    description: "Build the planar-projected mean-field kernel of a square-well attraction."
+    orchestrator: false
+  - number: 4
+    name: "solvent_density_profile"
+    description: "Solve the planar solvent density profile at liquid-vapor coexistence by Picard iteration."
+    orchestrator: false
+  - number: 5
+    name: "surface_tension"
+    description: "Compute the reduced surface tension of the solvent liquid-vapor interface."
+    orchestrator: false
+  - number: 6
+    name: "lorentz_berthelot_cross"
+    description: "Apply the model's mixing rules to obtain the cross square-well interaction parameters."
+    orchestrator: false
+  - number: 7
+    name: "solute_one_body_correlation"
+    description: "Compute the inhomogeneous one-body direct correlation of a dilute solute in the solvent field."
+    orchestrator: false
+  - number: 8
+    name: "solute_profile_peak"
+    description: "Convert the solute one-body correlation into the normalised adsorption profile and its peak."
+    orchestrator: false
+  - number: 9
+    name: "interface_adsorption_audit"
+    description: "Assemble the full pipeline and report the peak interfacial adsorption of the dilute solute."
+    orchestrator: true

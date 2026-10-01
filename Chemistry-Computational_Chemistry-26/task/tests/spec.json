@@ -1,0 +1,121 @@
+{
+  "problem_id": "Chemistry-Computational_Chemistry-26",
+  "sub_steps": [
+    {
+      "step_number": "Chemistry-Computational_Chemistry-26.1",
+      "test_cases": [
+        "import numpy as np\nn_max = 3\nassert np.allclose(oscillator_basis(n_max), target)",
+        "import numpy as np\n# boundary: the single shell n = 0\nn_max = 0\nassert np.allclose(oscillator_basis(n_max), target)",
+        "import numpy as np\nn_max = 7\nassert np.allclose(oscillator_basis(n_max), target)",
+        "import numpy as np\n# invalid input: a negative shell count has no basis and must raise ValueError\nn_max = -1\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: oscillator_basis(n_max)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-26.2",
+      "test_cases": [
+        "import numpy as np\nn_max = 3\nassert np.allclose(ladder_operators(n_max), target)",
+        "import numpy as np\n# boundary: two shells only\nn_max = 1\nassert np.allclose(ladder_operators(n_max), target)",
+        "import numpy as np\nn_max = 6\nassert np.allclose(ladder_operators(n_max), target)",
+        "import numpy as np\n# invalid input: a non-integer shell count must raise ValueError\nn_max = 2.5\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: ladder_operators(n_max)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-26.3",
+      "test_cases": [
+        "import numpy as np\nn_max = 3\nassert np.allclose(vibronic_operators(n_max), target)",
+        "import numpy as np\n# boundary: two shells only\nn_max = 1\nassert np.allclose(vibronic_operators(n_max), target)",
+        "import numpy as np\nn_max = 6\nassert np.allclose(vibronic_operators(n_max), target)",
+        "import numpy as np\n# invalid input: a negative shell count must raise ValueError\nn_max = -2\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: vibronic_operators(n_max)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-26.4",
+      "test_cases": [
+        "import numpy as np\nxi = 800.0\nF_rho = 1600.0\nparticle = True\nassert np.allclose(static_model(xi, F_rho, particle), target)",
+        "import numpy as np\nxi = 800.0\nF_rho = 1600.0\nparticle = False\nassert np.allclose(static_model(xi, F_rho, particle), target)",
+        "import numpy as np\n# boundary: weak spin-orbit coupling against a strong distortion\nxi = 200.0\nF_rho = 3000.0\nparticle = True\nassert np.allclose(static_model(xi, F_rho, particle), target)",
+        "import numpy as np\n# boundary: strong spin-orbit coupling against a weak distortion\nxi = 2000.0\nF_rho = 300.0\nparticle = False\nassert np.allclose(static_model(xi, F_rho, particle), target)",
+        "import numpy as np\n# invalid input: a vanishing distortion product is outside the model and must raise ValueError\nxi = 800.0\nF_rho = 0.0\nparticle = True\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: static_model(xi, F_rho, particle)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-26.5",
+      "test_cases": [
+        "import numpy as np\nxi = 800.0\nE_JT = 800.0\nhw = 300.0\nBz = 0.0\ng_c = 0.0\nhwc = 3200.0\nn_max = 2\nn_ph = 0\nparticle = True\nassert np.allclose(model_hamiltonian(xi, E_JT, hw, Bz, g_c, hwc, n_max, n_ph, particle), target)",
+        "import numpy as np\nxi = 800.0\nE_JT = 800.0\nhw = 300.0\nBz = 0.5\ng_c = 100.0\nhwc = 3200.0\nn_max = 2\nn_ph = 1\nparticle = True\nassert np.allclose(model_hamiltonian(xi, E_JT, hw, Bz, g_c, hwc, n_max, n_ph, particle), target)",
+        "import numpy as np\nxi = 500.0\nE_JT = 150.0\nhw = 250.0\nBz = -1.0\ng_c = 30.0\nhwc = 1000.0\nn_max = 3\nn_ph = 2\nparticle = False\nassert np.allclose(model_hamiltonian(xi, E_JT, hw, Bz, g_c, hwc, n_max, n_ph, particle), target)",
+        "import numpy as np\n# boundary: no Jahn-Teller coupling and the smallest basis\nxi = 800.0\nE_JT = 0.0\nhw = 300.0\nBz = 0.0\ng_c = 0.0\nhwc = 3200.0\nn_max = 1\nn_ph = 0\nparticle = True\nassert np.allclose(model_hamiltonian(xi, E_JT, hw, Bz, g_c, hwc, n_max, n_ph, particle), target)",
+        "import numpy as np\nxi = 800.0\nE_JT = 800.0\nhw = 300.0\n# invalid input: a vanishing vibrational energy must raise ValueError\nhw = 0.0\nBz = 0.0\ng_c = 0.0\nhwc = 3200.0\nn_max = 2\nn_ph = 0\nparticle = True\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: model_hamiltonian(xi, E_JT, hw, Bz, g_c, hwc, n_max, n_ph, particle)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-26.6",
+      "test_cases": [
+        "import numpy as np\nxi = 800.0\nE_JT = 800.0\nhw = 300.0\nn_max = 8\nparticle = True\nn_levels = 6\nassert np.allclose(vibronic_spectrum(xi, E_JT, hw, n_max, particle, n_levels), target)",
+        "import numpy as np\nxi = 300.0\nE_JT = 150.0\nhw = 300.0\nn_max = 8\nparticle = False\nn_levels = 4\nassert np.allclose(vibronic_spectrum(xi, E_JT, hw, n_max, particle, n_levels), target)",
+        "import numpy as np\nxi = 800.0\nE_JT = 400.0\nhw = 400.0\nn_max = 6\nparticle = True\nn_levels = 8\nassert np.allclose(vibronic_spectrum(xi, E_JT, hw, n_max, particle, n_levels), target)",
+        "import numpy as np\n# boundary: the ground level alone\nxi = 800.0\nE_JT = 800.0\nhw = 300.0\nn_max = 4\nparticle = True\nn_levels = 1\nassert np.allclose(vibronic_spectrum(xi, E_JT, hw, n_max, particle, n_levels), target)",
+        "import numpy as np\nxi = 800.0\nE_JT = 800.0\nhw = 300.0\n# invalid input: zero levels requested must raise ValueError\nn_max = 4\nparticle = True\nn_levels = 0\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: vibronic_spectrum(xi, E_JT, hw, n_max, particle, n_levels)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-26.7",
+      "test_cases": [
+        "import numpy as np\nE_JT = 800.0\nhw = 300.0\nn_max = 12\nassert np.allclose(ham_reduction(E_JT, hw, n_max), target)",
+        "import numpy as np\nE_JT = 150.0\nhw = 300.0\nn_max = 10\nassert np.allclose(ham_reduction(E_JT, hw, n_max), target)",
+        "import numpy as np\n# boundary: weak coupling, the Ham factors close to their free values\nE_JT = 50.0\nhw = 400.0\nn_max = 8\nassert np.allclose(ham_reduction(E_JT, hw, n_max), target)",
+        "import numpy as np\nE_JT = 400.0\nhw = 200.0\nn_max = 14\nassert np.allclose(ham_reduction(E_JT, hw, n_max), target)",
+        "import numpy as np\n# invalid input: a negative stabilization energy must raise ValueError\nE_JT = -100.0\nhw = 300.0\nn_max = 8\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: ham_reduction(E_JT, hw, n_max)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-26.8",
+      "test_cases": [
+        "import numpy as np\nxi = 800.0\nE_JT = 800.0\nhw = 300.0\ng_c = 0.0\nhwc = 3200.0\nn_max = 10\nn_ph = 0\nparticle = True\nassert np.allclose(kramers_g_factor(xi, E_JT, hw, g_c, hwc, n_max, n_ph, particle), target)",
+        "import numpy as np\nxi = 800.0\nE_JT = 800.0\nhw = 300.0\ng_c = 100.0\nhwc = 3200.0\nn_max = 8\nn_ph = 2\nparticle = True\nassert np.allclose(kramers_g_factor(xi, E_JT, hw, g_c, hwc, n_max, n_ph, particle), target)",
+        "import numpy as np\nxi = 800.0\nE_JT = 800.0\nhw = 300.0\ng_c = 0.0\nhwc = 3200.0\nn_max = 10\nn_ph = 0\nparticle = False\nassert np.allclose(kramers_g_factor(xi, E_JT, hw, g_c, hwc, n_max, n_ph, particle), target)",
+        "import numpy as np\n# boundary: weak Jahn-Teller coupling with the cavity present\nxi = 400.0\nE_JT = 150.0\nhw = 300.0\ng_c = 50.0\nhwc = 1600.0\nn_max = 8\nn_ph = 2\nparticle = False\nassert np.allclose(kramers_g_factor(xi, E_JT, hw, g_c, hwc, n_max, n_ph, particle), target)",
+        "import numpy as np\nxi = 800.0\nE_JT = 800.0\nhw = 300.0\n# invalid input: a negative photon count must raise ValueError\ng_c = 0.0\nhwc = 3200.0\nn_max = 4\nn_ph = -1\nparticle = True\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: kramers_g_factor(xi, E_JT, hw, g_c, hwc, n_max, n_ph, particle)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-26.9",
+      "test_cases": [
+        "import numpy as np\nxi = 800.0\nE_JT = 800.0\nhw = 300.0\ng_c = 100.0\nhwc = 3200.0\nn_max = 8\nn_ph = 2\nparticle = True\nassert np.allclose(cavity_shift(xi, E_JT, hw, g_c, hwc, n_max, n_ph, particle), target)",
+        "import numpy as np\nxi = 800.0\nE_JT = 800.0\nhw = 300.0\ng_c = 50.0\nhwc = 1600.0\nn_max = 8\nn_ph = 3\nparticle = False\nassert np.allclose(cavity_shift(xi, E_JT, hw, g_c, hwc, n_max, n_ph, particle), target)",
+        "import numpy as np\nxi = 400.0\nE_JT = 150.0\nhw = 300.0\ng_c = 25.0\nhwc = 6400.0\nn_max = 6\nn_ph = 2\nparticle = True\nassert np.allclose(cavity_shift(xi, E_JT, hw, g_c, hwc, n_max, n_ph, particle), target)",
+        "import numpy as np\nxi = 800.0\nE_JT = 800.0\nhw = 300.0\n# boundary: a single photon state, the smallest coupled calculation\ng_c = 100.0\nhwc = 3200.0\nn_max = 6\nn_ph = 1\nparticle = True\nassert np.allclose(cavity_shift(xi, E_JT, hw, g_c, hwc, n_max, n_ph, particle), target)",
+        "import numpy as np\nxi = 800.0\nE_JT = 800.0\nhw = 300.0\n# invalid input: a vanishing coupling has no finite-coupling estimate and must raise ValueError\ng_c = 0.0\nhwc = 3200.0\nn_max = 6\nn_ph = 2\nparticle = True\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: cavity_shift(xi, E_JT, hw, g_c, hwc, n_max, n_ph, particle)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-26.10",
+      "test_cases": [
+        "import numpy as np\nxi = 800.0\nE_JT = 800.0\nhw = 300.0\nhwc = 3200.0\nn_max = 12\nparticle = True\nassert np.allclose(second_order_coefficient(xi, E_JT, hw, hwc, n_max, particle), target)",
+        "import numpy as np\nxi = 800.0\nE_JT = 800.0\nhw = 300.0\nhwc = 1600.0\nn_max = 10\nparticle = False\nassert np.allclose(second_order_coefficient(xi, E_JT, hw, hwc, n_max, particle), target)",
+        "import numpy as np\n# boundary: weak Jahn-Teller coupling and a high cavity energy\nxi = 400.0\nE_JT = 150.0\nhw = 300.0\nhwc = 6400.0\nn_max = 8\nparticle = True\nassert np.allclose(second_order_coefficient(xi, E_JT, hw, hwc, n_max, particle), target)",
+        "import numpy as np\nxi = 1500.0\nE_JT = 400.0\nhw = 250.0\nhwc = 2400.0\nn_max = 8\nparticle = False\nassert np.allclose(second_order_coefficient(xi, E_JT, hw, hwc, n_max, particle), target)",
+        "import numpy as np\nxi = 800.0\nE_JT = 800.0\nhw = 300.0\n# invalid input: a vanishing cavity energy must raise ValueError\nhwc = 0.0\nn_max = 6\nparticle = True\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: second_order_coefficient(xi, E_JT, hw, hwc, n_max, particle)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-26.11",
+      "test_cases": [
+        "import numpy as np\nxi = 800.0\nF_rho = 1600.0\nhwc = 3200.0\nparticle = True\nassert np.allclose(static_cavity(xi, F_rho, hwc, particle), target)",
+        "import numpy as np\nxi = 800.0\nF_rho = 1600.0\nhwc = 3200.0\nparticle = False\nassert np.allclose(static_cavity(xi, F_rho, hwc, particle), target)",
+        "import numpy as np\n# boundary: weak spin-orbit coupling, strong distortion, high cavity energy\nxi = 200.0\nF_rho = 3000.0\nhwc = 12800.0\nparticle = True\nassert np.allclose(static_cavity(xi, F_rho, hwc, particle), target)",
+        "import numpy as np\nxi = 2000.0\nF_rho = 300.0\nhwc = 6400.0\nparticle = False\nassert np.allclose(static_cavity(xi, F_rho, hwc, particle), target)",
+        "import numpy as np\n# invalid input: a vanishing spin-orbit coupling is outside the model and must raise ValueError\nxi = 0.0\nF_rho = 1600.0\nhwc = 3200.0\nparticle = True\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: static_cavity(xi, F_rho, hwc, particle)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-26.12",
+      "test_cases": [
+        "import numpy as np\nxi = 800.0\nE_JT = 800.0\nhw = 300.0\ng_c = 100.0\nhwc_list = [3200.0, 1600.0, 6400.0]\nn_max = 12\nn_ph = 2\nassert np.allclose(rjt_audit(xi, E_JT, hw, g_c, hwc_list, n_max, n_ph), target)",
+        "import numpy as np\nxi = 800.0\nE_JT = 800.0\nhw = 300.0\n# boundary: a single cavity energy in a small basis\ng_c = 100.0\nhwc_list = [3200.0]\nn_max = 8\nn_ph = 2\nassert np.allclose(rjt_audit(xi, E_JT, hw, g_c, hwc_list, n_max, n_ph), target)",
+        "import numpy as np\nxi = 400.0\nE_JT = 150.0\nhw = 300.0\ng_c = 50.0\nhwc_list = [1600.0]\nn_max = 8\nn_ph = 2\nassert np.allclose(float(np.asarray(rjt_audit(xi, E_JT, hw, g_c, hwc_list, n_max, n_ph))[0, 0]), target)",
+        "import numpy as np\nxi = 800.0\nE_JT = 800.0\nhw = 300.0\n# invalid input: an empty list of cavity energies must raise ValueError\ng_c = 100.0\nhwc_list = []\nn_max = 6\nn_ph = 2\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: rjt_audit(xi, E_JT, hw, g_c, hwc_list, n_max, n_ph)), target)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+problem_id: "Material_Science-Molecular_Modeling-63"
+subject: "materials"
+subject_area: "Molecular Modeling"
+difficulty: "medium"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1103/vw8q-1jx8"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_moment_jets"
+    description: "Compute periodic moment tensors of ranks zero, one and two and their first and second Cartesian derivatives."
+    orchestrator: false
+  - number: 2
+    name: "02_invariant_jets"
+    description: "Construct the five scalar moment invariants and propagate their Cartesian gradients and Hessians."
+    orchestrator: false
+  - number: 3
+    name: "03_redistributed_charge_jets"
+    description: "Evaluate the local raw charges, impose the prescribed total charge and propagate first and second coordinate derivatives through the redistribution map."
+    orchestrator: false
+  - number: 4
+    name: "04_ewald_kernel_jets"
+    description: "Construct the finite periodic Ewald kernel and its first and second Cartesian derivatives."
+    orchestrator: false
+  - number: 5
+    name: "05_electrostatic_jet"
+    description: "Compute electrostatic energy, forces and the Cartesian Hessian from the charge and Coulomb-kernel derivatives."
+    orchestrator: false
+  - number: 6
+    name: "06_periodic_born_tensors"
+    description: "Compute scaled Born tensors from the phase-compensated derivative of the complex periodic dipole."
+    orchestrator: false
+  - number: 7
+    name: "07_longitudinal_shift"
+    description: "Apply acoustic corrections, construct the longitudinal dynamical matrix and calculate the shift of the highest optical frequency."
+    orchestrator: false
+  - number: 8
+    name: "08_solve_phonon_shift"
+    description: "Run the complete neutral periodic charge model and return the longitudinal shift of its highest optical frequency."
+    orchestrator: true

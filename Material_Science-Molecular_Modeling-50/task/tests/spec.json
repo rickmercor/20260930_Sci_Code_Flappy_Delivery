@@ -1,0 +1,117 @@
+{
+  "problem_id": "Material_Science-Molecular_Modeling-50",
+  "sub_steps": [
+    {
+      "step_number": "Material_Science-Molecular_Modeling-50.1",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(fjc_log_density(30, 12.3), target)",
+        "import numpy as np\n# a hundred links: the alternating closed form evaluated in double precision is off by tens of percent here\nassert np.allclose(fjc_log_density(100, 5.0), target)",
+        "import numpy as np\nassert np.allclose(fjc_log_density(60, 55.5), target)",
+        "import numpy as np\n# boundary: two links, where the density is the elementary 1/(8 pi r) on 0 < r < 2\nassert np.allclose(fjc_log_density(2, 1.5), target)",
+        "import numpy as np\n# invalid input: the contour length itself lies outside the support and must raise ValueError\ndef _probe(fn):\n    try:\n        fn()\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(lambda: fjc_log_density(30, 30.0)), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-50.2",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(kuhn_grun_free_energy(30, 40.0, 1.05, 24.0), target)",
+        "import numpy as np\nassert np.allclose(kuhn_grun_free_energy(100, 50.0, 2.2, 60.0), target)",
+        "import numpy as np\nassert np.allclose(kuhn_grun_free_energy(30, 40.0, 4.5, 0.3), target)",
+        "import numpy as np\n# boundary: zero extension, where the angular integral collapses to twice its isotropic integrand\nassert np.allclose(kuhn_grun_free_energy(30, 40.0, 1.3, 0.0), target)",
+        "import numpy as np\n# invalid input: the fragments cannot span a gap of 30.2 link lengths and the free energy is infinite\ndef _probe(fn):\n    try:\n        fn()\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(lambda: kuhn_grun_free_energy(30, 40.0, 0.5, 30.7)), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-50.3",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(breakable_chain_free_energy(30, 40.0, 1.05, 24.0), target)",
+        "import numpy as np\nassert np.allclose(breakable_chain_free_energy(50, 50.0, 1.2, 45.0), target)",
+        "import numpy as np\nassert np.allclose(breakable_chain_free_energy(30, 40.0, 4.5, 0.3), target)",
+        "import numpy as np\n# boundary: zero extension, the isotropic limit of the angular integral\nassert np.allclose(breakable_chain_free_energy(30, 40.0, 1.3, 0.0), target)",
+        "import numpy as np\n# invalid input: the fragments cannot span a gap of 30.2 link lengths and the free energy is infinite\ndef _probe(fn):\n    try:\n        fn()\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(lambda: breakable_chain_free_energy(30, 40.0, 0.5, 30.7)), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-50.4",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(chain_landscape(30, 40.0, 24.0), target)",
+        "import numpy as np\nassert np.allclose(chain_landscape(50, 50.0, 40.0), target)",
+        "import numpy as np\nassert np.allclose(chain_landscape(30, 40.0, 30.5), target)",
+        "import numpy as np\n# boundary: zero extension, where the barriers take their entropically reduced values E_s0 and E_h0\nassert np.allclose(chain_landscape(30, 40.0, 0.0), target)",
+        "import numpy as np\n# invalid input: beyond the critical extension the intact well is gone and the step must raise ValueError\ndef _probe(fn):\n    try:\n        fn()\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(lambda: chain_landscape(30, 40.0, 31.0)), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-50.5",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(intact_branch_force(30, 40.0, 24.0), target)",
+        "import numpy as np\nassert np.allclose(intact_branch_force(50, 50.0, 40.0), target)",
+        "import numpy as np\nassert np.allclose(intact_branch_force(30, 40.0, 30.5), target)",
+        "import numpy as np\n# boundary: a weakly stretched chain in the linear (entropic-spring) regime\nassert np.allclose(intact_branch_force(30, 40.0, 1.0), target)",
+        "import numpy as np\n# invalid input: no intact well beyond the critical extension, so no branch force; must raise ValueError\ndef _probe(fn):\n    try:\n        fn()\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(lambda: intact_branch_force(30, 40.0, 31.0)), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-50.6",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(chain_critical_point(30, 40.0), target)",
+        "import numpy as np\nassert np.allclose(chain_critical_point(50, 50.0), target)",
+        "import numpy as np\nassert np.allclose(chain_critical_point(20, 30.0), target)",
+        "import numpy as np\n# boundary: a weak link, whose intact well is shallow and disappears well before the contour length\nassert np.allclose(chain_critical_point(30, 8.0), target)",
+        "import numpy as np\n# invalid input: half a thermal energy cannot hold an intact well against the entropic pull, so there is no critical point; must raise ValueError\ndef _probe(fn):\n    try:\n        fn()\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(lambda: chain_critical_point(30, 0.5)), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-50.7",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(equilibrium_probability(30, 40.0, 24.0), target)",
+        "import numpy as np\nassert np.allclose(equilibrium_probability(30, 40.0, 23.0), target)",
+        "import numpy as np\nassert np.allclose(equilibrium_probability(50, 50.0, 36.5), target)",
+        "import numpy as np\n# boundary: beyond the critical extension there is no intact state and the probability is exactly zero\nassert np.allclose(equilibrium_probability(30, 40.0, 31.5), target)",
+        "import numpy as np\n# invalid input: a negative extension is not a distance and must raise ValueError\ndef _probe(fn):\n    try:\n        fn()\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(lambda: equilibrium_probability(30, 40.0, -1.0)), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-50.8",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(equilibrium_rupture_statistics(30, 40.0), target)",
+        "import numpy as np\nassert np.allclose(equilibrium_rupture_statistics(50, 50.0), target)",
+        "import numpy as np\nassert np.allclose(equilibrium_rupture_statistics(20, 30.0), target)",
+        "import numpy as np\n# boundary: a weak link, for which the equilibrium transition sits far below the contour length\nassert np.allclose(equilibrium_rupture_statistics(30, 8.0), target)",
+        "import numpy as np\n# invalid input: a single rigid link is not a chain of fragments and must raise ValueError\ndef _probe(fn):\n    try:\n        fn()\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(lambda: equilibrium_rupture_statistics(1, 40.0)), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-50.9",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(pulled_chain_survival(30, 40.0, 1e-12, 27.5), target)",
+        "import numpy as np\nassert np.allclose(pulled_chain_survival(30, 40.0, 1e-12, 25.0), target)",
+        "import numpy as np\nassert np.allclose(pulled_chain_survival(30, 40.0, 1e-9, 29.6), target)",
+        "import numpy as np\n# boundary: below the freeze-out of healing the pulled chain still follows its equilibrium probability\nassert np.allclose(pulled_chain_survival(30, 40.0, 1e-12, 20.0), target)",
+        "import numpy as np\n# invalid input: a vanishing pulling rate is not a constant-rate protocol and must raise ValueError\ndef _probe(fn):\n    try:\n        fn()\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(lambda: pulled_chain_survival(30, 40.0, 0.0, 25.0)), target)",
+        "import numpy as np\n# boundary: the initial intact probability is exactly one\nassert np.allclose(pulled_chain_survival(30, 40.0, 1e-12, 0.0), target)",
+        "import numpy as np\n# boundary: beyond the fold the intact state has vanished\nassert np.allclose(pulled_chain_survival(30, 40.0, 1e-12, 31.0), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-50.10",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(final_scission_statistics(30, 40.0, 1e-12), target)",
+        "import numpy as np\nassert np.allclose(final_scission_statistics(30, 40.0, 1e-9), target)",
+        "import numpy as np\nassert np.allclose(final_scission_statistics(20, 30.0, 1e-10), target)",
+        "import numpy as np\n# boundary: an extremely slow pull, where late healing keeps shifting the final scission outward\nassert np.allclose(final_scission_statistics(30, 40.0, 1e-18), target)",
+        "import numpy as np\n# invalid input: a pulling rate above the admitted range must raise ValueError\ndef _probe(fn):\n    try:\n        fn()\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(lambda: final_scission_statistics(30, 40.0, 0.5)), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-50.11",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(chain_audit(30, 40.0, 1e-12), target)",
+        "import numpy as np\nassert np.allclose(chain_audit(20, 30.0, 1e-10), target)",
+        "import numpy as np\nassert np.allclose(chain_audit(40, 50.0, 1e-14), target)",
+        "import numpy as np\n# boundary: a weak link, where scission is a small fluctuation and the rate enhancement is modest\nassert np.allclose(chain_audit(30, 8.0, 1e-6), target)",
+        "import numpy as np\n# invalid input: a negative bond energy is not a binding link and must raise ValueError\ndef _probe(fn):\n    try:\n        fn()\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(lambda: chain_audit(30, -40.0, 1e-12)), target)"
+      ]
+    }
+  ]
+}

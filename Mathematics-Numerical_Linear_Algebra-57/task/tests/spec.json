@@ -1,0 +1,137 @@
+{
+  "problem_id": "Mathematics-Numerical_Linear_Algebra-57",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-57.1",
+      "test_cases": [
+        "import numpy as np\nA = np.array([[2.0, 0.5, -0.25], [0.5, 1.5, 0.125], [-0.25, 0.125, 3.0]])\np = 3\nassert np.allclose(scaled_starting_matrix(A, p), target)",
+        "import numpy as np\nA = np.array([[4.0]])\np = 2\nassert np.allclose(scaled_starting_matrix(A, p), target)",
+        "import numpy as np\nA = np.array([[2.0, 0.5, -0.25], [0.5, 1.5, 0.125], [-0.25, 0.125, 3.0]])\np = 5\nassert np.allclose(scaled_starting_matrix(A, p), target)",
+        "import numpy as np\nA = np.array([[2.0, 0.5, -0.25], [0.5, 1.5, 0.125], [-0.25, 0.125, 3.0]])\nA[0, 1] += 5e-13\np = 3\nassert np.allclose(scaled_starting_matrix(A, p), target)",
+        "import numpy as np\nA = 1e300 * np.array([[2.0, 0.5, -0.25], [0.5, 1.5, 0.125], [-0.25, 0.125, 3.0]])\np = 7\nassert np.allclose(scaled_starting_matrix(A, p), target)",
+        "import numpy as np\nA = np.array([[1.6e308, 3e307], [3e307, 1.2e308]])\np = 29\nassert np.allclose(scaled_starting_matrix(A, p), target)",
+        "import numpy as np\nA = 1e-300 * np.array([[2.0, -0.25], [-0.25, 1.0]])\np = 4\nassert np.allclose(scaled_starting_matrix(A, p), target)",
+        "import numpy as np\nA = np.array([[np.nextafter(0.0, 1.0)]])\np = 401\nassert np.allclose(scaled_starting_matrix(A, p), target)",
+        "import numpy as np\nA = np.array([[2e-12, 9e-13], [1e-13, 1e-12]])\np = 3\nassert np.allclose(scaled_starting_matrix(A, p), target)",
+        "import numpy as np\nA = np.array([[1.0, 2.0], [0.0, 1.0]])\np = 3\ndef run_model_asym():\n    try:\n        scaled_starting_matrix(A, p)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model_asym(), target)",
+        "import numpy as np\nA = np.array([[2.0, 0.5], [0.5, 1.5]])\np = True\ndef run_model_bool():\n    try:\n        scaled_starting_matrix(A, p)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model_bool(), target)",
+        "import numpy as np\nA = np.zeros((2, 2))\np = 3\ndef run_model_zero():\n    try:\n        scaled_starting_matrix(A, p)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model_zero(), target)",
+        "import numpy as np\nv = np.array([[1.0], [-2.0], [0.5]])\nA = v @ v.T\np = 4\nassert np.allclose(scaled_starting_matrix(A, p), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-57.2",
+      "test_cases": [
+        "import numpy as np\nR = np.array([[0.4, 0.1, 0.0], [0.1, -0.7, 0.2], [0.0, 0.2, 0.35]])\nS = np.array([[1.0, -0.5, 0.25], [0.2, 0.7, -0.4]])\np = 3\nassert np.allclose(sketched_loss_coefficients(R, S, p), target)",
+        "import numpy as np\nR = np.array([[0.5]])\nS = np.array([[2.0]])\np = 1\nassert np.allclose(sketched_loss_coefficients(R, S, p), target)",
+        "import numpy as np\nR = np.array([[0.4, 0.1, 0.0], [0.1, -0.7, 0.2], [0.0, 0.2, 0.35]])\nS = np.array([[1.0, -0.5, 0.25], [0.2, 0.7, -0.4]])\np = 5\nassert np.allclose(sketched_loss_coefficients(R, S, p), target)",
+        "import numpy as np\nR = np.array([[-0.25, 0.4], [0.4, 0.6]])\nS = np.array([[0.5, -1.25], [1.0, 0.75], [-0.6, 0.2], [0.1, 0.9]])\np = 2\nassert np.allclose(sketched_loss_coefficients(R, S, p), target)",
+        "import numpy as np\nR = np.array([[0.4, 0.1, 0.0], [0.1, -0.7, 0.2], [0.0, 0.2, 0.35]])\nR[0, 1] += 4e-13\nS = np.array([[1.0, -0.5, 0.25], [0.2, 0.7, -0.4]])\np = 4\nassert np.allclose(sketched_loss_coefficients(R, S, p), target)",
+        "import numpy as np\nR = np.array([[2e-12, 9e-13], [1e-13, -1e-12]])\nS = 1e12 * np.array([[1.0, -0.5], [0.25, 0.75]])\np = 6\nassert np.allclose(sketched_loss_coefficients(R, S, p), target)",
+        "import numpy as np\nR = np.array([[0.72, -0.11, 0.04], [-0.11, -0.63, 0.19], [0.04, 0.19, 0.31]])\nS = np.array([[0.8, -0.2, 0.5], [-0.4, 0.9, 0.3], [0.1, -0.7, 1.2]])\np = np.int64(8)\nassert np.allclose(sketched_loss_coefficients(R, S, p), target)",
+        "import numpy as np\nR = np.zeros((3, 3))\nS = np.array([[1.0, -0.5, 0.25], [0.2, 0.7, -0.4]])\np = 3\nassert np.allclose(sketched_loss_coefficients(R, S, p), target)",
+        "import numpy as np\nR = np.array([[0.4, 0.9, 0.0], [0.1, -0.7, 0.2], [0.0, 0.2, 0.35]])\nS = np.array([[1.0, -0.5, 0.25]])\np = 3\ndef run_model_asym():\n    try:\n        sketched_loss_coefficients(R, S, p)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model_asym(), target)",
+        "import numpy as np\nR = np.array([[0.4, 0.1], [0.1, -0.7]])\nS = np.array([[1.0, -0.5, 0.25]])\np = 3\ndef run_model_width():\n    try:\n        sketched_loss_coefficients(R, S, p)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model_width(), target)",
+        "import numpy as np\nR = np.array([[0.4, 0.1], [0.1, -0.7]])\nS = np.array([[1.0, -0.5]])\np = True\ndef run_model_bool():\n    try:\n        sketched_loss_coefficients(R, S, p)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model_bool(), target)",
+        "import numpy as np\nR = np.array([[0.4, 0.1], [0.1, np.inf]])\nS = np.array([[1.0, -0.5]])\np = 3\ndef run_model_inf():\n    try:\n        sketched_loss_coefficients(R, S, p)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model_inf(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-57.3",
+      "test_cases": [
+        "import numpy as np\nc = np.array([0.28359856992081955, -1.3328783554331864, 1.8826489702882505, -0.7757344846501709, 0.7338625066266097, -0.08200828917549519, 0.01244128703541562])\nlower = 1.0 / 3.0\nupper = 1.0\nassert np.allclose(fit_bounded_coefficient(c, lower, upper), target)",
+        "import numpy as np\nc = np.array([0.00012841869850001316, -0.0007686217050783954, 0.0011484645842911106, 5.0212995224972e-06, 2.522195649364186e-07, 1.169741299808406e-09, 3.769607340993229e-12])\nlower = 1.0 / 3.0\nupper = 1.0\nassert np.allclose(fit_bounded_coefficient(c, lower, upper), target)",
+        "import numpy as np\nc = np.array([7.3840898330407616e-09, -4.429962899933568e-08, 6.643717020477382e-08, 1.472568269349956e-11, 1.7025306880368127e-15, 1.0234736395930816e-19, 2.6251051599194346e-24])\nlower = 1.0 / 3.0\nupper = 1.0\nassert np.allclose(fit_bounded_coefficient(c, lower, upper), target)",
+        "import numpy as np\nbase = np.array([0.28359856992081955, -1.3328783554331864, 1.8826489702882505, -0.7757344846501709, 0.7338625066266097, -0.08200828917549519, 0.01244128703541562])\nc = base * (1.2e308 / np.max(np.abs(base)))\nlower = 1.0 / 3.0\nupper = 1.0\nassert np.allclose(fit_bounded_coefficient(c, lower, upper), target)",
+        "import numpy as np\nbase = np.array([0.28359856992081955, -1.3328783554331864, 1.8826489702882505, -0.7757344846501709, 0.7338625066266097, -0.08200828917549519, 0.01244128703541562])\nc = base * 1e-310\nlower = 1.0 / 3.0\nupper = 1.0\nassert np.allclose(fit_bounded_coefficient(c, lower, upper), target)",
+        "import numpy as np\nc = np.array([0.0, -1.0499999999999998e-13, 1.8e-13, -1e-13])\nlower = 0.0\nupper = 1.0\nassert np.allclose(fit_bounded_coefficient(c, lower, upper), target)",
+        "import numpy as np\nc = np.array([0.0, 0.99999999999994, -3.99999999999994, 4.0])\nlower = 0.0\nupper = 1.0\nassert np.allclose(fit_bounded_coefficient(c, lower, upper), target)",
+        "import numpy as np\nc = np.array([0.0, 0.99999999999998, -3.99999999999998, 4.0])\nlower = 0.0\nupper = 1.0\nassert np.allclose(fit_bounded_coefficient(c, lower, upper), target)",
+        "import numpy as np\nc = np.array([9.0, -6.0, 1.0])\nlower = 0.0\nupper = 1.0\nassert np.allclose(fit_bounded_coefficient(c, lower, upper), target)",
+        "import numpy as np\nc = np.array([2.5, 0.0, 0.0])\nlower = 0.25\nupper = 0.75\nassert np.allclose(fit_bounded_coefficient(c, lower, upper), target)",
+        "import numpy as np\nc = np.array([1.0, -2.0])\nlower = 0.2\nupper = 0.9\nassert np.allclose(fit_bounded_coefficient(c, lower, upper), target)",
+        "import numpy as np\nc = np.array([1.0, -2.0, 1.0])\nlower = 0.8\nupper = 0.8\ndef run_model_bounds():\n    try:\n        fit_bounded_coefficient(c, lower, upper)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model_bounds(), target)",
+        "import numpy as np\nc = np.array([1.0 + 0.0j, -2.0 + 1e-18j, 1.0 + 0.0j])\nlower = 0.0\nupper = 1.0\ndef run_model_complex():\n    try:\n        fit_bounded_coefficient(c, lower, upper)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model_complex(), target)",
+        "import numpy as np\nc = np.array([5.0])\nlower = 0.0\nupper = 1.0\ndef run_model_short():\n    try:\n        fit_bounded_coefficient(c, lower, upper)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model_short(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-57.4",
+      "test_cases": [
+        "import numpy as np\nM = np.array([[0.6, 0.1, 0.0], [0.1, 1.3, -0.2], [0.0, -0.2, 0.85]])\nalpha, p = 0.472201531146, 3\nassert np.allclose(advance_inverse_newton(M, alpha, p), target)",
+        "import numpy as np\nM = np.array([[0.5]])\nalpha, p = 0.75, 1\nassert np.allclose(advance_inverse_newton(M, alpha, p), target)",
+        "import numpy as np\nM = np.array([[0.6, 0.1, 0.0], [0.1, 1.3, -0.2], [0.0, -0.2, 0.85]])\nalpha, p = 0.3, 5\nassert np.allclose(advance_inverse_newton(M, alpha, p), target)",
+        "import numpy as np\nM = np.array([[0.6, 0.1, 0.0], [0.1, 1.3, -0.2], [0.0, -0.2, 0.85]])\nalpha, p = 0.0, 4\nassert np.allclose(advance_inverse_newton(M, alpha, p), target)",
+        "import numpy as np\nM = np.array([[1.4, -0.3], [-0.3, 0.2]])\nalpha, p = -0.6, 2\nassert np.allclose(advance_inverse_newton(M, alpha, p), target)",
+        "import numpy as np\nM = np.ones((2, 3))\nalpha, p = 0.5, 3\ndef run_model_shape():\n    try:\n        advance_inverse_newton(M, alpha, p)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model_shape(), target)",
+        "import numpy as np\nM = np.array([[0.6, 0.1], [0.1, 1.3]])\nalpha, p = float(\"inf\"), 3\ndef run_model_inf():\n    try:\n        advance_inverse_newton(M, alpha, p)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model_inf(), target)",
+        "import numpy as np\nM = np.array([[0.6, 0.1], [0.1, 1.3]])\nalpha, p = 0.5, True\ndef run_model_bool():\n    try:\n        advance_inverse_newton(M, alpha, p)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model_bool(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-57.5",
+      "test_cases": [
+        "import numpy as np\nA = np.array([[2.0, 0.5, -0.25], [0.5, 1.5, 0.125], [-0.25, 0.125, 3.0]])\nalphas = np.array([0.45, 0.6125, 0.375])\np = 3\nassert np.allclose(coupled_partner_factor(A, alphas, p), target)",
+        "import numpy as np\nA = np.array([[4.0]])\nalphas = np.array([0.5, 0.5])\np = 2\nassert np.allclose(coupled_partner_factor(A, alphas, p), target)",
+        "import numpy as np\nA = np.array([[2.0, 0.5, -0.25], [0.5, 1.5, 0.125], [-0.25, 0.125, 3.0]])\nalphas = np.array([0.2, 0.35, 0.275, 0.1875])\np = 5\nassert np.allclose(coupled_partner_factor(A, alphas, p), target)",
+        "import numpy as np\nA = np.array([[1.75, -0.5], [-0.5, 2.25]])\nalphas = np.array([0.4])\np = 1\nassert np.allclose(coupled_partner_factor(A, alphas, p), target)",
+        "import numpy as np\nA = np.array([[1.75, -0.5], [-0.5, 2.25]])\nalphas = np.array([0.0, 0.0, 0.0])\np = 3\nassert np.allclose(coupled_partner_factor(A, alphas, p), target)",
+        "import numpy as np\nv = np.array([[1.0], [-2.0], [0.5]])\nA = v @ v.T + 2.0 * np.eye(3)\nalphas = np.array([0.25, 0.5, 0.75, 1.0, 0.125])\np = 4\nassert np.allclose(coupled_partner_factor(A, alphas, p), target)",
+        "import numpy as np\nA = 1e300 * np.array([[2.0, 0.5, -0.25], [0.5, 1.5, 0.125], [-0.25, 0.125, 3.0]])\np = 401\nalphas = np.array([1.0 / p])\nassert np.allclose(coupled_partner_factor(A, alphas, p), target)",
+        "import numpy as np\nA = np.array([[1.6e308, 3e307], [3e307, 1.2e308]])\np = 401\nalphas = np.array([1.0 / p])\nassert np.allclose(coupled_partner_factor(A, alphas, p), target)",
+        "import numpy as np\nA = 1e-300 * np.array([[2.0, -0.25], [-0.25, 1.0]])\nalphas = np.array([0.25, 0.4, 0.3])\np = 7\nassert np.allclose(coupled_partner_factor(A, alphas, p), target)",
+        "import numpy as np\nA = np.array([[np.nextafter(0.0, 1.0)]])\nalphas = np.array([1.0 / 401.0])\np = 401\nassert np.allclose(coupled_partner_factor(A, alphas, p), target)",
+        "import numpy as np\nA = np.array([[2e-12, 9e-13], [1e-13, 1e-12]])\nalphas = np.array([0.3, 0.55])\np = 3\nassert np.allclose(coupled_partner_factor(A, alphas, p), target)",
+        "import numpy as np\nA = np.array([[2.0, 0.5], [0.5, 1.5]])\nalphas = np.array([])\np = 3\ndef run_model_empty():\n    try:\n        coupled_partner_factor(A, alphas, p)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model_empty(), target)",
+        "import numpy as np\nA = np.array([[1.0, 2.0], [0.0, 1.0]])\nalphas = np.array([0.5])\np = 3\ndef run_model_asym():\n    try:\n        coupled_partner_factor(A, alphas, p)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model_asym(), target)",
+        "import numpy as np\nA = np.array([[2.0, 0.5], [0.5, 1.5]])\nalphas = np.array([0.5 + 0.0j, 0.25 + 1e-18j])\np = 3\ndef run_model_complex():\n    try:\n        coupled_partner_factor(A, alphas, p)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model_complex(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-57.6",
+      "test_cases": [
+        "import numpy as np\nA = np.array([[2.0, 0.5, -0.25], [0.5, 1.5, 0.125], [-0.25, 0.125, 3.0]])\nS = np.array([[1.0, -0.5, 0.25], [0.2, 0.7, -0.4]])\np = 3\nlower = 1.0 / 3.0\nupper = 1.0\niterations = 4\nassert np.allclose(fitted_coefficient_sequence(A, S, p, lower, upper, iterations), target)",
+        "import numpy as np\nA = np.array([[1.75, -0.5], [-0.5, 2.25]])\nS = np.array([[0.6, -1.1]])\np = 2\nlower = 0.2\nupper = 0.8\niterations = 2\nassert np.allclose(fitted_coefficient_sequence(A, S, p, lower, upper, iterations), target)",
+        "import numpy as np\nv = np.array([[1.0], [-2.0], [0.5]])\nA = v @ v.T + 2.0 * np.eye(3)\nS = np.array([[0.5, -1.25, 0.75], [1.0, 0.75, -0.2], [-0.6, 0.2, 1.4]])\np = 5\nlower = 0.1\nupper = 0.4\niterations = 5\nassert np.allclose(fitted_coefficient_sequence(A, S, p, lower, upper, iterations), target)",
+        "import numpy as np\nA = np.array([[3.0, 0.25], [0.25, 1.25]])\nS = np.array([[1.0, 0.0], [0.0, 1.0]])\np = 3\nlower = 0.3\nupper = 0.35\niterations = 1\nassert np.allclose(fitted_coefficient_sequence(A, S, p, lower, upper, iterations), target)",
+        "import numpy as np\nA = np.array([[2.0, 0.5, -0.25], [0.5, 1.5, 0.125], [-0.25, 0.125, 3.0]])\nS = np.array([[1.0, -0.5, 0.25], [0.2, 0.7, -0.4]])\np = 3\nlower = 0.8999999999\nupper = 0.9\niterations = 4\nassert np.allclose(fitted_coefficient_sequence(A, S, p, lower, upper, iterations), target)",
+        "import numpy as np\nA = np.array([[2.0, 0.5, -0.25], [0.5, 1.5, 0.125], [-0.25, 0.125, 3.0]])\nS = np.array([[1.0, -0.5, 0.25], [0.2, 0.7, -0.4]])\np = 3\nlower = -2.0\nupper = 5.0\niterations = 3\nassert np.allclose(fitted_coefficient_sequence(A, S, p, lower, upper, iterations), target)",
+        "import numpy as np\nA = np.array([[1.5, 0.25, 0.0], [0.25, 2.5, -0.5], [0.0, -0.5, 1.0]])\nS = np.array([[0.9, -0.3, 0.6]])\np = 1\nlower = 0.5\nupper = 1.5\niterations = 3\nassert np.allclose(fitted_coefficient_sequence(A, S, p, lower, upper, iterations), target)",
+        "import numpy as np\nA = 1e300 * np.array([[2.0, 0.5, -0.25], [0.5, 1.5, 0.125], [-0.25, 0.125, 3.0]])\nS = np.array([[1.0, -0.5, 0.25], [0.2, 0.7, -0.4]])\np = 3\nlower = 1.0 / 3.0\nupper = 1.0\niterations = 2\nassert np.allclose(fitted_coefficient_sequence(A, S, p, lower, upper, iterations), target)",
+        "import numpy as np\nA = np.array([[2e-12, 9e-13], [1e-13, 1e-12]])\nS = np.array([[0.6, -1.1]])\np = 3\nlower = 1.0 / 3.0\nupper = 1.0\niterations = 2\nassert np.allclose(fitted_coefficient_sequence(A, S, p, lower, upper, iterations), target)",
+        "import numpy as np\nA = np.array([[2.0, 0.5], [0.5, 1.5]])\nS = np.array([[1.0, -0.5]])\np = 3\nlower = 0.3\nupper = 1.0\niterations = 0\ndef run_model_zero():\n    try:\n        fitted_coefficient_sequence(A, S, p, lower, upper, iterations)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model_zero(), target)",
+        "import numpy as np\nA = np.array([[2.0, 0.5], [0.5, 1.5]])\nS = np.array([[1.0, -0.5, 0.25]])\np = 3\nlower = 0.3\nupper = 1.0\niterations = 2\ndef run_model_width():\n    try:\n        fitted_coefficient_sequence(A, S, p, lower, upper, iterations)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model_width(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-57.7",
+      "test_cases": [
+        "import numpy as np\nA = np.array([[2.0, 0.5, -0.25], [0.5, 1.5, 0.125], [-0.25, 0.125, 3.0]])\nS = np.array([[1.0, -0.5, 0.25], [0.2, 0.7, -0.4]])\np = 3\nlower = 1.0 / 3.0\nupper = 1.0\niterations = 4\nassert np.allclose(residual_trajectory(A, S, p, lower, upper, iterations), target)",
+        "import numpy as np\nA = np.array([[1.75, -0.5], [-0.5, 2.25]])\nS = np.array([[0.6, -1.1]])\np = 2\nlower = 0.2\nupper = 0.8\niterations = 3\nassert np.allclose(residual_trajectory(A, S, p, lower, upper, iterations), target)",
+        "import numpy as np\nv = np.array([[1.0], [-2.0], [0.5]])\nA = v @ v.T + 2.0 * np.eye(3)\nS = np.array([[0.5, -1.25, 0.75], [1.0, 0.75, -0.2], [-0.6, 0.2, 1.4]])\np = 5\nlower = 0.1\nupper = 0.4\niterations = 5\nassert np.allclose(residual_trajectory(A, S, p, lower, upper, iterations), target)",
+        "import numpy as np\nA = np.array([[3.0, 0.25], [0.25, 1.25]])\nS = np.array([[1.0, 0.0], [0.0, 1.0]])\np = 3\nlower = 0.3\nupper = 0.35\niterations = 1\nassert np.allclose(residual_trajectory(A, S, p, lower, upper, iterations), target)",
+        "import numpy as np\nA = np.array([[2.0, 0.5, -0.25], [0.5, 1.5, 0.125], [-0.25, 0.125, 3.0]])\nS = np.array([[1.0, -0.5, 0.25], [0.2, 0.7, -0.4]])\np = 3\nlower = -2.0\nupper = 5.0\niterations = 3\nassert np.allclose(residual_trajectory(A, S, p, lower, upper, iterations), target)",
+        "import numpy as np\nA = np.array([[1.5, 0.25, 0.0], [0.25, 2.5, -0.5], [0.0, -0.5, 1.0]])\nS = np.array([[0.9, -0.3, 0.6]])\np = 1\nlower = 0.5\nupper = 1.5\niterations = 4\nassert np.allclose(residual_trajectory(A, S, p, lower, upper, iterations), target)",
+        "import numpy as np\nA = np.array([[2.0, 0.5, -0.25], [0.5, 1.5, 0.125], [-0.25, 0.125, 3.0]])\nS = np.eye(3)\np = 3\nlower = 1.0 / 3.0\nupper = 1.0\niterations = 4\nassert np.allclose(residual_trajectory(A, S, p, lower, upper, iterations), target)",
+        "import numpy as np\nA = 1e300 * np.array([[2.0, 0.5, -0.25], [0.5, 1.5, 0.125], [-0.25, 0.125, 3.0]])\nS = np.array([[1.0, -0.5, 0.25], [0.2, 0.7, -0.4]])\np = 3\nlower = 1.0 / 3.0\nupper = 1.0\niterations = 2\nassert np.allclose(residual_trajectory(A, S, p, lower, upper, iterations), target)",
+        "import numpy as np\nA = np.array([[2.0, 0.5], [0.5, 1.5]])\nS = np.array([[1.0, -0.5]])\np = 3\nlower = 0.3\nupper = 1.0\niterations = True\ndef run_model_bool():\n    try:\n        residual_trajectory(A, S, p, lower, upper, iterations)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model_bool(), target)",
+        "import numpy as np\nA = np.array([[1.0, 2.0], [0.0, 1.0]])\nS = np.array([[1.0, -0.5]])\np = 3\nlower = 0.3\nupper = 1.0\niterations = 2\ndef run_model_asym():\n    try:\n        residual_trajectory(A, S, p, lower, upper, iterations)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model_asym(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-57.8",
+      "test_cases": [
+        "import numpy as np\nA = np.array([[2.0, 0.5, -0.25], [0.5, 1.5, 0.125], [-0.25, 0.125, 3.0]])\nS = np.array([[1.0, -0.5, 0.25], [0.2, 0.7, -0.4]])\np = 3\nlower = 1.0 / 3.0\nupper = 1.0\niterations = 4\nassert np.allclose(compute_inverse_root_residual(A, S, p, lower, upper, iterations), target)",
+        "import numpy as np\nA = np.array([[1.75, -0.5], [-0.5, 2.25]])\nS = np.array([[0.6, -1.1]])\np = 2\nlower = 0.2\nupper = 0.8\niterations = 3\nassert np.allclose(compute_inverse_root_residual(A, S, p, lower, upper, iterations), target)",
+        "import numpy as np\nv = np.array([[1.0], [-2.0], [0.5]])\nA = v @ v.T + 2.0 * np.eye(3)\nS = np.array([[0.5, -1.25, 0.75], [1.0, 0.75, -0.2], [-0.6, 0.2, 1.4]])\np = 5\nlower = 0.1\nupper = 0.4\niterations = 5\nassert np.allclose(compute_inverse_root_residual(A, S, p, lower, upper, iterations), target)",
+        "import numpy as np\nA = np.array([[3.0, 0.25], [0.25, 1.25]])\nS = np.array([[1.0, 0.0], [0.0, 1.0]])\np = 3\nlower = 0.3\nupper = 0.35\niterations = 1\nassert np.allclose(compute_inverse_root_residual(A, S, p, lower, upper, iterations), target)",
+        "import numpy as np\nA = np.array([[2.0, 0.5, -0.25], [0.5, 1.5, 0.125], [-0.25, 0.125, 3.0]])\nS = np.array([[1.0, -0.5, 0.25], [0.2, 0.7, -0.4]])\np = 3\nlower = -2.0\nupper = 5.0\niterations = 3\nassert np.allclose(compute_inverse_root_residual(A, S, p, lower, upper, iterations), target)",
+        "import numpy as np\nA = np.array([[1.5, 0.25, 0.0], [0.25, 2.5, -0.5], [0.0, -0.5, 1.0]])\nS = np.array([[0.9, -0.3, 0.6]])\np = 1\nlower = 0.5\nupper = 1.5\niterations = 4\nassert np.allclose(compute_inverse_root_residual(A, S, p, lower, upper, iterations), target)",
+        "import numpy as np\nA = np.array([[2.0, 0.5, -0.25], [0.5, 1.5, 0.125], [-0.25, 0.125, 3.0]])\nS = np.eye(3)\np = 3\nlower = 1.0 / 3.0\nupper = 1.0\niterations = 4\nassert np.allclose(compute_inverse_root_residual(A, S, p, lower, upper, iterations), target)",
+        "import numpy as np\nA = 1e300 * np.array([[2.0, 0.5, -0.25], [0.5, 1.5, 0.125], [-0.25, 0.125, 3.0]])\nS = np.array([[1.0, -0.5, 0.25], [0.2, 0.7, -0.4]])\np = 3\nlower = 1.0 / 3.0\nupper = 1.0\niterations = 2\nassert np.allclose(compute_inverse_root_residual(A, S, p, lower, upper, iterations), target)",
+        "import numpy as np\nA = np.array([[2.0, 0.5], [0.5, 1.5]])\nS = np.array([[1.0, -0.5]])\np = 3\nlower = 0.3\nupper = 1.0\niterations = -1\ndef run_model_neg():\n    try:\n        compute_inverse_root_residual(A, S, p, lower, upper, iterations)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model_neg(), target)",
+        "import numpy as np\nA = np.array([[2.0, 0.5], [0.5, np.nan]])\nS = np.array([[1.0, -0.5]])\np = 3\nlower = 0.3\nupper = 1.0\niterations = 2\ndef run_model_nan():\n    try:\n        compute_inverse_root_residual(A, S, p, lower, upper, iterations)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model_nan(), target)"
+      ]
+    }
+  ]
+}

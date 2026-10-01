@@ -1,0 +1,44 @@
+problem_id: "Biology-Ecology-9"
+subject: "biology"
+subject_area: "Ecology"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.64898/2026.02.04.703802"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_perron_triplet"
+    description: "Given a finite, real, nonnegative, irreducible square matrix, return its Perron root, the positive right eigenvector belonging to it normalised to sum to one, and the positive left eigenvector belonging to it normalised so that its inner product with the right eigenvector is one. Select the Perron root as the eigenvalue of largest real part, never by largest modulus, so that the result is correct for imprimitive matrices.\n\nAlso report the number of eigenvalues whose modulus lies within a relative distance of 1e-8 of the Perron root. This count is one for a primitive matrix and equals the index of imprimitivity otherwise.\n\nTest irreducibility directly from the pattern of nonzero entries, as reachability of every index from every other along directed paths, and reject a reducible matrix."
+    orchestrator: false
+  - number: 2
+    name: "02_age_expand_stage_model"
+    description: "Given a stage-classified matrix of size s, with s at least two, that is zero everywhere except its first row, its subdiagonal and its southeast corner, and a relative tolerance, build the age-classified expansion of every length n greater than s in increasing order and return the first whose growth rate differs from that of the stage matrix by less than the tolerance times the stage matrix's growth rate. In the expansion of length n the fertility of age class i is the first-row entry of stage i for i up to s and the first-row entry of stage s beyond it; the survival probability from age class j to j + 1 is the subdiagonal entry leaving stage j for j below s and the stasis probability of stage s from j = s onwards. Obtain both growth rates from the Perron triplet. Raise ValueError if no length up to max_classes meets the tolerance."
+    orchestrator: false
+  - number: 3
+    name: "03_disaggregate_leslie"
+    description: "Given the fertilities $F_1$ to $F_n$ and the survival probabilities $P_1$ to $P_{n-1}$ of an irreducible Leslie model and the number of sub-classes $m$ per original class, return the Leslie projection matrix for the demographic timing specified above on $n m$ equal-width sub-classes ordered from youngest to oldest. Each original age class contains $m$ consecutive sub-classes, and one projection interval is the time required to traverse one sub-class. With $m$ equal to one the result is the original Leslie matrix."
+    orchestrator: false
+  - number: 4
+    name: "04_interstage_flow_aggregate"
+    description: "Given a nonnegative irreducible projection matrix of size N, a number of groups m that divides N, and a whole number of intervals s, return the reduced matrix B = G M^s Q built from the stable distribution of the given matrix, together with its effectiveness and the grouped stable distribution G w. Group I consists of the classes (I - 1) N/m + 1 to I N/m. Obtain the stable distribution from the Perron triplet of the given matrix.\n\nWith m equal to N the reduced matrix is M^s itself and the effectiveness is one."
+    orchestrator: false
+  - number: 5
+    name: "05_elasticity_matrix"
+    description: "Given a nonnegative irreducible projection matrix, return its elasticity matrix, the matrix whose entry in row i and column j is v_i m_ij w_j divided by the product of the Perron root and the inner product of v and w, where m_ij is the entry of the matrix and v and w are its reproductive values and stable distribution. Obtain the three objects from the Perron triplet, so that the result is correct for imprimitive matrices. Entries of the matrix that are zero have zero elasticity."
+    orchestrator: false
+  - number: 6
+    name: "06_elasticity_consistent_aggregate"
+    description: "Given a nonnegative irreducible projection matrix of size N, a number of groups m that divides N, and a whole number of intervals s, construct the reduced matrix that is consistent with the given matrix in growth rate, grouped stable distribution, reproductive values and elasticities.\n\nReturn the reduced matrix, the reduced reproductive values scaled so that their inner product with the grouped stable distribution is one when the stable distribution sums to one, and the effectiveness defined above."
+    orchestrator: false
+  - number: 7
+    name: "07_consistency_residuals"
+    description: "Given a nonnegative irreducible projection matrix of size N, a number of groups m that divides N, a whole number of intervals s, and a candidate reduced matrix of size m, return four nonnegative residuals. The growth-rate residual is the absolute difference between the Perron root of the candidate and lambda^s, divided by lambda^s. The stable-structure residual is the largest absolute difference between the candidate's stable distribution and the grouped stable distribution of M, both summing to one. The reproductive-value residual is the largest absolute difference between the candidate's reproductive values and the stable-distribution-weighted group averages of the reproductive values of M, divided by the largest of those averages, with both vectors scaled to unit inner product with the grouped stable distribution. The elasticity residual is the largest absolute difference between the elasticity matrix of the candidate and the elasticity matrix of M^s summed over pairs of groups. Obtain every eigen-quantity from the Perron triplet and the elasticities of the candidate from the elasticity matrix. Form the elasticities of M^s from the Perron triplet of M itself, as v_i (M^s)_ij w_j divided by lambda^s and by the inner product of v and w: M^s shares its Perron vectors with M, but it is reducible whenever the index of imprimitivity of M shares a factor with s, as it does for a semelparous model resolved into sub-classes, and its own Perron triplet is then not defined."
+    orchestrator: false
+  - number: 8
+    name: "08_demographic_parameters"
+    description: "Given a Leslie matrix and its projection interval, return its Perron root, its net reproductive rate, its generation time in the units of the interval, and its Demetrius entropy, as defined above. Take the reproductive values and stable distribution from the Perron triplet. Treat as zero any entry outside the first row and the subdiagonal whose magnitude does not exceed 1e-10 times the largest entry, and reject the matrix if any such entry is larger."
+    orchestrator: false
+  - number: 9
+    name: "09_reduce_stage_model"
+    description: "Given the stage model, its projection interval $dt$ and the requested number $m$ of reduced age classes, return its reduction to $m$ equal-width age classes spanning the same ages as the age-classified model defined in step 2. Let $n$ be the number of classes in that age-classified model. The reduced projection interval is the width of one reduced age class, and the demographic timing is that specified in step 3. Use the diagnostic age grid fixed by the returned resolution convention below for quantities associated with the matrix being reduced.\n\nConstruct the consistent reduced matrix with step 6 and, for comparison, the flow-matching collapse of the same matrix with step 4. Certify the result before reporting it: the consistent matrix must pass all four requirements of step 7, its survival probabilities must equal those of the flow-matching collapse, and the Perron root of the matrix being reduced, raised to the number of sub-classes per class, must equal the growth rate of the age-classified model. Raise RuntimeError when the largest of these discrepancies exceeds the certificate tolerance, since the reduced model is then not the consistent one.\n\nReturn the fertility of the oldest reduced class as the headline result together with the elasticity of the reduced growth rate to it from step 5, and alongside them the expansion, the whole reduced model, its reproductive values scaled so that the first equals one, and the demographic parameters of the consistent reduction, of the flow-matching collapse and of the age-classified model from step 8, the generation times in the units of dt."
+    orchestrator: true

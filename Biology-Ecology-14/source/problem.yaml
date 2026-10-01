@@ -1,0 +1,48 @@
+problem_id: "Biology-Ecology-14"
+subject: "biology"
+subject_area: "Ecology"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1007/s11538-026-01672-w "
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_use_probabilities.py"
+    description: "Return the conditional resource-use probabilities of the source's Eq. (6) for a resource matrix: resource_matrix[i, j] is the abundance (or resource-use value) of species i in resource state j, and the result holds, for every species, the probability that one of its individuals is associated with each resource state. A species whose row is entirely zero receives a row of zeros."
+    orchestrator: false
+  - number: 2
+    name: "02_resource_entropies.py"
+    description: "Return the four information quantities of the source's Eqs. (10)-(13) for a resource matrix, as the array [H(X), H(Y), H(XY), H_Y(X)]: the entropy of the resource states, the entropy of the species, their joint entropy, and the conditional entropy of the resource states given the species, all in nats, computed from the pooled-community probabilities of the source's Eqs. (5), (7) and (9)."
+    orchestrator: false
+  - number: 3
+    name: "03_state_contributions.py"
+    description: "Return the contribution of each resource state to the source's standardized resource heterogeneity M(X) (its Eq. (16), the quantity the source denotes delta_j), given the resource matrix, the use probabilities of step 01 and the entropies of step 02. The contributions sum to M(X) of the source's Eq. (15); a state used by no species, or used in identical proportions by every species, contributes zero."
+    orchestrator: false
+  - number: 4
+    name: "04_modified_weights.py"
+    description: "Return the source's modified weighting factor of each resource state (its Eq. (33), denoted ed_j) from the state contributions of step 03 and n_occupied, the number of resource states that are used by at least one species in the complete resource matrix the analysis refers to (the source's r'). The factors are strictly positive for every state, including states used by no species, and sum to 1."
+    orchestrator: false
+  - number: 5
+    name: "05_noncircular_niche_geometry.py"
+    description: "Build the complete noncircular niche geometry for a community"
+    orchestrator: false
+  - number: 6
+    name: "06_effective_competition.py"
+    description: "Convert measured competition into the niche-conditioned condition panel."
+    orchestrator: false
+  - number: 7
+    name: "07_effective_regulation.py"
+    description: "Convert plan-level regulation measurements into niche-conditioned slopes."
+    orchestrator: false
+  - number: 8
+    name: "08_coexistence_certificates.py"
+    description: "Compute the finite-community feasibility and global-stability boundaries."
+    orchestrator: false
+  - number: 9
+    name: "09_select_niche_refuge.py"
+    description: "Select the refuge plan that maximizes robust reserve protection per unit effort. Returns\n-------\nreturn score"
+    orchestrator: false
+  - number: 10
+    name: "10_return_score.py"
+    description: "Select the refuge plan that survives the resource-state stress audit."
+    orchestrator: true

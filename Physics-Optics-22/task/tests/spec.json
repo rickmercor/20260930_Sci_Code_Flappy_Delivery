@@ -1,0 +1,93 @@
+{
+  "problem_id": "Physics-Optics-22",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Optics-22.1",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(compute_thermal_curvature(260.0, 180.0, .01, .0002, 14.0, 1.82, 7.3e-6), target)",
+        "import numpy as np\nassert np.allclose(compute_thermal_curvature(60.0, 0.0, .01, .0002, 14.0, 1.82, 7.3e-6), target)",
+        "import numpy as np\nassert np.allclose(compute_thermal_curvature(0.0, 2e-4, .02, .0003, 10.0, 1.6, 8e-6), target)",
+        "import numpy as np\n\ndef _raises(function):\n    try:\n        function(-1.0, 180.0, .01, .0002, 14.0, 1.82, 7.3e-6)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(_raises(compute_thermal_curvature), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-22.2",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(compute_ray_matrix(65000.0, 180.0, .01), target)",
+        "import numpy as np\nassert np.allclose(compute_ray_matrix(0.0, 180.0, .02), target)",
+        "import numpy as np\nassert np.allclose(compute_ray_matrix(40000.0, 0.0, .01), target)",
+        "import numpy as np\nassert np.allclose(compute_ray_matrix(40000.0, 1e-7, .01), target)",
+        "import numpy as np\nassert np.allclose(compute_ray_matrix(40000.0, 180.0, 0.0), target)",
+        "import numpy as np\n\ndef _raises(function):\n    try:\n        function(-1.0, 180.0, .01)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(_raises(compute_ray_matrix), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-22.3",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(compute_ray_response(65000.0, 180.0, .01, 230.0, 1.0), target)",
+        "import numpy as np\nassert np.allclose(compute_ray_response(0.0, 0.0, .02, 1.0, 0.0), target)",
+        "import numpy as np\nassert np.allclose(compute_ray_response(65000.0, 180.0, .01, 0.0, 0.0), target)",
+        "import numpy as np\nassert np.allclose(compute_ray_response(40000.0, 0.0, 0.0, 1.0, 1.0), target)",
+        "import numpy as np\n\ndef _raises(function):\n    try:\n        function(40000.0, 180.0, .01, 1.0, 0.0, order=4)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(_raises(compute_ray_response), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-22.4",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(1e9 * compute_input_power(2*np.pi*1.82/1.064e-6, 7e-5, .003), target)",
+        "import numpy as np\nassert np.allclose(1e9 * compute_input_power(1e7, 1e-4, 0.0), target)",
+        "import numpy as np\nassert np.allclose(1e9 * compute_input_power(1e7, 3.3e-4, .03), target)",
+        "import numpy as np\n\ndef _raises(function):\n    try:\n        function(1e7, 0.0, .003)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(_raises(compute_input_power), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-22.5",
+      "test_cases": [
+        "import numpy as np\nr = np.array([0.0, 1e-5, 3e-5])\nm = np.array([[.8,.004],[-90.,.8]])\ndm = np.array([[.004,0.0],[.8,0.0]])\ndef _preserved(function, *arguments):\n    copied = [argument.copy() if isinstance(argument, np.ndarray) else argument for argument in arguments]\n    before = [argument.copy() if isinstance(argument, np.ndarray) else argument for argument in copied]\n    result = function(*copied)\n    for previous, current in zip(before, copied):\n        if isinstance(previous, np.ndarray):\n            assert np.array_equal(previous, current), \"input array was modified\"\n    return result\nassert np.allclose(_preserved(compute_field_response, r.copy(), m.copy(), dm.copy(), 1e7, 7e-5, .003), target)",
+        "import numpy as np\nr = np.array([0.0, 2e-5])\nm = np.eye(2)\ndm = np.zeros((2,2))\nassert np.allclose(compute_field_response(r.copy(), m.copy(), dm.copy(), 1e7, 7e-5, .003), target)",
+        "import numpy as np\nr = np.array([4e-5, 0.0, 2e-5])\nm = np.array([[-2.,0.0],[10.,-.5]])\ndm = np.array([[0.0,0.0],[1.0,0.0]])\nassert np.allclose(compute_field_response(r.copy(), m.copy(), dm.copy(), 1e7, 7e-5, .003), target)",
+        "import numpy as np\n\ndef _raises(function):\n    try:\n        function(np.array([-1.0]), np.eye(2), np.zeros((2,2)), 1e7, 7e-5, .003)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(_raises(compute_field_response), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-22.6",
+      "test_cases": [
+        "import numpy as np\nm = np.array([[.8,.004],[-90.,.8]])\ndm = np.array([[.004,0.0],[.8,0.0]])\ndef _preserved(function, *arguments):\n    copied = [argument.copy() if isinstance(argument, np.ndarray) else argument for argument in arguments]\n    before = [argument.copy() if isinstance(argument, np.ndarray) else argument for argument in copied]\n    result = function(*copied)\n    for previous, current in zip(before, copied):\n        if isinstance(previous, np.ndarray):\n            assert np.array_equal(previous, current), \"input array was modified\"\n    return result\nassert np.allclose(_preserved(compute_aperture_response, m.copy(), dm.copy(), 1e7, 7e-5, .003, 2.5e-5), target)",
+        "import numpy as np\nm = np.eye(2)\ndm = np.zeros((2,2))\nassert np.allclose(compute_aperture_response(m.copy(), dm.copy(), 1e7, 7e-5, .003, 0.0), target)",
+        "import numpy as np\nm = np.eye(2)\ndm = np.array([[0.0,.01],[0.0,0.0]])\nassert np.allclose(compute_aperture_response(m.copy(), dm.copy(), 1e7, 7e-5, 0.0, 1e-4), target)",
+        "import numpy as np\n\ndef _raises(function):\n    try:\n        function(np.eye(2), np.zeros((2,2)), 1e7, 7e-5, .003, -.01)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(_raises(compute_aperture_response), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-22.7",
+      "test_cases": [
+        "import numpy as np\nthermal = np.array([.01, .0002, 14., 1.82, 7.3e-6])\nbeam = np.array([1.064e-6, 7e-5, .003])\n\ndef _preserved(function, *arguments):\n    copied = [argument.copy() if isinstance(argument, np.ndarray) else argument for argument in arguments]\n    before = [argument.copy() if isinstance(argument, np.ndarray) else argument for argument in copied]\n    result = function(*copied)\n    for previous, current in zip(before, copied):\n        if isinstance(previous, np.ndarray):\n            assert np.array_equal(previous, current), \"input array was modified\"\n    return result\nassert np.allclose(_preserved(solve_capture_heat, thermal.copy(), beam.copy(), 180.0, 2.5e-5, .7, np.array([250.,300.])), target)",
+        "import numpy as np\nthermal = np.array([.01, .0002, 14., 1.82, 7.3e-6])\nbeam = np.array([1.064e-6, 7e-5, .003])\nassert np.allclose(solve_capture_heat(thermal.copy(), beam.copy(), 0.0, 2.5e-5, .65, np.array([150.,190.])), target)",
+        "import numpy as np\nthermal = np.array([.01, .0002, 14., 1.82, 7.3e-6])\nbeam = np.array([1.064e-6, 7e-5, .003])\nassert np.allclose(solve_capture_heat(thermal.copy(), beam.copy(), 180.0, 2.5e-5, .65, np.array([150.,190.])), target)",
+        "import numpy as np\nthermal = np.array([.01, .0002, 14., 1.82, 7.3e-6])\nbeam = np.array([1.064e-6, 7e-5, .003])\nthermal[2] *= 1.01\nassert np.allclose(solve_capture_heat(thermal.copy(), beam.copy(), 180.0, 2.5e-5, .7, np.array([250.,300.])), target)",
+        "import numpy as np\nthermal = np.array([.01, .0002, 14., 1.82, 7.3e-6])\nbeam = np.array([1.064e-6, 7e-5, .003])\n\ndef _raises(function):\n    try:\n        function(thermal.copy(), beam.copy(), 180.0, 2.5e-5, .1, np.array([250.,300.]))\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(_raises(solve_capture_heat), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-22.8",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(compute_midpoint_transfer_error(65000.0, 180.0, .01), target)",
+        "import numpy as np\nassert np.allclose(compute_midpoint_transfer_error(80000.0, 250.0, .008), target)",
+        "import numpy as np\nassert np.allclose(compute_midpoint_transfer_error(65000.0, 0.0, .01), target)",
+        "import numpy as np\nassert np.allclose(compute_midpoint_transfer_error(0.0, 180.0, .01), target)",
+        "import numpy as np\nassert np.allclose(compute_midpoint_transfer_error(65000.0, 180.0, 0.0), target)",
+        "import numpy as np\ndef _raises(function):\n    try:\n        function(65000.0, 180.0, .01, 8)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(_raises(compute_midpoint_transfer_error), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-22.9",
+      "test_cases": [
+        "import numpy as np\nthermal = np.array([.01, .0002, 14., 1.82, 7.3e-6])\nbeam = np.array([1.064e-6, 7e-5, .003])\n\ndef _preserved(function, *arguments):\n    copied = [argument.copy() if isinstance(argument, np.ndarray) else argument for argument in arguments]\n    before = [argument.copy() if isinstance(argument, np.ndarray) else argument for argument in copied]\n    result = function(*copied)\n    for previous, current in zip(before, copied):\n        if isinstance(previous, np.ndarray):\n            assert np.array_equal(previous, current), \"input array was modified\"\n    return result\nassert np.allclose(_preserved(compute_midpoint_heat_bias, thermal.copy(), beam.copy(), 180., 2.5e-5, .7, np.array([250., 300.])), target)",
+        "import numpy as np\nthermal = np.array([.01, .0002, 28., 1.82, 7.3e-6])\nbeam = np.array([1.064e-6, 7e-5, .003])\nassert np.allclose(compute_midpoint_heat_bias(thermal.copy(), beam.copy(), 180., 2.5e-5, .7, np.array([500., 600.])), target)",
+        "import numpy as np\nthermal = np.array([.01, .0002, 14., 1.82, 7.3e-6])\nbeam = np.array([1.064e-6, 7e-5, .003])\nassert np.allclose(compute_midpoint_heat_bias(thermal.copy(), beam.copy(), 180., 2.6e-5, .7, np.array([220., 330.])), target)",
+        "import numpy as np\nthermal = np.array([.01, .0002, 14., 1.82, 7.3e-6])\nbeam = np.array([1.064e-6, 7e-5, .003])\nassert np.allclose(compute_midpoint_heat_bias(thermal.copy(), beam.copy(), 0., 2.5e-5, .65, np.array([150., 190.])), target)",
+        "import numpy as np\nthermal = np.array([.01, .0002, 14., 1.82, 7.3e-6])\nbeam = np.array([1.064e-6, 7e-5, .003])\n\ndef _raises(function):\n    try:\n        function(thermal[:-1], beam, 180., 2.5e-5, .7, np.array([250., 300.]))\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(_raises(compute_midpoint_heat_bias), target)"
+      ]
+    }
+  ]
+}

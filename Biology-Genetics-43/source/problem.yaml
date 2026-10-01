@@ -1,0 +1,40 @@
+problem_id: "Biology-Genetics-43"
+subject: "biology"
+subject_area: "Genetics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: " 10.1186/s13015-025-00278-6"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_build_loop_tree"
+    description: "Convert a dot-bracket secondary structure into its loop table, one row for the exterior loop and one row per base pair."
+    orchestrator: false
+  - number: 2
+    name: "02_profile_helix_motifs"
+    description: "Measure the helix lengths of a loop tree and count its loops that carry either of the two locally undesignable motifs of base-pair maximization."
+    orchestrator: false
+  - number: 3
+    name: "03_list_proper_child_contents"
+    description: "List every assignment of pair contents to the pairs directly enclosed by one loop that keeps the loop proper, given the content of its closing pair."
+    orchestrator: false
+  - number: 4
+    name: "04_count_restricted_designs"
+    description: "Count the proper sequences of a loop tree whose unpaired positions and A-U-type pairs fall on prescribed residue classes of their levels, together with their total G+C content."
+    orchestrator: false
+  - number: 5
+    name: "05_compute_sampler_normalizer"
+    description: "Sum, over every set of residues reserved for unpaired positions, the number of proper sequences whose A-U-type pairs use only the remaining residues, and count the sets that admit at least one sequence."
+    orchestrator: false
+  - number: 6
+    name: "06_find_minimal_modulus"
+    description: "Find the smallest modulus of at least 2 at which a loop tree admits a sequence whose A-U-type pairs and unpaired positions occupy disjoint level residues."
+    orchestrator: false
+  - number: 7
+    name: "07_count_distinct_designs"
+    description: "Count the distinct proper sequences whose unpaired positions and A-U-type pairs occupy disjoint level residues modulo m, and total their G+C content."
+    orchestrator: false
+  - number: 8
+    name: "08_estimate_design_gc_content"
+    description: "Compose every earlier step to obtain the expected G+C fraction of a sequence drawn uniformly from the separated sequences of a target structure at its smallest workable modulus."
+    orchestrator: true

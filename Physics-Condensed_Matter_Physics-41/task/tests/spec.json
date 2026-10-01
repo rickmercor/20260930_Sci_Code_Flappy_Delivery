@@ -1,0 +1,92 @@
+{
+  "problem_id": "Physics-Condensed_Matter_Physics-41",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-41.1",
+      "test_cases": [
+        "mass = 1.3\ncurvature = 3.2\nassert np.allclose(compute_reference_frequency(mass, curvature), target)",
+        "mass = 1.0\ncurvature = 1.0\nassert np.allclose(compute_reference_frequency(mass, curvature), target)",
+        "mass = 1.0e-12\ncurvature = 4.0e-12\nassert np.allclose(compute_reference_frequency(mass, curvature), target)",
+        "mass = 0.0\ncurvature = 2.0\ndef run_model():\n    try:\n        compute_reference_frequency(mass, curvature)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "mass = 1.0\ncurvature = float('nan')\ndef run_model():\n    try:\n        compute_reference_frequency(mass, curvature)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "mass = 1.0e-200\ncurvature = 1.0e200\nassert np.allclose(compute_reference_frequency(mass, curvature), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-41.2",
+      "test_cases": [
+        "left = 0.22\nright = 0.03\nminimum = -0.15\ntau = 0.6\nmass = 1.3\nomega = (3.2 / 1.3) ** 0.5\nhbar = 0.7\nassert np.allclose(compute_bridge_statistics(left, right, minimum, tau, mass, omega, hbar), target)",
+        "left = 2.0\nright = -1.0\nminimum = 0.3\ntau = 800.0\nmass = 1.0\nomega = 1.0\nhbar = 1.0\nassert np.allclose(compute_bridge_statistics(left, right, minimum, tau, mass, omega, hbar), target)",
+        "left = 1.2\nright = -0.7\nminimum = 0.1\ntau = 1.0e-12\nmass = 2.0\nomega = 3.0\nhbar = 0.5\nassert np.allclose(compute_bridge_statistics(left, right, minimum, tau, mass, omega, hbar), target)",
+        "left = 0.0\nright = 0.0\nminimum = 0.0\ntau = 0.0\nmass = 1.0\nomega = 1.0\nhbar = 1.0\ndef run_model():\n    try:\n        compute_bridge_statistics(left, right, minimum, tau, mass, omega, hbar)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "left = 0.0\nright = 0.0\nminimum = 0.0\ntau = 1.0\nmass = 1.0\nomega = 1.0\nhbar = float('nan')\ndef run_model():\n    try:\n        compute_bridge_statistics(left, right, minimum, tau, mass, omega, hbar)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "left = 1.0e308\nright = -1.0e308\nminimum = 1.0e308\ntau = 800.0\nmass = 1.0\nomega = 1.0\nhbar = 1.0\nassert np.allclose(compute_bridge_statistics(left, right, minimum, tau, mass, omega, hbar), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-41.3",
+      "test_cases": [
+        "current = 0.26\nminimum = -0.15\ndomain_radius = 0.44\nharmonic_mean = 0.074\nharmonic_variance = 0.099\nfree_mean = 0.125\nfree_variance = 0.113\nassert np.allclose(select_proposal_parameters(current, minimum, domain_radius, harmonic_mean, harmonic_variance, free_mean, free_variance), target)",
+        "current = 0.29\nminimum = -0.15\ndomain_radius = 0.44\nharmonic_mean = -1.0\nharmonic_variance = 0.2\nfree_mean = 2.0\nfree_variance = 0.3\nassert np.allclose(select_proposal_parameters(current, minimum, domain_radius, harmonic_mean, harmonic_variance, free_mean, free_variance), target)",
+        "current = -0.6\nminimum = -0.15\ndomain_radius = 0.44\nharmonic_mean = -1.0\nharmonic_variance = 0.2\nfree_mean = 2.0\nfree_variance = 0.3\nassert np.allclose(select_proposal_parameters(current, minimum, domain_radius, harmonic_mean, harmonic_variance, free_mean, free_variance), target)",
+        "current = 0.0\nminimum = 0.0\ndomain_radius = 0.0\nharmonic_mean = 1.0\nharmonic_variance = 0.1\nfree_mean = 2.0\nfree_variance = 0.2\nassert np.allclose(select_proposal_parameters(current, minimum, domain_radius, harmonic_mean, harmonic_variance, free_mean, free_variance), target)",
+        "current = 0.0\nminimum = 0.0\ndomain_radius = 1.0\nharmonic_mean = 0.0\nharmonic_variance = -1.0\nfree_mean = 0.0\nfree_variance = 1.0\ndef run_model():\n    try:\n        select_proposal_parameters(current, minimum, domain_radius, harmonic_mean, harmonic_variance, free_mean, free_variance)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-41.4",
+      "test_cases": [
+        "mean = 0.07447545834845315\nvariance = 0.09912813911190939\nnormal_draw = 0.7\nassert np.allclose(generate_trial_position(mean, variance, normal_draw), target)",
+        "mean = -2.5\nvariance = 3.0\nnormal_draw = 0.0\nassert np.allclose(generate_trial_position(mean, variance, normal_draw), target)",
+        "mean = 1.0\nvariance = 1.0e-24\nnormal_draw = -3.0\nassert np.allclose(generate_trial_position(mean, variance, normal_draw), target)",
+        "mean = 0.0\nvariance = 0.0\nnormal_draw = 1.0\ndef run_model():\n    try:\n        generate_trial_position(mean, variance, normal_draw)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "mean = 0.0\nvariance = 1.0\nnormal_draw = float('inf')\ndef run_model():\n    try:\n        generate_trial_position(mean, variance, normal_draw)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-41.5",
+      "test_cases": [
+        "old = 0.26\ntrial = 0.2948678088618854\nminimum = -0.15\ndomain_radius = 0.44\nharmonic_mean = 0.07447545834845315\nharmonic_variance = 0.09912813911190939\nfree_mean = 0.125\nfree_variance = 0.11307692307692305\nassert np.allclose(compute_hastings_factor(old, trial, minimum, domain_radius, harmonic_mean, harmonic_variance, free_mean, free_variance), target)",
+        "old = 0.03\ntrial = 0.187003474188357\nminimum = -0.15\ndomain_radius = 0.44\nharmonic_mean = 0.029580366678762515\nharmonic_variance = 0.09912813911190939\nfree_mean = 0.07\nfree_variance = 0.11307692307692305\nassert np.allclose(compute_hastings_factor(old, trial, minimum, domain_radius, harmonic_mean, harmonic_variance, free_mean, free_variance), target)",
+        "old = -0.6\ntrial = 0.28489603528975127\nminimum = -0.15\ndomain_radius = 0.44\nharmonic_mean = -0.09694216439036563\nharmonic_variance = 0.09912813911190939\nfree_mean = -0.085\nfree_variance = 0.11307692307692305\nassert np.allclose(compute_hastings_factor(old, trial, minimum, domain_radius, harmonic_mean, harmonic_variance, free_mean, free_variance), target)",
+        "old = 0.0\ntrial = 1.0\nminimum = 0.0\ndomain_radius = 0.5\nharmonic_mean = 0.0\nharmonic_variance = 1.0e-6\nfree_mean = 0.001\nfree_variance = 1.0e-6\nassert np.allclose(compute_hastings_factor(old, trial, minimum, domain_radius, harmonic_mean, harmonic_variance, free_mean, free_variance), target)",
+        "old = 0.0\ntrial = 0.1\nminimum = 0.0\ndomain_radius = 1.0\nharmonic_mean = 0.0\nharmonic_variance = 0.0\nfree_mean = 0.0\nfree_variance = 1.0\ndef run_model():\n    try:\n        compute_hastings_factor(old, trial, minimum, domain_radius, harmonic_mean, harmonic_variance, free_mean, free_variance)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "old = 1.0e160\ntrial = 1.0000000000000002e160\nminimum = 0.0\ndomain_radius = 1.0e160\nharmonic_mean = 0.0\nharmonic_variance = 1.0e300\nfree_mean = 1.0e140\nfree_variance = 1.0e300\nassert np.allclose(compute_hastings_factor(old, trial, minimum, domain_radius, harmonic_mean, harmonic_variance, free_mean, free_variance), target)",
+        "old = 1.0e160\ntrial = 1.1e160\nminimum = 0.0\ndomain_radius = 1.0e160\nharmonic_mean = 0.0\nharmonic_variance = 1.0\nfree_mean = -1.0e160\nfree_variance = 4.0\nassert np.allclose(compute_hastings_factor(old, trial, minimum, domain_radius, harmonic_mean, harmonic_variance, free_mean, free_variance), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-41.6",
+      "test_cases": [
+        "old = 0.26\ntrial = 0.2948678088618854\ntau = 0.6\nminimum = -0.15\ncurvature = 3.2\nalpha_3 = 0.3125\nalpha_4 = 12.5\nhastings_factor = 1.0275693891240696\nassert np.allclose(compute_mixed_acceptance(old, trial, tau, minimum, curvature, alpha_3, alpha_4, hastings_factor), target)",
+        "old = 0.03\ntrial = 0.187003474188357\ntau = 0.6\nminimum = -0.15\ncurvature = 3.2\nalpha_3 = 0.3125\nalpha_4 = 12.5\nhastings_factor = 1.0\nassert np.allclose(compute_mixed_acceptance(old, trial, tau, minimum, curvature, alpha_3, alpha_4, hastings_factor), target)",
+        "old = -0.6\ntrial = 0.28489603528975127\ntau = 0.6\nminimum = -0.15\ncurvature = 3.2\nalpha_3 = 0.3125\nalpha_4 = 12.5\nhastings_factor = 0.9374551596534505\nassert np.allclose(compute_mixed_acceptance(old, trial, tau, minimum, curvature, alpha_3, alpha_4, hastings_factor), target)",
+        "old = 2.0\ntrial = 0.0\ntau = 1.0\nminimum = 0.0\ncurvature = 1.0\nalpha_3 = 0.0\nalpha_4 = 1.0\nhastings_factor = 1.0\nassert np.allclose(compute_mixed_acceptance(old, trial, tau, minimum, curvature, alpha_3, alpha_4, hastings_factor), target)",
+        "old = 0.0\ntrial = 0.1\ntau = 1.0\nminimum = 0.0\ncurvature = 1.0\nalpha_3 = 0.0\nalpha_4 = 1.0\nhastings_factor = 0.0\ndef run_model():\n    try:\n        compute_mixed_acceptance(old, trial, tau, minimum, curvature, alpha_3, alpha_4, hastings_factor)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "old = 1.0e80\ntrial = -1.0e80\ntau = 1.0\nminimum = 0.0\ncurvature = 2.0\nalpha_3 = 1.0e-240\nalpha_4 = 1.0\nhastings_factor = 0.049787068367863944\nassert np.allclose(compute_mixed_acceptance(old, trial, tau, minimum, curvature, alpha_3, alpha_4, hastings_factor), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-41.7",
+      "test_cases": [
+        "import numpy as np\npath = np.array([0.08, 0.24, 0.22, 0.26, 0.187003474188357, -0.12, -0.60, -0.05], dtype=float)\nbeta = 4.8\nmass = 1.3\nomega = (3.2 / 1.3) ** 0.5\nhbar = 0.7\nminimum = -0.15\nalpha_3 = 0.3125\nalpha_4 = 12.5\nassert np.allclose(compute_harmonic_energy(path, beta, mass, omega, hbar, minimum, alpha_3, alpha_4), target)",
+        "import numpy as np\npath = np.ones(4, dtype=float)\nbeta = 4.0e-8\nmass = 1.0\nomega = 1.0\nhbar = 1.0\nminimum = 0.0\nalpha_3 = 0.0\nalpha_4 = 0.0\nassert np.allclose(compute_harmonic_energy(path, beta, mass, omega, hbar, minimum, alpha_3, alpha_4), target)",
+        "import numpy as np\npath = np.zeros(4, dtype=float)\nbeta = 3200.0\nmass = 1.0\nomega = 1.0\nhbar = 1.0\nminimum = 0.0\nalpha_3 = 0.0\nalpha_4 = 0.0\nassert np.allclose(compute_harmonic_energy(path, beta, mass, omega, hbar, minimum, alpha_3, alpha_4), target)",
+        "import numpy as np\npath = np.array([0.0], dtype=float)\nbeta = 1.0\nmass = 1.0\nomega = 1.0\nhbar = 1.0\nminimum = 0.0\nalpha_3 = 0.0\nalpha_4 = 0.0\ndef run_model():\n    try:\n        compute_harmonic_energy(path, beta, mass, omega, hbar, minimum, alpha_3, alpha_4)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\npath = np.array([0.0, 0.1], dtype=float)\nbeta = -1.0\nmass = 1.0\nomega = 1.0\nhbar = 1.0\nminimum = 0.0\nalpha_3 = 0.0\nalpha_4 = 0.0\ndef run_model():\n    try:\n        compute_harmonic_energy(path, beta, mass, omega, hbar, minimum, alpha_3, alpha_4)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\npath = np.full(4, 1.0e80, dtype=float)\nbeta = 4.0\nmass = 1.0e-160\nomega = 1.0\nhbar = 1.0\nminimum = 0.0\nalpha_3 = 0.0\nalpha_4 = 1.0e-160\nassert np.allclose(compute_harmonic_energy(path, beta, mass, omega, hbar, minimum, alpha_3, alpha_4), target)",
+        "import numpy as np\npath = np.full(4, 1.0e80, dtype=float)\nbeta = 3200.0\nmass = 1.0e-144\nomega = 1.0\nhbar = 1.0\nminimum = 0.0\nalpha_3 = float(np.nextafter(-2.0e-80, 0.0))\nalpha_4 = 2.0e-160\nassert np.allclose(compute_harmonic_energy(path, beta, mass, omega, hbar, minimum, alpha_3, alpha_4), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-41.8",
+      "test_cases": [
+        "import numpy as np\npath = np.array([0.08, 0.24, 0.22, 0.26, 0.03, -0.12, -0.60, -0.05], dtype=float)\nbead_indices = np.array([3, 4, 6], dtype=int)\nnormal_draws = np.array([0.7, 0.5, 1.1], dtype=float)\nuniform_draws = np.array([0.8964, 0.8590, 0.9477], dtype=float)\nbeta = 4.8\nmass = 1.3\ncurvature = 3.2\nhbar = 0.7\nminimum = -0.15\ndomain_radius = 0.44\nalpha_3 = 0.3125\nalpha_4 = 12.5\nassert np.allclose(run_mixed_pimc_sweep(path, bead_indices, normal_draws, uniform_draws, beta, mass, curvature, hbar, minimum, domain_radius, alpha_3, alpha_4), target)",
+        "import numpy as np\npath = np.array([0.08, 0.24, 0.22, 0.26, 0.03, -0.12, -0.60, -0.05], dtype=float)\nbead_indices = np.array([3, 4, 6], dtype=int)\nnormal_draws = np.array([0.7, 0.5, 1.1], dtype=float)\nuniform_draws = np.array([0.8963, 0.8590, 0.9477], dtype=float)\nbeta = 4.8\nmass = 1.3\ncurvature = 3.2\nhbar = 0.7\nminimum = -0.15\ndomain_radius = 0.44\nalpha_3 = 0.3125\nalpha_4 = 12.5\nassert np.allclose(run_mixed_pimc_sweep(path, bead_indices, normal_draws, uniform_draws, beta, mass, curvature, hbar, minimum, domain_radius, alpha_3, alpha_4), target)",
+        "import numpy as np\npath = np.array([-0.2, 0.0, 0.2], dtype=float)\nbead_indices = np.array([], dtype=int)\nnormal_draws = np.array([], dtype=float)\nuniform_draws = np.array([], dtype=float)\nbeta = 1.0\nmass = 1.0\ncurvature = 2.0\nhbar = 1.0\nminimum = 0.0\ndomain_radius = 0.0\nalpha_3 = 0.1\nalpha_4 = 0.2\nassert np.allclose(run_mixed_pimc_sweep(path, bead_indices, normal_draws, uniform_draws, beta, mass, curvature, hbar, minimum, domain_radius, alpha_3, alpha_4), target)",
+        "import numpy as np\npath = np.array([0.0, 0.1, 0.2], dtype=float)\nbead_indices = np.array([1, 2], dtype=int)\nnormal_draws = np.array([0.0], dtype=float)\nuniform_draws = np.array([0.5, 0.5], dtype=float)\nbeta = 1.0\nmass = 1.0\ncurvature = 1.0\nhbar = 1.0\nminimum = 0.0\ndomain_radius = 1.0\nalpha_3 = 0.0\nalpha_4 = 0.0\ndef run_model():\n    try:\n        run_mixed_pimc_sweep(path, bead_indices, normal_draws, uniform_draws, beta, mass, curvature, hbar, minimum, domain_radius, alpha_3, alpha_4)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\npath = np.array([0.0, 0.1, 0.2], dtype=float)\nbead_indices = np.array([3], dtype=int)\nnormal_draws = np.array([0.0], dtype=float)\nuniform_draws = np.array([0.5], dtype=float)\nbeta = 1.0\nmass = 1.0\ncurvature = 1.0\nhbar = 1.0\nminimum = 0.0\ndomain_radius = 1.0\nalpha_3 = 0.0\nalpha_4 = 0.0\ndef run_model():\n    try:\n        run_mixed_pimc_sweep(path, bead_indices, normal_draws, uniform_draws, beta, mass, curvature, hbar, minimum, domain_radius, alpha_3, alpha_4)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

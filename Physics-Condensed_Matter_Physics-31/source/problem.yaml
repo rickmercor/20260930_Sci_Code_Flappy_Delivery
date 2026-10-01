@@ -1,0 +1,36 @@
+problem_id: "Physics-Condensed_Matter_Physics-31"
+subject: "physics"
+subject_area: "Condensed Matter Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.48550/arXiv.2511.02809"
+dependencies: ""
+steps:
+  - number: 1
+    name: "majorana_product_table"
+    description: "Evaluate the ordered product phases of binary-indexed Hermitian Majorana strings."
+    orchestrator: false
+  - number: 2
+    name: "compile_hubbard_layer"
+    description: "Compile a spinful Hubbard layer into a fixed chronological sequence of elementary rotations."
+    orchestrator: false
+  - number: 3
+    name: "rotate_and_project_expansion"
+    description: "Apply one Majorana rotation with collision-aware coefficient and unpaired-string projection."
+    orchestrator: false
+  - number: 4
+    name: "propagate_trotter_layer"
+    description: "Propagate one symmetric layer with distinct intermediate and endpoint unpaired cutoffs."
+    orchestrator: false
+  - number: 5
+    name: "pull_back_gaussian_state"
+    description: "Pull back the evolved observable through an exact Gaussian preparation by weight-sector transformation."
+    orchestrator: false
+  - number: 6
+    name: "contract_fock_expansion"
+    description: "Evaluate the final Fock-state expectation with the full Hermitian-string phase."
+    orchestrator: false
+  - number: 7
+    name: "compute_prepared_hole_probability"
+    description: "Compute a prepared-state hole estimate by composing the complete layer-projected workflow."
+    orchestrator: true

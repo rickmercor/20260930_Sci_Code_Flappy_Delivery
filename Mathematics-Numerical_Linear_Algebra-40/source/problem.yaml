@@ -1,0 +1,40 @@
+problem_id: "Mathematics-Numerical_Linear_Algebra-40"
+subject: "mathematics"
+subject_area: "Numerical Linear Algebra"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1553/etna_vol65s226"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_skew_symmetry_residual"
+    description: "Skew-block magnitude of a valid dissipative symmetric/skew splitting"
+    orchestrator: false
+  - number: 2
+    name: "02_h_skew_symmetry_residual"
+    description: "Congruence magnitude of the H-skew preconditioned advection block"
+    orchestrator: false
+  - number: 3
+    name: "03_spectral_width_lambda"
+    description: "Spectral width of the preconditioned skew operator."
+    orchestrator: false
+  - number: 4
+    name: "04_rapoport_residual_reduction_factor"
+    description: "Rapoport residual reduction factor from the spectral width "
+    orchestrator: false
+  - number: 5
+    name: "05_widlund_even_iterate_bound"
+    description: "Widlund even-iterate theoretical H-error bound from the spectral width"
+    orchestrator: false
+  - number: 6
+    name: "06_widlund_relative_h_error"
+    description: "Relative H-norm error of a fixed-length Widlund iterate for the split system."
+    orchestrator: false
+  - number: 7
+    name: "07_condensed_ocp_hessian_entry"
+    description: "(0,0) entry of the condensed optimal-control Hessian for the split system."
+    orchestrator: false
+  - number: 8
+    name: "08_orchestrate_dissipative_preconditioning_pipeline"
+    description: "End-to-end orchestrator for the dissipative-preconditioning synthesized scalar."
+    orchestrator: true

@@ -1,0 +1,99 @@
+{
+  "problem_id": "Chemistry-Computational_Chemistry-74",
+  "sub_steps": [
+    {
+      "step_number": "Chemistry-Computational_Chemistry-74.1",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(drude_bath_exponents(50.0, 100.0, 300.0, 1), target)",
+        "import numpy as np\nassert np.allclose(drude_bath_exponents(35.0, 60.0, 120.0, 3), target)",
+        "import numpy as np\nassert np.allclose(drude_bath_exponents(80.0, 200.0, 250.0, 0), target)",
+        "import numpy as np\nassert np.allclose(drude_bath_exponents(0.0, 100.0, 300.0, 2), target)",
+        "import numpy as np\nassert np.allclose(drude_bath_exponents(40.0, 25.0, 60.0, 2), target)",
+        "import numpy as np\nassert np.allclose(drude_bath_exponents(50.0, 10.0, 100.0, 2), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        drude_bath_exponents(50.0, 100.0, 0.0, 1)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-74.2",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(underdamped_mode_exponents(3.0, 600.0, 80.0, 300.0, 1), target)",
+        "import numpy as np\nassert np.allclose(underdamped_mode_exponents(10.0, 250.0, 40.0, 150.0, 2), target)",
+        "import numpy as np\nassert np.allclose(underdamped_mode_exponents(6.0, 900.0, 200.0, 400.0, 0), target)",
+        "import numpy as np\nassert np.allclose(underdamped_mode_exponents(0.0, 500.0, 100.0, 300.0, 1), target)",
+        "import numpy as np\nassert np.allclose(underdamped_mode_exponents(5.0, 30.0, 100.0, 300.0, 1), target)",
+        "import numpy as np\nassert np.allclose(underdamped_mode_exponents(2.0, 87.0, 150.0, 20.0, 3), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        underdamped_mode_exponents(4.0, 20.0, 50.0, 300.0, 1)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-74.3",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(dipole_gauge_hamiltonian(100.0, 30.0, 100.0, 0.2, -0.1, 0.3, 3), target)",
+        "import numpy as np\nassert np.allclose(dipole_gauge_hamiltonian(-40.0, 25.0, 150.0, 0.5, 0.35, -0.2, 4), target)",
+        "import numpy as np\nassert np.allclose(dipole_gauge_hamiltonian(100.0, 30.0, 100.0, 0.0, 0.0, 0.0, 2), target)",
+        "import numpy as np\nassert np.allclose(dipole_gauge_hamiltonian(60.0, 10.0, 80.0, 0.4, -0.3, 0.25, 1), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        dipole_gauge_hamiltonian(100.0, 30.0, 100.0, 0.2, -0.1, 0.3, 0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-74.4",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(bath_coupling_operators(3), target)",
+        "import numpy as np\nassert np.allclose(bath_coupling_operators(5), target)",
+        "import numpy as np\nassert np.allclose(bath_coupling_operators(2), target)",
+        "import numpy as np\nassert np.allclose(bath_coupling_operators(1), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        bath_coupling_operators(0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-74.5",
+      "test_cases": [
+        "import numpy as np\nrng = np.random.default_rng(3)\nM = rng.normal(size=(4, 4)) + 1j * rng.normal(size=(4, 4))\nH = 40.0 * (M + M.conj().T)\nassert np.allclose(system_liouvillian(H.copy(), 10.0, 2), target)",
+        "import numpy as np\nrng = np.random.default_rng(11)\nM = rng.normal(size=(6, 6)) + 1j * rng.normal(size=(6, 6))\nH = 25.0 * (M + M.conj().T)\nassert np.allclose(system_liouvillian(H.copy(), 0.0, 3), target)",
+        "import numpy as np\nH = np.array([[5.0, 12.0 - 3.0j], [12.0 + 3.0j, -40.0]])\nassert np.allclose(system_liouvillian(H.copy(), 25.0, 1), target)",
+        "import numpy as np\nH = np.array([[0.0, 1.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0]])\ndef run_model():\n    try:\n        system_liouvillian(H.copy(), 10.0, 2)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-74.6",
+      "test_cases": [
+        "import numpy as np\nW = 2.0 * np.pi * 2.99792458e-2\nH = np.array([[0.0, 30.0], [30.0, -100.0]])\nL = -1j * W * (np.kron(H, np.eye(2)) - np.kron(np.eye(2), H.T))\nV = np.diag([0.0, 1.0]).astype(complex)[None, :, :]\nrho0 = np.array([[1.0, 0.0], [0.0, 0.0]], dtype=complex)\nex = np.array([[700.0, -90.0, 10.0, 0.0], [60.0, 0.0, 247.0, 0.0]])\nbi = np.array([0, 0])\ndepth = 4\ndt = 0.001\nn_steps = 400\nstride = 100\nassert np.allclose(heom_propagate(L.copy(), V.copy(), ex.copy(), bi.copy(), depth, rho0.copy(), dt, n_steps, stride), target)",
+        "import numpy as np\nW = 2.0 * np.pi * 2.99792458e-2\nH = np.array([[0.0, 0.0, 25.0, 8.0], [0.0, 90.0, 8.0, 25.0], [25.0, 8.0, -80.0, 0.0], [8.0, 25.0, 0.0, 10.0]], dtype=complex)\na = np.kron(np.eye(2), np.array([[0.0, 1.0], [0.0, 0.0]]))\nI = np.eye(4)\nk = 15.0 * W\nL = -1j * W * (np.kron(H, I) - np.kron(I, H.T)) + k * (np.kron(a, a) - 0.5 * np.kron(a.T @ a, I) - 0.5 * np.kron(I, (a.T @ a).T))\nV1 = np.diag([0.0, 0.0, 1.0, 1.0]).astype(complex)\nV2 = np.array([[0.5, 0.3j, 0.0, 0.2], [-0.3j, 0.0, 0.1, 0.0], [0.0, 0.1, -0.4, 0.3j], [0.2, 0.0, -0.3j, 0.0]])\nV = np.array([V1, V2])\nex = np.array([[420.0, -55.0, 14.0, 0.0], [35.0, 0.0, 180.0, 0.0], [30.0, 2.0, 6.0, -80.0], [5.0, -2.0, 6.0, 80.0]])\nbi = np.array([0, 0, 1, 1])\nrho0 = np.zeros((4, 4), dtype=complex)\nrho0[0, 0] = 1.0\ndepth = 3\ndt = 0.001\nn_steps = 300\nstride = 50\nassert np.allclose(heom_propagate(L.copy(), V.copy(), ex.copy(), bi.copy(), depth, rho0.copy(), dt, n_steps, stride), target)",
+        "import numpy as np\nW = 2.0 * np.pi * 2.99792458e-2\nH = np.array([[0.0, 30.0], [30.0, -100.0]])\nL = -1j * W * (np.kron(H, np.eye(2)) - np.kron(np.eye(2), H.T))\nV = np.diag([0.0, 1.0]).astype(complex)[None, :, :]\nrho0 = np.array([[1.0, 0.0], [0.0, 0.0]], dtype=complex)\nex = np.array([[700.0, -90.0, 10.0, 0.0], [60.0, 0.0, 247.0, 0.0]])\nbi = np.array([0, 0])\ndepth = 0\ndt = 0.001\nn_steps = 200\nstride = 40\nassert np.allclose(heom_propagate(L.copy(), V.copy(), ex.copy(), bi.copy(), depth, rho0.copy(), dt, n_steps, stride), target)",
+        "import numpy as np\nW = 2.0 * np.pi * 2.99792458e-2\nH = np.array([[0.0, 30.0], [30.0, -100.0]])\nL = -1j * W * (np.kron(H, np.eye(2)) - np.kron(np.eye(2), H.T))\nV = np.diag([0.0, 1.0]).astype(complex)[None, :, :]\nex = np.array([[40.0, 3.0, 8.0, -120.0], [4.0, -3.0, 8.0, 120.0]])\nbi = np.array([0, 0])\nrho0 = 0.5 * np.array([[1.0, 1.0j], [-1.0j, 1.0]])\ndepth = 4\ndt = 0.0005\nn_steps = 400\nstride = 80\nassert np.allclose(heom_propagate(L.copy(), V.copy(), ex.copy(), bi.copy(), depth, rho0.copy(), dt, n_steps, stride), target)",
+        "import numpy as np\nW = 2.0 * np.pi * 2.99792458e-2\nH = np.array([[0.0, 0.0, 28.0, 6.0], [0.0, 95.0, 6.0, 28.0], [28.0, 6.0, -90.0, 0.0], [6.0, 28.0, 0.0, 5.0]], dtype=complex)\na = np.kron(np.eye(2), np.array([[0.0, 1.0], [0.0, 0.0]]))\nI = np.eye(4)\nk = 12.0 * W\nL = -1j * W * (np.kron(H, I) - np.kron(I, H.T)) + k * (np.kron(a, a) - 0.5 * np.kron(a.T @ a, I) - 0.5 * np.kron(I, (a.T @ a).T))\nV1 = np.diag([0.0, 0.0, 1.0, 1.0]).astype(complex)\nV2 = np.array([[0.0, 0.4j, 0.0, 0.25], [-0.4j, 0.0, 0.25, 0.0], [0.0, 0.25, 0.0, 0.4j], [0.25, 0.0, -0.4j, 0.0]])\nV = np.array([V1, V2])\nex = np.array([[22.0, 1.5, 6.0, -90.0], [9.0, -4.0, 6.0, 90.0], [510.0, -60.0, 12.0, 0.0], [3.0, 4.0, 6.0, -90.0], [2.0, -1.5, 6.0, 90.0], [14.0, 0.0, 150.0, 0.0]])\nbi = np.array([0, 1, 0, 1, 0, 0])\nrho0 = np.zeros((4, 4), dtype=complex)\nrho0[0, 0] = 1.0\ndepth = 3\ndt = 0.0005\nn_steps = 400\nstride = 100\nassert np.allclose(heom_propagate(L.copy(), V.copy(), ex.copy(), bi.copy(), depth, rho0.copy(), dt, n_steps, stride), target)",
+        "import numpy as np\nW = 2.0 * np.pi * 2.99792458e-2\nH = np.array([[0.0, 30.0], [30.0, -100.0]])\nL = -1j * W * (np.kron(H, np.eye(2)) - np.kron(np.eye(2), H.T))\nV = np.diag([0.0, 1.0]).astype(complex)[None, :, :]\nrho0 = np.array([[1.0, 0.0], [0.0, 0.0]], dtype=complex)\nex = np.array([[40.0, 3.0, 8.0, -120.0]])\nbi = np.array([0])\ndepth = 2\ndt = 0.001\nn_steps = 10\nstride = 5\ndef run_model():\n    try:\n        heom_propagate(L.copy(), V.copy(), ex.copy(), bi.copy(), depth, rho0.copy(), dt, n_steps, stride)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-74.7",
+      "test_cases": [
+        "import numpy as np\nF = 100.0\nVda = 30.0\nwc = 100.0\nxdd = 0.2\nxaa = -0.1\nxda = 0.3\nkap = 10.0\nlam = 50.0\ntau = 100.0\nlamv = 2.0\nwv = 500.0\ntauv = 100.0\nT = 300.0\nnmb = 1\nnmv = 0\ndepth = 3\nnph = 2\ntmax = 0.2\ndt = 0.001\nsamp = 0.02\nassert np.allclose(donor_population_trace(F, Vda, wc, xdd, xaa, xda, kap, lam, tau, lamv, wv, tauv, T, nmb, nmv, depth, nph, tmax, dt, samp), target)",
+        "import numpy as np\nF = 100.0\nVda = 30.0\nwc = 100.0\nxdd = 0.0\nxaa = 0.0\nxda = 0.0\nkap = 0.0\nlam = 50.0\ntau = 100.0\nlamv = 0.0\nwv = 500.0\ntauv = 100.0\nT = 300.0\nnmb = 1\nnmv = 0\ndepth = 4\nnph = 1\ntmax = 0.3\ndt = 0.001\nsamp = 0.03\nassert np.allclose(donor_population_trace(F, Vda, wc, xdd, xaa, xda, kap, lam, tau, lamv, wv, tauv, T, nmb, nmv, depth, nph, tmax, dt, samp), target)",
+        "import numpy as np\nF = 100.0\nVda = 30.0\nwc = 100.0\nxdd = 0.0\nxaa = 0.0\nxda = 0.0\nkap = 20.0\nlam = 50.0\ntau = 100.0\nlamv = 5.0\nwv = 400.0\ntauv = 100.0\nT = 150.0\nnmb = 1\nnmv = 1\ndepth = 2\nnph = 3\ntmax = 0.1\ndt = 0.0005\nsamp = 0.01\nassert np.allclose(donor_population_trace(F, Vda, wc, xdd, xaa, xda, kap, lam, tau, lamv, wv, tauv, T, nmb, nmv, depth, nph, tmax, dt, samp), target)",
+        "import numpy as np\nF = 100.0\nVda = 30.0\nwc = 100.0\nxdd = 0.2\nxaa = -0.1\nxda = 0.3\nkap = 10.0\nlam = 50.0\ntau = 100.0\nlamv = 2.0\nwv = 500.0\ntauv = 100.0\nT = 300.0\nnmb = 1\nnmv = 0\ndepth = 3\nnph = 2\ntmax = 0.1\ndt = 0.001\nsamp = 0.015\ndef run_model():\n    try:\n        donor_population_trace(F, Vda, wc, xdd, xaa, xda, kap, lam, tau, lamv, wv, tauv, T, nmb, nmv, depth, nph, tmax, dt, samp)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-74.8",
+      "test_cases": [
+        "import numpy as np\nt = 0.05 * np.arange(61)\np = 0.2 + 0.8 * np.exp(-2.5 * t)\nassert np.allclose(fit_transfer_rates(t.copy(), p.copy()), target)",
+        "import numpy as np\nt = 0.01 * np.arange(501)\np = 0.3 + 0.7 * np.exp(-1.9 * t) + 0.05 * np.exp(-3.0 * t) * np.cos(12.0 * t)\nassert np.allclose(fit_transfer_rates(t.copy(), p.copy()), target)",
+        "import numpy as np\nt = 0.02 * np.arange(151)\np = np.exp(-1.3 * t)\nassert np.allclose(fit_transfer_rates(t.copy(), p.copy()), target)",
+        "import numpy as np\nt = 0.02 * np.arange(151)\np = 1.05 * np.exp(-1.5 * t) - 0.05\nassert np.allclose(fit_transfer_rates(t.copy(), p.copy()), target)",
+        "import numpy as np\nt = np.array([0.0, 0.4, 1.1])\np = np.array([1.0, 0.62, 0.41])\nassert np.allclose(fit_transfer_rates(t.copy(), p.copy()), target)",
+        "import numpy as np\nt = np.array([0.1, 0.2, 0.3, 0.4])\np = np.array([1.0, 0.8, 0.7, 0.65])\ndef run_model():\n    try:\n        fit_transfer_rates(t.copy(), p.copy())\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-74.9",
+      "test_cases": [
+        "import numpy as np\nF = 100.0\nVda = 30.0\nwc = 100.0\nxdd = 0.2\nxaa = -0.1\nxda = 0.3\nkap = 10.0\nlam = 50.0\ntau = 100.0\nlamv = 2.0\nwv = 500.0\ntauv = 100.0\nT = 300.0\nnmb = 1\nnmv = 0\ndepth = 3\nnph = 2\ntmax = 1.0\ndt = 0.001\nsamp = 0.02\nassert np.allclose(cavity_rate_enhancement(F, Vda, wc, xdd, xaa, xda, kap, lam, tau, lamv, wv, tauv, T, nmb, nmv, depth, nph, tmax, dt, samp), target)",
+        "import numpy as np\nF = 100.0\nVda = 30.0\nwc = 100.0\nxdd = 0.0\nxaa = 0.0\nxda = 0.0\nkap = 0.0\nlam = 50.0\ntau = 100.0\nlamv = 0.0\nwv = 500.0\ntauv = 100.0\nT = 300.0\nnmb = 1\nnmv = 0\ndepth = 3\nnph = 2\ntmax = 1.0\ndt = 0.002\nsamp = 0.02\nassert np.allclose(cavity_rate_enhancement(F, Vda, wc, xdd, xaa, xda, kap, lam, tau, lamv, wv, tauv, T, nmb, nmv, depth, nph, tmax, dt, samp), target)",
+        "import numpy as np\nF = 100.0\nVda = 30.0\nwc = 100.0\nxdd = 0.0\nxaa = 0.0\nxda = 0.0\nkap = 20.0\nlam = 50.0\ntau = 100.0\nlamv = 4.0\nwv = 400.0\ntauv = 100.0\nT = 150.0\nnmb = 1\nnmv = 0\ndepth = 3\nnph = 3\ntmax = 1.0\ndt = 0.001\nsamp = 0.02\nassert np.allclose(cavity_rate_enhancement(F, Vda, wc, xdd, xaa, xda, kap, lam, tau, lamv, wv, tauv, T, nmb, nmv, depth, nph, tmax, dt, samp), target)",
+        "import numpy as np\nF = 100.0\nVda = 30.0\nwc = 100.0\nxdd = 0.0\nxaa = 0.0\nxda = 0.5\nkap = 0.0\nlam = 50.0\ntau = 100.0\nlamv = 0.0\nwv = 500.0\ntauv = 100.0\nT = 300.0\nnmb = 1\nnmv = 0\ndepth = 4\nnph = 3\ntmax = 1.5\ndt = 0.002\nsamp = 0.03\nassert np.allclose(cavity_rate_enhancement(F, Vda, wc, xdd, xaa, xda, kap, lam, tau, lamv, wv, tauv, T, nmb, nmv, depth, nph, tmax, dt, samp), target)",
+        "import numpy as np\nF = 100.0\nVda = 30.0\nwc = 100.0\nxdd = 0.2\nxaa = -0.1\nxda = 0.3\nkap = 10.0\nlam = 50.0\ntau = 100.0\nlamv = -1.0\nwv = 500.0\ntauv = 100.0\nT = 300.0\nnmb = 1\nnmv = 0\ndepth = 3\nnph = 2\ntmax = 0.2\ndt = 0.001\nsamp = 0.02\ndef run_model():\n    try:\n        cavity_rate_enhancement(F, Vda, wc, xdd, xaa, xda, kap, lam, tau, lamv, wv, tauv, T, nmb, nmv, depth, nph, tmax, dt, samp)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,135 @@
+{
+  "problem_id": "Chemistry-Quantum_Chemistry-63",
+  "sub_steps": [
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-63.1",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(bo_hamiltonian(0.20, 0.7, 0.60, 1.00, 0.12), target)",
+        "import numpy as np\nassert np.allclose(bo_hamiltonian(0.20, 0.0, 0.60, 1.00, 0.12), target)",
+        "import numpy as np\nassert np.allclose(bo_hamiltonian(0.20, np.pi, 0.60, 1.00, 0.12), target)",
+        "import numpy as np\nassert np.allclose(bo_hamiltonian(2.75, 4.10, 0.35, 0.40, 0.55), target)",
+        "import numpy as np\nassert np.allclose(bo_hamiltonian(0.004, 5.90, 1.10, 2.00, 0.002), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-63.2",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(adiabatic_states(0.20, 0.7, 0.60, 1.00, 0.12), target)",
+        "import numpy as np\nassert np.allclose(adiabatic_states(0.20, 0.0, 0.60, 1.00, 0.12), target)",
+        "import numpy as np\nassert np.allclose(adiabatic_states(0.20, np.pi, 0.60, 1.00, 0.12), target)",
+        "import numpy as np\nassert np.allclose(adiabatic_states(0.20, 6.0, 0.60, 1.00, 0.12), target)",
+        "import numpy as np\nassert np.allclose(adiabatic_states(3.20, 2.40, 0.90, 1.00, 0.01), target)",
+        "import numpy as np\nassert np.allclose(adiabatic_states(0.05, 1.57, 0.25, 1.00, 0.80), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-63.3",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(np.round(berry_connections(0.20, 0.7, 0.60, 1.00, 0.12), 9), target)",
+        "import numpy as np\nassert np.allclose(np.round(berry_connections(0.20, 0.0, 0.60, 1.00, 0.12), 9), target)",
+        "import numpy as np\nassert np.allclose(np.round(berry_connections(0.20, np.pi / 2, 0.60, 1.00, 0.12), 9), target)",
+        "import numpy as np\nassert np.allclose(np.round(berry_connections(0.20, 3.90, 0.60, 1.00, 0.12), 9), target)",
+        "import numpy as np\nassert np.allclose(np.round(berry_connections(1.60, 2.20, 0.45, 0.80, 0.05), 9), target)",
+        "import numpy as np\nassert np.allclose(np.round(berry_connections(0.03, 1.10, 0.70, 1.00, 0.90), 9), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-63.4",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(round(bo_geometric_phase(0.20, 0.60, 1.00, 0.12, 512), 10), target)",
+        "import numpy as np\nassert np.allclose(round(bo_geometric_phase(0.20, 0.60, 1.00, 0.12, 2048), 10), target)",
+        "import numpy as np\nassert np.allclose(round(bo_geometric_phase(0.02, 0.60, 1.00, 0.12, 1024), 10), target)",
+        "import numpy as np\nassert np.allclose(round(bo_geometric_phase(4.00, 0.60, 1.00, 0.12, 1024), 10), target)",
+        "import numpy as np\nassert np.allclose(round(bo_geometric_phase(0.75, 0.30, 0.50, 0.45, 256), 10), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-63.5",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(np.round(interstate_coupling(0.20, 0.7, 0.60, 1.00, 0.12), 9), target)",
+        "import numpy as np\nassert np.allclose(np.round(interstate_coupling(0.20, 0.0, 0.60, 1.00, 0.12), 9), target)",
+        "import numpy as np\nassert np.allclose(np.round(interstate_coupling(0.20, np.pi, 0.60, 1.00, 0.12), 9), target)",
+        "import numpy as np\nassert np.allclose(np.round(interstate_coupling(0.20, 5.10, 0.60, 1.00, 0.12), 9), target)",
+        "import numpy as np\nassert np.allclose(np.round(interstate_coupling(2.40, 1.90, 0.80, 1.50, 0.03), 9), target)",
+        "import numpy as np\nassert np.allclose(np.round(interstate_coupling(0.02, 2.90, 0.20, 1.00, 0.70), 9), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-63.6",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(np.round(coupling_divergence(0.20, 0.7, 0.60, 1.00, 0.12), 5), target)",
+        "import numpy as np\nassert np.allclose(np.round(coupling_divergence(0.20, 0.0, 0.60, 1.00, 0.12), 5), target)",
+        "import numpy as np\nassert np.allclose(np.round(coupling_divergence(0.20, np.pi / 2, 0.60, 1.00, 0.12), 5), target)",
+        "import numpy as np\nassert np.allclose(np.round(coupling_divergence(0.20, 4.40, 0.60, 1.00, 0.12), 5), target)",
+        "import numpy as np\nassert np.allclose(np.round(coupling_divergence(1.30, 2.60, 0.50, 1.00, 0.20), 5), target)",
+        "import numpy as np\nassert np.allclose(np.round(coupling_divergence(0.60, 1.20, 0.40, 1.00, 1.50), 5), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-63.7",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(round(diagonal_correction(0.35, 0.7, 0.60, 1.00, 0.12, 100.0), 12), target)",
+        "import numpy as np\nassert np.allclose(round(diagonal_correction(0.35, 0.0, 0.60, 1.00, 0.12, 100.0), 12), target)",
+        "import numpy as np\nassert np.allclose(round(diagonal_correction(0.35, np.pi, 0.60, 1.00, 0.12, 100.0), 12), target)",
+        "import numpy as np\nassert np.allclose(round(diagonal_correction(0.02, 2.40, 0.60, 1.00, 0.12, 100.0), 12), target)",
+        "import numpy as np\nassert np.allclose(round(diagonal_correction(1.90, 5.10, 0.45, 0.80, 0.30, 40.0), 12), target)",
+        "import numpy as np\nassert np.allclose(round(diagonal_correction(0.35, 1.20, 0.60, 1.00, 0.90, 900.0), 12), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-63.8",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(np.round(nuclear_radial_state(0.60, 1.00, 0.12, 3, 100.0, 0.01, 0.02, 2.02, 4001)[:, ::400], 9), target)",
+        "import numpy as np\nassert np.allclose(np.round(nuclear_radial_state(0.60, 1.00, 0.12, 0, 100.0, 0.01, 0.02, 2.02, 1001)[:, ::100], 9), target)",
+        "import numpy as np\nassert np.allclose(np.round(nuclear_radial_state(0.60, 1.00, 0.12, -3, 100.0, 0.01, 0.02, 2.02, 1001)[:, ::100], 9), target)",
+        "import numpy as np\nassert np.allclose(np.round(nuclear_radial_state(0.45, 0.80, 0.30, 2, 40.0, 0.05, 0.05, 3.00, 801)[:, ::80], 9), target)",
+        "import numpy as np\nassert np.allclose(np.round(nuclear_radial_state(0.60, 1.00, 0.12, 7, 100.0, 0.01, 0.02, 2.02, 1001)[:, ::100], 9), target)",
+        "import numpy as np\nassert np.allclose(np.round(nuclear_radial_state(0.90, 1.50, 0.05, 1, 250.0, 0.004, 0.10, 1.60, 401)[:, ::40], 9), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-63.9",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(np.round(nuclear_momentum(0.35, 0.60, 1.00, 0.12, 3, 100.0, 0.01, 0.02, 2.02, 4001), 8), target)",
+        "import numpy as np\nassert np.allclose(np.round(nuclear_momentum(0.62, 0.60, 1.00, 0.12, 3, 100.0, 0.01, 0.02, 2.02, 1001), 8), target)",
+        "import numpy as np\nassert np.allclose(np.round(nuclear_momentum(0.35, 0.60, 1.00, 0.12, 0, 100.0, 0.01, 0.02, 2.02, 1001), 8), target)",
+        "import numpy as np\nassert np.allclose(np.round(nuclear_momentum(0.10, 0.60, 1.00, 0.12, -3, 100.0, 0.01, 0.02, 2.02, 1001), 8), target)",
+        "import numpy as np\nassert np.allclose(np.round(nuclear_momentum(1.00, 0.45, 0.80, 0.30, 2, 40.0, 0.05, 0.05, 3.00, 1181), 8), target)",
+        "import numpy as np\nassert np.allclose(np.round(nuclear_momentum(0.55, 0.90, 1.50, 0.05, 1, 250.0, 0.004, 0.10, 1.60, 401), 8), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-63.10",
+      "test_cases": [
+        "import numpy as np\nP = np.array([[0.0, 9.29123009], [-19.45869523, 0.0]])\nassert np.allclose(np.round(correlation_coupling(0.35, 0.7, 0.60, 1.00, 0.12, 100.0, P), 8), target)",
+        "import numpy as np\nP = np.array([[0.0, 9.29123009], [-19.45869523, 0.0]])\nassert np.allclose(np.round(correlation_coupling(0.35, 0.0, 0.60, 1.00, 0.12, 100.0, P), 8), target)",
+        "import numpy as np\nP = np.array([[0.0, 9.29123009], [-19.45869523, 0.0]])\nassert np.allclose(np.round(correlation_coupling(0.35, np.pi, 0.60, 1.00, 0.12, 100.0, P), 8), target)",
+        "import numpy as np\nP = np.zeros((2, 2))\nassert np.allclose(np.round(correlation_coupling(0.35, 2.20, 0.60, 1.00, 0.12, 100.0, P), 8), target)",
+        "import numpy as np\nP = np.array([[1.5, -0.75], [0.25, 2.0]])\nassert np.allclose(np.round(correlation_coupling(1.10, 4.60, 0.45, 0.80, 0.30, 40.0, P), 8), target)",
+        "import numpy as np\nP = np.array([[0.0, 3.0], [-2.0, 0.0]])\nassert np.allclose(np.round(correlation_coupling(0.04, 5.90, 0.60, 1.00, 0.12, 900.0, P), 8), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-63.11",
+      "test_cases": [
+        "import numpy as np\nP = np.array([[0.0, 9.29123009], [-19.45869523, 0.0]])\nassert np.allclose(np.round(connection_correction(0.35, 0.7, 0.60, 1.00, 0.12, 100.0, 0.01, P), 12), target)",
+        "import numpy as np\nP = np.array([[0.0, 9.29123009], [-19.45869523, 0.0]])\nassert np.allclose(np.round(connection_correction(0.35, 0.0, 0.60, 1.00, 0.12, 100.0, 0.01, P), 12), target)",
+        "import numpy as np\nP = np.array([[0.0, 9.29123009], [-19.45869523, 0.0]])\nassert np.allclose(np.round(connection_correction(0.35, np.pi, 0.60, 1.00, 0.12, 100.0, 0.01, P), 12), target)",
+        "import numpy as np\nP = np.zeros((2, 2))\nassert np.allclose(np.round(connection_correction(0.35, 3.90, 0.60, 1.00, 0.12, 100.0, 0.01, P), 12), target)",
+        "import numpy as np\nP = np.array([[1.5, -0.75], [0.25, 2.0]])\nassert np.allclose(np.round(connection_correction(0.95, 1.40, 0.55, 1.20, 0.35, 250.0, 0.004, P), 12), target)",
+        "import numpy as np\nP = np.array([[0.0, 3.0], [-2.0, 0.0]])\nassert np.allclose(np.round(connection_correction(0.06, 2.75, 0.60, 1.00, 0.12, 100.0, 0.02, P), 12), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-63.12",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(round(nonadiabatic_phase_ratio(), 8), target)",
+        "import numpy as np\nassert np.allclose(round(nonadiabatic_phase_ratio(0.35, 0.60, 1.00, 0.12, 3, 100.0, 0.01, 0.02, 2.02, 4001, 512), 8), target)",
+        "import numpy as np\nassert np.allclose(round(nonadiabatic_phase_ratio(0.35, 0.60, 1.00, 0.12, 0, 100.0, 0.01, 0.02, 2.02, 1001, 512), 8), target)",
+        "import numpy as np\nassert np.allclose(round(nonadiabatic_phase_ratio(0.10, 0.60, 1.00, 0.12, 3, 100.0, 0.01, 0.02, 2.02, 1001, 512), 8), target)",
+        "import numpy as np\nassert np.allclose(round(nonadiabatic_phase_ratio(1.00, 0.45, 0.80, 0.30, 2, 40.0, 0.05, 0.05, 3.00, 1181, 512), 8), target)",
+        "import numpy as np\nassert np.allclose(round(nonadiabatic_phase_ratio(0.55, 0.90, 1.50, 0.05, 1, 250.0, 0.004, 0.10, 1.60, 401, 512), 8), target)"
+      ]
+    }
+  ]
+}

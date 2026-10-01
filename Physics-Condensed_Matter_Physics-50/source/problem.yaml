@@ -1,0 +1,44 @@
+problem_id: "Physics-Condensed_Matter_Physics-50"
+subject: "physics"
+subject_area: "Condensed Matter Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.48550/arXiv.2609.12466"
+dependencies: ""
+steps:
+  - number: 1
+    name: "C1 \u2014 Right-Canonical Initial MPS"
+    description: "Transform a finite six-site open-boundary matrix-product state into the frozen right-canonical representation and retain the five internal Schmidt spectra."
+    orchestrator: false
+  - number: 2
+    name: "C2 \u2014 Operator-Schmidt Gate Factors"
+    description: "Construct the ordered rank-two operator-Schmidt factors for every two-site Pauli-coupling gate in the benchmark circuit."
+    orchestrator: false
+  - number: 3
+    name: "C3 \u2014 Local TEBD Singular Decomposition"
+    description: "Form the complete local post-gate tensor and its canonicalized matrix, then compute the deterministic full singular-value decomposition used by the projector construction."
+    orchestrator: false
+  - number: 4
+    name: "C4 \u2014 TEBD Projector Bases"
+    description: "Construct the left and right TEBD projector bases that reproduce the complete local singular decomposition before subspace selection."
+    orchestrator: false
+  - number: 5
+    name: "C5 \u2014 Fixed-Size Subspace Statistics"
+    description: "Enumerate the fixed-size singular-mode subspaces and compute their source-defined joint, marginal, and sequential conditional selection probabilities."
+    orchestrator: false
+  - number: 6
+    name: "C6 \u2014 Reference Projector Bank"
+    description: "Build the complete time-ordered TEBD projector bank along the deterministic rank-two reference trajectory."
+    orchestrator: false
+  - number: 7
+    name: "C7 \u2014 Weighted History Propagation"
+    description: "Propagate fixed stochastic subspace histories through the stored TEBD projector bank without intermediate normalization."
+    orchestrator: false
+  - number: 8
+    name: "C8 \u2014 Direct Cross-Trajectory Estimator"
+    description: "Evaluate independently paired bra/ket trajectory observables and their direct unreweighted finite-ensemble mean."
+    orchestrator: false
+  - number: 9
+    name: "C9 \u2014 Final Estimate"
+    description: "Compose the complete six-site stochastic-projector pipeline and report the real part of the direct paired-trajectory estimate."
+    orchestrator: true

@@ -1,0 +1,44 @@
+problem_id: "Physics-Condensed_Matter_Physics-34"
+subject: "physics"
+subject_area: "Condensed Matter Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2605.01202"
+dependencies: ""
+steps:
+  - number: 1
+    name: "discrete_skew_metric"
+    description: "Eq. (10): finite discrete beta=1 skew measure in supplied node order."
+    orchestrator: false
+  - number: 2
+    name: "skew_project"
+    description: "Algorithms 2\u20133 and Section 3.3: reorthogonalized symplectic projection with the declared ESR gauge; accumulated coefficients preserve the original-vector reconstruction."
+    orchestrator: false
+  - number: 3
+    name: "symplectic_arnoldi"
+    description: "Algorithm 4 and Section 3.5: the general symplectic Arnoldi construction, rather than assuming a three-term Lanczos recurrence."
+    orchestrator: false
+  - number: 4
+    name: "orthogonal_ensemble_kernel"
+    description: "Section 4.2.1, applied to Eq. (10): assemble the direct Pfaffian finite orthogonal-ensemble kernel, including its sign term and gauge-invariant SOP pairing."
+    orchestrator: false
+  - number: 5
+    name: "signed_pfaffian"
+    description: "Eq. (2) and the signed skew-factorization foundation: preserve the Pfaffian sign/phase. This supporting operation is established mathematics, not a new contribution claimed for this paper."
+    orchestrator: false
+  - number: 6
+    name: "condition_spectral_record"
+    description: "Proposition 2.5 and Algorithm 1: replay binary observations with the exact conditional kernel and multiply their successive probabilities. Original node labels survive previous eliminations."
+    orchestrator: false
+  - number: 7
+    name: "zero_one_level_probabilities"
+    description: "Conditional order-statistic construction around Eq. (15): obtain zero/one probabilities from the gap generating polynomial. Polynomial coefficients extend the nonsingular derivative expression to valid deterministic-count limits."
+    orchestrator: false
+  - number: 8
+    name: "infer_confinement"
+    description: "Task-specific inverse use of the main paper's general-weight finite ensemble. Root finding is a supporting operation; its probability map must use the preceding scientific functions."
+    orchestrator: false
+  - number: 9
+    name: "spectral_tail_surprisal"
+    description: "Final orchestrator for inferred conditional second-largest-level statistics, using every preceding public function through the composed call chain. The synthetic inference and observation protocol are explicitly task-specific."
+    orchestrator: true

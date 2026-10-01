@@ -1,0 +1,40 @@
+problem_id: "Physics-Optics-43"
+subject: "physics"
+subject_area: "Optics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1103/8hy1-m5gg"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_build_composite_symplectic"
+    description: "Build the composite complex symplectic matrix of the Gaussian stage of a unified boson sampler."
+    orchestrator: false
+  - number: 2
+    name: "02_generating_blocks"
+    description: "Evaluate the generating-function blocks D, A and B at a given value of the generating variables."
+    orchestrator: false
+  - number: 3
+    name: "03_assemble_g_submatrix"
+    description: "Assemble the exponent matrix G and extract the submatrix selected by a derivative pattern."
+    orchestrator: false
+  - number: 4
+    name: "04_fock_projection_sum"
+    description: "Evaluate the Fock-projection sum over coherent-amplitude derivatives for a detection pattern."
+    orchestrator: false
+  - number: 5
+    name: "05_core_generating_function"
+    description: "Assemble the normalized generating function of the sampler at a fixed value of the generating variables."
+    orchestrator: false
+  - number: 6
+    name: "06_richardson_x_derivative"
+    description: "Differentiate a scalar function of the generating variables to the orders set by an input photon pattern."
+    orchestrator: false
+  - number: 7
+    name: "07_ubs_probability"
+    description: "Compute the unified boson sampling transition probability for one input and output pattern."
+    orchestrator: false
+  - number: 8
+    name: "08_compute_ubs_probability"
+    description: "Orchestrate the full unified boson sampling calculation from the raw device specification."
+    orchestrator: true

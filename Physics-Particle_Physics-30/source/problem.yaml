@@ -1,0 +1,40 @@
+problem_id: "Physics-Particle_Physics-30"
+subject: "physics"
+subject_area: "Particle Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1103/nm36-9wdw"
+dependencies: ""
+steps:
+  - number: 1
+    name: "build_finite_source"
+    description: "Construct the finite Dirac-string source on a periodic cubic lattice using zero-based coordinates 0,...,L-1 and independent plaquettes ordered as (01,02,12). Set Sigma_01(0,0,z)=-charge for z=1,...,R inclusive and set every other entry to zero. Require an even integer L>=4, an integer separation satisfying 1<=R<L/2, and a nonzero integer charge. Raise ValueError for invalid inputs."
+    orchestrator: false
+  - number: 2
+    name: "lattice_curl"
+    description: "Compute the forward lattice curl of a real gauge-link array B with shape (3,Lx,Ly,Lz). Return the three independent plaquette components in order (01,02,12), using curl(B)_uv(x)=B_u(x)+B_v(x+u)-B_u(x+v)-B_v(x). All spatial shifts wrap periodically. Require finite inputs and each spatial side length at least 2; raise ValueError for invalid inputs. Do not reduce the resulting plaquette values modulo 2*pi."
+    orchestrator: false
+  - number: 3
+    name: "lattice_equations"
+    description: "Evaluate the normalized field-equation residuals and local Newton curvatures for the three-dimensional dual-lattice DGL model using Eqs. (43)\u2013(48) and (51)\u2013(52).\n\n\n\nThe state array has shape (5,Lx,Ly,Lz), with channels (B0,B1,B2,Re chi,Im chi). The source array sigma has shape (3,Lx,Ly,Lz), with plaquettes ordered as (01,02,12). Use periodic boundaries and epsilon_12=+1.\n\n\n\nReturn eleven channels in this exact order:\n\n(X0,X1,X2,Y1,Y2,dX0,dX1,dX2,H11,H12,H22).\n\n\n\nHere X_mu=dS/dB_mu and Y_alpha=(dS/dc_alpha)/mB^2 for beta_g=1. The dX channels are diagonal gauge curvatures, and H is the full symmetric 2-by-2 scalar Newton block.\n\n\n\nRequire compatible finite arrays, spatial side lengths at least 2, and positive finite masses. Raise ValueError for invalid inputs."
+    orchestrator: false
+  - number: 4
+    name: "newton_sweep"
+    description: "Perform one damped checkerboard block-Newton sweep without modifying the input arrays.\n\n\n\nThe state channels are (B0,B1,B2,Re chi,Im chi). Visit even site parity (x+y+z)%2=0 first, then odd parity. Within each parity, update B0, B1, and B2 in that order, followed by a joint update of the two scalar components.\n\n\n\nRecompute residuals and curvatures before each of these four stages. Within a stage, update all selected sites simultaneously. For a gauge channel, subtract damping*X/dX. For the scalar block, subtract damping*inverse(H)*Y.\n\n\n\nRequire compatible finite arrays, positive finite masses, even spatial side lengths of at least 2, and 0<damping<=1. Raise ValueError for invalid inputs or a nonpositive Newton curvature/block. Return a new state array."
+    orchestrator: false
+  - number: 5
+    name: "solve_finite_tube"
+    description: "Solve the three-dimensional finite-source DGL field equations using the specified checkerboard Newton sweep.\n\n\n\nInitialize B0=B1=B2=0, Re chi=1, and Im chi=0 everywhere. Before each sweep, check the maximum absolute value over the five normalized residual channels (X0,X1,X2,Y1,Y2). Return the state when this maximum is strictly below tolerance.\n\n\n\nUse damping=0.8, tolerance=1e-9, and max_sweeps=20000 by default. Check convergence again after the last permitted sweep. Raise ValueError if the solver does not converge.\n\n\n\nRequire a finite source array of shape (3,Lx,Ly,Lz), even spatial side lengths of at least 4, positive finite masses and tolerance, a positive integer max_sweeps, and 0<damping<=1. Do not modify the source array or use precomputed fields."
+    orchestrator: false
+  - number: 6
+    name: "periodic_green"
+    description: "Construct the real, zero-mean massless Green function on a periodic cubic lattice of size L^3.\n\n\n\nUse the nearest-neighbor lattice Laplacian\n\nDelta_L f(x)=sum_mu[f(x+mu)+f(x-mu)-2*f(x)].\n\n\n\nThe Green function must satisfy\n\nDelta_L G(x)=-delta_x0+1/L^3.\n\n\n\nFollow the finite-volume prescription in Appendix A, Eqs. (A6)\u2013(A8): use the inverse lattice-Laplacian eigenvalue for every nonzero momentum mode and set the joint zero-mode coefficient to zero. Do not substitute the continuum 1/r Green function.\n\n\n\nRequire an integer L>=2 and raise ValueError for invalid input."
+    orchestrator: false
+  - number: 7
+    name: "hodge_action"
+    description: "Evaluate the full and Hodge-decomposed lattice actions at beta_g=1 using Eqs. (42)\u2013(44) and (55)\u2013(69).\n\n\n\n\n\n\n\nInputs are the state array with channels (B0,B1,B2,Re chi,Im chi), the Dirac source with plaquettes ordered as (01,02,12), and the matching zero-mean periodic massless Green function G.\n\n\n\n\n\n\n\nCompute the charge density, Coulombic field, and regular Hodge potential using periodic differences and convolution. Include the finite-volume correction Fsole=curl(Breg)-2*pi*xi/V, where xi is the spatial sum of each source component and V is the number of lattice sites.\n\n\n\n\n\n\n\nEvaluate Ssole using the corrected solenoidal gauge field and the original scalar kinetic and potential terms.\n\n\n\n\n\n\n\nReturn [S,Scoul,Ssole,max_field_reconstruction_error,energy_reconstruction_error], where the last entry is the signed difference S-Scoul-Ssole. Raise ValueError for incompatible shapes, nonfinite inputs, or nonpositive masses.\n\n\n\nReturns\n\n-------\n\nA real NumPy array of length 5 containing [S,Scoul,Ssole,max_field_reconstruction_error,energy_reconstruction_error]. The energy error is the signed quantity S-Scoul-Ssole."
+    orchestrator: false
+  - number: 8
+    name: "run_length_curvature"
+    description: "Compute the finite-length solenoidal-potential curvature on a periodic cubic lattice.\n\n\n\nConstruct unit-charge Dirac sources at separations R-halfspan, R, and R+halfspan. For each source, solve the full three-dimensional DGL equations using the specified vacuum initialization, checkerboard ordering, damping 0.8, and residual tolerance. Use the periodic Green function and corrected Hodge decomposition to obtain each solenoidal potential.\n\n\n\nReturn the scalar\n\nQ=100*[Vsole(R+halfspan)-2*Vsole(R)+Vsole(R-halfspan)]/[halfspan*pi*mB^2].\n\n\n\nDefaults are L=16, R=5, halfspan=2, mB=mchi=0.5, and tolerance=1e-9.\n\n\n\nRequire an even integer L>=4, integer R, positive integer halfspan, positive finite equal masses, positive finite tolerance, and all three separations satisfying 1<=separation<L/2. Raise ValueError for invalid inputs or solver nonconvergence."
+    orchestrator: true

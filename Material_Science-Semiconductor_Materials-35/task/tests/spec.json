@@ -1,0 +1,121 @@
+{
+  "problem_id": "Material_Science-Semiconductor_Materials-35",
+  "sub_steps": [
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-35.1",
+      "test_cases": [
+        "import numpy as np\nV = np.linspace(0.0, 0.9, 10)\np = np.array([24.0, 0.35, 0.18, 0.0, 1.10, 0.10, 15.0])\nassert np.allclose(dc_current(V, p), target)",
+        "import numpy as np\nV = np.array([-0.25, 0.0, 0.35, 1.2])\np = np.array([24.0, 0.35, 0.18, 0.0, 1.10, 0.10, 15.0])\nassert np.allclose(dc_current(V, p), target)",
+        "import numpy as np\nV = np.linspace(0.2, 1.4, 7)\np = np.array([18.0, 0.35, 0.18, 26.0, 1.05, 0.12, 6.0])\nassert np.allclose(dc_current(V, p), target)",
+        "import numpy as np\nV = np.array([0.4])\np = np.array([24.0, 0.35, 0.0, 15.0])\ndef run_model():\n    try:\n        dc_current(V, p); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-35.2",
+      "test_cases": [
+        "import numpy as np\nfrom scipy.optimize import brentq, minimize_scalar\np = np.array([24.0, 0.35, 0.18, 0.0, 1.10, 0.10, 15.0])\nassert np.allclose(characteristic_scales(p), target)",
+        "import numpy as np\nfrom scipy.optimize import brentq, minimize_scalar\np = np.array([20.0, 0.30, 0.15, 14.0, 0.95, 0.10, 8.0])\nassert np.allclose(characteristic_scales(p), target)",
+        "import numpy as np\nfrom scipy.optimize import brentq, minimize_scalar\np = np.array([6.2, 0.9, 0.3, 0.0, 1.60, 0.10, 0.8])\nassert np.allclose(characteristic_scales(p), target)",
+        "import numpy as np\nfrom scipy.optimize import brentq, minimize_scalar\np = np.array([18.0, 0.35, 0.18, 26.0, 1.05, 0.12, 6.0])\nassert np.allclose(characteristic_scales(p), target)",
+        "import numpy as np\nfrom scipy.optimize import brentq, minimize_scalar\np = np.array([20.0, 0.30, 0.07, 12.0, 0.95, 0.08, 9.0])\nassert np.allclose(characteristic_scales(p), target)",
+        "import numpy as np\nfrom scipy.optimize import brentq, minimize_scalar\np = np.array([24.0, 0.35, 0.09, 0.0, 1.10, 0.10, 15.0])\nassert np.allclose(characteristic_scales(p), target)",
+        "import numpy as np\nfrom scipy.optimize import brentq, minimize_scalar\np = np.array([5.0, 0.35, 0.18, 0.0, 1.10, 0.10, 40.0])\ndef run_model():\n    try:\n        characteristic_scales(p); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-35.3",
+      "test_cases": [
+        "import numpy as np\np = np.array([24.0, 0.35, 0.18, 0.0, 1.10, 0.10, 15.0])\nassert np.allclose(harmonic_coefficients(0.44, 0.85, 0.32, p, 12), target)",
+        "import numpy as np\np = np.array([24.0, 0.35, 0.18, 0.0, 1.10, 0.10, 15.0])\nassert np.allclose(harmonic_coefficients(0.64, 1.07, 0.32, p, 6), target)",
+        "import numpy as np\np = np.array([6.2, 0.9, 0.3, 0.0, 1.60, 0.10, 0.8])\nassert np.allclose(harmonic_coefficients(1.1, 0.0, 0.48, p, 3), target)",
+        "import numpy as np\np = np.array([24.0, 0.35, 0.09, 0.0, 1.10, 0.10, 15.0])\nassert np.allclose(harmonic_coefficients(0.40, 1.60, 0.188961, p, 12), target)",
+        "import numpy as np\np = np.array([20.0, 0.30, 0.07, 12.0, 0.95, 0.08, 9.0])\nassert np.allclose(harmonic_coefficients(0.36, 2.20, 0.162939, p, 16), target)",
+        "import numpy as np\np = np.array([24.0, 0.35, 0.18, 0.0, 1.10, 0.10, 15.0])\ndef run_model():\n    try:\n        harmonic_coefficients(0.44, 0.85, 0.32, p, 0); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-35.4",
+      "test_cases": [
+        "import numpy as np\nfrom scipy.optimize import brentq\np = np.array([24.0, 0.35, 0.18, 0.0, 1.10, 0.10, 15.0])\nassert np.allclose(oscillation_amplitude(0.44, 19.0, 0.32, p), target)",
+        "import numpy as np\nfrom scipy.optimize import brentq\np = np.array([24.0, 0.35, 0.18, 0.0, 1.10, 0.10, 15.0])\nassert np.allclose(oscillation_amplitude(0.64, 19.0, 0.32, p), target)",
+        "import numpy as np\nfrom scipy.optimize import brentq\np = np.array([24.0, 0.35, 0.18, 0.0, 1.10, 0.10, 15.0])\nassert np.allclose(oscillation_amplitude(0.74, 19.0, 0.32, p), target)",
+        "import numpy as np\nfrom scipy.optimize import brentq\np = np.array([24.0, 0.35, 0.09, 0.0, 1.10, 0.10, 15.0])\nassert np.allclose(oscillation_amplitude(0.510174, 66.0, 0.188961, p), target)",
+        "import numpy as np\nfrom scipy.optimize import brentq\np = np.array([18.0, 0.35, 0.18, 26.0, 1.05, 0.12, 6.0])\nassert np.allclose(oscillation_amplitude(1.318271, 14.7, 0.346976, p), target)",
+        "import numpy as np\nfrom scipy.optimize import brentq\np = np.array([6.2, 0.9, 0.3, 0.0, 1.60, 0.10, 0.8])\nassert np.allclose(oscillation_amplitude(1.372103, 2.66, 0.476407, p), target)",
+        "import numpy as np\nfrom scipy.optimize import brentq\np = np.array([20.0, 0.30, 0.07, 12.0, 0.95, 0.08, 9.0])\nassert np.allclose(oscillation_amplitude(1.046625, 48.0, 0.162939, p), target)",
+        "import numpy as np\nfrom scipy.optimize import brentq\np = np.array([24.0, 0.35, 0.18, 0.0, 1.10, 0.10, 15.0])\ndef run_model():\n    try:\n        oscillation_amplitude(0.44, -1.0, 0.32, p); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-35.5",
+      "test_cases": [
+        "import numpy as np\nfrom scipy.optimize import brentq, minimize_scalar\np = np.array([24.0, 0.35, 0.18, 0.0, 1.10, 0.10, 15.0])\nassert np.allclose(oscillation_edge(19.0, 0.32, p), target)",
+        "import numpy as np\nfrom scipy.optimize import brentq, minimize_scalar\np = np.array([24.0, 0.35, 0.18, 0.0, 1.10, 0.10, 15.0])\nassert np.allclose(oscillation_edge(30.0, 0.32, p), target)",
+        "import numpy as np\nfrom scipy.optimize import brentq, minimize_scalar\np = np.array([6.2, 0.9, 0.3, 0.0, 1.60, 0.10, 0.8])\nassert np.allclose(oscillation_edge(3.0, 0.48, p), target)",
+        "import numpy as np\nfrom scipy.optimize import brentq, minimize_scalar\np = np.array([24.0, 0.35, 0.09, 0.0, 1.10, 0.10, 15.0])\nassert np.allclose(oscillation_edge(55.0, 0.188961, p), target)",
+        "import numpy as np\nfrom scipy.optimize import brentq, minimize_scalar\np = np.array([20.0, 0.30, 0.07, 12.0, 0.95, 0.08, 9.0])\nassert np.allclose(oscillation_edge(29.0, 0.162939, p), target)",
+        "import numpy as np\nfrom scipy.optimize import brentq, minimize_scalar\np = np.array([24.0, 0.35, 0.18, 0.0, 1.10, 0.10, 15.0])\ndef run_model():\n    try:\n        oscillation_edge(400.0, 0.32, p); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-35.6",
+      "test_cases": [
+        "import numpy as np\nfrom scipy.optimize import brentq\np = np.array([24.0, 0.35, 0.18, 0.0, 1.10, 0.10, 15.0])\nassert np.allclose(rectified_amplitude(0.44, 12.8, 0.32, p), target)",
+        "import numpy as np\nfrom scipy.optimize import brentq\np = np.array([24.0, 0.35, 0.18, 0.0, 1.10, 0.10, 15.0])\nassert np.allclose(rectified_amplitude(0.42, 10.0, 0.32, p), target)",
+        "import numpy as np\nfrom scipy.optimize import brentq\np = np.array([24.0, 0.35, 0.18, 0.0, 1.10, 0.10, 15.0])\nassert np.allclose(rectified_amplitude(0.60, 13.0, 0.32, p), target)",
+        "import numpy as np\nfrom scipy.optimize import brentq\np = np.array([24.0, 0.35, 0.18, 0.0, 1.10, 0.10, 15.0])\nassert np.allclose(rectified_amplitude(0.417, 10.55895344, 0.32, p), target)",
+        "import numpy as np\nfrom scipy.optimize import brentq\np = np.array([24.0, 0.35, 0.09, 0.0, 1.10, 0.10, 15.0])\nassert np.allclose(rectified_amplitude(0.5021, 7.2618963, 0.188961, p), target)",
+        "import numpy as np\nfrom scipy.optimize import brentq\np = np.array([18.0, 0.35, 0.18, 26.0, 1.05, 0.12, 6.0])\nassert np.allclose(rectified_amplitude(0.5255, 9.59577258, 0.346976, p), target)",
+        "import numpy as np\nfrom scipy.optimize import brentq\np = np.array([20.0, 0.30, 0.07, 12.0, 0.95, 0.08, 9.0])\nassert np.allclose(rectified_amplitude(0.4306, 4.18150134, 0.162939, p), target)",
+        "import numpy as np\nfrom scipy.optimize import brentq\np = np.array([24.0, 0.35, 0.18, 0.0, 1.10, 0.10, 15.0])\ndef run_model():\n    try:\n        rectified_amplitude(0.44, 25.0, 0.32, p); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-35.7",
+      "test_cases": [
+        "import numpy as np\np = np.array([24.0, 0.35, 0.18, 0.0, 1.10, 0.10, 15.0])\nassert np.allclose(first_order_coefficients(0.44, 0.85, 0.32, 104.0, p, 12), target)",
+        "import numpy as np\np = np.array([24.0, 0.35, 0.18, 0.0, 1.10, 0.10, 15.0])\nassert np.allclose(first_order_coefficients(0.64, 1.07, 0.32, 104.0, p, 12), target)",
+        "import numpy as np\np = np.array([6.2, 0.9, 0.3, 0.0, 1.60, 0.10, 0.8])\nassert np.allclose(first_order_coefficients(1.1, 0.9, 0.48, 14.8, p, 2), target)",
+        "import numpy as np\np = np.array([24.0, 0.35, 0.09, 0.0, 1.10, 0.10, 15.0])\nassert np.allclose(first_order_coefficients(0.44, 1.35, 0.188961, 221.0437575196, p, 12), target)",
+        "import numpy as np\np = np.array([20.0, 0.30, 0.07, 12.0, 0.95, 0.08, 9.0])\nassert np.allclose(first_order_coefficients(0.40, 1.10, 0.162939, 241.7782759980, p, 16), target)",
+        "import numpy as np\np = np.array([18.0, 0.35, 0.18, 26.0, 1.05, 0.12, 6.0])\nassert np.allclose(first_order_coefficients(0.60, 0.95, 0.346976, 81.6899045066, p, 8), target)",
+        "import numpy as np\np = np.array([24.0, 0.35, 0.18, 0.0, 1.10, 0.10, 15.0])\ndef run_model():\n    try:\n        first_order_coefficients(0.44, 0.0, 0.32, 104.0, p, 12); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-35.8",
+      "test_cases": [
+        "import numpy as np\nq = np.array([7.0, 4.5, 0.40, 0.12])\nassert np.allclose(large_signal_capacitance(0.44, 0.85, 0.32, q), target)",
+        "import numpy as np\nq = np.array([7.0, 4.5, 0.40, 0.12])\nassert np.allclose(large_signal_capacitance(0.64, 1.07, 0.32, q), target)",
+        "import numpy as np\nq = np.array([5.0, 2.0, 0.85, 0.2])\nassert np.allclose(large_signal_capacitance(0.95, 0.0, 0.48, q), target)",
+        "import numpy as np\nq = np.array([7.0, 4.5, 0.40, 0.06])\nassert np.allclose(large_signal_capacitance(0.44, 1.60, 0.19, q), target)",
+        "import numpy as np\nq = np.array([5.5, 8.0, 0.55, 0.08])\nassert np.allclose(large_signal_capacitance(0.40, 2.40, 0.163, q), target)",
+        "import numpy as np\nq = np.array([9.0, 0.0, 0.40, 0.12])\nassert np.allclose(large_signal_capacitance(0.50, 1.00, 0.32, q), target)",
+        "import numpy as np\nq = np.array([7.0, 4.5, 0.40, 0.0])\ndef run_model():\n    try:\n        large_signal_capacitance(0.44, 0.85, 0.32, q); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-35.9",
+      "test_cases": [
+        "import numpy as np\nco = np.array([-0.10, 0.13, -0.05, -0.007, 0.004, -0.05])\nassert np.allclose(bias_frequency(17.0, 2.1, 9.0, co, 104.0), target)",
+        "import numpy as np\nco = np.array([-0.26, 0.13, -0.02, -0.03])\nassert np.allclose(bias_frequency(0.0, 4.0, 8.0, co, 104.0), target)",
+        "import numpy as np\nco = np.array([0.08, -0.21, 0.11, -0.012])\nassert np.allclose(bias_frequency(40.0, 25.0, 6.0, co, 14.8), target)",
+        "import numpy as np\nco = np.array([-0.31, 0.24, -0.17, 0.09, -0.041])\nassert np.allclose(bias_frequency(3.0, 1.2, 12.0, co, 240.0), target)",
+        "import numpy as np\nco = np.array([0.02, -0.01, 0.004, -0.0007])\nassert np.allclose(bias_frequency(60.0, 8.0, 5.0, co, 14.8), target)",
+        "import numpy as np\nco = np.array([-0.10, 0.13, -0.05])\ndef run_model():\n    try:\n        bias_frequency(17.0, 0.0, 9.0, co, 104.0); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-35.10",
+      "test_cases": [
+        "import numpy as np\nfrom scipy.optimize import brentq, minimize_scalar\np = np.array([24.0, 0.35, 0.18, 0.0, 1.10, 0.10, 15.0])\nq = np.array([7.0, 0.40, 0.12])\nassert np.allclose(resonator_capacitance(p, q, np.array([0.44, 0.54]), 12.6, np.array([640.0, 664.0, 666.0]), 12), target)",
+        "import numpy as np\nfrom scipy.optimize import brentq, minimize_scalar\np = np.array([24.0, 0.35, 0.18, 0.0, 1.10, 0.10, 15.0])\nq = np.array([6.0, 0.42, 0.15])\nassert np.allclose(resonator_capacitance(p, q, np.array([0.46, 0.56]), 11.0, np.array([700.0, 716.0, 718.0]), 8), target)",
+        "import numpy as np\nfrom scipy.optimize import brentq, minimize_scalar\np = np.array([24.0, 0.35, 0.18, 0.0, 1.10, 0.10, 15.0])\nq = np.array([7.0, 0.40, 0.12])\nassert np.allclose(resonator_capacitance(p, q, np.array([0.44, 0.54]), 12.8, np.array([596.0, 626.0, 641.0]), 12), target)",
+        "import numpy as np\nfrom scipy.optimize import brentq, minimize_scalar\np = np.array([20.0, 0.30, 0.07, 12.0, 0.95, 0.08, 9.0])\nq = np.array([7.0, 0.36, 0.10])\nassert np.allclose(resonator_capacitance(p, q, np.array([0.36, 0.44]), 7.711851, np.array([592.0156, 661.5101, 716.179]), 12), target)",
+        "import numpy as np\nfrom scipy.optimize import brentq, minimize_scalar\np = np.array([6.2, 0.9, 0.3, 0.0, 1.60, 0.10, 0.8])\nq = np.array([5.0, 1.00, 0.25])\nassert np.allclose(resonator_capacitance(p, q, np.array([1.00, 1.20]), 4.446915, np.array([204.7886, 212.7705, 214.5667]), 12), target)",
+        "import numpy as np\nfrom scipy.optimize import brentq, minimize_scalar\np = np.array([24.0, 0.35, 0.18, 0.0, 1.10, 0.10, 15.0])\nq = np.array([7.0, 0.40, 0.12])\ndef run_model():\n    try:\n        resonator_capacitance(p, q, np.array([0.44, 0.54]), 12.8, np.array([600.0, 660.0, 680.0]), 12); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nfrom scipy.optimize import brentq, minimize_scalar\np = np.array([24.0, 0.35, 0.18, 0.0, 1.10, 0.10, 15.0])\nq = np.array([7.0, 0.40, 0.12])\ndef run_model():\n    try:\n        resonator_capacitance(p, q, np.array([0.44, 0.54]), 12.8, np.array([648.0, 640.0, 630.0]), 12); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

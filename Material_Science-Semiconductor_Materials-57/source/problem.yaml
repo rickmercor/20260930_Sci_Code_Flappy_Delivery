@@ -1,0 +1,48 @@
+problem_id: "Material_Science-Semiconductor_Materials-57"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1038/s41524-026-02095-w"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_lattice_mismatch"
+    description: "Compute percent lattice mismatch for electrode/channel matching cells."
+    orchestrator: false
+  - number: 2
+    name: "02_binding_energy"
+    description: "Evaluate the BSSE-corrected interfacial binding energy per area."
+    orchestrator: false
+  - number: 3
+    name: "03_schottky_barriers"
+    description: "Convert zero-gate opposite-spin edges into hole and electron Schottky barrier heights."
+    orchestrator: false
+  - number: 4
+    name: "04_terminal_potentials"
+    description: "Map source-referenced drain and gate voltages onto chemical potentials and an effective gate."
+    orchestrator: false
+  - number: 5
+    name: "05_gated_band_edges"
+    description: "Rigidly shift zero-gate opposite-spin edges by the effective gate voltage."
+    orchestrator: false
+  - number: 6
+    name: "06_threshold_spectra"
+    description: "Build opposite-spin edge-threshold transmission spectra on a fixed energy grid."
+    orchestrator: false
+  - number: 7
+    name: "07_landauer_spin_currents"
+    description: "Integrate spin-resolved Landauer\u2013B\u00fcttiker currents from spectra and terminal chemical potentials."
+    orchestrator: false
+  - number: 8
+    name: "08_spin_filtering_efficiency"
+    description: "Convert spin-resolved currents into signed spin filtering efficiency."
+    orchestrator: false
+  - number: 9
+    name: "09_decade_swing"
+    description: "Evaluate the positive subthreshold-swing magnitude in mV/dec between two transfer points."
+    orchestrator: false
+  - number: 10
+    name: "10_orchestrate_device_swing"
+    description: "Assemble the full paper-equation pipeline and return the selected-spin subthreshold swing between two gate points for the deterministic instance."
+    orchestrator: true

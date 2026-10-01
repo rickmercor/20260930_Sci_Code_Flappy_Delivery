@@ -1,0 +1,77 @@
+{
+  "problem_id": "Chemistry-Computational_Chemistry-56",
+  "sub_steps": [
+    {
+      "step_number": "Chemistry-Computational_Chemistry-56.1",
+      "test_cases": [
+        "assert np.allclose(drude_lorentz_exponents(27.5, 60.0, 295.0, 1), target)",
+        "assert np.allclose(drude_lorentz_exponents(100.0, 106.2, 300.0, 0), target)",
+        "assert np.allclose(drude_lorentz_exponents(35.0, 400.0, 77.0, 4), target)",
+        "assert np.allclose(drude_lorentz_exponents(8.0, 15.0, 400.0, 3), target)",
+        "import numpy as np\nT = 300.0\ngc = 2.0 * np.pi * 0.6950348 * T\ndef run(fn):\n    try:\n        fn(20.0, gc, T, 2)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run(drude_lorentz_exponents), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-56.2",
+      "test_cases": [
+        "import numpy as np\ndimer = np.array([85.0, 140.0, 0.1, 1.0])\nbath = np.array([27.5, 60.0, 295.0])\ntimes = np.array([0.0, 0.03, 0.1, 0.25])\nassert np.allclose(heom_readout_operator(dimer.copy(), bath.copy(), 1, 3, 1, times.copy()), target)",
+        "import numpy as np\ndimer = np.array([85.0, 140.0, 0.1, 1.0])\nbath = np.array([27.5, 60.0, 295.0])\ntimes = np.array([0.2, 0.05])\nassert np.allclose(heom_readout_operator(dimer.copy(), bath.copy(), 1, 0, 1, times.copy()), target)",
+        "import numpy as np\ndimer = np.array([70.0, -90.0, 0.05, 0.0])\nbath = np.array([60.0, 25.0, 150.0])\ntimes = np.array([0.02, 0.15, 0.4])\nassert np.allclose(heom_readout_operator(dimer.copy(), bath.copy(), 2, 4, 0, times.copy()), target)",
+        "import numpy as np\ndimer = np.array([120.0, 0.0, 0.0, 2.0])\nbath = np.array([150.0, 500.0, 400.0])\ntimes = np.array([0.01, 0.05, 0.12])\nassert np.allclose(heom_readout_operator(dimer.copy(), bath.copy(), 0, 5, 1, times.copy()), target)",
+        "import numpy as np\ndimer = np.array([40.0, 250.0, 0.3, 0.5])\nbath = np.array([0.0, 80.0, 300.0])\ntimes = np.array([0.1, 0.6])\nassert np.allclose(heom_readout_operator(dimer.copy(), bath.copy(), 1, 3, 1, times.copy()), target)",
+        "import numpy as np\ndimer = np.array([45.0, 520.0, 0.02, 3.0])\nbath = np.array([18.0, 150.0, 77.0])\ntimes = np.array([0.3, 1e-4, 0.3, 0.07])\nassert np.allclose(heom_readout_operator(dimer.copy(), bath.copy(), 3, 3, 1, times.copy()), target)",
+        "import numpy as np\ndimer = np.array([150.0, 60.0, 0.0, 0.0])\nbath = np.array([120.0, 30.0, 300.0])\ntimes = np.array([0.05, 0.1, 0.2])\nassert np.allclose(heom_readout_operator(dimer.copy(), bath.copy(), 1, 5, 0, times.copy()), target)",
+        "import numpy as np\ndimer = np.array([85.0, 140.0, 0.1, 1.0])\nbath = np.array([27.5, 60.0, 295.0])\ndef run(fn):\n    try:\n        fn(dimer, bath, 1, 2, 2, np.array([0.1]))\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run(heom_readout_operator), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-56.3",
+      "test_cases": [
+        "import numpy as np\ndimer = np.array([85.0, 140.0, 0.1, 1.0])\nbath = np.array([27.5, 60.0, 295.0])\ntimes = np.array([0.05, 0.2, 0.35])\nassert np.allclose(ensemble_readout_operator(dimer.copy(), 70.0, bath.copy(), 1, 2, 7, 1, times.copy()), target)",
+        "import numpy as np\ndimer = np.array([85.0, 140.0, 0.1, 1.0])\nbath = np.array([27.5, 60.0, 295.0])\ntimes = np.array([0.1, 0.3])\nassert np.allclose(ensemble_readout_operator(dimer.copy(), 200.0, bath.copy(), 1, 3, 1, 1, times.copy()), target)",
+        "import numpy as np\ndimer = np.array([60.0, 20.0, 0.0, 0.5])\nbath = np.array([40.0, 90.0, 250.0])\ntimes = np.array([0.04, 0.12, 0.3, 0.6])\nassert np.allclose(ensemble_readout_operator(dimer.copy(), 110.0, bath.copy(), 0, 3, 9, 1, times.copy()), target)",
+        "import numpy as np\ndimer = np.array([100.0, 300.0, 0.2, 0.0])\nbath = np.array([15.0, 45.0, 120.0])\ntimes = np.array([0.08, 0.5])\nassert np.allclose(ensemble_readout_operator(dimer.copy(), 12.0, bath.copy(), 2, 2, 5, 0, times.copy()), target)",
+        "import numpy as np\ndimer = np.array([120.0, 350.0, 0.0, 2.0])\nbath = np.array([10.0, 200.0, 350.0])\ntimes = np.array([0.02, 0.1])\nassert np.allclose(ensemble_readout_operator(dimer.copy(), 150.0, bath.copy(), 0, 4, 12, 0, times.copy()), target)",
+        "import numpy as np\ndimer = np.array([85.0, 140.0, 0.1, 1.0])\nbath = np.array([27.5, 60.0, 295.0])\ndef run(fn):\n    try:\n        fn(dimer, -5.0, bath, 1, 2, 4, 1, np.array([0.1]))\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run(ensemble_readout_operator), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-56.4",
+      "test_cases": [
+        "import numpy as np\nrows = np.array([[0.3521, 0.6034, -0.0935, 0.0471, 0.52, -0.77, -0.0412, -0.0366],\n                 [0.1905, 0.7828, -0.1407, 0.3241, 5.1, -4.2, -2.7, 1.3]])\nassert np.allclose(coherence_diagnostics(rows.copy()), target)",
+        "import numpy as np\nrows = np.array([[0.2, 0.7, 0.0, 0.0, 0.1, 0.3, 0.0, -0.4],\n                 [0.5, 0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]])\nassert np.allclose(coherence_diagnostics(rows.copy()), target)",
+        "import numpy as np\nrows = np.array([[0.1, -0.3, -0.25, 0.0, 0.0, 0.0, 1.0, 0.0],\n                 [-0.6, -0.1, 0.05, -0.2, -1.0, 2.0, 0.3, 0.4],\n                 [0.0, 0.0, 0.0, 1e-3, 0.0, 0.0, -2e-3, 0.0]])\nassert np.allclose(coherence_diagnostics(rows.copy()), target)",
+        "import numpy as np\ndef run(fn):\n    try:\n        fn(np.zeros((3, 4)))\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run(coherence_diagnostics), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-56.5",
+      "test_cases": [
+        "import numpy as np\ndimer = np.array([85.0, 140.0, 0.1, 1.0])\nbath = np.array([27.5, 60.0, 295.0])\nwindow = np.array([0.15, 0.4])\nassert np.allclose(post_overlap_supremum(dimer.copy(), 70.0, bath.copy(), 1, 2, 6, window.copy()), target)",
+        "import numpy as np\ndimer = np.array([85.0, 140.0, 0.1, 1.0])\nbath = np.array([27.5, 60.0, 295.0])\nwindow = np.array([0.21, 0.26])\nassert np.allclose(post_overlap_supremum(dimer.copy(), 0.0, bath.copy(), 1, 2, 1, window.copy()), target)",
+        "import numpy as np\ndimer = np.array([100.0, 0.0, 0.05, 0.3])\nbath = np.array([12.0, 80.0, 300.0])\nwindow = np.array([0.1, 0.45])\nassert np.allclose(post_overlap_supremum(dimer.copy(), 60.0, bath.copy(), 0, 3, 8, window.copy()), target)",
+        "import numpy as np\ndimer = np.array([60.0, 300.0, 0.0, 1.5])\nbath = np.array([35.0, 106.0, 150.0])\nwindow = np.array([0.0, 0.3])\nassert np.allclose(post_overlap_supremum(dimer.copy(), 25.0, bath.copy(), 2, 2, 5, window.copy()), target)",
+        "import numpy as np\ndimer = np.array([70.0, -60.0, 0.1, 0.4])\nbath = np.array([45.0, 150.0, 330.0])\nwindow = np.array([0.01, 0.35])\nassert np.allclose(post_overlap_supremum(dimer.copy(), 90.0, bath.copy(), 1, 3, 10, window.copy()), target)",
+        "import numpy as np\ndimer = np.array([85.0, 140.0, 0.1, 1.0])\nbath = np.array([27.5, 60.0, 295.0])\ndef run(fn):\n    try:\n        fn(dimer, 70.0, bath, 1, 2, 4, np.array([0.5, 0.2]))\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run(post_overlap_supremum), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-56.6",
+      "test_cases": [
+        "import numpy as np\ndimer = np.array([85.0, 140.0, 0.1, 1.0])\nwindow = np.array([0.15, 0.3])\nbracket = np.array([10.0, 60.0])\nassert np.allclose(critical_reorganization_energy(dimer.copy(), 70.0, 60.0, 295.0, 1, 2, 5, window.copy(), 0.1, bracket.copy()), target)",
+        "import numpy as np\ndimer = np.array([85.0, 140.0, 0.1, 1.0])\nwindow = np.array([0.15, 0.3])\nbracket = np.array([5.0, 80.0])\nassert np.allclose(critical_reorganization_energy(dimer.copy(), 0.0, 60.0, 295.0, 0, 3, 1, window.copy(), 0.12, bracket.copy()), target)",
+        "import numpy as np\ndimer = np.array([110.0, 260.0, 0.0, 0.8])\nwindow = np.array([0.1, 0.25])\nbracket = np.array([2.0, 60.0])\nassert np.allclose(critical_reorganization_energy(dimer.copy(), 30.0, 35.0, 180.0, 1, 2, 4, window.copy(), 0.26, bracket.copy()), target)",
+        "import numpy as np\ndimer = np.array([85.0, 140.0, 0.1, 1.0])\ndef run(fn):\n    try:\n        fn(dimer, 70.0, 60.0, 295.0, 0, 1, 3, np.array([0.15, 0.3]), 0.9, np.array([10.0, 20.0]))\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run(critical_reorganization_energy), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-56.7",
+      "test_cases": [
+        "import numpy as np\ndimer = np.array([85.0, 140.0, 0.1, 1.0])\nwindow = np.array([0.15, 0.3])\nbracket = np.array([10.0, 60.0])\nassert np.allclose(coherence_relevance_report(dimer.copy(), 70.0, 60.0, 295.0, 1, 2, 5, window.copy(), 0.1, bracket.copy(), 20.0), target)",
+        "import numpy as np\ndimer = np.array([90.0, 0.0, 0.05, 0.0])\nwindow = np.array([0.12, 0.3])\nbracket = np.array([5.0, 80.0])\nassert np.allclose(coherence_relevance_report(dimer.copy(), 40.0, 90.0, 300.0, 0, 2, 4, window.copy(), 0.15, bracket.copy(), 0.0), target)",
+        "import numpy as np\ndimer = np.array([110.0, -180.0, 0.0, 0.8])\nwindow = np.array([0.1, 0.25])\nbracket = np.array([2.0, 60.0])\nassert np.allclose(coherence_relevance_report(dimer.copy(), 20.0, 35.0, 180.0, 1, 2, 4, window.copy(), 0.26, bracket.copy(), 10.0), target)",
+        "import numpy as np\ndimer = np.array([85.0, 140.0, 0.1, 1.0])\ndef run(fn):\n    try:\n        fn(dimer, 70.0, 60.0, 295.0, 1, 2, 4, np.array([0.15, 0.3]), 0.1, np.array([10.0, 60.0]), -1.0)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run(coherence_relevance_report), target)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "problem_id": "Material_Science-Molecular_Modeling-6",
+  "sub_steps": [
+    {
+      "step_number": "Material_Science-Molecular_Modeling-6.1",
+      "test_cases": [
+        "import numpy as _n\n_i,_j=_n.meshgrid(_n.arange(20),_n.arange(20),indexing=\"ij\")\nD=_n.abs(_i-_j).astype(float)\nH=_n.where(_n.abs(_i-_j)<=3,(((_i+1)*(_j+1)+3)%13)/13.0-0.5,0.0);H=(H+H.T)/2\nS=_n.where((_n.abs(_i-_j)<=2)&(_i!=_j),(((_i+2)*(_j+2)+6)%7)/35.0-0.1,0.0)\nS=S+_n.diag(1.4+(((_n.arange(20)+1)*3)%5)/25.0);S=(S+S.T)/2\nassert np.allclose(greedy_multicoloring(D, 3.0), target)",
+        "import numpy as _n\n_i,_j=_n.meshgrid(_n.arange(20),_n.arange(20),indexing=\"ij\")\nD=_n.abs(_i-_j).astype(float)\nH=_n.where(_n.abs(_i-_j)<=3,(((_i+1)*(_j+1)+5)%13)/13.0-0.5,0.0);H=(H+H.T)/2\nS=_n.where((_n.abs(_i-_j)<=2)&(_i!=_j),(((_i+2)*(_j+2)+10)%7)/35.0-0.1,0.0)\nS=S+_n.diag(1.4+(((_n.arange(20)+1)*5)%5)/25.0);S=(S+S.T)/2\nassert np.allclose(greedy_multicoloring(D, 5.0), target)",
+        "import numpy as _n\n_i,_j=_n.meshgrid(_n.arange(20),_n.arange(20),indexing=\"ij\")\nD=_n.abs(_i-_j).astype(float)\nH=_n.where(_n.abs(_i-_j)<=3,(((_i+1)*(_j+1)+4)%13)/13.0-0.5,0.0);H=(H+H.T)/2\nS=_n.where((_n.abs(_i-_j)<=2)&(_i!=_j),(((_i+2)*(_j+2)+8)%7)/35.0-0.1,0.0)\nS=S+_n.diag(1.4+(((_n.arange(20)+1)*4)%5)/25.0);S=(S+S.T)/2\nassert np.allclose(greedy_multicoloring(D, 4.0), target)",
+        "import numpy as _n\n_i,_j=_n.meshgrid(_n.arange(20),_n.arange(20),indexing=\"ij\")\nD=_n.abs(_i-_j).astype(float)\nH=_n.where(_n.abs(_i-_j)<=3,(((_i+1)*(_j+1)+3)%13)/13.0-0.5,0.0);H=(H+H.T)/2\nS=_n.where((_n.abs(_i-_j)<=2)&(_i!=_j),(((_i+2)*(_j+2)+6)%7)/35.0-0.1,0.0)\nS=S+_n.diag(1.4+(((_n.arange(20)+1)*3)%5)/25.0);S=(S+S.T)/2\nassert np.allclose(greedy_multicoloring(D, 1.0), target)",
+        "import numpy as _n\n_i,_j=_n.meshgrid(_n.arange(20),_n.arange(20),indexing=\"ij\")\nD=_n.abs(_i-_j).astype(float)\nH=_n.where(_n.abs(_i-_j)<=3,(((_i+1)*(_j+1)+3)%13)/13.0-0.5,0.0);H=(H+H.T)/2\nS=_n.where((_n.abs(_i-_j)<=2)&(_i!=_j),(((_i+2)*(_j+2)+6)%7)/35.0-0.1,0.0)\nS=S+_n.diag(1.4+(((_n.arange(20)+1)*3)%5)/25.0);S=(S+S.T)/2\nassert np.allclose(greedy_multicoloring(D, 25.0), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-6.2",
+      "test_cases": [
+        "import numpy as _n\n_i,_j=_n.meshgrid(_n.arange(20),_n.arange(20),indexing=\"ij\")\nD=_n.abs(_i-_j).astype(float)\nH=_n.where(_n.abs(_i-_j)<=3,(((_i+1)*(_j+1)+3)%13)/13.0-0.5,0.0);H=(H+H.T)/2\nS=_n.where((_n.abs(_i-_j)<=2)&(_i!=_j),(((_i+2)*(_j+2)+6)%7)/35.0-0.1,0.0)\nS=S+_n.diag(1.4+(((_n.arange(20)+1)*3)%5)/25.0);S=(S+S.T)/2\ncolors=greedy_multicoloring(D, 3.0)\nassert np.allclose(css_matrix(colors), target)",
+        "import numpy as _n\n_i,_j=_n.meshgrid(_n.arange(20),_n.arange(20),indexing=\"ij\")\nD=_n.abs(_i-_j).astype(float)\nH=_n.where(_n.abs(_i-_j)<=3,(((_i+1)*(_j+1)+5)%13)/13.0-0.5,0.0);H=(H+H.T)/2\nS=_n.where((_n.abs(_i-_j)<=2)&(_i!=_j),(((_i+2)*(_j+2)+10)%7)/35.0-0.1,0.0)\nS=S+_n.diag(1.4+(((_n.arange(20)+1)*5)%5)/25.0);S=(S+S.T)/2\ncolors=greedy_multicoloring(D, 5.0)\nassert np.allclose(css_matrix(colors), target)",
+        "import numpy as _n\n_i,_j=_n.meshgrid(_n.arange(20),_n.arange(20),indexing=\"ij\")\nD=_n.abs(_i-_j).astype(float)\nH=_n.where(_n.abs(_i-_j)<=3,(((_i+1)*(_j+1)+4)%13)/13.0-0.5,0.0);H=(H+H.T)/2\nS=_n.where((_n.abs(_i-_j)<=2)&(_i!=_j),(((_i+2)*(_j+2)+8)%7)/35.0-0.1,0.0)\nS=S+_n.diag(1.4+(((_n.arange(20)+1)*4)%5)/25.0);S=(S+S.T)/2\ncolors=greedy_multicoloring(D, 4.0)\nassert np.allclose(css_matrix(colors), target)",
+        "import numpy as _n\n_i,_j=_n.meshgrid(_n.arange(20),_n.arange(20),indexing=\"ij\")\nD=_n.abs(_i-_j).astype(float)\nH=_n.where(_n.abs(_i-_j)<=3,(((_i+1)*(_j+1)+3)%13)/13.0-0.5,0.0);H=(H+H.T)/2\nS=_n.where((_n.abs(_i-_j)<=2)&(_i!=_j),(((_i+2)*(_j+2)+6)%7)/35.0-0.1,0.0)\nS=S+_n.diag(1.4+(((_n.arange(20)+1)*3)%5)/25.0);S=(S+S.T)/2\ncolors=_n.zeros(20,dtype=_n.int64)\nassert np.allclose(css_matrix(colors), target)",
+        "import numpy as _n\ncolors=_n.array([0,3,3,0,2,0],dtype=_n.int64)\nassert np.allclose(css_matrix(colors), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-6.3",
+      "test_cases": [
+        "import numpy as _n\n_i,_j=_n.meshgrid(_n.arange(20),_n.arange(20),indexing=\"ij\")\nD=_n.abs(_i-_j).astype(float)\nH=_n.where(_n.abs(_i-_j)<=3,(((_i+1)*(_j+1)+3)%13)/13.0-0.5,0.0);H=(H+H.T)/2\nS=_n.where((_n.abs(_i-_j)<=2)&(_i!=_j),(((_i+2)*(_j+2)+6)%7)/35.0-0.1,0.0)\nS=S+_n.diag(1.4+(((_n.arange(20)+1)*3)%5)/25.0);S=(S+S.T)/2\nO=css_matrix(greedy_multicoloring(D, 5.0))\nassert np.allclose(block_krylov_basis(S, O, 3), target)",
+        "import numpy as _n\n_i,_j=_n.meshgrid(_n.arange(20),_n.arange(20),indexing=\"ij\")\nD=_n.abs(_i-_j).astype(float)\nH=_n.where(_n.abs(_i-_j)<=3,(((_i+1)*(_j+1)+5)%13)/13.0-0.5,0.0);H=(H+H.T)/2\nS=_n.where((_n.abs(_i-_j)<=2)&(_i!=_j),(((_i+2)*(_j+2)+10)%7)/35.0-0.1,0.0)\nS=S+_n.diag(1.4+(((_n.arange(20)+1)*5)%5)/25.0);S=(S+S.T)/2\nO=css_matrix(greedy_multicoloring(D, 5.0))\nassert np.allclose(block_krylov_basis(S, O, 4), target)",
+        "import numpy as _n\n_i,_j=_n.meshgrid(_n.arange(20),_n.arange(20),indexing=\"ij\")\nD=_n.abs(_i-_j).astype(float)\nH=_n.where(_n.abs(_i-_j)<=3,(((_i+1)*(_j+1)+4)%13)/13.0-0.5,0.0);H=(H+H.T)/2\nS=_n.where((_n.abs(_i-_j)<=2)&(_i!=_j),(((_i+2)*(_j+2)+8)%7)/35.0-0.1,0.0)\nS=S+_n.diag(1.4+(((_n.arange(20)+1)*4)%5)/25.0);S=(S+S.T)/2\nR=css_matrix(greedy_multicoloring(D, 3.0))\nassert np.allclose(block_krylov_basis(H, R, 5), target)",
+        "import numpy as _n\n_i,_j=_n.meshgrid(_n.arange(20),_n.arange(20),indexing=\"ij\")\nD=_n.abs(_i-_j).astype(float)\nH=_n.where(_n.abs(_i-_j)<=3,(((_i+1)*(_j+1)+3)%13)/13.0-0.5,0.0);H=(H+H.T)/2\nS=_n.where((_n.abs(_i-_j)<=2)&(_i!=_j),(((_i+2)*(_j+2)+6)%7)/35.0-0.1,0.0)\nS=S+_n.diag(1.4+(((_n.arange(20)+1)*3)%5)/25.0);S=(S+S.T)/2\nO=css_matrix(greedy_multicoloring(D, 5.0))\nassert np.allclose(block_krylov_basis(S, O, 1), target)",
+        "import numpy as _n\n_i,_j=_n.meshgrid(_n.arange(20),_n.arange(20),indexing=\"ij\")\nD=_n.abs(_i-_j).astype(float)\nH=_n.where(_n.abs(_i-_j)<=3,(((_i+1)*(_j+1)+3)%13)/13.0-0.5,0.0);H=(H+H.T)/2\nS=_n.where((_n.abs(_i-_j)<=2)&(_i!=_j),(((_i+2)*(_j+2)+6)%7)/35.0-0.1,0.0)\nS=S+_n.diag(1.4+(((_n.arange(20)+1)*3)%5)/25.0);S=(S+S.T)/2\nb0=-_n.ones(20)\nB=_n.column_stack([b0,b0])\nassert np.allclose(block_krylov_basis(S, B, 2), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-6.4",
+      "test_cases": [
+        "import numpy as _n\n_i,_j=_n.meshgrid(_n.arange(20),_n.arange(20),indexing=\"ij\")\nD=_n.abs(_i-_j).astype(float)\nH=_n.where(_n.abs(_i-_j)<=3,(((_i+1)*(_j+1)+3)%13)/13.0-0.5,0.0);H=(H+H.T)/2\nS=_n.where((_n.abs(_i-_j)<=2)&(_i!=_j),(((_i+2)*(_j+2)+6)%7)/35.0-0.1,0.0)\nS=S+_n.diag(1.4+(((_n.arange(20)+1)*3)%5)/25.0);S=(S+S.T)/2\nQ=block_krylov_basis(S, css_matrix(greedy_multicoloring(D, 5.0)), 3)\nassert np.allclose(projected_inv_sqrt(S, Q), target)",
+        "import numpy as _n\n_i,_j=_n.meshgrid(_n.arange(20),_n.arange(20),indexing=\"ij\")\nD=_n.abs(_i-_j).astype(float)\nH=_n.where(_n.abs(_i-_j)<=3,(((_i+1)*(_j+1)+5)%13)/13.0-0.5,0.0);H=(H+H.T)/2\nS=_n.where((_n.abs(_i-_j)<=2)&(_i!=_j),(((_i+2)*(_j+2)+10)%7)/35.0-0.1,0.0)\nS=S+_n.diag(1.4+(((_n.arange(20)+1)*5)%5)/25.0);S=(S+S.T)/2\nQ=block_krylov_basis(S, css_matrix(greedy_multicoloring(D, 5.0)), 4)\nassert np.allclose(projected_inv_sqrt(S, Q), target)",
+        "import numpy as _n\n_i,_j=_n.meshgrid(_n.arange(20),_n.arange(20),indexing=\"ij\")\nD=_n.abs(_i-_j).astype(float)\nH=_n.where(_n.abs(_i-_j)<=3,(((_i+1)*(_j+1)+4)%13)/13.0-0.5,0.0);H=(H+H.T)/2\nS=_n.where((_n.abs(_i-_j)<=2)&(_i!=_j),(((_i+2)*(_j+2)+8)%7)/35.0-0.1,0.0)\nS=S+_n.diag(1.4+(((_n.arange(20)+1)*4)%5)/25.0);S=(S+S.T)/2\nQ=block_krylov_basis(S, css_matrix(greedy_multicoloring(D, 5.0)), 2)\nassert np.allclose(projected_inv_sqrt(S, Q), target)",
+        "import numpy as _n\n_i,_j=_n.meshgrid(_n.arange(20),_n.arange(20),indexing=\"ij\")\nD=_n.abs(_i-_j).astype(float)\nH=_n.where(_n.abs(_i-_j)<=3,(((_i+1)*(_j+1)+3)%13)/13.0-0.5,0.0);H=(H+H.T)/2\nS=_n.where((_n.abs(_i-_j)<=2)&(_i!=_j),(((_i+2)*(_j+2)+6)%7)/35.0-0.1,0.0)\nS=S+_n.diag(1.4+(((_n.arange(20)+1)*3)%5)/25.0);S=(S+S.T)/2\nQ=_n.eye(20)[:, :1]\nassert np.allclose(projected_inv_sqrt(S, Q), target)",
+        "import numpy as _n\nS=4.0*_n.eye(12)\nQ=_n.eye(12)[:, :3]\nassert np.allclose(projected_inv_sqrt(S, Q), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-6.5",
+      "test_cases": [
+        "import numpy as _n\n_i,_j=_n.meshgrid(_n.arange(20),_n.arange(20),indexing=\"ij\")\nD=_n.abs(_i-_j).astype(float)\nH=_n.where(_n.abs(_i-_j)<=3,(((_i+1)*(_j+1)+3)%13)/13.0-0.5,0.0);H=(H+H.T)/2\nS=_n.where((_n.abs(_i-_j)<=2)&(_i!=_j),(((_i+2)*(_j+2)+6)%7)/35.0-0.1,0.0)\nS=S+_n.diag(1.4+(((_n.arange(20)+1)*3)%5)/25.0);S=(S+S.T)/2\ncolors=greedy_multicoloring(D, 5.0)\nR=css_matrix(colors)\nMt=S@R\nassert np.allclose(css_extract(Mt, R, colors, D, 5.0), target)",
+        "import numpy as _n\n_i,_j=_n.meshgrid(_n.arange(20),_n.arange(20),indexing=\"ij\")\nD=_n.abs(_i-_j).astype(float)\nH=_n.where(_n.abs(_i-_j)<=3,(((_i+1)*(_j+1)+5)%13)/13.0-0.5,0.0);H=(H+H.T)/2\nS=_n.where((_n.abs(_i-_j)<=2)&(_i!=_j),(((_i+2)*(_j+2)+10)%7)/35.0-0.1,0.0)\nS=S+_n.diag(1.4+(((_n.arange(20)+1)*5)%5)/25.0);S=(S+S.T)/2\ncolors=greedy_multicoloring(D, 3.0)\nR=css_matrix(colors)\nMt=H@R\nassert np.allclose(css_extract(Mt, R, colors, D, 3.0), target)",
+        "import numpy as _n\n_i,_j=_n.meshgrid(_n.arange(20),_n.arange(20),indexing=\"ij\")\nD=_n.abs(_i-_j).astype(float)\nH=_n.where(_n.abs(_i-_j)<=3,(((_i+1)*(_j+1)+4)%13)/13.0-0.5,0.0);H=(H+H.T)/2\nS=_n.where((_n.abs(_i-_j)<=2)&(_i!=_j),(((_i+2)*(_j+2)+8)%7)/35.0-0.1,0.0)\nS=S+_n.diag(1.4+(((_n.arange(20)+1)*4)%5)/25.0);S=(S+S.T)/2\ncolors=greedy_multicoloring(D, 4.0)\nR=css_matrix(colors)\nMt=(H+S)@R\nassert np.allclose(css_extract(Mt, R, colors, D, 4.0), target)",
+        "import numpy as _n\n_i,_j=_n.meshgrid(_n.arange(20),_n.arange(20),indexing=\"ij\")\nD=_n.abs(_i-_j).astype(float)\nH=_n.where(_n.abs(_i-_j)<=3,(((_i+1)*(_j+1)+3)%13)/13.0-0.5,0.0);H=(H+H.T)/2\nS=_n.where((_n.abs(_i-_j)<=2)&(_i!=_j),(((_i+2)*(_j+2)+6)%7)/35.0-0.1,0.0)\nS=S+_n.diag(1.4+(((_n.arange(20)+1)*3)%5)/25.0);S=(S+S.T)/2\ncolors=greedy_multicoloring(D, 5.0)\nR=css_matrix(colors)\nMt=S@R\nassert np.allclose(css_extract(Mt, R, colors, D, 1.0), target)",
+        "import numpy as _n\n_i,_j=_n.meshgrid(_n.arange(20),_n.arange(20),indexing=\"ij\")\nD=_n.abs(_i-_j).astype(float)\nH=_n.where(_n.abs(_i-_j)<=3,(((_i+1)*(_j+1)+3)%13)/13.0-0.5,0.0);H=(H+H.T)/2\nS=_n.where((_n.abs(_i-_j)<=2)&(_i!=_j),(((_i+2)*(_j+2)+6)%7)/35.0-0.1,0.0)\nS=S+_n.diag(1.4+(((_n.arange(20)+1)*3)%5)/25.0);S=(S+S.T)/2\ncolors=_n.zeros(20,dtype=_n.int64)\nR=css_matrix(colors)\nMt=S@R\nassert np.allclose(css_extract(Mt, R, colors, D, 25.0), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-6.6",
+      "test_cases": [
+        "import numpy as _n\n_i,_j=_n.meshgrid(_n.arange(20),_n.arange(20),indexing=\"ij\")\nD=_n.abs(_i-_j).astype(float)\nH=_n.where(_n.abs(_i-_j)<=3,(((_i+1)*(_j+1)+3)%13)/13.0-0.5,0.0);H=(H+H.T)/2\nS=_n.where((_n.abs(_i-_j)<=2)&(_i!=_j),(((_i+2)*(_j+2)+6)%7)/35.0-0.1,0.0)\nS=S+_n.diag(1.4+(((_n.arange(20)+1)*3)%5)/25.0);S=(S+S.T)/2\nassert np.allclose(css_inv_sqrt(S, D, 5.0, 3), target)",
+        "import numpy as _n\n_i,_j=_n.meshgrid(_n.arange(20),_n.arange(20),indexing=\"ij\")\nD=_n.abs(_i-_j).astype(float)\nH=_n.where(_n.abs(_i-_j)<=3,(((_i+1)*(_j+1)+5)%13)/13.0-0.5,0.0);H=(H+H.T)/2\nS=_n.where((_n.abs(_i-_j)<=2)&(_i!=_j),(((_i+2)*(_j+2)+10)%7)/35.0-0.1,0.0)\nS=S+_n.diag(1.4+(((_n.arange(20)+1)*5)%5)/25.0);S=(S+S.T)/2\nassert np.allclose(css_inv_sqrt(S, D, 5.0, 4), target)",
+        "import numpy as _n\n_i,_j=_n.meshgrid(_n.arange(20),_n.arange(20),indexing=\"ij\")\nD=_n.abs(_i-_j).astype(float)\nH=_n.where(_n.abs(_i-_j)<=3,(((_i+1)*(_j+1)+4)%13)/13.0-0.5,0.0);H=(H+H.T)/2\nS=_n.where((_n.abs(_i-_j)<=2)&(_i!=_j),(((_i+2)*(_j+2)+8)%7)/35.0-0.1,0.0)\nS=S+_n.diag(1.4+(((_n.arange(20)+1)*4)%5)/25.0);S=(S+S.T)/2\nassert np.allclose(css_inv_sqrt(S, D, 4.0, 3), target)",
+        "import numpy as _n\n_i,_j=_n.meshgrid(_n.arange(20),_n.arange(20),indexing=\"ij\")\nD=_n.abs(_i-_j).astype(float)\nH=_n.where(_n.abs(_i-_j)<=3,(((_i+1)*(_j+1)+3)%13)/13.0-0.5,0.0);H=(H+H.T)/2\nS=_n.where((_n.abs(_i-_j)<=2)&(_i!=_j),(((_i+2)*(_j+2)+6)%7)/35.0-0.1,0.0)\nS=S+_n.diag(1.4+(((_n.arange(20)+1)*3)%5)/25.0);S=(S+S.T)/2\nassert np.allclose(css_inv_sqrt(S, D, 5.0, 1), target)",
+        "import numpy as _n\n_i,_j=_n.meshgrid(_n.arange(20),_n.arange(20),indexing=\"ij\")\nD=_n.abs(_i-_j).astype(float)\nH=_n.where(_n.abs(_i-_j)<=3,(((_i+1)*(_j+1)+3)%13)/13.0-0.5,0.0);H=(H+H.T)/2\nS=_n.where((_n.abs(_i-_j)<=2)&(_i!=_j),(((_i+2)*(_j+2)+6)%7)/35.0-0.1,0.0)\nS=S+_n.diag(1.4+(((_n.arange(20)+1)*3)%5)/25.0);S=(S+S.T)/2\nassert np.allclose(css_inv_sqrt(S, D, 1.0, 3), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-6.7",
+      "test_cases": [
+        "import numpy as _n\n_i,_j=_n.meshgrid(_n.arange(20),_n.arange(20),indexing=\"ij\")\nD=_n.abs(_i-_j).astype(float)\nH=_n.where(_n.abs(_i-_j)<=3,(((_i+1)*(_j+1)+3)%13)/13.0-0.5,0.0);H=(H+H.T)/2\nS=_n.where((_n.abs(_i-_j)<=2)&(_i!=_j),(((_i+2)*(_j+2)+6)%7)/35.0-0.1,0.0)\nS=S+_n.diag(1.4+(((_n.arange(20)+1)*3)%5)/25.0);S=(S+S.T)/2\nassert np.allclose(css_density(H, S, D, 3.0, 5.0, 5, 3, 6.0, 0.15), target)",
+        "import numpy as _n\n_i,_j=_n.meshgrid(_n.arange(20),_n.arange(20),indexing=\"ij\")\nD=_n.abs(_i-_j).astype(float)\nH=_n.where(_n.abs(_i-_j)<=3,(((_i+1)*(_j+1)+5)%13)/13.0-0.5,0.0);H=(H+H.T)/2\nS=_n.where((_n.abs(_i-_j)<=2)&(_i!=_j),(((_i+2)*(_j+2)+10)%7)/35.0-0.1,0.0)\nS=S+_n.diag(1.4+(((_n.arange(20)+1)*5)%5)/25.0);S=(S+S.T)/2\nassert np.allclose(css_density(H, S, D, 3.0, 5.0, 5, 3, 6.0, -0.1), target)",
+        "import numpy as _n\n_i,_j=_n.meshgrid(_n.arange(20),_n.arange(20),indexing=\"ij\")\nD=_n.abs(_i-_j).astype(float)\nH=_n.where(_n.abs(_i-_j)<=3,(((_i+1)*(_j+1)+4)%13)/13.0-0.5,0.0);H=(H+H.T)/2\nS=_n.where((_n.abs(_i-_j)<=2)&(_i!=_j),(((_i+2)*(_j+2)+8)%7)/35.0-0.1,0.0)\nS=S+_n.diag(1.4+(((_n.arange(20)+1)*4)%5)/25.0);S=(S+S.T)/2\nassert np.allclose(css_density(H, S, D, 3.0, 4.0, 4, 3, 6.0, 0.0), target)",
+        "import numpy as _n\n_i,_j=_n.meshgrid(_n.arange(20),_n.arange(20),indexing=\"ij\")\nD=_n.abs(_i-_j).astype(float)\nH=_n.where(_n.abs(_i-_j)<=3,(((_i+1)*(_j+1)+3)%13)/13.0-0.5,0.0);H=(H+H.T)/2\nS=_n.where((_n.abs(_i-_j)<=2)&(_i!=_j),(((_i+2)*(_j+2)+6)%7)/35.0-0.1,0.0)\nS=S+_n.diag(1.4+(((_n.arange(20)+1)*3)%5)/25.0);S=(S+S.T)/2\nassert np.allclose(css_density(H, S, D, 3.0, 5.0, 1, 1, 6.0, 0.15), target)",
+        "import numpy as _n\n_i,_j=_n.meshgrid(_n.arange(20),_n.arange(20),indexing=\"ij\")\nD=_n.abs(_i-_j).astype(float)\nH=_n.where(_n.abs(_i-_j)<=3,(((_i+1)*(_j+1)+3)%13)/13.0-0.5,0.0);H=(H+H.T)/2\nS=_n.where((_n.abs(_i-_j)<=2)&(_i!=_j),(((_i+2)*(_j+2)+6)%7)/35.0-0.1,0.0)\nS=S+_n.diag(1.4+(((_n.arange(20)+1)*3)%5)/25.0);S=(S+S.T)/2\nassert np.allclose(css_density(H, S, D, 25.0, 25.0, 2, 2, 6.0, 0.15), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-6.8",
+      "test_cases": [
+        "v = 5\nv_s = 3\nassert np.allclose(css_audit(v, v_s), target)",
+        "v = 2\nv_s = 2\nassert np.allclose(css_audit(v, v_s), target)",
+        "v = 4\nv_s = 4\nassert np.allclose(css_audit(v, v_s), target)",
+        "v = 1\nv_s = 1\nassert np.allclose(css_audit(v, v_s), target)",
+        "v = 20\nv_s = 20\nassert np.allclose(css_audit(v, v_s), target)"
+      ]
+    }
+  ]
+}

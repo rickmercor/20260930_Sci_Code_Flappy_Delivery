@@ -1,0 +1,44 @@
+problem_id: "Physics-Particle_Physics-23"
+subject: "physics"
+subject_area: "Particle Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2605.05309"
+dependencies: ""
+steps:
+  - number: 1
+    name: "propagate_shells"
+    description: "Propagate a regular coupled radial basis through successive constant spherical shells."
+    orchestrator: false
+  - number: 2
+    name: "threshold_pole"
+    description: "Locate a zero-energy pole with decaying closed channels and constant neutral asymptotics."
+    orchestrator: false
+  - number: 3
+    name: "match_channels"
+    description: "Match a regular radial basis to incident and outgoing waves and closed-channel decay."
+    orchestrator: false
+  - number: 4
+    name: "resonant_regulator"
+    description: "Reconstruct the leading resonant dispersive regulator from regular scattering data."
+    orchestrator: false
+  - number: 5
+    name: "dress_channels"
+    description: "Dress the ordinary Sommerfeld matrix with short-distance absorptive and dispersive feedback."
+    orchestrator: false
+  - number: 6
+    name: "annihilation_loss"
+    description: "Compute the inclusive annihilation loss operator in the incident unit-flux basis."
+    orchestrator: false
+  - number: 7
+    name: "conversion_strength"
+    description: "Compute state-conversion probabilities from the full regulated scattering matrix."
+    orchestrator: false
+  - number: 8
+    name: "halo_branching"
+    description: "Form the branching fraction after averaging incident-channel reaction rates over a momentum distribution."
+    orchestrator: false
+  - number: 9
+    name: "resonant_branching_shift"
+    description: "Orchestrate the pole search, coupled scattering, two regulator prescriptions, and halo branching comparison."
+    orchestrator: true

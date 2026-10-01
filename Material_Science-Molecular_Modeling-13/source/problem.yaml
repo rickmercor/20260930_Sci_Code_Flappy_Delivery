@@ -1,0 +1,40 @@
+problem_id: "Material_Science-Molecular_Modeling-13"
+subject: "materials"
+subject_area: "Molecular Modeling"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2608.09375"
+dependencies: ""
+steps:
+  - number: 1
+    name: "swi_bulk_thermo"
+    description: "Evaluates the bulk chemical potential and pressure of the square-well solvent in the source's mean-field model."
+    orchestrator: false
+  - number: 2
+    name: "swi_solute_bulk"
+    description: "Evaluates the excess chemical potential of a single solute particle at infinite dilution in the uniform solvent."
+    orchestrator: false
+  - number: 3
+    name: "swi_symmetric_energy"
+    description: "Fixes the solvent-solute ranges by the source's rules and the well depth at which a dilute solute prefers neither coexisting phase."
+    orchestrator: false
+  - number: 4
+    name: "swi_weighted_densities"
+    description: "Computes the planar fundamental-measure weighted densities of the sigmoidal solvent profile for a sphere of given radius."
+    orchestrator: false
+  - number: 5
+    name: "swi_wb_derivatives"
+    description: "Evaluates the White Bear excess free energy density and its exact derivatives with respect to the weighted densities."
+    orchestrator: false
+  - number: 6
+    name: "swi_solute_c1"
+    description: "Evaluates the one-body direct correlation function of a dilute solute in the interfacial solvent profile and the source's effective one-body potential."
+    orchestrator: false
+  - number: 7
+    name: "swi_coexistence"
+    description: "Locates the liquid-vapor coexistence of the square-well solvent from the equality of chemical potential and pressure."
+    orchestrator: false
+  - number: 8
+    name: "swi_audit"
+    description: "Runs the whole chain from the bulk thermodynamics to the interfacial effective potential of the dilute solute and its adsorption."
+    orchestrator: true

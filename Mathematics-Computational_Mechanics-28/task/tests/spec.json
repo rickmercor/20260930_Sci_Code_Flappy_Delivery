@@ -1,0 +1,77 @@
+{
+  "problem_id": "Mathematics-Computational_Mechanics-28",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Computational_Mechanics-28.1",
+      "test_cases": [
+        "import numpy as np\nH = np.array([0.3, 1.2, 2.0])\nA = np.array([1.0, 0.95, 0.8])\nPstar = 27.5e3\nC = 20.0\nassert np.allclose(ice_strength(H, A, Pstar, C), target)",
+        "import numpy as np\nH = np.array([[0.5, 0.9], [1.5, 0.2]])\nA = np.array([[0.99, 0.9], [0.85, 1.0]])\nPstar = 27.5e3\nC = 20.0\nassert np.allclose(ice_strength(H, A, Pstar, C), target)",
+        "import numpy as np\nH = np.array([1.0])\nA = np.array([0.5])\nPstar = 1.0e4\nC = 15.0\nassert np.allclose(ice_strength(H, A, Pstar, C), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-28.2",
+      "test_cases": [
+        "import numpy as np\neps = np.array([[1.2e-6, -3.1e-7], [-3.1e-7, -5.4e-7]])\neps2 = np.array([[[2.0e-7, 1.1e-7], [1.1e-7, 4.5e-7]], [[-8.0e-7, 2.2e-8], [2.2e-8, 9.0e-8]]])\ndmin = 2e-9\ne = 2.0\nassert np.allclose(effective_deformation(eps, dmin, e), target)",
+        "import numpy as np\neps = np.array([[1.2e-6, -3.1e-7], [-3.1e-7, -5.4e-7]])\neps2 = np.array([[[2.0e-7, 1.1e-7], [1.1e-7, 4.5e-7]], [[-8.0e-7, 2.2e-8], [2.2e-8, 9.0e-8]]])\ndmin = 2e-9\ne = 2.0\nassert np.allclose(effective_deformation(eps2, dmin, e), target)",
+        "import numpy as np\neps = np.array([[1.2e-6, -3.1e-7], [-3.1e-7, -5.4e-7]])\neps2 = np.array([[[2.0e-7, 1.1e-7], [1.1e-7, 4.5e-7]], [[-8.0e-7, 2.2e-8], [2.2e-8, 9.0e-8]]])\ndmin = 2e-9\ne = 2.0\neps3 = np.array([[3.3e-7, 0.0], [0.0, 3.3e-7]])\nassert np.allclose(effective_deformation(eps3, dmin, 1.5), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-28.3",
+      "test_cases": [
+        "import numpy as np\nP = np.array([2.0e4, 1.1e4])\nDelta = np.array([1.2e-6, 5.0e-7])\ne = 2.0\nassert np.allclose(vp_viscosities(P, Delta, e), target)",
+        "import numpy as np\nP = np.array([[3.0e4, 9.0e3], [1.5e4, 2.2e4]])\nDelta = np.array([[2e-6, 8e-7], [3e-7, 1e-6]])\ne = 2.0\nassert np.allclose(vp_viscosities(P, Delta, e), target)",
+        "import numpy as np\nP = np.array([5.0e3])\nDelta = np.array([2e-9])\ne = 1.7\nassert np.allclose(vp_viscosities(P, Delta, e), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-28.4",
+      "test_cases": [
+        "import numpy as np\neps = np.array([[1.2e-6, -3.1e-7], [-3.1e-7, -5.4e-7]])\neps2 = np.array([[[2.0e-7, 1.1e-7], [1.1e-7, 4.5e-7]], [[-8.0e-7, 2.2e-8], [2.2e-8, 9.0e-8]]])\ndmin = 2e-9\ne = 2.0\nP = 2.0e4\nassert np.allclose(vp_stress(eps, P, dmin, e), target)",
+        "import numpy as np\neps = np.array([[1.2e-6, -3.1e-7], [-3.1e-7, -5.4e-7]])\neps2 = np.array([[[2.0e-7, 1.1e-7], [1.1e-7, 4.5e-7]], [[-8.0e-7, 2.2e-8], [2.2e-8, 9.0e-8]]])\ndmin = 2e-9\ne = 2.0\nP = np.array([1.8e4, 9.0e3])\nassert np.allclose(vp_stress(eps2, P, dmin, e), target)",
+        "import numpy as np\neps = np.array([[1.2e-6, -3.1e-7], [-3.1e-7, -5.4e-7]])\neps2 = np.array([[[2.0e-7, 1.1e-7], [1.1e-7, 4.5e-7]], [[-8.0e-7, 2.2e-8], [2.2e-8, 9.0e-8]]])\ndmin = 2e-9\ne = 2.0\nP = 3.3e4\nassert np.allclose(vp_stress(eps, P, 1e-8, 1.6), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-28.5",
+      "test_cases": [
+        "import numpy as np\nrng = np.random.default_rng(3)\nuL = rng.standard_normal(2)\nuR = rng.standard_normal(2)\n_m = rng.standard_normal((2, 2)); sL = 0.5 * (_m + _m.T)\n_m = rng.standard_normal((2, 2)); sR = 0.5 * (_m + _m.T)\nn = np.array([1.0, 0.0])\na = 0.25\nb = 3.0\nassert np.allclose(ldg_numerical_fluxes(uL, uR, sL, sR, n, a, b, False), target)",
+        "import numpy as np\nrng = np.random.default_rng(7)\nuL = rng.standard_normal(2)\nuR = rng.standard_normal(2)\n_m = rng.standard_normal((2, 2)); sL = 0.5 * (_m + _m.T)\n_m = rng.standard_normal((2, 2)); sR = 0.5 * (_m + _m.T)\nn = np.array([0.0, -1.0])\na = 0.4\nb = 12.0\nassert np.allclose(ldg_numerical_fluxes(uL, uR, sL, sR, n, a, b, False), target)",
+        "import numpy as np\nuL = np.array([0.3, -0.2])\nsL = np.array([[1.0e3, -2.0e2], [-2.0e2, 5.0e2]])\nn = np.array([-1.0, 0.0])\na = 0.25\nb = 3.0\nassert np.allclose(ldg_numerical_fluxes(uL, None, sL, None, n, a, b, True), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-28.6",
+      "test_cases": [
+        "import numpy as np\nnx = 3\nh = 512e3 / nx\na = 0.25\nb = 3.0\nrng = np.random.default_rng(5)\nU = rng.standard_normal((nx, nx, 4, 2)) * 0.05\nS = np.zeros((nx, nx, 2, 2))\nfor _j in range(nx):\n    for _i in range(nx):\n        _m = rng.standard_normal((2, 2)) * 1e3\n        S[_i, _j] = 0.5 * (_m + _m.T)\nassert np.allclose(ldg_strain(U, S, nx, h, a, b), target)",
+        "import numpy as np\nnx = 2\nh = 512e3 / nx\na = 0.25\nb = 3.0\nrng = np.random.default_rng(9)\nU = rng.standard_normal((nx, nx, 4, 2)) * 0.05\nS = np.zeros((nx, nx, 2, 2))\nfor _j in range(nx):\n    for _i in range(nx):\n        _m = rng.standard_normal((2, 2)) * 1e3\n        S[_i, _j] = 0.5 * (_m + _m.T)\nassert np.allclose(ldg_strain(U, S, nx, h, a, b), target)",
+        "import numpy as np\nnx = 3\nh = 512e3 / nx\na = 0.25\nb = 3.0\nrng = np.random.default_rng(5)\nU = rng.standard_normal((nx, nx, 4, 2)) * 0.05\nS = np.zeros((nx, nx, 2, 2))\nfor _j in range(nx):\n    for _i in range(nx):\n        _m = rng.standard_normal((2, 2)) * 1e3\n        S[_i, _j] = 0.5 * (_m + _m.T)\na = 0.1\nb = 25.0\nassert np.allclose(ldg_strain(U, S, nx, h, a, b), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-28.7",
+      "test_cases": [
+        "import numpy as np\nnx = 3\nh = 512e3 / nx\na = 0.25\nb = 3.0\nrng = np.random.default_rng(5)\nU = rng.standard_normal((nx, nx, 4, 2)) * 0.05\nS = np.zeros((nx, nx, 2, 2))\nfor _j in range(nx):\n    for _i in range(nx):\n        _m = rng.standard_normal((2, 2)) * 1e3\n        S[_i, _j] = 0.5 * (_m + _m.T)\nassert np.allclose(ldg_divergence(U, S, nx, h, a, b), target)",
+        "import numpy as np\nnx = 4\nh = 512e3 / nx\na = 0.25\nb = 3.0\nrng = np.random.default_rng(13)\nU = rng.standard_normal((nx, nx, 4, 2)) * 0.05\nS = np.zeros((nx, nx, 2, 2))\nfor _j in range(nx):\n    for _i in range(nx):\n        _m = rng.standard_normal((2, 2)) * 1e3\n        S[_i, _j] = 0.5 * (_m + _m.T)\nassert np.allclose(ldg_divergence(U, S, nx, h, a, b), target)",
+        "import numpy as np\nnx = 3\nh = 512e3 / nx\na = 0.25\nb = 3.0\nrng = np.random.default_rng(5)\nU = rng.standard_normal((nx, nx, 4, 2)) * 0.05\nS = np.zeros((nx, nx, 2, 2))\nfor _j in range(nx):\n    for _i in range(nx):\n        _m = rng.standard_normal((2, 2)) * 1e3\n        S[_i, _j] = 0.5 * (_m + _m.T)\na = 0.1\nb = 25.0\nassert np.allclose(ldg_divergence(U, S, nx, h, a, b), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-28.8",
+      "test_cases": [
+        "import numpy as np\nnx = 3\nh = 512e3 / nx\na = 0.25\nb = 3.0\nrng = np.random.default_rng(5)\nU = rng.standard_normal((nx, nx, 4, 2)) * 0.05\nS = np.zeros((nx, nx, 2, 2))\nfor _j in range(nx):\n    for _i in range(nx):\n        _m = rng.standard_normal((2, 2)) * 1e3\n        S[_i, _j] = 0.5 * (_m + _m.T)\nUn = np.zeros_like(U)\nP = np.full((nx, nx), 2.0e4)\nH = np.full((nx, nx), 0.3)\nFv = np.zeros((nx, nx, 4, 2))\nalpha = 500.0\nbeta = 500.0\ndt = 600.0\nassert np.allclose(mevp_subcycle(U, S, Un, P, H, Fv, nx, h, alpha, beta, dt, a, b), target)",
+        "import numpy as np\nnx = 3\nh = 512e3 / nx\na = 0.25\nb = 3.0\nrng = np.random.default_rng(5)\nU = rng.standard_normal((nx, nx, 4, 2)) * 0.05\nS = np.zeros((nx, nx, 2, 2))\nfor _j in range(nx):\n    for _i in range(nx):\n        _m = rng.standard_normal((2, 2)) * 1e3\n        S[_i, _j] = 0.5 * (_m + _m.T)\nUn = U * 0.5\nP = np.full((nx, nx), 1.2e4)\nH = np.full((nx, nx), 0.8)\nFv = np.full((nx, nx, 4, 2), 0.02)\nalpha = 300.0\nbeta = 900.0\ndt = 60.0\nassert np.allclose(mevp_subcycle(U, S, Un, P, H, Fv, nx, h, alpha, beta, dt, a, b), target)",
+        "import numpy as np\nnx = 3\nh = 512e3 / nx\na = 0.25\nb = 3.0\nrng = np.random.default_rng(5)\nU = rng.standard_normal((nx, nx, 4, 2)) * 0.05\nS = np.zeros((nx, nx, 2, 2))\nfor _j in range(nx):\n    for _i in range(nx):\n        _m = rng.standard_normal((2, 2)) * 1e3\n        S[_i, _j] = 0.5 * (_m + _m.T)\nUn = np.zeros_like(U)\nP = np.full((nx, nx), 5.0e3)\nH = np.full((nx, nx), 0.2)\nFv = np.zeros((nx, nx, 4, 2))\nalpha = 500.0\nbeta = 500.0\ndt = 600.0\na = 0.1\nb = 25.0\nassert np.allclose(mevp_subcycle(U, S, Un, P, H, Fv, nx, h, alpha, beta, dt, a, b), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-28.9",
+      "test_cases": [
+        "assert np.allclose(sea_ice_audit(1.0), target)",
+        "assert np.allclose(sea_ice_audit(0.6), target)",
+        "assert np.allclose(sea_ice_audit(1.4), target)"
+      ]
+    }
+  ]
+}

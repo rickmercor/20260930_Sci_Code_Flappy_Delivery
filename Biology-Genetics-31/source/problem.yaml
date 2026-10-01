@@ -1,0 +1,36 @@
+problem_id: "Biology-Genetics-31"
+subject: "biology"
+subject_area: "Genetics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.64898/2026.05.13.724952 "
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_site_allele_counts"
+    description: "Parse the per-site genotype strings of three populations into allele count\n\ntables and non-missing sample sizes, one table per site."
+    orchestrator: false
+  - number: 2
+    name: "02_rarefaction_subsample_sizes"
+    description: "Fix the rarefaction subsample size g used at each site from that site's\n\nnon-missing sample sizes in the three populations."
+    orchestrator: false
+  - number: 3
+    name: "03_rarefied_pair_private_counts"
+    description: "Compute, for one site, the two rarefied counts of alleles confined to a pair of\n\npopulations that includes P3."
+    orchestrator: false
+  - number: 4
+    name: "04_rarefied_allelic_richness"
+    description: "Compute the rarefied allelic richness carried jointly by the three populations\n\nat one site, which is the normalizer of the introgression statistic."
+    orchestrator: false
+  - number: 5
+    name: "05_window_dstar_sums"
+    description: "Assign informative sites to non-overlapping genomic windows and accumulate the\n\nnumerator and denominator of the introgression statistic within each window."
+    orchestrator: false
+  - number: 6
+    name: "06_block_bootstrap_moments"
+    description: "Resample the retained windows with replacement to obtain the mean and standard\n\ndeviation of the genome-wide introgression statistic."
+    orchestrator: false
+  - number: 7
+    name: "07_run_full_pipeline"
+    description: "Chain every step to turn the three population genotype data into the genome-wide\n\nblock bootstrap estimate of the introgression statistic."
+    orchestrator: true

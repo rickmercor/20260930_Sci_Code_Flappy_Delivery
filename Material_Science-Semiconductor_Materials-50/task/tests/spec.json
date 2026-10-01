@@ -1,0 +1,113 @@
+{
+  "problem_id": "Material_Science-Semiconductor_Materials-50",
+  "sub_steps": [
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-50.1",
+      "test_cases": [
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nassert np.allclose(np.round(exciton_units(0.39), 10), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nassert np.allclose(np.round(exciton_units(1.0), 10), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nassert np.allclose(np.round(exciton_units(0.11), 10), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nassert np.allclose(np.round(exciton_units(1e-3), 10), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\n\ndef run_model():\n    try:\n        exciton_units(0.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\n\ndef run_model():\n    try:\n        exciton_units(-0.3)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-50.2",
+      "test_cases": [
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nq = np.array([0.05, 0.3, 1.0, 2.5, 8.0])\nassert np.allclose(np.round(bare_potential_fourier(q, 2.28, 'homogeneous'), 10), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nq = np.array([0.05, 0.3, 1.0, 2.5, 8.0])\nassert np.allclose(np.round(bare_potential_fourier(q, 2.28, 'surface'), 10), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nq = np.array([0.05, 0.3, 1.0, 2.5, 8.0, 40.0])\nassert np.allclose(np.round(bare_potential_fourier(q, 2.28, 'centre'), 10), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nq = np.array([0.3, 1.0, 2.5])\nassert np.allclose(np.round(bare_potential_fourier(q, 2.28, 'centre', z0=2.28), 10), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nq = np.array([-1.0, 1e-5, 1e-4])\nassert np.allclose(np.round(bare_potential_fourier(q, 2.28, 'homogeneous'), 8), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nassert np.allclose(np.isinf(bare_potential_fourier(0.0, 2.28, 'homogeneous')), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\n\ndef run_model():\n    try:\n        bare_potential_fourier(1.0, 2.28, 'gaussian')\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\n\ndef run_model():\n    try:\n        bare_potential_fourier(1.0, -2.28, 'surface')\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-50.3",
+      "test_cases": [
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nq = np.array([0.0, 0.1, 0.5, 1.0, 2.5, 8.0])\nassert np.allclose(np.round(nonlocal_form_factor(q, 2.28, 'homogeneous'), 10), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nq = np.array([0.0, 0.1, 0.5, 1.0, 2.5])\nassert np.allclose(np.round(nonlocal_form_factor(q, 2.28, 'surface'), 10), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nq = np.array([0.1, 0.5, 1.0, 2.5, 8.0])\nassert np.allclose(np.round(nonlocal_form_factor(q, 2.28, 'centre'), 10), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nq = np.array([0.1, 1.0, 5.0])\nassert np.allclose(np.round(np.concatenate([nonlocal_form_factor(q, 2.28, 'homogeneous', use_nonlocal=False), nonlocal_form_factor(q, 2.28, 'ribbon', use_nonlocal=False), nonlocal_form_factor(q, 2.28, 'centre', use_nonlocal=False)]), 10), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nq = np.array([1e-5, 2e-4, 5e-4, 1e-3, 2e-3])\nassert np.allclose(np.round(nonlocal_form_factor(q, 2.28, 'homogeneous'), 10), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\n\ndef run_model():\n    try:\n        nonlocal_form_factor(1.0, 2.28, 'ribbon', use_nonlocal=True)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\n\ndef run_model():\n    try:\n        nonlocal_form_factor(1.0, 2.28, 'centre', z0=0.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-50.4",
+      "test_cases": [
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nq = np.array([0.0, 0.1, 0.5, 1.0, 2.5, 8.0])\nassert np.allclose(np.round(dielectric_function(q, 2.28, 12.06, 'homogeneous', True), 10), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nq = np.array([0.0, 0.1, 0.5, 1.0, 2.5, 8.0])\nassert np.allclose(np.round(dielectric_function(q, 2.28, 12.06, 'homogeneous', False), 10), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nq = np.array([0.1, 1.0, 2.5, 50.0, 400.0])\nassert np.allclose(np.round(dielectric_function(q, 2.28, 12.06, 'surface', True), 8), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nq = np.array([0.1, 1.0, 2.5, 8.0])\nassert np.allclose(np.round(np.concatenate([dielectric_function(q, 2.28, 12.06, 'centre', True), dielectric_function(q, 2.28, 12.06, 'centre', False), dielectric_function(q, np.sqrt(3.33**2 + 3.12**2) / 2, 12.06, 'ribbon', False)]), 10), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nq = np.array([1e-6, 1e-3, 1.0, 1e3])\nassert np.allclose(np.round(dielectric_function(q, 2.28, 0.0, 'homogeneous', True), 10), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nassert np.allclose(np.round(dielectric_function(200.0, 2.28, 12.06, 'homogeneous', False) - 1.0 - 4.0 * 12.06 / 2.28**2, 6), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\n\ndef run_model():\n    try:\n        dielectric_function(1.0, 2.28, -1.0, 'homogeneous')\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-50.5",
+      "test_cases": [
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nq = np.array([0.05, 0.1, 0.5, 1.0, 2.5, 8.0])\nassert np.allclose(np.round(screened_potential_fourier(q, 2.28, 12.06, 'homogeneous', True), 10), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nq = np.array([0.05, 0.1, 0.5, 1.0, 2.5, 8.0])\nassert np.allclose(np.round(screened_potential_fourier(q, 2.28, 12.06, 'homogeneous', False), 10), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nq = np.array([0.1, 1.0, 2.5, 50.0, 400.0])\nassert np.allclose(np.round(np.concatenate([screened_potential_fourier(q, 2.28, 12.06, 'surface', True), screened_potential_fourier(q, 2.28, 12.06, 'surface', False)]), 10), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nq = np.array([0.1, 1.0, 2.5, 8.0])\nassert np.allclose(np.round(np.concatenate([screened_potential_fourier(q, 2.28, 12.06, 'centre', True), screened_potential_fourier(q, 2.28, 12.06, 'centre', False), screened_potential_fourier(q, 3.0, 51.63, 'centre', True, z0=3.0)]), 10), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nq = np.array([0.3, 1.0, 3.0])\nassert np.allclose(np.round(screened_potential_fourier(q, 2.28, 0.0, 'homogeneous', True) - screened_potential_fourier(q, 2.28, 0.0, 'homogeneous', False), 12), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nassert np.allclose(np.isinf(screened_potential_fourier(0.0, 2.28, 12.06, 'homogeneous', True)), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\n\ndef run_model():\n    try:\n        screened_potential_fourier(1.0, 2.28, 12.06, 'ribbon', True)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-50.6",
+      "test_cases": [
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nassert np.allclose(round(variational_kernel_integral(0.34, 2.28, 12.06, 0.39, 'homogeneous', False), 9), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nassert np.allclose(round(variational_kernel_integral(0.35, 2.28, 12.06, 0.39, 'homogeneous', True), 9), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nassert np.allclose(np.round([variational_kernel_integral(1.0, 2.28, 12.06, 0.39, 'surface', True), variational_kernel_integral(0.3, 2.28, 12.06, 0.39, 'centre', True), variational_kernel_integral(0.25, np.sqrt(3.33**2 + 3.12**2) / 2, 12.06, 0.39, 'ribbon', False)], 9), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nassert np.allclose(round(variational_kernel_integral(1.0, 1e-4, 0.0, 0.39, 'homogeneous', False) - np.pi / 2, 6), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nassert np.allclose(round(variational_kernel_integral(2.5, 4.02, 51.63, 0.11, 'surface', False), 9), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\n\ndef run_model():\n    try:\n        variational_kernel_integral(0.0, 2.28, 12.06, 0.39, 'homogeneous')\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\n\ndef run_model():\n    try:\n        variational_kernel_integral(0.3, 2.28, 12.06, -0.39, 'homogeneous')\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-50.7",
+      "test_cases": [
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nassert np.allclose(round(variational_binding_energy(0.34, 2.28, 12.06, 0.39, 'homogeneous', False), 9), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nassert np.allclose(round(variational_binding_energy(0.35, 2.28, 12.06, 0.39, 'homogeneous', True), 9), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nassert np.allclose(np.round([variational_binding_energy(1.0, 2.28, 12.06, 0.39, 'homogeneous', False), variational_binding_energy(0.05, 2.28, 12.06, 0.39, 'homogeneous', False)], 9), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nassert np.allclose(round(variational_binding_energy(1.0, 1e-4, 0.0, 0.39, 'surface', False) - 13.605693 * 0.39, 6), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nassert np.allclose(np.round([variational_binding_energy(0.3, 2.13, 17.43, 0.30, 'centre', True), variational_binding_energy(0.3, 2.13, 17.43, 0.30, 'centre', True, z0=2.13)], 9), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\n\ndef run_model():\n    try:\n        variational_binding_energy(-0.3, 2.28, 12.06, 0.39, 'homogeneous')\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\n\ndef run_model():\n    try:\n        variational_binding_energy(0.3, 2.28, 12.06, 0.39, 'disc')\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-50.8",
+      "test_cases": [
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nassert np.allclose(np.round(optimise_exciton(2.28, 12.06, 0.39, 'homogeneous', False) * np.array([1e4, 1e5, 1e3])) / np.array([1e4, 1e5, 1e3]), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nassert np.allclose(np.round(optimise_exciton(2.28, 12.06, 0.39, 'homogeneous', True) * np.array([1e4, 1e5, 1e3])) / np.array([1e4, 1e5, 1e3]), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nassert np.allclose(np.round(optimise_exciton(2.13, 17.43, 0.30, 'centre', True) * np.array([1e4, 1e5, 1e3])) / np.array([1e4, 1e5, 1e3]), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nassert np.allclose(np.round(optimise_exciton(1e-4, 0.0, 0.39, 'surface', False) * np.array([1e4, 1e5, 1e3])) / np.array([1e4, 1e5, 1e3]), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nassert np.allclose(np.round(optimise_exciton(1.07, 2.18, 0.69, 'surface', True, lam_bounds=(0.1, 2.0)) * np.array([1e4, 1e5, 1e3])) / np.array([1e4, 1e5, 1e3]), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\n\ndef run_model():\n    try:\n        optimise_exciton(2.28, 12.06, 0.39, 'homogeneous', True, lam_bounds=(1.0, 0.5))\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\n\ndef run_model():\n    try:\n        optimise_exciton(2.28, 12.06, 0.39, 'ribbon', True)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-50.9",
+      "test_cases": [
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nassert np.allclose(round(nonlocality_correction(2.28, 12.06, 0.39, 'homogeneous'), 2), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nassert np.allclose(round(nonlocality_correction(2.28, 12.06, 0.39, 'centre'), 2), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nassert np.allclose(round(nonlocality_correction(2.13, 17.43, 0.30, 'surface'), 2), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nassert np.allclose(round(nonlocality_correction(2.28, 0.0, 0.39, 'homogeneous'), 6), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\nassert np.allclose(round(nonlocality_correction(4.02, 51.63, 0.11, 'centre', z0=4.02), 2), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\n\ndef run_model():\n    try:\n        nonlocality_correction(2.28, 12.06, 0.39, 'ribbon')\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nfrom scipy import special as sp\nfrom scipy import integrate, optimize\nimport numpy as np\n\ndef run_model():\n    try:\n        nonlocality_correction(0.0, 12.06, 0.39, 'homogeneous')\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

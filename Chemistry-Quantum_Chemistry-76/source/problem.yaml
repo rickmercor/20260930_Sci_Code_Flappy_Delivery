@@ -1,0 +1,52 @@
+problem_id: "Chemistry-Quantum_Chemistry-76"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1063/5.0345822"
+dependencies: ""
+steps:
+  - number: 1
+    name: "Overlap and core Hamiltonian of the primitive basis"
+    description: "Return the overlap matrix and the core Hamiltonian of a minimal basis of one normalised s Gaussian primitive per collinear centre, stacked into a single array."
+    orchestrator: false
+  - number: 2
+    name: "Two electron repulsion integrals of the primitive basis"
+    description: "Return the electron repulsion integrals of the same primitive basis in chemists' notation."
+    orchestrator: false
+  - number: 3
+    name: "Orbitals of the valence bond spaces"
+    description: "Orthogonalise the primitives symmetrically and return the coefficients of the bonding and antibonding orbital of each valence bond space, bonding orbital of space a in column 2a."
+    orchestrator: false
+  - number: 4
+    name: "Integral families of the pairing theory"
+    description: "Transform the one and two electron integrals into the bond space orbitals and return the one electron matrix together with the direct, exchange, pair-transfer and mean field families."
+    orchestrator: false
+  - number: 5
+    name: "Stationary pair amplitudes"
+    description: "Solve the self consistent stationarity condition for the gap of every valence bond space with the orbitals held fixed."
+    orchestrator: false
+  - number: 6
+    name: "Energy of the pair reference"
+    description: "Return the electronic energy of the pair reference for a given set of gaps, nuclear repulsion excluded."
+    orchestrator: false
+  - number: 7
+    name: "Generalised Fock matrix of the reference"
+    description: "Return the generalised Fock matrix of the pair reference, which is not symmetric because the orbitals are frozen rather than optimised."
+    orchestrator: false
+  - number: 8
+    name: "Second order contribution of the single excitations"
+    description: "Return the second order Epstein-Nesbet contribution of the swaps, the splits and the single electron transfers."
+    orchestrator: false
+  - number: 9
+    name: "Second order contribution of the double excitations"
+    description: "Return the second order Epstein-Nesbet contribution of every double excitation, including both seniority four singlets of a double split."
+    orchestrator: false
+  - number: 10
+    name: "Second order contribution of the pair transfers"
+    description: "Return the second order Epstein-Nesbet contribution of the seniority zero, seniority two and seniority four pair transfers between bond spaces."
+    orchestrator: false
+  - number: 11
+    name: "Corrected total energy of the model"
+    description: "Run the whole pipeline and return the reference energy plus the complete second order correction plus nuclear repulsion."
+    orchestrator: true

@@ -1,0 +1,89 @@
+{
+  "problem_id": "Physics-Astrophysics-5",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Astrophysics-5.1",
+      "test_cases": [
+        "assert np.allclose(np.stack(void_fields(9, [[4,4,4]], [[3,3,3]]), axis=0), target)",
+        "assert np.allclose(np.stack(void_fields(5, [[0,0,0]], [[.25,.25,.25]]), axis=0), target)",
+        "assert np.allclose(np.stack(void_fields(7, [[2,3,4],[4,3,2]], [[2,3,2],[3,2,3]]), axis=0), target)",
+        "def run_model():\n    try:\n        void_fields(4, [[0,0,0]], [[1,1,1]])\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(run_model(), target)",
+        "def run_model():\n    try:\n        void_fields(5, [[0,0,0]], [[0,1,1]])\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(run_model(), target)",
+        "def run_model():\n    try:\n        void_fields(5, [[float(\"nan\"),0,0]], [[1,1,1]])\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-5.2",
+      "test_cases": [
+        "d=np.ones((7,7,7)); v=np.zeros_like(d)\nd[2,3,4]=.2;d[4,3,2]=.1;v[2,3,4]=2;v[4,3,2]=3\nassert np.allclose(void_candidates(d,v,-.6), target)",
+        "d=np.ones((5,5,5));v=np.ones_like(d)\nassert np.allclose(void_candidates(d,v,-.6), target)",
+        "d=np.ones((7,7,7)); v=np.zeros_like(d)\nd[2,3,4]=.2;d[4,3,2]=.1;v[2,3,4]=2;v[4,3,2]=3\nv[4,3,2]=2\nassert np.allclose(void_candidates(d,v,-.6), target)",
+        "d=np.ones((7,7,7)); v=np.zeros_like(d)\nd[2,3,4]=.2;d[4,3,2]=.1;v[2,3,4]=2;v[4,3,2]=3\nd[2,3,4]=.4;v[4,3,2]=0\nassert np.allclose(void_candidates(d,v,-.6), target)",
+        "d=np.ones((7,7,7)); v=np.zeros_like(d)\nd[2,3,4]=.2;d[4,3,2]=.1;v[2,3,4]=2;v[4,3,2]=3\ndef run_model():\n    try:\n        void_candidates(d,v,float(\"inf\"))\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(run_model(), target)",
+        "d=np.ones((7,7,7)); v=np.zeros_like(d)\nd[2,3,4]=.2;d[4,3,2]=.1;v[2,3,4]=2;v[4,3,2]=3\ndef run_model():\n    try:\n        void_candidates(d[:2],v,-.6)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(run_model(), target)",
+        "d=np.ones((7,7,7)); v=np.zeros_like(d)\nd[2,3,4]=.2;d[4,3,2]=.1;v[2,3,4]=2;v[4,3,2]=3\ndef run_model():\n    try:\n        void_candidates(-d,v,-.6)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-5.3",
+      "test_cases": [
+        "x=np.indices((7,7,7),dtype=float);d=.1+.02*x[0]**2;v=np.ones_like(d)\nassert np.allclose(face_barriers(d,v,.1,10.,0.), target)",
+        "x=np.indices((7,7,7),dtype=float);d=.1+.02*x[0]**2;v=np.ones_like(d)\nv[:]=0\nassert np.allclose(face_barriers(d,v,.1,10.,0.), target)",
+        "x=np.indices((7,7,7),dtype=float);d=.1+.02*x[0]**2;v=np.ones_like(d)\nassert np.allclose(face_barriers(d,v,0.,10.,0.), target)",
+        "x=np.indices((7,7,7),dtype=float);d=.1+.02*x[0]**2;v=np.ones_like(d)\nassert np.allclose(face_barriers(d,v,.1,-.6,2.), target)",
+        "x=np.indices((7,7,7),dtype=float);d=.1+.02*x[0]**2;v=np.ones_like(d)\ndef run_model():\n    try:\n        face_barriers(d,v,-1.,10.,0.)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(run_model(), target)",
+        "x=np.indices((7,7,7),dtype=float);d=.1+.02*x[0]**2;v=np.ones_like(d)\ndef run_model():\n    try:\n        face_barriers(d,v,.1,float(\"nan\"),0.)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(run_model(), target)",
+        "x=np.indices((7,7,7),dtype=float);d=.1+.02*x[0]**2;v=np.ones_like(d)\ndef run_model():\n    try:\n        face_barriers(d,v[:2],.1,10.,0.)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-5.4",
+      "test_cases": [
+        "b=np.zeros((3,2,11,11,11),dtype=int);b[0,1,7,:,:]=1\ns=np.array([[5,5,5],[6,5,5],[1,1,1]],dtype=int)\nassert np.allclose(grow_void_cubes(s,b), target)",
+        "b=np.zeros((3,2,11,11,11),dtype=int);b[0,1,7,:,:]=1\ns=np.array([[5,5,5],[6,5,5],[1,1,1]],dtype=int)\nb[:]=1\nassert np.allclose(grow_void_cubes(s,b), target)",
+        "b=np.zeros((3,2,11,11,11),dtype=int);b[0,1,7,:,:]=1\ns=np.array([[5,5,5],[6,5,5],[1,1,1]],dtype=int)\nb[:]=0\nassert np.allclose(grow_void_cubes(s,b), target)",
+        "b=np.zeros((3,2,11,11,11),dtype=int);b[0,1,7,:,:]=1\ns=np.array([[5,5,5],[6,5,5],[1,1,1]],dtype=int)\ns=np.empty((0,3),dtype=int)\nassert np.allclose(grow_void_cubes(s,b), target)",
+        "b=np.zeros((3,2,11,11,11),dtype=int);b[0,1,7,:,:]=1\ns=np.array([[5,5,5],[6,5,5],[1,1,1]],dtype=int)\nb[:]=0;b[1,0,5,4,5]=1\nassert np.allclose(grow_void_cubes(s,b), target)",
+        "b=np.zeros((3,2,11,11,11),dtype=int);b[0,1,7,:,:]=1\ns=np.array([[5,5,5],[6,5,5],[1,1,1]],dtype=int)\ndef run_model():\n    try:\n        grow_void_cubes(s.astype(float),b)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(run_model(), target)",
+        "b=np.zeros((3,2,11,11,11),dtype=int);b[0,1,7,:,:]=1\ns=np.array([[5,5,5],[6,5,5],[1,1,1]],dtype=int)\ndef run_model():\n    try:\n        grow_void_cubes(s,b+2)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(run_model(), target)",
+        "b=np.zeros((3,2,11,11,11),dtype=int);b[0,1,7,:,:]=1\ns=np.array([[5,5,5],[6,5,5],[1,1,1]],dtype=int)\ndef run_model():\n    try:\n        grow_void_cubes(np.array([[5,5,5],[5,5,5]]),b)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-5.5",
+      "test_cases": [
+        "c=np.array([[5,10,10,2],[17,10,10,2],[11,10,10,2]],dtype=int)\nassert np.allclose(merge_void_cubes(c,23), target)",
+        "c=np.array([[5,5,5,1],[8,5,5,1],[11,5,5,1]],dtype=int)\nassert np.allclose(merge_void_cubes(c,17), target)",
+        "c=np.array([[2,2,2,0],[4,2,2,0]],dtype=int)\nassert np.allclose(merge_void_cubes(c,7), target)",
+        "c=np.empty((0,4),dtype=int)\nassert np.allclose(merge_void_cubes(c,5), target)",
+        "c=np.array([[5,5,5,2],[8,5,5,2]],dtype=int)\nassert np.allclose(merge_void_cubes(c,15), target)",
+        "def run_model():\n    try:\n        merge_void_cubes([[0,0,0,1]],5)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(run_model(), target)",
+        "def run_model():\n    try:\n        merge_void_cubes([[2.,2.,2.,1.]],5)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(run_model(), target)",
+        "def run_model():\n    try:\n        merge_void_cubes(np.empty((0,4),dtype=int),4)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-5.6",
+      "test_cases": [
+        "o=np.zeros((7,7,7),dtype=int);o[1:4,1:4,1:4]=2;o[4:6,4:6,4:6]=1\nassert np.allclose(owned_void_volume(o,.37), target)",
+        "o=np.zeros((7,7,7),dtype=int);o[1:4,1:4,1:4]=2;o[4:6,4:6,4:6]=1\nassert np.allclose(owned_void_volume(o,0.), target)",
+        "o=np.zeros((7,7,7),dtype=int);o[1:4,1:4,1:4]=2;o[4:6,4:6,4:6]=1\no[:]=0\nassert np.allclose(owned_void_volume(o,1e200), target)",
+        "o=np.zeros((7,7,7),dtype=int);o[1:4,1:4,1:4]=2;o[4:6,4:6,4:6]=1\nassert np.allclose(owned_void_volume(o,1e-100), target)",
+        "o=np.zeros((7,7,7),dtype=int);o[1:4,1:4,1:4]=2;o[4:6,4:6,4:6]=1\ndef run_model():\n    try:\n        owned_void_volume(o,-1.)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(run_model(), target)",
+        "o=np.zeros((7,7,7),dtype=int);o[1:4,1:4,1:4]=2;o[4:6,4:6,4:6]=1\ndef run_model():\n    try:\n        owned_void_volume(o,1e200)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(run_model(), target)",
+        "o=np.zeros((7,7,7),dtype=int);o[1:4,1:4,1:4]=2;o[4:6,4:6,4:6]=1\ndef run_model():\n    try:\n        owned_void_volume(o.astype(float),1.)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-5.7",
+      "test_cases": [
+        "centers=[(8,20,20),(32,20,20),(16,20,20),(24,20,20),(20,24,20),(16,30,22),(8,8,8),(22,18,26)]\nscales=[(6,6,6),(5.8,5.8,5.8),(3.8,3.8,3.8),(3.8,3.8,3.8),(3.5,3.5,3.5),(4.5,4.5,4.5),(4,4,4),(3.5,3.5,3.5)]\nassert np.allclose(largest_void(41,centers,scales,.37), target)",
+        "assert np.allclose(largest_void(13,[[6,6,6]],[[3,3,3]],1.), target)",
+        "assert np.allclose(largest_void(9,[[4,4,4]],[[.25,.25,.25]],.37), target)",
+        "assert np.allclose(largest_void(13,[[6,6,6]],[[3,3,3]],0.), target)",
+        "def run_model():\n    try:\n        largest_void(4,[[2,2,2]],[[1,1,1]],.37)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(run_model(), target)",
+        "def run_model():\n    try:\n        largest_void(13,[[6,6,6]],[[3,3,3]],float(\"inf\"))\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

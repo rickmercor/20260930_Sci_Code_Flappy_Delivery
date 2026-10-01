@@ -1,0 +1,40 @@
+problem_id: "Biology-Ecology-5"
+subject: "biology"
+subject_area: "Ecology"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: " https://doi.org/10.48550/arXiv.2509.23977"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_uptake_tensors.py"
+    description: "Calculate resource derivatives of saturating uptake through third order."
+    orchestrator: false
+  - number: 2
+    name: "02_cavity_state_jet.py"
+    description: "Calculate the two first responses and mixed stationary response of the cavity community."
+    orchestrator: false
+  - number: 3
+    name: "03_susceptibility_jet.py"
+    description: "Calculate the resource susceptibility and its full mixed environmental response."
+    orchestrator: false
+  - number: 4
+    name: "04_selection_mixed_jet.py"
+    description: "Calculate the invasion and feedback coefficients with their mixed environmental derivatives."
+    orchestrator: false
+  - number: 5
+    name: "05_log_scale_integrals.py"
+    description: "Evaluate logarithms of diffusion scale integrals and their mixed parameter derivatives."
+    orchestrator: false
+  - number: 6
+    name: "06_hitting_moment_jet.py"
+    description: "Calculate fixation probability and the fixation-weighted first passage-time moment."
+    orchestrator: false
+  - number: 7
+    name: "07_conditional_time_statistics.py"
+    description: "Recover conditional fixation-time derivatives and mixed logarithmic sensitivity."
+    orchestrator: false
+  - number: 8
+    name: "08_mixed_fixation_time.py"
+    description: "Orchestrator: calculate the mixed supply sensitivity of conditional mean fixation time."
+    orchestrator: true

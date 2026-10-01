@@ -1,0 +1,36 @@
+problem_id: "Biology-Genetics-47"
+subject: "biology"
+subject_area: "Genetics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.64898/2026.02.26.708357"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_linked_site_spectrum_components.py"
+    description: "Expected spectrum of neutral sites completely linked to a focal neutral variant of known sample count, split by the relation of each site to the variant."
+    orchestrator: false
+  - number: 2
+    name: "02_indel_null_spectrum.py"
+    description: "Expected spectrum of neutral sites inside a presence/absence segment, among the haplotypes that carry the segment, for a stated polarity of the variant."
+    orchestrator: false
+  - number: 3
+    name: "03_fold_spectrum.py"
+    description: "Fold a spectrum over derived counts 1 to m - 1 into minor-allele classes 1 to floor(m / 2)."
+    orchestrator: false
+  - number: 4
+    name: "04_spectrum_statistics.py"
+    description: "Number of sites, Watterson's estimator, pairwise diversity, Fay and Wu's estimator and Tajima's D of an unfolded spectrum, as region totals."
+    orchestrator: false
+  - number: 5
+    name: "05_polarity_log_likelihoods.py"
+    description: "Poisson log-likelihoods of the observed folded spectrum of a presence/absence segment under each polarity of the variant."
+    orchestrator: false
+  - number: 6
+    name: "06_sv_aware_theta_folded.py"
+    description: "Variant-aware estimate of the population-scaled mutation rate per site from the folded spectrum of a presence/absence segment."
+    orchestrator: false
+  - number: 7
+    name: "07_sv_aware_relative_diversity.py"
+    description: "Variant-aware diversity of a presence/absence segment relative to its neutral flanks, at the polarity decided from the segment's spectrum."
+    orchestrator: true

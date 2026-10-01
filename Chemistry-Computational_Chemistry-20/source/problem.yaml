@@ -1,0 +1,36 @@
+problem_id: "Chemistry-Computational_Chemistry-20"
+subject: "chemistry"
+subject_area: "Computational Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.48550/arXiv.2608.28025"
+dependencies: ""
+steps:
+  - number: 1
+    name: "step_01_cluster_recurring_differences"
+    description: "Recover the topology-discovery offset and recurring-difference groups."
+    orchestrator: false
+  - number: 2
+    name: "step_02_instantiate_k22_motifs"
+    description: "Recover the local four-transition closure motifs."
+    orchestrator: false
+  - number: 3
+    name: "step_03_derive_local_vertex_constraints"
+    description: "Derive canonical local shared-level constraints from closure motifs."
+    orchestrator: false
+  - number: 4
+    name: "step_04_stitch_energy_level_cliques"
+    description: "Stitch local shared-level constraints into global energy-level cliques."
+    orchestrator: false
+  - number: 5
+    name: "step_05_build_bipartite_level_network"
+    description: "Recover the bipartite level network and its unique missing transition."
+    orchestrator: false
+  - number: 6
+    name: "step_06_invert_network_and_predict"
+    description: "Fit the recovered network and evaluate its unique missing transition."
+    orchestrator: false
+  - number: 7
+    name: "step_07_missing_transition_orchestrator"
+    description: "Run the complete reconstruction and return the missing-line frequency."
+    orchestrator: true

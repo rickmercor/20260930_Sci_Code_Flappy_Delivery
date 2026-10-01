@@ -1,0 +1,40 @@
+problem_id: "Biology-Genetics-6"
+subject: "biology"
+subject_area: "Genetics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.48550/arXiv.2604.23917"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_simulate_communication_dataset"
+    description: "Draw the donor level cohort in which ligand expression, receptor expression and receiver pathway activity are all loaded by one latent confounder, and return it as a single centred matrix that every later step reads."
+    orchestrator: false
+  - number: 2
+    name: "02_compute_naive_communication_score"
+    description: "Score the cohort the way a co-expression screen does, by regressing pathway activity on the observed ligand, the observed receptor, their product and the covariates, and turning the joint test of the two ligand terms into a communication score on the logit scale."
+    orchestrator: false
+  - number: 3
+    name: "03_initialise_gibbs_state"
+    description: "Build the starting parameter vector of the sampler from three least squares fits, packing the two exposure blocks, the outcome nuisance block, the communication effect vector and the selection parameters into one flat array."
+    orchestrator: false
+  - number: 4
+    name: "04_update_exposure_equations"
+    description: "Draw both exposure equations of one sampler sweep from the flat parameter state, refreshing the instrument coefficients, the covariate coefficients and the residual variance of the ligand equation and then those of the receptor equation."
+    orchestrator: false
+  - number: 5
+    name: "05_update_outcome_equation"
+    description: "Draw the four parameters of the outcome equation that carry no selection decision, the intercept, the outcome covariate coefficients, the receptor main effect and the residual variance of pathway activity, in that order and from the flat parameter state."
+    orchestrator: false
+  - number: 6
+    name: "06_update_communication_state"
+    description: "Draw the two-element communication effect vector from its spike and slab conditional, then draw the inclusion indicator that decides which component the vector belongs to, then refresh the inclusion probability from its own conditional."
+    orchestrator: false
+  - number: 7
+    name: "07_summarise_communication_evidence"
+    description: "Put the associational verdict and the posterior inclusion probability on one common odds scale, report the gap between them in orders of magnitude, and express both causal communication coefficients in standard deviation units of pathway activity."
+    orchestrator: false
+  - number: 8
+    name: "08_run_causal_communication_pipeline"
+    description: "Chain the sub-problem functions 01-07 end-to-end on the confounded donor cohort and return the gap in base ten logarithms between the associational and the causal communication odds. Orchestrator: yes - this is the final step; it integrates the earlier sub-problems (simulate_communication_dataset, compute_naive_communication_score, initialise_gibbs_state, update_exposure_equations, update_outcome_equation, update_communication_state, summarise_communication_evidence) rather than reimplementing them."
+    orchestrator: true

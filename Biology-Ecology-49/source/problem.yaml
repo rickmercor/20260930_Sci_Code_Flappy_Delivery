@@ -1,0 +1,44 @@
+problem_id: "Biology-Ecology-49"
+subject: "biology"
+subject_area: "Ecology"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2608.03364"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_migration_rate_coefficients.py"
+    description: "Drift source and squared diffusion coefficient of the unit-time migrant count."
+    orchestrator: false
+  - number: 2
+    name: "02_mean_sampled_concentration.py"
+    description: "Expected eDNA concentration of the water a sample assays, in copies per ml."
+    orchestrator: false
+  - number: 3
+    name: "03_sample_memory_horizon.py"
+    description: "Oldest migration age, in days, that can leave eDNA in the sampled water."
+    orchestrator: false
+  - number: 4
+    name: "04_washout_exponent.py"
+    description: "Laplace exponent per unit concentration carried by the water that will be sampled."
+    orchestrator: false
+  - number: 5
+    name: "05_sample_weight_kernel.py"
+    description: "Weight each past day of the run carries in the survey's log failure probability."
+    orchestrator: false
+  - number: 6
+    name: "06_nondetection_probability.py"
+    description: "Probability that the survey records no copies at any of its sites."
+    orchestrator: false
+  - number: 7
+    name: "07_survey_window_days.py"
+    description: "First and last whole day on which a one-site survey meets the failure standard."
+    orchestrator: false
+  - number: 8
+    name: "08_planned_replicates.py"
+    description: "Replicates planned at a site, from the expected copy yield of one replicate."
+    orchestrator: false
+  - number: 9
+    name: "09_survey_failure_probability.py"
+    description: "Probability that the planned two-site visit records no copies anywhere."
+    orchestrator: true

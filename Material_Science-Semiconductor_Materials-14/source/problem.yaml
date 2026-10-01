@@ -1,0 +1,48 @@
+problem_id: "Material_Science-Semiconductor_Materials-14"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.48550/arXiv.2608.12808"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_build_ddfv_mesh"
+    description: "Build the diamond-cell geometry table of the discrete duality finite volume mesh for the distorted triangulation of the unit square."
+    orchestrator: false
+  - number: 2
+    name: "02_build_ddfv_node_table"
+    description: "Build the node table of the discrete duality mesh, holding the coordinate, the control volume measure, the equation class and the contact tag of every unknown."
+    orchestrator: false
+  - number: 3
+    name: "03_evaluate_bernoulli"
+    description: "Evaluate the Bernoulli function that carries the exponential fitting of the harmonic-average flux, in a form that stays accurate at the removable singularity and is finite in both asymptotic limits."
+    orchestrator: false
+  - number: 4
+    name: "04_build_junction_state"
+    description: "Evaluate the scaled net doping at every unknown and the Ohmic contact values of the potential and the two carrier densities."
+    orchestrator: false
+  - number: 5
+    name: "05_assemble_ddfv_laplacian"
+    description: "Assemble the discrete duality Laplacian, the matrix that maps the nodal potential to the divergence of its diamond-reconstructed gradient on both the primal and the dual mesh."
+    orchestrator: false
+  - number: 6
+    name: "06_assemble_harmonic_flux_matrix"
+    description: "Assemble the harmonic-average discrete duality flux matrix for one carrier at a frozen potential, the operator whose row sums are the discrete continuity residuals."
+    orchestrator: false
+  - number: 7
+    name: "07_assemble_coupled_residual"
+    description: "Assemble the residual of the full coupled Poisson and continuity system, with the Dirichlet and Neumann rows substituted in."
+    orchestrator: false
+  - number: 8
+    name: "08_solve_drift_diffusion"
+    description: "Solve the coupled nonlinear drift-diffusion system by voltage continuation and full Newton iteration, calling the assembly functions of sub-problems 04 to 07 and returning the converged potential and carrier densities."
+    orchestrator: false
+  - number: 9
+    name: "09_compute_terminal_current"
+    description: "Sum the converged harmonic-average fluxes over the boundary diamonds of one contact to obtain the terminal current there."
+    orchestrator: false
+  - number: 10
+    name: "10_run_ddfv_ha_pipeline"
+    description: "Chain the sub-problem functions 01 to 09 end-to-end on the distorted PN junction and return the terminal current at the requested contact. Orchestrator: yes - this is the final step; it integrates the earlier sub-problems (build_ddfv_mesh, build_ddfv_node_table, evaluate_bernoulli, build_junction_state, assemble_ddfv_laplacian, assemble_harmonic_flux_matrix, assemble_coupled_residual, solve_drift_diffusion, compute_terminal_current) rather than reimplementing them."
+    orchestrator: true

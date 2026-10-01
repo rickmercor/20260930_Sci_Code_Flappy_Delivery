@@ -1,0 +1,40 @@
+problem_id: "Physics-Particle_Physics-26"
+subject: "physics"
+subject_area: "Particle Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2511.07509"
+dependencies: ""
+steps:
+  - number: 1
+    name: "emission_kernels"
+    description: "Construct the single-emission kernels, including the collinear rotation."
+    orchestrator: false
+  - number: 2
+    name: "pair_kernels"
+    description: "Construct the connected gluon and fermion pair-emission kernels."
+    orchestrator: false
+  - number: 3
+    name: "dipole_fields"
+    description: "Contract the leading and collinear operators against the dipole-chain state."
+    orchestrator: false
+  - number: 4
+    name: "nlo_action"
+    description: "Contract the unrotated fixed-coupling NLO operator including disconnected color chains."
+    orchestrator: false
+  - number: 5
+    name: "scheme_commutator"
+    description: "Evaluate the scheme-changing operator commutator on the nonlinear dipole state."
+    orchestrator: false
+  - number: 6
+    name: "composite_matching"
+    description: "Match the composite target or the dual hard coefficient through first order."
+    orchestrator: false
+  - number: 7
+    name: "evolve_rotated_dipole"
+    description: "Evolve the composite dipole with the finite-regulator rotated NLO generator."
+    orchestrator: false
+  - number: 8
+    name: "infer_rotated_cgc"
+    description: "Infer the finite-quadrature QCD target and propagate its correlated uncertainty."
+    orchestrator: true

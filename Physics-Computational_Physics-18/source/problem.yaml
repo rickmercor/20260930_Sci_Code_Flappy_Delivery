@@ -1,0 +1,40 @@
+problem_id: "Physics-Computational_Physics-18"
+subject: "physics"
+subject_area: "Computational Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1007/s10444-026-10313-8"
+dependencies: ""
+steps:
+  - number: 1
+    name: "pfc_spectral_derivatives"
+    description: "Evaluate, by the Fourier spectral method on a uniform periodic grid, five spatial operators applied to one real periodic field $u$: the two first partial derivatives $\\\\partial_x u$ and $\\\\partial_y u$, the Laplacian $\\\\Delta u$, the bi-Laplacian $\\\\Delta^2 u$, and the ****shifted bi-Laplacian**** $(\\\\Delta+a)^2u$ for a real shift $a$. Return all five stacked along a new leading axis, in that order, so that the shape is `(5,) + u.shape`. Every operator is applied by transforming, multiplying by its symbol, transforming back and taking the real part; ****no dealiasing of any kind is applied**** and the Nyquist wavenumber is kept exactly as `numpy.fft.fftfreq` returns it. The shifted bi-Laplacian is graded separately from the bi-Laplacian because the whole interspecies coupling of the model rides on it, and because expanding it as $\\\\Delta^2+a^2$ - dropping its two cross terms - is the single most tempting simplification in the pipeline."
+    orchestrator: false
+  - number: 2
+    name: "pfc_free_energy"
+    description: "Evaluate the ****total free energy**** of the magnetic-coupled binary phase-field-crystal model on the grid: the sum of the binary PFC block, the Ginzburg-Landau magnetic block and the higher-order regularization block, integrated over the periodic domain. Return one float. Every integral is the plain grid sum times the cell area $h_xh_y$, and every spatial operator is the spectral one of step 1. This is the quantity the whole benchmark finally reports, and it is also the quantity the modified discrete energy of step 7 must reproduce at $t=0$, so an error here shows up twice."
+    orchestrator: false
+  - number: 3
+    name: "pfc_nonlinear_terms"
+    description: "Evaluate the ****nonlinear part**** $N$ of the free-energy density - everything except the three blocks that are quadratic in derivatives of the fields - together with its three variational derivatives $N_1=\\\\delta N/\\\\delta\\\\phi_1$, $N_2=\\\\delta N/\\\\delta\\\\phi_2$ and $\\\\boldsymbol N_3=\\\\delta N/\\\\delta\\\\boldsymbol M$. Return them stacked along a new leading axis in the order $[N,\\\\ N_1,\\\\ N_2,\\\\ N_{3x},\\\\ N_{3y}]$, so that the shape is `(5,) + phi1.shape`. These four objects are what the quadratization of the next step is built from: $N$ sits under the square root and the three derivatives sit in the numerators of the three coefficient functions."
+    orchestrator: false
+  - number: 4
+    name: "pfc_ieq_coefficients"
+    description: "Evaluate the ****invariant-energy-quadratization auxiliary variable**** $U$ and the three coefficient functions $H_1$, $H_2$ and $\\\\boldsymbol R$ that multiply it in the reformulated chemical potentials. Return them stacked along a new leading axis in the order $[U,\\\\ H_1,\\\\ H_2,\\\\ R_x,\\\\ R_y]$, so that the shape is `(5,) + phi1.shape`. The radicand must be strictly positive: raise a `ValueError` if it is not, since a non-positive radicand means the shift constant $B$ was chosen too small for the state, and that is a modelling failure rather than a number to be returned."
+    orchestrator: false
+  - number: 5
+    name: "pfc_split_solve"
+    description: "Solve ****one**** of the four decoupled constant-coefficient density subsystems of the scheme. After the sum-and-difference transformation and after the chemical potential has been eliminated, each subsystem is a single biharmonic-type equation in one unknown $\\\\varphi$, driven by two explicit right-hand sides $G_{13}$ and $G_{24}$ and carrying a sign $s=\\\\pm1$ in front of the shifted bi-Laplacian - $s=+1$ for a sum system, $s=-1$ for a difference system. Return the solution and the corresponding potential stacked along a new leading axis in the order $[\\\\varphi,\\\\ \\\\mu]$, so that the shape is `(2,) + G13.shape`. The equation contains one ****implicit nonlocal term****, and part of the task is to see that its value is available in closed form before the solve."
+    orchestrator: false
+  - number: 6
+    name: "pfc_time_step"
+    description: "Advance the whole system by ****one**** step of the fully discrete Fourier-IEQ-ZEC scheme. The state is the three most recent layers, each holding the nine fields $[\\\\phi_1,\\\\ \\\\phi_2,\\\\ M_x,\\\\ M_y,\\\\ \\\\mu_1,\\\\ \\\\mu_2,\\\\ \\\\mu_{3x},\\\\ \\\\mu_{3y},\\\\ U]$ in that order, so `state[0]` is layer $n$, `state[1]` is layer $n-1$ and `state[2]` is layer $n-2$; the nonlocal scalar $Q^n$ is passed separately. Build the second-order extrapolations, form the three coefficient functions at the extrapolated state, assemble the six explicit right-hand sides, solve the four density subsystems of step 5 and the two magnetization subsystems, evaluate the two nonlocal scalars, close the step for the nonlocal scalar and recombine. Return the ten planes $[\\\\phi_1,\\\\ \\\\phi_2,\\\\ M_x,\\\\ M_y,\\\\ \\\\mu_1,\\\\ \\\\mu_2,\\\\ \\\\mu_{3x},\\\\ \\\\mu_{3y},\\\\ U,\\\\ Q^{n+1}]$ of the new layer, the last plane being constant and equal to the new nonlocal scalar, so that the shape is `(10, Nx, Ny)`."
+    orchestrator: false
+  - number: 7
+    name: "pfc_modified_energy"
+    description: "Evaluate the ****modified discrete energy**** that the scheme dissipates - the quantity the source's discrete energy law bounds, which is the original free energy with its nonlinear part replaced by the squared norm of the auxiliary variable, plus the two quadratic stabilizer terms, plus the square of the nonlocal scalar, minus the two constants those replacements introduce, plus the two gradient-difference terms that the second-order time discretisation contributes. Return one float. The previous-layer densities are optional and default to the current ones, in which case the two gradient-difference terms vanish; that default is what the initial layer needs. ****Every squared gradient norm in this expression - the two $\\\\|\\\\nabla\\\\phi_i\\\\|^2$, the $\\\\|\\\\nabla\\\\boldsymbol M\\\\|^2$ and the two gradient-difference terms - is to be evaluated as $-(u,\\\\Delta u)$, not as the integral of the squared pointwise first derivatives.**** The two agree in the continuum and differ on the grid, and the choice is graded."
+    orchestrator: false
+  - number: 8
+    name: "pfc_ieq_zec_run"
+    description: "Run the whole benchmark. Build the initial data and the applied field from the closed form below; evaluate the auxiliary variable and the three coefficient functions on them; assemble the initial chemical potentials of the reformulated system with the nonlocal scalar at its initial value $Q^0=1$; build the two backward ghost layers from the exact initial velocities so that the second-order formulas apply from the very first step; advance $n_steps$ steps of size $dt$ with the step of step 6; and return the ****total free energy of the final layer divided by the area of the domain****. Setting `quantity` selects a diagnostic instead: `'energy0'` the initial free-energy density, `'emod'` and `'emod0'` the modified discrete energy density at the final and the initial layer, `'q'` the final nonlocal scalar, `'mass'` the total drift of the two spatial means over the run, and `'drift'` the sup-norm distance between the auxiliary variable carried by the scheme and the square root recomputed from the final fields."
+    orchestrator: true

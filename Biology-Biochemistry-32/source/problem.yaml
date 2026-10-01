@@ -1,0 +1,36 @@
+problem_id: "Biology-Biochemistry-32"
+subject: "biology"
+subject_area: "Biochemistry"
+difficulty: "medium"
+answer_type: "single_numeric"
+paper_doi: "10.1186/s13015-025-00278-6"
+dependencies: ""
+steps:
+  - number: 1
+    name: "step_1_parse_target"
+    description: "Parse a dot-bracket RNA target into ordered zero-based base-pair coordinates and unpaired coordinates."
+    orchestrator: false
+  - number: 2
+    name: "step_2_analyse_target"
+    description: "Measure maximal helices and count the forbidden local motifs m5 and m3-bullet."
+    orchestrator: false
+  - number: 3
+    name: "step_3_local_colouring"
+    description: "Determine whether a parent colour and its direct child colours satisfy the local proper-colouring limits."
+    orchestrator: false
+  - number: 4
+    name: "step_4_separated_colouring"
+    description: "Find the deterministic locally proper modulo-m separated colouring of the target."
+    orchestrator: false
+  - number: 5
+    name: "step_5_construct_sequence"
+    description: "Convert the ordered numeric colouring into a numerically encoded RNA sequence."
+    orchestrator: false
+  - number: 6
+    name: "step_6_evaluate_design"
+    description: "Verify compatibility and unique maximum-base-pair folding, then calculate GC percentage."
+    orchestrator: false
+  - number: 7
+    name: "step_7_orchestrator"
+    description: "Orchestrate the six preceding RNA inverse-folding steps and return the final GC percentage."
+    orchestrator: true

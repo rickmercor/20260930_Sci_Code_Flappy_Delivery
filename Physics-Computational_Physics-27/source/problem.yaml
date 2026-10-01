@@ -1,0 +1,44 @@
+problem_id: "Physics-Computational_Physics-27"
+subject: "physics"
+subject_area: "Computational Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1103/nbxh-j277"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_build_hatano_nelson"
+    description: "Assemble the Hatano-Nelson Hamiltonian matrix for a one-dimensional tight-binding\n\nchain with non-reciprocal nearest-neighbour hoppings.\n\n\n\nThe first super-diagonal carries gamma * (1 + p) and the first sub-diagonal carries\n\ngamma * (1 - p). Under periodic boundary conditions the bottom-left corner\n\nH[N-1, 0] carries gamma * (1 + p) and the top-right corner H[0, N-1] carries\n\ngamma * (1 - p); under open boundary conditions both corners stay zero.\n\n\n\nInputs\n\n------\n\nn_sites: int, number of chain sites N (>= 2)\n\ngamma: float, hopping energy scale\n\np: float, non-reciprocity, |p| < 1\n\nalpha_bc: float, boundary switch, 0.0 (OBC) or 1.0 (PBC)\n\n\n\nReturns\n\n-------\n\nH: (n_sites, n_sites) complex ndarray\n\n\n\nRaises\n\n------\n\nValueError: if n_sites is below 2, gamma is not finite, |p| is not below 1, or alpha_bc is neither 0.0 nor 1.0"
+    orchestrator: false
+  - number: 2
+    name: "02_analytic_spectrum"
+    description: "Return the closed-form eigenvalue spectrum of the Hatano-Nelson chain, selecting\n\nthe periodic or the open branch according to the boundary switch.\n\n\n\nInputs\n\n------\n\nn_sites: int, number of chain sites N (>= 2)\n\ngamma: float, hopping energy scale\n\np: float, non-reciprocity, |p| < 1\n\nalpha_bc: float, boundary switch, 0.0 (OBC) or 1.0 (PBC)\n\n\n\nReturns\n\n-------\n\nspectrum: (n_sites,) complex ndarray, ordered by the mode index a = 1 .. N\n\n\n\nRaises\n\n------\n\nValueError: if n_sites is below 2, gamma is not finite, |p| is not below 1, or alpha_bc is neither 0.0 nor 1.0"
+    orchestrator: false
+  - number: 3
+    name: "03_bernstein_radius"
+    description: "Determine the smallest Bernstein-ellipse radius whose ellipse encloses a supplied\n\nset of complex points, such as a spectrum.\n\n\n\nInputs\n\n------\n\npoints: array-like of complex numbers, non-empty and finite\n\n\n\nReturns\n\n-------\n\nrho: float, the smallest Bernstein radius rho >= 1 enclosing every supplied point\n\n\n\nRaises\n\n------\n\nValueError: if points is empty or contains a non-finite value"
+    orchestrator: false
+  - number: 4
+    name: "04_max_time_step"
+    description: "Convert a target accuracy into the longest single time step a Chebyshev expansion\n\ncan take without its accumulated rounding error exceeding that target.\n\n\n\nInputs\n\n------\n\nrho: float, Bernstein radius enclosing the spectrum, >= 1\n\ndelta_max: float, target absolute tolerance, > 0\n\neps: float, machine precision, > 0 (default 1.11e-16)\n\n\n\nReturns\n\n-------\n\nt_max: float, the largest single time step meeting the tolerance\n\n\n\nRaises\n\n------\n\nValueError: if rho is below 1, or delta_max or eps is not positive and finite"
+    orchestrator: false
+  - number: 5
+    name: "05_rounding_error_bound"
+    description: "Evaluate the accumulated floating-point rounding-error bound of a truncated\n\nChebyshev expansion, given the number of terms actually summed.\n\n\n\nInputs\n\n------\n\nn_terms: int, total number of Chebyshev terms summed, >= 1\n\ndt: float, the time step of a single expansion, > 0\n\nrho: float, Bernstein radius enclosing the spectrum, >= 1\n\neps: float, machine precision, > 0 (default 1.11e-16)\n\n\n\nReturns\n\n-------\n\nbound: float, the accumulated rounding-error bound for the stated number of summed terms\n\n\n\nRaises\n\n------\n\nValueError: if n_terms is below 1, dt is not positive, rho is below 1, or eps is not positive"
+    orchestrator: false
+  - number: 6
+    name: "06_chebyshev_coefficients"
+    description: "Generate the Chebyshev expansion coefficients of the propagator exp(-i t H) up to\n\na given order, for a bare time step t.\n\n\n\nInputs\n\n------\n\ndt: float, the time step t, > 0\n\nmax_order: int, highest expansion order retained, >= 1\n\n\n\nReturns\n\n-------\n\ncoefficients: (max_order + 1,) complex ndarray, entries c_0 .. c_max_order\n\n\n\nRaises\n\n------\n\nValueError: if dt is not positive and finite, or max_order is below 1"
+    orchestrator: false
+  - number: 7
+    name: "07_chebyshev_step"
+    description: "Propagate a state vector through one time step by summing the Chebyshev series\n\ndirectly onto the vector, truncating it with an adaptive stopping rule, and report\n\nhow many terms were summed.\n\n\n\nInputs\n\n------\n\nhamiltonian: (d, d) complex ndarray, may be non-Hermitian\n\npsi: (d,) complex ndarray, the state before the step\n\ndt: float, the time step, > 0\n\ntol: float, term-norm stopping tolerance, > 0 (default 1e-14)\n\npatience: int, consecutive sub-tolerance terms required to stop, >= 1 (default 5)\n\nmax_order: int, hard cap on the expansion order, >= 1 (default 4000)\n\n\n\nReturns\n\n-------\n\npsi_next: (d,) complex ndarray, the propagated unnormalised state\n\nn_terms: int, the number of Chebyshev terms summed\n\n\n\nRaises\n\n------\n\nValueError: if hamiltonian is not square, psi does not match its dimension, dt or tol is not positive, or patience or max_order is below 1"
+    orchestrator: false
+  - number: 8
+    name: "08_evolve_wavepacket"
+    description: "Evolve a Gaussian wave packet on the Hatano-Nelson chain over a fixed total time\n\nsplit into equal Chebyshev steps, renormalising after each step, and accumulate the\n\ntotal number of expansion terms summed.\n\n\n\nInputs\n\n------\n\nn_sites: int, number of chain sites N (>= 2)\n\ngamma: float, hopping energy scale\n\np: float, non-reciprocity, |p| < 1\n\nalpha_bc: float, boundary switch, 0.0 (OBC) or 1.0 (PBC)\n\nmomentum: float, the wave packet momentum k\n\nsigma: float, the wave packet width, > 0\n\nt_max: float, total evolution time, > 0\n\nn_steps: int, number of equal time steps, >= 1\n\ntol: float, term-norm stopping tolerance, > 0 (default 1e-14)\n\npatience: int, consecutive sub-tolerance terms required to stop, >= 1 (default 5)\n\n\n\nReturns\n\n-------\n\npsi_final: (n_sites,) complex ndarray, the normalised state at t_max\n\ntotal_terms: int, Chebyshev terms summed across all steps\n\n\n\nRaises\n\n------\n\nValueError: if n_sites is below 2, |p| is not below 1, alpha_bc is neither 0.0 nor 1.0, sigma or t_max is not positive, or n_steps or patience is below 1"
+    orchestrator: false
+  - number: 9
+    name: "09_total_error_budget"
+    description: "ORCHESTRATOR - final step. Chain every earlier step into the accumulated\n\nrounding-error budget of a complete non-unitary Chebyshev simulation and return its\n\nbase-10 logarithm.\n\n\n\nInputs\n\n------\n\nn_sites: int, number of chain sites N (>= 2)\n\ngamma: float, hopping energy scale\n\np: float, non-reciprocity, |p| < 1\n\nalpha_bc: float, boundary switch, 0.0 (OBC) or 1.0 (PBC)\n\nmomentum: float, the wave packet momentum k\n\nsigma: float, the wave packet width, > 0\n\nt_max: float, total evolution time, > 0\n\ndelta_max: float, per-step tolerance driving the step selection, > 0\n\neps: float, machine precision, > 0 (default 1.11e-16)\n\ntol: float, term-norm stopping tolerance, > 0 (default 1e-14)\n\npatience: int, consecutive sub-tolerance terms required to stop, >= 1 (default 5)\n\n\n\nReturns\n\n-------\n\nlog10_budget: float, base-10 logarithm of the accumulated rounding-error budget\n\n\n\nComposition\n\n-----------\n\nSteps 02, 03, 04, 05 and 08 are called directly from this step and their\n\nresults are consumed here. Steps 01, 06 and 07 are composed through step 08,\n\nwhich builds the Hamiltonian, forms the expansion coefficients and applies the\n\nvector recursion, returning the realised term count this step needs.\n\n\n\nRaises\n\n------\n\nValueError: if n_sites is below 2, |p| is not below 1, alpha_bc is neither 0.0 nor 1.0, or t_max, delta_max or eps is not positive"
+    orchestrator: true

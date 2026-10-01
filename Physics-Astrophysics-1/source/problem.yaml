@@ -1,0 +1,48 @@
+problem_id: "Physics-Astrophysics-1"
+subject: "physics"
+subject_area: "Astrophysics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2605.12858"
+dependencies: ""
+steps:
+  - number: 1
+    name: "compute_cosmic_age"
+    description: "Cosmic age at a given redshift"
+    orchestrator: false
+  - number: 2
+    name: "build_time_redshift_grid"
+    description: "Uniform cosmic time grid and its redshift mapping"
+    orchestrator: false
+  - number: 3
+    name: "affine_merger_family"
+    description: "Affine uncertainty in a conditioned merger rate history"
+    orchestrator: false
+  - number: 4
+    name: "delay_time_distribution"
+    description: "Continuous delay-density normalization for population mixtures"
+    orchestrator: false
+  - number: 5
+    name: "wiener_formation_jet"
+    description: "Formation histories and their response to the delay-mixture fraction"
+    orchestrator: false
+  - number: 6
+    name: "physicality_vertex_jet"
+    description: "Motion of the coefficient region allowed by formation physicality"
+    orchestrator: false
+  - number: 7
+    name: "gaussian_polytope_moment_jet"
+    description: "Gaussian probability and moment response of a moving compatible region"
+    orchestrator: false
+  - number: 8
+    name: "condition_gaussian_mixture_jet"
+    description: "Response of the physicality-conditioned coefficient posterior"
+    orchestrator: false
+  - number: 9
+    name: "reconvolution_error"
+    description: "Reconvolution validity of a regularized formation history"
+    orchestrator: false
+  - number: 10
+    name: "run_formation_response_pipeline"
+    description: "Response of the inferred delay-mixture bound to physicality confidence"
+    orchestrator: true

@@ -1,0 +1,36 @@
+problem_id: "Biology-Genetics-42"
+subject: "biology"
+subject_area: "Genetics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.48550/arXiv.2606.08409"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_lineage_counts.py"
+    description: "Return the number of lineages present in each ranked interval of a network, in order from the root."
+    orchestrator: false
+  - number: 2
+    name: "02_count_matrix.py"
+    description: "Return the lower-triangular matrix whose entry (i, j) counts the lineages present throughout intervals j to i without being involved in any event."
+    orchestrator: false
+  - number: 3
+    name: "03_event_signs.py"
+    description: "Return the sequence of event types read off the lineage counts, using +1 for a bifurcation and -1 for a hybridization, in order from the root."
+    orchestrator: false
+  - number: 4
+    name: "04_reconcile_timed_matrices.py"
+    description: "Construct the joint refined F-matrices and boundary times for two ranked networks whose event histories need not have the same length."
+    orchestrator: false
+  - number: 5
+    name: "05_weight_matrix.py"
+    description: "Return the matrix of elapsed times attached to each entry of a count matrix, given the interval times."
+    orchestrator: false
+  - number: 6
+    name: "06_weighted_l1.py"
+    description: "Return the sum over all entries of the absolute difference between the two networks' weighted counts."
+    orchestrator: false
+  - number: 7
+    name: "07_network_distance.py"
+    description: "Return the weighted L1 distance after jointly refining the two ranked timed encodings to compatible event coordinates."
+    orchestrator: true

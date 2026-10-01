@@ -1,0 +1,79 @@
+{
+  "problem_id": "Physics-Computational_Physics-17",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Computational_Physics-17.1",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(contact_response(np.array([[0.,1.],[1.,0.]]),0.5,1.), target)",
+        "import numpy as np\nassert np.allclose(contact_response(np.zeros((2,2)),0.5,1.), target)",
+        "import numpy as np\nassert np.allclose(contact_response(np.array([[0.,6.],[6.,0.]]),0.5,2.5), target)",
+        "import numpy as np\ndef _invalid_result(fn):\n    try:\n        fn()\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(_invalid_result(lambda: contact_response(np.eye(2),-1.,1.)), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Computational_Physics-17.2",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(averaged_mobility(np.array([[0.,1.],[1.,0.]]),0.5,1.), target)",
+        "import numpy as np\nassert np.allclose(averaged_mobility(np.zeros((2,2)),0.5,1.), target)",
+        "import numpy as np\nassert np.allclose(averaged_mobility(np.array([[0.,100.],[100.,0.]]),0.5,2.), target)",
+        "import numpy as np\ndef _invalid_result(fn):\n    try:\n        fn()\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(_invalid_result(lambda: averaged_mobility(np.zeros((2,2)),0.,1.)), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Computational_Physics-17.3",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(screened_response(np.array([[0.,1.],[1.,0.]]),0.5,2.,np.array([[0.,1.],[-3.,0.]])), target)",
+        "import numpy as np\nassert np.allclose(screened_response(np.zeros((2,2)),0.5,2.,np.array([[0.,1.],[-3.,0.]])), target)",
+        "import numpy as np\nassert np.allclose(screened_response(np.array([[0.,6.],[6.,0.]]),0.5,2.,np.array([[0.,2.],[-0.5,0.]])), target)",
+        "import numpy as np\ndef _invalid_result(fn):\n    try:\n        fn()\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(_invalid_result(lambda: screened_response(np.zeros((2,2)),0.5,0.,np.zeros((2,2)))), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Computational_Physics-17.4",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(averaged_spatial_covariance(np.array([[0.,1.],[1.,0.]]),4.,1.5), target)",
+        "import numpy as np\nassert np.allclose(averaged_spatial_covariance(np.zeros((2,2)),2.,0.7), target)",
+        "import numpy as np\nassert np.allclose(averaged_spatial_covariance(np.array([[0.,6.,9.],[6.,0.,3.],[9.,3.,0.]]),1.5,2.), target)",
+        "import numpy as np\ndef _invalid_result(fn):\n    try:\n        fn()\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(_invalid_result(lambda: averaged_spatial_covariance(np.eye(2),4.,0.)), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Computational_Physics-17.5",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(drift_and_noise(np.eye(2),-np.eye(2),np.zeros((2,2)),np.zeros((2,2)),np.eye(2)), target)",
+        "import numpy as np\nassert np.allclose(drift_and_noise(np.array([[1.,0.2],[0.2,1.]]),-np.eye(2),np.zeros((2,2)),np.array([[1.,-1.],[0.,0.]]),np.diag([4.,1.])), target)",
+        "import numpy as np\nassert np.allclose(drift_and_noise(np.array([[1.,0.25],[0.25,1.5]]),np.array([[-0.5,0.5],[0.5,-0.5]]),np.array([[0.7,-0.7],[-0.7,0.7]]),np.array([[-0.2,0.2],[-0.4,0.4]]),np.diag([2.,0.5])), target)",
+        "import numpy as np\ndef _invalid_result(fn):\n    try:\n        fn()\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(_invalid_result(lambda: drift_and_noise(np.eye(2),np.eye(3),np.eye(2),np.eye(2),np.eye(2))), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Computational_Physics-17.6",
+      "test_cases": [
+        "import numpy as np\ncf=lambda x: np.stack((-np.eye(2),np.eye(2)))\nassert np.allclose(evolve_covariance(np.eye(2),1.,cf), target)",
+        "import numpy as np\ncf=lambda x: np.stack((-np.eye(2),np.eye(2)))\nassert np.allclose(evolve_covariance(np.eye(2),0.,cf), target)",
+        "import numpy as np\ncf=lambda x: np.stack((-np.diag(1+np.diag(x)),np.eye(2)))\nassert np.allclose(evolve_covariance(np.zeros((2,2)),2.,cf), target)",
+        "import numpy as np\ncf=lambda x: np.stack((np.array([[-1.,0.3],[0.,-2.]]),np.array([[1.,0.2],[0.2,0.6]])))\nassert np.allclose(evolve_covariance(np.array([[2.,0.4],[0.4,1.]]),0.7,cf), target)",
+        "import numpy as np\ndef _invalid_result(fn):\n    try:\n        fn()\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(_invalid_result(lambda: evolve_covariance(np.eye(2),-1.,lambda x: np.stack((-np.eye(2),np.eye(2))))), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Computational_Physics-17.7",
+      "test_cases": [
+        "import numpy as np\ncf=lambda x: np.stack((np.array([[-1.,0.3],[0.,-2.]]),np.eye(2)))\nassert np.allclose(evolve_cross_covariance(np.eye(2),1.,cf), target)",
+        "import numpy as np\ncf=lambda x: np.stack((np.array([[-1.,0.3],[0.,-2.]]),np.eye(2)))\nassert np.allclose(evolve_cross_covariance(np.eye(2),0.,cf), target)",
+        "import numpy as np\ncf=lambda x: np.stack((-np.diag(1+np.diag(x)),np.eye(2)))\nassert np.allclose(evolve_cross_covariance(np.diag([1.,2.]),2.,cf), target)",
+        "import numpy as np\ncf=lambda x: np.stack((np.array([[-1.,0.3],[0.,-2.]]),np.array([[1.,0.2],[0.2,0.6]])))\nassert np.allclose(evolve_cross_covariance(np.array([[2.,0.4],[0.4,1.]]),0.7,cf), target)",
+        "import numpy as np\ndef _invalid_result(fn):\n    try:\n        fn()\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(_invalid_result(lambda: evolve_cross_covariance(np.eye(2),-1.,lambda x: np.stack((-np.eye(2),np.eye(2))))), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Computational_Physics-17.8",
+      "test_cases": [
+        "assert np.allclose(correlation_asymmetry(4.,-3.), target)",
+        "assert np.allclose(correlation_asymmetry(1.,-3.), target)",
+        "assert np.allclose(correlation_asymmetry(4.,0.), target)",
+        "import numpy as np\ndef _invalid_result(fn):\n    try:\n        fn()\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(_invalid_result(lambda: correlation_asymmetry(-1.,-3.)), target)"
+      ]
+    }
+  ]
+}

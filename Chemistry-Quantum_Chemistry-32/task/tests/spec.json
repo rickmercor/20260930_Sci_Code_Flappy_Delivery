@@ -1,0 +1,69 @@
+{
+  "problem_id": "Chemistry-Quantum_Chemistry-32",
+  "sub_steps": [
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-32.1",
+      "test_cases": [
+        "import numpy as np\nomega = np.linspace(-1.5, 1.5, 13)\nhalf_bandwidth = 1.0\nassert np.allclose(semielliptic_dos(omega, half_bandwidth), target)",
+        "import numpy as np\nomega = np.array([-1.0, 0.0, 1.0])\nhalf_bandwidth = 1.0\nassert np.allclose(semielliptic_dos(omega, half_bandwidth), target)",
+        "import numpy as np\nomega = np.array([-0.25, 0.75])\nhalf_bandwidth = 2.5\nassert np.allclose(semielliptic_dos(omega, half_bandwidth), target)",
+        "import numpy as np\nomega = np.array([0.0, 0.5])\nhalf_bandwidth = 0.0\ndef run_model():\n    try:\n        semielliptic_dos(omega, half_bandwidth)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-32.2",
+      "test_cases": [
+        "U, half_bandwidth, bond_amplitude = 1.0, 1.0, 0.13509491152311703\nassert np.allclose(half_filled_moments(U, half_bandwidth, bond_amplitude), target)",
+        "U, half_bandwidth, bond_amplitude = 0.0, 1.0, 0.0\nassert np.allclose(half_filled_moments(U, half_bandwidth, bond_amplitude), target)",
+        "U, half_bandwidth, bond_amplitude = 2.5, 0.8, 0.02\nassert np.allclose(half_filled_moments(U, half_bandwidth, bond_amplitude), target)",
+        "U, half_bandwidth, bond_amplitude = -1.0, 1.0, 0.1\ndef run_model():\n    try:\n        half_filled_moments(U, half_bandwidth, bond_amplitude)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-32.3",
+      "test_cases": [
+        "import numpy as np\nmoments = np.array([1.0, 0.0, 0.2836, 0.0, 0.0889, 0.0])\norder, tau = 3, 1e-8\nassert np.allclose(resolvable_rank(moments, order, tau), target)",
+        "import numpy as np\nmoments = np.array([1.0, 0.0, 0.25, 0.0, 0.0625, 0.0])\norder, tau = 3, 1e-8\nassert np.allclose(resolvable_rank(moments, order, tau), target)",
+        "import numpy as np\nmoments = np.array([1.0, 0.3, 0.5])\norder, tau = 2, 1e-6\nassert np.allclose(resolvable_rank(moments, order, tau), target)",
+        "import numpy as np\nmoments = np.array([1.0, 0.0, 0.25])\norder, tau = 3, 1e-8\ndef run_model():\n    try:\n        resolvable_rank(moments, order, tau)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-32.4",
+      "test_cases": [
+        "import numpy as np\nmoments = np.array([1.0, 0.0, 0.2836, 0.0, 0.0889, 0.0])\nrank = 3\nassert np.allclose(jacobi_matrix(moments, rank), target)",
+        "import numpy as np\nmoments = np.array([1.0, 0.0, 0.25, 0.0])\nrank = 2\nassert np.allclose(jacobi_matrix(moments, rank), target)",
+        "import numpy as np\nmoments = np.array([1.0, 0.3, 0.5, 0.6, 1.1, 1.8])\nrank = 3\nassert np.allclose(jacobi_matrix(moments, rank), target)",
+        "import numpy as np\nmoments = np.array([1.0, 0.0, 0.25, 0.0, 0.0625, 0.0])\nrank = 3\ndef run_model():\n    try:\n        jacobi_matrix(moments, rank)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-32.5",
+      "test_cases": [
+        "import numpy as np\njacobi = np.array([[0.0, 0.5326, 0.0], [0.5326, 0.0, 0.1732], [0.0, 0.1732, 0.0]])\nmu0 = 1.0\nassert np.allclose(quadrature_nodes_weights(jacobi, mu0), target)",
+        "import numpy as np\njacobi = np.array([[0.7]])\nmu0 = 1.0\nassert np.allclose(quadrature_nodes_weights(jacobi, mu0), target)",
+        "import numpy as np\njacobi = np.array([[0.3, 0.4], [0.4, -0.1]])\nmu0 = 2.0\nassert np.allclose(quadrature_nodes_weights(jacobi, mu0), target)",
+        "import numpy as np\njacobi = np.array([[0.0, 1.0], [0.0, 0.0]])\nmu0 = 1.0\ndef run_model():\n    try:\n        quadrature_nodes_weights(jacobi, mu0)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-32.6",
+      "test_cases": [
+        "import numpy as np\nnodes = np.array([-0.5596881548, 0.0, 0.5596881548])\nweights = np.array([0.4527008105, 0.0945983790, 0.4527008105])\nhalf_bandwidth = 1.0\nassert np.allclose(bond_amplitude_closure(nodes, weights, half_bandwidth), target)",
+        "import numpy as np\nnodes = np.array([-0.5, 0.5])\nweights = np.array([0.5, 0.5])\nhalf_bandwidth = 1.0\nassert np.allclose(bond_amplitude_closure(nodes, weights, half_bandwidth), target)",
+        "import numpy as np\nnodes = np.array([-1.5, 0.0, 1.5])\nweights = np.array([0.25, 0.5, 0.25])\nhalf_bandwidth = 1.5\nassert np.allclose(bond_amplitude_closure(nodes, weights, half_bandwidth), target)",
+        "import numpy as np\nnodes = np.array([-0.5, 0.5])\nweights = np.array([0.5, -0.5])\nhalf_bandwidth = 1.0\ndef run_model():\n    try:\n        bond_amplitude_closure(nodes, weights, half_bandwidth)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-32.7",
+      "test_cases": [
+        "U, half_bandwidth, order, tau, delta, mixing = 1.0, 1.0, 3, 1e-8, 1e-8, 0.5\nseed_amplitude, max_iter = 0.13509491152311703, 500\nassert np.allclose(self_consistent_central_weight(U, half_bandwidth, order, tau, delta, mixing, seed_amplitude, max_iter), target)",
+        "U, half_bandwidth, order, tau, delta, mixing = 0.5, 1.0, 3, 1e-8, 1e-8, 0.5\nseed_amplitude, max_iter = 0.13509491152311703, 500\nassert np.allclose(self_consistent_central_weight(U, half_bandwidth, order, tau, delta, mixing, seed_amplitude, max_iter), target)",
+        "U, half_bandwidth, order, tau, delta, mixing = 1.5, 1.0, 3, 1e-8, 1e-8, 0.5\nseed_amplitude, max_iter = 0.13509491152311703, 500\nassert np.allclose(self_consistent_central_weight(U, half_bandwidth, order, tau, delta, mixing, seed_amplitude, max_iter), target)",
+        "U, half_bandwidth, order, tau, delta, mixing = 0.0, 1.0, 3, 1e-8, 1e-8, 0.5\nseed_amplitude, max_iter = 0.13509491152311703, 500\nassert np.allclose(self_consistent_central_weight(U, half_bandwidth, order, tau, delta, mixing, seed_amplitude, max_iter), target)",
+        "U, half_bandwidth, order, tau, delta, mixing = 1.0, 1.0, 3, 1e-8, 1e-8, 0.5\nseed_amplitude, max_iter = 0.13509491152311703, 2\ndef run_model():\n    try:\n        self_consistent_central_weight(U, half_bandwidth, order, tau, delta, mixing, seed_amplitude, max_iter)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

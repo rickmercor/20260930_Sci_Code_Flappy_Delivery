@@ -1,0 +1,40 @@
+problem_id: "Physics-Quantum_Information_Computing-12"
+subject: "physics"
+subject_area: "Quantum Information / Computing"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1038/s41467-026-75251-x"
+dependencies: "import numpy as np"
+steps:
+  - number: 1
+    name: "block_gate"
+    description: "Build the real 4x4 matrix of one symmetry-respecting two-qubit MERA block from its rotation\nangles. Returns the matrix as a float array."
+    orchestrator: false
+  - number: 2
+    name: "layer_tensors"
+    description: "Turn a disentangler block matrix and an isometry block matrix into the MERA tensors U (four\nlegs) and W (three legs). Returns the tuple (U, W)."
+    orchestrator: false
+  - number: 3
+    name: "doubled_layer_map"
+    description: "Apply one layer of the doubled, SWAP-contracted transition map that carries the purity of\nthe half chain B = [2, inf) down the causal cone of the boundary. Returns the two-copy\nboundary operator one level lower."
+    orchestrator: false
+  - number: 4
+    name: "renyi2_from_doubled"
+    description: "Close the doubled boundary operator at the physical level and convert the resulting purity\ninto the second Renyi entanglement entropy in bits. Returns S2."
+    orchestrator: false
+  - number: 5
+    name: "edge_layer_map"
+    description: "Apply one layer of the causal-cone circuit of the subsystem A = (-inf, 1] while keeping the\nB-side qubit that leaves the cone in an edge register. Returns the joint state of the\nboundary pair and the enlarged register one level lower."
+    orchestrator: false
+  - number: 6
+    name: "edge_reduced_state"
+    description: "At the physical level, discard the boundary pair to obtain the density matrix of the edge\nregister, whose spectrum is the entanglement spectrum of the half chain. Returns the\nregister density matrix."
+    orchestrator: false
+  - number: 7
+    name: "entanglement_spectrum"
+    description: "Diagonalise a real symmetric density matrix and return its eigenvalues in descending order,\nthe entanglement spectrum lambda_0 >= lambda_1 >= ... ."
+    orchestrator: false
+  - number: 8
+    name: "schmidt_gap"
+    description: "Schmidt gap lambda_0 - lambda_1 of the half chain B = [2, inf) for the infinite binary MERA\nbuilt from the given per-layer angles. Returns the gap."
+    orchestrator: true

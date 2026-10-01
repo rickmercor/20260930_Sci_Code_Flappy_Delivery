@@ -1,0 +1,40 @@
+problem_id: "Material_Science-Molecular_Modeling-8"
+subject: "materials"
+subject_area: "Molecular Modeling"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2604.00668"
+dependencies: ""
+steps:
+  - number: 1
+    name: "bin_aggregates"
+    description: "Compute the bin aggregates of the merge group: the total weight, the weighted mean velocity and the weighted mean position, packed as a length-5 vector."
+    orchestrator: false
+  - number: 2
+    name: "reference_scales"
+    description: "Compute the reference velocity and position scales of the merge group exactly as the source defines them for its scaled system, packed as a length-4 vector."
+    orchestrator: false
+  - number: 3
+    name: "scaled_moment_system"
+    description: "Assemble the scaled moment block of the merging system for the declared multi-index sets: 10 velocity moment rows for the multi-indices (0,0,0), (1,0,0), (0,1,0), (0,0,1), (2,0,0), (0,2,0), (0,0,2), (1,1,0), (1,0,1), (0,1,1) in that order, then 2 spatial rows for powers 1 and 2, built from the particles transformed exactly as the source prescribes, with the right-hand side constructed consistently as the source's algorithm states, appended as the last column."
+    orchestrator: false
+  - number: 4
+    name: "rate_rows"
+    description: "Assemble the two rate-preservation rows against the fixed background species for the declared cross sections sigma_1(g) = 1/(1+g^2) and sigma_2(g) = g/(1+g), with reference rate coefficients equal to one, using the particle velocities in the form the source requires for rate rows and the source's row scaling, with the consistent right-hand side as the final column, expressed in the same unknown as the scaled moment block."
+    orchestrator: false
+  - number: 5
+    name: "column_scaling"
+    description: "Compute the per-column scaling factors of the stacked constraint matrix exactly as the source defines them, guarding against zero columns."
+    orchestrator: false
+  - number: 6
+    name: "nnls_lawson_hanson"
+    description: "Solve the nonnegative least-squares problem A y = b, y >= 0 with the source's active-set algorithm under the declared deterministic conventions: dual tolerance 1e-10 on the stopping test, the smallest index among gradient maximizers, least-squares subproblems by QR factorization, the source's step-length rule and passive-set drop rule, and a 200-iteration guard raising ValueError."
+    orchestrator: false
+  - number: 7
+    name: "nnls_merge"
+    description: "Perform the full rate-preserving merge: stack the scaled moment block and the rate rows, apply the column scaling, solve the nonnegative least-squares system, recover the relative weights as the source prescribes, retain particles whose relative weight reaches the threshold eps, and return the survivors in ascending original index order with the weights, velocities and positions the source assigns them."
+    orchestrator: false
+  - number: 8
+    name: "merge_audit"
+    description: "Build the two declared datasets from the integer constructors, run the full rate-preserving merge on each with eps, and report per dataset: the surviving particle count; the total post-merge weight; the Euclidean norm of the pre-versus-post difference of all conserved quantities (the 12 raw moments and the 2 unscaled rates); the weighted cube probe sum over survivors of weight times (u dot v)^3 for the declared probe u; the weighted position cube sum of weight times x^3; and the maximum and minimum surviving weights. Assemble by calling the earlier sub-problem functions."
+    orchestrator: true

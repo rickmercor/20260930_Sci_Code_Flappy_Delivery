@@ -1,0 +1,48 @@
+problem_id: "Physics-Particle_Physics-3"
+subject: "physics"
+subject_area: "Quantum Information / Computing"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2607.11882"
+dependencies: ""
+steps:
+  - number: 1
+    name: "lfxxz_terms"
+    description: "Return the Pauli-string terms of the open-chain longitudinal-field XXZ Hamiltonian H = J sum_{i=1}^{N-1} (X_i X_{i+1} + Y_i Y_{i+1}) + Jz sum_{i=1}^{N-1} Z_i Z_{i+1} + hz sum_{i=1}^{N} Z_i as an (n_terms, 2) array whose rows are [code, coefficient], ordered bond by bond (XX, then YY, then ZZ for i = 1..N-1) and then the N field terms. A Pauli string on M sites is encoded by the integer code = sum_s f_s 4^s with f_s = 0, 1, 2, 3 for I, X, Z, Y on site s = 0..M-1, where site 1 of the chain is s = 0. Raise ValueError if N is not an integer of at least 2 or if a coupling is not finite."
+    orchestrator: false
+  - number: 2
+    name: "doubled_terms"
+    description: "Return the Pauli-string terms of the doubled Hamiltonian that the source's Methods B protocol evolves on 2N sites, built from the terms of the N-site H: the first copy occupies sites 1..N and the second copy sites N+1..2N (site s of the chain becomes site N + s of the second copy). The doubled Hamiltonian is H_D = H (x) 1 - 1 (x) H^*: every term acts unchanged on the first copy and, complex conjugated and with a minus sign, on the second copy, where conjugating a Pauli string multiplies it by (-1)^(number of Y factors). Return the (2 n_terms, 2) array in which, for k = 0..n_terms-1, row 2k is the first-copy image of term k and row 2k+1 its second-copy image. Raise ValueError if terms is not (n_terms, 2), if N is not a positive integer, or if a term acts outside the N-site chain. Pauli strings are encoded as in step 1: code = sum_s f_s 4^s with f_s = 0, 1, 2, 3 for I, X, Z, Y on site s = 0..M-1, site 1 being the least significant digit s = 0."
+    orchestrator: false
+  - number: 3
+    name: "liouvillian_apply"
+    description: "Apply the Liouvillian L[O] = i [H, O] to an operator O given as the real coefficient vector v of length 4^M over the Pauli-string basis of M sites, where H is given by its (n_terms, 2) array of [code, coefficient] rows. The Pauli strings are orthonormal under <A, B> = Tr(A^dagger B) / 2^M and the result is again a real vector of length 4^M. Raise ValueError if terms is not (n_terms, 2) or if v does not have length 4^M. Pauli strings are encoded as in step 1: code = sum_s f_s 4^s with f_s = 0, 1, 2, 3 for I, X, Z, Y on site s = 0..M-1, site 1 being the least significant digit s = 0."
+    orchestrator: false
+  - number: 4
+    name: "graph_pruning"
+    description: "Algorithm 1 of the source (pruning of the operator-growth graph) on the Pauli-string basis of M sites, for the Hamiltonian terms, the root string `root` (an integer code) and the threshold eps. Grow the graph layer by layer from the root by commutation with H, taking as the weight of the edge from a string O to a generated string O' the absolute value of the coefficient of O' in (1/2)[H, O]; keep a string only when its accumulated weight, defined by the source, is at least eps, and stop when a layer adds no string. Return a (2, |S|) array whose first row lists the kept codes in ascending order and whose second row gives each string's accumulated weight. Raise ValueError if root is not a code in [0, 4^M) or if eps is not positive and finite. Pauli strings are encoded as in step 1: code = sum_s f_s 4^s with f_s = 0, 1, 2, 3 for I, X, Z, Y on site s = 0..M-1, site 1 being the least significant digit s = 0."
+    orchestrator: false
+  - number: 5
+    name: "hybrid_krylov"
+    description: "Algorithm 2 of the source in its hybrid form: starting from the normalised root string, build the pruned Krylov operator basis inside the span of the strings S_codes (the codes kept by the graph pruning) by repeated commutation with H, orthonormalisation, and the source's truncation rule with threshold eps2; a candidate whose orthogonal remainder has norm below tol ends the construction, and at most kmax vectors are produced. Return the basis as a (K, 4^M) array of real Pauli-basis coefficient vectors, the root first. Raise ValueError if root is not a valid code, if it is not among S_codes, if eps2 or tol is not in (0, 1), or if kmax is not a positive integer. Pauli strings are encoded as in step 1: code = sum_s f_s 4^s with f_s = 0, 1, 2, 3 for I, X, Z, Y on site s = 0..M-1, site 1 being the least significant digit s = 0."
+    orchestrator: false
+  - number: 6
+    name: "shadow_matrix"
+    description: "Return the shadow matrix of the source's Methods E for the orthonormal operator basis K (rows are Pauli-basis coefficient vectors on M sites): the matrix of the Liouvillian L[O] = i [H, O] in that basis under the inner product <A, B> = Tr(A^dagger B) / 2^M, with the row index labelling the basis vector against which L applied to the column vector is projected. Raise ValueError if K is not a (K, 4^M) array. Pauli strings are encoded as in step 1: code = sum_s f_s 4^s with f_s = 0, 1, 2, 3 for I, X, Z, Y on site s = 0..M-1, site 1 being the least significant digit s = 0."
+    orchestrator: false
+  - number: 7
+    name: "thermofield_state"
+    description: "Return the thermofield double state of the N-site Hamiltonian given by terms at inverse temperature beta, as the state vector on 2N sites that the source's Methods B protocol starts from (before the perturbation is applied), with the first copy of the chain as the leftmost N tensor factors and site 1 the leftmost factor of each copy; normalise it to unit norm. Raise ValueError if terms is not (n_terms, 2), if N is not a positive integer, or if beta is negative or not finite. Pauli strings are encoded as in step 1: code = sum_s f_s 4^s with f_s = 0, 1, 2, 3 for I, X, Z, Y on site s = 0..M-1, site 1 being the least significant digit s = 0."
+    orchestrator: false
+  - number: 8
+    name: "pauli_expectations"
+    description: "Return the expectation value <psi| P |psi> of every Pauli string P on M sites, indexed by its code, for the normalised state vector psi with site 1 the leftmost tensor factor. Raise ValueError if psi does not have length 2^M. Pauli strings are encoded as in step 1: code = sum_s f_s 4^s with f_s = 0, 1, 2, 3 for I, X, Z, Y on site s = 0..M-1, site 1 being the least significant digit s = 0."
+    orchestrator: false
+  - number: 9
+    name: "exact_observable_series"
+    description: "Return the exact expectation value of the Pauli string with code obs at the times ts for the state vector psi0 evolved under the M-site Hamiltonian given by terms, by dense diagonalisation; site 1 is the leftmost tensor factor. Raise ValueError if psi0 does not have length 2^M or if obs is not a valid code. Pauli strings are encoded as in step 1: code = sum_s f_s 4^s with f_s = 0, 1, 2, 3 for I, X, Z, Y on site s = 0..M-1, site 1 being the least significant digit s = 0."
+    orchestrator: false
+  - number: 10
+    name: "pruned_otoc"
+    description: "Orchestrator. For the N-site longitudinal-field XXZ chain with couplings J, Jz, hz at inverse temperature beta, with W = Z on the 1-indexed site w_site and V = X on v_site, compute the thermal out-of-time-order correlator of the source's Eq (16) at t_final with the source's Methods B shadow-picture protocol: build the chain terms and the doubled terms, the root observable V^dagger (x) V^T, i.e. the string with X on site v_site of both copies, and the initial state W |TFD>, the thermofield double state with Z applied on site w_site of the first copy (check with the Liouvillian that the root is not conserved), prune the operator-growth graph with threshold eps1, build the hybrid Krylov basis inside the pruned set with threshold eps2, remainder tolerance tol and cap kmax, form the shadow matrix, initialise the shadow vector from the Pauli expectation values of the initial state, propagate it in the Heisenberg picture on the grid t_k = k dt for k = 0..t_final/dt, and also evaluate the exact series on the same grid through the earlier steps. Return the pruned correlator at t_final. Call the earlier step functions rather than reimplementing them. Raise ValueError if N is not an integer of at least 2, if w_site or v_site is not between 1 and N, or if 0 < dt <= t_final fails. Pauli strings are encoded as in step 1: code = sum_s f_s 4^s with f_s = 0, 1, 2, 3 for I, X, Z, Y on site s = 0..M-1, site 1 being the least significant digit s = 0."
+    orchestrator: true

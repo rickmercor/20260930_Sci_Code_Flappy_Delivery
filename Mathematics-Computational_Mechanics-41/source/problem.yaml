@@ -1,0 +1,36 @@
+problem_id: "Mathematics-Computational_Mechanics-41"
+subject: "mathematics"
+subject_area: "Computational Mechanics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1007/s00466-026-02825-3"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_tet10_shape_data.py"
+    description: "Evaluate the standard quadratic 10-node tetrahedral displacement interpolation for the task's prescribed natural-coordinate node ordering.\n\nUse the four barycentric coordinates associated with the tetrahedron vertices and preserve the node order specified in the task. Return both the ten shape-function values and their derivatives with respect to xi, eta, and zeta.\n\nThe shape functions must satisfy partition of unity, and the sum of their natural derivatives must vanish. Do not round intermediate values."
+    orchestrator: false
+  - number: 2
+    name: "02_tet10_kinematics.py"
+    description: "Evaluate the finite-deformation kinematics of a 10-node isoparametric tetrahedron at one natural-coordinate point.\n\n\n\nUse the reference nodal coordinates to form the geometric Jacobian and transform the natural shape-function derivatives to derivatives with respect to the reference Cartesian coordinates.\n\n\n\nUsing the current nodal positions X + u, construct the deformation gradient, the engineering-Voigt Green-Lagrange strain vector, and the corresponding nonlinear strain-displacement matrix.\n\n\n\nReturn the reference Jacobian determinant, reference-coordinate shape gradients, deformation gradient, strain vector, and nonlinear B matrix.\n\n\n\nReject an integration point with a nonpositive reference Jacobian determinant. Do not round intermediate values."
+    orchestrator: false
+  - number: 3
+    name: "03_neo_hooke_green_response.py"
+    description: "Evaluate the compressible Neo-Hookean constitutive model used in the nonlinear patch-test discussion of the cited paper.\n\n\n\nThe strain input uses engineering Voigt order\n\n\n\n[E11, E22, E33, 2E12, 2E13, 2E23].\n\n\n\nConstruct the right Cauchy-Green tensor from the Green-Lagrange strain and evaluate the source strain-energy density, Second Piola-Kirchhoff stress, and exact consistent material tangent.\n\n\n\nThe returned 6x6 tangent must map an increment of the engineering Green-Lagrange strain vector to the corresponding increment of the stress vector\n\n\n\n[S11, S22, S33, S12, S13, S23].\n\nDo not approximate the tangent by finite differences."
+    orchestrator: false
+  - number: 4
+    name: "04_hwt10_mixed_interpolation.py"
+    description: "Construct the independent stress and strain interpolation matrices of the cited HWT10 element at one natural-coordinate point.\n\n\n\nFollow the exact parameterization used by the paper, including the constant and varying parts of each six-component field.\n\n\n\nPreserve the source ordering of the 24 parameters. Return the complete stress and strain interpolation matrices without rounding intermediate values."
+    orchestrator: false
+  - number: 5
+    name: "05_project_hwt10_internal_fields.py"
+    description: "Determine the independent strain and stress parameter vectors associated with a prescribed HWT10 displacement state.\n\n\n\nUse the source-defined element integration rule, mixed interpolation, constitutive response, and local stationarity equations of the cited formulation.\n\n\n\nThe returned internal fields must satisfy both local Hu-Washizu stationarity conditions consistently at the prescribed displacement state.\n\n\n\nReturn the source coupling matrix together with the complete independent strain and stress parameter vectors. Do not round intermediate values."
+    orchestrator: false
+  - number: 6
+    name: "06_assemble_hwt10_condensed_tangent.py"
+    description: "Assemble the nonlinear condensed tangent stiffness of the cited HWT10 element at a prescribed displacement state.\n\n\n\nUse the previously determined independent strain and stress fields together with the source-defined element equations and integration rule.\n\n\n\nConstruct the local mixed-field tangent consistently and eliminate the element-internal variables according to the cited formulation.\n\n\n\nReturn the complete condensed displacement tangent together with its material-condensation and geometric contributions. Do not round intermediate values."
+    orchestrator: false
+  - number: 7
+    name: "07_solve_hwt10_increment.py"
+    description: "Compute a constrained linearized incremental displacement using the condensed nonlinear HWT10 tangent.\n\n\n\nConstruct the tangent at the supplied current state using the preceding HWT10 steps. Remove the prescribed displacement degrees of freedom, solve the reduced tangent system for the free displacement increment, and restore the full 30-component displacement vector with zero increments at the constrained coordinates.\n\n\n\nReturn the signed displacement increment associated with target_dof.\n\n\n\nUse a direct linear solve. Do not replace the HWT10 tangent by a standard displacement-element stiffness or by a pseudoinverse."
+    orchestrator: true

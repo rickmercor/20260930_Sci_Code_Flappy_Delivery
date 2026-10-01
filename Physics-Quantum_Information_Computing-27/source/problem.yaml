@@ -1,0 +1,40 @@
+problem_id: "Physics-Quantum_Information_Computing-27"
+subject: "physics"
+subject_area: "Quantum Information / Computing"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1103/jv51-thxz"
+dependencies: ""
+steps:
+  - number: 1
+    name: "build_ising_gibbs"
+    description: "Construct the Gibbs density matrix of a periodic transverse-field Ising ring."
+    orchestrator: false
+  - number: 2
+    name: "contract_triangle_state"
+    description: "Contract three bipartite resource states with the local triangle-network unitaries."
+    orchestrator: false
+  - number: 3
+    name: "optimize_resource_link"
+    description: "Optimize one resource ket while the other links and all local unitaries remain fixed."
+    orchestrator: false
+  - number: 4
+    name: "optimize_local_rotation"
+    description: "Optimize a one-parameter local unitary rotation for the frozen network support objective."
+    orchestrator: false
+  - number: 5
+    name: "project_network_memory"
+    description: "Find the closest density matrix in the convex hull of the current anchor and retained network states."
+    orchestrator: false
+  - number: 6
+    name: "admit_network_atom"
+    description: "Admit a descent-producing network candidate into an oldest-first bounded memory."
+    orchestrator: false
+  - number: 7
+    name: "certify_network_noise"
+    description: "Convert a feasible network approximation into a sufficient white-noise fraction."
+    orchestrator: false
+  - number: 8
+    name: "network_noise_certificate"
+    description: "Compute the finite-budget triangle-network white-noise certificate for a six-spin thermal state."
+    orchestrator: true

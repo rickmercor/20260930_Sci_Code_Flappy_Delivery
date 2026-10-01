@@ -1,0 +1,40 @@
+problem_id: "Biology-Genetics-26"
+subject: "biology"
+subject_area: "Genetics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.64898/2026.05.30.728990"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_summarize_candidate_evidence"
+    description: "Summarize discordant attachments and branch observability for each candidate pair."
+    orchestrator: false
+  - number: 2
+    name: "02_screen_attachment_candidates"
+    description: "Correct unequal branch availability and screen focal-test attachment excesses."
+    orchestrator: false
+  - number: 3
+    name: "03_reconcile_rooted_nni"
+    description: "Reconcile compressed rooted gene-tree topologies to a rooted species tree by minimum nearest-neighbor interchanges and tabulate candidate-branch participation."
+    orchestrator: false
+  - number: 4
+    name: "04_aggregate_recipient_votes"
+    description: "Convert reconciliation-triple appearances into one direction vote per gene tree."
+    orchestrator: false
+  - number: 5
+    name: "05_compute_three_descendant_configurations"
+    description: "Compute the seven lineage-configuration probabilities for a rooted three-descendant internal recipient."
+    orchestrator: false
+  - number: 6
+    name: "06_compute_parent_history_weights"
+    description: "Expand seven lineage configurations into the 26 donor-subset history weights."
+    orchestrator: false
+  - number: 7
+    name: "07_estimate_three_descendant_gamma"
+    description: "Invert the 26-history attachment mixture for the per-lineage donor probability."
+    orchestrator: false
+  - number: 8
+    name: "08_run_full_pipeline"
+    description: "Chain attachment screening, rooted-NNI direction inference, and the three-descendant parent-history mixture into the requested scalar."
+    orchestrator: true

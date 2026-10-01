@@ -1,0 +1,44 @@
+problem_id: "Mathematics-Computational_Finance-44"
+subject: "mathematics"
+subject_area: "Computational Finance"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: " https://doi.org/10.48550/arXiv.2609.00438"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_payoff_fourier_transform"
+    description: "Evaluate the generalized Fourier transform of a European call payoff. The transform is required on a horizontal line of the complex plane whose imaginary part is strongly negative, where its magnitude can be smaller than 1e-300 while the intermediate factors are not."
+    orchestrator: false
+  - number: 2
+    name: "02_riccati_volterra_nodes"
+    description: "Solve the nonlinear fractional integral equation that carries the variance dynamics, and return its values on a uniform grid. The equation has a weakly singular power-law kernel, so the solution's entire history affects every grid value."
+    orchestrator: false
+  - number: 3
+    name: "03_characteristic_exponent"
+    description: "Assemble the fully discrete log-characteristic function of the log-price from nodal values of the variance equation. Only the grid values already available are used; no continuous reconstruction of the underlying trajectory is performed."
+    orchestrator: false
+  - number: 4
+    name: "04_integrand_decay_rate"
+    description: "Compute the exponential decay rate that the damped Fourier integrand inherits from the variance dynamics at a given maturity. The rate combines a long-run variance contribution with a maturity term whose exponent is set by the roughness of the variance path."
+    orchestrator: false
+  - number: 5
+    name: "05_exponential_weight_rule"
+    description: "Build the quadrature rule adapted to an exponentially decaying weight on the positive half line. The rate of the weight is a free parameter, so the rule must follow the weight rather than assume the unit rate."
+    orchestrator: false
+  - number: 6
+    name: "06_damped_fourier_integrand"
+    description: "Assemble the real integrand whose integral over the positive half line prices a European call, with the contour shifted into the lower half plane. The integrand is built from the discrete pieces already available, so its value depends on the resolution of the time grid used to obtain them."
+    orchestrator: false
+  - number: 7
+    name: "07_select_damping_parameter"
+    description: "Choose the contour shift used by the damped Fourier representation. The shift is not free: it must keep the payoff transform integrable, and among the admissible values one is singled out by the size of the integrand at the origin."
+    orchestrator: false
+  - number: 8
+    name: "08_select_discretization_level"
+    description: "Decide how far the time grid has to be refined before the remaining bias sits inside a prescribed budget. The decision is taken from a single measured gap between the two coarsest grids and an assumed algebraic decay of that gap."
+    orchestrator: false
+  - number: 9
+    name: "09_hierarchical_fourier_price"
+    description: "Run the complete adaptive pricing experiment and return the option value. Every free choice is fixed by the inputs: the contour shift, the refinement index, the two error prefactors, and how many quadrature nodes each refinement level receives."
+    orchestrator: true

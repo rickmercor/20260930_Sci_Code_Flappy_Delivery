@@ -1,0 +1,44 @@
+problem_id: "Chemistry-Quantum_Chemistry-44"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1063/5.0342629"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_one_electron_integrals"
+    description: "Step 01 - Overlap and core-Hamiltonian matrices of a hydrogen cluster in a contracted s-type Gaussian basis."
+    orchestrator: false
+  - number: 2
+    name: "02_electron_repulsion_integrals"
+    description: "Step 02 - Two-electron repulsion integrals over the same contracted s-type Gaussians."
+    orchestrator: false
+  - number: 3
+    name: "03_rhf_canonical_orbitals"
+    description: "Step 03 - Closed-shell restricted Hartree-Fock reference and its canonical orbitals."
+    orchestrator: false
+  - number: 4
+    name: "04_dressed_orbitals"
+    description: "Step 04 - Self-consistent orbital dressing by the two-parameter regularisation operator."
+    orchestrator: false
+  - number: 5
+    name: "05_second_order_ground_state"
+    description: "Step 05 - Second-order ground-state amplitudes and energies for a non-canonical zeroth-order Hamiltonian."
+    orchestrator: false
+  - number: 6
+    name: "06_adc3_singles_block"
+    description: "Step 06 - Singles-singles block of the third-order intermediate-state secular matrix."
+    orchestrator: false
+  - number: 7
+    name: "07_adc3_spin_sector_spectrum"
+    description: "Step 07 - Complete third-order secular matrix for restricted orbitals, split by spin symmetry and diagonalised."
+    orchestrator: false
+  - number: 8
+    name: "08_spin_resolved_excitations"
+    description: "Step 08 - Predominantly single-excitation singlet and triplet states of a molecule."
+    orchestrator: false
+  - number: 9
+    name: "09_lowest_singlet_excitation"
+    description: "Step 09 - Orchestrator: lowest predominantly single-excitation singlet excitation energy in eV."
+    orchestrator: true

@@ -1,0 +1,36 @@
+problem_id: "Biology-Ecology-46"
+subject: "biology"
+subject_area: "Ecology"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.64898/2026.06.01.721774"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_newborn_calibration.py"
+    description: "Maximum-likelihood intercept and dispersion of a gamma age score, from the scores of newborns."
+    orchestrator: false
+  - number: 2
+    name: "02_sampled_age_distribution.py"
+    description: "Age distribution of animals sampled at random from a stable population, at or above a gear's minimum age."
+    orchestrator: false
+  - number: 3
+    name: "03_score_bin_probabilities.py"
+    description: "Probability that the age score of an animal of each age 0..max_age falls in the bin (lower, upper]."
+    orchestrator: false
+  - number: 4
+    name: "04_maternal_half_sibling_matrix.py"
+    description: "Probability that two sampled animals of given ages have the same mother."
+    orchestrator: false
+  - number: 5
+    name: "05_class_pair_mhsp_probability.py"
+    description: "Probability that an animal of one survey class and a different animal of another class have the same mother."
+    orchestrator: false
+  - number: 6
+    name: "06_contrast_fit.py"
+    description: "Calibration slope, mortality, abundance and within-cohort factor most likely to have produced the observed half-sibling counts."
+    orchestrator: false
+  - number: 7
+    name: "07_kin_rate_per_million.py"
+    description: "Predicted maternal half-sibling pairs per million comparisons between two target classes, after calibrating the score from kin."
+    orchestrator: true

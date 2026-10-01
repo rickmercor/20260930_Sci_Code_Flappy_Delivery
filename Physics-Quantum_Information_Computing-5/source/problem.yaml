@@ -1,0 +1,44 @@
+problem_id: "Physics-Quantum_Information_Computing-5"
+subject: "physics"
+subject_area: "Quantum Information / Computing"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2605.27285"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_propagate_frame_jets"
+    description: "Propagate supplied derivative orders through a physical gate in evolving local coordinates."
+    orchestrator: false
+  - number: 2
+    name: "02_reduced_density_jets"
+    description: "Compute local reduced-density responses including mixed orders."
+    orchestrator: false
+  - number: 3
+    name: "03_natural_frame_jets"
+    description: "Continue a local natural eigenframe through every supplied derivative order in a fixed phase convention."
+    orchestrator: false
+  - number: 4
+    name: "04_compress_state_jets"
+    description: "Differentiate sparse projection, normalization and participation on a fixed retained support."
+    orchestrator: false
+  - number: 5
+    name: "05_guarded_single_jet"
+    description: "Accept or reject a lossy single-qubit coordinate response using the base-state guard."
+    orchestrator: false
+  - number: 6
+    name: "06_snapshot_jet_sweep"
+    description: "Propagate a state response through finite passes of snapshot-based local coordinate refinement."
+    orchestrator: false
+  - number: 7
+    name: "07_transient_pair_jet"
+    description: "Differentiate a transient two-qubit refinement with two distinct sparse projections."
+    orchestrator: false
+  - number: 8
+    name: "08_circuit_response_jets"
+    description: "Compose differentiated gate propagation, local frame updates and transient pair sweeps."
+    orchestrator: false
+  - number: 9
+    name: "09_fidelity_curvature"
+    description: "Compute a pure or mixed curvature response of physical fidelity to coherent control errors."
+    orchestrator: true

@@ -1,0 +1,36 @@
+problem_id: "Chemistry-Computational_Chemistry-16"
+subject: "chemistry"
+subject_area: "Computational Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.3389/fchem.2026.1807063"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_generate_oci_neb_panel"
+    description: "Validate integer n_mechanisms >= 8 and odd n_images >= 7. Use default_rng(seed). For mechanism m set phase=0.17*m+0.003*(seed mod 101), endpoints [-1.18-0.015*(m mod 4), -0.28+0.025*(m mod 5), 0.11*sin(phase)] and [1.16+0.018*(m mod 3), 0.31-0.022*(m mod 4), -0.09*cos(phase)], and s=linspace(0,1,n_images). Add the bow [0.04*sin(pi*s+phase), (0.18+0.015*(m mod 3))*sin(pi*s), 0.13*sin(2*pi*s+0.3*phase)] plus Gaussian noise of standard deviation 0.004+0.0004*(m mod 4), with zero endpoint noise. Use V=0.25*(x^2-1)^2+0.34*y^2+0.21*z^2+0.075*x*y-0.052*y*z+0.018*sin(1.7*x+phase)*cos(1.3*y-0.4*phase) and its exact negative gradient. Set F0=(1.75+0.055*(m mod 5))*max internal force norm+0.18. Return paths, energies, forces, F0, and panel_checksum=dot(paths.ravel(),0.7+(k mod 29)/31)+dot(energies.ravel(),1+(k mod 17)/19)."
+    orchestrator: false
+  - number: 2
+    name: "02_compute_climbing_controls"
+    description: "Call public Step 1. For each mechanism choose the highest-energy internal image. Normalize the centered secant path[k+1]-path[k-1] as tau. Reflect the true force through tau using Fclimb=F-2*(F dot tau)*tau and record FCI=norm(Fclimb). Set the deterministic latch history to 3+((7*m+seed) mod 6). Define control_checksum=dot(indices,1+m/23)+dot(tangents.ravel(),0.4+(k mod 13)/17)+dot(FCI,2+m/29). Return indices, tangents, reflected forces, FCI, latch counts, F0, unchanged panel_checksum, and control_checksum."
+    orchestrator: false
+  - number: 3
+    name: "03_run_aligned_dimer_bursts"
+    description: "Call public Steps 1 and 2 and require finite 0<step_size<=0.5. At every climbing image form the exact Hessian of Step 1, take its lowest eigenvector with sign aligned to tau, and mix it with the normalized cross(tau,[0,0,1]) at angle theta selected from [0.04,0.18,0.34,0.55,1.24,1.43] by m mod 6. Normalize this dimer axis. Record alpha=abs(axis dot tau) and curvature=axis.T@H@axis. Reflect the true force through the dimer axis, move by step_size*reflected/(1+norm(reflected)), recompute the reflected candidate force, and multiply its norm by 0.88+0.055*(m mod 5). Return exactly eleven items in this order: axes (n_mechanisms,3), alpha (n_mechanisms,), curvature (n_mechanisms,), candidate positions (n_mechanisms,3), Fnew (n_mechanisms,), FCI (n_mechanisms,), latch counts (n_mechanisms,), F0 (n_mechanisms,), panel_checksum scalar, control_checksum scalar, and dimer_checksum scalar. Define dimer_checksum by the displayed alpha, curvature, candidate, and Fnew arrays with weights [3+m/19,2+m/17,0.6+(k mod 23)/29,5+m/31]."
+    orchestrator: false
+  - number: 4
+    name: "04_apply_oci_neb_policy"
+    description: "Call public Steps 1 through 3. Recover the source values for the default relative trigger, alignment tolerance, stability count, linear alignment-failure penalty, and successful-burst threshold update. For this audit, resolve overlapping conditions with this explicit benchmark branch order: active means stable>=kappa and FCI<lambda_rel*F0; otherwise action 0. If active and curvature>0, action 1, restore the original climbing position, and clear the stored mode before NEB resumes. Otherwise, if alpha<alpha_tol OR Fnew>=FCI, action 2, reject the burst, and retain the original climbing position even when force improved. Only the remaining branch is accepted as action 3 and uses the candidate position. Use defaults lambda_rel=0.31, alpha_tol=0.85, and kappa=5. Define policy_checksum=dot(action,7+m/13)+dot(thresholds,2+m/17)+dot(positions.ravel(),0.8+(k mod 19)/23). Return action, thresholds, acceptance mask, selected positions, alignment, curvature, Fnew, FCI, panel_checksum, control_checksum, dimer_checksum, and policy_checksum."
+    orchestrator: false
+  - number: 5
+    name: "05_reparameterize_successful_paths"
+    description: "Call public Steps 1, 2, and 4. For accepted bursts only, replace the climbing image by the selected candidate and immediately redistribute every image to equal cumulative arc-length targets using coordinate-wise linear interpolation on the current polyline. The interpolation is a disclosed deterministic surrogate for the paper's geometry-only path redistribution. Leave every nonaccepted path unchanged. For each mechanism record std(segment lengths)/(mean(segment lengths)+1e-15). Define path_checksum=dot(updated_paths.ravel(),0.9+(k mod 37)/41)+dot(spacing,11+m/29). Return updated paths, spacing, the full policy evidence, four upstream checksums, and path_checksum."
+    orchestrator: false
+  - number: 6
+    name: "06_evaluate_oci_neb_robustness_tensor"
+    description: "Call public Step 5, which executes public Steps 1 through 4 internally. Also call public Steps 1 and 2 to recover force baselines and latch counts. Require each axis to contain at least two values, every relative trigger in (0,1), every alignment threshold in (1/sqrt(2),1], and every force scale positive. In C order over lambda_axis, alignment_axis, and force_axis, reapply the explicit Step 4 policy to force_scale*Fnew. The tensor has len(lambda_axis)*len(alignment_axis)*len(force_axis) rows and 8 columns; only the default axes produce 80 by 8. Store success, restoration, failure, and inactive fractions; mean force reduction over all mechanisms, with rejected and inactive mechanisms contributing zero; mean threshold/F0; dot(action,1+m/23); and mean(spacing*(1+accepted)). Defaults are lambda_axis=(0.24,0.31,0.38,0.46), alignment_axis=(0.72,0.85,0.91,0.96), and force_axis=(0.82,0.94,1.0,1.08,1.22). Define tensor_checksum=dot(tensor.ravel(),0.6+(k mod 53)/59). Return tensor, tensor_checksum, panel_checksum, control_checksum, dimer_checksum, policy_checksum, and path_checksum."
+    orchestrator: false
+  - number: 7
+    name: "07_compute_oci_neb_audit"
+    description: "This is the final orchestrator. Require an integer seed. Call public Step 6 on its complete default axes; Step 6 executes public Steps 1 through 5 internally. Reuse public Step 5 once for the default branch evidence. From the tensor compute median_success, population spread of success, worst_failure, and the leading singular value of centered channels 0 through 5. Define alignment_margin=mean(alpha-1/sqrt(2)), force_gain=mean(1-Fnew/(FCI+1e-15)), path_uniformity=1/(1+mean(spacing)), stability=(median_success+max(force_gain,0)+path_uniformity)/(1+spread+worst_failure+leading_singular), and J=(1+max(alignment_margin,0))*stability/(1+mean(thresholds)+tensor_checksum/10000). Return unrounded J followed by all five upstream checksums, tensor_checksum, four branch counts, and all seven tensor and stability diagnostics."
+    orchestrator: true

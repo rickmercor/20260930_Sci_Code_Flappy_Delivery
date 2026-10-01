@@ -1,0 +1,48 @@
+problem_id: "Physics-Computational_Physics-37"
+subject: "physics"
+subject_area: "Computational Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2607.14286"
+dependencies: ""
+steps:
+  - number: 1
+    name: "lumped_current_projection"
+    description: "Recover the ordered nodal current proxy from a lumped L2 load."
+    orchestrator: false
+  - number: 2
+    name: "projected_electron_velocity"
+    description: "Evaluate the projected electron velocity used by the induction subsystem."
+    orchestrator: false
+  - number: 3
+    name: "rescaled_induction_residual"
+    description: "Construct the paper's nodal induction-residual indicator."
+    orchestrator: false
+  - number: 4
+    name: "blended_artificial_resistivity"
+    description: "Evaluate the paper's low-order, residual, and effective nodal resistivities."
+    orchestrator: false
+  - number: 5
+    name: "resistive_whistler_mode"
+    description: "Evaluate the right-polarized resistive whistler mode and one-period attenuation."
+    orchestrator: false
+  - number: 6
+    name: "crank_nicolson_whistler_certificate"
+    description: "Certify the modal Crank--Nicolson source update against the continuous whistler mode."
+    orchestrator: false
+  - number: 7
+    name: "newton_coercivity_certificates"
+    description: "Evaluate both normalized Newton-Jacobian coercivity certificates from the paper."
+    orchestrator: false
+  - number: 8
+    name: "source_energy_update"
+    description: "Update nodal mechanical energy and predict the magnetic norm implied by the energy balance."
+    orchestrator: false
+  - number: 9
+    name: "paper_candidate_table"
+    description: "Aggregate paper-native wave, coercivity, and energy certificates over coupled states."
+    orchestrator: false
+  - number: 10
+    name: "hall_mhd_paper_design"
+    description: "Orchestrate the coupled implicit-midpoint source solve and select the least-work robustly certified design."
+    orchestrator: true

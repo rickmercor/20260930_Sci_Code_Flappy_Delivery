@@ -1,0 +1,44 @@
+problem_id: "Physics-Quantum_Information_Computing-41"
+subject: "physics"
+subject_area: "Quantum Information / Computing"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.48550/arXiv.2602.11985"
+dependencies: ""
+steps:
+  - number: 1
+    name: "measurement_pencil_jets"
+    description: "Construct the deterministic noisy real-time Krylov pencil and its first two derivatives."
+    orchestrator: false
+  - number: 2
+    name: "nearest_physical_overlap"
+    description: "Find the nearest physical Gram matrix of normalized states."
+    orchestrator: false
+  - number: 3
+    name: "rotated_ground_energy"
+    description: "Recover the lowest physical energy of a rotated, thresholded Hermitian pencil."
+    orchestrator: false
+  - number: 4
+    name: "batch_energy_moments"
+    description: "Evaluate equal-batch population energy statistics."
+    orchestrator: false
+  - number: 5
+    name: "dimension_convergence"
+    description: "Evaluate the noise-aware adjacent-dimension stopping certificate."
+    orchestrator: false
+  - number: 6
+    name: "select_variance_angle"
+    description: "Select a rotation from the measurement-only variance objective."
+    orchestrator: false
+  - number: 7
+    name: "cutoff_projector_jet"
+    description: "Differentiate the retained spectral projector through second order."
+    orchestrator: false
+  - number: 8
+    name: "projected_energy_jet"
+    description: "Compute the second-order physical ground-energy response in a moving retained subspace."
+    orchestrator: false
+  - number: 9
+    name: "rotated_krylov_curvature"
+    description: "Evaluate the complete fixed-decision noise-curvature experiment."
+    orchestrator: true

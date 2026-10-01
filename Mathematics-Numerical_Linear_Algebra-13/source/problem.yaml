@@ -1,0 +1,40 @@
+problem_id: "Mathematics-Numerical_Linear_Algebra-13"
+subject: "mathematics"
+subject_area: "Numerical Linear Algebra"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2607.18745"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_compute_dither_variance_coefficient"
+    description: "Compute the variance coefficient for a signed uniform quantizer.\n\n\n\nFor signed bit width `$b >= 2$`, the largest positive index is\n\n`$q_b = 2**(b - 1) - 1$`. Non-overloading subtractive dither gives a uniform\n\nerror over one step, so a group with range `$R$` has variance\n\n`$c_b * R**2$`, where `$c_b = 1 / (12 * q_b**2)$`."
+    orchestrator: false
+  - number: 2
+    name: "02_construct_two_channel_switch_partition"
+    description: "Construct the exact active-range partition for a bounded two-channel gauge.\n\n\n\nFor `$H(x) = diag(exp(x), exp(-x))$`, a row range of ``A H`` or a\n\ncolumn range of `$H^{-1} B$` is a maximum of two exponentials.  The full\n\nerror is smooth only between their tie points.  This step returns every\n\ndistinct in-bound tie, the two endpoints, and one probe in each open cell."
+    orchestrator: false
+  - number: 3
+    name: "03_encode_partition_active_branches"
+    description: "Encode the active max-range channel throughout every partition cell.\n\n\n\nThe partition from the previous step removes all nonzero tie points.  At each\n\ncell midpoint, the maximizing channel therefore identifies the active row and\n\ncolumn range law throughout that open cell.  The packed numerical table keeps\n\nthe variable-size certificate compatible with strict array comparison."
+    orchestrator: false
+  - number: 4
+    name: "04_reconstruct_active_error_branch"
+    description: "Reconstruct one smooth branch of the exact product-error objective.\n\n\n\nAway from a range tie, every max-defined variance selects one channel.  The\n\nthree-term product error on that cell is exactly\n\n`$P*exp(4*x) + Q*exp(-4*x) + C$`.  This step recovers the coefficients and a\n\nnumerical certificate at a supplied interior probe without sampling or curve\n\nfitting."
+    orchestrator: false
+  - number: 5
+    name: "05_enumerate_bounded_error_candidates"
+    description: "Enumerate a finite global-minimization certificate on the bounded gauge.\n\n\n\nAll nonsmooth points come from active-range switches.  Within an open cell,\n\nthe exact objective is a convex three-term exponential branch, so that cell\n\ncontributes at most one interior stationary candidate.  The returned table\n\ncontains every endpoint, every distinct switch, and every admissible\n\nstationary point together with its branch data and derivative."
+    orchestrator: false
+  - number: 6
+    name: "06_compute_expected_product_error"
+    description: "Evaluate the exact expected squared error of a product with both factors noisy.\n\n\n\nFor mutually independent zero-mean entry errors with variance fields `$v_A$`\n\nand `$v_B$`, the result is the sum of the left propagated contribution, the\n\nright propagated contribution, and the simultaneous-error contribution:\n\n\n\n``sum_ik v_A[ik] ||B[k,:]||_2^2``;\n\n``sum_kj v_B[kj] ||A[:,k]||_2^2``; and\n\n`$sum_k (sum_i v_A[ik]) (sum_j v_B[kj])$`."
+    orchestrator: false
+  - number: 7
+    name: "07_certify_bounded_shared_scaling"
+    description: "Certify the global bounded optimum of the nonsmooth two-channel objective.\n\n\n\nThe certificate joins the finite candidate construction to the original\n\nthree-term error identity.  Besides the minimizer, it records one-sided\n\nderivatives, the separation from the next distinct candidate, reconstruction\n\nresiduals on every smooth cell, and preservation of the unquantized product."
+    orchestrator: false
+  - number: 8
+    name: "08_compute_quantized_product_error_reduction"
+    description: "Run the complete certified bounded error-reduction calculation.\n\n\n\nThe pipeline constructs the nonsmooth range partition, encodes every active\n\ncell, reconstructs exact exponential branches, enumerates the finite global\n\ncandidate set, checks the original three-term identity, and returns the\n\ncertified percentage reduction from the identity transform."
+    orchestrator: true

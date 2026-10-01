@@ -1,0 +1,36 @@
+problem_id: "Biology-Biochemistry-14"
+subject: "biology"
+subject_area: "Biochemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1038/s41588-026-02624-9"
+dependencies: ""
+steps:
+  - number: 1
+    name: " 01_build_delaunay_neighbourhoods"
+    description: "Build the neighbourhood of every cell from the Delaunay triangulation of the cell centroids."
+    orchestrator: false
+  - number: 2
+    name: "02_derive_diffusion_bandwidth"
+    description: "Fix the width of the Gaussian diffusion kernel from the neighbourhood radius and the fraction of released ligand allowed to escape it."
+    orchestrator: false
+  - number: 3
+    name: "03_compute_ligand_sharing_weights"
+    description: "Compute, for every sending cell, the fraction of its secreted ligand that each cell of the tissue receives."
+    orchestrator: false
+  - number: 4
+    name: "04_compute_total_expression_rates"
+    description: "Convert a gene's unspliced and spliced abundances and its fitted kinetic rates into the abundance used for signalling and its rate of change in every cell."
+    orchestrator: false
+  - number: 5
+    name: "05_compute_cell_signalling_velocity_terms"
+    description: "Split the rate of change of each cell's ligand-receptor signalling score into the part driven by the changing ligand supply and the part driven by the changing receptor."
+    orchestrator: false
+  - number: 6
+    name: "06_average_over_neighbourhoods"
+    description: "Summarise per-cell values at the level of spatial neighbourhoods by averaging each cell's value with those of its neighbours."
+    orchestrator: false
+  - number: 7
+    name: "07_estimate_neighbourhood_signalling_velocity"
+    description: "Compose every earlier step to obtain the rate of change of diffusible ligand-receptor signalling for the neighbourhood of one cell."
+    orchestrator: true

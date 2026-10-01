@@ -1,0 +1,78 @@
+{
+  "problem_id": "Physics-Quantum_Information_Computing-12",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Quantum_Information_Computing-12.1",
+      "test_cases": [
+        "import numpy as np\nimport copy\nimport numpy as np; angles = [0.16148386263647466, -0.056145691508003415]\nassert np.allclose(block_gate(*copy.deepcopy((angles,))), target)",
+        "import numpy as np\nimport copy\nimport numpy as np; angles = [-0.061861621487427465, 0.08198065488845328]\nassert np.allclose(block_gate(*copy.deepcopy((angles,))), target)",
+        "import numpy as np\nimport copy\nimport numpy as np; angles = [-0.08645507352591686, -0.08645536601575388, 0.06035718626700043, 0.06035714232872677]\nassert np.allclose(block_gate(*copy.deepcopy((angles,))), target)",
+        "import numpy as np\nimport copy\nimport numpy as np; angles = [0.5, -0.35]\nassert np.allclose(block_gate(*copy.deepcopy((angles,))), target)",
+        "import numpy as np\nimport copy\nimport numpy as np; angles = [0.0, 0.0, 0.25, 0.1]\nassert np.allclose(block_gate(*copy.deepcopy((angles,))), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-12.2",
+      "test_cases": [
+        "import numpy as np\nimport copy\nimport numpy as np; rng = np.random.default_rng(3); gate_u = np.linalg.qr(rng.normal(size=(4, 4)))[0]; gate_w = np.linalg.qr(rng.normal(size=(4, 4)))[0]\nassert np.allclose(layer_tensors(*copy.deepcopy((gate_u, gate_w)))[0], target)",
+        "import numpy as np\nimport copy\nimport numpy as np; rng = np.random.default_rng(3); gate_u = np.linalg.qr(rng.normal(size=(4, 4)))[0]; gate_w = np.linalg.qr(rng.normal(size=(4, 4)))[0]\nassert np.allclose(layer_tensors(*copy.deepcopy((gate_u, gate_w)))[1], target)",
+        "import numpy as np\nimport copy\nimport numpy as np; gate_u = np.arange(16.0).reshape(4, 4); gate_w = np.arange(16.0).reshape(4, 4)[::-1] + 1.0\nassert np.allclose(layer_tensors(*copy.deepcopy((gate_u, gate_w)))[1], target)",
+        "import numpy as np\nimport copy\nimport numpy as np; gate_u = np.arange(16.0).reshape(4, 4) + 1.0; gate_w = np.eye(4)\nassert np.allclose(layer_tensors(*copy.deepcopy((gate_u, gate_w)))[0], target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-12.3",
+      "test_cases": [
+        "import numpy as np\nimport copy\nimport numpy as np; rng = np.random.default_rng(5); Q = rng.normal(size=[2] * 8); U = rng.normal(size=(2, 2, 2, 2)); W = rng.normal(size=(2, 2, 2))\nassert np.allclose(doubled_layer_map(*copy.deepcopy((Q, U, W))), target)",
+        "import numpy as np\nimport copy\nimport numpy as np; rng = np.random.default_rng(6); Q = np.zeros([2] * 8); Q[(0,) * 8] = 1.0; U = np.linalg.qr(rng.normal(size=(4, 4)))[0].reshape(2, 2, 2, 2); W = np.linalg.qr(rng.normal(size=(4, 4)))[0][:, :2].reshape(2, 2, 2)\nassert np.allclose(doubled_layer_map(*copy.deepcopy((Q, U, W))), target)",
+        "import numpy as np\nimport copy\nimport numpy as np; rng = np.random.default_rng(9); Q = rng.normal(size=[2] * 8); U = np.eye(4).reshape(2, 2, 2, 2); W = rng.normal(size=(2, 2, 2))\nassert np.allclose(doubled_layer_map(*copy.deepcopy((Q, U, W))), target)",
+        "import numpy as np\nimport copy\nimport numpy as np; rng = np.random.default_rng(12); Q = rng.normal(size=[2] * 8) + 3.0 * np.einsum('ab,cd,ef,gh->acbdegfh', np.eye(2), np.eye(2), rng.normal(size=(2, 2)), rng.normal(size=(2, 2))); U = rng.normal(size=(2, 2, 2, 2)); W = rng.normal(size=(2, 2, 2))\nassert np.allclose(doubled_layer_map(*copy.deepcopy((Q, U, W))), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-12.4",
+      "test_cases": [
+        "import numpy as np\nimport copy\nimport numpy as np; rng = np.random.default_rng(2); Q = np.abs(rng.normal(size=[2] * 8))\nassert np.allclose(renyi2_from_doubled(*copy.deepcopy((Q,))), target)",
+        "import numpy as np\nimport copy\nimport numpy as np; rng = np.random.default_rng(4); Q = 0.03 * np.abs(rng.normal(size=[2] * 8))\nassert np.allclose(renyi2_from_doubled(*copy.deepcopy((Q,))), target)",
+        "import numpy as np\nimport copy\nimport numpy as np; Q = np.zeros([2] * 8); Q[0, 1, 0, 1, 1, 0, 1, 0] = 0.3; Q[1, 1, 1, 1, 0, 0, 0, 0] = 0.2\nassert np.allclose(renyi2_from_doubled(*copy.deepcopy((Q,))), target)",
+        "import numpy as np\nimport copy\nimport numpy as np; Q = np.full([2] * 8, 0.01); Q[0, 0, 1, 1, 0, 0, 0, 0] = 5.0; Q[0, 0, 0, 0, 0, 1, 1, 0] = 7.0\nassert np.allclose(renyi2_from_doubled(*copy.deepcopy((Q,))), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-12.5",
+      "test_cases": [
+        "import numpy as np\nimport copy\nimport numpy as np; rng = np.random.default_rng(4); R = rng.normal(size=(2, 2, 1, 2, 2, 1)); U = rng.normal(size=(2, 2, 2, 2)); W = rng.normal(size=(2, 2, 2))\nassert np.allclose(edge_layer_map(*copy.deepcopy((R, U, W))), target)",
+        "import numpy as np\nimport copy\nimport numpy as np; rng = np.random.default_rng(14); R = rng.normal(size=(2, 2, 4, 2, 2, 4)); U = rng.normal(size=(2, 2, 2, 2)); W = rng.normal(size=(2, 2, 2))\nassert np.allclose(edge_layer_map(*copy.deepcopy((R, U, W))), target)",
+        "import numpy as np\nimport copy\nimport numpy as np; rng = np.random.default_rng(21); R = np.zeros((2, 2, 1, 2, 2, 1)); R[0, 0, 0, 0, 0, 0] = 1.0; U = np.linalg.qr(rng.normal(size=(4, 4)))[0].reshape(2, 2, 2, 2); W = np.linalg.qr(rng.normal(size=(4, 4)))[0][:, :2].reshape(2, 2, 2)\nassert np.allclose(edge_layer_map(*copy.deepcopy((R, U, W))), target)",
+        "import numpy as np\nimport copy\nimport numpy as np; rng = np.random.default_rng(33); R = rng.normal(size=(2, 2, 2, 2, 2, 2)); U = rng.normal(size=(2, 2, 2, 2)); W = rng.normal(size=(2, 2, 2))\nassert np.allclose(edge_layer_map(*copy.deepcopy((R, U, W))), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-12.6",
+      "test_cases": [
+        "import numpy as np\nimport copy\nimport numpy as np; rng = np.random.default_rng(8); R = rng.normal(size=(2, 2, 8, 2, 2, 8))\nassert np.allclose(edge_reduced_state(*copy.deepcopy((R,))), target)",
+        "import numpy as np\nimport copy\nimport numpy as np; rng = np.random.default_rng(18); R = rng.normal(size=(2, 2, 2, 2, 2, 2))\nassert np.allclose(edge_reduced_state(*copy.deepcopy((R,))), target)",
+        "import numpy as np\nimport copy\nimport numpy as np; R = np.zeros((2, 2, 2, 2, 2, 2)); R[0, 1, 0, 1, 0, 1] = 0.4; R[0, 1, 1, 0, 1, 1] = 9.0; R[1, 1, 1, 1, 1, 0] = 0.6\nassert np.allclose(edge_reduced_state(*copy.deepcopy((R,))), target)",
+        "import numpy as np\nimport copy\nimport numpy as np; rng = np.random.default_rng(28); R = rng.normal(size=(2, 2, 1, 2, 2, 1))\nassert np.allclose(edge_reduced_state(*copy.deepcopy((R,))), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-12.7",
+      "test_cases": [
+        "import numpy as np\nimport copy\nimport numpy as np; rng = np.random.default_rng(1); A = rng.normal(size=(8, 8)); rho = A @ A.T / np.trace(A @ A.T)\nassert np.allclose(entanglement_spectrum(*copy.deepcopy((rho,))), target)",
+        "import numpy as np\nimport copy\nimport numpy as np; rng = np.random.default_rng(7); A = rng.normal(size=(16, 16)); rho = A @ A.T / np.trace(A @ A.T)\nassert np.allclose(entanglement_spectrum(*copy.deepcopy((rho,))), target)",
+        "import numpy as np\nimport copy\nimport numpy as np; rho = np.diag([0.1, 0.6, 0.2, 0.1])\nassert np.allclose(entanglement_spectrum(*copy.deepcopy((rho,))), target)",
+        "import numpy as np\nimport copy\nimport numpy as np; rho = np.array([[0.55, 0.4], [0.4, 0.45]])\nassert np.allclose(entanglement_spectrum(*copy.deepcopy((rho,))), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-12.8",
+      "test_cases": [
+        "import numpy as np\nimport copy\nimport numpy as np; u_angles = [[0.16148386263647466, -0.056145691508003415], [0.13118304250021381, -0.0383352598604525], [0.08035122878854976, -0.021415347769675463], [0.010069626069892758, 0.01006953360769033]]; w_angles = [[-0.02633623257988793, 0.13609039706878254], [-0.019513199676447934, 0.1145574729714855], [-0.0096600845365713, 0.06892662021737829], [-0.061861621487427465, 0.08198065488845328]]\nassert np.allclose(schmidt_gap(*copy.deepcopy((u_angles, w_angles))), target)",
+        "import numpy as np\nimport copy\nimport numpy as np; u_angles = [[0.14128916837190672, -0.04855295372072077], [0.09485246552828838, -0.026780826052108297], [0.014283396219806037, 0.014283396218955706]]; w_angles = [[-0.022645095961054018, 0.11788128500836616], [-0.011366270004517398, 0.07993999252030186], [0.014254702701648131, 0.014254702701648131]]\nassert np.allclose(schmidt_gap(*copy.deepcopy((u_angles, w_angles))), target)",
+        "import numpy as np\nimport copy\nimport numpy as np; u_angles = [[-0.08645507352591686, -0.08645536601575388, 0.06035718626700043, 0.06035714232872677], [0.4787965134747363, 0.4787965137485082, 0.00035538260020011894, 0.0003553837941574635]]; w_angles = [[-0.05538461872318612, 0.44461502277088877], [0.0003553828933530067, 0.0003553828933530067]]\nassert np.allclose(schmidt_gap(*copy.deepcopy((u_angles, w_angles))), target)",
+        "import numpy as np\nimport copy\nimport numpy as np; u_angles = [[0.0488592928520786, 0.04885929285205401]]; w_angles = [[0.02945730049443655, 0.06589993124750528]]\nassert np.allclose(schmidt_gap(*copy.deepcopy((u_angles, w_angles))), target)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+problem_id: "Chemistry-Quantum_Chemistry-31"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1021/acs.jctc.6c01175"
+dependencies: ""
+steps:
+  - number: 1
+    name: "reduce_neo_hessian"
+    description: "Reduce an extended nuclear-electronic Hessian to classical coordinates."
+    orchestrator: false
+  - number: 2
+    name: "compute_crossing_descriptor"
+    description: "Compute the reaction-coordinate mass and crossing diagnostics."
+    orchestrator: false
+  - number: 3
+    name: "evaluate_distance_profiles"
+    description: "Evaluate the donor-acceptor-distance profiles used by the rate model."
+    orchestrator: false
+  - number: 4
+    name: "compute_holstein_transmission"
+    description: "Evaluate the recrossing-corrected normal-crossing transmission probability."
+    orchestrator: false
+  - number: 5
+    name: "integrate_lz_coefficient"
+    description: "Evaluate the declared finite-order benchmark for the positive-energy thermal\r\ntransmission average over crossing velocity."
+    orchestrator: false
+  - number: 6
+    name: "integrate_wc_coefficient"
+    description: "Evaluate the weak-coupling Airy transmission coefficient."
+    orchestrator: false
+  - number: 7
+    name: "compute_thermal_isotope_rates"
+    description: "Thermally average fixed-distance LZ and weak-coupling rate kernels under the\r\ndeclared finite-order benchmark convention."
+    orchestrator: false
+  - number: 8
+    name: "compute_neogrt_kie_shift"
+    description: "Run the complete finite-order two-isotope benchmark and compare rate-model\r\nKIEs."
+    orchestrator: true

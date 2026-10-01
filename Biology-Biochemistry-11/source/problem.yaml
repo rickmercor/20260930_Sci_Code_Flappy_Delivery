@@ -1,0 +1,36 @@
+problem_id: "Biology-Biochemistry-11"
+subject: "biology"
+subject_area: "Biochemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.48550/arXiv.2509.09122"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_compute_promoter_occupancy"
+    description: "Compute the stationary occupancy of each promoter state of a gene whose promoter switches silently and can also change state in the same event that releases a transcript."
+    orchestrator: false
+  - number: 2
+    name: "02_compute_burst_limit_fano"
+    description: "Compute the stationary protein Fano factor of the reduced gene expression model in which every transcription event releases an instantaneous geometric burst of proteins."
+    orchestrator: false
+  - number: 3
+    name: "03_compute_protein_mean_and_fano"
+    description: "Compute the exact stationary mean and Fano factor of the protein copy number for a gene with a multi-state promoter, finite transcript lifetime and first-order translation."
+    orchestrator: false
+  - number: 4
+    name: "04_infer_mrna_decay_rate"
+    description: "Infer the transcript decay rate that reproduces a measured stationary protein Fano factor when the mean number of proteins made per transcript is already fixed."
+    orchestrator: false
+  - number: 5
+    name: "05_compute_binomial_moment_table"
+    description: "Compute every stationary joint binomial moment of the transcript and protein copy numbers up to a given total order for a gene with a multi-state promoter."
+    orchestrator: false
+  - number: 6
+    name: "06_compute_transcript_conditioned_protein_statistics"
+    description: "Recover, from a table of joint binomial moments of transcript and protein counts, the probability of a given transcript count and the mean and Fano factor of the protein count in the cells that hold exactly that many transcripts."
+    orchestrator: false
+  - number: 7
+    name: "07_predict_transcript_free_protein_mean"
+    description: "Combine a calibrated protein mean of a stable reporter with an instantaneous-burst summary of a destabilized reporter of the same gene to predict the mean stable-reporter protein count in cells that hold no transcript. Orchestrator: It computes the promoter occupancy (compute_promoter_occupancy), recovers the Fano factor behind the burst summary (compute_burst_limit_fano), infers the transcript decay rate (infer_mrna_decay_rate), checks the calibrated model against that Fano factor (compute_protein_mean_and_fano), builds the joint binomial moment table (compute_binomial_moment_table) and reads off the transcript-free protein mean (compute_transcript_conditioned_protein_statistics), consuming each output rather than reimplementing any step."
+    orchestrator: true

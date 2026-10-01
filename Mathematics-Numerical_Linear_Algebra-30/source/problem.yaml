@@ -1,0 +1,36 @@
+problem_id: "Mathematics-Numerical_Linear_Algebra-30"
+subject: "mathematics"
+subject_area: "Numerical Linear Algebra"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.48550/arXiv.2608.20531"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_construct_indefinite_symmetric_matrix"
+    description: "Build A = Q diag(s) Q^T from a thin QR factor of a Gaussian drawn by default_rng(seed). The eigenvalues s must contain both a positive and a negative entry. Require n >= 2."
+    orchestrator: false
+  - number: 2
+    name: "02_extract_column_subset"
+    description: "Return C = A[:, I] for a 0-based index set I of distinct columns. Require 1 <= r < n and 0 <= I[j] < n for every index. Invalid shapes, repeated indices, and out-of-range indices raise ValueError."
+    orchestrator: false
+  - number: 3
+    name: "03_draw_gaussian_sketch"
+    description: "Draw a standard_normal sketch X of shape (t, n) from default_rng(seed). Require 1 <= t < n."
+    orchestrator: false
+  - number: 4
+    name: "04_residual_bound_factor"
+    description: "Return the specialised Frobenius-norm residual factor from the cited source's general bound (Source 1, Theorem 4.1), for this C and this sketch, using the sketch as given. Do not return the unitarily invariant factor. Do not orthonormalise the rows of X. Do not drop the square root from the Frobenius form. Require full column rank of C and t > r."
+    orchestrator: false
+  - number: 5
+    name: "05_sketched_middle_matrix"
+    description: "From A, the column subset C and the sketch X, return the r-by-r matrix M of the cited source's reconstruction C M C^T (Source 1, Algorithm 3.1). Require t > r and t < n. Return M symmetric to rounding."
+    orchestrator: false
+  - number: 6
+    name: "06_reconstruction_entry"
+    description: "From the column subset C and the middle matrix M, return the 0-based (row, col) entry of the reconstruction C M C^T. Require C of shape (n, r) with 1 <= r < n, M of shape (r, r), and integer row and col in 0, ..., n-1."
+    orchestrator: false
+  - number: 7
+    name: "07_run_sketched_core_entry"
+    description: "Build A, take the column subset, draw the sketch, evaluate the source's specialised Frobenius residual-bound factor, form the sketched middle matrix, confirm that one reconstruction entry is finite, and return the residual-bound factor."
+    orchestrator: true

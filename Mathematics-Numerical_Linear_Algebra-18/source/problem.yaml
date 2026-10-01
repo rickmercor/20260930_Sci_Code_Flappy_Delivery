@@ -1,0 +1,44 @@
+problem_id: "Mathematics-Numerical_Linear_Algebra-18"
+subject: "mathematics"
+subject_area: "Numerical Linear Algebra"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2608.05625"
+dependencies: ""
+steps:
+  - number: 1
+    name: "hex8_element_matrices"
+    description: "Form the stiffness and consistent mass matrices of a single eight-node hexahedral element of an isotropic linearly elastic solid."
+    orchestrator: false
+  - number: 2
+    name: "assemble_partitioned_system"
+    description: "Assemble the global stiffness and mass matrices of a rectangular box, apply the restraint, and return them reordered into the block structure used by every later step."
+    orchestrator: false
+  - number: 3
+    name: "fixed_interface_modes"
+    description: "Compute the retained normal modes of substructure k with its entire interface held fixed."
+    orchestrator: false
+  - number: 4
+    name: "constraint_modes"
+    description: "Compute the static response of the interior of substructure k to unit displacement at each interface degree of freedom in turn, the remaining interface degrees of freedom being held at zero."
+    orchestrator: false
+  - number: 5
+    name: "residual_modes"
+    description: "Compute the first-order residual modes of substructure k and scale each column to unit Euclidean length."
+    orchestrator: false
+  - number: 6
+    name: "reduced_eigenvalues"
+    description: "Compute the eigenvalues of the reduced system obtained by projecting the augmented system back to the dimension of its unaugmented part."
+    orchestrator: false
+  - number: 7
+    name: "base_contribution"
+    description: "Extract the part of one reduced mode that is carried by the unaugmented columns of the basis."
+    orchestrator: false
+  - number: 8
+    name: "relative_deviation"
+    description: "Express the Rayleigh quotient of a trial vector as a relative deviation from a reference eigenvalue."
+    orchestrator: false
+  - number: 9
+    name: "reduction_report"
+    description: "Run the whole pipeline for one configuration and return the quantities the problem statement asks to be reported."
+    orchestrator: true

@@ -1,0 +1,115 @@
+{
+  "problem_id": "Mathematics-Numerical_Linear_Algebra-39",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-39.1",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(sp8_closed_form(2), target)",
+        "import numpy as np\nassert np.allclose(sp8_closed_form(5), target)",
+        "import numpy as np\nassert np.allclose(sp8_closed_form(0), target)",
+        "import numpy as np\n# boundary: the member with all seven stationary points in the right interval, x^8\nassert np.allclose(sp8_closed_form(7), target)",
+        "import numpy as np\n# invalid input: an index outside 0..7 must raise ValueError\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: sp8_closed_form(8)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-39.2",
+      "test_cases": [
+        "import numpy as np\ns = np.array([0.6287963248094621, 0.4634951557368705, 0.28801031899831153, 0.1370449767959811, 0.03566333067674328, 0.843407473787476, 0.9589932476672619, 54681.226975890386, 0.265751390362448])\nassert np.allclose(sp8_from_stationary_points(s.copy()), target)",
+        "import numpy as np\ns = np.array([0.205335691919926, 0.10587319375458373, 0.028361113617207747, 0.47580142445696827, 0.6735810492594173, 0.8448363819174186, 0.9596511781701752, 43067.7885468767, 0.08098193121219673])\nassert np.allclose(sp8_from_stationary_points(s.copy()), target)",
+        "import numpy as np\ns = np.array([0.7, 0.5, 0.3, 0.1, 0.8, 0.9, 0.95, 12.5, -0.3])\nassert np.allclose(sp8_from_stationary_points(s.copy()), target)",
+        "import numpy as np\n# boundary: the closed-form member (4,3) has all stationary points at the limits and the scale -280\ns = np.array([0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, -280.0, 0.0])\nassert np.allclose(sp8_from_stationary_points(s.copy()), target)",
+        "import numpy as np\n# invalid input: eight parameters instead of nine must raise ValueError\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: sp8_from_stationary_points(np.zeros(8))), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-39.3",
+      "test_cases": [
+        "import numpy as np\ns = np.array([0.7, 0.5, 0.3, 0.1, 0.8, 0.9, 0.95, 12.5, -0.3])\nassert np.allclose(equioscillation_residual(s.copy(), 4, 0.72, 0.78), target)",
+        "import numpy as np\ns = np.array([0.2, 0.15, 0.1, 0.55, 0.7, 0.85, 0.97, -30.0, 0.05])\nassert np.allclose(equioscillation_residual(s.copy(), 3, 0.26, 0.5), target)",
+        "import numpy as np\ns = np.array([0.205335691919926, 0.10587319375458373, 0.028361113617207747, 0.47580142445696827, 0.6735810492594173, 0.8448363819174186, 0.9596511781701752, 43067.7885468767, 0.08098193121219673])\nassert np.allclose(equioscillation_residual(s.copy(), 3, 0.2, 0.4), target)",
+        "import numpy as np\n# boundary: the closed-form member (4,3) evaluated for the modified conditions at both limits gives zero residuals only there\ns = np.array([0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, -280.0, 0.0])\nassert np.allclose(equioscillation_residual(s.copy(), 4, 0.0, 0.9), target)",
+        "import numpy as np\n# invalid input: bounds in the wrong order must raise ValueError\ns = np.array([0.7, 0.5, 0.3, 0.1, 0.8, 0.9, 0.95, 12.5, -0.3])\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: equioscillation_residual(s, 4, 0.8, 0.7)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-39.4",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(sp8_equioscillatory(5, 0.7141097594691733, 0.7198299695880565), target)",
+        "import numpy as np\nassert np.allclose(sp8_equioscillatory(2, 0.2657513903631172, 0.302000231551635), target)",
+        "import numpy as np\nassert np.allclose(sp8_equioscillatory(3, 0.26, 0.34), target)",
+        "import numpy as np\n# boundary: the left bound at its limit selects the modified left conditions\nassert np.allclose(sp8_equioscillatory(3, 0.0, 0.8468206588302484), target)",
+        "import numpy as np\n# invalid input: a left bound above the right bound must raise ValueError\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: sp8_equioscillatory(4, 0.6, 0.4)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-39.5",
+      "test_cases": [
+        "import numpy as np\nb = np.array([0.0, 0.0, 0.0, 0.0, 0.0, 56.0, -140.0, 120.0, -35.0])\nassert np.allclose(sastre_coefficients(b), target)",
+        "import numpy as np\nb = np.array([0.265751390362448, -18.144270417601728, 406.2979779085488, -3461.0224569760653, 14442.745122636843, -32614.753854260664, 40621.59851616709, -26211.140158434806, 6835.153371986298])\nassert np.allclose(sastre_coefficients(b), target)",
+        "import numpy as np\nb = np.array([0.0, 0.0, 0.0, 56.0, -210.0, 336.0, -280.0, 120.0, -21.0])\nassert np.allclose(sastre_coefficients(b), target)",
+        "import numpy as np\n# boundary: the pure monomial x^8, whose scheme coefficients reduce to the closing equation alone\nb = np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0])\nassert np.allclose(sastre_coefficients(b), target)",
+        "import numpy as np\n# invalid input: a vanishing leading coefficient must raise ValueError\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: sastre_coefficients(np.array([0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]))), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-39.6",
+      "test_cases": [
+        "import numpy as np\nco = np.array([-1.7142857142857142, 0.7142857142857143, -1.7142857142857142, -0.4693877551020408, 0.7142857142857143, 0.5306122448979592, 0.0, 0.0, 0.0, -35.0])\nassert np.allclose(workspace_scalars(co), target)",
+        "import numpy as np\nco = np.array([0.3, -0.2, 0.5, 1.1, -0.7, 0.9, 2.0, -1.0, 0.4, 3.0])\nassert np.allclose(workspace_scalars(co), target)",
+        "import numpy as np\nco = np.linspace(-1.0, 1.0, 10)\nassert np.allclose(workspace_scalars(co), target)",
+        "import numpy as np\n# boundary: all coefficients zero, where every rearrangement scalar vanishes\nco = np.zeros(10)\nassert np.allclose(workspace_scalars(co), target)",
+        "import numpy as np\n# invalid input: nine coefficients instead of ten must raise ValueError\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: workspace_scalars(np.zeros(9))), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-39.7",
+      "test_cases": [
+        "import numpy as np\nX = np.diag(np.linspace(0.0, 1.0, 6))\nb = np.array([0.265751390362448, -18.144270417601728, 406.2979779085488, -3461.0224569760653, 14442.745122636843, -32614.753854260664, 40621.59851616709, -26211.140158434806, 6835.153371986298])\nassert np.allclose(evaluate_p8(X.copy(), b.copy()), target)",
+        "import numpy as np\nX = np.array([[0.5, 0.2, 0.1], [0.2, 0.3, 0.0], [0.1, 0.0, 0.8]])\nb = np.array([0.0, 0.0, 0.0, 0.0, 0.0, 56.0, -140.0, 120.0, -35.0])\nassert np.allclose(evaluate_p8(X.copy(), b.copy()), target)",
+        "import numpy as np\nX = np.array([[0.5, 0.2, 0.1], [0.2, 0.3, 0.0], [0.1, 0.0, 0.8]])\nb = np.array([0.0, 0.0, 0.0, 56.0, -210.0, 336.0, -280.0, 120.0, -21.0])\nassert np.allclose(evaluate_p8(X.copy(), b.copy()), target)",
+        "import numpy as np\n# boundary: a diagonal projector is a fixed point of x^8\nX = np.diag([0.0, 1.0, 1.0, 0.0])\nb = np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0])\nassert np.allclose(evaluate_p8(X.copy(), b.copy()), target)",
+        "import numpy as np\n# invalid input: a non-square matrix must raise ValueError\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: evaluate_p8(np.zeros((3, 2)), np.array([0.0, 0.0, 0.0, 0.0, 0.0, 56.0, -140.0, 120.0, -35.0]))), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-39.8",
+      "test_cases": [
+        "import numpy as np\nbd = np.array([0.714400055294443, 0.7197041747304396, 0.7141097594691733, 0.7198299695880565])\nassert np.allclose(select_member(bd.copy(), 1, 0.01), target)",
+        "import numpy as np\nbd = np.array([0.2675465311508041, 0.30118384551828636, 0.2657513903636531, 0.302000231551651])\nassert np.allclose(select_member(bd.copy(), 2, 0.01), target)",
+        "import numpy as np\nbd = np.array([0.2975, 0.3025, 0.2975, 0.3025])\nassert np.allclose(select_member(bd.copy(), 1, 0.01), target)",
+        "import numpy as np\n# boundary: an outer bound below the threshold deactivates that side while the inner bounds still select by the gap\nbd = np.array([0.03, 0.85, 0.005, 0.86])\nassert np.allclose(select_member(bd.copy(), 3, 0.01), target)",
+        "import numpy as np\n# invalid input: an inner bound outside its outer bound must raise ValueError\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: select_member(np.array([0.2, 0.8, 0.3, 0.9]), 1, 0.01)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-39.9",
+      "test_cases": [
+        "import numpy as np\nbd = np.array([0.714400055294443, 0.7197041747304396, 0.7141097594691733, 0.7198299695880565])\nb = np.array([0.265751390362448, -18.144270417601728, 406.2979779085488, -3461.0224569760653, 14442.745122636843, -32614.753854260664, 40621.59851616709, -26211.140158434806, 6835.153371986298])\nassert np.allclose(propagate_bounds(bd.copy(), b.copy()), target)",
+        "import numpy as np\nbd = np.array([0.26, 0.34, 0.2, 0.4])\nb = np.array([0.0, 0.0, 0.0, 0.0, 0.0, 56.0, -140.0, 120.0, -35.0])\nassert np.allclose(propagate_bounds(bd.copy(), b.copy()), target)",
+        "import numpy as np\nbd = np.array([0.58, 0.66, 0.5, 0.7])\nb = np.array([0.0, 0.0, 0.0, 56.0, -210.0, 336.0, -280.0, 120.0, -21.0])\nassert np.allclose(propagate_bounds(bd.copy(), b.copy()), target)",
+        "import numpy as np\n# boundary: the limits 0 and 1 are fixed points of every member\nbd = np.array([0.0, 1.0, 0.0, 1.0])\nb = np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0])\nassert np.allclose(propagate_bounds(bd.copy(), b.copy()), target)",
+        "import numpy as np\n# invalid input: eight coefficients instead of nine must raise ValueError\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: propagate_bounds(np.array([0.2, 0.8, 0.1, 0.9]), np.zeros(8))), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-39.10",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(stop_check(0.1, 0.007, 3), target)",
+        "import numpy as np\nassert np.allclose(stop_check(0.1, 0.07, 2), target)",
+        "import numpy as np\nassert np.allclose(stop_check(0.5, -0.001, 7), target)",
+        "import numpy as np\n# boundary: a member without a bound test never fires it however large the trace\nassert np.allclose(stop_check(0.1, 5.0, 0), target)",
+        "import numpy as np\n# invalid input: an index outside 0..7 must raise ValueError\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: stop_check(0.1, 0.01, 8)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-39.11",
+      "test_cases": [
+        "import numpy as np\nenergies = np.array([-20.6248, -0.3573, -0.3482, 0.0355, 0.0565, 51.7152])\nassert np.allclose(sp8_accelerated_audit(energies.copy(), 3, 5), target)",
+        "import numpy as np\ndef _exact_energies(lam_lumo, lam_homo):\n    return np.array([0.0, 1.0 - lam_homo, 1.0 - lam_homo, 1.0 - lam_lumo, 1.0 - lam_lumo, 1.0])\nenergies = _exact_energies(0.2975, 0.3025)\nassert np.allclose(sp8_accelerated_audit(energies.copy(), 3, 5), target)",
+        "import numpy as np\ndef _exact_energies(lam_lumo, lam_homo):\n    return np.array([0.0, 1.0 - lam_homo, 1.0 - lam_homo, 1.0 - lam_lumo, 1.0 - lam_lumo, 1.0])\nenergies = _exact_energies(0.575, 0.585)\nassert np.allclose(sp8_accelerated_audit(energies.copy(), 7, 4), target)",
+        "import numpy as np\nenergies = np.array([-20.6248, -0.3573, -0.3482, 0.0355, 0.0565, 51.7152])\n# boundary: the smallest admissible iteration count, the conditioning phase alone\nassert np.allclose(sp8_accelerated_audit(energies.copy(), 5, 2), target)",
+        "import numpy as np\n# invalid input: energies whose inner bounds cross must raise ValueError\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: sp8_accelerated_audit(np.array([-20.6248, -0.3573, 0.05, 0.0355, 0.0565, 51.7152]), 3, 4)), target)"
+      ]
+    }
+  ]
+}

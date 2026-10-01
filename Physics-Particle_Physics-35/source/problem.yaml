@@ -1,0 +1,36 @@
+problem_id: "Physics-Particle_Physics-35"
+subject: "physics"
+subject_area: "Particle Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1007/JHEP01(2026)158"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_channel_geometry"
+    description: "Turn the two channel masses and the two reference points into the four real numbers that fix the geometry of the expansion. The two thresholds are four times the squared mass of the lighter and the heavier channel respectively, and the cut opening and the normalization point are passed through unchanged. The returned tuple carries the lower threshold, the upper threshold, the cut opening and the normalization point in that order, all in squared energy units. Invalid input raises ValueError when either mass is not a finite positive scalar, when either reference point is not a finite real scalar, when the two masses do not place the lower threshold strictly below the upper one or when a squared threshold overflows."
+    orchestrator: false
+  - number: 2
+    name: "02_threshold_branch_map"
+    description: "Evaluate one selected branch of the intermediate conformal map that resolves two ordered right-hand thresholds. All square roots use their principal branches. An exactly real energy, including either sign of a zero imaginary part, denotes the limit from the upper half-plane; a negative real threshold-minus-energy radicand therefore has a square root with negative imaginary part. The input energy may be real or complex, the thresholds are finite real scalars with the lower one strictly below the upper one and the two-character sheet label selects the returned branch as a Python complex number. Invalid input raises ValueError when the energy is not a finite scalar, either threshold is not a finite real scalar, the thresholds are not strictly ordered, the sheet label is not one of the four supported strings, the selected outer branch diverges at the lower threshold or a nonzero branch result is outside the finite complex output range."
+    orchestrator: false
+  - number: 3
+    name: "03_leftcut_map"
+    description: "Evaluate the conformal map that sends the left-hand cut of an intermediate variable to the unit circle. The energy-like argument and both reference arguments may be finite real or complex scalars, and the result is returned as a Python complex number. Invalid input raises ValueError when any argument is not a finite scalar, when the cut and normalization references coincide, when the radicands or the result overflow to a non-finite value, or when the sum of the two principal square roots in the denominator is zero."
+    orchestrator: false
+  - number: 4
+    name: "04_bounded_variable"
+    description: "Compose the four-sheet two-threshold map with the left-cut map to produce one bounded complex expansion variable. The inputs specify the squared energy, two ordered channel thresholds, the left-cut opening, the normalization point and the requested sheet. The cut reference is mapped on sheet 21, the normalization reference is mapped on sheet 11 and the squared energy is mapped on the requested sheet before the piecewise composition is applied. The function returns a native Python complex number and raises ValueError for non-finite or non-scalar data, non-real geometry values, unordered thresholds, an unknown sheet, coincident mapped references, a vanishing conformal denominator including the outer reciprocal, an outer branch at the lower threshold or an overflowing map."
+    orchestrator: false
+  - number: 5
+    name: "05_pole_factor"
+    description: "Build the reciprocal product associated with a bounded expansion variable and a non-empty sequence of mapped poles. Each input is validated as a finite scalar, every pole contributes one factor with itself and its conjugate and the completed product is returned as a native Python complex number. Invalid input raises ValueError when the evaluation point is not finite, the pole collection is not a non-empty sequence, a pole is not finite, the evaluation point coincides with a pole or its conjugate or the nonzero final reciprocal product overflows or underflows the finite complex range. Intermediate products must be scaled so representable results are not rejected merely because the poles span widely separated magnitudes."
+    orchestrator: false
+  - number: 6
+    name: "06_form_factor"
+    description: "Evaluate the bounded form factor at one squared energy on a specified Riemann sheet. The two ordered thresholds, the cut opening and the normalization point define the conformal variable, while each non-empty pole entry supplies a complex energy and its own sheet and each finite real coefficient supplies one ascending polynomial power. Every pole energy is squared before it is mapped, the reciprocal pole product multiplies the polynomial and the result is returned as a native Python complex number. Invalid input raises ValueError for non-finite or non-scalar data, non-real geometry or coefficients, unordered thresholds, unknown sheets, malformed or empty sequences, coincident mapped references, singular conformal maps including the outer reciprocal or an outer branch at the lower threshold, overflowing squared pole energies or evaluations, or coincidence with a mapped pole or its conjugate."
+    orchestrator: false
+  - number: 7
+    name: "07_run_pipeline"
+    description: "Run the complete two-threshold form-factor calculation and combine a non-empty sequence of sheet-specific evaluations into one scalar. The two positive masses set the ordered thresholds, the reference points fix the bounded conformal variable, every pole energy is squared and mapped on its own sheet and the ascending polynomial is multiplied by the reciprocal pole product. The function returns the product of the squared form-factor moduli as a native Python float. Invalid input raises ValueError for non-finite or non-scalar data, non-real masses, geometry or coefficients, non-positive or unordered masses, unknown sheets, malformed or empty pole, coefficient or evaluation sequences, coincident mapped references, singular conformal maps including the outer reciprocal or an outer branch at the lower threshold, overflowing thresholds, squared pole energies or evaluations, an overflowing squared-modulus product or coincidence with a mapped pole or its conjugate."
+    orchestrator: true

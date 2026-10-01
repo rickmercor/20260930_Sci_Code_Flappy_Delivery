@@ -1,0 +1,40 @@
+problem_id: "Mathematics-Computational_Finance-8"
+subject: "mathematics"
+subject_area: "Computational Finance"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.3390/axioms15010024"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_integrated_kernels"
+    description: "Evaluate the generating kernel of the spatial scheme together with its first and second antiderivatives at a set of signed offsets."
+    orchestrator: false
+  - number: 2
+    name: "02_integrated_kernel_weights"
+    description: "Compute first- and second-derivative weights on an arbitrary stencil from the exactness conditions of the integrated kernel."
+    orchestrator: false
+  - number: 3
+    name: "03_analytic_interior_weights"
+    description: "Evaluate the source's closed-form seven-node interior weights for the first and second derivatives on a uniform stencil."
+    orchestrator: false
+  - number: 4
+    name: "04_assemble_differentiation_matrices"
+    description: "Assemble the global seven-band first- and second-derivative matrices of the integrated-kernel scheme on a uniform asset grid."
+    orchestrator: false
+  - number: 5
+    name: "05_l1_caputo_coefficients"
+    description: "Compute the L1 coefficients that approximate the Caputo derivative of order alpha at one time level of a uniform grid."
+    orchestrator: false
+  - number: 6
+    name: "06_fractional_bs_operator"
+    description: "Form the semi-discrete Black-Scholes spatial operator from the differentiation matrices, leaving the Dirichlet rows empty."
+    orchestrator: false
+  - number: 7
+    name: "07_l1_time_march"
+    description: "March the semi-discrete fractional system implicitly in time to maturity with the L1 scheme and return the terminal vector."
+    orchestrator: false
+  - number: 8
+    name: "08_price_at_strike"
+    description: "Chain the sub-problem functions 01-07 end-to-end and return the European call value at the strike under the time-fractional model. Orchestrator: yes - this is the final step; it integrates the earlier sub-problems (integrated_kernels, integrated_kernel_weights, analytic_interior_weights, assemble_differentiation_matrices, l1_caputo_coefficients, fractional_bs_operator, l1_time_march) rather than reimplementing them."
+    orchestrator: true

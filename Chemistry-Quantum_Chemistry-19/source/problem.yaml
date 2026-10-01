@@ -1,0 +1,44 @@
+problem_id: "Chemistry-Quantum_Chemistry-19"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1021/acs.jpclett.6c01904"
+dependencies: ""
+steps:
+  - number: 1
+    name: "ppp_fock_matrix"
+    description: "This step builds that Hamiltonian and solves the closed-shell restricted Hartree-Fock problem for it. The Fock matrix in the site basis is the one-body matrix plus the Coulomb term (the Ohno matrix applied to the vector of site populations, on the diagonal) minus one half of the elementwise product of the spin-summed density matrix with the Ohno matrix. Iterate to self-consistency with a tight threshold (change of the density matrix below 1e-10) so that the Fock matrix is reproducible to better than 1e-8 eV; plain iteration with averaging of successive density matrices converges for the chains of this task. The converged Fock matrix is the reference for everything that follows: its eigenvalues are the orbital energies and its eigenvectors the canonical orbitals."
+    orchestrator: false
+  - number: 2
+    name: "mo_eri_tensor"
+    description: "This step diagonalizes a converged Fock matrix, orders the canonical orbitals by increasing orbital energy, fixes the arbitrary sign of every orbital so that its coefficient of largest magnitude is positive, and returns the two-electron integrals in physicist (Dirac) notation, bracket p q bar r s, equal to the double sum over centres mu and nu of C(mu, p) C(nu, q) C(mu, r) C(nu, s) V(mu, nu). In this notation electron one carries the first and third index and electron two the second and fourth index, so that the chemist integral (p r | q s) and the Dirac integral bracket p q bar r s are the same number. Getting this index convention right is essential: the expressions of the later steps distinguish bracket i c bar k q from bracket i k bar c q, and for the PPP integrals these are different numbers."
+    orchestrator: false
+  - number: 3
+    name: "drpa_excitation_energies"
+    description: "This step returns the dRPA excitation energies in increasing order. They are the \"dressed\" energies that enter every pole of the self-energy of this task: the two-hole-one-particle configurations sit at eps_i - Omega_nu, the two-particle-one-hole ones at eps_a + Omega_nu, and the three-body ones at eps_i - Omega_nu - Omega_mu and eps_a + Omega_nu + Omega_mu. Replacing the dRPA by its Tamm-Dancoff approximation (dropping B) changes all of them."
+    orchestrator: false
+  - number: 4
+    name: "gw_effective_integrals"
+    description: "Each dRPA eigenvector is defined up to an overall sign, which propagates to M(p, q, nu) for that mode. Every physical quantity built later is bilinear in the integrals of a given mode, so this sign drops out. The tests of this step therefore compare sign-insensitive combinations; the oracle fixes the sign by making the largest-magnitude component of X + Y of each mode positive, and the modes are ordered by increasing excitation energy."
+    orchestrator: false
+  - number: 5
+    name: "sosex_coupling_block"
+    description: "The first step beyond GW adds the second-order screened exchange diagrams. In the ADC form they appear as a correction to the coupling block only, and the scheme that keeps this correction together with the GW blocks is the ADC-2SOSEX scheme; it is equivalent to the positive-semidefinite GW+2SOSEX self-energy. The correction to the 2h1p coupling of configuration (i, nu) with orbital q is a sum over occupied-virtual pairs (k, c) of two terms, each a GW effective integral of the mode nu times a bare two-electron integral, divided by a dressed denominator that combines the orbital gap eps_c - eps_k with plus or minus Omega_nu; the two terms differ in the index order of the effective integral and of the bare integral and in the sign of Omega_nu in the denominator. The 2p1h block is its particle-hole mirror image. The explicit expressions are Eqs. (16a) and (16b) of the source paper; this step implements them for one branch."
+    orchestrator: false
+  - number: 6
+    name: "adc3_diagonal_block"
+    description: "The block is Hermitian and, for a real orbital basis, symmetric. Each of its elements is a sum over the orbitals of the opposite type (virtual c for the hole block, occupied k for the particle block) of a product of two GW effective integrals, one connecting the row orbital to c in the column mode and one connecting the column orbital to c in the row mode, each product divided by a dressed denominator that combines an orbital gap with one excitation energy, symmetrized over the two configurations with a factor one half. The explicit expressions are Eqs. (17a) and (17b) of the source paper; this step implements them for one branch."
+    orchestrator: false
+  - number: 7
+    name: "third_order_coupling_block"
+    description: "Completing the full G3W2 self-energy within the ADC form requires the remaining pieces of its hole and particle branches, those that are cubic in the GW effective integrals. Part of them enters as a further correction to the coupling between the one-particle space and the 2h1p (or 2p1h) configurations. For the hole branch this correction to the coupling of configuration (i, nu) with orbital q is a sum over an extra dRPA mode mu and over pairs of orbitals of four distinct terms, each a product of three effective integrals (two of them carrying the extra mode mu, one carrying the configuration mode nu) divided by a product of two dressed denominators; three of the terms run over an occupied orbital k and a virtual orbital c, the fourth over two virtual orbitals c and d, and the terms carry different signs, a factor one half on the first, and denominators in which Omega_mu enters with either sign and in one case together with Omega_nu. The particle branch is the particle-hole mirror image with two occupied orbitals k and l in the last term. The explicit expressions are Eqs. (18a) and (18b) of the source paper; this step implements them for one branch."
+    orchestrator: false
+  - number: 8
+    name: "three_body_row_block"
+    description: "Three new blocks come with these configurations: the direct coupling between the one-particle space and a three-body configuration, which is a single sum over the orbitals of the opposite type of a product of two effective integrals over a dressed denominator carrying the second mode (with a definite overall sign that differs between the hole and the particle branches); the coupling between a three-body configuration and a two-body configuration, which is a single effective integral of the second mode and is diagonal in the first mode; and the diagonal three-body energies. The explicit expressions are Eqs. (19), (20) and (21) of the source paper. This step returns, for one branch, the whole row of the effective Hamiltonian that belongs to the three-body configurations, as the horizontal concatenation [coupling to orbitals | coupling to two-body configurations | diagonal energies], with both configuration indices ordered orbital outermost, first mode, then second mode innermost."
+    orchestrator: false
+  - number: 9
+    name: "adc_g3w2_vertex_correction"
+    description: "The eigenvalues below the Fermi level are ionization energies (with a minus sign): each eigenvector has a component on every orbital, and the principal ionization potential of the highest occupied orbital is minus the eigenvalue whose eigenvector carries the largest squared weight on that orbital. The quantity requested by the task is the vertex correction to this principal ionization potential, the ADC-G3W2 value minus the ADC-GW value. It isolates the effect of the second-order screened exchange and of its ADC completion (the cubic couplings and the three-body configurations); the intermediate schemes that stop at the screened-exchange couplings or at the configuration-coupling block move the ionization potential in the opposite direction to the complete scheme, so the sign of this correction is a sharp test of the full construction."
+    orchestrator: true

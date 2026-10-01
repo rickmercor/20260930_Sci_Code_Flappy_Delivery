@@ -1,0 +1,36 @@
+problem_id: "Material_Science-Molecular_Modeling-69"
+subject: "materials"
+subject_area: "Molecular Modeling"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1038/s41563-026-02509-6"
+dependencies: ""
+steps:
+  - number: 1
+    name: "build_molecular_basis"
+    description: "Construct localized ordered molecular electron-hole states."
+    orchestrator: false
+  - number: 2
+    name: "build_couplings"
+    description: "Construct the perturbative molecular transfer couplings."
+    orchestrator: false
+  - number: 3
+    name: "thermal_vibronic_weights"
+    description: "Compute thermally weighted displaced-oscillator overlaps."
+    orchestrator: false
+  - number: 4
+    name: "build_kinetics"
+    description: "Build localized molecular transfer, loss and generation kinetics."
+    orchestrator: false
+  - number: 5
+    name: "coupled_population_response"
+    description: "Solve the coupled microscopic and canonical population responses."
+    orchestrator: false
+  - number: 6
+    name: "charge_yield_response"
+    description: "Compute extraction and recombination yield responses from rate and population derivatives."
+    orchestrator: false
+  - number: 7
+    name: "canonical_yield_bias"
+    description: "Compute the ordinary second field derivative of the canonical-minus-full charge-yield bias by composing the six preceding steps."
+    orchestrator: true

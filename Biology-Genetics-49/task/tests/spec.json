@@ -1,0 +1,61 @@
+{
+  "problem_id": "Biology-Genetics-49",
+  "sub_steps": [
+    {
+      "step_number": "Biology-Genetics-49.1",
+      "test_cases": [
+        "import numpy as np\nfrequencies = np.array([0.05, 0.3, 0.5, 0.9])\nassert np.allclose(size_response(frequencies, 800.0, 12800.0, 's_shaped'), target)",
+        "import numpy as np\nfrequencies = np.array([0.0, 0.5, 1.0])\nassert np.allclose(size_response(frequencies, 800.0, 200.0, 'harmonic'), target)",
+        "import numpy as np\nfrequencies = np.array([0.2, 0.75])\nassert np.allclose(size_response(frequencies, 2000.0, 150.0, 's_shaped'), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-49.2",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(fixation_probability(1.0 / 800.0, 0.002, 800.0, 12800.0, 's_shaped', 2.0), target)",
+        "import numpy as np\nassert np.allclose(fixation_probability(0.05, 0.01, 300.0, 300.0, 'harmonic', 1.0), target)",
+        "import numpy as np\nassert np.allclose(fixation_probability(1.0 / 1000.0, 0.01, 1000.0, 150.0, 's_shaped', 1.5), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-49.3",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(introduction_log_likelihood(888, 200000, 0.0045429111), target)",
+        "import numpy as np\nassert np.allclose(introduction_log_likelihood(0, 50, 0.1), target)",
+        "import numpy as np\nassert np.allclose(introduction_log_likelihood(4, 4, 0.75), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-49.4",
+      "test_cases": [
+        "import numpy as np\nfixations = np.array([888, 771, 809])\nsizes = np.array([12800.0, 200.0, 3200.0])\nselections = np.array([0.002, 0.004, 0.003])\nassert np.allclose(response_log_likelihoods(fixations, 200000, sizes, selections, 800.0, 2.0), target)",
+        "import numpy as np\nfixations = np.array([37])\nsizes = np.array([500.0])\nselections = np.array([0.004])\nassert np.allclose(response_log_likelihoods(fixations, 10000, sizes, selections, 500.0, 1.0), target)",
+        "import numpy as np\nfixations = np.array([12, 40])\nsizes = np.array([60.0, 9000.0])\nselections = np.array([0.008, 0.001])\nassert np.allclose(response_log_likelihoods(fixations, 2000, sizes, selections, 300.0, 1.2), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-49.5",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(conditional_fixation_time(1.0 / 800.0, 0.003, 800.0, 3200.0, 's_shaped', 2.0), target)",
+        "import numpy as np\nassert np.allclose(conditional_fixation_time(1.0 / 400.0, 0.0, 400.0, 1600.0, 'arithmetic', 1.0), target)",
+        "import numpy as np\nassert np.allclose(conditional_fixation_time(1.0 / 1000.0, 0.01, 1000.0, 150.0, 's_shaped', 1.5), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-49.6",
+      "test_cases": [
+        "import numpy as np\nsizes = np.array([12800.0, 200.0, 3200.0])\nselections = np.array([0.002, 0.004, 0.003])\nassert np.allclose(strain_sweep_table(sizes, selections, 800.0, 2.0, 's_shaped'), target)",
+        "import numpy as np\nsizes = np.array([700.0])\nselections = np.array([0.005])\nassert np.allclose(strain_sweep_table(sizes, selections, 700.0, 1.0, 'geometric'), target)",
+        "import numpy as np\nsizes = np.array([80.0, 4000.0])\nselections = np.array([0.006, 0.0015])\nassert np.allclose(strain_sweep_table(sizes, selections, 400.0, 1.5, 'root_mean_square'), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-49.7",
+      "test_cases": [
+        "import numpy as np\nfixations = np.array([888, 771, 809])\nsizes = np.array([12800.0, 200.0, 3200.0])\nselections = np.array([0.002, 0.004, 0.003])\nassert np.allclose(first_sweep_duration(fixations, 200000, sizes, selections, 800.0, 2.0), target)",
+        "import numpy as np\nfixations = np.array([3, 2, 4])\nsizes = np.array([1600.0, 200.0, 800.0])\nselections = np.array([0.0, 0.0, 0.0])\nassert np.allclose(first_sweep_duration(fixations, 1500, sizes, selections, 400.0, 1.0), target)",
+        "import numpy as np\nfixations = np.array([248, 225])\nsizes = np.array([100.0, 6000.0])\nselections = np.array([0.006, 0.002])\nassert np.allclose(first_sweep_duration(fixations, 50000, sizes, selections, 500.0, 1.5), target)"
+      ]
+    }
+  ]
+}

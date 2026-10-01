@@ -1,0 +1,40 @@
+problem_id: "Biology-Ecology-8"
+subject: "biology"
+subject_area: "Ecology"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: " https://doi.org/10.48550/arXiv.2604.18820"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_spectral_start.py"
+    description: "Construct the scale-aware rank-limited initialization from replicated ecological counts."
+    orchestrator: false
+  - number: 2
+    name: "02_detection_update.py"
+    description: "Solve the feature-dependent detection subproblem for a prescribed number of ADMM iterations."
+    orchestrator: false
+  - number: 3
+    name: "03_factor_terms.py"
+    description: "Evaluate the Poisson factor objective and the derivatives of all three Gram-product constraints."
+    orchestrator: false
+  - number: 4
+    name: "04_factor_sweep.py"
+    description: "Apply ordered finite projected-gradient sweeps with the prescribed Armijo rule."
+    orchestrator: false
+  - number: 5
+    name: "05_half_prox.py"
+    description: "Compute global half-power proximal minimizers with entrywise broadcast weights and penalties, preserving branch selection and relative accuracy across numerical scales."
+    orchestrator: false
+  - number: 6
+    name: "06_adapt_duals.py"
+    description: "Update three independent penalties and their scaled dual variables without altering the intended unscaled update."
+    orchestrator: false
+  - number: 7
+    name: "07_outer_cycle.py"
+    description: "Combine the detection, factor, nonconvex auxiliary, and adaptive-dual operations in the prescribed order."
+    orchestrator: false
+  - number: 8
+    name: "08_sparse_intensity.py"
+    description: "Return the prescribed latent intensity by directly composing Steps 01\u201306 for initialization and the first cycle, then passing that updated state to Step 07 for all remaining cycles."
+    orchestrator: true

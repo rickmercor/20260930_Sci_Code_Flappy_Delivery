@@ -1,0 +1,44 @@
+problem_id: "Biology-Biochemistry-1"
+subject: "biology"
+subject_area: "Biochemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1038/s41467-026-71955-2"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_site_table"
+    description: "Step 1 - the reactive-bond site table from the ensemble extension records."
+    orchestrator: false
+  - number: 2
+    name: "02_stationary_points"
+    description: "Step 2 - the two stationary points of the force-shifted bond potential."
+    orchestrator: false
+  - number: 3
+    name: "03_site_rates"
+    description: "Step 3 - the two competing rates of every reactive site."
+    orchestrator: false
+  - number: 4
+    name: "04_selection_probability"
+    description: "Step 4 - the rejection-free kMC first-event selection probability."
+    orchestrator: false
+  - number: 5
+    name: "05_branch_probabilities"
+    description: "Step 5 - the first-event branch probabilities of the rejection-free kMC draw."
+    orchestrator: false
+  - number: 6
+    name: "06_relax_forces"
+    description: "Step 6 - the network relaxation that follows a break."
+    orchestrator: false
+  - number: 7
+    name: "07_apply_break"
+    description: "Step 7 - applying one break: load redistribution and radical migration."
+    orchestrator: false
+  - number: 8
+    name: "08_sequence_probability"
+    description: "Step 8 - the probability that the next events follow a prescribed pathway sequence."
+    orchestrator: false
+  - number: 9
+    name: "09_four_event_mixed_cascade"
+    description: "Step 9 - orchestrator: the graded four-event mixed cascade."
+    orchestrator: true

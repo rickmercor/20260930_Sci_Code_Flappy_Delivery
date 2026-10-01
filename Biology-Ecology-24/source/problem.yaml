@@ -1,0 +1,44 @@
+problem_id: "Biology-Ecology-24"
+subject: "biology"
+subject_area: "Ecology"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1111/1365-2656.70334"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_development_rate"
+    description: "Step 1: the temperature-dependent development rate of the embryo."
+    orchestrator: false
+  - number: 2
+    name: "02_embryo_growth"
+    description: "Step 2: the modelled embryo size over a held temperature record."
+    orchestrator: false
+  - number: 3
+    name: "03_pipping_time"
+    description: "Step 3: the time at which the modelled embryo reaches a size."
+    orchestrator: false
+  - number: 4
+    name: "04_window_limits"
+    description: "Step 4: the developmental window of a nest, given the end of incubation."
+    orchestrator: false
+  - number: 5
+    name: "05_sexualization_weight"
+    description: "Step 5: the weight of one window piece under the two sensitivity curves."
+    orchestrator: false
+  - number: 6
+    name: "06_constant_temperature_equivalent"
+    description: "Step 6: the equivalent temperature of the developmental window."
+    orchestrator: false
+  - number: 7
+    name: "07_male_fraction"
+    description: "Step 7: the male fraction at a temperature."
+    orchestrator: false
+  - number: 8
+    name: "08_expected_males"
+    description: "Step 8: the expected number of male hatchlings over a set of nests."
+    orchestrator: false
+  - number: 9
+    name: "09_emergence_effect"
+    description: "Step 9: orchestrator: the emergence effect on the expected male production."
+    orchestrator: true

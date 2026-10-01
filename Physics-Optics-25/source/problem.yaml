@@ -1,0 +1,48 @@
+problem_id: "Physics-Optics-25"
+subject: "physics"
+subject_area: "Optics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2604.22617"
+dependencies: ""
+steps:
+  - number: 1
+    name: "normalize_mueller_stack"
+    description: "Intensity normalization of a stack of complete Mueller matrices."
+    orchestrator: false
+  - number: 2
+    name: "principal_mueller_logarithms"
+    description: "Principal logarithmic Mueller generators."
+    orchestrator: false
+  - number: 3
+    name: "lorentz_decomposition"
+    description: "Physical differential decomposition of logarithmic Mueller generators."
+    orchestrator: false
+  - number: 4
+    name: "anisotropy_coordinates"
+    description: "Six simultaneous anisotropy coordinates from material generators."
+    orchestrator: false
+  - number: 5
+    name: "conventional_circular_reading"
+    description: "Conventional circular-birefringence reading under plus 45 degree illumination."
+    orchestrator: false
+  - number: 6
+    name: "material_model_reading"
+    description: "Conventional reading of homogeneous nondepolarizing material media."
+    orchestrator: false
+  - number: 7
+    name: "parity_defects"
+    description: "Even and odd parity defects of two real arrays."
+    orchestrator: false
+  - number: 8
+    name: "closed_vector_winding"
+    description: "Closed winding of a planar vector sampled around a ring."
+    orchestrator: false
+  - number: 9
+    name: "periodic_ring_rms"
+    description: "Root mean square of a real response around an irregularly sampled closed ring."
+    orchestrator: false
+  - number: 10
+    name: "enantiomer_geometric_ratio"
+    description: "Ratio of topology-induced false circular birefringence to enantiomeric circular birefringence."
+    orchestrator: true

@@ -1,0 +1,40 @@
+problem_id: "Mathematics-Numerical_Linear_Algebra-61"
+subject: "mathematics"
+subject_area: "Numerical Linear Algebra"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.48550/arXiv.2605.29304"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_construct_consistent_system"
+    description: "A two-cluster singular spectrum is the regime in which an unconstrained sketched gradient mixes a well-conditioned row block with an ill-conditioned complement. This step manufactures a reproducible overdetermined consistent instance so later constrained sketches see a known deterministic pair (A, b)."
+    orchestrator: false
+  - number: 2
+    name: "02_extract_row_blocks"
+    description: "Split a packed (A, b) into constraint rows A_p, b_p and complementary rows A_r, b_r for a 0-based index set I. Require 1 <= mp < m and distinct indices."
+    orchestrator: false
+  - number: 3
+    name: "03_constraint_initial_iterate"
+    description: "Return the minimum-norm solution $x_0 = A_p^+ b_p$ of the packed constraint block."
+    orchestrator: false
+  - number: 4
+    name: "04_draw_gaussian_sketches"
+    description: "Draw $n_{\\mathrm{steps}}$ independent Gaussian sketches of shape $(m_r, q)$ from default_rng(seed) and pack them in order. Require $m_r$, $q$, $n_{\\mathrm{steps}} \\ge 1$."
+    orchestrator: false
+  - number: 5
+    name: "05_projected_sketched_direction"
+    description: "Return the sketched search direction at the current iterate after it has been made tangent to the affine constraint. The sketch $S$ acts on the complementary residual. Require $S$ of shape $(m_r, q)$ with $q \\ge 1$."
+    orchestrator: false
+  - number: 6
+    name: "06_window_orthogonalize"
+    description: "Return a new search direction obtained by orthogonalizing d against a window of previous directions. An empty window of shape (n, 0) returns d. Previous columns must be nonzero."
+    orchestrator: false
+  - number: 7
+    name: "07_line_search_step"
+    description: "Advance $x$ by an exact line search along the nonzero direction $p$, using the complementary residual as seen through $S$. Require $S$ of shape $(m_r, q)$."
+    orchestrator: false
+  - number: 8
+    name: "08_run_constrained_sketch_entry"
+    description: "Run the constrained sketched iteration by calling the earlier sub-problem functions. Return coordinate coord of the iterate after n_steps. Require q, n_steps, ell >= 1 and 0 <= coord < n."
+    orchestrator: true

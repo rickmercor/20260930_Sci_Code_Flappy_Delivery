@@ -1,0 +1,52 @@
+problem_id: "Physics-Computational_Physics-13"
+subject: "physics"
+subject_area: "Computational Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.3390/math14132265"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_assemble_effective_stiffness"
+    description: "Assemble the effective stiffness matrix, the (1,1) block of the saddle-point system produced by the Newton-Raphson linearisation of the index-3 multibody equations of motion."
+    orchestrator: false
+  - number: 2
+    name: "02_assemble_constraint_jacobian"
+    description: "Assemble the constraint Jacobian, the off-diagonal block of the saddle-point system, whose block-sparse pattern mirrors the topology of the mechanism."
+    orchestrator: false
+  - number: 3
+    name: "03_build_strength_aggregates"
+    description: "Build the strength-of-connection graph of a level operator and partition its unknowns into aggregates by a deterministic greedy sweep."
+    orchestrator: false
+  - number: 4
+    name: "04_build_smoothed_prolongator"
+    description: "Turn an aggregation into a transfer operator by applying one damped Jacobi smoothing step to the piecewise-constant tentative prolongator."
+    orchestrator: false
+  - number: 5
+    name: "05_assemble_vcycle_operator"
+    description: "Assemble the dense matrix representing one multigrid V-cycle applied to the effective stiffness, which is the approximate inverse used inside the preconditioner."
+    orchestrator: false
+  - number: 6
+    name: "06_compute_spectral_equivalence"
+    description: "Measure the sharpest spectral-equivalence constant between the multigrid V-cycle operator and the effective stiffness it approximates."
+    orchestrator: false
+  - number: 7
+    name: "07_partition_constraint_graph"
+    description: "Recover the kinematic graph from the constraint Jacobian, cut its cycles, and group the constraints into small clusters for the block-diagonal Schur approximation."
+    orchestrator: false
+  - number: 8
+    name: "08_assemble_schur_preconditioner"
+    description: "Assemble the block-diagonal Schur complement approximation, add the dense low-rank correction on the cut constraints, and regularise it against constraint redundancy."
+    orchestrator: false
+  - number: 9
+    name: "09_compute_spectral_deviation"
+    description: "Form the block-triangular preconditioned saddle-point operator and measure how far its nonzero spectrum spreads away from unity."
+    orchestrator: false
+  - number: 10
+    name: "10_compute_bound_sharpness"
+    description: "Evaluate the theoretical eigenvalue bound implied by the spectral-equivalence constant and divide the observed spectral deviation by it."
+    orchestrator: false
+  - number: 11
+    name: "11_run_bound_sharpness_pipeline"
+    description: "Chain the sub-problem functions 01-10 end to end on the multibody testbed and return the bound sharpness of the hybrid preconditioner."
+    orchestrator: true

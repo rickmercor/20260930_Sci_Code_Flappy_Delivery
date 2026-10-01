@@ -1,0 +1,44 @@
+problem_id: "Physics-Optics-14"
+subject: "physics"
+subject_area: "Optics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1038/s41467-025-64554-0"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_rs_operator.py"
+    description: "Rayleigh\u2013Sommerfeld cell operator"
+    orchestrator: false
+  - number: 2
+    name: "02_image_metrics.py"
+    description: "Normalized image-quality differentials"
+    orchestrator: false
+  - number: 3
+    name: "03_aps_gradient.py"
+    description: "Scheduled phase-probability objective"
+    orchestrator: false
+  - number: 4
+    name: "04_optimize_mask.py"
+    description: "Independent-pixel APS trajectory"
+    orchestrator: false
+  - number: 5
+    name: "05_fabrication_moments.py"
+    description: "Fabricated geometric-phase moments"
+    orchestrator: false
+  - number: 6
+    name: "06_field_statistics.py"
+    description: "Local noncircular field statistics"
+    orchestrator: false
+  - number: 7
+    name: "07_intensity_quantiles.py"
+    description: "Gaussian-closure intensity quantiles"
+    orchestrator: false
+  - number: 8
+    name: "08_exposure_window.py"
+    description: "Longitudinal exposure certificate"
+    orchestrator: false
+  - number: 9
+    name: "09_certify_hologram.py"
+    description: "Select and certify the hologram"
+    orchestrator: true

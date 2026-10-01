@@ -1,0 +1,40 @@
+problem_id: "Mathematics-Computational_Finance-4"
+subject: "mathematics"
+subject_area: "Computational Finance"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1080/14697688.2026.2647986"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_simulate_gbm_paths"
+    description: "Simulate independent risk-neutral geometric Brownian motion paths for several assets on an equally spaced time grid. Given a common spot price, maturity, risk-free rate, dividend yield, volatility, number of time steps, number of paths, number of assets and a random seed, return the full price array including the initial prices."
+    orchestrator: false
+  - number: 2
+    name: "02_price_two_asset_max_call"
+    description: "Price a European call on the maximum of two assets exactly. Given the two current prices, the strike, the time to expiry, the risk-free rate, each asset's dividend yield and volatility and the correlation between the assets, return the arbitrage-free price of the payoff max(max(S1, S2) - K, 0) at expiry."
+    orchestrator: false
+  - number: 3
+    name: "03_build_max_call_payoffs_and_basis"
+    description: "Build the Bermudan max-call exercise payoffs and the 16-function regression basis on simulated multi-asset paths. Given the price paths of two or more assets, strike, maturity, risk-free rate, dividend yield and volatility, return the payoff of the call on the maximum of all assets at every date and the basis evaluated at every path and date."
+    orchestrator: false
+  - number: 4
+    name: "04_fit_backward_primal"
+    description: "Fit the backward least-squares continuation regressions on the training sample and return the fitted coefficients, the training exercise decisions and the backward value process. Given the exercise payoffs, the regression basis at every path and date, the maturity and the risk-free rate, work backward from maturity through the eligible exercise dates."
+    orchestrator: false
+  - number: 5
+    name: "05_apply_frozen_primal_policy"
+    description: "Apply the frozen training-sample stopping rule to an independent pricing sample and return each path's stopping index, its discounted cashflow and their mean, the primal lower-bound estimate. Given the pricing-sample payoffs and basis, the coefficients fitted on the training sample, the maturity and the risk-free rate, stop every path at its first eligible exercise date."
+    orchestrator: false
+  - number: 6
+    name: "06_build_backward_discounted_process"
+    description: "Construct the backward value process of the frozen stopping rule on the pricing sample, in undiscounted and in time-zero-discounted units. Given the pricing-sample payoffs and basis, the frozen training coefficients, the maturity and the risk-free rate, roll the realized value back from maturity to time zero."
+    orchestrator: false
+  - number: 7
+    name: "07_price_three_asset_max_call"
+    description: "Price a European call on the maximum of three assets exactly. Given the current prices of the three assets, the strike, the time to expiry, the risk-free rate, each asset's dividend yield and volatility and the correlation matrix of their Brownian motions, return the arbitrage-free price of the payoff max(max(S1, S2, S3) - K, 0) at expiry."
+    orchestrator: false
+  - number: 8
+    name: "08_compute_dual_upper_bound"
+    description: "Run the complete primal-dual pipeline for the Bermudan call on the maximum of several independent assets and return the dual upper-bound estimate. Given the common spot price, strike, maturity, rate, dividend yield, volatility, number of assets (two or three), number of exercise intervals, and the sizes and seeds of the training and pricing samples, compose the earlier steps into one evaluation and construct the dual martingale within this step."
+    orchestrator: true

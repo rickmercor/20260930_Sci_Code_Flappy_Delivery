@@ -1,0 +1,36 @@
+problem_id: "Biology-Ecology-19"
+subject: "biology"
+subject_area: "Ecology"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1073/pnas.2521927123"
+dependencies: "import math\nimport numpy\nimport scipy.special"
+steps:
+  - number: 1
+    name: "01_feeding_branching.py"
+    description: "From a binary feeding matrix, return consumer flags, prey flags, row-normalized diet shares, and column-normalized predator shares."
+    orchestrator: false
+  - number: 2
+    name: "02_row_timescales.py"
+    description: "From a feeding matrix, compute Levine trophic levels and return row timescales \u03b1_i=R^(-(t_i-1)/4)."
+    orchestrator: false
+  - number: 3
+    name: "03_community_matrix.py"
+    description: "Assemble the generalized-modeling community matrix from branching fractions, row timescales, and elasticities."
+    orchestrator: false
+  - number: 4
+    name: "04_reactivity.py"
+    description: "Return the reactivity of a square matrix. Refuse entries larger than 1e150 in absolute value."
+    orchestrator: false
+  - number: 5
+    name: "05_apparent_competition_motifs.py"
+    description: "List every apparent-competition triad of a feeding matrix as a row [p, a, b] with a < b, rows sorted by (p, a, b)."
+    orchestrator: false
+  - number: 6
+    name: "06_max_motif_reactivity.py"
+    description: "Given a square matrix and a nonempty motif index array, return the largest block reactivity among those rows. Indices in a row must be distinct."
+    orchestrator: false
+  - number: 7
+    name: "07_reactivity_mode_mass.py"
+    description: "Build the community matrix and return the mass of the leading reactivity mode on the apparent-competition motif with the largest reactivity."
+    orchestrator: true

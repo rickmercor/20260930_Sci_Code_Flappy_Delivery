@@ -1,0 +1,40 @@
+problem_id: "Physics-Condensed_Matter_Physics-47"
+subject: "physics"
+subject_area: "Condensed Matter Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.48550/arXiv.2602.18099"
+dependencies: ""
+steps:
+  - number: 1
+    name: "build_ness_symbols"
+    description: "Construct the three real Fourier-symbol channels and their analytic bias derivatives on the specified midpoint grid."
+    orchestrator: false
+  - number: 2
+    name: "fourier_covariance"
+    description: "Fourier-transform both symbol slices and restrict the resulting covariance jet to the ordered site set."
+    orchestrator: false
+  - number: 3
+    name: "partial_transpose_jet"
+    description: "Apply momentum sign reversal on the selected local sites to both covariance slices."
+    orchestrator: false
+  - number: 4
+    name: "symplectic_absolute_jet"
+    description: "Construct the covariance square root, the positive absolute matrix of its symplectic congruence, and both directional derivatives."
+    orchestrator: false
+  - number: 5
+    name: "balance_contour_jet"
+    description: "Remove the Williamson polar metric and propagate its variation to obtain the symmetric matrix defining the spatial contour."
+    orchestrator: false
+  - number: 6
+    name: "active_log_jet"
+    description: "Evaluate the active logarithm and its right directional derivative, treating a degenerate threshold subspace jointly."
+    orchestrator: false
+  - number: 7
+    name: "negativity_width_response"
+    description: "Form the site contour and differentiate its normalized second spatial moment about a fixed center."
+    orchestrator: false
+  - number: 8
+    name: "compute_ness_negativity_response"
+    description: "Call build_ness_symbols, fourier_covariance, partial_transpose_jet, symplectic_absolute_jet, balance_contour_jet, active_log_jet, and negativity_width_response in that order; supply both transposed covariance and absolute jets to balance_contour_jet."
+    orchestrator: true

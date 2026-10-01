@@ -1,0 +1,48 @@
+problem_id: "Physics-Astrophysics-22"
+subject: "physics"
+subject_area: "Astrophysics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.48550/arXiv.2512.16372"
+dependencies: ""
+steps:
+  - number: 1
+    name: "step_01_compactified_coefficients"
+    description: "Given a set of points on the compactified radial coordinate together with the spacetime dimension, the multipole number and the spin label, return the compactification weight, its first derivative and the reduced potential at those points, in units where the horizon radius is one, along with the values of the reduced potential at the two ends of the interval."
+    orchestrator: false
+  - number: 2
+    name: "step_02_chebyshev_lobatto_operators"
+    description: "Given a resolution N, return the N + 1 Chebyshev-Lobatto nodes mapped onto the unit interval in increasing order, starting at zero and ending at one, together with the matrix that differentiates nodal values with respect to that coordinate, and the largest absolute row sum of that matrix applied to a constant, which certifies the row-sum construction."
+    orchestrator: false
+  - number: 3
+    name: "step_03_transmission_pencil"
+    description: "Given a resolution, a spacetime dimension, a multipole number and a spin label, assemble the two matrices of the total transmission mode pencil on the Chebyshev-Lobatto grid, using the compactification weight, its derivative and the reduced potential of step 1 together with the grid operators of step 2, in units where the horizon radius is one. The second-order term is expanded by the product rule rather than left in divergence form, so that the operator acts on the interpolating polynomial directly. Return both matrices together with the grid, the differentiation matrix and the smallest singular value of the second matrix, which records that it is singular."
+    orchestrator: false
+  - number: 4
+    name: "step_04_imaginary_axis_scan"
+    description: "Given the two matrices of the pencil and an interval on the positive imaginary frequency axis, sample the interval uniformly and return the smallest singular value of the shifted pencil at each sample, the imaginary parts at which interior local minima occur in increasing order, and the imaginary part of the deepest such minimum. The pencil is shifted by the eigenvalue equal to the imaginary unit times the frequency. When no interior local minimum exists the list is empty and the reported location is not a number."
+    orchestrator: false
+  - number: 5
+    name: "step_05_regular_mode"
+    description: "Given the two matrices of the pencil and a starting guess for the frequency, run two-sided shifted inverse iteration until the correction falls below the requested tolerance or the iteration budget is exhausted, and return the frequency, the right and left eigenvectors in the normalisation described above, the size of the last correction and the number of iterations taken. The pencil is written with the eigenvalue equal to the product of the imaginary unit and the frequency, so the frequency is minus the imaginary unit times the eigenvalue. The iteration starts from the deterministic vector whose entries are the reciprocals of one plus the node index, on both sides."
+    orchestrator: false
+  - number: 6
+    name: "step_06_mode_certification"
+    description: "Given a background and a starting guess for the frequency, assemble the pencil of step 3 at two resolutions and solve it at both with the iteration of step 5, then return the refined frequency, the distance between the two frequencies, the relative weight carried by the top quarter of the Chebyshev spectrum of the coarse eigenvector, and the residual of the coarse shifted pencil on that eigenvector. The certification passes when the frequency drift and the spectral tail are both below the requested tolerance. The Chebyshev coefficients are those of the Gauss-Lobatto transform of the nodal values, in which the first and last samples carry half weight."
+    orchestrator: false
+  - number: 7
+    name: "step_07_energy_gram_matrix"
+    description: "Given a resolution, a spacetime dimension, a multipole number, a spin label and a number of Gauss-Legendre quadrature points, return the Gram matrix of the energy inner product and the Gram matrix of the Lebesgue inner product on the space of nodal values of the Chebyshev-Lobatto grid of step 2, both obtained by exact integration of the Lagrange cardinal polynomials, together with the smallest eigenvalue of the energy Gram matrix. The Lebesgue inner product is one half of the integral of the product of the conjugated fields. The quadrature must be exact for the integrands, which requires at least resolution plus (d + 1) // 2 points."
+    orchestrator: false
+  - number: 8
+    name: "step_08_condition_number_in_norm"
+    description: "Given a Gram matrix defining an inner product, the first-order member of the pencil and the right and left eigenvectors of step 4, return the eigenvector adjoint with respect to that inner product, the two norms, the modulus of the pairing and the resulting condition number."
+    orchestrator: false
+  - number: 9
+    name: "step_09_reported_values"
+    description: "Given the six quantities the problem asks to be reported, return each rounded to the precision the problem requests: the energy-norm condition number of the primary background to six decimal places, its Lebesgue-norm condition number to four significant figures, the imaginary part of its frequency to eight significant figures, and for the comparison background the two condition numbers to four significant figures and the imaginary part of the frequency to eight significant figures."
+    orchestrator: false
+  - number: 10
+    name: "step_10_transmission_mode_conditioning_report"
+    description: "Run the chain end to end for the requested background and resolution, and return the frequency of the mode on the positive imaginary axis, its condition number in the energy norm and in the Lebesgue norm, the frequency and both condition numbers of the corresponding mode at a second spacetime dimension, the energy-norm value recomputed at a raised resolution together with the drift between the two, the smallest eigenvalue of the energy Gram matrix, the location returned by the sweep, the certification flag, and the six reported quantities rounded through step 9."
+    orchestrator: true

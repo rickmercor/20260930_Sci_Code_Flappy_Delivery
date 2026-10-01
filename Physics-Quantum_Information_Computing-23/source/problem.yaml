@@ -1,0 +1,36 @@
+problem_id: "Physics-Quantum_Information_Computing-23"
+subject: "physics"
+subject_area: "Quantum Information / Computing"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.48550/arXiv.2608.18548"
+dependencies: ""
+steps:
+  - number: 1
+    name: "two_qubit_pauli"
+    description: "Returns the 4\u00d74 matrix of a two-qubit Pauli given its lexicographic code in {I, X, Y, Z}\u2297{I, X, Y, Z}."
+    orchestrator: false
+  - number: 2
+    name: "fsim_unitary"
+    description: "Builds the two-qubit fractional gate fSim(\u03b8, \u03c6) = CP(\u2212\u03c6) R_XX(\u03b8) R_YY(\u03b8) with the standard half-angle generators."
+    orchestrator: false
+  - number: 3
+    name: "pauli_transfer_matrix"
+    description: "Forms the 16\u00d716 real Pauli-transfer matrix of a two-qubit unitary."
+    orchestrator: false
+  - number: 4
+    name: "retained_pair_table"
+    description: "Extracts the truncated non-identity Pauli-transfer support as a numeric table of (\u03b1, \u03b2, \u03c7) rows."
+    orchestrator: false
+  - number: 5
+    name: "pair_jointly_accessible"
+    description: "Returns 1 if two retained Pauli pairs can be estimated in one preparation\u2013measurement setting."
+    orchestrator: false
+  - number: 6
+    name: "partition_shot_overhead"
+    description: "Returns the target-dependent finite-shot overhead of the compatible partition of a retained-support table."
+    orchestrator: false
+  - number: 7
+    name: "total_effective_support"
+    description: "Evaluates the grouped-protocol overhead on fSim(\u03b8, \u03c6) after truncation."
+    orchestrator: true

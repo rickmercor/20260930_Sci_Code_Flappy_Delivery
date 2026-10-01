@@ -1,0 +1,36 @@
+problem_id: "Physics-Optics-1"
+subject: "physics"
+subject_area: "Optics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2609.24327"
+dependencies: ""
+steps:
+  - number: 1
+    name: "analytic_strip_halfwidth"
+    description: "Compute the half-width $h_\\star$ of the nonsingular analytic strip of the complex-continued quasiperiodic permittivity sequence of the time-switched dielectric, i.e. the largest imaginary phase displacement $|h|$ for which the continued single-harmonic permittivity stays nonzero for every real modulation phase."
+    orchestrator: false
+  - number: 2
+    name: "layer_transfer_matrix"
+    description: "Compute the $2\\times 2$ propagator of one temporal layer of constant (possibly complex) relative permittivity $\\varepsilon_m$ and dimensionless duration $\\omega_0\\tau$, acting on the paper's main-text two-component propagation state built from the displacement field and its scaled time derivative."
+    orchestrator: false
+  - number: 3
+    name: "approximant_cell_trace"
+    description: "Compute the trace $F_q(\\varphi,h)$ of the $q$-layer periodic-cell propagator of the paper's auxiliary rational approximant $p/q$ of the golden-mean rotation, for the complex-continued single-harmonic permittivity, at real initial phase $\\varphi$ (in cycles) and continuation coordinate $h$."
+    orchestrator: false
+  - number: 4
+    name: "trace_fourier_coefficients"
+    description: "Compute the complex Fourier amplitudes $C_n^{(q)}(h_0)$, $n=0,1,\\dots,n_{\\max}$, of the approximant cell trace at reference continuation height $h_0$, sampling the trace at $K$ equally spaced real phases over one of its periods."
+    orchestrator: false
+  - number: 5
+    name: "coefficient_intercepts"
+    description: "Convert the Fourier amplitudes of the approximant cell trace, obtained at reference height $h_0$, into the paper's real intercepts $b_n^{(q)}$ of the logarithmic coefficient magnitudes."
+    orchestrator: false
+  - number: 6
+    name: "integrated_dominant_order"
+    description: "Given the intercepts $b_n^{(q)}$ of one band, integrate the predicted integer bulk response $n(h)$ over the continuation interval $[h_a,h_b]$, where $n(h)$ is the Fourier order that dominates the limiting envelope of the logarithmic coefficient lines at height $h$."
+    orchestrator: false
+  - number: 7
+    name: "run_ptqc_spectral_contrast"
+    description: "Chain the earlier steps into the full prediction: check the continuation interval and the reference height against the nonsingular strip, build the approximant trace Fourier amplitudes and their intercepts for each of the two input bands, integrate each band's predicted integer response over $[h_a,h_b]$, and convert the integrated integer difference (band 2 minus band 1) into the change of the two-band output power ratio, in decibels, after $N$ layers. The reference implementation calls the earlier public functions by name rather than reproducing them."
+    orchestrator: true

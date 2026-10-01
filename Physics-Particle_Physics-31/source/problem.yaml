@@ -1,0 +1,48 @@
+problem_id: "Physics-Particle_Physics-31"
+subject: "physics"
+subject_area: "Particle Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1103/9gtg-yjmv"
+dependencies: ""
+steps:
+  - number: 1
+    name: "compute_log_derivative_coefficients"
+    description: "Compute the logarithmic-derivative EFT coefficients used by the finite-spectrum inverse-EFT construction."
+    orchestrator: false
+  - number: 2
+    name: "choose_source_configuration"
+    description: "Choose the source parameter and largest supported leading-principal rank probe."
+    orchestrator: false
+  - number: 3
+    name: "build_hankel_probe"
+    description: "Build a leading principal Hankel matrix from the transformed EFT sequence."
+    orchestrator: false
+  - number: 4
+    name: "infer_finite_spectrum_size"
+    description: "Infer the finite pole-plus-zero count from the numerical rank of a Hankel probe."
+    orchestrator: false
+  - number: 5
+    name: "build_shifted_hankel_pencil"
+    description: "Build the consecutive Hankel pair used in the source generalized spectral problem."
+    orchestrator: false
+  - number: 6
+    name: "recover_spectral_locations"
+    description: "Recover generalized spectral parameters and physical pole/zero locations."
+    orchestrator: false
+  - number: 7
+    name: "recover_missing_eft_coefficient"
+    description: "Recover one intentionally omitted EFT coefficient from finite-spectrum consistency."
+    orchestrator: false
+  - number: 8
+    name: "classify_spectral_locations"
+    description: "Classify recovered locations as poles or zeros with the odd-r Vandermonde sign rule."
+    orchestrator: false
+  - number: 9
+    name: "reconstruct_rational_amplitude"
+    description: "Reconstruct the normalized rational amplitude and verify its EFT re-expansion."
+    orchestrator: false
+  - number: 10
+    name: "evaluate_inverse_eft_reconstruction"
+    description: "Run the complete inverse-EFT reconstruction, including recovery of one omitted coefficient."
+    orchestrator: true

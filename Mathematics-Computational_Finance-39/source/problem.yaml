@@ -1,0 +1,40 @@
+problem_id: "Mathematics-Computational_Finance-39"
+subject: "mathematics"
+subject_area: "Computational Finance"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2609.07169"
+dependencies: ""
+steps:
+  - number: 1
+    name: "vha_monitoring_mass"
+    description: "Builds the measure-valued monitoring input of the transform on the fixed grid for an equal-weight discrete monitoring measure that includes the spot fixing."
+    orchestrator: false
+  - number: 2
+    name: "vha_forward_variance"
+    description: "Solves the linear Volterra equation for the forward variance curve of the model on the fixed grid."
+    orchestrator: false
+  - number: 3
+    name: "vha_riccati_volterra"
+    description: "Solves the Riccati-Volterra equation of the model for a piecewise-constant, measure-valued first component and a vector of complex transform arguments."
+    orchestrator: false
+  - number: 4
+    name: "vha_transform"
+    description: "Evaluates the joint transform of the geometric average and the terminal price at time zero from the Riccati-Volterra solution and the forward variance curve."
+    orchestrator: false
+  - number: 5
+    name: "vha_contour"
+    description: "Builds the composite Gauss-Legendre nodes and weights on the vertical contour used by the payoff representation."
+    orchestrator: false
+  - number: 6
+    name: "vha_price"
+    description: "Assembles the fixed-strike geometric Asian call price from the transform values on the contour through the source's representation of the payoff."
+    orchestrator: false
+  - number: 7
+    name: "vha_hedge"
+    description: "Assembles the variance-optimal initial stock holding for the geometric Asian call from the transform values and the Riccati-Volterra solutions on the contour, together with the held-fixing delta."
+    orchestrator: false
+  - number: 8
+    name: "vha_audit"
+    description: "Runs the whole chain from the monitoring measure to the variance-optimal holding and reports every intermediate the construction depends on."
+    orchestrator: true

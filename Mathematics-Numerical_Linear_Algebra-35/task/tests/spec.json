@@ -1,0 +1,69 @@
+{
+  "problem_id": "Mathematics-Numerical_Linear_Algebra-35",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-35.1",
+      "test_cases": [
+        "obs = {(0,0,0): 10.0, (0,0,1): 20.0, (1,0,0): 15.0, (0,1,0): 14.0}\naxis = 0\nassert np.allclose(build_axis_constraint_matrix(obs.copy(), axis), target)",
+        "obs = {(0,0,0): 5.0, (1,1,1): 7.0}\naxis = 0\nassert np.allclose(build_axis_constraint_matrix(obs.copy(), axis), target)",
+        "obs = {(0,0,1):0.4864,(0,0,2):0.5472,(0,1,1):0.7296,(0,2,2):0.9576,\n       (1,0,1):0.3584,(1,1,1):0.5376,(2,0,2):0.7416,(2,1,0):1.3596,\n       (2,1,1):0.9888,(2,1,2):1.1124,(2,2,1):1.1536,(2,3,1):0.9064,\n       (3,0,0):0.8976,(3,1,1):0.9792,(3,2,2):1.2852,(4,1,1):0.6816,\n       (5,0,1):0.5120}\naxis = 2\nassert np.allclose(build_axis_constraint_matrix(obs.copy(), axis), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-35.2",
+      "test_cases": [
+        "obs = {(0,0,1):0.4864,(0,0,2):0.5472,(0,1,1):0.7296,(0,2,2):0.9576,\n       (1,0,1):0.3584,(1,1,1):0.5376,(2,0,2):0.7416,(2,1,0):1.3596,\n       (2,1,1):0.9888,(2,1,2):1.1124,(2,2,1):1.1536,(2,3,1):0.9064,\n       (3,0,0):0.8976,(3,1,1):0.9792,(3,2,2):1.2852,(4,1,1):0.6816,\n       (5,0,1):0.5120}\nassert np.allclose(select_recursion_axis(obs.copy()), target)",
+        "obs = {(0,0): 6.0, (0,1): 15.0, (0,2): 21.0, (1,0): 8.0, (1,2): 28.0}\nassert np.allclose(select_recursion_axis(obs.copy()), target)",
+        "obs = {(0,0,0): 10.0, (0,0,1): 20.0, (1,0,0): 15.0, (0,1,0): 14.0, (1,1,1): 42.0,\n       (1,0,1): 30.0, (0,1,1): 28.0}\nassert np.allclose(select_recursion_axis(obs.copy()), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-35.3",
+      "test_cases": [
+        "obs = {(0,0,0): 10.0, (0,0,1): 20.0, (1,0,0): 15.0, (0,1,0): 14.0, (1,1,1): 42.0}\naxis = 0\nassert np.allclose(extract_complementary_pattern(obs.copy(), axis), target)",
+        "obs = {(0,0): 6.0, (0,1): 15.0, (0,2): 21.0, (1,0): 8.0, (1,2): 28.0}\naxis = 1\nassert np.allclose(extract_complementary_pattern(obs.copy(), axis), target)",
+        "obs = {(0,0,1):0.4864,(0,0,2):0.5472,(0,1,1):0.7296,(0,2,2):0.9576,\n       (1,0,1):0.3584,(1,1,1):0.5376,(2,0,2):0.7416,(2,1,0):1.3596,\n       (2,1,1):0.9888,(2,1,2):1.1124,(2,2,1):1.1536,(2,3,1):0.9064,\n       (3,0,0):0.8976,(3,1,1):0.9792,(3,2,2):1.2852,(4,1,1):0.6816,\n       (5,0,1):0.5120}\naxis = 2\nassert np.allclose(extract_complementary_pattern(obs.copy(), axis), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-35.4",
+      "test_cases": [
+        "import numpy as np\nobs = {(0,0,0): 10.0, (0,0,1): 20.0, (1,0,0): 15.0, (0,1,0): 14.0, (1,1,1): 42.0}\naxis = 0\nother_factors = [np.array([1.0, 1.4]), np.array([1.0, 2.0])]\nsize = 2\nassert np.allclose(fit_resolved_factor(obs.copy(), axis, [f.copy() for f in other_factors], size), target)",
+        "import numpy as np\nobs = {(0,0): 6.0, (0,1): 15.0, (0,2): 21.0}\naxis = 0\nother_factors = [np.array([2.0, 5.0, 7.0])]\nsize = 1\nassert np.allclose(fit_resolved_factor(obs.copy(), axis, [f.copy() for f in other_factors], size), target)",
+        "import numpy as np\nobs = {(0,0,1):0.4864,(0,0,2):0.5472,(0,1,1):0.7296,(0,2,2):0.9576,\n       (1,0,1):0.3584,(1,1,1):0.5376,(2,0,2):0.7416,(2,1,0):1.3596,\n       (2,1,1):0.9888,(2,1,2):1.1124,(2,2,1):1.1536,(2,3,1):0.9064,\n       (3,0,0):0.8976,(3,1,1):0.9792,(3,2,2):1.2852,(4,1,1):0.6816,\n       (5,0,1):0.5120}\naxis = 0\nother_factors = [np.array([1.0, 1.5, 1.75, 1.375]), np.array([1.0, 8.0/11.0, 9.0/11.0])]\nsize = 6\nassert np.allclose(fit_resolved_factor(obs.copy(), axis, [f.copy() for f in other_factors], size), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-35.5",
+      "test_cases": [
+        "obs = {(0,0,0): 10.0, (0,0,1): 20.0, (1,0,0): 15.0, (0,1,0): 14.0, (1,1,1): 42.0}\ndims = (2, 2, 2)\nassert np.allclose(complete_separable_landscape(obs.copy(), dims), target)",
+        "obs = {(0,0): 6.0, (0,1): 15.0, (0,2): 21.0, (1,0): 8.0, (1,2): 28.0}\ndims = (2, 3)\nassert np.allclose(complete_separable_landscape(obs.copy(), dims), target)",
+        "obs = {(0,0,1):0.4864,(0,0,2):0.5472,(0,1,1):0.7296,(0,2,2):0.9576,\n       (1,0,1):0.3584,(1,1,1):0.5376,(2,0,2):0.7416,(2,1,0):1.3596,\n       (2,1,1):0.9888,(2,1,2):1.1124,(2,2,1):1.1536,(2,3,1):0.9064,\n       (3,0,0):0.8976,(3,1,1):0.9792,(3,2,2):1.2852,(4,1,1):0.6816,\n       (5,0,1):0.5120}\ndims = (6, 4, 3)\nassert np.allclose(complete_separable_landscape(obs.copy(), dims), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-35.6",
+      "test_cases": [
+        "import numpy as np\nlandscape = np.einsum('i,j,k->ijk', [0.5, 0.8, 0.3], [0.4, 0.6], [1.0, 1.2])\nhealth_obs = {(0,0): 0.35, (1,1): 0.62, (2,0): 0.15}\nhealth_dims = (3, 2)\nlam_landscape = lam_health = lam_coupling = 0.1\ndelta = 0.05\nn_iters = 3000\nassert np.allclose(recover_coupled_matrices(landscape.copy(), health_obs.copy(), health_dims, lam_landscape, lam_health, lam_coupling, delta, n_iters), target)",
+        "import numpy as np\nlandscape = np.ones((3, 2, 2))\nhealth_obs = {(0,0): 0.3, (1,1): 0.7}\nhealth_dims = (3, 2)\nlam_landscape = lam_health = lam_coupling = 0.1\ndelta = 0.05\nn_iters = 0\nassert np.allclose(recover_coupled_matrices(landscape.copy(), health_obs.copy(), health_dims, lam_landscape, lam_health, lam_coupling, delta, n_iters), target)",
+        "import numpy as np\nu = np.array([0.6688, 0.4928, 0.9064, 0.8976, 0.6248, 0.7040])\nv = np.array([1.0, 1.5, 1.75, 1.375])\nw = np.array([1.0, 8.0/11.0, 9.0/11.0])\nlandscape = np.einsum('i,j,k->ijk', u, v, w)\nhealth_obs = {(0,2):0.5971,(0,3):0.6371,(1,1):0.6107,(1,3):0.6874,(2,2):0.5769,\n              (2,3):0.6285,(3,0):0.6851,(3,2):0.7550,(4,1):0.6332,(4,3):0.7840,\n              (5,2):0.5173,(5,3):0.5639}\nhealth_dims = (6, 4)\nlam_landscape = lam_health = lam_coupling = 0.20\ndelta = 0.10\nn_iters = 5000\nassert np.allclose(recover_coupled_matrices(landscape.copy(), health_obs.copy(), health_dims, lam_landscape, lam_health, lam_coupling, delta, n_iters), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-35.7",
+      "test_cases": [
+        "import numpy as np\nhealth_matrix = np.array([[0.55, 0.40], [0.70, 0.65]])\ndecay_rates = [0.05, 0.03]\nthreshold = 0.60\ntrain_rate = 0.10\nn_shifts = 4\nmandate_start = 2\nworker_budget = 2.0\nskill_budget = 1.5\nassert np.allclose(solve_training_schedule(health_matrix.copy(), decay_rates.copy(), threshold, train_rate, n_shifts, mandate_start, worker_budget, skill_budget), target)",
+        "import numpy as np\nhealth_matrix = np.array([[0.95]])\ndecay_rates = [0.02]\nthreshold = 0.60\ntrain_rate = 0.05\nn_shifts = 3\nmandate_start = 1\nworker_budget = 3.0\nskill_budget = 3.0\nassert np.allclose(solve_training_schedule(health_matrix.copy(), decay_rates.copy(), threshold, train_rate, n_shifts, mandate_start, worker_budget, skill_budget), target)",
+        "import numpy as np\nhealth_matrix = np.array([[0.494168,0.661784,0.530122,0.634609],\n               [0.403877,0.543089,0.435170,0.535810],\n               [0.604703,0.808310,0.647410,0.764968],\n               [0.658899,0.882348,0.706803,0.845833],\n               [0.477356,0.641974,0.514410,0.633898],\n               [0.489775,0.655254,0.524854,0.623974]])\ndecay_rates = [0.012, 0.030, 0.020, 0.008]\nthreshold = 0.60\ntrain_rate = 0.05\nn_shifts = 24\nmandate_start = 8\nworker_budget = 3.0\nskill_budget = 3.5\nassert np.allclose(solve_training_schedule(health_matrix.copy(), decay_rates.copy(), threshold, train_rate, n_shifts, mandate_start, worker_budget, skill_budget), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-35.8",
+      "test_cases": [
+        "landscape_obs = {(0,0,0):0.3,(0,0,1):0.33,(1,0,0):0.48,(0,1,0):0.45,(1,1,1):0.792}\nlandscape_dims = (2, 2, 2)\nhealth_obs = {(0,0): 0.45, (1,1): 0.70}\nhealth_dims = (2, 2)\nlam_landscape = lam_health = lam_coupling = 0.15\ndelta = 0.08\nn_iters_palm = 3000\ndecay_rates = [0.02, 0.03]\nthreshold = 0.60\ntrain_rate = 0.10\nn_shifts = 10\nmandate_start = 4\nworker_budget = 3.0\nskill_budget = 3.0\nassert np.allclose(compute_minimum_training_hours(landscape_obs.copy(), landscape_dims, health_obs.copy(), health_dims, lam_landscape, lam_health, lam_coupling, delta, n_iters_palm, decay_rates.copy(), threshold, train_rate, n_shifts, mandate_start, worker_budget, skill_budget), target)",
+        "landscape_obs = {(0,0,0):0.3,(0,0,1):0.33,(1,0,0):0.48,(0,1,0):0.45,(1,1,1):0.792}\nlandscape_dims = (2, 2, 2)\nhealth_obs = {(0,0): 0.75, (0,1): 0.80, (1,0): 0.78, (1,1): 0.82}\nhealth_dims = (2, 2)\nlam_landscape = lam_health = lam_coupling = 0.15\ndelta = 0.08\nn_iters_palm = 3000\ndecay_rates = [0.02, 0.03]\nthreshold = 0.60\ntrain_rate = 0.10\nn_shifts = 10\nmandate_start = 4\nworker_budget = 3.0\nskill_budget = 3.0\nassert np.allclose(compute_minimum_training_hours(landscape_obs.copy(), landscape_dims, health_obs.copy(), health_dims, lam_landscape, lam_health, lam_coupling, delta, n_iters_palm, decay_rates.copy(), threshold, train_rate, n_shifts, mandate_start, worker_budget, skill_budget), target)",
+        "landscape_obs = {(0,0,1):0.4864,(0,0,2):0.5472,(0,1,1):0.7296,(0,2,2):0.9576,\n                  (1,0,1):0.3584,(1,1,1):0.5376,(2,0,2):0.7416,(2,1,0):1.3596,\n                  (2,1,1):0.9888,(2,1,2):1.1124,(2,2,1):1.1536,(2,3,1):0.9064,\n                  (3,0,0):0.8976,(3,1,1):0.9792,(3,2,2):1.2852,(4,1,1):0.6816,\n                  (5,0,1):0.5120}\nlandscape_dims = (6, 4, 3)\nhealth_obs = {(0,2):0.5971,(0,3):0.6371,(1,1):0.6107,(1,3):0.6874,(2,2):0.5769,\n              (2,3):0.6285,(3,0):0.6851,(3,2):0.7550,(4,1):0.6332,(4,3):0.7840,\n              (5,2):0.5173,(5,3):0.5639}\nhealth_dims = (6, 4)\nlam_landscape = lam_health = lam_coupling = 0.20\ndelta = 0.10\nn_iters_palm = 5000\ndecay_rates = [0.012, 0.030, 0.020, 0.008]\nthreshold = 0.60\ntrain_rate = 0.05\nn_shifts = 24\nmandate_start = 8\nworker_budget = 3.0\nskill_budget = 3.5\nassert np.allclose(compute_minimum_training_hours(landscape_obs.copy(), landscape_dims, health_obs.copy(), health_dims, lam_landscape, lam_health, lam_coupling, delta, n_iters_palm, decay_rates.copy(), threshold, train_rate, n_shifts, mandate_start, worker_budget, skill_budget), target)"
+      ]
+    }
+  ]
+}

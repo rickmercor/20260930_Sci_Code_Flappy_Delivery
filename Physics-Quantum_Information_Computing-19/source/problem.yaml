@@ -1,0 +1,44 @@
+problem_id: "Physics-Quantum_Information_Computing-19"
+subject: "physics"
+subject_area: "Quantum Information / Computing"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1103/m9sj-srsc"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_photon_number_bounds"
+    description: "Bound the emitted photon-number probabilities of a phase-randomised weak coherent pulse whose actual mean photon number is known only to lie within a bounded relative deviation of its nominal setting."
+    orchestrator: true
+  - number: 2
+    name: "02_cs_overlap_parameters"
+    description: "Compute, for one ordered pair of nominal intensity settings, the photon-number-resolved overlap parameter that quantifies how indistinguishable the two settings remain to an adversary once the finite-memory intensity drift of the source is taken into account."
+    orchestrator: true
+  - number: 3
+    name: "03_cs_boundary_values"
+    description: "Evaluate the closed interval into which the detection parameter belonging to one nominal intensity setting is confined, given the value of the same parameter for the paired setting and the pair's photon-number-resolved overlap parameter."
+    orchestrator: true
+  - number: 4
+    name: "04_cs_tangent_coefficients"
+    description: "Build the affine coefficients that replace each nonlinear confinement interval by a pair of half-spaces touching it at a chosen reference value, so that the confinement can be carried into a linear program."
+    orchestrator: true
+  - number: 5
+    name: "05_channel_observables"
+    description: "Compute, for every nominal intensity setting, the sifted detection rate and the sifted error rate that the channel and detection model predicts for phase-randomised weak coherent pulses."
+    orchestrator: true
+  - number: 6
+    name: "06_fock_reference_points"
+    description: "Compute, for every photon number up to the cut-off, the conditional detection probability and the conditional error probability that the channel and detection model assigns to a signal carrying exactly that many photons."
+    orchestrator: true
+  - number: 7
+    name: "07_outer_linearised_program"
+    description: "Solve one linear program that bounds the single-photon detection or error parameter of the signal setting, using the sifted rates together with the affine relaxation of the confinement constraints taken at a supplied collection of reference points."
+    orchestrator: true
+  - number: 8
+    name: "08_certified_parameter_bounds"
+    description: "Resolve the exact Cauchy-Schwarz-constrained parameter-estimation problems, then return conservative bounds from one final LP per problem, anchored only at its numerically feasible solution."
+    orchestrator: true
+  - number: 9
+    name: "09_certified_key_rate"
+    description: "Compute the certified asymptotic secret-key rate per emitted signal of a decoy-state protocol whose transmitter prepares its nominal intensities only to within a bounded relative deviation, with the deviations correlated across a finite span of rounds."
+    orchestrator: true

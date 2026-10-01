@@ -1,0 +1,90 @@
+{
+  "problem_id": "Physics-Condensed_Matter_Physics-4",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-4.1",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(moire_reciprocal_lattice(3.0, 0.327), target)",
+        "import numpy as np\nassert np.allclose(moire_reciprocal_lattice(0.5, 0.325), target)",
+        "import numpy as np\nassert np.allclose(moire_reciprocal_lattice(21.8, 0.3288), target)",
+        "import numpy as np\ndef run(fn):\n    try:\n        fn(0.0, 0.327)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run(moire_reciprocal_lattice), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-4.2",
+      "test_cases": [
+        "import numpy as np\ngc = np.array([-4.389, -6.178]); gv = np.array([-1.467, -5.856])\nassert np.allclose(interlayer_moire_coupling(gc, gv, 0.64, 0.51, 173.0, 1.1616), target)",
+        "import numpy as np\ngc = np.array([-4.389, -6.178]); gv = np.array([-1.467, -5.856])\nassert np.allclose(interlayer_moire_coupling(gc, gv, 1.2, 0.3, 90.0, 3.5), target)",
+        "import numpy as np\ngc = np.array([0.0, 0.0]); gv = np.array([2.0, 4.0])\nassert np.allclose(interlayer_moire_coupling(gc, gv, 0.5, 0.5, 200.0, 0.8), target)",
+        "import numpy as np\ngc = np.array([3.0, -1.0]); gv = np.array([-2.0, 5.0])\nassert np.allclose(interlayer_moire_coupling(gc, gv, 0.64, 0.51, 173.0, 0.0), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-4.3",
+      "test_cases": [
+        "import numpy as np\n\nb = np.array([[1.0059742, -0.5808106], [0.0, 1.1616212]])\n\ndef flat(r):\n\n    q, e, c, v2, basis = r\n\n    shapes = np.array([z for x in r for z in (x.ndim, *x.shape)], dtype=float)\n\n    th_complex = complex(th[0], th[1])\n\n    delta = basis[:, None, :] - basis[None, :, :]\n\n    potential = np.zeros((len(basis), len(basis)), dtype=complex)\n\n    for shift in ((1, 0), (0, 1), (-1, -1)):\n\n        potential[np.all(delta == shift, axis=-1)] = th_complex\n\n        potential[np.all(delta == -np.asarray(shift), axis=-1)] = th_complex.conjugate()\n\n    momentum = q[:, None, :] + (basis @ b)[None, :, :]\n\n    kinetic = 38.09982 / mass * np.sum(momentum ** 2, axis=-1)\n\n    h = potential[None, :, :] + kinetic[:, :, None] * np.eye(len(basis))[None, :, :]\n\n    residual = h @ c - c * e[:, None, :]\n\n    orthogonality = c.conj().transpose(0, 2, 1) @ c - np.eye(e.shape[1])[None, :, :]\n\n    return np.concatenate([shapes, q.ravel(), e.ravel(), v2.ravel(), basis.ravel(),\n\n                           residual.real.ravel(), residual.imag.ravel(),\n\n                           orthogonality.real.ravel(), orthogonality.imag.ravel()])\n\nth = np.array([-2.5055, -9.4741]); mass = 1.15\nassert np.allclose(flat(moire_exciton_bands(b, th, 0.64, 0.51, 2, 3, 4)), target)",
+        "import numpy as np\n\nb = np.array([[1.0059742, -0.5808106], [0.0, 1.1616212]])\n\ndef flat(r):\n\n    q, e, c, v2, basis = r\n\n    shapes = np.array([z for x in r for z in (x.ndim, *x.shape)], dtype=float)\n\n    th_complex = complex(th[0], th[1])\n\n    delta = basis[:, None, :] - basis[None, :, :]\n\n    potential = np.zeros((len(basis), len(basis)), dtype=complex)\n\n    for shift in ((1, 0), (0, 1), (-1, -1)):\n\n        potential[np.all(delta == shift, axis=-1)] = th_complex\n\n        potential[np.all(delta == -np.asarray(shift), axis=-1)] = th_complex.conjugate()\n\n    momentum = q[:, None, :] + (basis @ b)[None, :, :]\n\n    kinetic = 38.09982 / mass * np.sum(momentum ** 2, axis=-1)\n\n    h = potential[None, :, :] + kinetic[:, :, None] * np.eye(len(basis))[None, :, :]\n\n    residual = h @ c - c * e[:, None, :]\n\n    orthogonality = c.conj().transpose(0, 2, 1) @ c - np.eye(e.shape[1])[None, :, :]\n\n    return np.concatenate([shapes, q.ravel(), e.ravel(), v2.ravel(), basis.ravel(),\n\n                           residual.real.ravel(), residual.imag.ravel(),\n\n                           orthogonality.real.ravel(), orthogonality.imag.ravel()])\n\nth = np.array([0.0, 0.0]); mass = 1.15\nassert np.allclose(flat(moire_exciton_bands(b, th, 0.64, 0.51, 1, 2, 3)), target)",
+        "import numpy as np\n\nb = np.array([[1.0059742, -0.5808106], [0.0, 1.1616212]])\n\ndef flat(r):\n\n    q, e, c, v2, basis = r\n\n    shapes = np.array([z for x in r for z in (x.ndim, *x.shape)], dtype=float)\n\n    th_complex = complex(th[0], th[1])\n\n    delta = basis[:, None, :] - basis[None, :, :]\n\n    potential = np.zeros((len(basis), len(basis)), dtype=complex)\n\n    for shift in ((1, 0), (0, 1), (-1, -1)):\n\n        potential[np.all(delta == shift, axis=-1)] = th_complex\n\n        potential[np.all(delta == -np.asarray(shift), axis=-1)] = th_complex.conjugate()\n\n    momentum = q[:, None, :] + (basis @ b)[None, :, :]\n\n    kinetic = 38.09982 / mass * np.sum(momentum ** 2, axis=-1)\n\n    h = potential[None, :, :] + kinetic[:, :, None] * np.eye(len(basis))[None, :, :]\n\n    residual = h @ c - c * e[:, None, :]\n\n    orthogonality = c.conj().transpose(0, 2, 1) @ c - np.eye(e.shape[1])[None, :, :]\n\n    return np.concatenate([shapes, q.ravel(), e.ravel(), v2.ravel(), basis.ravel(),\n\n                           residual.real.ravel(), residual.imag.ravel(),\n\n                           orthogonality.real.ravel(), orthogonality.imag.ravel()])\n\nth = np.array([6.0, 0.0]); mass = 2.0\nassert np.allclose(flat(moire_exciton_bands(b, th, 1.1, 0.9, 3, 4, 5)), target)",
+        "import numpy as np\n\nb = np.array([[1.0059742, -0.5808106], [0.0, 1.1616212]])\n\ndef flat(r):\n\n    q, e, c, v2, basis = r\n\n    shapes = np.array([z for x in r for z in (x.ndim, *x.shape)], dtype=float)\n\n    th_complex = complex(th[0], th[1])\n\n    delta = basis[:, None, :] - basis[None, :, :]\n\n    potential = np.zeros((len(basis), len(basis)), dtype=complex)\n\n    for shift in ((1, 0), (0, 1), (-1, -1)):\n\n        potential[np.all(delta == shift, axis=-1)] = th_complex\n\n        potential[np.all(delta == -np.asarray(shift), axis=-1)] = th_complex.conjugate()\n\n    momentum = q[:, None, :] + (basis @ b)[None, :, :]\n\n    kinetic = 38.09982 / mass * np.sum(momentum ** 2, axis=-1)\n\n    h = potential[None, :, :] + kinetic[:, :, None] * np.eye(len(basis))[None, :, :]\n\n    residual = h @ c - c * e[:, None, :]\n\n    orthogonality = c.conj().transpose(0, 2, 1) @ c - np.eye(e.shape[1])[None, :, :]\n\n    return np.concatenate([shapes, q.ravel(), e.ravel(), v2.ravel(), basis.ravel(),\n\n                           residual.real.ravel(), residual.imag.ravel(),\n\n                           orthogonality.real.ravel(), orthogonality.imag.ravel()])\n\nth = np.array([1.0, 2.0]); mass = 1.15\n\ndef run(fn):\n\n    try:\n\n        fn(b, th, 0.64, 0.51, 1, 2, 8)\n\n        return 0\n\n    except ValueError:\n\n        return 1\nassert np.allclose(run(moire_exciton_bands), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-4.4",
+      "test_cases": [
+        "import numpy as np\nq = np.array([0.05, 0.4, 1.2, 3.0])\nassert np.allclose(phonon_matrix_elements(q, 0.4435, 0.8809, 4.1, 3.4e3, 5.2e4, 36.6, 0.327, 253.86), target)",
+        "import numpy as np\nq = np.array([[0.2, 0.9], [1.7, 2.6]])\nassert np.allclose(phonon_matrix_elements(q, 0.5565, 0.8809, 3.3, 2.1e3, 3.1e4, 30.8, 0.325, 341.76), target)",
+        "import numpy as np\nq = np.array([0.0, 1e-3])\nassert np.allclose(phonon_matrix_elements(q, 0.5, 1.5, 5.0, 1.0e3, 1.0e4, 45.0, 0.316, 160.07), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-4.5",
+      "test_cases": [
+        "import numpy as np\n\nb = np.array([[1.0059742, -0.5808106], [0.0, 1.1616212]])\n\ndef make(nk, n_shell, nb, seed):\n\n    basis = np.array([(i, j) for i in range(-n_shell, n_shell + 1) for j in range(-n_shell, n_shell + 1)\n\n                      if max(abs(i), abs(j), abs(i - j)) <= n_shell], dtype=int)\n\n    f = (np.arange(nk) + 0.5) / nk\n\n    q = np.array([u * b[0] + v * b[1] for u in f for v in f])\n\n    rng = np.random.default_rng(seed)\n\n    c = rng.normal(size=(nk * nk, len(basis), nb)) + 1j * rng.normal(size=(nk * nk, len(basis), nb))\n\n    c = np.linalg.qr(c)[0]\n\n    return q, c, basis\n\ndef flat(r):\n\n    return np.concatenate([np.concatenate([np.asarray([x.ndim, *x.shape], dtype=float), x.ravel()]) for x in r])\n\nq, c, basis = make(2, 1, 2, 3)\nassert np.allclose(flat(scattering_weights(q, c, basis, b, 0.64, 0.51, 173.0, 10.0)), target)",
+        "import numpy as np\n\nb = np.array([[1.0059742, -0.5808106], [0.0, 1.1616212]])\n\ndef make(nk, n_shell, nb, seed):\n\n    basis = np.array([(i, j) for i in range(-n_shell, n_shell + 1) for j in range(-n_shell, n_shell + 1)\n\n                      if max(abs(i), abs(j), abs(i - j)) <= n_shell], dtype=int)\n\n    f = (np.arange(nk) + 0.5) / nk\n\n    q = np.array([u * b[0] + v * b[1] for u in f for v in f])\n\n    rng = np.random.default_rng(seed)\n\n    c = rng.normal(size=(nk * nk, len(basis), nb)) + 1j * rng.normal(size=(nk * nk, len(basis), nb))\n\n    c = np.linalg.qr(c)[0]\n\n    return q, c, basis\n\ndef flat(r):\n\n    return np.concatenate([np.concatenate([np.asarray([x.ndim, *x.shape], dtype=float), x.ravel()]) for x in r])\n\nq, c, basis = make(2, 2, 3, 11)\nassert np.allclose(flat(scattering_weights(q, c, basis, b, 0.5, 0.7, 120.0, 70.0)), target)",
+        "import numpy as np\n\nb = np.array([[1.0059742, -0.5808106], [0.0, 1.1616212]])\n\ndef make(nk, n_shell, nb, seed):\n\n    basis = np.array([(i, j) for i in range(-n_shell, n_shell + 1) for j in range(-n_shell, n_shell + 1)\n\n                      if max(abs(i), abs(j), abs(i - j)) <= n_shell], dtype=int)\n\n    f = (np.arange(nk) + 0.5) / nk\n\n    q = np.array([u * b[0] + v * b[1] for u in f for v in f])\n\n    rng = np.random.default_rng(seed)\n\n    c = rng.normal(size=(nk * nk, len(basis), nb)) + 1j * rng.normal(size=(nk * nk, len(basis), nb))\n\n    c = np.linalg.qr(c)[0]\n\n    return q, c, basis\n\ndef flat(r):\n\n    return np.concatenate([np.concatenate([np.asarray([x.ndim, *x.shape], dtype=float), x.ravel()]) for x in r])\n\nq, c, basis = make(1, 1, 2, 5)\nassert np.allclose(flat(scattering_weights(q, c, basis, b, 0.64, 0.51, 173.0, 4.0)), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-4.6",
+      "test_cases": [
+        "import numpy as np\ndef make(nk, nb, seed, spread):\n    rng = np.random.default_rng(seed)\n    s = nk * nb\n    e = np.sort(rng.uniform(0.0, spread, size=(nk, nb)), axis=1)\n    w_ac = rng.uniform(0.0, 2.0, size=(s, s, 19, 2, 2))\n    om = rng.uniform(0.0, 6.0, size=(nk, nk, 19, 2))\n    w_op = rng.uniform(0.0, 5.0, size=(s, s, 2, 2))\n    return e, (w_ac, om, w_op, np.array([36.6, 30.8]))\ne, w = make(3, 2, 1, 80.0)\ng = np.random.default_rng(9).uniform(0.5, 3.0, size=6)\nassert np.allclose(transition_rate_matrix(e, w, g), target)",
+        "import numpy as np\ndef make(nk, nb, seed, spread):\n    rng = np.random.default_rng(seed)\n    s = nk * nb\n    e = np.sort(rng.uniform(0.0, spread, size=(nk, nb)), axis=1)\n    w_ac = rng.uniform(0.0, 2.0, size=(s, s, 19, 2, 2))\n    om = rng.uniform(0.0, 6.0, size=(nk, nk, 19, 2))\n    w_op = rng.uniform(0.0, 5.0, size=(s, s, 2, 2))\n    return e, (w_ac, om, w_op, np.array([36.6, 30.8]))\ne, w = make(2, 2, 4, 1.0)\ne = e + np.array([[0.0, 36.6], [30.8, 67.4]])\ng = np.full((2, 2), 0.8)\nassert np.allclose(transition_rate_matrix(e, w, g), target)",
+        "import numpy as np\ndef make(nk, nb, seed, spread):\n    rng = np.random.default_rng(seed)\n    s = nk * nb\n    e = np.sort(rng.uniform(0.0, spread, size=(nk, nb)), axis=1)\n    w_ac = rng.uniform(0.0, 2.0, size=(s, s, 19, 2, 2))\n    om = rng.uniform(0.0, 6.0, size=(nk, nk, 19, 2))\n    w_op = rng.uniform(0.0, 5.0, size=(s, s, 2, 2))\n    return e, (w_ac, om, w_op, np.array([36.6, 30.8]))\ne, w = make(2, 3, 7, 20.0)\ng = np.full(6, 0.05)\nassert np.allclose(transition_rate_matrix(e, w, g), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-4.7",
+      "test_cases": [
+        "import numpy as np\ndef make(nk, nb, seed, spread, scale):\n    rng = np.random.default_rng(seed)\n    s = nk * nb\n    e = np.sort(rng.uniform(0.0, spread, size=(nk, nb)), axis=1)\n    w_ac = scale * rng.uniform(0.0, 1.0, size=(s, s, 19, 2, 2))\n    om = rng.uniform(0.0, 6.0, size=(nk, nk, 19, 2))\n    w_op = scale * rng.uniform(0.0, 1.0, size=(s, s, 2, 2))\n    return e, (w_ac, om, w_op, np.array([36.6, 30.8]))\ne, w = make(3, 2, 2, 40.0, 0.3)\nassert np.allclose(self_consistent_dephasing(e, w, 1.0, 1e-10, 500), target)",
+        "import numpy as np\ndef make(nk, nb, seed, spread, scale):\n    rng = np.random.default_rng(seed)\n    s = nk * nb\n    e = np.sort(rng.uniform(0.0, spread, size=(nk, nb)), axis=1)\n    w_ac = scale * rng.uniform(0.0, 1.0, size=(s, s, 19, 2, 2))\n    om = rng.uniform(0.0, 6.0, size=(nk, nk, 19, 2))\n    w_op = scale * rng.uniform(0.0, 1.0, size=(s, s, 2, 2))\n    return e, (w_ac, om, w_op, np.array([36.6, 30.8]))\ne, w = make(2, 3, 5, 70.0, 0.05)\nassert np.allclose(self_consistent_dephasing(e, w, 3.0, 1e-9, 500), target)",
+        "import numpy as np\ndef make(nk, nb, seed, spread, scale):\n    rng = np.random.default_rng(seed)\n    s = nk * nb\n    e = np.sort(rng.uniform(0.0, spread, size=(nk, nb)), axis=1)\n    w_ac = scale * rng.uniform(0.0, 1.0, size=(s, s, 19, 2, 2))\n    om = rng.uniform(0.0, 6.0, size=(nk, nk, 19, 2))\n    w_op = scale * rng.uniform(0.0, 1.0, size=(s, s, 2, 2))\n    return e, (w_ac, om, w_op, np.array([36.6, 30.8]))\ne, w = make(2, 2, 8, 30.0, 0.4)\nassert np.allclose(self_consistent_dephasing(e, w, 0.2, 0.05, 500), target)",
+        "import numpy as np\ndef make(nk, nb, seed, spread, scale):\n    rng = np.random.default_rng(seed)\n    s = nk * nb\n    e = np.sort(rng.uniform(0.0, spread, size=(nk, nb)), axis=1)\n    w_ac = scale * rng.uniform(0.0, 1.0, size=(s, s, 19, 2, 2))\n    om = rng.uniform(0.0, 6.0, size=(nk, nk, 19, 2))\n    w_op = scale * rng.uniform(0.0, 1.0, size=(s, s, 2, 2))\n    return e, (w_ac, om, w_op, np.array([36.6, 30.8]))\ne, w = make(2, 2, 8, 30.0, 0.4)\ndef run(fn):\n    try:\n        fn(e, w, 0.2, 1e-14, 2)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run(self_consistent_dephasing), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-4.8",
+      "test_cases": [
+        "import numpy as np\ndef make(s, seed):\n    rng = np.random.default_rng(seed)\n    r = rng.uniform(0.0, 0.3, size=(s, s)) * (rng.uniform(size=(s, s)) < 0.6)\n    e = 100.0 + rng.uniform(0.0, 80.0, size=s)\n    return r, e\nr, e = make(12, 1)\nassert np.allclose(relaxed_distribution(r, e, 40.0, 10.0, 5.0), target)",
+        "import numpy as np\ndef make(s, seed):\n    rng = np.random.default_rng(seed)\n    r = rng.uniform(0.0, 0.3, size=(s, s)) * (rng.uniform(size=(s, s)) < 0.6)\n    e = 100.0 + rng.uniform(0.0, 80.0, size=s)\n    return r, e\nr, e = make(6, 2)\ne = np.array([[10.0, 13.0, 16.0], [19.0, 22.0, 25.0]])\nassert np.allclose(relaxed_distribution(r, e, 6.0, 3.0, 0.0), target)",
+        "import numpy as np\ndef make(s, seed):\n    rng = np.random.default_rng(seed)\n    r = rng.uniform(0.0, 0.3, size=(s, s)) * (rng.uniform(size=(s, s)) < 0.6)\n    e = 100.0 + rng.uniform(0.0, 80.0, size=s)\n    return r, e\nr, e = make(8, 3)\nr[:, 4:] *= 1e-3\nassert np.allclose(relaxed_distribution(r, e, 60.0, 25.0, 300.0), target)",
+        "import numpy as np\ndef make(s, seed):\n    rng = np.random.default_rng(seed)\n    r = rng.uniform(0.0, 0.3, size=(s, s)) * (rng.uniform(size=(s, s)) < 0.6)\n    e = 100.0 + rng.uniform(0.0, 80.0, size=s)\n    return r, e\nr, e = make(4, 5)\ndef run(fn):\n    try:\n        fn(r, np.array([0.0, 1.0, 2.0, 3.0]), 50.0, 1.0, 1.0)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run(relaxed_distribution), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-4.9",
+      "test_cases": [
+        "import numpy as np\nrng = np.random.default_rng(6)\nv2 = rng.uniform(0.0, 4.0e4, size=10)\nr = rng.uniform(0.0, 0.5, size=(10, 10))\nn = rng.uniform(0.0, 1.0, size=10)\nassert np.allclose(rta_diffusion_coefficient(v2, r, n), target)",
+        "import numpy as np\nrng = np.random.default_rng(6)\nv2 = rng.uniform(0.0, 4.0e4, size=10)\nr = rng.uniform(0.0, 0.5, size=(10, 10))\nn = np.zeros(10); n[7] = 3.0\nassert np.allclose(rta_diffusion_coefficient(v2, r, n), target)",
+        "import numpy as np\nrng = np.random.default_rng(6)\nv2 = rng.uniform(0.0, 4.0e4, size=10)\nr = rng.uniform(0.0, 0.5, size=(10, 10))\ne = np.linspace(0.0, 9.0, 10)\nn = np.exp(-e / 0.8617)\nv2 = v2.reshape(5, 2)\nassert np.allclose(rta_diffusion_coefficient(v2, r, n), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-4.10",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(moire_exciton_diffusion(3.0, 10.0, 3, 60.0, 6.0, 100.0), target)",
+        "import numpy as np\nassert np.allclose(moire_exciton_diffusion(4.0, 70.0, 3, 40.0, 10.0, 20.0), target)",
+        "import numpy as np\nassert np.allclose(moire_exciton_diffusion(3.0, 30.0, 2, 50.0, 15.0, 1.0), target)"
+      ]
+    }
+  ]
+}

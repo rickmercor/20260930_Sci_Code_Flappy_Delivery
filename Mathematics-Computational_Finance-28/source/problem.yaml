@@ -1,0 +1,40 @@
+problem_id: "Mathematics-Computational_Finance-28"
+subject: "mathematics"
+subject_area: "Computational Finance"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.3390/risks14060123"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_tanaka_drift_rate"
+    description: "Evaluate, on a grid of asset prices, the two parts of the drift rate mu - r G of the American put's gain process, with the local time at the strike regularised by a Gaussian kernel."
+    orchestrator: false
+  - number: 2
+    name: "02_bs_operator_bands"
+    description: "Return the three-band coefficients of the discounted Black-Scholes generator on a uniform asset grid."
+    orchestrator: false
+  - number: 3
+    name: "03_implicit_step"
+    description: "Take one fully implicit time step of a linear system defined by three-band generator coefficients, with prescribed values at both end nodes."
+    orchestrator: false
+  - number: 4
+    name: "04_american_put_exercise"
+    description: "The put value is marched backward from its payoff at maturity with fully implicit steps of the discounted Black-Scholes generator, the first node carrying the value K and the last node the value 0 at every level. After each implicit step the early-exercise constraint is imposed by projection onto the payoff: the value at every node becomes the larger of the implicit continuation value and the payoff there. A node belongs to the exercise region of that level when the payoff there is strictly positive and strictly above the implicit continuation value. These regions define the stopping rule of the additive representation: a path is stopped the first time it stands on an exercise node."
+    orchestrator: false
+  - number: 5
+    name: "05_stopped_drift_integral"
+    description: "Compute, on the asset grid at time 0, the expected discounted integral of given drift-rate functions accumulated until the stopping time defined by the exercise regions, or until maturity."
+    orchestrator: false
+  - number: 6
+    name: "06_european_additive_value"
+    description: "Evaluate the additive forward representation of the put without early exercise by direct quadrature, split into its parts."
+    orchestrator: false
+  - number: 7
+    name: "07_additive_decomposition"
+    description: "Evaluate the additive forward representation of the American put at one spot price on a grid, together with its parts and the American price itself."
+    orchestrator: false
+  - number: 8
+    name: "08_additive_american_value"
+    description: "Chain the sub-problem functions 01-07 and return the value of the regularised additive forward representation of the American put at the spot. Orchestrator: yes - this is the final step; it integrates the earlier sub-problems (tanaka_drift_rate, bs_operator_bands, implicit_step, american_put_exercise, stopped_drift_integral, european_additive_value, additive_decomposition) rather than reimplementing them."
+    orchestrator: true

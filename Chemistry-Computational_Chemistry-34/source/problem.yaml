@@ -1,0 +1,40 @@
+problem_id: "Chemistry-Computational_Chemistry-34"
+subject: "chemistry"
+subject_area: "Computational Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1063/5.0314688"
+dependencies: ""
+steps:
+  - number: 1
+    name: "step_01_spin_boson_potential.py"
+    description: "Evaluate the fixed two-state diabatic potential and its first and second nuclear derivatives."
+    orchestrator: false
+  - number: 2
+    name: "step_02_spin_generator.py"
+    description: "Construct the two-state electronic generator and its nuclear derivative for the supplied spin-boson instance.\t"
+    orchestrator: false
+  - number: 3
+    name: "step_03_electronic_operators.py"
+    description: "Calculate the electronic propagation operators for a fixed nuclear position and nonzero propagation interval.\t"
+    orchestrator: false
+  - number: 4
+    name: "step_04_coupled_flow.py"
+    description: "Advance nuclear momentum and Cartesian spin under the selected fixed-position coupled flow.\t"
+    orchestrator: false
+  - number: 5
+    name: "step_05_spin_mint_step.py"
+    description: "Advance the supplied canonical state by one timestep of the selected spin-mapping propagator."
+    orchestrator: false
+  - number: 6
+    name: "step_06_canonical_tangent_step.py"
+    description: "Calculate the canonical state update and its analytical one-step Jacobian for the selected propagator."
+    orchestrator: false
+  - number: 7
+    name: "step_07_accumulate_trajectory.py"
+    description: "Calculate the final canonical state, accumulated trajectory Jacobian, and spin-norm diagnostic over the supplied number of propagation steps."
+    orchestrator: false
+  - number: 8
+    name: "step_08_stability_indicator.py"
+    description: "Compute stability, spin-norm, symplecticity, and Liouville diagnostics for the complete trajectory."
+    orchestrator: true

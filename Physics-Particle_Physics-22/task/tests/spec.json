@@ -1,0 +1,82 @@
+{
+  "problem_id": "Physics-Particle_Physics-22",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Particle_Physics-22.1",
+      "test_cases": [
+        "import numpy as np\nr = np.array([3480.0, 6371.0])\nassert np.allclose(trace_shell_segments(r.copy(), -1.0, 0.0), target)",
+        "import numpy as np\nr = np.array([3480.0, 6371.0])\nassert np.allclose(trace_shell_segments(r.copy(), 0.4, 0.0), target)",
+        "import numpy as np\nr = np.array([1221.5, 3480.0, 5701.0, 6371.0])\nassert np.allclose(trace_shell_segments(r.copy(), -0.82, 2.0, 3), target)",
+        "import numpy as np\nr = np.array([3.0, 5.0])\nassert np.allclose(trace_shell_segments(r.copy(), -0.8, 0.0, 2), target)",
+        "import numpy as np\nr = np.array([2.0, 1.0])\ndef _raises_value_error(function):\n    try:\n        function()\n    except ValueError:\n        return 1\n    return 0\nassert np.allclose(_raises_value_error(lambda: trace_shell_segments(r.copy(), -1.0, 0.0)), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-22.2",
+      "test_cases": [
+        "import numpy as np\nr = np.array([3480.,6371.])\nc = np.array([[11.,0.,0.,0.],[4.5,0.,0.,0.]])\ny = np.array([.467,.495])\ns_model = trace_shell_segments(r.copy(),-1.,0.)\nassert np.allclose(average_segment_densities(s_model.copy(), r.copy(), c.copy(), y.copy(), -1.0, 0.0), target)",
+        "import numpy as np\nr = np.array([5.])\nc = np.array([[1.,2.,3.,4.]])\ny = np.array([0.5])\ns = np.empty((0,3))\nassert np.allclose(average_segment_densities(s.copy(), r.copy(), c.copy(), y.copy(), 0.5, 0.0), target)",
+        "import numpy as np\nr = np.array([3.,5.])\nc = np.array([[10.,-1.,.2,0.],[4.,1.,.5,.1]])\ny = np.array([.4,.5])\ns_model = trace_shell_segments(r.copy(),-.9,.2,2)\nassert np.allclose(average_segment_densities(s_model.copy(), r.copy(), c.copy(), y.copy(), -0.9, 0.2, 7), target)",
+        "import numpy as np\nr = np.array([5.])\nc = np.array([[-1.,0.,0.,0.]])\ny = np.array([.5])\ns = np.array([[1.,0.,0.]])\ndef _raises_value_error(function):\n    try:\n        function()\n    except ValueError:\n        return 1\n    return 0\nassert np.allclose(_raises_value_error(lambda: average_segment_densities(s.copy(), r.copy(), c.copy(), y.copy(), 0.5, 0.0)), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-22.3",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(compute_matter_spectrum(0.00204, 0.307, 0.02195, 7.49e-5, 2.534e-3, 0), target)",
+        "import numpy as np\nassert np.allclose(compute_matter_spectrum(0.0, 0.307, 0.02195, 7.49e-5, 2.534e-3), target)",
+        "import numpy as np\nassert np.allclose(compute_matter_spectrum(-0.0047, 0.307, 0.02195, 7.49e-5, 2.534e-3, 0), target)",
+        "import numpy as np\nassert np.allclose(compute_matter_spectrum(0.0025110057, 0.307, 0.02195, 7.49e-5, 2.534e-3, 0), target)",
+        "import numpy as np\n\ndef _raises_value_error(function):\n    try:\n        function()\n    except ValueError:\n        return 1\n    return 0\nassert np.allclose(_raises_value_error(lambda: compute_matter_spectrum(0.002, 0.307, 0.02195, 7.49e-5, 2.534e-3, -1)), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-22.4",
+      "test_cases": [
+        "import numpy as np\nspec_model = compute_matter_spectrum(0.00204, 0.307, 0.02195, 7.49e-5, 2.534e-3, 0)\nspec_gold = np.array([[5.1287194697957963e-05, 0.0018893603556502593, 0.002708252449651783], [0.002530789124885, -3.41663158541663e-05, -0.0003679133015070748], [1.2864198128859e-07, -8.657744437445739e-08, -1.927167459178872e-08]], dtype=np.float64)\nroots_model, coeff_model = spec_model[0], spec_model[1:]\nroots_gold, coeff_gold = spec_gold[0], spec_gold[1:]\nassert np.allclose(compute_eigenprojectors(roots_model.copy(), coeff_model.copy()), target)",
+        "import numpy as np\nspec_model = compute_matter_spectrum(0.0, 0.307, 0.02195, 7.49e-5, 2.534e-3)\nspec_gold = np.array([[0.0, 7.49e-05, 0.002534], [0.002530789124885, -3.41663158541663e-05, -0.0003679133015070748], [1.2864198128859e-07, -8.657744437445739e-08, -1.927167459178872e-08]], dtype=np.float64)\nroots_model, coeff_model = spec_model[0], spec_model[1:]\nroots_gold, coeff_gold = spec_gold[0], spec_gold[1:]\nassert np.allclose(compute_eigenprojectors(roots_model.copy(), coeff_model.copy()), target)",
+        "import numpy as np\nspec_model = compute_matter_spectrum(-0.004, 0.4, 0.03, 8e-5, 2.4e-3)\nspec_gold = np.array([[-0.003923441869379047, 4.837417680156591e-05, 0.002355067692577481], [0.00237696, -3.859948186180742e-05, -0.00040395053954661326], [1.11744e-07, -9.26387564683378e-08, -1.965164786983524e-08]], dtype=np.float64)\nroots_model, coeff_model = spec_model[0], spec_model[1:]\nroots_gold, coeff_gold = spec_gold[0], spec_gold[1:]\nassert np.allclose(compute_eigenprojectors(roots_model.copy(), coeff_model.copy()), target)",
+        "import numpy as np\nroots = np.array([0.0, 1.0, 1.0])\ncoeff = np.ones((2, 3))\ndef _raises_value_error(function):\n    try:\n        function()\n    except ValueError:\n        return 1\n    return 0\nassert np.allclose(_raises_value_error(lambda: compute_eigenprojectors(roots.copy(), coeff.copy())), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-22.5",
+      "test_cases": [
+        "import numpy as np\np=np.array([.307,.02195,7.49e-5,.002534])\na=np.array([[2891.,2.2275],[6960.,5.137],[2891.,2.2275]])\nassert np.allclose(propagate_spectral_pair(a.copy(), 6.0, p.copy()), target)",
+        "import numpy as np\np=np.array([.307,.02195,7.49e-5,.002534])\na=np.empty((0,2))\nassert np.allclose(propagate_spectral_pair(a.copy(), 6.0, p.copy()), target)",
+        "import numpy as np\np=np.array([.3,.03,8e-5,.0024])\na=np.array([[250.,1.3],[1900.,4.2],[700.,2.1],[0.,0.]])\nassert np.allclose(propagate_spectral_pair(a.copy(), 3.0, p.copy(), -1), target)",
+        "import numpy as np\np=np.array([.3,.03,8e-5,.0024])\na=np.array([[300.,0.],[200.,1.],[200.,1.],[300.,0.]])\nassert np.allclose(propagate_spectral_pair(a.copy(), 1.7, p.copy()), target)",
+        "import numpy as np\np=np.array([.307,.02195,7.49e-5,.002534])\na=np.array([[-1.,2.]])\ndef _raises_value_error(function):\n    try:\n        function()\n    except ValueError:\n        return 1\n    return 0\nassert np.allclose(_raises_value_error(lambda: propagate_spectral_pair(a.copy(), 6.0, p.copy())), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-22.6",
+      "test_cases": [
+        "import numpy as np\nlayers = np.array([[250.,1.3],[1900.,4.2],[700.,2.1]])\nparams = np.array([.3,.03,8e-5,.0024])\na_model = propagate_spectral_pair(layers.copy(), 3., params.copy())\nassert np.allclose(compute_error_harmonics(a_model.copy(), .561), target)",
+        "import numpy as np\na=np.array([np.eye(3),np.eye(3)],dtype=complex)\nassert np.allclose(compute_error_harmonics(a.copy(), 0.0), target)",
+        "import numpy as np\na=np.array([[[.8,.2j,.1],[.3,.9j,.2+.1j],[.2j,.3-.1j,.7]],np.eye(3)],dtype=complex)\nassert np.allclose(compute_error_harmonics(a.copy(), .3, -1), target)",
+        "import numpy as np\na=np.zeros((2,2,2),dtype=complex)\ndef _raises_value_error(function):\n    try:\n        function()\n    except ValueError:\n        return 1\n    return 0\nassert np.allclose(_raises_value_error(lambda: compute_error_harmonics(a.copy(), .5)), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-22.7",
+      "test_cases": [
+        "import numpy as np\nh=np.array([.2,-.4,.7,.3,-.2])\nassert np.allclose(maximize_phase_error(h.copy()), target)",
+        "import numpy as np\nh=np.zeros(5)\nassert np.allclose(maximize_phase_error(h.copy()), target)",
+        "import numpy as np\nh=np.array([-2.,0.,0.,0.,0.])\nassert np.allclose(maximize_phase_error(h.copy()), target)",
+        "import numpy as np\nh=np.array([0.,3.,4.,0.,0.])\nassert np.allclose(maximize_phase_error(h.copy()), target)",
+        "import numpy as np\nh=np.array([0.,0.,0.,-1.,0.])\nassert np.allclose(maximize_phase_error(h.copy()), target)",
+        "import numpy as np\nh=np.zeros(4)\ndef _raises_value_error(function):\n    try:\n        function()\n    except ValueError:\n        return 1\n    return 0\nassert np.allclose(_raises_value_error(lambda: maximize_phase_error(h.copy())), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-22.8",
+      "test_cases": [
+        "import numpy as np\nr=np.array([1221.5,3480.,5701.,6371.])\nb=np.array([[13.,0.,-2.,0.],[12.,-1.2,-2.5,.3],[7.5,-2.,-.4,0.],[5.2,-.7,0.,0.]])\ny=np.array([.467,.467,.495,.495])\ne=np.array([2.1,3.8,6.2,9.7])\nc=np.array([-.97,-.84,-.41])\np=np.array([.307,.02195,.561,7.49e-5,.002534])\nassert np.allclose(compute_worst_spectral_error(r.copy(), b.copy(), y.copy(), e.copy(), c.copy(), p.copy()), target)",
+        "import numpy as np\nr=np.array([1221.5,3480.,5701.,6371.])\nb=np.array([[13.,0.,-2.,0.],[12.,-1.2,-2.5,.3],[7.5,-2.,-.4,0.],[5.2,-.7,0.,0.]])\ny=np.array([.467,.467,.495,.495])\ne=np.array([2.1,3.8,6.2,9.7])\nc=np.array([-.97,-.84,-.41])\np=np.array([.307,.02195,.561,7.49e-5,.002534])\nc=np.array([.4])\nassert np.allclose(compute_worst_spectral_error(r.copy(), b.copy(), y.copy(), e.copy(), c.copy(), p.copy(), 0.0), target)",
+        "import numpy as np\nr=np.array([1221.5,3480.,5701.,6371.])\nb=np.array([[13.,0.,-2.,0.],[12.,-1.2,-2.5,.3],[7.5,-2.,-.4,0.],[5.2,-.7,0.,0.]])\ny=np.array([.467,.467,.495,.495])\ne=np.array([2.1,3.8,6.2,9.7])\nc=np.array([-.97,-.84,-.41])\np=np.array([.307,.02195,.561,7.49e-5,.002534])\ne=np.array([1.7,4.6])\nc=np.array([-.92,-.2])\np[2]=.38\nassert np.allclose(compute_worst_spectral_error(r.copy(), b.copy(), y.copy(), e.copy(), c.copy(), p.copy(), 1.0, 2, 11), target)",
+        "import numpy as np\nr=np.array([1221.5,3480.,5701.,6371.])\nb=np.array([[13.,0.,-2.,0.],[12.,-1.2,-2.5,.3],[7.5,-2.,-.4,0.],[5.2,-.7,0.,0.]])\ny=np.array([.467,.467,.495,.495])\ne=np.array([2.1,3.8,6.2,9.7])\nc=np.array([-.97,-.84,-.41])\np=np.array([.307,.02195,.561,7.49e-5,.002534])\ne[0]=0.0\ndef _raises_value_error(function):\n    try:\n        function()\n    except ValueError:\n        return 1\n    return 0\nassert np.allclose(_raises_value_error(lambda: compute_worst_spectral_error(r.copy(), b.copy(), y.copy(), e.copy(), c.copy(), p.copy())), target)"
+      ]
+    }
+  ]
+}

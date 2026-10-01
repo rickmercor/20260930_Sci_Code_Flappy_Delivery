@@ -1,0 +1,68 @@
+{
+  "problem_id": "Biology-Biochemistry-5",
+  "sub_steps": [
+    {
+      "step_number": "Biology-Biochemistry-5.1",
+      "test_cases": [
+        "import numpy as np\ntheta = np.array([5.0, np.log(2.0) / 20.0, 0.02])\nn_states = 20\nassert np.allclose(np.asarray(truncated_generator(n_states, theta)), target)",
+        "import numpy as np\ntheta = np.array([2.0, 0.1, 0.05])\nn_states = 4\nassert np.allclose(np.asarray(truncated_generator(n_states, theta)), target)",
+        "import numpy as np\ntheta = np.array([12.0, 0.5, 0.3])\nn_states = 2\nassert np.allclose(np.asarray(truncated_generator(n_states, theta)), target)",
+        "import numpy as np\ntheta = np.array([5.0, np.log(2.0) / 20.0, 0.02])\ndef run_model():\n    try:\n        truncated_generator(1, theta)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-5.2",
+      "test_cases": [
+        "import numpy as np\ntheta = np.array([5.0, np.log(2.0) / 20.0, 0.02])\nn_states = 20\nassert np.allclose(np.asarray(boundary_input_column(n_states, theta)), target)",
+        "import numpy as np\ntheta = np.array([2.0, 0.1, 0.05])\nn_states = 5\nassert np.allclose(np.asarray(boundary_input_column(n_states, theta)), target)",
+        "import numpy as np\ntheta = np.array([12.0, 0.5, 0.3])\nn_states = 2\nassert np.allclose(np.asarray(boundary_input_column(n_states, theta)), target)",
+        "import numpy as np\ntheta = np.array([5.0, np.log(2.0) / 20.0, 0.02])\ndef run_model():\n    try:\n        boundary_input_column(0, theta)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-5.3",
+      "test_cases": [
+        "import numpy as np\ntheta = np.array([5.0, np.log(2.0) / 20.0, 0.02])\nmu = 1\nassert np.allclose(np.asarray(upper_input_polynomial(theta, mu)), target)",
+        "import numpy as np\ntheta = np.array([5.0, np.log(2.0) / 20.0, 0.02])\nmu = 2\nassert np.allclose(np.asarray(upper_input_polynomial(theta, mu)), target)",
+        "import numpy as np\ntheta = np.array([12.0, 0.5, 0.3])\nmu = 2\nassert np.allclose(np.asarray(upper_input_polynomial(theta, mu)), target)",
+        "import numpy as np\ntheta = np.array([5.0, np.log(2.0) / 20.0, 0.02])\ndef run_model():\n    try:\n        upper_input_polynomial(theta, 3)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-5.4",
+      "test_cases": [
+        "import numpy as np\ntheta = np.array([5.0, np.log(2.0) / 20.0, 0.02])\nc1 = np.array([5.0, -0.03465735902799726, 0.0], dtype=np.float64)\nc2 = np.array([5.0, 9.954657359027998, 0.010685281944005476], dtype=np.float64)\nassert np.allclose(np.asarray(input_bound_ode_matrix(c1, c2)), target)",
+        "import numpy as np\nc1 = np.array([1.0, -0.5, 0.0])\nc2 = np.array([1.0, -2.0, 0.25])\nassert np.allclose(np.asarray(input_bound_ode_matrix(c1, c2)), target)",
+        "import numpy as np\nc1 = np.array([3.0, -0.2, 0.0])\nc2 = np.array([3.0, 0.7, -0.1])\nassert np.allclose(np.asarray(input_bound_ode_matrix(c1, c2)), target)",
+        "import numpy as np\nc1 = np.array([1.0, -0.5, 0.1])\nc2 = np.array([1.0, 2.0, 0.5])\ndef run_model():\n    try:\n        input_bound_ode_matrix(c1, c2)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-5.5",
+      "test_cases": [
+        "import numpy as np\ntheta = np.array([5.0, np.log(2.0) / 20.0, 0.02])\nn_states = 20\nL = np.array([[-5.0, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.03465735902799726, -5.034657359027997, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.04, 0.06931471805599453, -5.109314718055995, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.12, 0.10397207708399178, -5.2239720770839915, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.24, 0.13862943611198905, -5.378629436111989, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.4, 0.17328679513998632, -5.573286795139986, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.6, 0.20794415416798356, -5.807944154167983, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.8400000000000001, 0.24260151319598083, -6.08260151319598, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.12, 0.2772588722239781, -6.397258872223978, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.44, 0.3119162312519754, -6.751916231251975, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.8, 0.34657359027997264, -7.1465735902799725, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.2, 0.3812309493079699, -7.58123094930797, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.6399999999999997, 0.4158883083359671, -8.055888308335966, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 3.12, 0.4505456673639644, -8.570545667363964, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 3.6400000000000006, 0.48520302639196167, -9.125203026391961, 5.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 4.2, 0.5198603854199589, -9.71986038541996, 5.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 4.8, 0.5545177444479562, -10.354517744447957, 5.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 5.44, 0.5891751034759535, -11.029175103475954, 5.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 6.12, 0.6238324625039507, -11.743832462503951, 5.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 6.84, 0.658489821531948, -12.498489821531948]], dtype=np.float64)\nb = np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 5.0], dtype=np.float64)\nM = np.array([[-0.03465735902799726, 0.0, 5.0], [9.954657359027998, 0.010685281944005476, 5.0], [0.0, 0.0, 0.0]], dtype=np.float64)\nalpha, t = 1, 20.0\nassert np.allclose(np.asarray(bounding_output_at_time(L, b, M, alpha, t)), target)",
+        "import numpy as np\ntheta = np.array([5.0, np.log(2.0) / 20.0, 0.02])\nn_states = 20\nL = np.array([[-5.0, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.03465735902799726, -5.034657359027997, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.04, 0.06931471805599453, -5.109314718055995, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.12, 0.10397207708399178, -5.2239720770839915, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.24, 0.13862943611198905, -5.378629436111989, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.4, 0.17328679513998632, -5.573286795139986, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.6, 0.20794415416798356, -5.807944154167983, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.8400000000000001, 0.24260151319598083, -6.08260151319598, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.12, 0.2772588722239781, -6.397258872223978, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.44, 0.3119162312519754, -6.751916231251975, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.8, 0.34657359027997264, -7.1465735902799725, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.2, 0.3812309493079699, -7.58123094930797, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.6399999999999997, 0.4158883083359671, -8.055888308335966, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 3.12, 0.4505456673639644, -8.570545667363964, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 3.6400000000000006, 0.48520302639196167, -9.125203026391961, 5.0, 0.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 4.2, 0.5198603854199589, -9.71986038541996, 5.0, 0.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 4.8, 0.5545177444479562, -10.354517744447957, 5.0, 0.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 5.44, 0.5891751034759535, -11.029175103475954, 5.0, 0.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 6.12, 0.6238324625039507, -11.743832462503951, 5.0], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 6.84, 0.658489821531948, -12.498489821531948]], dtype=np.float64)\nb = np.array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 5.0], dtype=np.float64)\nM = np.array([[-0.03465735902799726, 0.0, 5.0], [9.954657359027998, 0.010685281944005476, 5.0], [0.0, 0.0, 0.0]], dtype=np.float64)\nalpha, t = 2, 20.0\nassert np.allclose(np.asarray(bounding_output_at_time(L, b, M, alpha, t)), target)",
+        "import numpy as np\ntheta = np.array([2.0, 0.1, 0.05])\nn_states = 6\nL = np.array([[-2.0, 2.0, 0.0, 0.0, 0.0, 0.0], [0.1, -2.1, 2.0, 0.0, 0.0, 0.0], [0.1, 0.2, -2.3000000000000003, 2.0, 0.0, 0.0], [0.0, 0.30000000000000004, 0.30000000000000004, -2.5999999999999996, 2.0, 0.0], [0.0, 0.0, 0.6000000000000001, 0.4, -3.0, 2.0], [0.0, 0.0, 0.0, 1.0, 0.5, -3.5]], dtype=np.float64)\nb = np.array([0.0, 0.0, 0.0, 0.0, 0.0, 2.0], dtype=np.float64)\nM = np.array([[-0.1, 0.0, 2.0], [3.8999999999999995, 0.0, 2.0], [0.0, 0.0, 0.0]], dtype=np.float64)\nalpha, t = 1, 0.0\nassert np.allclose(np.asarray(bounding_output_at_time(L, b, M, alpha, t)), target)",
+        "import numpy as np\ntheta = np.array([5.0, np.log(2.0) / 20.0, 0.02])\nn_states = 6\nL = np.array([[-5.0, 5.0, 0.0, 0.0, 0.0, 0.0], [0.03465735902799726, -5.034657359027997, 5.0, 0.0, 0.0, 0.0], [0.04, 0.06931471805599453, -5.109314718055995, 5.0, 0.0, 0.0], [0.0, 0.12, 0.10397207708399178, -5.2239720770839915, 5.0, 0.0], [0.0, 0.0, 0.24, 0.13862943611198905, -5.378629436111989, 5.0], [0.0, 0.0, 0.0, 0.4, 0.17328679513998632, -5.573286795139986]])\nb = np.array([0.0, 0.0, 0.0, 0.0, 0.0, 5.0])\nM = np.array([[-0.03465735902799726, 0.0, 5.0], [9.954657359027998, 0.010685281944005476, 5.0], [0.0, 0.0, 0.0]])\ndef run_model():\n    try:\n        bounding_output_at_time(L, b, M, 3, 1.0)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-5.6",
+      "test_cases": [
+        "import numpy as np\ny1_plus, y1_minus, y2_plus, y2_minus = 17.7686533166, 8.8501308318, 828.0557828036, 101.6466168274\nassert np.allclose(np.asarray(variance_bracket(y1_plus, y1_minus, y2_plus, y2_minus)), target)",
+        "import numpy as np\ny1_plus, y1_minus, y2_plus, y2_minus = 3.0, 3.0, 9.0, 9.0\nassert np.allclose(np.asarray(variance_bracket(y1_plus, y1_minus, y2_plus, y2_minus)), target)",
+        "import numpy as np\ny1_plus, y1_minus, y2_plus, y2_minus = 2.5, 0.0, 6.0, 0.0\nassert np.allclose(np.asarray(variance_bracket(y1_plus, y1_minus, y2_plus, y2_minus)), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        variance_bracket(1.0, 2.0, 4.0, 3.0)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-5.7",
+      "test_cases": [
+        "import numpy as np\ntheta = np.array([5.0, np.log(2.0) / 20.0, 0.02])\nn_states, t = 20, 20.0\nassert np.allclose(variance_upper_bound(theta, n_states, t), target)",
+        "import numpy as np\ntheta = np.array([5.0, np.log(2.0) / 20.0, 0.02])\nn_states, t = 25, 5.0\nassert np.allclose(variance_upper_bound(theta, n_states, t), target)",
+        "import numpy as np\ntheta = np.array([2.0, 0.1, 0.05])\nn_states, t = 8, 2.0\nassert np.allclose(variance_upper_bound(theta, n_states, t), target)",
+        "import numpy as np\ntheta = np.array([5.0, np.log(2.0) / 20.0, 0.02])\ndef run_model():\n    try:\n        variance_upper_bound(theta, 20, -1.0)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

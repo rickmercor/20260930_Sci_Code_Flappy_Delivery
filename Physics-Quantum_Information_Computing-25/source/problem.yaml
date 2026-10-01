@@ -1,0 +1,40 @@
+problem_id: "Physics-Quantum_Information_Computing-25"
+subject: "physics"
+subject_area: "Quantum Information / Computing"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1145/3725843.3756084"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_build_phenomenological_check_matrix"
+    description: "Build the single-round decoding matrix of a hypergraph-product code, with one column per data-qubit fault and one per check-outcome flip, together with the stabilizers of the opposite type."
+    orchestrator: false
+  - number: 2
+    name: "02_decouple_hypergraph_product"
+    description: "Find the column permutation that brings the decoding matrix of a hypergraph-product code into the decoupled form used by the hierarchical decoder, with the block count that decoder prescribes for this code family."
+    orchestrator: false
+  - number: 3
+    name: "03_compute_decoupling_transform"
+    description: "Compute the full-rank binary row transformation that, together with a given column permutation, puts a decoding matrix into the block-decoupled form, and confirm that the form is reached."
+    orchestrator: false
+  - number: 4
+    name: "04_greedy_guess_block"
+    description: "Compute the exact correction profile of a diagonal block over an interval of affine weight calibration gains."
+    orchestrator: false
+  - number: 5
+    name: "05_compute_left_syndromes"
+    description: "For a guess of the error on the off-diagonal part of the decoupled matrix, compute the syndrome that each diagonal block must then explain."
+    orchestrator: false
+  - number: 6
+    name: "06_hierarchical_decode"
+    description: "Compute the full correction profile of the hierarchical decoder under affine calibration uncertainty."
+    orchestrator: false
+  - number: 7
+    name: "07_truncated_failure_probability"
+    description: "Integrate stabilizer-equivalent decoding success over calibration gain and sum the unconditional fault probabilities."
+    orchestrator: false
+  - number: 8
+    name: "08_estimate_decoder_failure_probability"
+    description: "Compose all earlier steps to evaluate calibration-averaged failure for the ring-code hypergraph product. Orchestrator: yes."
+    orchestrator: true

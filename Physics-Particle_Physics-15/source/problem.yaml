@@ -1,0 +1,48 @@
+problem_id: "Physics-Particle_Physics-15"
+subject: "physics"
+subject_area: "Particle Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1016/j.nuclphysb.2025.117271"
+dependencies: ""
+steps:
+  - number: 1
+    name: "seesaw_basis"
+    description: "Exact Majorana mass basis"
+    orchestrator: false
+  - number: 2
+    name: "pv_laurent"
+    description: "Dispersive two-point Laurent data"
+    orchestrator: false
+  - number: 3
+    name: "charged_gauge"
+    description: "Charged-lepton gauge sector"
+    orchestrator: false
+  - number: 4
+    name: "neutrino_w_gauge"
+    description: "Majorana charged-current gauge sector"
+    orchestrator: false
+  - number: 5
+    name: "neutrino_z_gauge"
+    description: "Off-diagonal neutral-current gauge sector"
+    orchestrator: false
+  - number: 6
+    name: "majorana_diagonal_gauge"
+    description: "Diagonal Majorana gauge sector"
+    orchestrator: false
+  - number: 7
+    name: "restored_uv"
+    description: "Gauge-independent ultraviolet completion"
+    orchestrator: false
+  - number: 8
+    name: "scheme_response"
+    description: "Majorana-invariant scheme response"
+    orchestrator: false
+  - number: 9
+    name: "gauge_scheme_benchmark"
+    description: "Complete gauge-scheme benchmark"
+    orchestrator: false
+  - number: 10
+    name: "coincidence_susceptibility"
+    description: "Phase-space coincidence and local susceptibility"
+    orchestrator: true

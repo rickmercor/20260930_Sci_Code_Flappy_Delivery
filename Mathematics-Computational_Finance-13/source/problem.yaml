@@ -1,0 +1,44 @@
+problem_id: "Mathematics-Computational_Finance-13"
+subject: "mathematics"
+subject_area: "Computational Finance"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2609.01323"
+dependencies: ""
+steps:
+  - number: 1
+    name: "cir_transition_stencil"
+    description: "Select the one-step transition stencil at a given node of a recombining square-root lattice. The lattice is uniform in the Lamperti coordinate of the factor, anchored at the initial factor level and stepping by lam*sqrt(h), with the factor level clipped at zero, the lattice floor, wherever the Lamperti coordinate is negative. A selected successor index whose Lamperti coordinate is negative is reported as the lowest index whose coordinate is non-negative. A parent index whose factor level is zero carries no transition and is rejected; every node with a strictly positive level, including the lowest one, is a valid parent. The transition from the parent node must reproduce the exact one-step conditional mean and variance of the square-root factor on three lattice nodes carrying non-negative probabilities. Return the three successor indices relative to the parent, in increasing order, together with their transition probabilities. The chosen triplet is the narrowest one admitting such a distribution, and its span may exceed the immediate neighbours of the parent. Only triplets whose lowest index is at or below the parent index and whose highest index is at or above it are considered, so the parent may itself be the lowest or the highest node of the triplet, and a triplet with a repeated factor level is skipped. When several admissible triplets share the smallest index span, take the one whose outer-pair midpoint is nearest the parent index; if that still ties, take the one with the lower outer index, then the lower middle index."
+    orchestrator: false
+  - number: 2
+    name: "joint_factor_coupling"
+    description: "Combine the one-step transition laws of two square-root factors into a joint transition table over the nine successor pairs. The table must reproduce both marginal transition laws exactly and impose a prescribed correlation between the two factors' standardised innovations, and every entry must be non-negative. Inputs are the marginal probabilities and the centred unit-variance innovations of each factor's stencil, together with the target correlation. Return the 3-by-3 table indexed by the variance successor along the first axis and the rate successor along the second."
+    orchestrator: false
+  - number: 3
+    name: "calibrate_lattice_shift"
+    description: "Calibrate the deterministic shift of a shifted square-root short-rate model directly on its discrete lattice. The shift is a sequence of per-step increments, one for each numerical time step, chosen so that the discount factor implied by the lattice matches the given market discount factor at every grid maturity. Propagate state prices forward across the rate lattice, using at every node the transition stencil selected by cir_transition_stencil (including its tie rule) and discounting each transition with the rate factor at its two endpoints, and determine each increment from the requirement at that maturity before advancing. Return the increments in time order."
+    orchestrator: false
+  - number: 4
+    name: "equity_innovation_weights"
+    description: "Compute the three weights that express the equity innovation in terms of the two factor innovations and one independent residual. The equity innovation is a linear combination of the variance-factor innovation, the rate-factor innovation, and a third component independent of both. The weights are fixed by three requirements: the combination must have unit variance, and its correlation with each of the two factor innovations must equal the prescribed value. Return the three weights in the order variance, rate, residual, with the residual weight taken non-negative."
+    orchestrator: false
+  - number: 5
+    name: "fund_branch_multipliers"
+    description: "Build the one-step fund transition from a single joint factor node. Each of the nine joint factor successors is combined with a three-point quadrature over the independent residual of the equity innovation, giving 27 branches. For each branch return its probability, its discount factor, and its fund multiplier. The integrated short rate over the step is formed from the rate factor at both endpoints of the branch together with the deterministic shift increment. The multipliers must be rescaled by a single node-dependent factor so that the probability-weighted sum of discounted multipliers equals the one-step dividend discount factor exactly. Branches are ordered with the variance successor varying slowest, then the rate successor, then the quadrature point."
+    orchestrator: false
+  - number: 6
+    name: "guarantee_and_mortality_schedules"
+    description: "Build the deterministic contractual schedules for the contract. Two guarantee levels accumulate the fund contributions at two different rates: one governs the maturity and death benefits, the other the guarantee component of the surrender payoff. Both are indexed by policy anniversary and account only for contributions credited at strictly earlier anniversaries, so both vanish at inception. Alongside them, build the probability of surviving from issue to each anniversary under a Gompertz-Makeham hazard. Return the three schedules stacked, each of length one more than the number of policy years."
+    orchestrator: false
+  - number: 7
+    name: "reachable_factor_nodes"
+    description: "Determine which nodes of a square-root lattice are reachable from the anchor at each numerical time step. Starting from the anchor alone, repeatedly apply the transition stencil selected by cir_transition_stencil, including its tie rule, at every node already reached and collect the successors. The reachable set is contiguous at every time level, so return its lowest and highest index at each level. The set does not simply widen by one node per step: stencils may point away from the parent, successors are clamped at the lattice floor, and strong mean reversion can stop the set widening altogether."
+    orchestrator: false
+  - number: 8
+    name: "backward_step_with_obstacle"
+    description: "Advance the value function at one joint factor node back over a single time step. Blend the child value functions with the death benefit if the step closes a policy year, then form the continuation value by mapping each branch's fund multiplier onto the child value function it leads to, weighting by branch probability and discount factor, and subtracting any premium payable at the date. The fund contribution due at the date is credited before the branch multiplier is applied. If the date admits surrender, apply the obstacle pointwise at the fund level before that contribution. Child values are evaluated by linear interpolation on the supplied fund grid, extended beyond either end by the slope of the outermost interval."
+    orchestrator: false
+  - number: 9
+    name: "fair_annual_premium"
+    description: "Run the full pipeline and return the fair annual premium of the surrenderable contract. Build the guarantee and survival schedules, the equity innovation weights, and the deterministic shift increments; enumerate the reachable nodes of both factor lattices; and for each joint node assemble the transition stencils, the joint coupling table and the fund branch multipliers. Then run the backward recursion from the maturity benefit to inception, applying mortality at each policy-year close and the surrender obstacle at each admissible anniversary, with the value carried as a function of the fund on a grid that includes zero. Solve for the premium at which the time-zero value at zero fund vanishes, once on a uniform fund grid of n_fund nodes on [0, fund_max] and once on a uniform grid of 2*n_fund - 1 nodes on the same interval (half the spacing), and return (4*P_fine - P_coarse)/3, which removes the leading second-order discretisation error."
+    orchestrator: true

@@ -1,0 +1,48 @@
+problem_id: "Chemistry-Computational_Chemistry-5"
+subject: "chemistry"
+subject_area: "Computational Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1021/acs.jctc.6c00277"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_simulate_surface_trajectory"
+    description: "Step name: 01_simulate_surface_trajectory\nStep description: Integrate overdamped Langevin dynamics of one tagged adsorbed hydrogen atom on the reduced free-energy surface and return its frame-by-frame coordinates."
+    orchestrator: false
+  - number: 2
+    name: "02_build_local_descriptors"
+    description: "Step name: 02_build_local_descriptors\nStep description: Convert every trajectory frame into an adsorbate-centred descriptor vector built from smoothly truncated radial basis functions over the tagged hydrogen's neighbours."
+    orchestrator: false
+  - number: 3
+    name: "03_label_reaction_endpoints"
+    description: "Step name: 03_label_reaction_endpoints\nStep description: Assign every frame to the atomic reactant state, the molecular product state or the intermediate region using time-smoothed hydrogen-hydrogen distances."
+    orchestrator: false
+  - number: 4
+    name: "04_project_dynamical_components"
+    description: "Step name: 04_project_dynamical_components\nStep description: Reduce the descriptor matrix to its slowest linear components by solving the time-lagged generalized eigenvalue problem."
+    orchestrator: false
+  - number: 5
+    name: "05_assign_intermediate_microstates"
+    description: "Step name: 05_assign_intermediate_microstates\nStep description: Cluster the projected coordinates of the frames outside both endpoint states into discrete microstates that will serve as the Galerkin basis."
+    orchestrator: false
+  - number: 6
+    name: "06_compute_stopping_times"
+    description: "Step name: 06_compute_stopping_times\nStep description: Tabulate, for every frame, the first later frame and the last earlier frame at which the trajectory occupies one of the two endpoint states."
+    orchestrator: false
+  - number: 7
+    name: "07_build_galerkin_system"
+    description: "Step name: 07_build_galerkin_system\nStep description: Accumulate the linear system whose solution gives the expansion coefficients of the committor in the basis of intermediate-microstate indicator functions."
+    orchestrator: false
+  - number: 8
+    name: "08_solve_committor"
+    description: "Step name: 08_solve_committor\nStep description: Solve the Galerkin system for the basis coefficients and expand them into a committor value on every frame of the trajectory."
+    orchestrator: false
+  - number: 9
+    name: "09_estimate_reactive_flux"
+    description: "Step name: 09_estimate_reactive_flux\nStep description: Accumulate the net reactive flux per frame from the committor and the endpoint entry times over lagged trajectory windows."
+    orchestrator: false
+  - number: 10
+    name: "10_compute_association_rate"
+    description: "Step name: 10_compute_association_rate\nStep description: Compose every earlier step to obtain the association rate constant of the tagged adsorbed hydrogen atom in inverse picoseconds."
+    orchestrator: true

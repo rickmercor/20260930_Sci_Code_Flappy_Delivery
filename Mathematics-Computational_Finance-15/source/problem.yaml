@@ -1,0 +1,48 @@
+problem_id: "Mathematics-Computational_Finance-15"
+subject: "mathematics"
+subject_area: "Computational Finance"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: " 10.3934/math.2026457"
+dependencies: ""
+steps:
+  - number: 1
+    name: "smooth_put_payoff"
+    description: "Evaluate the smoothed European put payoff used as the initial condition of the non-standard finite-difference scheme. Given asset prices, the strike and the half-width eps of the smoothing band, return phi(s) = Psi(K - s), where Psi replaces the kink of max(x, 0) at x = 0 by a polynomial on the band [-eps, eps]."
+    orchestrator: false
+  - number: 2
+    name: "exact_difference_weights"
+    description: "Compute the exact finite-difference weights of the Cauchy-Euler part of the Black-Scholes operator on a uniform asset grid. Given the number of asset intervals, the risk-free rate and the volatility, return the three weight arrays A1, A2 and A3 of the interior grid nodes m = 1, ..., M-1."
+    orchestrator: false
+  - number: 3
+    name: "nsfd_coefficients"
+    description: "Assemble the coefficients of the implicit non-standard finite-difference (NSFD) scheme for the Black-Scholes equation. Given the number of asset intervals, the time step, the rate and the volatility, return the left, centre and right coefficients of the tridiagonal system at every interior node and the scaled time denominator psi1."
+    orchestrator: false
+  - number: 4
+    name: "smoothed_put_exact"
+    description: "Evaluate the exact solution of the Black-Scholes equation whose initial condition is the smoothed put payoff. Given asset prices, the strike, the rate, the volatility, the time to maturity and the smoothing half-width, return u(s, tau) = exp(-r tau) E[Psi(K - S_tau) | S_0 = s], where S follows risk-neutral geometric Brownian motion and Psi is the C^4 smoothed version of max(x, 0) on the band [-eps, eps]."
+    orchestrator: false
+  - number: 5
+    name: "nsfd_time_step"
+    description: "Advance the implicit NSFD scheme by one time step. Given the solution on the full asset grid at the previous time level, the interior tridiagonal coefficients, the time denominator psi1 and the two Dirichlet boundary values at the new time level, return the solution on the full grid at the new level."
+    orchestrator: false
+  - number: 6
+    name: "solve_nsfd_put"
+    description: "Solve the Black-Scholes equation for a European put with the implicit NSFD scheme on a uniform grid. Given the contract and market parameters, the truncated asset domain, the smoothing half-width and the numbers of asset intervals and time steps, return the numerical put value at every grid node and every time level."
+    orchestrator: false
+  - number: 7
+    name: "max_nodal_error"
+    description: "Measure the discretisation error of a numerical European put solution by its maximum nodal error. Given the full space-time grid of numerical values and the parameters that produced it, return the largest absolute difference between the numerical value and the exact solution of the smoothed-payoff Black-Scholes problem over every node of the grid."
+    orchestrator: false
+  - number: 8
+    name: "nsfd_american_step"
+    description: "Advance the NSFD scheme for an American put by one implicit time step. Given the solution at the previous time level, the interior tridiagonal coefficients, the time denominator psi1, the exercise payoff on the grid and the two Dirichlet boundary values at the new level, return the exact solution of the discrete linear complementarity problem on the full grid."
+    orchestrator: false
+  - number: 9
+    name: "solve_nsfd_american_put"
+    description: "Solve the American put problem with the implicit NSFD scheme on a uniform grid. Given the contract and market parameters, the truncated asset domain, the smoothing half-width and the numbers of asset intervals and time steps, return the numerical American put value at every grid node and every time level."
+    orchestrator: false
+  - number: 10
+    name: "nsfd_american_put_study"
+    description: "Price an American put and its European counterpart with the NSFD scheme on one grid and report the accuracy of the European solution and the early-exercise premium. Given the contract and market parameters, the asset domain, the smoothing half-width and the number of asset intervals M (with N = M time steps), return the maximum nodal error of the European NSFD solution against the exact solution of the smoothed-payoff Black-Scholes problem, the European and American NSFD values at the strike at maturity, and their difference."
+    orchestrator: true

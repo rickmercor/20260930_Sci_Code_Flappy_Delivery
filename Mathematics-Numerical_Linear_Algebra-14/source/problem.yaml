@@ -1,0 +1,40 @@
+problem_id: "Mathematics-Numerical_Linear_Algebra-14"
+subject: "mathematics"
+subject_area: "Numerical Linear Algebra"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2608.12153"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_compute_skew_polar_factor"
+    description: "Compute the orthogonal polar factor of a nonsingular real skew-symmetric matrix and return the structure-preserving factor used by the later reduction."
+    orchestrator: false
+  - number: 2
+    name: "02_sample_positive_imaginary_basis"
+    description: "Sample a deterministic orthonormal basis for the prescribed complex invariant subspace of the polar factor, together with the conditioning of that sample."
+    orchestrator: false
+  - number: 3
+    name: "03_build_real_symplectic_basis"
+    description: "Convert the complex invariant-subspace basis into the real orthogonal basis used to reduce the original matrix."
+    orchestrator: false
+  - number: 4
+    name: "04_compute_skew_hamiltonian_blocks"
+    description: "Compress the real skew-symmetric matrix into two half-size real blocks in the prescribed orthogonal basis."
+    orchestrator: false
+  - number: 5
+    name: "05_solve_half_size_hermitian_problem"
+    description: "Solve the half-size Hermitian eigenproblem and return eigenpairs with deterministic phase, exact-multiplicity residual-pivot gauges, and balanced Loewdin gauges for tight clusters."
+    orchestrator: false
+  - number: 6
+    name: "06_recover_real_spectral_decomposition"
+    description: "Recover the nonnegative spectral values and real orthogonal spectral basis from the half-size eigenvectors."
+    orchestrator: false
+  - number: 7
+    name: "07_compute_basis_checksums"
+    description: "Reduce the two deterministic real bases to weighted checksums that preserve sensitivity to sign, phase, and ordering conventions."
+    orchestrator: false
+  - number: 8
+    name: "08_compute_basis_sensitive_skew_scalar"
+    description: "Run the reduction over a candidate ensemble of consecutive seeds, resolve a multiway near-maximin pool by a robust optimally matched shadow-ensemble medoid, and return the single basis-sensitive scalar endpoint."
+    orchestrator: true

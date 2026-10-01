@@ -1,0 +1,36 @@
+problem_id: "Mathematics-Computational_Mechanics-39"
+subject: "mathematics"
+subject_area: "Computational Mechanics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1016/j.cma.2026.118976"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_dual_mortar_q4_shapes.py"
+    description: "Evaluate the primal and source dual interpolation functions on one bilinear quadrilateral non-mortar interface element.\n\nUse the standard four-node bilinear primal basis in the supplied natural coordinates and construct the four dual multiplier interpolation values exactly as defined for the three-dimensional interface formulation in the cited paper.\n\nPreserve the node ordering 1,2,3,4 corresponding to bottom-left, bottom-right, top-right, top-left.\n\nReturn the primal and dual interpolation rows."
+    orchestrator: false
+  - number: 2
+    name: "02_coupling_gauss_rule.py"
+    description: "Construct the one-dimensional Gauss-Legendre rule used for integration of the MPM-FEM coupling interface.\n\nDetermine the integration order from the supplied finite-element interface side lengths and mortar-side grid spacings using the empirical coupling-integration prescription defined in the cited paper.\n\nApply the floor operation to the mathematical length ratio. If floating-point evaluation places a value within 1e-12 of an integer, treat it as that integer before applying the floor.\n\nReturn the selected order together with the corresponding one-dimensional Gauss points and weights on [-1,1]."
+    orchestrator: false
+  - number: 3
+    name: "03_regular_grid_interface_shapes.py"
+    description: "Evaluate the mortar-side background-grid trial interpolation used by this benchmark specialization of the dual-mortar coupling algorithm.\n\nThe mortar side is a regular Cartesian MPM background grid covering the rectangular interface. For this benchmark, use standard bilinear background-grid trial functions in the cell containing the supplied physical point.\n\nOrder all global background-grid nodes row-major from the bottom row to the top row and from left to right within each row.\n\nReturn the complete global interpolation row, with zeros for inactive grid nodes."
+    orchestrator: false
+  - number: 4
+    name: "04_assemble_dual_mortar_projection.py"
+    description: "Assemble the dual-mortar coupling matrices for one rectangular non-mortar Q4 surface coupled to the supplied regular mortar-side grid.\n\nUse the source interface quadrature order from the preceding step.\n\nAt every tensor-product Gauss point evaluate the source primal and dual non-mortar functions, map the point to the physical interface, evaluate the mortar-side trial interpolation, and integrate the two source coupling matrices.\n\nConstruct the mortar projection by solving the resulting dual coupling system.\n\nReturn D, A, P, and the one-dimensional Gauss order."
+    orchestrator: false
+  - number: 5
+    name: "05_condense_dual_mortar_newton.py"
+    description: "Construct the statically condensed Newton system corresponding to the cited dual-mortar elimination procedure.\n\nUse the supplied mortar projection and uncoupled tangent/residual blocks.\n\nEliminate the non-mortar interface degrees of freedom according to the source relation and retain the uninvolved and mortar-side coordinates.\n\nReturn the reduced tangent matrix and reduced residual in that retained ordering."
+    orchestrator: false
+  - number: 6
+    name: "06_solve_dual_mortar_increment.py"
+    description: "Solve the complete statically condensed dual-mortar Newton increment for the supplied interface geometry and uncoupled tangent/residual blocks.\n\nConstruct the source mortar projection, form the source condensed Newton system, solve the retained linear system directly, and reconstruct the eliminated non-mortar interface increment using the mortar projection.\n\nReturn the uninvolved increment, reconstructed non-mortar increment, mortar-side increment, and the infinity norm of the reduced Newton residual.\n\nDo not round intermediate values."
+    orchestrator: false
+  - number: 7
+    name: "07_dual_mortar_target_increment.py"
+    description: "Compute one requested reconstructed non-mortar interface increment for the complete benchmark dual-mortar problem.\n\nUse the complete source coupling, condensation, reduced solve, and eliminated-interface reconstruction from the preceding steps.\n\nReturn the signed component of the reconstructed non-mortar interface increment identified by the supplied zero-based target index.\n\nDo not round intermediate values."
+    orchestrator: true

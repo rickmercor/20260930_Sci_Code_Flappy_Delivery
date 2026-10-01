@@ -1,0 +1,68 @@
+{
+  "problem_id": "Physics-Astrophysics-36",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Astrophysics-36.1",
+      "test_cases": [
+        "case_name = 'normal: challenge order parameter'\nassert np.allclose(order_parameter(), target)",
+        "case_name = 'boundary: minimum allowed dimension'\nassert np.allclose(order_parameter(d=10, ell=0), target)",
+        "case_name = 'edge: high dimension and angular number'\nassert np.allclose(order_parameter(d=400, ell=10), target)",
+        "case_name = 'invalid: negative angular index'\n\ndef _value_error_status(function, *args, **kwargs):\n    try:\n        function(*args, **kwargs)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_value_error_status(order_parameter, ell=-1), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-36.2",
+      "test_cases": [
+        "case_name = 'normal: challenge interface basis'\nassert np.allclose(mode_basis_at_match(), target)",
+        "case_name = 'boundary: minimum dimension with complex frequency'\nassert np.allclose(mode_basis_at_match(d=10, ell=0, z=2.0 + 1.0j), target)",
+        "case_name = 'edge: high-dimensional basis evaluation'\nassert np.allclose(mode_basis_at_match(d=400, ell=2, z=195.0 + 10.0j), target)",
+        "case_name = 'invalid: zero frequency argument'\n\ndef _value_error_status(function, *args, **kwargs):\n    try:\n        function(*args, **kwargs)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_value_error_status(mode_basis_at_match, z=0.0j), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-36.3",
+      "test_cases": [
+        "case_name = 'normal: compatibility residual near target branch'\nassert np.allclose(matching_residual(), target)",
+        "case_name = 'boundary: low-dimensional valid residual'\nassert np.allclose(matching_residual(d=10, ell=0, z=2.0 + 1.0j), target)",
+        "case_name = 'edge: large-d residual evaluation'\nassert np.allclose(matching_residual(d=400, ell=2, z=195.0 + 10.0j), target)",
+        "case_name = 'invalid: delegated singular frequency'\n\ndef _value_error_status(function, *args, **kwargs):\n    try:\n        function(*args, **kwargs)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_value_error_status(matching_residual, z=0.0j), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-36.4",
+      "test_cases": [
+        "case_name = 'normal: d=250 continuation predictor'\nassert np.allclose(continuation_seed(), target)",
+        "case_name = 'boundary: lower Table II anchor'\nassert np.allclose(continuation_seed(d=200), target)",
+        "case_name = 'edge: upper Table II anchor'\nassert np.allclose(continuation_seed(d=300), target)",
+        "case_name = 'invalid: dimension outside local continuation interval'\n\ndef _value_error_status(function, *args, **kwargs):\n    try:\n        function(*args, **kwargs)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_value_error_status(continuation_seed, d=199), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-36.5",
+      "test_cases": [
+        "case_name = 'normal: d=250 multistart roots'\nassert np.allclose(candidate_roots(), target)",
+        "case_name = 'boundary: d=220 local continuation search'\nassert np.allclose(candidate_roots(d=220), target)",
+        "case_name = 'edge: d=300 upper-anchor search'\nassert np.allclose(candidate_roots(d=300), target)",
+        "case_name = 'invalid: nonpositive residual tolerance'\n\ndef _value_error_status(function, *args, **kwargs):\n    try:\n        function(*args, **kwargs)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_value_error_status(candidate_roots, residual_tol=0.0), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-36.6",
+      "test_cases": [
+        "case_name = 'normal: select d=250 continued branch'\nassert np.allclose(select_va_branch(), target)",
+        "case_name = 'boundary: select d=240 continued branch'\nassert np.allclose(select_va_branch(d=240), target)",
+        "case_name = 'edge: select upper-anchor branch'\nassert np.allclose(select_va_branch(d=300), target)",
+        "case_name = 'invalid: continuation gate too tight'\n\ndef _value_error_status(function, *args, **kwargs):\n    try:\n        function(*args, **kwargs)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_value_error_status(select_va_branch, d=250, max_seed_distance=1e-4), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-36.7",
+      "test_cases": [
+        "case_name = 'normal: final d=250 challenge scalar'\nassert np.allclose(final_answer(), target)",
+        "case_name = 'nearby: final d=240 scalar'\nassert np.allclose(final_answer(d=240), target)",
+        "case_name = 'edge: final d=300 scalar'\nassert np.allclose(final_answer(d=300), target)",
+        "case_name = 'invalid: delegated branch gate failure'\n\ndef _value_error_status(function, *args, **kwargs):\n    try:\n        function(*args, **kwargs)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_value_error_status(final_answer, max_seed_distance=1e-4), target)"
+      ]
+    }
+  ]
+}

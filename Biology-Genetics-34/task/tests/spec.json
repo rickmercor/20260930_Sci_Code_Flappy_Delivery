@@ -1,0 +1,116 @@
+{
+  "problem_id": "Biology-Genetics-34",
+  "sub_steps": [
+    {
+      "step_number": "Biology-Genetics-34.1",
+      "test_cases": [
+        "import numpy as np\nn_snps = 2000000\ncounts = (8000, 600, 40, 2)\nw = np.array([1.0, 10.0, 100.0, 1000.0, 10000.0])\nexact = np.array([1.0 - 8642.0 / 2000000.0, 8000.0 / 2000000.0,\n                  600.0 / 2000000.0, 40.0 / 2000000.0, 2.0 / 2000000.0])\nEXPECTED = float(np.dot(w, exact))\nassert np.allclose(float(np.dot(w, mixture_probabilities(n_snps, counts))), target)",
+        "import numpy as np\nn_snps = 9000000\ncounts = (55000, 4100, 310, 17)\nassert np.allclose(float(np.sum(mixture_probabilities(n_snps, counts) * np.arange(1.0, 6.0))), target)",
+        "import numpy as np\nn_snps = 1000\ncounts = (900, 99)\nassert np.allclose(float(mixture_probabilities(n_snps, counts)[0]), target)",
+        "import numpy as np\nn_snps = 500000\ncounts = (1,)\nassert np.allclose(float(np.sum(mixture_probabilities(n_snps, counts))), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        mixture_probabilities(1000, (900, 200))\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        mixture_probabilities(1000000, (5000, -3))\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-34.2",
+      "test_cases": [
+        "import numpy as np\nn = 250000.0\ngamma = (0.0, 1e-4, 1e-2)\nlam_exact = np.array([1.0e4, 1.0e2])\nc_exact = n + lam_exact\nEXPECTED = float(np.dot(lam_exact, [1.0, 3.0]) + 1e-3 * np.dot(c_exact, [1.0, 7.0]))\nassert np.allclose(float(np.dot(mixture_scale_factors(n, 0.5, gamma)[:, 0], [1.0, 3.0]) + 1e-3 * np.dot(mixture_scale_factors(n, 0.5, gamma)[:, 1], [1.0, 7.0])), target)",
+        "import numpy as np\nn = 480000.0\ngamma = (0.0, 1e-5, 1e-4, 1e-3, 1e-2)\nw = np.array([1.0, 2.0, 4.0, 8.0])\nassert np.allclose(float(np.dot(mixture_scale_factors(n, 0.31, gamma)[:, 0], w) + 1e-2 * np.dot(mixture_scale_factors(n, 0.31, gamma)[:, 1], w)), target)",
+        "import numpy as np\ngamma = (0.0, 1e-6, 1e-3)\nassert np.allclose(float(np.sum(mixture_scale_factors(12.0, 0.08, gamma)[:, 1])), target)",
+        "import numpy as np\ngamma = (0.0, 1e-3)\nassert np.allclose(float(mixture_scale_factors(1e6, 0.995, gamma)[0, 0]), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        mixture_scale_factors(1e5, 0.3, (1e-6, 1e-4, 1e-2))\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        mixture_scale_factors(1e5, 1.0, (0.0, 1e-4))\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-34.3",
+      "test_cases": [
+        "import numpy as np\nprobs = np.array([0.99, 0.008, 0.002])\nlam = np.array([1.0e4, 1.0e2])\nn = 250000.0\nc = n + lam\nfactors = np.column_stack([lam, c])\namp_exact = (probs[1:] / probs[0]) * np.sqrt(lam / c)\nrate_exact = n / (2.0 * c)\nEXPECTED = float(1e3 * np.dot(amp_exact, [1.0, 5.0]) + np.dot(rate_exact, [1.0, 9.0]))\nassert np.allclose(float(1e3 * np.dot(pip_curve_constants(probs, factors, n)[:, 0], [1.0, 5.0]) + np.dot(pip_curve_constants(probs, factors, n)[:, 1], [1.0, 9.0])), target)",
+        "import numpy as np\nprobs = np.array([0.9963, 0.0030, 0.0006, 0.00008, 0.00002])\nlam = np.array([2.5e5, 2.5e4, 2.5e3, 2.5e2])\nn = 900000.0\nfactors = np.column_stack([lam, n + lam])\nw = np.array([1.0, 3.0, 9.0, 27.0])\nassert np.allclose(float(1e4 * np.dot(pip_curve_constants(probs, factors, n)[:, 0], w) + np.dot(pip_curve_constants(probs, factors, n)[:, 1], w)), target)",
+        "import numpy as np\nprobs = np.array([0.95, 0.05])\nlam = np.array([4.0e5])\nn = 100.0\nfactors = np.column_stack([lam, n + lam])\nassert np.allclose(float(pip_curve_constants(probs, factors, n)[0, 1]), target)",
+        "import numpy as np\nprobs = np.array([0.4, 0.6])\nlam = np.array([1.7e3])\nn = 55000.0\nfactors = np.column_stack([lam, n + lam])\nassert np.allclose(float(pip_curve_constants(probs, factors, n)[0, 0]), target)",
+        "import numpy as np\nprobs = np.array([0.90, 0.05])\nfactors = np.column_stack([np.array([1.0e4]), np.array([1.1e4])])\ndef run_model():\n    try:\n        pip_curve_constants(probs, factors, 1000.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nprobs = np.array([0.98, 0.02])\nfactors = np.column_stack([np.array([1.0e4, 1.0e3]), np.array([1.1e4, 1.1e3])])\ndef run_model():\n    try:\n        pip_curve_constants(probs, factors, 1000.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-34.4",
+      "test_cases": [
+        "import numpy as np\nconstants = np.array([[2.5e-4, 0.45]])\ndef exact(a):\n    return float(np.log(a / ((1.0 - a) * 2.5e-4)) / 0.45)\nEXPECTED = float(exact(0.9) + 10.0 * exact(0.5))\nassert np.allclose(float(pip_threshold_statistic(constants, 0.9) + 10.0 * pip_threshold_statistic(constants, 0.5)), target)",
+        "import numpy as np\nconstants = np.array([[2.5e-3, 0.4100], [7.0e-5, 0.4700],\n                      [1.4e-6, 0.4950], [2.0e-8, 0.4990]])\nassert np.allclose(pip_threshold_statistic(constants, 0.9), target)",
+        "import numpy as np\nconstants = np.array([[0.6, 0.3], [0.2, 0.45]])\nassert np.allclose(pip_threshold_statistic(constants, 0.4), target)",
+        "import numpy as np\nconstants = np.array([[4.0e-9, 0.4999], [1.0e-11, 0.5]])\nassert np.allclose(pip_threshold_statistic(constants, 0.999), target)",
+        "import numpy as np\nconstants = np.array([[1.0e-3, 0.5]])\ndef run_model():\n    try:\n        pip_threshold_statistic(constants, 1.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nconstants = np.array([[-1.0e-3, 0.5], [1.0e-5, 0.49]])\ndef run_model():\n    try:\n        pip_threshold_statistic(constants, 0.9)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-34.5",
+      "test_cases": [
+        "import numpy as np\nfactors = np.array([[1000.0, 4000.0], [625.0, 10000.0], [5625.0, 10000.0]])\nexact = np.array([0.31731050786291415, 0.6170750774519738, 0.13361440253771614])\nw = np.array([1.0, 4.0, 16.0])\nEXPECTED = float(np.dot(w, exact))\nassert np.allclose(float(np.dot(w, component_detection_power(factors, 4.0))), target)",
+        "import numpy as np\nfactors = np.array([[2.4e5, 1.94e6], [2.4e4, 1.724e6],\n                    [2.4e3, 1.7024e6], [2.4e2, 1.70024e6]])\nw = np.array([1.0, 2.0, 3.0, 4.0])\nassert np.allclose(float(np.dot(w, component_detection_power(factors, 17.3))), target)",
+        "import numpy as np\nfactors = np.array([[1.0e4, 5.0e5], [1.0e2, 5.0e5]])\nassert np.allclose(float(np.sum(component_detection_power(factors, 0.0))), target)",
+        "import numpy as np\nfactors = np.array([[8.0e5, 8.3e5]])\nassert np.allclose(float(component_detection_power(factors, 34.0)[0]), target)",
+        "import numpy as np\nfactors = np.array([[1.0e4, 9.0e3]])\ndef run_model():\n    try:\n        component_detection_power(factors, 10.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nfactors = np.array([[1.0e4, 5.0e5]])\ndef run_model():\n    try:\n        component_detection_power(factors, -3.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-34.6",
+      "test_cases": [
+        "import numpy as np\nfactors = np.array([[1000.0, 4000.0], [625.0, 10000.0], [5625.0, 10000.0]])\ncut = np.array([1.0, 0.5, 1.5])\ntails = np.array([0.31731050786291415, 0.6170750774519738, 0.13361440253771614])\nexact = 2.0 * cut * np.exp(-0.5 * cut ** 2) / np.sqrt(2.0 * np.pi) + tails\nw = np.array([1.0, 4.0, 16.0])\nEXPECTED = float(np.dot(w, exact))\nassert np.allclose(float(np.dot(w, component_tail_second_moment(factors, 4.0, tails))), target)",
+        "import numpy as np\nfactors = np.array([[2.4e5, 1.94e6], [2.4e4, 1.724e6],\n                    [2.4e3, 1.7024e6], [2.4e2, 1.70024e6]])\npower = np.array([0.12, 0.55, 0.84, 0.94])\nw = np.array([1.0, 2.0, 3.0, 4.0])\nassert np.allclose(float(np.dot(w, component_tail_second_moment(factors, 17.3, power))), target)",
+        "import numpy as np\nfactors = np.array([[1.0e4, 5.0e5], [1.0e2, 5.0e5]])\npower = np.array([1.0, 1.0])\nassert np.allclose(float(np.sum(component_tail_second_moment(factors, 0.0, power))), target)",
+        "import numpy as np\nfactors = np.array([[8.0e5, 8.3e5]])\npower = np.array([1.5e-8])\nassert np.allclose(float(component_tail_second_moment(factors, 34.0, power)[0]), target)",
+        "import numpy as np\nfactors = np.array([[1.0e4, 5.0e5]])\ndef run_model():\n    try:\n        component_tail_second_moment(factors, 10.0, np.array([1.2]))\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nfactors = np.array([[1.0e4, 5.0e5], [1.0e2, 5.0e5]])\ndef run_model():\n    try:\n        component_tail_second_moment(factors, 10.0, np.array([0.4]))\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-34.7",
+      "test_cases": [
+        "import numpy as np\nn = 9000.0\nlam = np.array([1000.0, 100.0])\nfactors = np.column_stack([lam, n + lam])\npower = np.array([0.25, 0.80])\nmoment = np.array([0.60, 0.95])\nsigma_e2 = 1.0 - 0.40\nexact = (sigma_e2 / (n + lam)) * power + (n * sigma_e2 / (lam * (n + lam))) * moment\nEXPECTED = float(1e3 * np.dot(exact, [1.0, 6.0]))\nassert np.allclose(float(1e3 * np.dot(component_detected_variance(factors, power, moment, 0.40, n), [1.0, 6.0])), target)",
+        "import numpy as np\nn = 1.7e6\nlam = np.array([2.4e5, 2.4e4, 2.4e3, 2.4e2])\nfactors = np.column_stack([lam, n + lam])\npower = np.array([0.12, 0.55, 0.84, 0.94])\nmoment = np.array([0.170, 0.860, 0.990, 0.9995])\nw = np.array([1.0, 10.0, 100.0, 1000.0])\nassert np.allclose(float(np.dot(w, component_detected_variance(factors, power, moment, 0.31, n))), target)",
+        "import numpy as np\nn = 5.0e5\nlam = np.array([1.0e5, 1.0e3])\nfactors = np.column_stack([lam, n + lam])\npower = np.array([1.0, 1.0])\nmoment = np.array([1.0, 1.0])\nassert np.allclose(float(1e4 * np.sum(component_detected_variance(factors, power, moment, 0.5, n))), target)",
+        "import numpy as np\nn = 1.0e4\nlam = np.array([2.0e5])\nfactors = np.column_stack([lam, n + lam])\nassert np.allclose(float(component_detected_variance(factors, np.array([0.0]), np.array([0.0]), 0.15, n)[0]), target)",
+        "import numpy as np\nfactors = np.array([[1.0e4, 5.1e5]])\ndef run_model():\n    try:\n        component_detected_variance(factors, np.array([0.5]), np.array([0.9]), 0.3, 1.0e4)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nfactors = np.array([[1.0e4, 5.1e5]])\ndef run_model():\n    try:\n        component_detected_variance(factors, np.array([0.5]), np.array([-0.1]), 0.3, 5.0e5)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-34.8",
+      "test_cases": [
+        "import numpy as np\nprobs = np.array([0.9960, 0.0032, 0.0006, 0.0002])\ndetected = np.array([1.0e-6, 2.0e-5, 2.4e-4])\nEXPECTED = float(1000000.0 * (0.0032 * 1.0e-6 + 0.0006 * 2.0e-5\n                              + 0.0002 * 2.4e-4) / 0.32)\nassert np.allclose(expected_heritability_explained(probs, detected, 0.32, 1000000), target)",
+        "import numpy as np\nprobs = np.array([0.9972, 0.0024, 0.00035, 0.00005])\ndetected = np.array([1.4e-6, 3.1e-5, 3.0e-4])\nassert np.allclose(expected_heritability_explained(probs, detected, 0.31, 9000000), target)",
+        "import numpy as np\nprobs = np.array([0.99, 0.008, 0.002])\ndetected = np.zeros(2)\nassert np.allclose(expected_heritability_explained(probs, detected, 0.45, 800000), target)",
+        "import numpy as np\nprobs = np.array([0.999, 0.001])\ndetected = np.array([1e-3 * 0.2])\nassert np.allclose(expected_heritability_explained(probs, detected, 0.2, 1000000), target)",
+        "import numpy as np\nprobs = np.array([0.90, 0.05])\ndetected = np.array([1.0e-5])\ndef run_model():\n    try:\n        expected_heritability_explained(probs, detected, 0.3, 100000)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nprobs = np.array([0.99, 0.01])\ndetected = np.array([1.0e-5])\ndef run_model():\n    try:\n        expected_heritability_explained(probs, detected, 0.3, 1.5e6)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-34.9",
+      "test_cases": [
+        "import numpy as np\nn_eq = 400000.0\nq05 = 1.6448536269514722\ni05 = (np.exp(-0.5 * q05 ** 2) / np.sqrt(2.0 * np.pi)) / 0.05\nhalf = (np.exp(0.0) / np.sqrt(2.0 * np.pi)) / 0.5\ncases_05 = n_eq * (1.0 - 0.05) ** 2 / (i05 ** 2 * (1.0 - 0.5))\ncases_50 = n_eq * (1.0 - 0.5) ** 2 / (half ** 2 * (1.0 - 0.5))\nEXPECTED = float(cases_05 + 1000.0 * cases_50)\nassert np.allclose(float(required_case_count(n_eq, 0.05, 0.5) + 1000.0 * required_case_count(n_eq, 0.5, 0.5)), target)",
+        "import numpy as np\nassert np.allclose(required_case_count(750000.0, 0.08, 0.25), target)",
+        "import numpy as np\nassert np.allclose(required_case_count(1.2e6, 0.0005, 0.5), target)",
+        "import numpy as np\nassert np.allclose(required_case_count(3.0e5, 0.12, 0.02), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        required_case_count(1.0e6, 0.0, 0.5)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        required_case_count(1.0e6, 0.01, 1.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-34.10",
+      "test_cases": [
+        "import numpy as np\nn_snps = 12500000\ncounts = (40000, 3000, 200, 10)\ngamma = (0.0, 1e-5, 1e-4, 1e-3, 1e-2)\nassert np.allclose(run_finemapping_power_pipeline(n_snps, counts, gamma, 0.24, 0.9, 0.6, 0.01, 0.5), target)",
+        "import numpy as np\nn_snps = 4000000\ncounts = (9000, 900, 90, 9)\ngamma = (0.0, 2e-5, 2e-4, 2e-3, 2e-2)\nassert np.allclose(run_finemapping_power_pipeline(n_snps, counts, gamma, 0.35, 0.8, 0.55, 0.03, 0.4), target)",
+        "import numpy as np\nassert np.allclose(run_finemapping_power_pipeline(1000000, (100,), (0.0, 1e-2), 0.5, 0.95, 0.4, 0.005, 0.5), target)",
+        "import numpy as np\nassert np.allclose(run_finemapping_power_pipeline(8000000, (20000, 1500, 100), (0.0, 1e-5, 1e-4, 1e-3), 0.18, 0.7, 0.35, 0.5, 0.5), target)",
+        "import numpy as np\nassert np.allclose(run_finemapping_power_pipeline(6000000, (15000, 800), (0.0, 2e-5, 5e-4), 0.12, 0.5, 0.45, 0.002, 0.1), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        run_finemapping_power_pipeline(12500000, (40000, 3000, 200, 10),\n                                       (0.0, 1e-5, 1e-4, 1e-3), 0.24, 0.9, 0.75, 0.01, 0.5)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        run_finemapping_power_pipeline(12500000, (40000, 3000, 200, 10),\n                                       (0.0, 1e-5, 1e-4, 1e-3, 1e-2), 0.24, 0.9, 1.0, 0.01, 0.5)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

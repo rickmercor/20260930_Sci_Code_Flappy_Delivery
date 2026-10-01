@@ -1,0 +1,44 @@
+problem_id: "Physics-Computational_Physics-40"
+subject: "physics"
+subject_area: "Computational Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2604.25112"
+dependencies: ""
+steps:
+  - number: 1
+    name: "Build Kinetic Root Seeds"
+    description: "Construct deterministic starting estimates for each normalized wave number."
+    orchestrator: false
+  - number: 2
+    name: "Solve Least-Damped Kinetic Roots"
+    description: "Refine the positive-real kinetic root at each supplied wave number."
+    orchestrator: false
+  - number: 3
+    name: "Match Root-Constrained Pad\u00e9 Coefficients"
+    description: "Recover the two free rational-response parameters from each kinetic root."
+    orchestrator: false
+  - number: 4
+    name: "Derive Heat-Flux Closure Coefficients"
+    description: "Convert the matched Pad\u00e9 parameters into real closure coefficients."
+    orchestrator: false
+  - number: 5
+    name: "Assemble Three-Moment Generators"
+    description: "Build the Fourier-space linear operator for every closure row."
+    orchestrator: false
+  - number: 6
+    name: "Initialize Isothermal Fourier Modes"
+    description: "Form the complex positive-wave-number density, velocity, and pressure states."
+    orchestrator: false
+  - number: 7
+    name: "Propagate Modes with Explicit Midpoint"
+    description: "Advance every independent Fourier state to the requested final time."
+    orchestrator: false
+  - number: 8
+    name: "Compute Logarithmic Field Energy"
+    description: "Reduce the initial and final density spectra to one normalized diagnostic."
+    orchestrator: false
+  - number: 9
+    name: "Run Root-Matched Closure Pipeline"
+    description: "Compose every public step into the end-to-end energy calculation."
+    orchestrator: true

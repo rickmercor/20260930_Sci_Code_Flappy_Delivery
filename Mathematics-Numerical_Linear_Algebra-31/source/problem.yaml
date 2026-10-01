@@ -1,0 +1,40 @@
+problem_id: "Mathematics-Numerical_Linear_Algebra-31"
+subject: "mathematics"
+subject_area: "Numerical Linear Algebra"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2604.16075"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_compute_relative_backward_error"
+    description: "Evaluate the matrix-only relative backward error of a candidate linear-system iterate."
+    orchestrator: false
+  - number: 2
+    name: "02_construct_controlled_psd_system"
+    description: "Construct the deterministic positive-definite spectral system used by the benchmark."
+    orchestrator: false
+  - number: 3
+    name: "03_build_orthogonal_recurrence"
+    description: "Build the reorthogonalized symmetric Krylov basis and finite recurrence matrix."
+    orchestrator: false
+  - number: 4
+    name: "04_extract_reduced_operator"
+    description: "Extract the paper-specific reduced operator and reproduce Algorithm 4.1's incremental, shifted upper-banded Cholesky state."
+    orchestrator: false
+  - number: 5
+    name: "05_approximate_smallest_singular_pair"
+    description: "Approximate the smallest right singular pair of the paper's banded reduced operator without using dense factorizations."
+    orchestrator: false
+  - number: 6
+    name: "06_compute_normal_equation_history"
+    description: "Compute the MINBERR-NE backward-error history from the paper's Golub--Kahan reduction."
+    orchestrator: false
+  - number: 7
+    name: "07_compute_error_histories"
+    description: "Compute the fixed-update, direct-MINBERR, and MINBERR-NE backward-error histories."
+    orchestrator: false
+  - number: 8
+    name: "08_run_backward_error_benchmark"
+    description: "Run the deterministic benchmark and return the final MINBERR-NE-over-direct ratio."
+    orchestrator: true

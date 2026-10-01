@@ -1,0 +1,77 @@
+{
+  "problem_id": "Biology-Genetics-7",
+  "sub_steps": [
+    {
+      "step_number": "Biology-Genetics-7.1",
+      "test_cases": [
+        "import numpy as np\nbx = np.array([0.2, -0.1])\nby = np.array([0.1, 0.05])\neaf = np.array([0.6, 0.4])\nassert np.allclose(allele_orientations(bx, by, eaf), target)",
+        "import numpy as np\nbx = np.array([-0.3])\nby = np.array([-0.06])\neaf = np.array([0.2])\nassert np.allclose(allele_orientations(bx, by, eaf), target)",
+        "import numpy as np\nbx = np.array([0.08, -0.12, 0.16, 0.20, -0.24, 0.28, 0.32, -0.36, 0.40, -0.44, 0.48, -0.52, 0.012, -0.010])\nby = np.array([0.0252, -0.0368, 0.0486, 0.0590, -0.0716, 0.0835, 0.0969, -0.1083, 0.6720, -0.7335, 0.6450, -0.7372, 0.1636, -0.1150])\neaf = np.array([0.62, 0.31, 0.71, 0.44, 0.28, 0.58, 0.67, 0.39, 0.55, 0.41, 0.73, 0.36, 0.52, 0.48])\nassert np.allclose(allele_orientations(bx, by, eaf), target)",
+        "import numpy as np\nbx = np.array([0.1, 0.2, 0.3])\nby = np.array([0.02, 0.04, 0.06])\neaf = np.array([0.7, 0.6, 0.55])\nassert np.allclose(allele_orientations(bx, by, eaf), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-7.2",
+      "test_cases": [
+        "import numpy as np\nbx = np.array([0.2, 0.3])\nby = np.array([0.1, 0.15])\nsx = np.array([0.02, 0.02])\nsy = np.array([0.03, 0.03])\nz = np.array([0.0, 0.0])\nassert np.allclose(rivw_slope(bx, by, sx, sy, z, 3.5, 0.5), target)",
+        "import numpy as np\nbx = np.array([0.01, 0.25])\nby = np.array([0.4, 0.08])\nsx = np.array([0.02, 0.02])\nsy = np.array([0.03, 0.03])\nz = np.array([0.1, 0.0])\nassert np.allclose(rivw_slope(bx, by, sx, sy, z, 3.5, 0.5), target)",
+        "import numpy as np\nbx = np.array([0.08, 0.12, 0.16, 0.20, 0.24, 0.28, 0.32, 0.36, 0.40, 0.44, 0.48, 0.52, 0.012, 0.010])\nby = np.array([0.0252, 0.0368, 0.0486, 0.0590, 0.0716, 0.0835, 0.0969, 0.1083, 0.6720, 0.7335, 0.6450, 0.7372, 0.1636, 0.1150])\nsx = np.array([0.015]*12+[0.020, 0.020])\nsy = np.array([0.015]*12+[0.025, 0.025])\nz = np.array([0.08, 0.05, 0.06, 0.02, 0.10, 0.04, 0.03, 0.02, 0.05, 0.03, 0.04, 0.01, 0.18, 0.14])\nassert np.allclose(rivw_slope(bx, by, sx, sy, z, 3.5, 0.5), target)",
+        "import numpy as np\nbx = np.array([0.4])\nby = np.array([0.1])\nsx = np.array([0.02])\nsy = np.array([0.03])\nz = np.array([0.0])\nassert np.allclose(rivw_slope(bx, by, sx, sy, z, 3.5, 0.5), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-7.3",
+      "test_cases": [
+        "import numpy as np\nbx = np.array([0.2, 0.3, 0.4])\nby = np.array([0.06, 0.09, 0.12])\nsx = np.array([0.02, 0.02, 0.02])\nsy = np.array([0.03, 0.03, 0.03])\nz = np.zeros(3)\nassert np.allclose(mei_z_score(bx, by, sx, sy, z, 3.5, 0.5), target)",
+        "import numpy as np\nbx = np.array([0.2, 0.3, 0.4])\nby = np.array([0.06, 0.09, 0.52])\nsx = np.array([0.02, 0.02, 0.02])\nsy = np.array([0.03, 0.03, 0.03])\nz = np.zeros(3)\nassert np.allclose(mei_z_score(bx, by, sx, sy, z, 3.5, 0.5), target)",
+        "import numpy as np\nbx = np.array([0.08, 0.12, 0.16, 0.20, 0.24, 0.28, 0.32, 0.36, 0.40, 0.44, 0.48, 0.52, 0.012, 0.010])\nby = np.array([0.0252, 0.0368, 0.0486, 0.0590, 0.0716, 0.0835, 0.0969, 0.1083, 0.6720, 0.7335, 0.6450, 0.7372, 0.1636, 0.1150])\nsx = np.array([0.015]*12+[0.020, 0.020])\nsy = np.array([0.015]*12+[0.025, 0.025])\nz = np.array([0.08, 0.05, 0.06, 0.02, 0.10, 0.04, 0.03, 0.02, 0.05, 0.03, 0.04, 0.01, 0.18, 0.14])\nassert np.allclose(mei_z_score(bx, by, sx, sy, z, 3.5, 0.5), target)",
+        "import numpy as np\nbx = np.array([0.01, 0.25])\nby = np.array([0.4, 0.08])\nsx = np.array([0.02, 0.02])\nsy = np.array([0.03, 0.03])\nz = np.array([0.0, 0.0])\nassert np.allclose(mei_z_score(bx, by, sx, sy, z, 3.5, 0.5), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-7.4",
+      "test_cases": [
+        "import numpy as np\nbx = np.array([0.2, -0.3, 0.4])\nby = np.array([0.06, -0.09, 0.12])\nsx = np.full(3, 0.02)\nsy = np.full(3, 0.03)\neaf = np.array([0.6, 0.3, 0.7])\nz = np.zeros(3)\nassert np.allclose(mei_combined_stat(bx, by, sx, sy, eaf, z, 3.5, 0.5), target)",
+        "import numpy as np\nbx = np.array([0.2, -0.3, 0.4])\nby = np.array([0.06, 0.40, 0.12])\nsx = np.full(3, 0.02)\nsy = np.full(3, 0.03)\neaf = np.array([0.6, 0.3, 0.7])\nz = np.array([0.1, -0.1, 0.0])\nassert np.allclose(mei_combined_stat(bx, by, sx, sy, eaf, z, 3.5, 0.5), target)",
+        "import numpy as np\nbx = np.array([0.08, -0.12, 0.16, 0.20, -0.24, 0.28, 0.32, -0.36, 0.40, -0.44, 0.48, -0.52, 0.012, -0.010])\nby = np.array([0.0252, -0.0368, 0.0486, 0.0590, -0.0716, 0.0835, 0.0969, -0.1083, 0.6720, -0.7335, 0.6450, -0.7372, 0.1636, -0.1150])\nsx = np.array([0.015]*12+[0.020, 0.020])\nsy = np.array([0.015]*12+[0.025, 0.025])\neaf = np.array([0.62, 0.31, 0.71, 0.44, 0.28, 0.58, 0.67, 0.39, 0.55, 0.41, 0.73, 0.36, 0.52, 0.48])\nz = np.array([0.08, -0.05, 0.06, 0.02, -0.10, 0.04, 0.03, -0.02, 0.05, -0.03, 0.04, 0.01, 0.18, -0.14])\nassert np.allclose(mei_combined_stat(bx, by, sx, sy, eaf, z, 3.5, 0.5), target)",
+        "import numpy as np\nbx = np.array([0.25, 0.30])\nby = np.array([0.05, 0.06])\nsx = np.full(2, 0.02)\nsy = np.full(2, 0.03)\neaf = np.array([0.55, 0.60])\nz = np.zeros(2)\nassert np.allclose(mei_combined_stat(bx, by, sx, sy, eaf, z, 3.5, 0.5), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-7.5",
+      "test_cases": [
+        "import numpy as np\nbx = np.array([0.2, 0.4, 0.1])\nby = np.array([0.1, 0.2, 0.15])\nassert np.allclose(adaptive_alasso_weights(bx, by, 1.0), target)",
+        "import numpy as np\nbx = np.array([0.2, -0.4])\nby = np.array([0.06, -0.12])\nassert np.allclose(adaptive_alasso_weights(bx, by, 1.0), target)",
+        "import numpy as np\nbx = np.array([0.08, 0.12, 0.16, 0.20, 0.24, 0.28, 0.32, 0.36, 0.40, 0.44, 0.48, 0.52, 0.012, 0.010])\nby = np.array([0.0252, 0.0368, 0.0486, 0.0590, 0.0716, 0.0835, 0.0969, 0.1083, 0.6720, 0.7335, 0.6450, 0.7372, 0.1636, 0.1150])\nassert np.allclose(adaptive_alasso_weights(bx, by, 1.0), target)",
+        "import numpy as np\nbx = np.array([0.5, 0.5, 0.5])\nby = np.array([0.1, 0.1, 0.4])\nassert np.allclose(adaptive_alasso_weights(bx, by, 2.0), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-7.6",
+      "test_cases": [
+        "import numpy as np\nbx = np.array([0.2, 0.3, 0.4])\nby = np.array([0.06, 0.09, 0.12])\nsy = np.full(3, 0.03)\nassert np.allclose(alasso_valid_flags(bx, by, sy, 0.06, 1.0), target)",
+        "import numpy as np\nbx = np.array([0.2, 0.3, 0.4])\nby = np.array([0.06, 0.09, 0.52])\nsy = np.full(3, 0.03)\nassert np.allclose(alasso_valid_flags(bx, by, sy, 0.06, 1.0), target)",
+        "import numpy as np\nbx = np.array([0.08, 0.12, 0.16, 0.20, 0.24, 0.28, 0.32, 0.36, 0.40, 0.44, 0.48, 0.52])\nby = np.array([0.0252, 0.0368, 0.0486, 0.0590, 0.0716, 0.0835, 0.0969, 0.1083, 0.6720, 0.7335, 0.6450, 0.7372])\nsy = np.full(12, 0.015)\nassert np.allclose(alasso_valid_flags(bx, by, sy, 0.06, 1.0), target)",
+        "import numpy as np\nbx = np.array([0.5, -0.4])\nby = np.array([0.1, 0.9])\nsy = np.array([0.02, 0.02])\nassert np.allclose(alasso_valid_flags(bx, by, sy, 0.06, 1.0), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-7.7",
+      "test_cases": [
+        "import numpy as np\nbx = np.array([0.2, 0.4])\nby = np.array([0.1, 0.1])\nsx = np.array([0.02, 0.02])\nsy = np.array([0.03, 0.03])\nassert np.allclose(ratio_invse_weights(bx, by, sx, sy), target)",
+        "import numpy as np\nbx = np.array([-0.2])\nby = np.array([-0.05])\nsx = np.array([0.01])\nsy = np.array([0.02])\nassert np.allclose(ratio_invse_weights(bx, by, sx, sy), target)",
+        "import numpy as np\nbx = np.array([0.08, 0.12, 0.16, 0.20, 0.24, 0.28, 0.32, 0.36])\nby = np.array([0.0252, 0.0368, 0.0486, 0.0590, 0.0716, 0.0835, 0.0969, 0.1083])\nsx = np.full(8, 0.015)\nsy = np.full(8, 0.015)\nassert np.allclose(ratio_invse_weights(bx, by, sx, sy), target)",
+        "import numpy as np\nbx = np.array([0.01, 0.50])\nby = np.array([0.02, 0.10])\nsx = np.array([0.02, 0.01])\nsy = np.array([0.05, 0.02])\nassert np.allclose(ratio_invse_weights(bx, by, sx, sy), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-7.8",
+      "test_cases": [
+        "import numpy as np\nbx = np.array([0.2, 0.3, 0.4])\nsx = np.full(3, 0.02)\nby = np.array([0.06, 0.09, 0.12])\nsy = np.full(3, 0.03)\neaf = np.array([0.6, 0.55, 0.7])\nz = np.zeros(3)\nassert np.allclose(mr_quantile_ace(bx, sx, by, sy, eaf, z, 3.5, 0.5, 0.06, 1.0, 1.959963984540054), target)",
+        "import numpy as np\nbx = np.array([0.2, 0.3, 0.4, 0.01])\nsx = np.array([0.02, 0.02, 0.02, 0.02])\nby = np.array([0.06, 0.09, 0.52, 0.4])\nsy = np.array([0.03, 0.03, 0.03, 0.05])\neaf = np.array([0.6, 0.55, 0.7, 0.5])\nz = np.zeros(4)\nassert np.allclose(mr_quantile_ace(bx, sx, by, sy, eaf, z, 3.5, 0.5, 0.06, 1.0, 1.959963984540054), target)",
+        "import numpy as np\nbx = np.array([0.08, -0.12, 0.16, 0.20, -0.24, 0.28, 0.32, -0.36, 0.40, -0.44, 0.48, -0.52, 0.012, -0.010])\nsx = np.array([0.015]*12+[0.020, 0.020])\nby = np.array([0.0252, -0.0368, 0.0486, 0.0590, -0.0716, 0.0835, 0.0969, -0.1083, 0.6720, -0.7335, 0.6450, -0.7372, 0.1636, -0.1150])\nsy = np.array([0.015]*12+[0.025, 0.025])\neaf = np.array([0.62, 0.31, 0.71, 0.44, 0.28, 0.58, 0.67, 0.39, 0.55, 0.41, 0.73, 0.36, 0.52, 0.48])\nz = np.array([0.08, -0.05, 0.06, 0.02, -0.10, 0.04, 0.03, -0.02, 0.05, -0.03, 0.04, 0.01, 0.18, -0.14])\nassert np.allclose(mr_quantile_ace(bx, sx, by, sy, eaf, z, 3.5, 0.5, 0.06, 1.0, 1.959963984540054), target)",
+        "import numpy as np\nbx = np.array([-0.25, 0.30])\nsx = np.full(2, 0.02)\nby = np.array([-0.05, 0.06])\nsy = np.full(2, 0.03)\neaf = np.array([0.4, 0.6])\nz = np.array([0.05, -0.02])\nassert np.allclose(mr_quantile_ace(bx, sx, by, sy, eaf, z, 3.5, 0.5, 0.06, 1.0, 1.959963984540054), target)"
+      ]
+    }
+  ]
+}

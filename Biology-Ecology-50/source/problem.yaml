@@ -1,0 +1,48 @@
+problem_id: "Biology-Ecology-50"
+subject: "biology"
+subject_area: "Ecology"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1371/journal.pcbi.1013713"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_movement_kernel.py"
+    description: "Construct a zero-inflated, barrier-adjusted daily movement matrix."
+    orchestrator: false
+  - number: 2
+    name: "02_adult_transition.py"
+    description: "Propagate adult locations using the inclusive daily movement convention."
+    orchestrator: false
+  - number: 3
+    name: "03_reverse_origin.py"
+    description: "Infer the earlier location given an adult location at sampling."
+    orchestrator: false
+  - number: 4
+    name: "04_larval_denominator.py"
+    description: "Calculate equilibrium surviving larval output at a sampled node."
+    orchestrator: false
+  - number: 5
+    name: "05_mother_larva.py"
+    description: "Calculate spatial mother to larva kinship probability."
+    orchestrator: false
+  - number: 6
+    name: "06_adult_denominator.py"
+    description: "Compute the equilibrium surviving adult offspring output at one site."
+    orchestrator: false
+  - number: 7
+    name: "07_larva_adult_movement.py"
+    description: "Calculate the composite spatial factor for a larva and its adult sibling."
+    orchestrator: false
+  - number: 8
+    name: "08_sibling_larva_adult.py"
+    description: "Compute larva-adult full-sibling probability across sites and days."
+    orchestrator: false
+  - number: 9
+    name: "09_joint_kin_score.py"
+    description: "Combine mother-larva and larva-adult full-sibling count scores."
+    orchestrator: false
+  - number: 10
+    name: "10_fit_barrier.py"
+    description: "Estimate barrier crossing while accounting for an unknown staying rate."
+    orchestrator: true

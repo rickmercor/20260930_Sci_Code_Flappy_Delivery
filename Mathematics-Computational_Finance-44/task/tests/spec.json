@@ -1,0 +1,95 @@
+{
+  "problem_id": "Mathematics-Computational_Finance-44",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Computational_Finance-44.1",
+      "test_cases": [
+        "def flat(z):\n    z = np.asarray(z, dtype=complex).reshape(-1)\n    return np.round(np.concatenate([np.log10(np.abs(z)), np.angle(z)]), 9).tolist()\nxr = [0.5, 1.0, 2.5]\nxi = [-1.5, -1.5, -1.5]\nstrike = 2.0\nassert np.allclose(flat(payoff_fourier_transform(xr, xi, strike)), target)",
+        "def flat(z):\n    z = np.asarray(z, dtype=complex).reshape(-1)\n    return np.round(np.concatenate([np.log10(np.abs(z)), np.angle(z)]), 9).tolist()\nxr = [0.0, 2.0, 7.5]\nxi = [-4.673, -4.673, -4.673]\nstrike = 1000.0\nassert np.allclose(flat(payoff_fourier_transform(xr, xi, strike)), target)",
+        "def flat(z):\n    z = np.asarray(z, dtype=complex).reshape(-1)\n    return np.round(np.concatenate([np.log10(np.abs(z)), np.angle(z)]), 9).tolist()\nxr = [0.0, 3.25]\nxi = [-100.0, -100.0]\nstrike = 1000.0\nassert np.allclose(flat(payoff_fourier_transform(xr, xi, strike)), target)",
+        "def flat(z):\n    z = np.asarray(z, dtype=complex).reshape(-1)\n    return np.round(np.concatenate([np.log10(np.abs(z)), np.angle(z)]), 9).tolist()\nxr = np.linspace(0.0, 5.0, 9)\nxi = np.full(9, -2.75)\nstrike = 90.0\nassert np.allclose(flat(payoff_fourier_transform(xr, xi, strike)), target)",
+        "def run_model():\n    try:\n        payoff_fourier_transform([1.0], [-2.0], -5.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-44.2",
+      "test_cases": [
+        "def flat(z):\n    z = np.asarray(z, dtype=complex).reshape(-1)\n    return np.round(np.concatenate([z.real, z.imag]), 9).tolist()\nmodel = [0.62, 0.1, 0.331, -0.681, 0.0392, 0.3156]\nxr = [2.0]\nxi = [-4.673]\nhorizon = 2.0\nsteps = 32\nassert np.allclose(flat(riccati_volterra_nodes(xr, xi, model, horizon, steps)), target)",
+        "def flat(z):\n    z = np.asarray(z, dtype=complex).reshape(-1)\n    return np.round(np.concatenate([z.real, z.imag]), 9).tolist()\nmodel = [0.62, 0.1, 0.331, -0.681, 0.0392, 0.3156]\nxr = [0.0, 1.0, 6.5]\nxi = [-4.673, -4.673, -4.673]\nhorizon = 2.0\nsteps = 64\nassert np.allclose(flat(riccati_volterra_nodes(xr, xi, model, horizon, steps)), target)",
+        "def flat(z):\n    z = np.asarray(z, dtype=complex).reshape(-1)\n    return np.round(np.concatenate([z.real, z.imag]), 9).tolist()\nmodel = [1.0, 0.9, 0.4, 0.25, 0.05, 0.09]\nxr = [3.0, 12.0]\nxi = [-2.5, -2.5]\nhorizon = 0.75\nsteps = 40\nassert np.allclose(flat(riccati_volterra_nodes(xr, xi, model, horizon, steps)), target)",
+        "def flat(z):\n    z = np.asarray(z, dtype=complex).reshape(-1)\n    return np.round(np.concatenate([z.real, z.imag]), 9).tolist()\nmodel = [0.62, 0.1, 0.331, -0.681, 0.0392, 0.3156]\nxr = [1.5]\nxi = [-3.0]\nhorizon = 1.0\nsteps = 1\nassert np.allclose(flat(riccati_volterra_nodes(xr, xi, model, horizon, steps)), target)",
+        "model = [0.62, 0.1, 0.331, -0.681, 0.0392, 0.3156]\ndef run_model():\n    try:\n        riccati_volterra_nodes([1.0], [-2.0], model, 2.0, 0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-44.3",
+      "test_cases": [
+        "def flat(z):\n    z = np.asarray(z, dtype=complex).reshape(-1)\n    return np.round(np.concatenate([z.real, z.imag]), 9).tolist()\nmodel = [0.62, 0.1, 0.331, -0.681, 0.0392, 0.3156]\nmarket = [1000.0, 1000.0, 0.0, 2.0]\nxr = np.array([2.0])\nxi = np.array([-4.673])\nh = _nodal_solution(xr + 1j * xi, market[3], 32, model[0], model[1], model[2], model[3])\nassert np.allclose(flat(characteristic_exponent(xr, xi, h, model, market)), target)",
+        "def flat(z):\n    z = np.asarray(z, dtype=complex).reshape(-1)\n    return np.round(np.concatenate([z.real, z.imag]), 9).tolist()\nmodel = [0.62, 0.1, 0.331, -0.681, 0.0392, 0.3156]\nmarket = [1000.0, 1000.0, 0.0, 2.0]\nxr = np.array([0.0, 1.0, 6.5])\nxi = np.full(3, -4.673)\nh = _nodal_solution(xr + 1j * xi, market[3], 64, model[0], model[1], model[2], model[3])\nassert np.allclose(flat(characteristic_exponent(xr, xi, h, model, market)), target)",
+        "def flat(z):\n    z = np.asarray(z, dtype=complex).reshape(-1)\n    return np.round(np.concatenate([z.real, z.imag]), 9).tolist()\nmodel = [0.62, 0.1, 1e-12, -0.681, 0.0392, 0.0392]\nmarket = [100.0, 90.0, 0.03, 0.75]\nxr = np.array([0.5, 4.0])\nxi = np.full(2, -3.25)\nh = _nodal_solution(xr + 1j * xi, market[3], 24, model[0], model[1], model[2], model[3])\nassert np.allclose(flat(characteristic_exponent(xr, xi, h, model, market)), target)",
+        "def flat(z):\n    z = np.asarray(z, dtype=complex).reshape(-1)\n    return np.round(np.concatenate([z.real, z.imag]), 9).tolist()\nmodel = [0.62, 0.1, 0.331, -0.681, 0.0392, 0.3156]\nmarket = [1000.0, 1000.0, 0.0, 2.0]\nxr = np.array([3.0])\nxi = np.array([-2.0])\nh = _nodal_solution(xr + 1j * xi, market[3], 1, model[0], model[1], model[2], model[3])\nassert np.allclose(flat(characteristic_exponent(xr, xi, h, model, market)), target)",
+        "model = [0.62, 0.1, 0.331, -0.681, 0.0392, 0.3156]\nmarket = [1000.0, 1000.0, 0.0, 2.0]\nbad = np.zeros((5, 3), dtype=complex)\ndef run_model():\n    try:\n        characteristic_exponent([1.0], [-2.0], bad, model, market)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-44.4",
+      "test_cases": [
+        "model = [0.62, 0.1, 0.331, -0.681, 0.0392, 0.3156]\nhorizon = 2.0\nassert np.allclose(round(float(integrand_decay_rate(model, horizon)), 10), target)",
+        "model = [0.62, 0.1, 0.331, -0.681, 0.0392, 0.3156]\nhorizon = 0.1\nassert np.allclose(round(float(integrand_decay_rate(model, horizon)), 10), target)",
+        "model = [0.62, 0.1, 0.331, -0.681, 0.0392, 0.3156]\nhorizon = 10.0\nassert np.allclose(round(float(integrand_decay_rate(model, horizon)), 10), target)",
+        "model = [0.7151, 1.8967, 0.6144356, -0.6704, 0.06246, 0.03848]\nhorizon = 1.0\nassert np.allclose(round(float(integrand_decay_rate(model, horizon)), 10), target)",
+        "model = [0.62, 0.1, 0.331, -1.5, 0.0392, 0.3156]\ndef run_model():\n    try:\n        integrand_decay_rate(model, 2.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-44.5",
+      "test_cases": [
+        "def flat(pair):\n    u, w = pair\n    u = np.asarray(u, dtype=float).reshape(-1)\n    w = np.asarray(w, dtype=float).reshape(-1)\n    return np.round(np.concatenate([u, np.log10(w)]), 9).tolist()\norder = 5\nscale = 2.666571209748119\nassert np.allclose(flat(exponential_weight_rule(order, scale)), target)",
+        "def flat(pair):\n    u, w = pair\n    u = np.asarray(u, dtype=float).reshape(-1)\n    w = np.asarray(w, dtype=float).reshape(-1)\n    return np.round(np.concatenate([u, np.log10(w)]), 9).tolist()\norder = 16\nscale = 2.666571209748119\nassert np.allclose(flat(exponential_weight_rule(order, scale)), target)",
+        "def flat(pair):\n    u, w = pair\n    u = np.asarray(u, dtype=float).reshape(-1)\n    w = np.asarray(w, dtype=float).reshape(-1)\n    return np.round(np.concatenate([u, np.log10(w)]), 9).tolist()\norder = 1\nscale = 1.0\nassert np.allclose(flat(exponential_weight_rule(order, scale)), target)",
+        "def flat(pair):\n    u, w = pair\n    u = np.asarray(u, dtype=float).reshape(-1)\n    w = np.asarray(w, dtype=float).reshape(-1)\n    return np.round(np.concatenate([u, np.log10(w)]), 9).tolist()\norder = 64\nscale = 0.4766969758605919\nassert np.allclose(flat(exponential_weight_rule(order, scale)), target)",
+        "def run_model():\n    try:\n        exponential_weight_rule(8, 0.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-44.6",
+      "test_cases": [
+        "def flat(x):\n    return np.round(np.asarray(x, dtype=float).reshape(-1), 9).tolist()\nmodel = [0.62, 0.1, 0.331, -0.681, 0.0392, 0.3156]\nmarket = [1000.0, 1000.0, 0.0, 2.0]\nu = [0.0, 1.0, 2.0, 5.0]\nassert np.allclose(flat(damped_fourier_integrand(u, -4.673, 32, model, market)), target)",
+        "def flat(x):\n    return np.round(np.asarray(x, dtype=float).reshape(-1), 9).tolist()\nmodel = [0.62, 0.1, 0.331, -0.681, 0.0392, 0.3156]\nmarket = [1000.0, 1000.0, 0.0, 2.0]\nu = [0.0, 2.0, 7.25]\nassert np.allclose(flat(damped_fourier_integrand(u, -4.673, 512, model, market)), target)",
+        "def flat(x):\n    return np.round(np.asarray(x, dtype=float).reshape(-1), 9).tolist()\nmodel = [0.62, 0.1, 0.331, -0.681, 0.0392, 0.3156]\nmarket = [100.0, 90.0, 0.03, 0.75]\nu = np.linspace(0.0, 6.0, 7)\nassert np.allclose(flat(damped_fourier_integrand(u, -3.5, 48, model, market)), target)",
+        "def flat(x):\n    return np.round(np.asarray(x, dtype=float).reshape(-1), 9).tolist()\nmodel = [0.62, 0.1, 0.331, -0.681, 0.0392, 0.3156]\nmarket = [1000.0, 1000.0, 0.0, 2.0]\nu = [0.5]\nassert np.allclose(flat(damped_fourier_integrand(u, -1.5, 16, model, market)), target)",
+        "model = [0.62, 0.1, 0.331, -0.681, 0.0392, 0.3156]\nmarket = [1000.0, 1000.0, 0.0, 2.0]\ndef run_model():\n    try:\n        damped_fourier_integrand([1.0], -0.5, 16, model, market)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-44.7",
+      "test_cases": [
+        "model = [0.62, 0.1, 0.331, -0.681, 0.0392, 0.3156]\nmarket = [1000.0, 1000.0, 0.0, 2.0]\nassert np.allclose(round(float(select_damping_parameter(model, market, 32)), 6), target)",
+        "model = [0.62, 0.1, 0.331, -0.681, 0.0392, 0.3156]\nmarket = [1000.0, 1000.0, 0.0, 1.0]\nassert np.allclose(round(float(select_damping_parameter(model, market, 32)), 6), target)",
+        "model = [0.62, 0.1, 0.331, -0.681, 0.0392, 0.3156]\nmarket = [1000.0, 1000.0, 0.0, 10.0]\nassert np.allclose(round(float(select_damping_parameter(model, market, 32)), 6), target)",
+        "model = [0.62, 0.1, 0.331, -0.681, 0.0392, 0.3156]\nmarket = [100.0, 90.0, 0.03, 0.75]\nassert np.allclose(round(float(select_damping_parameter(model, market, 24)), 6), target)",
+        "model = [0.62, 0.1, 0.331, -0.681, 0.0392, 0.3156]\nmarket = [1000.0, 1000.0, 0.0, 2.0]\ndef run_model():\n    try:\n        select_damping_parameter(model, market, 0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-44.8",
+      "test_cases": [
+        "model = [0.62, 0.1, 0.331, -0.681, 0.0392, 0.3156]\nmarket = [1000.0, 1000.0, 0.0, 2.0]\nscale = 2.666571209748119\nassert np.allclose(int(select_discretization_level(model, market, 32, -4.673, scale, 1.62, 4.0e-4, 16)), target)",
+        "model = [0.62, 0.1, 0.331, -0.681, 0.0392, 0.3156]\nmarket = [1000.0, 1000.0, 0.0, 2.0]\nscale = 2.666571209748119\nassert np.allclose(int(select_discretization_level(model, market, 32, -4.673, scale, 1.62, 1.0e-2, 16)), target)",
+        "model = [0.62, 0.1, 0.331, -0.681, 0.0392, 0.3156]\nmarket = [1000.0, 1000.0, 0.0, 2.0]\nscale = 2.666571209748119\nassert np.allclose(int(select_discretization_level(model, market, 32, -4.673, scale, 1.62, 2.0e-5, 32)), target)",
+        "model = [0.62, 0.1, 0.331, -0.681, 0.0392, 0.3156]\nmarket = [100.0, 90.0, 0.03, 0.75]\nscale = 1.3986135505941166\nassert np.allclose(int(select_discretization_level(model, market, 16, -6.36, scale, 1.62, 1.0e-4, 16)), target)",
+        "model = [0.62, 0.1, 0.331, -0.681, 0.0392, 0.3156]\nmarket = [1000.0, 1000.0, 0.0, 2.0]\nscale = 2.666571209748119\ndef run_model():\n    try:\n        select_discretization_level(model, market, 32, -4.673, scale, 1.62, 0.0, 16)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-44.9",
+      "test_cases": [
+        "model = [0.62, 0.1, 0.331, -0.681, 0.0392, 0.3156]\nmarket = [1000.0, 1000.0, 0.0, 2.0]\nassert np.allclose(round(float(hierarchical_fourier_price(model, market, 8.0e-4, 32, 8.0, 7.0, 2.0, 16, 64)), 9), target)",
+        "model = [0.62, 0.1, 0.331, -0.681, 0.0392, 0.3156]\nmarket = [1000.0, 1000.0, 0.0, 2.0]\nassert np.allclose(round(float(hierarchical_fourier_price(model, market, 4.0e-3, 32, 8.0, 7.0, 2.0, 16, 64)), 9), target)",
+        "model = [0.62, 0.1, 0.331, -0.681, 0.0392, 0.3156]\nmarket = [1000.0, 1000.0, 0.0, 2.0]\nassert np.allclose(round(float(hierarchical_fourier_price(model, market, 8.0e-4, 32, 6.0, 5.0, 2.0, 8, 48)), 9), target)",
+        "model = [0.62, 0.1, 0.331, -0.681, 0.0392, 0.3156]\nmarket = [100.0, 90.0, 0.03, 0.75]\nassert np.allclose(round(float(hierarchical_fourier_price(model, market, 2.0e-3, 16, 8.0, 7.0, 2.0, 16, 64)), 9), target)",
+        "model = [0.62, 0.1, 0.331, -0.681, 0.0392, 0.3156]\nmarket = [1000.0, 1000.0, 0.0, 2.0]\ndef run_model():\n    try:\n        hierarchical_fourier_price(model, market, 0.0, 32, 8.0, 7.0, 2.0, 16, 64)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

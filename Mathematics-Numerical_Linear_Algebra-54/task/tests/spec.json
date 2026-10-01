@@ -1,0 +1,112 @@
+{
+  "problem_id": "Mathematics-Numerical_Linear_Algebra-54",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-54.1",
+      "test_cases": [
+        "import numpy as np\nA = np.array([[2.0, 1.0, 0.0, 1.0], [1.0, 3.0, 1.0, 0.0], [0.0, 1.0, 4.0, 1.0],\n              [3.0, 0.0, 1.0, 2.0], [1.0, 1.0, 1.0, 1.0], [2.0, -1.0, 2.0, 0.0]])\nsigma = np.array([0.5, 0.5, 3.0, 0.5, 3.0, 0.5])\nalpha = 1.0\nassert np.allclose(np.concatenate(noise_aware_coupling(A, sigma, alpha)), target)",
+        "import numpy as np\nA = np.array([[3.0, 0.0], [0.0, 4.0], [1.0, 1.0]])\nsigma = np.array([0.2, 0.2, 0.2])\nalpha = 1.0\nassert np.allclose(np.concatenate(noise_aware_coupling(A, sigma, alpha)), target)",
+        "import numpy as np\nA = np.array([[3.0, 0.0], [0.0, 4.0], [1.0, 1.0]])\nsigma = 0.1 * np.linalg.norm(A, axis=1)\nalpha = 0.5\nassert np.allclose(np.concatenate(noise_aware_coupling(A, sigma, alpha)), target)",
+        "import numpy as np\nA = np.array([[10.0, 0.0, 0.0], [0.0, 0.1, 0.0], [1.0, 1.0, 1.0], [0.0, 0.0, 2.0]])\nsigma = np.array([0.01, 5.0, 0.1, 0.1])\nalpha = 2.0\nassert np.allclose(np.concatenate(noise_aware_coupling(A, sigma, alpha)), target)",
+        "import numpy as np\nA = np.array([[1.0, 2.0], [0.0, 0.0], [3.0, 1.0]])\nsigma = np.array([0.1, 0.1, 0.1])\nalpha = 1.0\ndef run_model():\n    try:\n        noise_aware_coupling(A, sigma, alpha)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA = np.array([[1.0, 2.0], [2.0, 1.0], [3.0, 1.0]])\nsigma = np.array([0.1, 0.0, 0.1])\nalpha = 1.0\ndef run_model():\n    try:\n        noise_aware_coupling(A, sigma, alpha)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA = np.array([[1.0, 2.0], [2.0, 1.0], [3.0, 1.0]])\nsigma = np.array([0.1, 0.1])\nalpha = 1.0\ndef run_model():\n    try:\n        noise_aware_coupling(A, sigma, alpha)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-54.2",
+      "test_cases": [
+        "import numpy as np\nA = np.array([[2.0, 1.0, 0.0, 1.0], [1.0, 3.0, 1.0, 0.0], [0.0, 1.0, 4.0, 1.0],\n              [3.0, 0.0, 1.0, 2.0], [1.0, 1.0, 1.0, 1.0], [2.0, -1.0, 2.0, 0.0]])\nw = np.array([1.9739575001, 2.6727510900, 0.5698324470,\n              3.0152698877, 0.2686215916, 2.4175943246])\nalpha = 1.0\ntau = 3\nassert np.allclose(aabk_spectral_bound(A, w, alpha, tau), target)",
+        "import numpy as np\nA = np.array([[2.0, 1.0, 0.0, 1.0], [1.0, 3.0, 1.0, 0.0], [0.0, 1.0, 4.0, 1.0],\n              [3.0, 0.0, 1.0, 2.0], [1.0, 1.0, 1.0, 1.0], [2.0, -1.0, 2.0, 0.0]])\nw = np.array([1.9739575001, 2.6727510900, 0.5698324470,\n              3.0152698877, 0.2686215916, 2.4175943246])\nalpha = 1.0\ntau = 1\nassert np.allclose(aabk_spectral_bound(A, w, alpha, tau), target)",
+        "import numpy as np\nA = np.array([[1.0, 2.0], [2.0, 4.0], [3.0, 6.0]])\nalpha = 0.5\nw = alpha * np.ones(3)\ntau = 4\nassert np.allclose(aabk_spectral_bound(A, w, alpha, tau), target)",
+        "import numpy as np\nA = np.array([[3.0, 0.0, 0.0], [0.0, 3.0, 0.0], [0.0, 0.0, 3.0]])\nw = np.array([1.0, 1.0, 1.0])\nalpha = 1.0\ntau = 50\nassert np.allclose(aabk_spectral_bound(A, w, alpha, tau), target)",
+        "import numpy as np\nA = np.array([[1.0, 0.0], [0.0, 1.0]])\nw = np.array([1.0, 1.0])\nalpha = 1.0\ntau = 0\ndef run_model():\n    try:\n        aabk_spectral_bound(A, w, alpha, tau)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA = np.array([[1.0, 0.0], [0.0, 1.0], [1.0, 1.0]])\nw = np.array([1.0, 1.0])\nalpha = 1.0\ntau = 2\ndef run_model():\n    try:\n        aabk_spectral_bound(A, w, alpha, tau)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-54.3",
+      "test_cases": [
+        "import numpy as np\nx_star = np.zeros(4)\ny = np.array([2.0, 0.0, -1.0, 0.0])\nlam = 0.1\nassert np.allclose(sparse_bregman_distance(x_star, y, lam), target)",
+        "import numpy as np\nx_star = np.array([1.1376524076, 0.2736953563, -0.0745495891, 0.5725379394])\ny = np.array([2.0, 0.0, -1.0, 0.0])\nlam = 0.1\nassert np.allclose(sparse_bregman_distance(x_star, y, lam), target)",
+        "import numpy as np\nx_star = np.array([1.0, -2.0, 0.5])\ny = np.array([0.0, 1.0, 0.5])\nlam = 0.0\nassert np.allclose(sparse_bregman_distance(x_star, y, lam), target)",
+        "import numpy as np\nlam = 0.3\nx_star = np.array([1.3, -0.8, 0.2])\ny = np.sign(x_star) * np.maximum(np.abs(x_star) - lam, 0.0)\nassert np.allclose(sparse_bregman_distance(x_star, y, lam), target)",
+        "import numpy as np\nx_star = np.array([0.4, -0.3, 0.1])\ny = np.array([5.0, -5.0, 5.0])\nlam = 0.5\nassert np.allclose(sparse_bregman_distance(x_star, y, lam), target)",
+        "import numpy as np\nx_star = np.array([1.0, 2.0])\ny = np.array([1.0, 2.0, 3.0])\nlam = 0.1\ndef run_model():\n    try:\n        sparse_bregman_distance(x_star, y, lam)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nx_star = np.array([1.0, 2.0])\ny = np.array([1.0, 2.0])\nlam = -0.1\ndef run_model():\n    try:\n        sparse_bregman_distance(x_star, y, lam)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-54.4",
+      "test_cases": [
+        "import numpy as np\nA = np.array([[2.0, 1.0, 0.0, 1.0], [1.0, 3.0, 1.0, 0.0], [0.0, 1.0, 4.0, 1.0],\n              [3.0, 0.0, 1.0, 2.0], [1.0, 1.0, 1.0, 1.0], [2.0, -1.0, 2.0, 0.0]])\nsigma = np.array([0.5, 0.5, 3.0, 0.5, 3.0, 0.5])\np = np.array([0.0490254697, 0.0663807997, 0.5094876260,\n              0.0748876419, 0.2401747702, 0.0600436925])\nw = np.array([1.9739575001, 2.6727510900, 0.5698324470,\n              3.0152698877, 0.2686215916, 2.4175943246])\ntau = 3\nbreg0 = 2.8\nassert np.allclose(aabk_beta_init(A, sigma, p, w, tau, breg0), target)",
+        "import numpy as np\nA = np.array([[2.0, 1.0, 0.0, 1.0], [1.0, 3.0, 1.0, 0.0], [0.0, 1.0, 4.0, 1.0],\n              [3.0, 0.0, 1.0, 2.0], [1.0, 1.0, 1.0, 1.0], [2.0, -1.0, 2.0, 0.0]])\nsigma = np.array([0.5, 0.5, 3.0, 0.5, 3.0, 0.5])\np = np.array([0.0490254697, 0.0663807997, 0.5094876260,\n              0.0748876419, 0.2401747702, 0.0600436925])\nw = np.array([1.9739575001, 2.6727510900, 0.5698324470,\n              3.0152698877, 0.2686215916, 2.4175943246])\ntau = 1\nbreg0 = 2.8\nassert np.allclose(aabk_beta_init(A, sigma, p, w, tau, breg0), target)",
+        "import numpy as np\nA = np.array([[3.0, 0.0], [0.0, 4.0], [1.0, 1.0]])\nsigma = np.array([0.1, 1.0, 0.1])\nalpha = 1.0\np = np.sum(A ** 2, axis=1) / np.sum(A ** 2)\nw = alpha * np.ones(3)\ntau = 2\nbreg0 = 0.75\nassert np.allclose(aabk_beta_init(A, sigma, p, w, tau, breg0), target)",
+        "import numpy as np\nA = np.array([[3.0, 0.0], [0.0, 4.0], [1.0, 1.0]])\nsigma = np.array([0.1, 1.0, 0.1])\np = np.array([0.2, 0.5, 0.3])\nw = np.array([1.5, 1.0, 0.5])\ntau = 2\nbreg0 = 0.0\nassert np.allclose(aabk_beta_init(A, sigma, p, w, tau, breg0), target)",
+        "import numpy as np\nA = np.array([[3.0, 0.0], [0.0, 4.0], [1.0, 1.0]])\nsigma = np.array([0.1, 1.0, 0.1])\np = np.array([0.2, 0.5, 0.3])\nw = np.array([1.5, 1.0, 0.5])\ntau = 2\nbreg0 = -1.0\ndef run_model():\n    try:\n        aabk_beta_init(A, sigma, p, w, tau, breg0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA = np.array([[3.0, 0.0], [0.0, 4.0], [1.0, 1.0]])\nsigma = np.array([0.1, 1.0, 0.1])\np = np.array([0.5, 0.5])\nw = np.array([1.5, 1.0, 0.5])\ntau = 2\nbreg0 = 1.0\ndef run_model():\n    try:\n        aabk_beta_init(A, sigma, p, w, tau, breg0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-54.5",
+      "test_cases": [
+        "import numpy as np\nA = np.array([[2.0, 1.0, 0.0, 1.0], [1.0, 3.0, 1.0, 0.0], [0.0, 1.0, 4.0, 1.0],\n              [3.0, 0.0, 1.0, 2.0], [1.0, 1.0, 1.0, 1.0], [2.0, -1.0, 2.0, 0.0]])\nx_hat = np.array([2.0, 0.0, -1.0, 0.0])\nlam = 0.1\nassert np.allclose(error_bound_gamma(A, x_hat, lam), target)",
+        "import numpy as np\nA = np.array([[2.0, 1.0, 0.0, 1.0], [1.0, 3.0, 1.0, 0.0], [0.0, 1.0, 4.0, 1.0],\n              [3.0, 0.0, 1.0, 2.0], [1.0, 1.0, 1.0, 1.0], [2.0, -1.0, 2.0, 0.0]])\nx_hat = np.array([2.0, 0.0, -1.0, 0.0])\nlam = 0.0\nassert np.allclose(error_bound_gamma(A, x_hat, lam), target)",
+        "import numpy as np\nA = np.array([[3.0, 0.0], [0.0, 4.0], [1.0, 1.0]])\nx_hat = np.array([1.0, 0.05])\nlam = 0.1\nassert np.allclose(error_bound_gamma(A, x_hat, lam), target)",
+        "import numpy as np\nA = np.array([[1.0, 2.0, 0.0], [2.0, 4.0, 1.0], [0.0, 0.0, 3.0], [1.0, 2.0, -1.0]])\nx_hat = np.array([0.5, 1.0, -2.0])\nlam = 0.2\nassert np.allclose(error_bound_gamma(A, x_hat, lam), target)",
+        "import numpy as np\nA = np.array([[3.0], [4.0]])\nx_hat = np.array([-2.0])\nlam = 0.5\nassert np.allclose(error_bound_gamma(A, x_hat, lam), target)",
+        "import numpy as np\nA = np.array([[3.0, 0.0], [0.0, 4.0], [1.0, 1.0]])\nx_hat = np.array([0.0, 0.0])\nlam = 0.1\ndef run_model():\n    try:\n        error_bound_gamma(A, x_hat, lam)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA = np.array([[3.0, 0.0], [0.0, 4.0], [1.0, 1.0]])\nx_hat = np.array([1.0, -1.0])\nlam = -0.1\ndef run_model():\n    try:\n        error_bound_gamma(A, x_hat, lam)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-54.6",
+      "test_cases": [
+        "import numpy as np\nA = np.array([[2.0, 1.0, 0.0, 1.0], [1.0, 3.0, 1.0, 0.0], [0.0, 1.0, 4.0, 1.0],\n              [3.0, 0.0, 1.0, 2.0], [1.0, 1.0, 1.0, 1.0], [2.0, -1.0, 2.0, 0.0]])\nx = np.zeros(4)\nw = np.array([1.9739575001, 2.6727510900, 0.5698324470,\n              3.0152698877, 0.2686215916, 2.4175943246])\nbatch = np.array([1, 2, 4])\nb_noisy = np.array([0.7161151969, -5.3579478763, 0.3532085107])\nassert np.allclose(aabk_averaged_direction(A, x, w, batch, b_noisy), target)",
+        "import numpy as np\nA = np.array([[2.0, 1.0, 0.0, 1.0], [1.0, 3.0, 1.0, 0.0], [0.0, 1.0, 4.0, 1.0],\n              [3.0, 0.0, 1.0, 2.0], [1.0, 1.0, 1.0, 1.0], [2.0, -1.0, 2.0, 0.0]])\nx = np.array([0.0, 0.0, -0.0859316817, 0.0])\nw = np.array([1.9739575001, 2.6727510900, 0.5698324470,\n              3.0152698877, 0.2686215916, 2.4175943246])\nbatch = np.array([3, 2, 0])\nb_noisy = np.array([5.7729104256, -2.3646834319, 3.7473856322])\nassert np.allclose(aabk_averaged_direction(A, x, w, batch, b_noisy), target)",
+        "import numpy as np\nA = np.array([[2.0, 1.0, 0.0, 1.0], [1.0, 3.0, 1.0, 0.0], [0.0, 1.0, 4.0, 1.0],\n              [3.0, 0.0, 1.0, 2.0], [1.0, 1.0, 1.0, 1.0], [2.0, -1.0, 2.0, 0.0]])\nx = np.array([0.0, 0.0237511228, 0.0, 0.0])\nw = np.array([1.9739575001, 2.6727510900, 0.5698324470,\n              3.0152698877, 0.2686215916, 2.4175943246])\nbatch = np.array([2, 2, 4])\nb_noisy = np.array([-5.1724029317, -2.5541638345, 0.2843391803])\nassert np.allclose(aabk_averaged_direction(A, x, w, batch, b_noisy), target)",
+        "import numpy as np\nA = np.array([[3.0, 0.0], [0.0, 4.0], [1.0, 1.0]])\nx = np.array([1.0, -1.0])\nw = np.array([0.5, 2.0, 1.5])\nbatch = np.array([1])\nb_noisy = np.array([-3.0])\nassert np.allclose(aabk_averaged_direction(A, x, w, batch, b_noisy), target)",
+        "import numpy as np\nA = np.array([[3.0, 0.0], [0.0, 4.0], [1.0, 1.0]])\nx = np.array([1.0, -1.0])\nw = np.array([0.5, 2.0, 1.5])\nbatch = np.array([0, 2, 2, 1])\nb_noisy = A[batch] @ x\nassert np.allclose(aabk_averaged_direction(A, x, w, batch, b_noisy), target)",
+        "import numpy as np\nA = np.array([[3.0, 0.0], [0.0, 4.0], [1.0, 1.0]])\nx = np.array([0.2, 0.3])\nw = np.array([0.1, 5.0, 1.0])\nbatch = np.array([1, 1, 1, 1, 1])\nb_noisy = np.array([1.0, 3.0, -2.0, 0.5, 2.5])\nassert np.allclose(aabk_averaged_direction(A, x, w, batch, b_noisy), target)",
+        "import numpy as np\nA = np.array([[3.0, 0.0], [0.0, 4.0], [1.0, 1.0]])\nx = np.array([1.0, -1.0])\nw = np.array([0.5, 2.0, 1.5])\nbatch = np.array([], dtype=int)\nb_noisy = np.array([])\ndef run_model():\n    try:\n        aabk_averaged_direction(A, x, w, batch, b_noisy)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA = np.array([[3.0, 0.0], [0.0, 4.0], [1.0, 1.0]])\nx = np.array([1.0, -1.0])\nw = np.array([0.5, 2.0, 1.5])\nbatch = np.array([0, 3])\nb_noisy = np.array([1.0, 2.0])\ndef run_model():\n    try:\n        aabk_averaged_direction(A, x, w, batch, b_noisy)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA = np.array([[3.0, 0.0], [0.0, 4.0], [1.0, 1.0]])\nx = np.array([1.0, -1.0])\nw = np.array([0.5, 2.0, 1.5])\nbatch = np.array([0, 1])\nb_noisy = np.array([1.0, 2.0, 3.0])\ndef run_model():\n    try:\n        aabk_averaged_direction(A, x, w, batch, b_noisy)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-54.7",
+      "test_cases": [
+        "import numpy as np\nbeta_k = 51.73863084908991\nalpha = 1.0\ngamma = 0.02593873031184615\nsigma_max_T = 0.6178735365193508\nassert np.allclose(np.array(aabk_adaptive_step(beta_k, alpha, gamma, sigma_max_T)), target)",
+        "import numpy as np\nbeta_k = 50.73151073805644\nalpha = 1.0\ngamma = 0.02593873031184615\nsigma_max_T = 0.6178735365193508\nassert np.allclose(np.array(aabk_adaptive_step(beta_k, alpha, gamma, sigma_max_T)), target)",
+        "import numpy as np\nbeta_k = 1.0e9\nalpha = 0.5\ngamma = 2.0\nsigma_max_T = 0.25\nassert np.allclose(np.array(aabk_adaptive_step(beta_k, alpha, gamma, sigma_max_T)), target)",
+        "import numpy as np\nbeta_k = 0.7088309493721018\nalpha = 1.0\ngamma = 2.0\nsigma_max_T = 0.6178735365193508\nassert np.allclose(np.array(aabk_adaptive_step(beta_k, alpha, gamma, sigma_max_T)), target)",
+        "import numpy as np\nbeta_k = 1.0e-6\nalpha = 2.0\ngamma = 0.5\nsigma_max_T = 0.8\nassert np.allclose(np.array(aabk_adaptive_step(beta_k, alpha, gamma, sigma_max_T)), target)",
+        "import numpy as np\nbeta_k = 0.0\nalpha = 1.0\ngamma = 1.0\nsigma_max_T = 0.5\nassert np.allclose(np.array(aabk_adaptive_step(beta_k, alpha, gamma, sigma_max_T)), target)",
+        "import numpy as np\nbeta_k = -1.0\nalpha = 1.0\ngamma = 1.0\nsigma_max_T = 0.5\ndef run_model():\n    try:\n        aabk_adaptive_step(beta_k, alpha, gamma, sigma_max_T)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nbeta_k = 1.0\nalpha = 1.0\ngamma = 0.0\nsigma_max_T = 0.5\ndef run_model():\n    try:\n        aabk_adaptive_step(beta_k, alpha, gamma, sigma_max_T)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-54.8",
+      "test_cases": [
+        "import numpy as np\nx_star = np.zeros(4)\nd = np.array([-0.0659065489, -0.1253669162, 0.1602514178, 0.0486328723])\neta = 0.5048250013072225\nlam = 0.1\nassert np.allclose(np.concatenate(bregman_dual_update(x_star, d, eta, lam)), target)",
+        "import numpy as np\nx_star = np.array([0.0358159853, 0.0389386975, -0.1859316817, -0.0489007460])\nd = np.array([-2.0837653277, -0.3896283929, -0.3353146135, -1.2308660207])\neta = 0.5010831161701362\nlam = 0.1\nassert np.allclose(np.concatenate(bregman_dual_update(x_star, d, eta, lam)), target)",
+        "import numpy as np\nx_star = np.array([1.0, -2.0, 0.5])\nd = np.array([0.5, 0.5, -1.0])\neta = 1.2\nlam = 0.0\nassert np.allclose(np.concatenate(bregman_dual_update(x_star, d, eta, lam)), target)",
+        "import numpy as np\nx_star = np.array([0.5, -0.5, 2.0])\nd = np.array([0.2, -0.2, 0.5])\neta = 1.0\nlam = 0.3\nassert np.allclose(np.concatenate(bregman_dual_update(x_star, d, eta, lam)), target)",
+        "import numpy as np\nx_star = np.array([0.05, -1.5, 0.3])\nd = np.array([10.0, 10.0, 10.0])\neta = 0.0\nlam = 0.1\nassert np.allclose(np.concatenate(bregman_dual_update(x_star, d, eta, lam)), target)",
+        "import numpy as np\nx_star = np.array([1.0, 2.0])\nd = np.array([1.0, 1.0])\neta = -0.5\nlam = 0.1\ndef run_model():\n    try:\n        bregman_dual_update(x_star, d, eta, lam)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nx_star = np.array([1.0, 2.0])\nd = np.array([1.0, 1.0, 1.0])\neta = 0.5\nlam = 0.1\ndef run_model():\n    try:\n        bregman_dual_update(x_star, d, eta, lam)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-54.9",
+      "test_cases": [
+        "import numpy as np\nA = np.array([[2.0, 1.0, 0.0, 1.0], [1.0, 3.0, 1.0, 0.0], [0.0, 1.0, 4.0, 1.0],\n              [3.0, 0.0, 1.0, 2.0], [1.0, 1.0, 1.0, 1.0], [2.0, -1.0, 2.0, 0.0]])\nx_hat = np.array([2.0, 0.0, -1.0, 0.0])\nsigma = np.array([0.5, 0.5, 3.0, 0.5, 3.0, 0.5])\nlam = 0.1\nalpha = 1.0\ntau = 3\nK = 6\nseed = 3\nassert np.allclose(aabk_pipeline(A, x_hat, sigma, lam, alpha, tau, K, seed), target)",
+        "import numpy as np\nA = np.array([[3.0, 0.0], [0.0, 4.0], [1.0, 1.0]])\nx_hat = np.array([1.0, -2.0])\nsigma = np.array([0.2, 1.0, 0.2])\nlam = 0.05\nalpha = 1.0\ntau = 1\nK = 1\nseed = 0\nassert np.allclose(aabk_pipeline(A, x_hat, sigma, lam, alpha, tau, K, seed), target)",
+        "import numpy as np\nrng_setup = np.random.default_rng(5)\nA = rng_setup.normal(size=(8, 3)) + 3.0 * np.eye(8, 3)\nx_hat = np.array([1.0, 0.0, -0.5])\nsigma = np.array([0.3, 0.3, 2.0, 0.3, 0.3, 0.3, 2.0, 0.3])\nlam = 0.0\nalpha = 1.5\ntau = 10\nK = 40\nseed = 9\nassert np.allclose(aabk_pipeline(A, x_hat, sigma, lam, alpha, tau, K, seed), target)",
+        "import numpy as np\nA = np.array([[3.0, 0.0], [0.0, 4.0], [1.0, 1.0]])\nx_hat = np.array([1.0, -2.0])\nsigma = np.array([0.2, 1.0, 0.2])\nlam = 0.05\nalpha = 1.0\ntau = 1\nK = 0\nseed = 0\ndef run_model():\n    try:\n        aabk_pipeline(A, x_hat, sigma, lam, alpha, tau, K, seed)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA = np.array([[3.0, 0.0], [0.0, 4.0], [1.0, 1.0]])\nx_hat = np.array([1.0, -2.0])\nsigma = np.array([0.2, 0.0, 0.2])\nlam = 0.05\nalpha = 1.0\ntau = 2\nK = 3\nseed = 0\ndef run_model():\n    try:\n        aabk_pipeline(A, x_hat, sigma, lam, alpha, tau, K, seed)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

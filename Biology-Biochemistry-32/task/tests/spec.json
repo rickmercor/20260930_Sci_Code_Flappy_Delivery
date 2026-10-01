@@ -1,0 +1,65 @@
+{
+  "problem_id": "Biology-Biochemistry-32",
+  "sub_steps": [
+    {
+      "step_number": "Biology-Biochemistry-32.1",
+      "test_cases": [
+        "import math\ndef _pin(result):\n    pairs, unpaired = result\n    flat = [float(v) for pair in pairs for v in pair] + [float(v) + 1000.0 for v in unpaired]\n    return (sum(math.sin(0.31 * (i + 1)) * v for i, v in enumerate(flat))\n            + sum(math.cos(0.13 * (i + 1)) * v * v for i, v in enumerate(flat))\n            + 10000.0 * len(pairs) + len(unpaired))\nstructure = \"(((...)))\"\nassert np.allclose(_pin(parse_target(structure)), target)",
+        "import math\ndef _pin(result):\n    pairs, unpaired = result\n    flat = [float(v) for pair in pairs for v in pair] + [float(v) + 1000.0 for v in unpaired]\n    return (sum(math.sin(0.31 * (i + 1)) * v for i, v in enumerate(flat))\n            + sum(math.cos(0.13 * (i + 1)) * v * v for i, v in enumerate(flat))\n            + 10000.0 * len(pairs) + len(unpaired))\nstructure = \".\"\nassert np.allclose(_pin(parse_target(structure)), target)",
+        "import math\ndef _pin(result):\n    pairs, unpaired = result\n    flat = [float(v) for pair in pairs for v in pair] + [float(v) + 1000.0 for v in unpaired]\n    return (sum(math.sin(0.31 * (i + 1)) * v for i, v in enumerate(flat))\n            + sum(math.cos(0.13 * (i + 1)) * v * v for i, v in enumerate(flat))\n            + 10000.0 * len(pairs) + len(unpaired))\nstructure = \"()()\"\nassert np.allclose(_pin(parse_target(structure)), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-32.2",
+      "test_cases": [
+        "structure = \"(((...)))\"\nassert np.allclose(analyse_target(structure), target)",
+        "structure = \"...\"\nassert np.allclose(analyse_target(structure), target)",
+        "structure = \"(.()())\"\nassert np.allclose(analyse_target(structure), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-32.3",
+      "test_cases": [
+        "parent_color = 0; child_colors = (0,)\nassert np.allclose(check_local_coloring(parent_color, child_colors), target)",
+        "parent_color = -1; child_colors = ()\nassert np.allclose(check_local_coloring(parent_color, child_colors), target)",
+        "parent_color = 0; child_colors = (1,)\nassert np.allclose(check_local_coloring(parent_color, child_colors), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-32.4",
+      "test_cases": [
+        "import math\ndef _pin(result):\n    if result is None:\n        return -1.0\n    return (sum(math.sin(0.31 * (i + 1)) * v for i, v in enumerate(result))\n            + 10000.0 * len(result))\nstructure = \"((((((...)))(((...)))(((...))))))\"; m = 2\nassert np.allclose(_pin(find_separated_coloring(structure, m)), target)",
+        "import math\ndef _pin(result):\n    if result is None:\n        return -1.0\n    return (sum(math.sin(0.31 * (i + 1)) * v for i, v in enumerate(result))\n            + 10000.0 * len(result))\nstructure = \"...\"; m = 2\nassert np.allclose(_pin(find_separated_coloring(structure, m)), target)",
+        "import math\ndef _pin(result):\n    if result is None:\n        return -1.0\n    return (sum(math.sin(0.31 * (i + 1)) * v for i, v in enumerate(result))\n            + 10000.0 * len(result))\nstructure = \"()()\"; m = 3\nassert np.allclose(_pin(find_separated_coloring(structure, m)), target)",
+        "import math\ndef _pin(result):\n    if result is None:\n        return -1.0\n    return (sum(math.sin(0.31 * (i + 1)) * v for i, v in enumerate(result))\n            + 10000.0 * len(result))\nstructure = \"(.).\"; m = 2\nassert np.allclose(_pin(find_separated_coloring(structure, m)), target)",
+        "import math\ndef _pin(result):\n    if result is None:\n        return -1.0\n    return (sum(math.sin(0.31 * (i + 1)) * v for i, v in enumerate(result))\n            + 10000.0 * len(result))\nstructure = \"((...))((...))((...))((...))((...))\"; m = 2\nassert np.allclose(_pin(find_separated_coloring(structure, m)), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-32.5",
+      "test_cases": [
+        "structure = \"(((...)))\"; coloring = (0, 2, 0)\nassert np.allclose(construct_sequence(structure, coloring), target)",
+        "structure = \"...\"; coloring = ()\nassert np.allclose(construct_sequence(structure, coloring), target)",
+        "structure = \"()\"; coloring = (1,)\nassert np.allclose(construct_sequence(structure, coloring), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-32.6",
+      "test_cases": [
+        "sequence = (2,0,2,0,0,0,1,3,1); structure = \"(((...)))\"; minimum_span = 0; gc_decimals = 4\nassert np.allclose(evaluate_design(sequence, structure, minimum_span, gc_decimals), target)",
+        "sequence = (0,); structure = \".\"; minimum_span = 0; gc_decimals = 4\nassert np.allclose(evaluate_design(sequence, structure, minimum_span, gc_decimals), target)",
+        "sequence = (2,1); structure = \"()\"; minimum_span = 1; gc_decimals = 2\nassert np.allclose(evaluate_design(sequence, structure, minimum_span, gc_decimals), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-32.7",
+      "test_cases": [
+        "structure = \"((((((...)))(((...)))(((...))))))\"; m = 2; minimum_span = 0; gc_decimals = 4\nassert np.allclose(run_pipeline(structure, m, minimum_span, gc_decimals), target)",
+        "structure = \"...\"; m = 2; minimum_span = 0; gc_decimals = 4\nassert np.allclose(run_pipeline(structure, m, minimum_span, gc_decimals), target)",
+        "structure = \"(((...)))\"; m = 2; minimum_span = 0; gc_decimals = 4\nassert np.allclose(run_pipeline(structure, m, minimum_span, gc_decimals), target)",
+        "structure = \"((...))((...))((...))((...))((...))\"; m = 2; minimum_span = 0; gc_decimals = 4\nassert np.allclose(run_pipeline(structure, m, minimum_span, gc_decimals), target)",
+        "structure = \"(.).\"; m = 2; minimum_span = 0; gc_decimals = 4\nassert np.allclose(run_pipeline(structure, m, minimum_span, gc_decimals), target)"
+      ]
+    }
+  ]
+}

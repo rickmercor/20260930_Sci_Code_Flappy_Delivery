@@ -1,0 +1,44 @@
+problem_id: "Material_Science-Semiconductor_Materials-40"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2512.14365"
+dependencies: ""
+steps:
+  - number: 1
+    name: "box_spectrum"
+    description: "Tabulates the first N_n positive zeros z_{ln} of the spherical Bessel functions j_l for l = 0..L_max, each to 1e-13 (row l, column n - 1), which fix the single-particle box states of a particle confined in the sphere of radius A: wavevectors z_{ln}/A and kinetic energies hbar^2 z_{ln}^2/(2 m A^2)."
+    orchestrator: false
+  - number: 2
+    name: "coulomb_integral"
+    description: "Evaluates the radial two-particle Coulomb integral R^k[(ne2 le2)(ne1 le1); (nh2 lh2)(nh1 lh1)] = int_0^A int_0^A R_{ne2 le2}(r_e) R_{ne1 le1}(r_e) r_e^2 R_{nh2 lh2}(r_h) R_{nh1 lh1}(r_h) r_h^2 r_<^k / r_>^{k+1} dr_e dr_h in nm^-1 for the normalised box radial functions of the sphere of radius A, exact to 1e-10 (r_< and r_> are the smaller and the larger of r_e and r_h)."
+    orchestrator: false
+  - number: 3
+    name: "pair_levels"
+    description: "Returns the m lowest eigenvalues (eV, ascending) of the exact two-particle Hamiltonian in the coupled basis of total angular momentum L (M = 0) and parity (-1)^L, built from the single-particle box states with n <= N_n and l <= L_max of each particle: the kinetic energies on the diagonal and the Coulomb matrix -e^2/(4 pi eps eps_0) sum_k (4 pi/(2k + 1)) A_k R^k, where A_k is the angular factor of the coupled states, the sum over the projections m with the Clebsch-Gordan coefficients <l_e m l_h (-m)|L 0> of both states of the products <l_e' m'| Y_kq |l_e m> <l_h' (-m')| Y_k,-q |l_h (-m)> (-1)^q with q = m' - m, and R^k the radial integral of the previous step."
+    orchestrator: false
+  - number: 4
+    name: "thz_transitions"
+    description: "Diagonalises the L = 0 and L = 1 blocks of the exact model and returns, for the m lowest L = 1 eigenstates |k> in ascending energy, the rows [E_k - E_0, |d_k|^2, (E_k - E_0)|d_k|^2, E_0] with E_0 the ground-state energy of the L = 0 block, d_k = <k| z_e - z_h |0> the transition dipole in nm (the electron and hole dipole contributions enter with opposite signs, and the coupled-basis matrix elements of z_e and z_h involve the radial integrals int R_{n'l'} R_{nl} r^3 dr and the angular factors <l' m| cos theta |l m> = sqrt(((l_< + 1)^2 - m^2)/((2 l_< + 1)(2 l_< + 3))) for l' = l +- 1), and (E_k - E_0)|d_k|^2 the resonance weight."
+    orchestrator: false
+  - number: 5
+    name: "bare_response"
+    description: "Returns [E_e, E_h, |d_e|^2, |d_h|^2] for the non-interacting electron-hole pair in the sphere: the 1s -> 1p transition energies hbar^2 (z_{11}^2 - z_{10}^2)/(2 m A^2) of the electron and of the hole (eV) and their squared dipoles |<1p_z| z |1s>|^2 = (int R_{11} R_{10} r^3 dr)^2/3 (nm^2), exact to 1e-10."
+    orchestrator: false
+  - number: 6
+    name: "minimal_scr"
+    description: "Evaluates the source's minimal strong-confinement model, the exact model restricted to the single-particle states 1s and 1p (N_n = 1, L_max = 1), and returns [E_0, E_h - E_0, E_e - E_0, |d_h|^2, |d_e|^2, E_C, c_EC], where the L = 0 block spans |1s,1s> and |(1p 1p) L = 0>, the L = 1 block spans |(1s 1p)> and |(1p 1s)>, E_h and E_e are its lower and higher eigenvalues with their squared transition dipoles from the ground state, E_C (eV, negative) is the off-diagonal Coulomb element between the two L = 1 basis states and c_EC = |E_C| 4 pi eps eps_0 A/e^2 its dimensionless magnitude."
+    orchestrator: false
+  - number: 7
+    name: "wcr_model"
+    description: "Solves the source's weak-confinement model and returns [E_(1s)w, E_(2p)w, E_(2p)w - E_(1s)w, |d_w|^2]: the lowest l = 0 and l = 1 eigenvalues (eV) of the relative-motion radial equation with the shrunken-exciton centre-of-mass term chi(r) on 0 < r < r_max, and the relative-coordinate squared dipole (int R_2p R_1s r^3 dr)^2/3 in nm^2, each converged to 1e-9 eV or 1e-10 nm^2 (the reference discretises u = r R with three-point finite differences on N_g, 2 N_g and 4 N_g intervals and extrapolates the O(h^2) and O(h^4) errors to zero; the potential diverges as (r_max - r)^-2 at the outer wall, which any method must respect). With eps infinite the Coulomb term is omitted, which gives the model's strongly confined limit, in which the transition energy scales as 1/A^2."
+    orchestrator: false
+  - number: 8
+    name: "independence_radius"
+    description: "Finds by root finding (to 1e-10 nm) the radius A_10 in [A_lo, A_hi] at which the electron-like renormalisation factor f_e(A) = |d_e|^2/|d_bare|^2 of the exact model with the basis (N_n, L_max) reaches the given level (1.1 for a ten percent enhancement), where d_e belongs to the largest-weight L = 1 resonance and d_bare is the non-interacting 1s -> 1p dipole of the same sphere."
+    orchestrator: false
+  - number: 9
+    name: "confinement_audit"
+    description: "Runs the complete chain and assembles the confinement audit. Rows 1..len(radii)+1 correspond to the radii in the given order followed by A_star, with the 19 columns [A, E_0 (exact ground state), E_e - E_0, |d_e|^2, E_h - E_0, |d_h|^2, w_h/w_e, E_e^bare, E_h^bare, |d_bare|^2, E_e^min - E_0^min, E_h^min - E_0^min, |d_e^min|^2, |d_h^min|^2, E_(2p)w - E_(1s)w, |d_w|^2, f_e, f_h, (E_e - E_0) - E_e^bare], where the exact quantities use the basis (N_n, L_max) and the grid N_r, the minimal model is the source's 1s + 1p model, the weak-confinement model uses N_g, and the electron-like resonance is the largest-weight L = 1 transition with the hole-like one the largest weight below it. The head row (row 0) holds [E_e - E_0 at A_star, its Coulomb shift (E_e - E_0) - E_e^bare at A_star, w_h/w_e at A_star, f_e at A_star, the independence radius A_10 on [A_lo, A_hi] at the given level, c_EC at A_star, the exciton Bohr radius a_X = 4 pi eps eps_0 hbar^2/(mu e^2), the source's estimate 3 pi hbar^2 eps eps_0 (1/m_e - 1/m_h)/e^2 of the independence radius, A_star, N_n, L_max, N_r, N_g, len(radii), the kinetic splitting z_11^2 - z_10^2 (the coefficient of 1/A^2), the 1s-1s direct Coulomb integral in units of e^2/(4 pi eps eps_0 A), the strongly confined limit of the ratio of the weak-confinement transition energy to the non-interacting electron transition (the weak-confinement model with the Coulomb term omitted, at A_star), the ratio of the weak-confinement transition energy to the exact electron-like resonance at A_star] followed by a zero."
+    orchestrator: true

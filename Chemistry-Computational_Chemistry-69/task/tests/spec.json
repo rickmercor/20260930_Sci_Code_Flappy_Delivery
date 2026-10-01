@@ -1,0 +1,113 @@
+{
+  "problem_id": "Chemistry-Computational_Chemistry-69",
+  "sub_steps": [
+    {
+      "step_number": "Chemistry-Computational_Chemistry-69.1",
+      "test_cases": [
+        "import numpy as np\nE0 = 0.108\nassert np.allclose(acceptor_energetics(E0), target)",
+        "import numpy as np\nE0 = 2.35\nassert np.allclose(acceptor_energetics(E0), target)",
+        "import numpy as np\nE0 = 1.90\nassert np.allclose(acceptor_energetics(E0), target)",
+        "import numpy as np\nE0 = -3.04\nassert np.allclose(acceptor_energetics(E0), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-69.2",
+      "test_cases": [
+        "import numpy as np\nZ_lo = -3.0\nZ_hi = 3.0\ntheta_probe = 0.73\nassert np.allclose(slab_dehydration_limits(Z_lo, Z_hi, theta_probe), target)",
+        "import numpy as np\nZ_lo = -6.0\nZ_hi = 6.0\ntheta_probe = 0.25\nassert np.allclose(slab_dehydration_limits(Z_lo, Z_hi, theta_probe), target)",
+        "import numpy as np\nZ_lo = -1.0\nZ_hi = 1.0\ntheta_probe = 0.5\nassert np.allclose(slab_dehydration_limits(Z_lo, Z_hi, theta_probe), target)",
+        "import numpy as np\nZ_lo = 4.0\nZ_hi = 5.0\ntheta_probe = 0.995\nassert np.allclose(slab_dehydration_limits(Z_lo, Z_hi, theta_probe), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-69.3",
+      "test_cases": [
+        "import numpy as np\nZ_acc = -6.50\ntheta = np.array([0.10, 0.40, 0.73, 0.90])\nassert np.allclose(effective_dielectric(theta, Z_acc), target)",
+        "import numpy as np\nZ_acc = -12.0\ntheta = np.array([0.25, 0.60, 0.85])\nassert np.allclose(effective_dielectric(theta, Z_acc), target)",
+        "import numpy as np\nZ_acc = -6.50\ntheta = 0.5\nassert np.allclose(effective_dielectric(theta, Z_acc), target)",
+        "import numpy as np\nZ_acc = -6.50\ntheta = np.array([0.97, 0.995])\nassert np.allclose(effective_dielectric(theta, Z_acc), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-69.4",
+      "test_cases": [
+        "import numpy as np\nZ_acc = -6.50\nzz = -3.0\ntheta = np.array([0.10, 0.40, 0.73, 0.90])\nassert np.allclose(ion_pair_work(theta, Z_acc, zz), target)",
+        "import numpy as np\nZ_acc = -6.50\nzz = -1.0\ntheta = np.array([0.20, 0.55, 0.88])\nassert np.allclose(ion_pair_work(theta, Z_acc, zz), target)",
+        "import numpy as np\nZ_acc = -6.50\nzz = 0.0\ntheta = 0.5\nassert np.allclose(ion_pair_work(theta, Z_acc, zz), target)",
+        "import numpy as np\nZ_acc = -12.0\nzz = 2.0\ntheta = np.array([0.30, 0.95])\nassert np.allclose(ion_pair_work(theta, Z_acc, zz), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-69.5",
+      "test_cases": [
+        "import numpy as np\nE0 = 0.108\nga = -106.4\ngr = -3.9\nZ_acc = -6.50\nzz = -3.0\ntheta = np.array([0.05, 0.25, 0.5, 0.75, 0.94])\nassert np.allclose(interfacial_driving_force(E0, ga, gr, theta, Z_acc, zz), target)",
+        "import numpy as np\nE0 = 2.10\nga = -106.4\ngr = -3.9\nZ_acc = -6.50\nzz = -3.0\ntheta = np.array([0.1, 0.4, 0.9])\nassert np.allclose(interfacial_driving_force(E0, ga, gr, theta, Z_acc, zz), target)",
+        "import numpy as np\nE0 = -0.449\nga = -106.4\ngr = -3.9\nZ_acc = -6.50\nzz = 0.0\ntheta = np.array([0.02, 0.98])\nassert np.allclose(interfacial_driving_force(E0, ga, gr, theta, Z_acc, zz), target)",
+        "import numpy as np\nE0 = 1.03\nga = -72.0\ngr = -1.5\nZ_acc = -9.0\nzz = -2.0\ntheta = 0.6666666666666666\nassert np.allclose(interfacial_driving_force(E0, ga, gr, theta, Z_acc, zz), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-69.6",
+      "test_cases": [
+        "import numpy as np\nlam_out = 27.6\ntheta = np.array([0.0, 0.2, 0.5, 0.8, 1.0])\nassert np.allclose(solvent_reorganisation_energy(lam_out, theta), target)",
+        "import numpy as np\nlam_out = 12.0\ntheta = np.array([0.1, 0.6, 0.94])\nassert np.allclose(solvent_reorganisation_energy(lam_out, theta), target)",
+        "import numpy as np\nlam_out = 30.0\ntheta = np.array([0.0, 1.0])\nassert np.allclose(solvent_reorganisation_energy(lam_out, theta), target)",
+        "import numpy as np\nlam_out = 95.0\ntheta = 0.3333333333333333\nassert np.allclose(solvent_reorganisation_energy(lam_out, theta), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-69.7",
+      "test_cases": [
+        "import numpy as np\nbr = np.array([494.0, 357.0, 1.936, 2.114, 17.031])\nassert np.allclose(breathing_mode_surfaces(br), target)",
+        "import numpy as np\nbr = np.array([490.0, 389.0, 1.990, 2.128, 18.015])\nassert np.allclose(breathing_mode_surfaces(br), target)",
+        "import numpy as np\nbr = [420.0, 420.0, 2.000, 2.100, 17.031]\nassert np.allclose(breathing_mode_surfaces(br), target)",
+        "import numpy as np\nbr = np.array([500.0, 472.0, 2.104, 2.144, 17.031])\nassert np.allclose(breathing_mode_surfaces(br), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-69.8",
+      "test_cases": [
+        "import numpy as np\nE0 = 0.108\nlam_out = 27.6\nbr = np.array([494.0, 357.0, 1.936, 2.114, 17.031])\nZ_acc = -6.50\nzz = -3.0\ntheta = np.array([0.50, 0.70, 0.78, 0.86, 0.93])\nassert np.allclose(nuclear_factor(E0, lam_out, br, theta, Z_acc, zz), target)",
+        "import numpy as np\nE0 = 0.77\nlam_out = 25.0\nbr = np.array([490.0, 389.0, 1.990, 2.128, 18.015])\nZ_acc = -6.50\nzz = -3.0\ntheta = np.array([0.30, 0.45, 0.60, 0.75])\nassert np.allclose(nuclear_factor(E0, lam_out, br, theta, Z_acc, zz), target)",
+        "import numpy as np\nE0 = 0.108\nlam_out = 27.6\nbr = np.array([420.0, 420.0, 1.936, 2.114, 17.031])\nZ_acc = -6.50\nzz = -3.0\ntheta = np.array([0.72, 0.80])\nassert np.allclose(nuclear_factor(E0, lam_out, br, theta, Z_acc, zz), target)",
+        "import numpy as np\nE0 = 0.108\nlam_out = 27.6\nbr = np.array([494.0, 357.0, 1.936, 2.114, 17.031])\nZ_acc = -6.50\nzz = -3.0\ntheta = 0.05\nassert np.allclose(nuclear_factor(E0, lam_out, br, theta, Z_acc, zz), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-69.9",
+      "test_cases": [
+        "import numpy as np\nZ_acc = -6.50\ntheta = np.array([0.10, 0.40, 0.73, 0.90])\nassert np.allclose(tunnelling_coupling_squared(theta, Z_acc), target)",
+        "import numpy as np\nZ_acc = -12.0\ntheta = np.array([0.25, 0.60, 0.85])\nassert np.allclose(tunnelling_coupling_squared(theta, Z_acc), target)",
+        "import numpy as np\nZ_acc = -6.50\ntheta = 0.5\nassert np.allclose(tunnelling_coupling_squared(theta, Z_acc), target)",
+        "import numpy as np\nZ_acc = -6.50\ntheta = np.array([0.97, 0.99])\nassert np.allclose(tunnelling_coupling_squared(theta, Z_acc), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-69.10",
+      "test_cases": [
+        "import numpy as np\nZ_lo = -3.0\nZ_hi = 3.0\ntheta = np.array([0.10, 0.35, 0.60, 0.73, 0.90])\nassert np.allclose(dehydration_density(theta, Z_lo, Z_hi), target)",
+        "import numpy as np\nZ_lo = -6.0\nZ_hi = 6.0\ntheta = np.array([0.20, 0.50, 0.80])\nassert np.allclose(dehydration_density(theta, Z_lo, Z_hi), target)",
+        "import numpy as np\nZ_lo = -3.0\nZ_hi = 3.0\ntheta = 0.5\nassert np.allclose(dehydration_density(theta, Z_lo, Z_hi), target)",
+        "import numpy as np\nZ_lo = -3.0\nZ_hi = 3.0\ntheta = np.array([0.006, 0.946])\nassert np.allclose(dehydration_density(theta, Z_lo, Z_hi), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-69.11",
+      "test_cases": [
+        "import numpy as np\nE0 = 0.108\nlam_out = 27.6\nbr = np.array([494.0, 357.0, 1.936, 2.114, 17.031])\nZ_acc = -6.50\nzz = -3.0\ntheta = np.array([0.60, 0.72, 0.78, 0.85, 0.92])\nassert np.allclose(rate_density(E0, lam_out, br, theta, Z_acc, zz), target)",
+        "import numpy as np\nE0 = 0.77\nlam_out = 25.0\nbr = np.array([490.0, 389.0, 1.990, 2.128, 18.015])\nZ_acc = -8.0\nzz = -3.0\ntheta = np.array([0.35, 0.50, 0.65])\nassert np.allclose(rate_density(E0, lam_out, br, theta, Z_acc, zz), target)",
+        "import numpy as np\nE0 = 0.108\nlam_out = 27.6\nbr = np.array([494.0, 357.0, 1.936, 2.114, 17.031])\nZ_acc = -6.50\nzz = 0.0\ntheta = 0.80\nassert np.allclose(rate_density(E0, lam_out, br, theta, Z_acc, zz), target)",
+        "import numpy as np\nE0 = 0.108\nlam_out = 27.6\nbr = np.array([494.0, 357.0, 1.936, 2.114, 17.031])\nZ_acc = -6.50\nzz = -3.0\ntheta = np.array([0.96, 0.985])\nassert np.allclose(rate_density(E0, lam_out, br, theta, Z_acc, zz), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-69.12",
+      "test_cases": [
+        "import numpy as np\nE0 = 0.108\nlam_out = 27.6\nbr = np.array([494.0, 357.0, 1.936, 2.114, 17.031])\nZ_lo = -3.0\nZ_hi = 3.0\nZ_acc = -6.50\nzz = -3.0\nassert np.allclose(interfacial_rate_constant(E0, lam_out, br, Z_lo, Z_hi, Z_acc, zz), target)",
+        "import numpy as np\nE0 = 0.77\nlam_out = 25.0\nbr = np.array([490.0, 389.0, 1.990, 2.128, 18.015])\nZ_lo = -3.0\nZ_hi = 3.0\nZ_acc = -6.50\nzz = -3.0\nassert np.allclose(interfacial_rate_constant(E0, lam_out, br, Z_lo, Z_hi, Z_acc, zz), target)",
+        "import numpy as np\nE0 = 0.108\nlam_out = 27.6\nbr = np.array([494.0, 357.0, 1.936, 2.114, 17.031])\nZ_lo = -4.0\nZ_hi = 4.0\nZ_acc = -7.50\nzz = -3.0\nassert np.allclose(interfacial_rate_constant(E0, lam_out, br, Z_lo, Z_hi, Z_acc, zz), target)",
+        "import numpy as np\nE0 = 0.108\nlam_out = 27.6\nbr = np.array([420.0, 420.0, 1.936, 2.114, 17.031])\nZ_lo = -3.0\nZ_hi = 3.0\nZ_acc = -6.50\nzz = 0.0\nassert np.allclose(interfacial_rate_constant(E0, lam_out, br, Z_lo, Z_hi, Z_acc, zz), target)"
+      ]
+    }
+  ]
+}

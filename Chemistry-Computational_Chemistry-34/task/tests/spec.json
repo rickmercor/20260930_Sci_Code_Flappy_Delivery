@@ -1,0 +1,75 @@
+{
+  "problem_id": "Chemistry-Computational_Chemistry-34",
+  "sub_steps": [
+    {
+      "step_number": "Chemistry-Computational_Chemistry-34.1",
+      "test_cases": [
+        "import numpy as np\np_sol=np.array([1.3,.85,.35,.72,.41,np.sqrt(3)/2]);p_ref=p_sol.copy()\nassert np.allclose(spin_boson_potential(-.63,p_sol), target)",
+        "import numpy as np\np_sol=np.array([2.,1.1,-.2,-.4,.3,.8]);p_ref=p_sol.copy()\nassert np.allclose(spin_boson_potential(0.,p_sol), target)",
+        "import numpy as np\np_sol=np.array([1.,.7,.1,.5,.2,1.]);p_ref=p_sol.copy()\nassert np.allclose(spin_boson_potential(1.2,p_sol), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-34.2",
+      "test_cases": [
+        "import numpy as np\np_sol=np.array([1.3,.85,.35,.72,.41,np.sqrt(3)/2]);p_ref=p_sol.copy()\nassert np.allclose(spin_generator(-.63,p_sol), target)",
+        "import numpy as np\np_sol=np.array([2.,1.1,-.2,-.4,.3,.8]);p_ref=p_sol.copy()\nassert np.allclose(spin_generator(0.,p_sol), target)",
+        "import numpy as np\np_sol=np.array([1.,.7,.1,.5,.2,1.]);p_ref=p_sol.copy()\nassert np.allclose(spin_generator(1.2,p_sol), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-34.3",
+      "test_cases": [
+        "import numpy as np\np_sol=np.array([1.3,.85,.35,.72,.41,np.sqrt(3)/2]);p_ref=p_sol.copy()\nassert np.allclose(electronic_operators(-.63,.0375,p_sol), target)",
+        "import numpy as np\np_sol=np.array([2.,1.1,-.2,-.4,.3,.8]);p_ref=p_sol.copy()\nassert np.allclose(electronic_operators(0.,-.08,p_sol), target)",
+        "import numpy as np\np_sol=np.array([1.,.7,.1,.5,.2,1.]);p_ref=p_sol.copy()\nassert np.allclose(electronic_operators(1.2,.2,p_sol), target)",
+        "import numpy as np\np_sol=np.array([1.,1.,0.,0.,1e-16,1.]);p_ref=p_sol.copy()\nassert np.allclose(electronic_operators(0.,1e16,p_sol), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-34.4",
+      "test_cases": [
+        "import numpy as np\np_sol=np.array([1.3,.85,.35,.72,.41,np.sqrt(3)/2]);p_ref=p_sol.copy();u_sol=np.array([.7,-.2,1.1]);u_ref=u_sol.copy()\nassert np.allclose(coupled_flow(-.63,.77,u_sol,.0375,p_sol), target)",
+        "import numpy as np\np_sol=np.array([2.,1.1,-.2,-.4,.3,.8]);p_ref=p_sol.copy();u_sol=np.array([.1,.2,.3]);u_ref=u_sol.copy()\nassert np.allclose(coupled_flow(0.,-.4,u_sol,-.08,p_sol), target)",
+        "import numpy as np\np_sol=np.array([1.,.7,.1,.5,.2,1.]);p_ref=p_sol.copy();u_sol=np.array([-.2,.9,.1]);u_ref=u_sol.copy()\nassert np.allclose(coupled_flow(1.2,.3,u_sol,.2,p_sol), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-34.5",
+      "test_cases": [
+        "import numpy as np\ndef angle_key(x):\n x=np.asarray(x);return np.array([x[0],np.cos(x[1]),np.sin(x[1]),x[2],x[3]])\np_sol=np.array([1.3,.85,.35,.72,.41,np.sqrt(3)/2]);p_ref=p_sol.copy();z_sol=np.array([-.63,.91,.77,-.18]);z_ref=z_sol.copy()\nassert np.allclose(angle_key(spin_mint_step(z_sol,.0375,p_sol)), target)",
+        "import numpy as np\ndef angle_key(x):\n x=np.asarray(x);return np.array([x[0],np.cos(x[1]),np.sin(x[1]),x[2],x[3]])\np_sol=np.array([2.,1.1,-.2,-.4,.3,.8]);p_ref=p_sol.copy();z_sol=np.array([0.,-1.2,-.4,.15]);z_ref=z_sol.copy()\nassert np.allclose(angle_key(spin_mint_step(z_sol,-.08,p_sol)), target)",
+        "import numpy as np\ndef angle_key(x):\n x=np.asarray(x);return np.array([x[0],np.cos(x[1]),np.sin(x[1]),x[2],x[3]])\np_sol=np.array([1.,.7,.1,.5,.2,1.]);p_ref=p_sol.copy();z_sol=np.array([1.2,2.8,.3,-.4]);z_ref=z_sol.copy()\nassert np.allclose(angle_key(spin_mint_step(z_sol,.2,p_sol)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-34.6",
+      "test_cases": [
+        "import numpy as np\ndef angle_key(x):\n x=np.asarray(x);return np.concatenate((x[:1],[np.cos(x[1]),np.sin(x[1])],x[2:]))\np_sol=np.array([1.3,.85,.35,.72,.41,np.sqrt(3)/2]);p_ref=p_sol.copy();z_sol=np.array([-.63,.91,.77,-.18]);z_ref=z_sol.copy()\nassert np.allclose(angle_key(canonical_tangent_step(z_sol,.0375,p_sol)), target)",
+        "import numpy as np\ndef angle_key(x):\n x=np.asarray(x);return np.concatenate((x[:1],[np.cos(x[1]),np.sin(x[1])],x[2:]))\np_sol=np.array([2.,1.1,-.2,-.4,.3,.8]);p_ref=p_sol.copy();z_sol=np.array([0.,-1.2,-.4,.15]);z_ref=z_sol.copy()\nassert np.allclose(angle_key(canonical_tangent_step(z_sol,-.08,p_sol)), target)",
+        "import numpy as np\ndef angle_key(x):\n x=np.asarray(x);return np.concatenate((x[:1],[np.cos(x[1]),np.sin(x[1])],x[2:]))\np_sol=np.array([1.,.7,.1,.5,.2,1.]);p_ref=p_sol.copy();z_sol=np.array([1.2,2.8,.3,-.4]);z_ref=z_sol.copy()\nassert np.allclose(angle_key(canonical_tangent_step(z_sol,.2,p_sol)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-34.7",
+      "test_cases": [
+        "import numpy as np\ndef angle_key(x):\n x=np.asarray(x);return np.concatenate((x[:1],[np.cos(x[1]),np.sin(x[1])],x[2:]))\np_sol=np.array([1.3,.85,.35,.72,.41,np.sqrt(3)/2]);p_ref=p_sol.copy();z_sol=np.array([-.63,.91,.77,-.18]);z_ref=z_sol.copy()\nassert np.allclose(angle_key(accumulate_trajectory(z_sol,.0375,3,p_sol)), target)",
+        "import numpy as np\ndef angle_key(x):\n x=np.asarray(x);return np.concatenate((x[:1],[np.cos(x[1]),np.sin(x[1])],x[2:]))\np_sol=np.array([2.,1.1,-.2,-.4,.3,.8]);p_ref=p_sol.copy();z_sol=np.array([0.,-1.2,-.4,.15]);z_ref=z_sol.copy()\nassert np.allclose(angle_key(accumulate_trajectory(z_sol,.02,7,p_sol)), target)",
+        "import numpy as np\ndef angle_key(x):\n x=np.asarray(x);return np.concatenate((x[:1],[np.cos(x[1]),np.sin(x[1])],x[2:]))\np_sol=np.array([1.,.7,.1,.5,.2,1.]);p_ref=p_sol.copy();z_sol=np.array([1.2,2.8,.3,-.4]);z_ref=z_sol.copy()\nassert np.allclose(angle_key(accumulate_trajectory(z_sol,.01,11,p_sol)), target)",
+        "import numpy as np\ndef angle_key(x):\n x=np.asarray(x);return np.concatenate((x[:1],[np.cos(x[1]),np.sin(x[1])],x[2:]))\np_sol=np.array([1.3,.85,.35,.72,.41,1e16]);p_ref=p_sol.copy();z_sol=np.array([-.63,.91,.77,-4e15]);z_ref=z_sol.copy()\nassert np.allclose(angle_key(accumulate_trajectory(z_sol,.0375,3,p_sol)), target)",
+        "import numpy as np\ndef angle_key(x):\n x=np.asarray(x);return np.concatenate((x[:1],[np.cos(x[1]),np.sin(x[1])],x[2:]))\np_sol=np.array([1.3,.85,.35,.72,.41,np.sqrt(3)/2]);p_ref=p_sol.copy();z_sol=np.array([-.63,.91,.77,-.18]);z_ref=z_sol.copy()\nassert np.allclose(angle_key(accumulate_trajectory(z_sol,.0375,1,p_sol)), target)",
+        "import numpy as np\ndef angle_key(x):\n x=np.asarray(x);return np.concatenate((x[:1],[np.cos(x[1]),np.sin(x[1])],x[2:]))\np_sol=np.array([1.3,.85,.35,.72,.41,np.sqrt(3)/2]);p_ref=p_sol.copy();z_sol=np.array([-.63,.91,.77,-.18]);z_ref=z_sol.copy()\nassert np.allclose(angle_key(accumulate_trajectory(z_sol,-.0375,23,p_sol)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-34.8",
+      "test_cases": [
+        "import numpy as np\ndef angle_key(x):\n x=np.asarray(x);return np.concatenate((x[:1],[np.cos(x[1]),np.sin(x[1])],x[2:]))\np_sol=np.array([1.3,.85,.35,.72,.41,np.sqrt(3)/2]);p_ref=p_sol.copy();z_sol=np.array([-.63,.91,.77,-.18]);z_ref=z_sol.copy()\nassert np.allclose(angle_key(stability_indicator(z_sol,.0375,320,p_sol)), target)",
+        "import numpy as np\ndef angle_key(x):\n x=np.asarray(x);return np.concatenate((x[:1],[np.cos(x[1]),np.sin(x[1])],x[2:]))\np_sol=np.array([2.,1.1,-.2,-.4,.3,.8]);p_ref=p_sol.copy();z_sol=np.array([0.,-1.2,-.4,.15]);z_ref=z_sol.copy()\nassert np.allclose(angle_key(stability_indicator(z_sol,.02,7,p_sol)), target)",
+        "import numpy as np\ndef angle_key(x):\n x=np.asarray(x);return np.concatenate((x[:1],[np.cos(x[1]),np.sin(x[1])],x[2:]))\np_sol=np.array([1.,.7,.1,.5,.2,1.]);p_ref=p_sol.copy();z_sol=np.array([1.2,2.8,.3,-.4]);z_ref=z_sol.copy()\nassert np.allclose(angle_key(stability_indicator(z_sol,.01,11,p_sol)), target)",
+        "import numpy as np\ndef angle_key(x):\n x=np.asarray(x);return np.concatenate((x[:1],[np.cos(x[1]),np.sin(x[1])],x[2:]))\np_sol=np.array([1.3,.85,.35,.72,.41,np.sqrt(3)/2]);p_ref=p_sol.copy();z_sol=np.array([-.63,.91,.77,-.18]);z_ref=z_sol.copy()\nassert np.allclose(angle_key(stability_indicator(z_sol,.0375,1,p_sol)), target)",
+        "import numpy as np\ndef angle_key(x):\n x=np.asarray(x);return np.concatenate((x[:1],[np.cos(x[1]),np.sin(x[1])],x[2:]))\np_sol=np.array([1.3,.85,.35,.72,.41,np.sqrt(3)/2]);p_ref=p_sol.copy();z_sol=np.array([-.63,.91,.77,-.18]);z_ref=z_sol.copy()\nassert np.allclose(angle_key(stability_indicator(z_sol,-.0375,23,p_sol)), target)"
+      ]
+    }
+  ]
+}

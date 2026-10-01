@@ -1,0 +1,40 @@
+problem_id: "Biology-Biochemistry-29"
+subject: "biology"
+subject_area: "Biochemistry"
+difficulty: "medium"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1371/journal.pcbi.1014633"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_compute_equilibrium_coefficients.py"
+    description: "Evaluate the equilibrium parametrization from a complete vector of fourteen kinetic rate constants. Return the five coefficients multiplying Q, the rational coefficient beta, and the constant concentration Yp. Validate that the input and all returned coefficients are finite and strictly positive."
+    orchestrator: false
+  - number: 2
+    name: "02_solve_positive_equilibrium.py"
+    description: "Solve the two conservation laws for the complete nine-species equilibrium. Use the physically admissible root of the reduced equation and reconstruct every species. Validate the original conservation laws and reject nonpositive or nonfinite states."
+    orchestrator: false
+  - number: 3
+    name: "03_compute_fraction_sensitivity.py"
+    description: "Compute the steady-state fraction F and signed total logarithmic sensitivity G=dF/dlog(k6) at fixed conserved totals and other kinetic rates. Include the induced response of both free concentrations."
+    orchestrator: false
+  - number: 4
+    name: "04_construct_inverse_constraints.py"
+    description: "Eliminate the experiment-specific equilibrium concentrations from the two calibration fraction observations. Return a rational relation between the shared normalized inverse variables s and v."
+    orchestrator: false
+  - number: 5
+    name: "05_reconstruct_kinetic_parameters.py"
+    description: "Recover the four unknown rates from normalized inverse invariants, measured Yp, and the fixed rate constants. Preserve the shared-denominator structure and reject singular or nonphysical reconstructions."
+    orchestrator: false
+  - number: 6
+    name: "06_calibrate_kinetic_parameters.py"
+    description: "Solve the coupled inverse problem using the constant Yp, two fraction observations, and one logarithmic-sensitivity observation. Enumerate algebraic inverse candidates, reconstruct rates, enforce the parameter box, and validate candidates using the original forward model."
+    orchestrator: false
+  - number: 7
+    name: "07_optimize_sensitivity.py"
+    description: "For a calibrated equilibrium model, hold all kinetic rates and T1 fixed and maximize |dF/dlog(k6)| over a supplied interval of T2. Consider the admissible interior stationary point and the interval endpoints."
+    orchestrator: false
+  - number: 8
+    name: "08_compute_optimized_fraction.py"
+    description: "Compose the earlier steps to calibrate the four kinetic rates, construct the calibrated equilibrium model, maximize absolute logarithmic sensitivity, and return the fraction at the resulting admissible equilibrium."
+    orchestrator: true

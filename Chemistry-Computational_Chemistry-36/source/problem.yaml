@@ -1,0 +1,44 @@
+problem_id: "Chemistry-Computational_Chemistry-36"
+subject: "chemistry"
+subject_area: "Computational Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1021/acs.jctc.6c00883"
+dependencies: ""
+steps:
+  - number: 1
+    name: "restore_opes_bias"
+    description: "Validate a ragged OPES archive and restore the reported bias offset."
+    orchestrator: false
+  - number: 2
+    name: "censored_observed_log_rates"
+    description: "Estimate per-set observed rates with a right-censored exponential MLE."
+    orchestrator: false
+  - number: 3
+    name: "ensemble_time_log_acceleration"
+    description: "Compute the flooding acceleration with the source averaging order."
+    orchestrator: false
+  - number: 4
+    name: "fit_eatr_flooding"
+    description: "Fit a common flooding efficiency and unbiased log-rate across sets."
+    orchestrator: false
+  - number: 5
+    name: "scan_eatr_prefixes"
+    description: "Scan least-to-most-biased set prefixes for flooding-fit convergence."
+    orchestrator: false
+  - number: 6
+    name: "select_consistent_prefix"
+    description: "Select a converged prefix without admitting boundary gamma fits."
+    orchestrator: false
+  - number: 7
+    name: "opesf_cdf_log_rate"
+    description: "Compute the conventional OPES-f comparator from rescaled event times."
+    orchestrator: false
+  - number: 8
+    name: "leave_one_set_out_log_rates"
+    description: "Measure flooding-estimate sensitivity to removing each selected set."
+    orchestrator: false
+  - number: 9
+    name: "run_flooding_rate_audit"
+    description: "Run the complete deterministic censored flooding-rate comparison."
+    orchestrator: true

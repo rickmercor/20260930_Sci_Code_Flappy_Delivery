@@ -1,0 +1,36 @@
+problem_id: "Material_Science-Semiconductor_Materials-12"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1103/m2jb-z9lm"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_reaction_coordinate_drift"
+    description: "Step 01: Drift matrix after the reaction-coordinate mapping."
+    orchestrator: false
+  - number: 2
+    name: "02_segment_response"
+    description: "Step 02: Response to a residual-lead mode over one step."
+    orchestrator: false
+  - number: 3
+    name: "03_cycle_propagator"
+    description: "Step 03: One-cycle propagator of the coupling/decoupling pump."
+    orchestrator: false
+  - number: 4
+    name: "04_limit_cycle_weights"
+    description: "Step 04: Periodic-state spectral weights of one residual lead."
+    orchestrator: false
+  - number: 5
+    name: "05_limit_cycle_correlations"
+    description: "Step 05: Dot occupation and coherences in the periodic state."
+    orchestrator: false
+  - number: 6
+    name: "06_pumping_performance"
+    description: "Step 06: Pumped charge, switching work and energy efficiency."
+    orchestrator: false
+  - number: 7
+    name: "07_maximal_pumping_efficiency"
+    description: "Step 07: Largest pumping efficiency over the step-2 duration (orchestrator)."
+    orchestrator: true

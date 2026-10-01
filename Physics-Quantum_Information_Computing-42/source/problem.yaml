@@ -1,0 +1,40 @@
+problem_id: "Physics-Quantum_Information_Computing-42"
+subject: "physics"
+subject_area: "Quantum Information / Computing"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1007/978-3-032-32537-2_19"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_reconstruct_source_gate_encodings.py"
+    description: "Reconstruct representative gate matrices from the literal-weight semantics of\n\nQuokka#'s computational-basis encoding.\n\n\n\nThis step independently validates the paper-specific gate semantics before any\n\nsynthesis optimization is performed. It reconstructs H, T, T\u2020, RX(theta),\n\nRZ(theta), and CX from the same amplitudes represented by the source weighted\n\nBoolean encodings.\n\n\n\nThe RZ reconstruction follows the source computational-basis convention\n\ndiag(1, exp(i*theta)), which differs from the conventional physical\n\nRZ(theta)=diag(exp(-i*theta/2), exp(i*theta/2)) only by a global phase.\n\n\n\nThis is deliberately a local gate-semantics validation step. Its 4x4 matrices\n\ndo not restrict the later synthesis benchmark to two qubits; the synthesis\n\ninstance itself is three-qubit."
+    orchestrator: false
+  - number: 2
+    name: "02_compute_target_identity_cyclic_fidelity.py"
+    description: "Compute the source cyclic fidelity between the fixed three-qubit benchmark target circuit and the identity candidate. The fixed target topology and chronological gate ordering are part of this subproblem's public contract; the five numeric inputs supply only the five rotation angles."
+    orchestrator: false
+  - number: 3
+    name: "03_validate_source_schedule.py"
+    description: "Validate a semantic three-qubit synthesis schedule against the source\n\ncomputational-basis parametric-layer constraints.\n\n\n\nThe public input is a gate schedule expressed in terms of gate types and\n\nqubit operands rather than private Boolean-variable numbers. This makes the\n\nsubproblem invariant to CNF variable allocation and clause ordering.\n\n\n\nEach layer must cover each of q0, q1 and q2 exactly once. A one-qubit gate\n\ncovers one qubit, while a directed CX covers both its control and target.\n\nTherefore a valid three-qubit layer consists either of three independent\n\none-qubit gates or one directed CX together with one one-qubit gate on the\n\nremaining qubit.\n\n\n\nThe function also enforces the source cross-layer symmetry-breaking rules\n\nthat are active for depths through 4, including adjacent-H pruning,\n\nT/T\u2020 cancellation pruning, identity-padding canonicalization, repeated-CX\n\npruning, CX-after-two-identities pruning, and the three-layer T/CX/T\u2020 rules.\n\n\n\nThe ordering of operation slots within a layer has no scientific meaning."
+    orchestrator: false
+  - number: 4
+    name: "04_compute_fixed_schedule_cyclic_fidelity.py"
+    description: "Compute the Jamio\u0142kowski fidelity of one semantic source-valid synthesis\n\nschedule using the paper's computational-basis weighted Boolean construction.\n\n\n\nThe public schedule contains only gate identities and qubit operands. The\n\noracle privately compiles the target adjoint and the fixed candidate through\n\ngate-specific Boolean relations and complex literal weights, adds cyclic\n\nfinal-to-initial equality, and performs weighted model counting.\n\n\n\nNo private CNF variable numbering or selector-literal numbering appears in\n\nthe public contract. Direct unitary multiplication is not used to obtain the\n\nreturned value."
+    orchestrator: false
+  - number: 5
+    name: "05_optimize_fixed_depth_d4max.py"
+    description: "Solve one fixed-depth source synthesis optimization for the fixed three-qubit benchmark target. The benchmark topology is fixed; the inputs supply its five rotation angles, the synthesis depth, and the required fidelity threshold."
+    orchestrator: false
+  - number: 6
+    name: "06_search_source_depths_d4max.py"
+    description: "Run the source depth-increasing synthesis search using the fixed-depth\n\noptimizer.\n\n\n\nStarting at depth 1, globally solve each fixed-depth source synthesis\n\ninstance. If the required fidelity is not reached, record the globally\n\noptimized fixed-depth fidelity and continue to the next depth. Stop at the\n\nfirst depth for which the fixed-depth optimizer returns a feasibility\n\ncertificate.\n\n\n\nThe public output contains only consecutive depth numbers, Boolean\n\nthreshold-feasibility flags, and representation-independent fidelity\n\ncertificates."
+    orchestrator: false
+  - number: 7
+    name: "07_select_first_feasible_depth.py"
+    description: "Validate the representation-independent depth-search certificate table and\n\nreturn the minimum feasible synthesis depth together with the exact global\n\noptima of all rejected shallower depths.\n\n\n\nDepths must be consecutive starting from 1. The threshold_met field is a\n\nBoolean-valued numeric flag and must be exactly 0 or 1. The entire input table\n\nis validated before any first-feasible row is accepted."
+    orchestrator: false
+  - number: 8
+    name: "08_run_paper_faithful_quokka_synthesis.py"
+    description: "Run the complete three-qubit source synthesis pipeline.\n\n\n\nThe orchestrator uses the numerical results of the preceding subproblems,\n\nincluding value-sensitive checks of the source gate-semantic tensor and the\n\ntarget-versus-identity cyclic fidelity. It then runs the increasing-depth\n\nfixed-depth optimization, selects the first feasible depth, recovers and\n\nvalidates a source-generated witness, and performs an independent unitary\n\ncross-check.\n\n\n\nThe final public result is the minimum feasible synthesis depth."
+    orchestrator: true

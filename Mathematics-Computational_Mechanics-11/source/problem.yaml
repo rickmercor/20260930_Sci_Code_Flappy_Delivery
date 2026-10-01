@@ -1,0 +1,48 @@
+problem_id: "Mathematics-Computational_Mechanics-11"
+subject: "mathematics"
+subject_area: "Computational Mechanics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2604.07307"
+dependencies: ""
+steps:
+  - number: 1
+    name: "fmpm_grid_operators"
+    description: "Builds the linear shape function matrix S (N x n_nodes), the lumped nodal masses m and the lumped reverse map S+ (n_nodes x N) of a particle set on the uniform grid, stacked as the rows [S; (S+)^T; m] of one (2N + 1) x n_nodes array, the transpose of S+ being indexed like S; nodes carrying no mass are inactive."
+    orchestrator: false
+  - number: 2
+    name: "fmpm_velocity_increment"
+    description: "Advances one increment of the source's revised recursion: from the increment of order l - 1 it forms the increment of order l, scaled by alpha_blend, with the inactive nodes and then the controlled nodes of the result zeroed."
+    orchestrator: false
+  - number: 3
+    name: "fmpm_loop"
+    description: "Runs the source's full FMPM loop to order k with the generalised blend and returns the FMPM(k) grid velocities, the final increment, and the order actually achieved together with a flag recording whether the loop exited early because the Euclidean norm of an increment fell below tol."
+    orchestrator: false
+  - number: 4
+    name: "fmpm_prior_series"
+    description: "Reproduces the source's original, superseded expansion of the FMPM(k) velocities, the alternating sum sum_l (-1)^(l+1) v*_l of order k on the active nodes (no controlled nodes, no blend), returning the assembled velocities and the final term v*_k itself (unsigned, before the alternating sign (-1)^(k+1) of the sum is applied)."
+    orchestrator: false
+  - number: 5
+    name: "fmpm_particle_update"
+    description: "Applies the source's PIC-style FMPM(k) particle velocity and position updates with time-integration parameter alpha and also reports the effective acceleration, the mismatch between the two Lagrangian velocities implied by the position and velocity updates, and the velocity a FLIP update would have produced."
+    orchestrator: false
+  - number: 6
+    name: "fmpm_inverse_operator"
+    description: "Builds the n x n matrix K(k) that the constrained, blended FMPM loop applies to the momenta, v+(k) = K(k) p+ (the revised loop driven by one unit momentum per column, without early exit), the closed-form limit K_inf of the same recursion continued to infinite order (so K(k) and K_inf have zero rows at the controlled nodes), and the diagnostics of the series: the spectral radius of the unblended increment map T, the convergence rate per increment of the blended recursion, the 2-norm and the largest entry of K(k) - K_inf, and the number of active nodes."
+    orchestrator: false
+  - number: 7
+    name: "fmpm_bar_operator"
+    description: "Assembles the (2N x 2N) single-step amplification matrix G(C) of one USL time step of the source's vibrating bar linearised at frozen particle positions, for the FLIP, FMPM(k) (with the given blend) or EXACT grid-velocity scheme, acting on the state [particle velocities; particle strains]; the particle-velocity block follows the scheme's particle update (PIC-style for FMPM and EXACT; FLIP with the reaction included in the grid force)."
+    orchestrator: false
+  - number: 8
+    name: "fmpm_stability_limit"
+    description: "Finds the linear stability limit C_lin of a scheme on the vibrating bar: the smallest Courant number at which the spectral radius of the amplification matrix exceeds 1 + tol, located by scanning C = dC, 2 dC, ... up to C_max for the first point over the threshold and bisecting the bracketing interval to 1e-10."
+    orchestrator: false
+  - number: 9
+    name: "fmpm_energy_retention"
+    description: "Advances the linearised bar from its initial velocity profile v0 sin(pi X_p/(2 L_r)) through round(periods T/dt) applications of the amplification matrix at Courant number C and returns the retained total energy, the kinetic and the strain parts, each relative to the initial kinetic energy, and the number of steps taken."
+    orchestrator: false
+  - number: 10
+    name: "fmpm_stability_audit"
+    description: "Runs the complete chain and assembles the stability audit of the vibrating bar for ten schemes, in this row order: FLIP; FMPM(1); FMPM(2); FMPM(k_ref); FMPM(k_high); EXACT; FMPM(k_ref) blended with the lumped matrix (alpha_blend, period 1); FMPM(k_ref) blended with the FMPM(2) matrix (alpha_blend, period 2); FMPM(k_high) blended with the lumped matrix (alpha_blend, period 1); FMPM(k_high) blended with the FMPM(2) matrix (alpha_blend, period 2). Each scheme row holds the 12 columns [scheme code (1 FLIP, 2 FMPM, 3 EXACT), k (1 in the FLIP and EXACT rows), alpha_blend (1 in the unblended rows), blend period (1 in the unblended rows), C_lin at s, C_lin at s_clustered, energy retention after the given periods at C_ret and placement s, convergence rate of the loop at s (0 for FLIP), 2-norm of K(k) - K_inf at s (0 for FLIP and EXACT), number of steps of the retention run, 0, 0]. Head row 0 holds [C_lin of FMPM(k_ref) at s, C_lin of FLIP at s, C_lin of FMPM(1) at s, C_lin of EXACT at s, C_lin of EXACT at s_clustered, C_lin of FLIP at s_clustered, energy retention at C_ref of FMPM(1), of FMPM(k_ref), of the lumped-matrix blend and of the FMPM(2) blend, the spectral radius of T for the unblended loop at s and at s_clustered]; head row 1 holds [N, n_nodes, v_wave, T, number of steps of the retention runs at C_ret (the count tabulated in the scheme rows), C_lin of FMPM(2) at s, C_lin of FMPM(k_high) at s, C_lin of the lumped-matrix blend at s, C_lin of the FMPM(2) blend at s, 2-norm of K(k_ref) - K_inf at s and at s_clustered, and the largest absolute entry of the difference between the operators of the source's original expansion and of the revised loop at order k_ref on the design bar without controlled nodes and without blend (a consistency check, zero to rounding)]. The scheme rows follow."
+    orchestrator: true

@@ -1,0 +1,48 @@
+problem_id: "Physics-Astrophysics-13"
+subject: "physics"
+subject_area: "Astrophysics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1063/5.0268535"
+dependencies: ""
+steps:
+  - number: 1
+    name: "field_samples"
+    description: "Step 01: evaluate the three prescribed fields at supplied positions."
+    orchestrator: false
+  - number: 2
+    name: "gradient_tensor"
+    description: "Step 02: the gradient tensor of the magnetic field."
+    orchestrator: false
+  - number: 3
+    name: "alignment_residual"
+    description: "Step 03: alignment residual and in-plane discriminant."
+    orchestrator: false
+  - number: 4
+    name: "candidate_line"
+    description: "Step 04: the candidate curve on which the step-03 residual vanishes."
+    orchestrator: false
+  - number: 5
+    name: "seed_point"
+    description: "Step 05: the distinguished point of the step-04 candidate curve."
+    orchestrator: false
+  - number: 6
+    name: "quasi_x_line"
+    description: "Step 06: the magnetic field line through a supplied point."
+    orchestrator: false
+  - number: 7
+    name: "parallel_electric_field"
+    description: "Step 07: the field-aligned electric field at supplied positions."
+    orchestrator: false
+  - number: 8
+    name: "line_average"
+    description: "Step 08: the curve average of a sampled quantity."
+    orchestrator: false
+  - number: 9
+    name: "inflow_quantities"
+    description: "Step 09: inflow field strength, inflow density and Alfven speed."
+    orchestrator: false
+  - number: 10
+    name: "reconnection_rate"
+    description: "Step 10: the normalized reconnection rate (final orchestrator step)."
+    orchestrator: true

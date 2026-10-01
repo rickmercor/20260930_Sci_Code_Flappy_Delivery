@@ -1,0 +1,74 @@
+{
+  "problem_id": "Physics-Optics-9",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Optics-9.1",
+      "test_cases": [
+        "import numpy as np\n\nx = np.array([0.35, 2.4, 7.4])\n\n\ndef components(value):\n    magnitude = np.abs(value)\n    scale = np.maximum(1.0, magnitude)\n    return np.stack(\n        (magnitude, value.real / scale, value.imag / scale),\n        axis=-1,\n    )\nassert np.allclose(components(riccati_wave_data(3, x.copy()))\n, target)",
+        "import numpy as np\n\nx = np.array(1.0 + 2.0j)\n\n\ndef components(value):\n    magnitude = np.abs(value)\n    scale = np.maximum(1.0, magnitude)\n    return np.stack(\n        (magnitude, value.real / scale, value.imag / scale),\n        axis=-1,\n    )\nassert np.allclose(components(riccati_wave_data(1, x.copy()))\n, target)",
+        "import numpy as np\n\nx = np.array([[-3.0 - 2j, 3.0 - 2j], [1e-4, 20j]])\n\n\ndef components(value):\n    magnitude = np.abs(value)\n    scale = np.maximum(1.0, magnitude)\n    return np.stack(\n        (magnitude, value.real / scale, value.imag / scale),\n        axis=-1,\n    )\nassert np.allclose(components(riccati_wave_data(4, x.copy()))\n, target)",
+        "def raises(fn):\n    try:\n        fn(3, 0.0)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises(riccati_wave_data)\n, target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-9.2",
+      "test_cases": [
+        "import numpy as np\n\nx = np.array([0.4, 2.4 - 0.047j, 6.5])\n\n\ndef components(value):\n    return np.stack((value.real, value.imag), axis=-1)\nassert np.allclose(components(tm_boundary_data(3, 2.7, x.copy()))\n, target)",
+        "import numpy as np\n\nx = np.array(0.25 + 0.5j)\n\n\ndef components(value):\n    return np.stack((value.real, value.imag), axis=-1)\nassert np.allclose(components(tm_boundary_data(1, 2.0, x.copy()))\n, target)",
+        "import numpy as np\n\nx = np.array([[-2.0 - 3j, 2.0 - 3j], [1e-4, 8.1]])\n\n\ndef components(value):\n    return np.stack((value.real, value.imag), axis=-1)\nassert np.allclose(components(tm_boundary_data(4, 3.0, x.copy()))\n, target)",
+        "def raises(fn):\n    try:\n        fn(2, 1.0, 1.0)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises(tm_boundary_data)\n, target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-9.3",
+      "test_cases": [
+        "import numpy as np\n\n\ndef components(value):\n    return np.stack((value.real, value.imag), axis=-1)\nassert np.allclose(components(physical_tm_poles(3, 2.7, 18.5))\n, target)",
+        "import numpy as np\n\n\ndef components(value):\n    return np.stack((value.real, value.imag), axis=-1)\nassert np.allclose(components(physical_tm_poles(1, 2.0, 8.2))\n, target)",
+        "import numpy as np\n\n\ndef components(value):\n    return np.stack((value.real, value.imag), axis=-1)\nassert np.allclose(components(physical_tm_poles(4, 3.0, 20.4))\n, target)",
+        "def raises(fn):\n    try:\n        fn(3, 2.7, 0.0)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises(physical_tm_poles)\n, target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-9.4",
+      "test_cases": [
+        "import numpy as np\n\n\ndef components(value):\n    return np.stack((value.real, value.imag), axis=-1)\nassert np.allclose(components(tm_channel_data(3, 2.7))\n, target)",
+        "import numpy as np\n\n\ndef components(value):\n    return np.stack((value.real, value.imag), axis=-1)\nassert np.allclose(components(tm_channel_data(1, 2.0))\n, target)",
+        "import numpy as np\n\n\ndef components(value):\n    return np.stack((value.real, value.imag), axis=-1)\nassert np.allclose(components(tm_channel_data(4, 3.0))\n, target)",
+        "def raises(fn):\n    try:\n        fn(0, 2.7)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises(tm_channel_data)\n, target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-9.5",
+      "test_cases": [
+        "import numpy as np\n\npoles = np.array(\n    [\n        -2.4021436406684367 - 0.0470498072800886j,\n        2.4021436406684367 - 0.0470498072800886j,\n    ]\n)\n\n\ndef components(value):\n    return np.stack((value.real, value.imag), axis=-1)\nassert np.allclose(components(tm_physical_residues(3, 2.7, poles.copy()))\n, target)",
+        "import numpy as np\n\npoles = np.array(\n    [0.9324631643958519 - 2.2883699197031913j]\n)\n\n\ndef components(value):\n    return np.stack((value.real, value.imag), axis=-1)\nassert np.allclose(components(tm_physical_residues(3, 2.7, poles.copy()))\n, target)",
+        "import numpy as np\n\npoles = np.array([], dtype=complex)\n\n\ndef components(value):\n    return np.stack((value.real, value.imag), axis=-1)\nassert np.allclose(components(tm_physical_residues(1, 2.0, poles.copy()))\n, target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-9.6",
+      "test_cases": [
+        "import numpy as np\n\nx = np.array([0.0, 0.4, 1.8, 4.0])\np = np.array([-2.0 - 0.2j, 2.0 - 0.2j])\nr = np.array([-0.1 + 0.3j, 0.1 + 0.3j])\n\n\ndef components(value):\n    return np.stack((value.real, value.imag), axis=-1)\nassert np.allclose(components(\n    subtracted_pole_sum(\n        x.copy(), p.copy(), r.copy(), -1.0\n    )\n)\n, target)",
+        "import numpy as np\n\nx = np.array([[0.0, 1.0], [2.0, 3.0]])\np = np.array([], dtype=complex)\nr = np.array([], dtype=complex)\n\n\ndef components(value):\n    return np.stack((value.real, value.imag), axis=-1)\nassert np.allclose(components(\n    subtracted_pole_sum(\n        x.copy(), p.copy(), r.copy(), 0.25j\n    )\n)\n, target)",
+        "import numpy as np\n\nx = np.array(0.3 + 0.1j)\np = np.array([0.9 + 2.1j, 2.8 + 0.8j])\nr = np.array([0.04 + 0.1j, 0.31 - 0.001j])\n\n\ndef components(value):\n    return np.stack((value.real, value.imag), axis=-1)\nassert np.allclose(components(\n    subtracted_pole_sum(\n        x.copy(), p.copy(), r.copy(), -1.0\n    )\n)\n, target)",
+        "def raises(fn):\n    try:\n        fn(1.0, [0.0], [1.0], -1.0)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises(subtracted_pole_sum)\n, target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-9.7",
+      "test_cases": [
+        "import numpy as np\n\np = np.array(\n    [\n        -2.4021436406684367 - 0.0470498072800886j,\n        2.4021436406684367 - 0.0470498072800886j,\n    ]\n)\nr = np.array(\n    [\n        -0.0331678256666403 + 0.0860589876996838j,\n        0.0331678256666403 + 0.0860589876996838j,\n    ]\n)\nc = np.array(\n    [\n        [\n            0.8705692253836403 + 2.157137812402353j,\n            0.0433279494695307 + 0.1011190305771352j,\n        ]\n    ]\n)\nassert np.allclose(tm_spectral_errors(\n    3,\n    2.7,\n    p.copy(),\n    r.copy(),\n    c.copy(),\n    0.35,\n    7.4,\n    400,\n)\n, target)",
+        "import numpy as np\n\np = np.array([], dtype=complex)\nr = np.array([], dtype=complex)\nc = np.empty((0, 2), dtype=complex)\nassert np.allclose(tm_spectral_errors(\n    1, 2.0, p.copy(), r.copy(), c.copy(), 0.1, 0.4, 16\n)\n, target)",
+        "import numpy as np\n\np = np.array([2.0 - 0.3j])\nr = np.array([0.1 + 0.2j])\nc = np.empty((0, 2), dtype=complex)\nassert np.allclose(tm_spectral_errors(\n    4, 3.0, p.copy(), r.copy(), c.copy(), 2.0, 8.0, 800\n)\n, target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-9.8",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(scattering_pole_audit(2.6, 2, 12.7)\n, target)",
+        "import numpy as np\nassert np.allclose(scattering_pole_audit(2.0, 1, 8.2)\n, target)",
+        "import numpy as np\nassert np.allclose(scattering_pole_audit(3.0, 4, 20.4)\n, target)"
+      ]
+    }
+  ]
+}

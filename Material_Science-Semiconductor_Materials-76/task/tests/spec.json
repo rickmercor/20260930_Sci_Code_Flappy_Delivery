@@ -1,0 +1,114 @@
+{
+  "problem_id": "Material_Science-Semiconductor_Materials-76",
+  "sub_steps": [
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-76.1",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(cw_emission_state(0.0, 0.06, 0.95, 1.6e-3, 9.2), target)",
+        "import numpy as np\nassert np.allclose(cw_emission_state(0.021, 0.05, 1.3, 0.012, 1.35), target)",
+        "import numpy as np\nassert np.allclose(cw_emission_state(-0.015, 0.08, -0.7, 0.006, 3.0), target)",
+        "import numpy as np\nassert np.allclose(cw_emission_state(0.0, 0.06, 0.0, 1.6e-3, 4.0), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        cw_emission_state(0.03, 0.06, 0.95, 1.6e-3, 1.05)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nassert np.allclose(cw_emission_state(0.03, 0.06, 0.95, 1.6e-3, 9.2), target)",
+        "import numpy as np\nassert np.allclose(cw_emission_state(-0.025, 0.06, 0.9, 2.5e-3, 7.0), target)",
+        "import numpy as np\nassert np.allclose(cw_emission_state(0.012, 0.05, 1.3, 6.0e-3, 3.2), target)",
+        "import numpy as np\nassert np.allclose(cw_emission_state(-0.04, 0.09, 0.4, 5.0e-3, 4.5), target)",
+        "import numpy as np\ndef run_model():\n    mask = 0\n    try:\n        cw_emission_state(0.0, 0.06, 0.95, 0.0, 9.2)\n    except ValueError:\n        mask += 1\n    except Exception:\n        mask += 8\n    try:\n        cw_emission_state(0.0, -1.0, 0.95, 1.6e-3, 9.2)\n    except ValueError:\n        mask += 2\n    except Exception:\n        mask += 16\n    try:\n        cw_emission_state(0.0, 0.06, 0.95, 1.6e-3, float('inf'))\n    except ValueError:\n        mask += 4\n    except Exception:\n        mask += 32\n    return mask\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-76.2",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(effective_rabi_frequency(8.158, 0.06, 0.95, 0.014), target)",
+        "import numpy as np\nassert np.allclose(effective_rabi_frequency(0.0, 0.06, 1.05, 0.02), target)",
+        "import numpy as np\nassert np.allclose(effective_rabi_frequency(3.0, 0.06, 0.0, 0.014), target)",
+        "import numpy as np\nassert np.allclose(effective_rabi_frequency(2.5, 0.06, 3.0, 1.0e-4), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        effective_rabi_frequency(0.2, 0.06, 0.0, 0.014)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nassert np.allclose(effective_rabi_frequency(5.0, 0.06, 2.0, 0.014), target)",
+        "import numpy as np\nassert np.allclose(effective_rabi_frequency(1.5, 0.06, 0.0, 0.014), target)",
+        "import numpy as np\nassert np.allclose(effective_rabi_frequency(0.8, 0.02, 1.4, 6.0e-3), target)",
+        "import numpy as np\ndef run_model():\n    mask = 0\n    try:\n        effective_rabi_frequency(0.35, 0.06, 0.0, 0.014)\n    except ValueError:\n        mask += 1\n    except Exception:\n        mask += 8\n    try:\n        effective_rabi_frequency(-1.0, 0.06, 0.95, 0.014)\n    except ValueError:\n        mask += 2\n    except Exception:\n        mask += 16\n    try:\n        effective_rabi_frequency(2.0, 0.06, 0.95, 0.0)\n    except ValueError:\n        mask += 4\n    except Exception:\n        mask += 32\n    return mask\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-76.3",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(sideband_growth_rate(0.0891, 0.0, 0.06, 0.95, 1.6e-3, 0.014, 9.2), target)",
+        "import numpy as np\nassert np.allclose(sideband_growth_rate(0.0557, 0.0, 0.06, 0.95, 1.6e-3, 0.014, 9.2), target)",
+        "import numpy as np\nassert np.allclose(sideband_growth_rate(0.012, 0.0, 0.06, 1.05, 1.6e-3, 0.014, 4.0), target)",
+        "import numpy as np\nassert np.allclose(sideband_growth_rate(-0.074, 0.011, 0.06, 0.8, 4.0e-3, 0.03, 6.5), target)",
+        "import numpy as np\nassert np.allclose(sideband_growth_rate(0.16, 0.0, 0.06, 0.0, 1.6e-3, 0.014, 12.0), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        sideband_growth_rate(0.0891, 0.0, 0.06, 0.95, 1.6e-3, 0.014, 0.9)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nassert np.allclose(sideband_growth_rate(0.002, 0.0, 0.06, 2.0, 1.6e-3, 0.014, 6.0), target)",
+        "import numpy as np\nassert np.allclose(sideband_growth_rate(0.06, 0.03, 0.06, 0.95, 1.6e-3, 0.014, 9.2), target)",
+        "import numpy as np\nassert np.allclose(sideband_growth_rate(0.09, -0.025, 0.06, 0.9, 2.5e-3, 0.02, 7.0), target)",
+        "import numpy as np\nassert np.allclose(sideband_growth_rate(0.2, 0.0, 0.09, 1.5, 3.0e-3, 8.0e-3, 5.0), target)",
+        "import numpy as np\nassert np.allclose(sideband_growth_rate(0.035, -0.012, 0.06, 1.1, 2.0e-3, 0.018, 8.0), target)",
+        "import numpy as np\ndef run_model():\n    mask = 0\n    try:\n        sideband_growth_rate(0.0891, 0.0, 0.06, 0.95, 1.6e-3, 0.0, 9.2)\n    except ValueError:\n        mask += 1\n    except Exception:\n        mask += 4\n    try:\n        sideband_growth_rate(float('nan'), 0.0, 0.06, 0.95, 1.6e-3, 0.014, 9.2)\n    except ValueError:\n        mask += 2\n    except Exception:\n        mask += 8\n    return mask\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-76.4",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(parametric_gain_maximum(0.06, 0.95, 1.6e-3, 0.014, 9.2, 0.1, 400.0), target)",
+        "import numpy as np\nassert np.allclose(parametric_gain_maximum(0.06, 1.05, 1.6e-3, 0.02, 7.9, 0.1, 400.0), target)",
+        "import numpy as np\nassert np.allclose(parametric_gain_maximum(0.05, 0.9, 2.5e-3, 0.03, 11.0, 0.15, 180.0), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        parametric_gain_maximum(0.06, 0.95, 1.6e-3, 0.014, 4.0, 0.1, 400.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nassert np.allclose(parametric_gain_maximum(0.06, 2.0, 1.6e-3, 0.014, 6.0, 0.1, 400.0), target)",
+        "import numpy as np\nassert np.allclose(parametric_gain_maximum(0.09, 1.5, 3.0e-3, 8.0e-3, 5.0, 0.2, 250.0), target)",
+        "import numpy as np\ndef run_model():\n    mask = 0\n    try:\n        parametric_gain_maximum(0.06, 0.95, 1.6e-3, 0.014, 3.0, 0.1, 400.0)\n    except ValueError:\n        mask += 1\n    except Exception:\n        mask += 4\n    try:\n        parametric_gain_maximum(0.06, 0.95, 1.6e-3, 0.014, 9.2, 0.1, -400.0)\n    except ValueError:\n        mask += 2\n    except Exception:\n        mask += 8\n    return mask\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nassert np.allclose(parametric_gain_maximum(0.06, 1.05, 1.6e-3, 0.014, 8.0, 0.1, 400.0), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-76.5",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(sideband_onset_pump(8, 4.7, 3.6, 0.1, 0.06, 0.95, 1.6e-3, 0.014, 2.0, 12.0), target)",
+        "import numpy as np\nassert np.allclose(sideband_onset_pump(3, 1.5, 3.6, 0.1, 0.06, 0.92, 1.6e-3, 0.02, 2.0, 12.0), target)",
+        "import numpy as np\nassert np.allclose(sideband_onset_pump(8, 4.7, 3.6, 0.1, 0.06, 0.95, 1.6e-3, 0.014, 2.0, 16.0), target)",
+        "import numpy as np\nassert np.allclose(sideband_onset_pump(6, 4.7, 3.6, 0.1, 0.06, 0.95, 1.6e-3, 0.014, 2.0, 16.0), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        sideband_onset_pump(3, 4.7, 3.6, 0.1, 0.06, 0.95, 1.6e-3, 0.014, 2.0, 12.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nassert np.allclose(sideband_onset_pump(8, 4.7, 3.3, 0.1, 0.06, 0.9, 1.6e-3, 0.02, 2.0, 12.0), target)",
+        "import numpy as np\nassert np.allclose(sideband_onset_pump(6, 4.7, 3.3, 0.1, 0.06, 0.9, 1.6e-3, 0.02, 2.0, 12.0), target)",
+        "import numpy as np\nassert np.allclose(sideband_onset_pump(4, 3.4, 3.4, 0.12, 0.06, 0.96, 2.0e-3, 0.018, 2.5, 13.0), target)",
+        "import numpy as np\ndef run_model():\n    mask = 0\n    try:\n        sideband_onset_pump(8, 4.7, 3.6, 0.1, 0.06, 0.95, 1.6e-3, 0.014, 9.0, 12.0)\n    except ValueError:\n        mask += 1\n    except Exception:\n        mask += 4\n    try:\n        sideband_onset_pump(8, 4.7, 3.6, 0.1, 0.06, 0.95, 1.6e-3, 0.014, 9.0, 9.0)\n    except ValueError:\n        mask += 2\n    except Exception:\n        mask += 8\n    return mask\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nassert np.allclose(sideband_onset_pump(6, 3.8, 3.5, 0.1, 0.06, 0.96, 2.5e-3, 0.012, 2.0, 12.0), target)",
+        "import numpy as np\nassert np.allclose(sideband_onset_pump(7, 3.8, 3.5, 0.1, 0.06, 0.96, 2.5e-3, 0.012, 2.0, 12.0), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-76.6",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(harmonic_order_switch(4.7, 3.6, 0.1, 0.06, 0.95, 1.6e-3, 0.014, 16, 2.0, 12.0), target)",
+        "import numpy as np\nassert np.allclose(harmonic_order_switch(6.0, 3.5, 0.1, 0.06, 0.93, 1.6e-3, 0.012, 20, 2.0, 12.0), target)",
+        "import numpy as np\nassert np.allclose(harmonic_order_switch(3.2, 3.3, 0.1, 0.06, 0.98, 2.0e-3, 0.016, 14, 2.0, 12.0), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        harmonic_order_switch(4.7, 3.6, 0.1, 0.06, 0.95, 1.6e-3, 0.014, 16, 2.0, 7.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        harmonic_order_switch(4.7, 3.6, 0.1, 0.06, 1.01, 1.6e-3, 0.014, 16, 1.5, 12.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef probe():\n    try:\n        harmonic_order_switch(4.7, 3.3, 0.1, 0.06, 0.9, 1.6e-3, 0.02, 16, 2.0, 12.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(probe(), target)",
+        "import numpy as np\nassert np.allclose(harmonic_order_switch(5.6, 3.6, 0.1, 0.06, 0.94, 1.6e-3, 0.024, 16, 2.0, 12.0), target)",
+        "import numpy as np\nassert np.allclose(harmonic_order_switch(3.6, 3.6, 0.1, 0.06, 0.90, 2.5e-3, 0.024, 16, 2.0, 12.0), target)",
+        "import numpy as np\ndef run_model():\n    mask = 0\n    try:\n        harmonic_order_switch(4.7, 3.6, 0.1, 0.06, 0.95, 1.6e-3, 0.014, 1, 2.0, 12.0)\n    except ValueError:\n        mask += 1\n    except Exception:\n        mask += 2\n    return mask\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nassert np.allclose(harmonic_order_switch(4.6, 3.5, 0.1, 0.06, 0.92, 1.6e-3, 0.018, 16, 2.0, 12.0), target)",
+        "import numpy as np\nassert np.allclose(harmonic_order_switch(6.2, 3.6, 0.1, 0.06, 0.95, 2.5e-3, 0.014, 16, 2.0, 12.0), target)",
+        "import numpy as np\nassert np.allclose(harmonic_order_switch(5.2, 3.5, 0.1, 0.06, 0.93, 2.0e-3, 0.018, 16, 2.0, 12.0), target)",
+        "import numpy as np\nassert np.allclose(harmonic_order_switch(3.8, 3.5, 0.1, 0.06, 0.96, 2.5e-3, 0.012, 16, 2.0, 12.0), target)",
+        "import numpy as np\nassert np.allclose(harmonic_order_switch(5.0, 3.5, 0.1, 0.06, 0.94, 2.0e-3, 0.012, 16, 2.0, 12.0), target)",
+        "import numpy as np\nassert np.allclose(harmonic_order_switch(3.0, 3.6, 0.1, 0.06, 0.94, 1.6e-3, 0.030, 16, 2.0, 12.0), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-76.7",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(erf_gain_offset_at_switch(4.7, 3.6, 0.1, 0.06, 0.95, 1.6e-3, 0.014, 16, 2.0, 12.0, 400.0), target)",
+        "import numpy as np\nassert np.allclose(erf_gain_offset_at_switch(6.0, 3.5, 0.1, 0.06, 0.93, 1.6e-3, 0.012, 20, 2.0, 12.0, 400.0), target)",
+        "import numpy as np\nassert np.allclose(erf_gain_offset_at_switch(3.2, 3.3, 0.1, 0.06, 0.98, 2.0e-3, 0.016, 14, 2.0, 12.0, 400.0), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        erf_gain_offset_at_switch(4.7, 3.6, 0.1, 0.06, 0.95, 1.6e-3, 0.014, 16, 2.0, 7.0, 400.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nassert np.allclose(erf_gain_offset_at_switch(3.9, 3.6, 0.1, 0.06, 0.92, 1.6e-3, 0.028, 16, 2.0, 12.0, 400.0), target)",
+        "import numpy as np\nassert np.allclose(erf_gain_offset_at_switch(4.0, 3.5, 0.1, 0.06, 0.88, 1.6e-3, 0.018, 16, 2.0, 12.0, 400.0), target)",
+        "import numpy as np\nassert np.allclose(erf_gain_offset_at_switch(6.2, 3.6, 0.1, 0.06, 0.95, 2.5e-3, 0.014, 16, 2.0, 12.0, 400.0), target)",
+        "import numpy as np\nassert np.allclose(erf_gain_offset_at_switch(4.2, 3.6, 0.1, 0.06, 0.96, 1.6e-3, 0.012, 16, 2.0, 12.0, 400.0), target)",
+        "import numpy as np\nassert np.allclose(erf_gain_offset_at_switch(3.0, 3.6, 0.1, 0.06, 0.94, 1.6e-3, 0.030, 16, 2.0, 12.0, 400.0), target)"
+      ]
+    }
+  ]
+}

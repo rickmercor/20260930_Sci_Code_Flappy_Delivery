@@ -1,0 +1,48 @@
+problem_id: "Physics-Optics-6"
+subject: "physics"
+subject_area: "Optics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2511.04013"
+dependencies: ""
+steps:
+  - number: 1
+    name: "raman_response"
+    description: "Evaluate the delayed vibrational part of a Kerr medium's nonlinear response on a grid of time delays."
+    orchestrator: false
+  - number: 2
+    name: "overlap_expansion_coefficients"
+    description: "Reduce the delayed response to the two numbers that control how a long pulse feels it."
+    orchestrator: false
+  - number: 3
+    name: "cavity_scales"
+    description: "Convert the measured properties of a microresonator resonance into the loss rate, the coupling rate, the dispersive time scale and the round-trip time that the dimensionless intracavity model needs."
+    orchestrator: false
+  - number: 4
+    name: "nonadiabatic_soliton_duration"
+    description: "Invert the delayed-response frequency shift of a circulating pulse to find the pulse duration at which a prescribed shift is produced, keeping the finite duration of the vibrational response."
+    orchestrator: false
+  - number: 5
+    name: "raman_kernel_spectrum"
+    description: "Prepare the delayed response for use inside a periodic fast-time simulation by sampling it on the lag grid and transforming it once."
+    orchestrator: false
+  - number: 6
+    name: "soliton_seed"
+    description: "Build the analytic pulse that the driven cavity's stationary solution grows out of."
+    orchestrator: false
+  - number: 7
+    name: "lle_propagators"
+    description: "Precompute the exact solution operators for the linear half of a driven, damped, dispersive cavity so that the nonlinear integration can be split."
+    orchestrator: false
+  - number: 8
+    name: "propagate_soliton"
+    description: "Integrate the driven, damped, dispersive cavity with its full delayed nonlinear response until the circulating pulse reaches a stationary state, and return the comb power spectrum."
+    orchestrator: false
+  - number: 9
+    name: "soliton_observables"
+    description: "Read the pulse duration and the frequency shift of a circulating pulse off its comb power spectrum."
+    orchestrator: false
+  - number: 10
+    name: "detuning_for_target_shift"
+    description: "Find the operating point at which the resonator actually delivers a prescribed frequency shift, by driving the full delayed-response model rather than the slowly varying estimate of it."
+    orchestrator: true

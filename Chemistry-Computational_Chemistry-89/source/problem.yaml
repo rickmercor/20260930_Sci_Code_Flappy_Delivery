@@ -1,0 +1,40 @@
+problem_id: "Chemistry-Computational_Chemistry-89"
+subject: "chemistry"
+subject_area: "Computational Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: " https://doi.org/10.48550/arXiv.2509.01454"
+dependencies: ""
+steps:
+  - number: 1
+    name: "Surface derivative tensors"
+    description: "Evaluate derivative tensors, of orders zero to four, of the two-dimensional reaction surface of the problem statement at a set of points."
+    orchestrator: false
+  - number: 2
+    name: "Discretized tunnelling orbit"
+    description: "Locate the discretized periodic tunnelling orbit of the reaction surface at a given inverse temperature, represented by N beads in imaginary time."
+    orchestrator: false
+  - number: 3
+    name: "Leading-order instanton rate"
+    description: "Compute the leading-order semiclassical instanton rate constant of the reaction surface from a converged discretized tunnelling orbit."
+    orchestrator: false
+  - number: 4
+    name: "Transverse fluctuation propagator"
+    description: "Build the imaginary-time fluctuation propagator of one coordinate about a discretized orbit, given the curvature of the potential in that coordinate at each bead."
+    orchestrator: false
+  - number: 5
+    name: "Anharmonic fluctuation correction"
+    description: "Compute the first-order, order-hbar relative correction to the Gaussian fluctuation integral of one coordinate that arises from its anharmonicity at the beads."
+    orchestrator: false
+  - number: 6
+    name: "Reactant partition-function correction"
+    description: "Compute the first-order, order-hbar relative correction to the reactant partition function of the reaction surface."
+    orchestrator: false
+  - number: 7
+    name: "Reaction-coordinate rate correction"
+    description: "Compute the complete first-order, order-hbar relative correction to the thermal rate constant of motion on a one-dimensional Eckart barrier, at fixed thermal time."
+    orchestrator: false
+  - number: 8
+    name: "Corrected resummed rate constant"
+    description: "Assemble the first-order corrected, exponentially resummed instanton rate constant of the reaction surface at a given inverse temperature."
+    orchestrator: true

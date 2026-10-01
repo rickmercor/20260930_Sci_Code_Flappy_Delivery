@@ -1,0 +1,36 @@
+problem_id: "Physics-Astrophysics-20"
+subject: "physics"
+subject_area: "Astrophysics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2609.07793"
+dependencies: ""
+steps:
+  - number: 1
+    name: "radiative_pressure_sinks"
+    description: "Synchrotron radiation-reaction sinks of the two pressures."
+    orchestrator: false
+  - number: 2
+    name: "regulated_scattering_rate"
+    description: "Firehose-regulated pitch-angle scattering."
+    orchestrator: false
+  - number: 3
+    name: "advance_uniform_cells"
+    description: "Exact local evolution of the two pressures in uniform cells."
+    orchestrator: false
+  - number: 4
+    name: "pressure_balanced_state"
+    description: "The pressure-balanced state of a slab of fluid elements."
+    orchestrator: false
+  - number: 5
+    name: "pressure_balanced_step"
+    description: "One time step of the pressure-balanced slab."
+    orchestrator: false
+  - number: 6
+    name: "evolve_pressure_balanced_slab"
+    description: "Evolution of the pressure-balanced radiating slab."
+    orchestrator: false
+  - number: 7
+    name: "anisotropy_shortfall_measure"
+    description: "End-to-end benchmark value (final orchestrator step)."
+    orchestrator: true

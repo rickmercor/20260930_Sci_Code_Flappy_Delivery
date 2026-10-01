@@ -1,0 +1,44 @@
+problem_id: "Mathematics-Computational_Mechanics-9"
+subject: "mathematics"
+subject_area: "Computational Mechanics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2603.14596"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_initialize_material_points"
+    description: "Populate a rectangular design domain with a uniform lattice of material points\n\nand return their reference coordinates together with their reference volumes."
+    orchestrator: false
+  - number: 2
+    name: "02_gimp_shape_functions"
+    description: "Evaluate the generalized interpolation material point basis and its spatial\n\ngradient for every material point and grid node pair, returning the weight array\n\nand the gradient array that carry every particle to grid transfer in the solver."
+    orchestrator: false
+  - number: 3
+    name: "03_simp_lame_parameters"
+    description: "Interpolate the Lame parameters carried by each material point from its\n\npseudo-density using the solid isotropic material with penalization rule, and\n\nreturn them as one array with a column for lambda and a column for mu."
+    orchestrator: false
+  - number: 4
+    name: "04_hencky_cauchy_stress"
+    description: "Evaluate the Hencky hyperelastic constitutive law under plane stress at every\n\nmaterial point, returning the Cauchy stress and the Jacobian of the deformation\n\ngradient."
+    orchestrator: false
+  - number: 5
+    name: "05_assemble_nodal_forces"
+    description: "Transfer the material point state to the background grid, returning the internal\n\nnodal force vector assembled from the particle stresses and the external nodal\n\nforce vector assembled from the applied point loads."
+    orchestrator: false
+  - number: 6
+    name: "06_assemble_tangent_stiffness"
+    description: "Assemble the consistent tangent stiffness matrix of the discrete force balance\n\nand impose the Dirichlet constraints on it, returning the matrix used both by\n\nthe Newton correction and by the adjoint solve."
+    orchestrator: false
+  - number: 7
+    name: "07_compliance_and_adjoint"
+    description: "Evaluate the structural compliance of the converged equilibrium state and solve\n\nthe adjoint system that the design derivative of that compliance requires."
+    orchestrator: false
+  - number: 8
+    name: "08_density_sensitivity"
+    description: "Contract the adjoint field with the design derivative of the residual to give\n\nthe derivative of the compliance with respect to the pseudo-density of every\n\nmaterial point."
+    orchestrator: false
+  - number: 9
+    name: "09_run_full_pipeline"
+    description: "Chain every earlier stage into the full implicit material point analysis of the\n\nloaded design and return the most negative entry of the compliance sensitivity\n\nvector, the largest compliance reduction available per unit increase in the\n\npseudo-density of a single material point."
+    orchestrator: true

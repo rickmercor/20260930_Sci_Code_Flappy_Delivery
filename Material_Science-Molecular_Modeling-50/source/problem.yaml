@@ -1,0 +1,52 @@
+problem_id: "Material_Science-Molecular_Modeling-50"
+subject: "materials"
+subject_area: "Molecular Modeling"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2606.08763"
+dependencies: ""
+steps:
+  - number: 1
+    name: "fjc_log_density"
+    description: "Returns the natural logarithm of the exact end-to-end probability density of a freely jointed chain of n rigid unit links at a given end-to-end distance, evaluated without loss of precision for chains of up to a hundred links."
+    orchestrator: false
+  - number: 2
+    name: "kuhn_grun_free_energy"
+    description: "Returns the source's Kuhn-Grun free energy of the breakable chain at a given bond length and end-to-end distance, with the Pade inverse Langevin function and the angular integral resolved to high accuracy."
+    orchestrator: false
+  - number: 3
+    name: "breakable_chain_free_energy"
+    description: "Returns the exact free energy of the breakable chain at a given bond length and end-to-end distance, the Lennard-Jones link combined with the exact orientation-averaged statistics of the two rigid fragments."
+    orchestrator: false
+  - number: 4
+    name: "chain_landscape"
+    description: "Locates the intact minimum, the transition state and the broken minimum of the exact free-energy landscape at a given extension and returns them with the scission and healing barriers."
+    orchestrator: false
+  - number: 5
+    name: "intact_branch_force"
+    description: "Returns the tension of the intact chain at a given extension, the total derivative of the intact-branch free energy taken at the exact intact minimum."
+    orchestrator: false
+  - number: 6
+    name: "chain_critical_point"
+    description: "Returns the critical extension at which the intact minimum of the exact landscape merges with the transition state, together with the merged bond length and the critical force."
+    orchestrator: false
+  - number: 7
+    name: "equilibrium_probability"
+    description: "Returns the equilibrium probability that a chain held at a given extension is intact, from the exact scission and healing barriers and the multiplicity of breakable links."
+    orchestrator: false
+  - number: 8
+    name: "equilibrium_rupture_statistics"
+    description: "Returns the extension at which the equilibrium intact probability is one half, and the equilibrium mean rupture extension and force, the slow-pulling bounds of the rupture statistics."
+    orchestrator: false
+  - number: 9
+    name: "pulled_chain_survival"
+    description: "Returns the probability that a chain pulled at a constant normalised rate is still intact at a given extension, from the stiff first-order kinetics of scission and healing with the exact barriers."
+    orchestrator: false
+  - number: 10
+    name: "final_scission_statistics"
+    description: "Returns the mean extension and the mean rupture force of the final scission event of a chain pulled at a constant normalised rate, from the intact probability, the scission rate and the probability of not healing afterwards."
+    orchestrator: false
+  - number: 11
+    name: "chain_audit"
+    description: "Runs the whole chain at one parameter set: zero-extension barriers, equilibrium rupture statistics, critical point, pulled-chain survival and final-scission statistics with the exact fragment statistics, the Kuhn-Grun comparison, and the internal consistency checks."
+    orchestrator: true

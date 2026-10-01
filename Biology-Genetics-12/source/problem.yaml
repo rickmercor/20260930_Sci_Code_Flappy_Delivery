@@ -1,0 +1,48 @@
+problem_id: "Biology-Genetics-12"
+subject: "biology"
+subject_area: "Genetics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: " https://doi.org/10.48550/arXiv.2604.00058"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_encode_phased_genotypes"
+    description: "Phased diploid SNP calls retain the order of the two haplotypes. GenoBERT assigns\n\nthe four allele pairs ``0|0``, ``0|1``, ``1|0``, and ``1|1`` to states 1, 2, 3,\n\nand 4, respectively, while state 0 denotes a masked genotype. This step stores\n\nthe masked model input beside the unmasked target state so phase errors remain\n\ndistinguishable during evaluation.\n\nInputs\n\n------\n\nalleles: binary array of shape (n_samples, n_variants, 2)\n\nmasked_sites: integer array of shape (n_masked, 2) containing sample and variant indices\n\nReturns\n\n-------\n\nencoded: integer array of shape (n_samples, n_variants, 2), with observed and target states"
+    orchestrator: false
+  - number: 2
+    name: "02_segment_genotype_windows"
+    description: "Genome-wide genotype matrices are wide relative to cohort size, so GenoBERT\n\nrecasts each sample as a document and overlapping fixed-SNP windows as segments.\n\nEach segment receives CLS and SEP boundary tokens, and a short terminal segment\n\nis padded to the same width. The packed representation here retains token state,\n\ntarget state, physical coordinate, and original variant index for later merging.\n\nInputs\n\n------\n\nencoded: integer array of shape (n_samples, n_variants, 2)\n\ngenomic_positions: increasing physical positions of shape (n_variants,)\n\nReturns\n\n-------\n\nsegments: float array of shape (n_samples, n_segments, window_size + 2, 4)"
+    orchestrator: false
+  - number: 3
+    name: "03_build_genomic_bias"
+    description: "Relative genomic positional bias uses actual SNP coordinates rather than only\n\nordinal token offsets. Within each segment, the virtual CLS and SEP coordinates\n\nbound an affine normalization to zero and one; PAD positions stay zero and are\n\nmarked invalid. The resulting bias vector preserves irregular physical spacing\n\nwhile remaining comparable across genomic windows.\n\nInputs\n\n------\n\nsegments: packed segment array of shape (n_samples, n_segments, width, 4)\n\nReturns\n\n-------\n\nbias_pack: array of shape (n_samples, n_segments, width, 2) containing bias and validity"
+    orchestrator: false
+  - number: 4
+    name: "04_project_rotary_qkv"
+    description: "Position-free content attention cannot distinguish token order. This step\n\nreproduces the framework's late-combination rotary projection using the frozen\n\ntoken and QKV maps in the main prompt. The source-specific channel pairing and\n\nphase orientation matter at nonzero positions: the correct transform leaves the\n\nposition-zero query and key unchanged, preserves their per-token Euclidean norms,\n\nand does not rotate values.\n\nInputs\n\n------\n\nsegments: packed segment array containing observed token states\n\nembedding_dim: positive even hidden dimension\n\nReturns\n\n-------\n\nprojected: array ending in axes (embedding, rotary query, rotary key, value) and hidden coordinate"
+    orchestrator: false
+  - number: 5
+    name: "05_apply_genomic_attention"
+    description: "Actual SNP coordinates enter this head as an ordered query-key displacement,\n\nnot as unsigned distance. Under the declared row-query/column-key convention,\n\nthe source-defined bias has zero diagonal and changes sign when query and key\n\nare exchanged. Its direction and its point of composition with content attention\n\nare method-defining choices rather than interchangeable implementation details.\n\nPadding keys are excluded and the result passes through the frozen output\n\nprojection from the main prompt.\n\nInputs\n\n------\n\nprojected: normalized embeddings and rotary Q, K, V arrays\n\nbias_pack: normalized genomic positions and validity mask\n\nReturns\n\n-------\n\nattention_output: float array with one hidden vector per token"
+    orchestrator: false
+  - number: 6
+    name: "06_normalize_attention_residual"
+    description: "DeepNet residual scaling stabilizes the GenoBERT encoder by multiplying the\n\nincoming representation by alpha = (2N)^(1/4), where N is encoder depth, before\n\nadding a sublayer output. Post-residual layer normalization is performed across\n\nthe hidden coordinates of each token with population variance and a fixed\n\nepsilon. This step applies that operation to the attention branch.\n\nInputs\n\n------\n\nprojected: array containing the normalized token embedding in slot zero\n\nattention_output: output of the relative-bias attention sublayer\n\nReturns\n\n-------\n\nhidden: normalized attention-residual representation"
+    orchestrator: false
+  - number: 7
+    name: "07_apply_cnn_bottleneck"
+    description: "This local branch changes both channel width and sequence resolution before it\n\nreturns to the encoder shape. Reconstruct the source's two-convolution topology\n\nfrom the main prompt and paper: activation placement, the order of pooling versus\n\nthe second convolution, and restoration before the residual are not commutative.\n\nThe declared same-padding rule also governs short boundary cases. The completed\n\nbranch uses the framework's DeepNet residual normalization.\n\nInputs\n\n------\n\nhidden: attention-residual representation of shape (n_samples, n_segments, width, d)\n\nbottleneck_factor: positive channel expansion factor\n\nReturns\n\n-------\n\nencoded_hidden: locally aggregated and normalized representation"
+    orchestrator: false
+  - number: 8
+    name: "08_merge_masked_probabilities"
+    description: "The masked-language head maps each encoded token back to probabilities for the\n\nfour phased genotype states. Overlapping genomic windows can provide multiple\n\npredictions for one masked locus, so this toy inference rule averages class\n\nprobabilities across every segment occurrence before scoring. The target phase\n\nstate is carried with each occurrence and must agree across windows.\n\nInputs\n\n------\n\nhidden: final hidden vectors for all segment tokens\n\nsegments: packed segment data containing source indices and target states\n\nmasked_sites: requested sample and source-variant pairs\n\nReturns\n\n-------\n\npooled: rows containing site identity, target state, and four averaged probabilities"
+    orchestrator: false
+  - number: 9
+    name: "09_score_masked_likelihood"
+    description: "Masked-token training learns a categorical distribution over the four phased\n\ngenotype states at corrupted loci. Phase-aware negative log-likelihood averages\n\n-log p(y) over the masked sites, so confusing ``0|1`` with ``1|0`` is penalized\n\neven though both states have alternate-allele dosage one. This is the scalar loss\n\nused to judge the frozen toy imputation pass.\n\nInputs\n\n------\n\npooled: rows containing sample index, variant index, target state, and four probabilities\n\nReturns\n\n-------\n\nmasked_nll: native float mean negative log-likelihood"
+    orchestrator: false
+  - number: 10
+    name: "10_run_full_pipeline"
+    description: "The deterministic imputation pipeline encodes phased genotypes, constructs\n\noverlapping token windows, derives normalized physical-coordinate bias, combines\n\nrotary attention with the directional genomic bias, and applies the local CNN\n\nbottleneck. A frozen masked-language head decodes every masked occurrence,\n\noverlap averaging consolidates repeated loci, and mean phase-aware negative\n\nlog-likelihood supplies the final scalar.\n\nInputs\n\n------\n\nbeta: relative genomic positional bias coefficient\n\noverlap: number of shared SNP tokens between consecutive six-SNP windows\n\nReturns\n\n-------\n\nmasked_nll: native float reported inside final_answer tags"
+    orchestrator: true

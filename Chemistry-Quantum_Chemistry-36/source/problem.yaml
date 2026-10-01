@@ -1,0 +1,44 @@
+problem_id: "Chemistry-Quantum_Chemistry-36"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1021/acs.jpca.6c00608"
+dependencies: ""
+steps:
+  - number: 1
+    name: "ppp_monomer_matrices"
+    description: "One-electron and electron-repulsion matrices of a linear Pariser-Parr-Pople pi chain."
+    orchestrator: false
+  - number: 2
+    name: "antiparallel_stack_interactions"
+    description: "Intermolecular Ohno repulsion matrix between two identical chains stacked face to face in antiparallel orientation."
+    orchestrator: false
+  - number: 3
+    name: "ppp_rhf_orbitals"
+    description: "Closed-shell restricted Hartree-Fock orbitals of a PPP pi system with atomic core charges."
+    orchestrator: false
+  - number: 4
+    name: "ccsd_energy"
+    description: "Coupled-cluster singles and doubles ground-state energy of a closed-shell PPP pi system."
+    orchestrator: false
+  - number: 5
+    name: "eom_ccsd_singlet_energies"
+    description: "Equation-of-motion CCSD excitation energies of the lowest singlet states of a closed-shell PPP pi system."
+    orchestrator: false
+  - number: 6
+    name: "eom_transition_density_product"
+    description: "Product of the two EOM-CCSD site transition densities between the ground state and one singlet excited state."
+    orchestrator: false
+  - number: 7
+    name: "fragment_excitonic_coupling"
+    description: "Excitonic coupling of the antiparallel stacked homodimer assembled from the EOM-CCSD transition densities of the isolated molecules."
+    orchestrator: false
+  - number: 8
+    name: "supersystem_excitonic_coupling"
+    description: "Excitonic coupling of the antiparallel stacked homodimer obtained from a CCSD and EOM-CCSD treatment of the dimer as a whole."
+    orchestrator: false
+  - number: 9
+    name: "separability_error_percent"
+    description: "Relative separability error of the CCSD excitonic coupling: the fragment coupling measured against the supersystem coupling."
+    orchestrator: true

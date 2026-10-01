@@ -1,0 +1,169 @@
+{
+  "problem_id": "Physics-Optics-44",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Optics-44.1",
+      "test_cases": [
+        "import numpy as np\nk = np.linspace(-4.0, 4.0, 9)\nassert np.allclose(response_spectrum(k.copy(), 4.0), target)",
+        "import numpy as np\nk = np.array([0.0, 0.5, 2.0])\nassert np.allclose(response_spectrum(k.copy(), 0.8), target)",
+        "import numpy as np\nk = np.array([0.0])\nassert np.allclose(response_spectrum(k.copy(), 1e-6), target)",
+        "import numpy as np\ndef zero_freq(fn):\n    return float(fn(np.array([0.0]), 3.0)[0])\nassert np.allclose(zero_freq(response_spectrum), target)",
+        "import numpy as np\ndef probe_public():\n    try:\n        response_spectrum(np.array([0.0, 1.0]), 0.0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(probe_public(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-44.2",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(width_acceleration(1.0, 12.0, 0.2, 0.15, 4.0), target)",
+        "import numpy as np\nassert np.allclose(width_acceleration(0.5, 20.0, 0.1, 0.1, 0.5), target)",
+        "import numpy as np\nassert np.allclose(width_acceleration(3.0, 1.0, 0.0, 0.0, 1e-4), target)",
+        "import numpy as np\ndef free_limit(fn):\n    return float(fn(2.0, 1e-12, 0.0, 0.0, 1.0) * 8.0)\nassert np.allclose(free_limit(width_acceleration), target)",
+        "import numpy as np\ndef probe_public():\n    try:\n        width_acceleration(0.0, 12.0, 0.2, 0.15, 4.0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(probe_public(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-44.3",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(width_curvature(0.8928089, 12.0, 0.2, 0.15, 4.0), target)",
+        "import numpy as np\nassert np.allclose(width_curvature(0.4610400, 12.0, 0.2, 0.15, 0.8), target)",
+        "import numpy as np\nassert np.allclose(width_curvature(0.7, 20.0, 0.1, 0.1, 0.5), target)",
+        "import numpy as np\nassert np.allclose(width_curvature(1.5, 12.0, 0.2, 0.15, 2.4), target)",
+        "import numpy as np\ndef derivative_lo(fn, acc):\n    h = 1e-6\n    a, s = 0.5, 0.3\n    num = -(acc(a + h, 12.0, 0.2, 0.15, s) - acc(a - h, 12.0, 0.2, 0.15, s)) / (2.0 * h)\n    return float(abs(fn(a, 12.0, 0.2, 0.15, s) - num) < 1e-5 * abs(num))\nassert np.allclose(derivative_lo(width_curvature, width_acceleration), target)",
+        "import numpy as np\ndef derivative_mid(fn, acc):\n    h = 1e-6\n    a, s = 1.1, 2.0\n    num = -(acc(a + h, 12.0, 0.2, 0.15, s) - acc(a - h, 12.0, 0.2, 0.15, s)) / (2.0 * h)\n    return float(abs(fn(a, 12.0, 0.2, 0.15, s) - num) < 1e-5 * abs(num))\nassert np.allclose(derivative_mid(width_curvature, width_acceleration), target)",
+        "import numpy as np\ndef derivative_hi(fn, acc):\n    h = 1e-6\n    a, s = 2.0, 5.0\n    num = -(acc(a + h, 12.0, 0.2, 0.15, s) - acc(a - h, 12.0, 0.2, 0.15, s)) / (2.0 * h)\n    return float(abs(fn(a, 12.0, 0.2, 0.15, s) - num) < 1e-5 * abs(num))\nassert np.allclose(derivative_hi(width_curvature, width_acceleration), target)",
+        "import numpy as np\ndef probe_public():\n    try:\n        width_curvature(0.0, 12.0, 0.2, 0.15, 4.0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(probe_public(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-44.4",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(potential_change(0.4610400, 0.8928089, 12.0, 0.2, 0.15, 4.0), target)",
+        "import numpy as np\nassert np.allclose(potential_change(0.5, 1.5, 12.0, 0.2, 0.15, 0.8), target)",
+        "import numpy as np\nassert np.allclose(potential_change(0.3, 2.0, 12.0, 0.2, 0.15, 2.4), target)",
+        "import numpy as np\nassert np.allclose(potential_change(0.6, 0.6, 12.0, 0.2, 0.15, 2.0), target)",
+        "import numpy as np\nassert np.allclose(potential_change(0.9, 0.90001, 12.0, 0.2, 0.15, 3.0), target)",
+        "import numpy as np\nassert np.allclose(potential_change(1.6, 1.59999, 12.0, 0.2, 0.15, 0.7), target)",
+        "import numpy as np\ndef probe_public():\n    try:\n        potential_change(0.0, 1.0, 12.0, 0.2, 0.15, 4.0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(probe_public(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-44.5",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(equilibrium_width(12.0, 0.2, 0.15, 4.0), target)",
+        "import numpy as np\nassert np.allclose(equilibrium_width(20.0, 0.1, 0.1, 0.5), target)",
+        "import numpy as np\nassert np.allclose(equilibrium_width(12.0, 0.2, 0.15, 0.8, 1e-2, 5.0), target)",
+        "import numpy as np\ndef residual(fn, acc):\n    a = fn(12.0, 0.2, 0.15, 4.0)\n    return float(abs(acc(a, 12.0, 0.2, 0.15, 4.0)) < 1e-9)\nassert np.allclose(residual(equilibrium_width, width_acceleration), target)",
+        "import numpy as np\ndef probe_public():\n    try:\n        equilibrium_width(12.0, 0.2, 0.15, 4.0, 5.0, 1.0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(probe_public(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-44.6",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(adiabatic_reference(1.1, 2.2, 12.0, 0.2, 0.15, 4.0, 0.8), target)",
+        "import numpy as np\nassert np.allclose(adiabatic_reference(0.0, 2.2, 12.0, 0.2, 0.15, 4.0, 0.8), target)",
+        "import numpy as np\nassert np.allclose(adiabatic_reference(9.9, 2.2, 12.0, 0.2, 0.15, 4.0, 0.8), target)",
+        "import numpy as np\ndef endpoints_match(fn, eq):\n    a = fn(2.2, 2.2, 12.0, 0.2, 0.15, 4.0, 0.8)\n    b = eq(12.0, 0.2, 0.15, 0.8)\n    return float(abs(a - b) < 1e-9)\nassert np.allclose(endpoints_match(adiabatic_reference, equilibrium_width), target)",
+        "import numpy as np\ndef probe_public():\n    try:\n        adiabatic_reference(1.0, 0.0, 12.0, 0.2, 0.15, 4.0, 0.8)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(probe_public(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-44.7",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(minimum_jerk_width(1.1, 2.2, 0.8928089, 0.4610400), target)",
+        "import numpy as np\nassert np.allclose(minimum_jerk_width(0.0, 2.2, 0.8928089, 0.4610400), target)",
+        "import numpy as np\nassert np.allclose(minimum_jerk_width(5.0, 2.2, 0.8928089, 0.4610400), target)",
+        "import numpy as np\nassert np.allclose(minimum_jerk_width(0.55, 2.2, 0.8928089, 0.4610400), target)",
+        "import numpy as np\nassert np.allclose(minimum_jerk_width(0.4, 2.0, 1.0, 1.0), target)",
+        "import numpy as np\ndef probe_public():\n    try:\n        minimum_jerk_width(1.0, 0.0, 1.0, 0.4)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(probe_public(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-44.8",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(inverse_control('sigma', 0.7, -0.35, 12.0, 0.2, 0.15, 4.0), target)",
+        "import numpy as np\nassert np.allclose(inverse_control('gamma', 0.7, -0.35, 12.0, 0.2, 0.15, 4.0), target)",
+        "import numpy as np\nassert np.allclose(inverse_control('alpha2', 0.4610400, 0.0, 12.0, 0.2, 0.15, 4.0), target)",
+        "import numpy as np\nassert np.allclose(inverse_control('alpha2', 0.7, -0.35, 12.0, 0.2, 0.15, 4.0), target)",
+        "import numpy as np\ndef probe_nonpos_public():\n    try:\n        inverse_control('sigma', -1.0, 0.0, 12.0, 0.2, 0.15, 4.0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(probe_nonpos_public(), target)",
+        "import numpy as np\ndef probe_unreach_public():\n    try:\n        inverse_control('sigma', 0.7, 100.0, 12.0, 0.2, 0.15, 4.0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(probe_unreach_public(), target)",
+        "import numpy as np\ndef round_trip(fn, eq):\n    a = eq(12.0, 0.2, 0.15, 4.0)\n    return float(fn('sigma', a, 0.0, 12.0, 0.2, 0.15, 4.0))\nassert np.allclose(round_trip(inverse_control, equilibrium_width), target)",
+        "import numpy as np\ndef probe_public():\n    try:\n        inverse_control('pitch', 0.7, -0.35, 12.0, 0.2, 0.15, 4.0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(probe_public(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-44.9",
+      "test_cases": [
+        "import numpy as np\ng = _grid(256, 20.0)\nu0 = (np.exp(-g[0]**2/2.0)).astype(complex)\nc = np.full(50, 4.0)\nassert np.allclose(propagate_field(u0.copy(), 256, 20.0, c.copy(), 0.01, 0.2, 0.15, 4.0, 'sigma'), target)",
+        "import numpy as np\ng = _grid(256, 20.0)\nu0 = (np.exp(-g[0]**2/2.0)).astype(complex)\nc = np.linspace(0.2, 0.4, 40)\nassert np.allclose(propagate_field(u0.copy(), 256, 20.0, c.copy(), 0.005, 0.2, 0.15, 4.0, 'gamma'), target)",
+        "import numpy as np\ng = _grid(256, 20.0)\nu0 = (np.exp(-g[0]**2/2.0)).astype(complex)\nc = np.array([4.0])\nassert np.allclose(propagate_field(u0.copy(), 256, 20.0, c.copy(), 1e-6, 0.2, 0.15, 4.0, 'sigma'), target)",
+        "import numpy as np\ng = _grid(256, 20.0)\nu0 = (np.exp(-g[0]**2/2.0)).astype(complex)\nc = np.linspace(0.0225, 0.09, 40)\nassert np.allclose(propagate_field(u0.copy(), 256, 20.0, c.copy(), 0.005, 0.2, 0.15, 4.0, 'alpha2'), target)",
+        "import numpy as np\ndef power_drift(fn):\n    g = _grid(256, 20.0)\n    x = g[0]; dx = x[1]-x[0]\n    u0 = (np.exp(-x**2/2.0)).astype(complex)\n    p0 = float(np.sum(np.abs(u0)**2)*dx)\n    u = fn(u0, 256, 20.0, np.full(200, 3.0), 0.01, 0.2, 0.15, 3.0, 'sigma')\n    return float(abs((np.sum(np.abs(u)**2)*dx - p0)/p0) < 1e-10)\nassert np.allclose(power_drift(propagate_field), target)",
+        "import numpy as np\ndef probe_public():\n    try:\n        propagate_field(np.zeros(256, dtype=complex), 256, 20.0, np.full(5, 4.0), 0.0, 0.2, 0.15, 4.0, 'sigma')\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(probe_public(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-44.10",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(stationary_soliton(256, 20.0, 12.0, 0.2, 0.15, 0.8, 0.01, 400), target)",
+        "import numpy as np\nassert np.allclose(stationary_soliton(256, 20.0, 12.0, 0.2, 0.15, 4.0, 0.02, 300), target)",
+        "import numpy as np\nassert np.allclose(stationary_soliton(128, 15.0, 20.0, 0.1, 0.1, 1.5, 0.005, 500), target)",
+        "import numpy as np\ndef holds_power(fn):\n    g = _grid(256, 20.0)\n    dx = g[0][1] - g[0][0]\n    v = fn(256, 20.0, 12.0, 0.2, 0.15, 0.8, 0.01, 400)\n    return float(abs(float(np.sum(v ** 2) * dx) - 12.0) < 1e-9)\nassert np.allclose(holds_power(stationary_soliton), target)",
+        "import numpy as np\ndef is_symmetric(fn):\n    v = fn(256, 20.0, 12.0, 0.2, 0.15, 0.8, 0.01, 400)\n    return float(float(np.max(np.abs(v[1:] - v[1:][::-1]))) < 1e-8 * float(np.max(v)))\nassert np.allclose(is_symmetric(stationary_soliton), target)",
+        "import numpy as np\ndef probe_public():\n    try:\n        stationary_soliton(256, 20.0, 12.0, 0.2, 0.15, 0.8, 0.0, 400)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(probe_public(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-44.11",
+      "test_cases": [
+        "import numpy as np\ng = _grid(512, 20.0)\nx = g[0]; dx = x[1]-x[0]\nu = np.exp(-x**2/(2*0.7**2)).astype(complex)\nassert np.allclose(beam_width(u.copy(), x.copy(), dx), target)",
+        "import numpy as np\ng = _grid(512, 20.0)\nx = g[0]; dx = x[1]-x[0]\nu = (2.5*np.exp(-(x-3.0)**2/(2*1.3**2))).astype(complex)\nassert np.allclose(beam_width(u.copy(), x.copy(), dx), target)",
+        "import numpy as np\ng = _grid(512, 60.0)\nx = g[0]; dx = x[1]-x[0]\nu = np.exp(-x**2/(2*8.0**2)).astype(complex)\nassert np.allclose(beam_width(u.copy(), x.copy(), dx), target)",
+        "import numpy as np\nx = np.arange(8, dtype=float)\nu = np.zeros(8, dtype=complex)\nu[3] = 1.0\nassert np.allclose(beam_width(u.copy(), x.copy(), 1.0), target)",
+        "import numpy as np\ng = _grid(512, 20.0)\nx = g[0]; dx = x[1]-x[0]\nu = 1.7*np.exp(-(x-1.25)**2/(2*1.1**2))*np.exp(1j*0.8*x**2)\nassert np.allclose(beam_width(u.copy(), x.copy(), dx), target)",
+        "import numpy as np\ndef probe_public():\n    try:\n        beam_width(np.zeros(8, dtype=complex), _grid(8, 1.0)[0], 0.25)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(probe_public(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-44.12",
+      "test_cases": [
+        "import numpy as np\ng = _grid(256, 20.0)\nx = g[0]; dx = x[1]-x[0]\nu = np.exp(-x**2/2).astype(complex)\nt = np.exp(-x**2/2)\nassert np.allclose(overlap_fidelity(u.copy(), t.copy(), dx), target)",
+        "import numpy as np\ng = _grid(256, 20.0)\nx = g[0]; dx = x[1]-x[0]\nu = (2.5*np.exp(-x**2/(2*0.9**2))).astype(complex)\nt = np.exp(-x**2/(2*1.4**2))\nassert np.allclose(overlap_fidelity(u.copy(), t.copy(), dx), target)",
+        "import numpy as np\ng = _grid(256, 20.0)\nx = g[0]; dx = x[1]-x[0]\nu = (np.exp(-x**2/2)*np.exp(1j*0.7*x)).astype(complex)\nt = np.exp(-x**2/2)\nassert np.allclose(overlap_fidelity(u.copy(), t.copy(), dx), target)",
+        "import numpy as np\nx = _grid(256, 20.0)[0]\ndx = x[1] - x[0]\nu = (3.7 * np.exp(-x**2/2)).astype(complex)\nt = np.exp(-x**2/(2*1.3**2))\nassert np.allclose(overlap_fidelity(u.copy(), t.copy(), dx), target)",
+        "import numpy as np\ndef probe_public():\n    try:\n        overlap_fidelity(np.zeros(8, dtype=complex), np.ones(8), 0.25)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(probe_public(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-44.13",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(confinement_floor(2.2, 12.0, 0.2, 0.15, 4.0, 0.8), target)",
+        "import numpy as np\nassert np.allclose(confinement_floor(1.0, 12.0, 0.2, 0.15, 4.0, 0.8), target)",
+        "import numpy as np\nassert np.allclose(confinement_floor(0.6, 12.0, 0.2, 0.15, 4.0, 0.8), target)",
+        "import numpy as np\nassert np.allclose(confinement_floor(0.35, 20.0, 0.1, 0.1, 5.0, 0.5), target)",
+        "import numpy as np\nassert np.allclose(confinement_floor(9.0, 20.0, 0.1, 0.1, 5.0, 0.5), target)",
+        "import numpy as np\ndef long_protocol(fn):\n    return float(fn(40.0, 12.0, 0.2, 0.15, 4.0, 0.8))\nassert np.allclose(long_protocol(confinement_floor), target)",
+        "import numpy as np\ndef probe_public():\n    try:\n        confinement_floor(0.0, 12.0, 0.2, 0.15, 4.0, 0.8)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(probe_public(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-44.14",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(antiguiding_onset(12.0, 0.2, 0.15, 4.0, 0.8), target)",
+        "import numpy as np\nassert np.allclose(antiguiding_onset(20.0, 0.1, 0.1, 5.0, 0.5), target)",
+        "import numpy as np\nassert np.allclose(antiguiding_onset(12.0, 0.2, 0.15, 4.0, 0.8, 0.5, 3.0), target)",
+        "import numpy as np\ndef bracket_free(fn):\n    return float(fn(12.0, 0.2, 0.15, 4.0, 0.8, 1e-3, 30.0))\nassert np.allclose(bracket_free(antiguiding_onset), target)",
+        "import numpy as np\ndef probe_nobracket_public():\n    try:\n        antiguiding_onset(12.0, 0.2, 0.15, 4.0, 0.8, 2.0, 20.0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(probe_nobracket_public(), target)",
+        "import numpy as np\ndef probe_public():\n    try:\n        antiguiding_onset(12.0, 0.2, 0.15, 4.0, 0.8, 5.0, 1.0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(probe_public(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-44.15",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(shortcut_audit(1), target)",
+        "import numpy as np\nassert np.allclose(shortcut_audit(2), target)",
+        "import numpy as np\ndef ordering(fn):\n    v = fn(1)\n    return float(v[3] > v[4] and v[1] > v[0] > v[2])\nassert np.allclose(ordering(shortcut_audit), target)",
+        "import numpy as np\ndef probe_public():\n    try:\n        shortcut_audit(0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(probe_public(), target)"
+      ]
+    }
+  ]
+}

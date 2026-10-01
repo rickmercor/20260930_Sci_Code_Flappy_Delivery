@@ -1,0 +1,36 @@
+problem_id: "Biology-Ecology-21"
+subject: "biology"
+subject_area: "Ecology"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1111/2041-210X.70179"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_compute_observed_arrangement_curves"
+    description: "Compute the two functional-arrangement curves defined in the provided research source for a community at the supplied distance thresholds. Preserve threshold order, including repeated thresholds, and return both curves together as a two-row numerical array. Derive the source-defined statistics from the research source rather than hard-coding benchmark-specific values."
+    orchestrator: false
+  - number: 2
+    name: "02_compute_exact_pool_null_certificate"
+    description: "Compute an exact, exhaustive second-moment certificate of the fixed-richness regional-pool null for the complete PNcp/NNcp threshold battery.\n\n\n\nLet S range over every unique community_size-species subset of the regional pool. For threshold r_t, let X_t(S) be the number of ordered pairs of distinct species in S whose Euclidean distance is <= r_t (the PNcp numerator), and let Y_t(S) be the number of species in S whose nearest-neighbour distance within S is <= r_t (the NNcp numerator). With z(S) = (1, X_1(S), ..., X_T(S), Y_1(S), ..., Y_T(S)), return the integer matrix M = sum over all S of z(S) z(S)^T.\n\n\n\nM must be exact. Do not enumerate, sample, or materialize subsets; the running time must be polynomial in the pool size, and inputs with more than 10^8 subsets must be handled. Thresholds keep their input order, repeated thresholds are allowed, and distances exactly equal to a threshold (including zero distances between duplicated coordinates) count as within the threshold."
+    orchestrator: false
+  - number: 3
+    name: "03_fit_regional_boundary_certificate"
+    description: "Fit the regional functional-space boundary and certify it.\n\n\n\nSet sigma to the reciprocal of the median Euclidean distance over all unique regional-pool species pairs and use K(x,s)=exp(-sigma*||x-s||^2). With c = 1/(nu*N), alpha is the exact minimizer of 0.5*alpha^T K alpha subject to sum(alpha)=1 and 0<=alpha_i<=c; rho is the mean of (K alpha)_i over free support species (0<alpha_i<c). The returned alpha and rho must satisfy the KKT optimality conditions to within 1e-10; a solution accurate only to optimizer tolerance is not sufficient.\n\n\n\nThe optimal solution partitions the species into zero, free, and upper-bounded dual coefficients. Return also the exact endpoints nu_lo <= nu <= nu_hi of the maximal closed interval of nu on which this partition remains optimal (use nu_lo = 0 if the partition persists as nu -> 0, and cap nu_hi at 1).\n\n\n\nReturn [sigma, alpha_1, ..., alpha_N, rho, nu_lo, nu_hi]."
+    orchestrator: false
+  - number: 4
+    name: "04_analyze_full_community_dual_null"
+    description: "### Compute the observed PNcp/NNcp curves; derive the exhaustive regional-pool null means and sample standard deviations from the exact pool-null certificate; and compute the displacement-null moments by applying the certified regional boundary to ordered two-dimensional Halton candidates (bases 2 and 3, indices 1..n_candidates), retaining f(x)>=0 in order, forming consecutive groups of the community richness, and discarding an incomplete final group. Standardize both nulls with the supplied critical magnitude, classify with strict thresholds, and mark every statistic-by-threshold cell where the two classifications differ."
+    orchestrator: false
+  - number: 5
+    name: "05_compute_all_leave_one_out_observed_curves"
+    description: "Compute the observed PNcp and NNcp curves for every leave-one-out community in one batched calculation.\n\n\n\nStart from the observed community selected from the regional pool and return the two observed arrangement curves after omitting each observed species in turn, preserving observed_indices order. Reuse the full pairwise-distance structure rather than recomputing a complete pairwise analysis separately for every omission. The implementation must remain exact for repeated or unsorted thresholds and for tied nearest-neighbour distances.\n\n\n\nThe required running-time target is quadratic in observed-community richness for constructing the distance structure, plus work proportional to the returned richness-by-threshold output. A cubic leave-one-out recomputation is not acceptable."
+    orchestrator: false
+  - number: 6
+    name: "06_compute_leave_one_out_disagreement_profile"
+    description: "Compute the complete cross-null disagreement profile for the full community and every leave-one-out perturbation while reusing richness-dependent null quantities.\n\n\n\nAnalyze the full observed community once. For the leave-one-out communities, first obtain every reduced observed PNcp/NNcp curve in one batched calculation. Because every leave-one-out community has the same richness and the regional pool and fitted OCSVM boundary remain fixed, compute the fixed-richness pool-null moments and displacement-null moments once for richness k-1, then standardize and classify all leave-one-out observed curves against those shared null moments.\n\n\n\nReturn the full-community disagreement count followed by one count for each omission in observed_indices order."
+    orchestrator: false
+  - number: 7
+    name: "07_compute_null_model_sensitivity_burden"
+    description: "Compute the final null-model sensitivity burden from the raw regional pool, observed-community definition, distance thresholds, and regional-pool-fitted OCSVM boundary.\n\nUse the preceding task components to construct the full-community evidence and the batched leave-one-out analysis while preserving the fixed regional reference structures. Verify that independently assembled intermediate outputs agree, then sum the ordered full-plus-leave-one-out disagreement profile and return one integer burden. Do not hard-code intermediate classifications, disagreement counts, profiles, or final values."
+    orchestrator: true

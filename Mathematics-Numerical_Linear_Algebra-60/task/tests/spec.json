@@ -1,0 +1,72 @@
+{
+  "problem_id": "Mathematics-Numerical_Linear_Algebra-60",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-60.1",
+      "test_cases": [
+        "import numpy as np\n\ndef pack_mesh(mesh):\n    vertices, triangles = mesh\n    return np.concatenate([\n        np.array([vertices.shape[0], triangles.shape[0]], dtype=float),\n        np.asarray(vertices, dtype=float).ravel(),\n        np.asarray(triangles, dtype=float).ravel(),\n    ])\nassert np.allclose(pack_mesh(build_mesh(2, 2, refine=1)), target)",
+        "import numpy as np\n\ndef pack_mesh(mesh):\n    vertices, triangles = mesh\n    return np.concatenate([\n        np.array([vertices.shape[0], triangles.shape[0]], dtype=float),\n        np.asarray(vertices, dtype=float).ravel(),\n        np.asarray(triangles, dtype=float).ravel(),\n    ])\nassert np.allclose(pack_mesh(build_mesh(1, 1, refine=0)), target)",
+        "import numpy as np\n\ndef pack_mesh(mesh):\n    vertices, triangles = mesh\n    return np.concatenate([\n        np.array([vertices.shape[0], triangles.shape[0]], dtype=float),\n        np.asarray(vertices, dtype=float).ravel(),\n        np.asarray(triangles, dtype=float).ravel(),\n    ])\nassert np.allclose(pack_mesh(build_mesh(1, 2, refine=2)), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        build_mesh(0, 2)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-60.2",
+      "test_cases": [
+        "import numpy as np\nv = np.array([[0.,0.],[1.,0.],[1.,1.],[0.,1.]])\nt = np.array([[0,1,2],[0,2,3]], dtype=int)\n\ndef pack_space(maps):\n    return np.concatenate([\n        np.asarray(maps[\"vertex_count\"], dtype=float).ravel(),\n        np.asarray(maps[\"triangle_count\"], dtype=float).ravel(),\n        np.asarray(maps[\"scalar_displacement_count\"], dtype=float).ravel(),\n        np.asarray(maps[\"displacement_count\"], dtype=float).ravel(),\n        np.asarray(maps[\"pressure_count\"], dtype=float).ravel(),\n        np.asarray(maps[\"element_scalar\"], dtype=float).ravel(),\n        np.asarray(maps[\"element_x\"], dtype=float).ravel(),\n        np.asarray(maps[\"element_y\"], dtype=float).ravel(),\n    ])\nassert np.allclose(pack_space(build_mini_space(v, t)), target)",
+        "import numpy as np\nv = np.array([[0.,0.],[1.,0.],[0.,1.]])\nt = np.array([[0,1,2]], dtype=int)\n\ndef pack_space(maps):\n    return np.concatenate([\n        np.asarray(maps[\"vertex_count\"], dtype=float).ravel(),\n        np.asarray(maps[\"triangle_count\"], dtype=float).ravel(),\n        np.asarray(maps[\"scalar_displacement_count\"], dtype=float).ravel(),\n        np.asarray(maps[\"displacement_count\"], dtype=float).ravel(),\n        np.asarray(maps[\"pressure_count\"], dtype=float).ravel(),\n        np.asarray(maps[\"element_scalar\"], dtype=float).ravel(),\n        np.asarray(maps[\"element_x\"], dtype=float).ravel(),\n        np.asarray(maps[\"element_y\"], dtype=float).ravel(),\n    ])\nassert np.allclose(pack_space(build_mini_space(v, t)), target)",
+        "import numpy as np\nv = np.array([[0.,0.],[1.,0.],[0.,1.],\n              [1.,1.],[2.,0.]], dtype=float)\nt = np.array([[0,1,2],[1,3,2],[1,4,3]], dtype=int)\n\ndef pack_space(maps):\n    return np.concatenate([\n        np.asarray(maps[\"vertex_count\"], dtype=float).ravel(),\n        np.asarray(maps[\"triangle_count\"], dtype=float).ravel(),\n        np.asarray(maps[\"scalar_displacement_count\"], dtype=float).ravel(),\n        np.asarray(maps[\"displacement_count\"], dtype=float).ravel(),\n        np.asarray(maps[\"pressure_count\"], dtype=float).ravel(),\n        np.asarray(maps[\"element_scalar\"], dtype=float).ravel(),\n        np.asarray(maps[\"element_x\"], dtype=float).ravel(),\n        np.asarray(maps[\"element_y\"], dtype=float).ravel(),\n    ])\nassert np.allclose(pack_space(build_mini_space(v, t)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-60.3",
+      "test_cases": [
+        "import numpy as np\ntri = np.array([\n    [0.0, 0.0],\n    [1.0, 0.0],\n    [0.0, 1.0],\n], dtype=float)\n\ndef pack_local(matrices):\n    return np.concatenate([\n        np.asarray(matrices[\"A_local\"], dtype=float).ravel(),\n        np.asarray(matrices[\"B_local\"], dtype=float).ravel(),\n        np.asarray(matrices[\"C_local\"], dtype=float).ravel(),\n        np.asarray(matrices[\"M_local\"], dtype=float).ravel(),\n    ])\nassert np.allclose(pack_local(local_matrices(tri, 1.0, 7777.0)), target)",
+        "import numpy as np\ntri = np.array([\n    [0.0, 0.0],\n    [2.0, 0.0],\n    [0.0, 2.0],\n], dtype=float)\n\ndef pack_local(matrices):\n    return np.concatenate([\n        np.asarray(matrices[\"A_local\"], dtype=float).ravel(),\n        np.asarray(matrices[\"B_local\"], dtype=float).ravel(),\n        np.asarray(matrices[\"C_local\"], dtype=float).ravel(),\n        np.asarray(matrices[\"M_local\"], dtype=float).ravel(),\n    ])\nassert np.allclose(pack_local(local_matrices(tri, 1.0, 1.0)), target)",
+        "import numpy as np\ntri = np.array([\n    [0.0, 0.0],\n    [1e-4, 0.0],\n    [0.0, 1e-4],\n], dtype=float)\n\ndef pack_local(matrices):\n    return np.concatenate([\n        np.asarray(matrices[\"A_local\"], dtype=float).ravel(),\n        np.asarray(matrices[\"B_local\"], dtype=float).ravel(),\n        np.asarray(matrices[\"C_local\"], dtype=float).ravel(),\n        np.asarray(matrices[\"M_local\"], dtype=float).ravel(),\n    ])\nassert np.allclose(pack_local(local_matrices(tri, 2.0, 100.0)), target)",
+        "import numpy as np\ntri = np.array([\n    [0.0, 0.0],\n    [1.0, 0.0],\n    [2.0, 0.0],\n], dtype=float)\n\ndef run_model():\n    try:\n        local_matrices(tri, 1.0, 100.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-60.4",
+      "test_cases": [
+        "import numpy as np\n\nv = np.array([\n    [0., 0.],\n    [1., 0.],\n    [1., 1.],\n    [0., 1.]\n])\n\nt = np.array([\n    [0, 1, 2],\n    [0, 2, 3]\n], dtype=int)\n\ndef pack_system(system):\n    space = system[\"space\"]\n    return np.concatenate([\n        np.asarray(system[\"A\"].toarray(), dtype=float).ravel(),\n        np.asarray(system[\"B\"].toarray(), dtype=float).ravel(),\n        np.asarray(system[\"C\"].toarray(), dtype=float).ravel(),\n        np.asarray(system[\"M\"].toarray(), dtype=float).ravel(),\n        np.asarray(space[\"vertex_count\"], dtype=float).ravel(),\n        np.asarray(space[\"triangle_count\"], dtype=float).ravel(),\n        np.asarray(space[\"scalar_displacement_count\"], dtype=float).ravel(),\n        np.asarray(space[\"displacement_count\"], dtype=float).ravel(),\n        np.asarray(space[\"pressure_count\"], dtype=float).ravel(),\n        np.asarray(space[\"element_scalar\"], dtype=float).ravel(),\n        np.asarray(space[\"element_x\"], dtype=float).ravel(),\n        np.asarray(space[\"element_y\"], dtype=float).ravel(),\n    ])\nassert np.allclose(pack_system(assemble_mixed_system(v, t, 1.0, 7777.0)), target)",
+        "import numpy as np\n\nv = np.array([\n    [0., 0.],\n    [1., 0.],\n    [0., 1.]\n])\n\nt = np.array([\n    [0, 1, 2]\n], dtype=int)\n\ndef pack_system(system):\n    space = system[\"space\"]\n    return np.concatenate([\n        np.asarray(system[\"A\"].toarray(), dtype=float).ravel(),\n        np.asarray(system[\"B\"].toarray(), dtype=float).ravel(),\n        np.asarray(system[\"C\"].toarray(), dtype=float).ravel(),\n        np.asarray(system[\"M\"].toarray(), dtype=float).ravel(),\n        np.asarray(space[\"vertex_count\"], dtype=float).ravel(),\n        np.asarray(space[\"triangle_count\"], dtype=float).ravel(),\n        np.asarray(space[\"scalar_displacement_count\"], dtype=float).ravel(),\n        np.asarray(space[\"displacement_count\"], dtype=float).ravel(),\n        np.asarray(space[\"pressure_count\"], dtype=float).ravel(),\n        np.asarray(space[\"element_scalar\"], dtype=float).ravel(),\n        np.asarray(space[\"element_x\"], dtype=float).ravel(),\n        np.asarray(space[\"element_y\"], dtype=float).ravel(),\n    ])\nassert np.allclose(pack_system(assemble_mixed_system(v, t, 1.0, 1.0)), target)",
+        "import numpy as np\n\nv = np.array([\n    [0., 0.],\n    [1., 0.],\n    [1e-6, 2e-6]\n])\n\nt = np.array([\n    [0, 1, 2]\n], dtype=int)\n\ndef pack_system(system):\n    space = system[\"space\"]\n    return np.concatenate([\n        np.asarray(system[\"A\"].toarray(), dtype=float).ravel(),\n        np.asarray(system[\"B\"].toarray(), dtype=float).ravel(),\n        np.asarray(system[\"C\"].toarray(), dtype=float).ravel(),\n        np.asarray(system[\"M\"].toarray(), dtype=float).ravel(),\n        np.asarray(space[\"vertex_count\"], dtype=float).ravel(),\n        np.asarray(space[\"triangle_count\"], dtype=float).ravel(),\n        np.asarray(space[\"scalar_displacement_count\"], dtype=float).ravel(),\n        np.asarray(space[\"displacement_count\"], dtype=float).ravel(),\n        np.asarray(space[\"pressure_count\"], dtype=float).ravel(),\n        np.asarray(space[\"element_scalar\"], dtype=float).ravel(),\n        np.asarray(space[\"element_x\"], dtype=float).ravel(),\n        np.asarray(space[\"element_y\"], dtype=float).ravel(),\n    ])\nassert np.allclose(pack_system(assemble_mixed_system(v, t, 2.0, 100.0)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-60.5",
+      "test_cases": [
+        "import numpy as np\nimport scipy.sparse as sp\n\nB = sp.csr_matrix([\n    [1., 0., -1.],\n    [0., 1., -1.]\n])\n\nC = sp.csr_matrix([\n    [1., 0.],\n    [0., 1.]\n])\n\nQ = sp.csr_matrix([\n    [2., 1.],\n    [1., 2.]\n])\n\ndef pack_condensed(data):\n    return np.concatenate([\n        np.asarray(data[\"Z\"].toarray(), dtype=float).ravel(),\n        np.asarray(data[\"Br\"].toarray(), dtype=float).ravel(),\n        np.asarray(data[\"Cr\"].toarray(), dtype=float).ravel(),\n    ])\nassert np.allclose(pack_condensed(pressure_condense(B, C, Q)), target)",
+        "import numpy as np\nimport scipy.sparse as sp\n\nB = sp.csr_matrix([\n    [1., 0.]\n])\n\nC = sp.csr_matrix([\n    [2.]\n])\n\nQ = sp.csr_matrix([\n    [3.]\n])\n\ndef pack_condensed(data):\n    return np.concatenate([\n        np.asarray(data[\"Z\"].toarray(), dtype=float).ravel(),\n        np.asarray(data[\"Br\"].toarray(), dtype=float).ravel(),\n        np.asarray(data[\"Cr\"].toarray(), dtype=float).ravel(),\n    ])\nassert np.allclose(pack_condensed(pressure_condense(B, C, Q)), target)",
+        "import numpy as np\nimport scipy.sparse as sp\n\nB = sp.csr_matrix([\n    [1., 2.],\n    [2., 1.]\n])\n\nC = sp.eye(2, format=\"csr\")\n\nQ = sp.eye(2, format=\"csr\")\n\ndef pack_condensed(data):\n    return np.concatenate([\n        np.asarray(data[\"Z\"].toarray(), dtype=float).ravel(),\n        np.asarray(data[\"Br\"].toarray(), dtype=float).ravel(),\n        np.asarray(data[\"Cr\"].toarray(), dtype=float).ravel(),\n    ])\nassert np.allclose(pack_condensed(pressure_condense(B, C, Q)), target)",
+        "import numpy as np\nimport scipy.sparse as sp\n\nB = sp.csr_matrix([[1., 2.]])\nC = sp.csr_matrix([[1.]])\nQ = sp.csr_matrix([[0.]])\n\ndef run_model():\n    try:\n        pressure_condense(B, C, Q)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-60.6",
+      "test_cases": [
+        "import numpy as np\nimport scipy.sparse as sp\n\nA = sp.eye(2, format='csr')\nM = sp.eye(2, format='csr')\nB = sp.csr_matrix([[1., -1.]])\nC = sp.csr_matrix([[1.]])\nQ = sp.csr_matrix([[1.]])\nassert np.allclose(solve_positive_spectrum(A, B, C, M, Q, k=1), target)",
+        "import numpy as np\nimport scipy.sparse as sp\n\nA = sp.diags(\n    [2., 3., 5.],\n    format='csr'\n)\nM = sp.eye(3, format='csr')\nB = sp.csr_matrix([[1., 0., -1.]])\nC = sp.csr_matrix([[2.]])\nQ = sp.csr_matrix([[1.]])\nassert np.allclose(solve_positive_spectrum(A, B, C, M, Q, k=1), target)",
+        "import numpy as np\nimport scipy.sparse as sp\n\nA = sp.eye(4, format='csr')\nM = sp.eye(4, format='csr')\nB = sp.csr_matrix([\n    [1., -1., 0., 0.],\n    [0., 0., 1., -1.]\n])\nC = 2.0 * sp.eye(2, format='csr')\nQ = sp.eye(2, format='csr')\nassert np.allclose(solve_positive_spectrum(A, B, C, M, Q, k=2), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-60.7",
+      "test_cases": [
+        "import numpy as np\nx = np.array([92.0, 52.0, 128.0, 92.2])\nassert np.allclose(extract_second_eigenvalue(x), target)",
+        "import numpy as np\nx = np.array([1.0, 1.0, 2.0])\nassert np.allclose(extract_second_eigenvalue(x), target)",
+        "import numpy as np\nx = np.array([-5.0, 0.0, 3.0, 7.0])\nassert np.allclose(extract_second_eigenvalue(x), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-60.8",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(solve_mini_elasticity(2, 2, 1, 1.0, 10.0), target)",
+        "import numpy as np\nassert np.allclose(solve_mini_elasticity(1, 1, 0, 1.0, 1.0), target)",
+        "import numpy as np\nassert np.allclose(solve_mini_elasticity(2, 1, 1, 2.0, 100.0), target)"
+      ]
+    }
+  ]
+}

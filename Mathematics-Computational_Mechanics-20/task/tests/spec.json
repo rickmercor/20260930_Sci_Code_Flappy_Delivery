@@ -1,0 +1,86 @@
+{
+  "problem_id": "Mathematics-Computational_Mechanics-20",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Computational_Mechanics-20.1",
+      "test_cases": [
+        "import numpy as np\nrho = np.array([1.0e3, 8.0e2])\ne = np.array([1.0e6, 2.0e6])\ngamma = 4.4\npi_ = 6.0e8\nassert np.allclose(stiffened_gas_pressure(rho, e, gamma, pi_), target)",
+        "import numpy as np\nrho = np.array([1.2, 0.8, 2.5])\ne = np.array([2.0e5, 3.0e5, 1.0e5])\ngamma = 1.4\npi_ = 0.0\nassert np.allclose(stiffened_gas_pressure(rho, e, gamma, pi_), target)",
+        "import numpy as np\nrho = np.array([[1.0e3]])\ne = np.array([[0.0]])\ngamma = 4.4\npi_ = 6.0e8\nassert np.allclose(stiffened_gas_pressure(rho, e, gamma, pi_), target)",
+        "import numpy as np\n# invalid input: a ratio of specific heats of one is not greater than one and must raise ValueError\nrho = np.array([1.2])\ne = np.array([2.0e5])\ngamma = 1.0\npi_ = 0.0\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: stiffened_gas_pressure(rho, e, gamma, pi_)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-20.2",
+      "test_cases": [
+        "import numpy as np\nphi = np.array([0.2, 0.5, 0.9])\np1 = np.array([1.0e5, 2.0e5, 1.5e5])\np2 = np.array([1.1e5, 1.0e5, 1.2e5])\nrho1 = np.array([1.0e3, 9.0e2, 1.1e3])\nrho2 = np.array([1.2, 1.0, 1.4])\nu1 = np.array([1.0, -0.5, 2.0])\nu2 = np.array([0.4, 1.3, -0.7])\nassert np.allclose(interface_closures(phi, p1, p2, rho1, rho2, u1, u2), target)",
+        "import numpy as np\nphi = np.array([[1.0e-2, 0.99], [0.5, 0.25]])\np1 = np.full((2, 2), 1.0e5)\np2 = np.full((2, 2), 1.0e5)\nrho1 = np.full((2, 2), 1.0e3)\nrho2 = np.full((2, 2), 1.2)\nu1 = np.array([[3.0, 3.0], [0.4, -0.2]])\nu2 = np.array([[3.0, 3.0], [1.0, 1.5]])\nassert np.allclose(interface_closures(phi, p1, p2, rho1, rho2, u1, u2), target)",
+        "import numpy as np\nphi = np.array([0.5])\np1 = np.array([2.0e5])\np2 = np.array([0.0])\nrho1 = np.array([1.0])\nrho2 = np.array([1.0])\nu1 = np.array([1.0])\nu2 = np.array([-1.0])\nassert np.allclose(interface_closures(phi, p1, p2, rho1, rho2, u1, u2), target)",
+        "import numpy as np\n# invalid input: a volume fraction above one lies outside [0, 1] and must raise ValueError\nphi = np.array([1.2])\np1 = np.array([1.0e5])\np2 = np.array([1.0e5])\nrho1 = np.array([1.0e3])\nrho2 = np.array([1.2])\nu1 = np.array([1.0])\nu2 = np.array([0.4])\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: interface_closures(phi, p1, p2, rho1, rho2, u1, u2)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-20.3",
+      "test_cases": [
+        "import numpy as np\nN = 200\ndx = 1.0 / N\nx = (np.arange(N) + 0.5) * dx\ndelta = 1e-2\neps = 2.0 * dx\nd = 0.25 - np.abs(x - 0.5)\nphi = delta + (1 - 2 * delta) * 0.5 * (1 + np.tanh(d / (2 * eps)))\nassert np.allclose(interface_distance(phi, eps, delta), target)",
+        "import numpy as np\nN = 64\nh = 1.0 / N\nx = (np.arange(N) + 0.5) * h\nX, Y = np.meshgrid(x, x, indexing=\"ij\")\ndelta = 5e-2\neps = 2.0 * h\nd = 0.2 - np.sqrt((X - 0.5) ** 2 + (Y - 0.5) ** 2)\nphi = delta + (1 - 2 * delta) * 0.5 * (1 + np.tanh(d / (2 * eps)))\nassert np.allclose(interface_distance(phi, eps, delta), target)",
+        "import numpy as np\ndelta = 0.25\neps = 0.01\nphi = np.array([0.25, 0.375, 0.5, 0.625, 0.75, 0.2])\nassert np.allclose(interface_distance(phi, eps, delta), target)",
+        "import numpy as np\n# invalid input: a bound of one half is not in [0, 0.5) and must raise ValueError\nphi = np.array([0.5])\neps = 0.01\ndelta = 0.5\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: interface_distance(phi, eps, delta)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-20.4",
+      "test_cases": [
+        "import numpy as np\nN = 48\nh = 1.0 / N\nx = (np.arange(N) + 0.5) * h\nX, Y = np.meshgrid(x, x, indexing=\"ij\")\neps = 2.0 * h\ndelta = 1e-2\nd = 0.2 - np.sqrt((X - 0.5) ** 2 + (Y - 0.5) ** 2)\nphi = delta + (1 - 2 * delta) * 0.5 * (1 + np.tanh(d / (2 * eps)))\npsi = eps * np.log((np.maximum(phi - delta, 0.0) + 1e-100) / (np.maximum(1 - delta - phi, 0.0) + 1e-100))\nassert np.allclose(interface_normal(psi, h), target)",
+        "import numpy as np\nN = 32\nh = 1.0 / N\nx = (np.arange(N) + 0.5) * h\nX, Y = np.meshgrid(x, x, indexing=\"ij\")\npsi = 0.3 * np.sin(2 * np.pi * X) + 0.1 * np.cos(4 * np.pi * Y)\nassert np.allclose(interface_normal(psi, h), target)",
+        "import numpy as np\nh = 0.05\npsi = np.zeros((6, 6))\npsi[2, 3] = 1.0\nassert np.allclose(interface_normal(psi, h), target)",
+        "import numpy as np\n# invalid input: a one-dimensional field is not a two-dimensional field and must raise ValueError\nh = 0.05\npsi = np.linspace(-1.0, 1.0, 20)\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: interface_normal(psi, h)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-20.5",
+      "test_cases": [
+        "import numpy as np\nN = 64\nh = 1.0 / N\nx = (np.arange(N) + 0.5) * h\nX, Y = np.meshgrid(x, x, indexing=\"ij\")\neps = 2.0 * h\ndelta = 1e-2\nGamma = 1.0\nd = 0.2 - np.sqrt((X - 0.5) ** 2 + (Y - 0.5) ** 2)\nphi = delta + (1 - 2 * delta) * 0.5 * (1 + np.tanh(d / (2 * eps)))\nassert np.allclose(interface_regularization_flux(phi, eps, delta, Gamma, h), target)",
+        "import numpy as np\nN = 48\nh = 1.0 / N\nx = (np.arange(N) + 0.5) * h\nX, Y = np.meshgrid(x, x, indexing=\"ij\")\neps = 2.0 * h\ndelta = 5e-2\nGamma = 1.6\nd = 0.15 - np.sqrt((X - 0.4) ** 2 + (Y - 0.6) ** 2)\nphi = delta + (1 - 2 * delta) * 0.5 * (1 + np.tanh(d / (1.2 * eps)))\nassert np.allclose(interface_regularization_flux(phi, eps, delta, Gamma, h), target)",
+        "import numpy as np\nh = 0.02\neps = 0.04\ndelta = 1e-2\nGamma = 0.0\nphi = np.full((8, 8), 0.5)\nphi[3:5, 3:5] = 0.9\nassert np.allclose(interface_regularization_flux(phi, eps, delta, Gamma, h), target)",
+        "import numpy as np\n# invalid input: a negative regularisation velocity must raise ValueError\nh = 0.02\neps = 0.04\ndelta = 1e-2\nGamma = -1.0\nphi = np.full((8, 8), 0.5)\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: interface_regularization_flux(phi, eps, delta, Gamma, h)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-20.6",
+      "test_cases": [
+        "import numpy as np\nN = 64\nh = 1.0 / N\nx = (np.arange(N) + 0.5) * h\nX, Y = np.meshgrid(x, x, indexing=\"ij\")\neps = 2.0 * h\ndelta = 1e-2\nGamma = 1.0\nd = 0.2 - np.sqrt((X - 0.5) ** 2 + (Y - 0.5) ** 2)\nphi = delta + (1 - 2 * delta) * 0.5 * (1 + np.tanh(d / (2 * eps)))\nuI = np.stack([np.sin(2 * np.pi * X) * np.cos(2 * np.pi * Y), -np.cos(2 * np.pi * X) * np.sin(2 * np.pi * Y)])\nassert np.allclose(volume_fraction_rhs(phi, uI, eps, delta, Gamma, h), target)",
+        "import numpy as np\nN = 48\nh = 1.0 / N\nx = (np.arange(N) + 0.5) * h\nX, Y = np.meshgrid(x, x, indexing=\"ij\")\neps = 2.0 * h\ndelta = 1e-2\nGamma = 0.8\nd = 0.15 - np.sqrt((X - 0.4) ** 2 + (Y - 0.6) ** 2)\nphi = delta + (1 - 2 * delta) * 0.5 * (1 + np.tanh(d / (2 * eps)))\nuI = np.stack([0.3 + 0.2 * np.sin(2 * np.pi * Y), 0.5 * np.cos(2 * np.pi * X)])\nassert np.allclose(volume_fraction_rhs(phi, uI, eps, delta, Gamma, h), target)",
+        "import numpy as np\nN = 32\nh = 1.0 / N\nx = (np.arange(N) + 0.5) * h\nX, Y = np.meshgrid(x, x, indexing=\"ij\")\neps = 2.0 * h\ndelta = 1e-2\nGamma = 1.0\nphi = np.full((N, N), 0.3)\nuI = np.stack([np.sin(2 * np.pi * X) * np.cos(2 * np.pi * Y), -np.cos(2 * np.pi * X) * np.sin(2 * np.pi * Y)])\nassert np.allclose(volume_fraction_rhs(phi, uI, eps, delta, Gamma, h), target)",
+        "import numpy as np\n# invalid input: an interface velocity with a single component is not a (2, N, N) array and must raise ValueError\nN = 16\nh = 1.0 / N\neps = 2.0 * h\ndelta = 1e-2\nGamma = 1.0\nphi = np.full((N, N), 0.3)\nuI = np.ones((N, N))\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: volume_fraction_rhs(phi, uI, eps, delta, Gamma, h)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-20.7",
+      "test_cases": [
+        "import numpy as np\nN = 64\nh = 1.0 / N\nx = (np.arange(N) + 0.5) * h\nX, Y = np.meshgrid(x, x, indexing=\"ij\")\neps = 2.0 * h\ndelta = 1e-2\nGamma = 1.0\nd = 0.2 - np.sqrt((X - 0.5) ** 2 + (Y - 0.5) ** 2)\nphi = delta + (1 - 2 * delta) * 0.5 * (1 + np.tanh(d / (2 * eps)))\nrho = np.full((N, N), 1.0e3)\nu = 0.4 * np.stack([np.sin(2 * np.pi * X) * np.cos(2 * np.pi * Y), -np.cos(2 * np.pi * X) * np.sin(2 * np.pi * Y)])\nphase_one = True\nassert np.allclose(phasic_mass_rhs(phi, rho, u, eps, delta, Gamma, h, phase_one), target)",
+        "import numpy as np\nN = 64\nh = 1.0 / N\nx = (np.arange(N) + 0.5) * h\nX, Y = np.meshgrid(x, x, indexing=\"ij\")\neps = 2.0 * h\ndelta = 1e-2\nGamma = 1.0\nd = 0.2 - np.sqrt((X - 0.5) ** 2 + (Y - 0.5) ** 2)\nphi = delta + (1 - 2 * delta) * 0.5 * (1 + np.tanh(d / (2 * eps)))\nrho = 1.2 * (1.0 + 0.1 * np.sin(2 * np.pi * Y))\nu = np.stack([np.sin(2 * np.pi * X) * np.cos(2 * np.pi * Y), -np.cos(2 * np.pi * X) * np.sin(2 * np.pi * Y)])\nphase_one = False\nassert np.allclose(phasic_mass_rhs(phi, rho, u, eps, delta, Gamma, h, phase_one), target)",
+        "import numpy as np\nN = 32\nh = 1.0 / N\nx = (np.arange(N) + 0.5) * h\nX, Y = np.meshgrid(x, x, indexing=\"ij\")\neps = 2.0 * h\ndelta = 1e-2\nGamma = 0.0\nphi = 0.5 + 0.3 * np.sin(2 * np.pi * X)\nrho = np.full((N, N), 2.0)\nu = np.stack([np.ones((N, N)), np.zeros((N, N))])\nphase_one = True\nassert np.allclose(phasic_mass_rhs(phi, rho, u, eps, delta, Gamma, h, phase_one), target)",
+        "import numpy as np\n# invalid input: a zero density is not positive and must raise ValueError\nN = 16\nh = 1.0 / N\neps = 2.0 * h\ndelta = 1e-2\nGamma = 1.0\nphi = np.full((N, N), 0.3)\nrho = np.zeros((N, N))\nu = np.zeros((2, N, N))\nphase_one = True\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: phasic_mass_rhs(phi, rho, u, eps, delta, Gamma, h, phase_one)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-20.8",
+      "test_cases": [
+        "import numpy as np\nN = 48\nh = 1.0 / N\nx = (np.arange(N) + 0.5) * h\nX, Y = np.meshgrid(x, x, indexing=\"ij\")\neps = 2.0 * h\ndelta = 1e-2\nd = 0.2 - np.sqrt((X - 0.5) ** 2 + (Y - 0.5) ** 2)\nphi = delta + (1 - 2 * delta) * 0.5 * (1 + np.tanh(d / (2 * eps)))\nm1 = phi * 1.0e3\nm2 = (1 - phi) * 1.2\nu2 = np.stack([np.sin(2 * np.pi * X) * np.cos(2 * np.pi * Y), -np.cos(2 * np.pi * X) * np.sin(2 * np.pi * Y)])\nu1 = 0.4 * u2\np1 = np.full((N, N), 1.0e5)\np2 = np.full((N, N), 1.0e5)\nGamma = 1.0\ndt = 0.25 * h / Gamma\nassert np.allclose(advance(phi, m1, m2, u1, u2, p1, p2, eps, delta, Gamma, h, dt), target)",
+        "import numpy as np\nN = 40\nh = 1.0 / N\nx = (np.arange(N) + 0.5) * h\nX, Y = np.meshgrid(x, x, indexing=\"ij\")\neps = 2.0 * h\ndelta = 2e-2\nd = 0.15 - np.sqrt((X - 0.4) ** 2 + (Y - 0.6) ** 2)\nphi = delta + (1 - 2 * delta) * 0.5 * (1 + np.tanh(d / (2 * eps)))\nm1 = phi * 8.0e2 * (1.0 + 0.05 * np.cos(2 * np.pi * X))\nm2 = (1 - phi) * 1.0\nu2 = np.stack([0.5 * np.ones((N, N)), 0.2 * np.sin(2 * np.pi * X)])\nu1 = np.stack([0.5 * np.ones((N, N)), np.zeros((N, N))])\np1 = np.full((N, N), 2.0e5)\np2 = np.full((N, N), 1.0e5)\nGamma = 0.5\ndt = 0.2 * h / Gamma\nassert np.allclose(advance(phi, m1, m2, u1, u2, p1, p2, eps, delta, Gamma, h, dt), target)",
+        "import numpy as np\nN = 24\nh = 1.0 / N\nx = (np.arange(N) + 0.5) * h\nX, Y = np.meshgrid(x, x, indexing=\"ij\")\neps = 2.0 * h\ndelta = 1e-2\nphi = np.full((N, N), 0.4)\nm1 = phi * 1.0e3\nm2 = (1 - phi) * 1.2\nu2 = np.stack([np.sin(2 * np.pi * X) * np.cos(2 * np.pi * Y), -np.cos(2 * np.pi * X) * np.sin(2 * np.pi * Y)])\nu1 = 0.7 * u2\np1 = np.full((N, N), 1.0e5)\np2 = np.full((N, N), 1.0e5)\nGamma = 1.0\ndt = 0.25 * h / Gamma\nassert np.allclose(advance(phi, m1, m2, u1, u2, p1, p2, eps, delta, Gamma, h, dt), target)",
+        "import numpy as np\n# invalid input: a zero time step is not positive and must raise ValueError\nN = 16\nh = 1.0 / N\neps = 2.0 * h\ndelta = 1e-2\nphi = np.full((N, N), 0.4)\nm1 = phi * 1.0e3\nm2 = (1 - phi) * 1.2\nu1 = np.zeros((2, N, N))\nu2 = np.zeros((2, N, N))\np1 = np.full((N, N), 1.0e5)\np2 = np.full((N, N), 1.0e5)\nGamma = 1.0\ndt = 0.0\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: advance(phi, m1, m2, u1, u2, p1, p2, eps, delta, Gamma, h, dt)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-20.9",
+      "test_cases": [
+        "import numpy as np\nvel_scale = 1.0\nassert np.allclose(vortex_audit(vel_scale), target)",
+        "import numpy as np\nvel_scale = 0.5\nassert np.allclose(vortex_audit(vel_scale), target)",
+        "import numpy as np\nvel_scale = 1.5\nassert np.allclose(vortex_audit(vel_scale), target)",
+        "import numpy as np\n# invalid input: a zero velocity scale is not positive and must raise ValueError\nvel_scale = 0.0\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: vortex_audit(vel_scale)), target)"
+      ]
+    }
+  ]
+}

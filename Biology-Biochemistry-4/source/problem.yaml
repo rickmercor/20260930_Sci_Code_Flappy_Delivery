@@ -1,0 +1,60 @@
+problem_id: "Biology-Biochemistry-4"
+subject: "biology"
+subject_area: "Biochemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1088/1478-3975/ae9e79"
+dependencies: ""
+steps:
+  - number: 1
+    name: "contact_laplacian"
+    description: "Build the weighted Kirchhoff (Laplacian) matrix of the residue contact graph from the C-alpha coordinates. Every pair of residues whose C-alpha distance does not exceed the contact cutoff r_c is an edge, and each edge carries the source's distance-dependent Boltzmann weight at the effective temperature kT; covalently bonded neighbours are treated exactly like every other contact. Row sums vanish."
+    orchestrator: false
+  - number: 2
+    name: "global_tree_thermodynamics"
+    description: "Evaluate the global thermodynamics of the spanning-tree ensemble of the weighted contact graph: the log partition function ln Z from Kirchhoff's matrix-tree theorem, the free energy F = -kT ln Z, the mean energy <E>, the entropy S = (<E> - F)/kT and the heat capacity C = Var(E)/(kT)^2, where the energy of a tree is the total contact length of its edges and averages run over all spanning trees with their Boltzmann weights. Use exact identities of the framework for the ensemble averages; do not sample or finite-difference."
+    orchestrator: false
+  - number: 3
+    name: "edge_transfer_current"
+    description: "Compute the edge-to-edge response matrix of the framework from the Moore-Penrose pseudoinverse of the weighted Laplacian: for every ordered pair of edges the dynamic edge-to-edge distance, scaled by the square root of the product of the two edge weights so that the matrix is dimensionless. Edges are the off-diagonal negative entries of L, listed in lexicographic order of (i, j) with i < j; the diagonal equals the marginal probability that an edge belongs to a random spanning tree."
+    orchestrator: false
+  - number: 4
+    name: "heat_capacity_peak_temperature"
+    description: "Find the effective temperature kT* inside the open interval (kT_lo, kT_hi) at which the global spanning-tree heat capacity C(kT) = Var(E)/(kT)^2 of the contact graph is maximal, where the contact weights, the tree energy and the exact tree-ensemble variance are those of the earlier steps, rebuilt at every temperature considered. The maximum is unique in the interval. Return kT* to an absolute accuracy of 1e-10 angstrom; a method whose result is limited by the precision of function values alone does not reach that accuracy."
+    orchestrator: false
+  - number: 5
+    name: "channel_paths"
+    description: "Enumerate every simple path of the contact graph from residue s to residue t whose number of nodes lies between 2 and max_nodes inclusive, following the framework's node-length envelope. Return them as an integer array with one row per path, node indices in order of traversal, unused trailing entries set to -1, rows sorted lexicographically by node sequence."
+    orchestrator: false
+  - number: 6
+    name: "path_energy_table"
+    description: "For every path of the table compute, from the weighted Laplacian and the edge response matrix, the framework's three per-path quantities: the exact probability that a random weighted spanning tree contains all edges of the path, the physical path length (sum of the C-alpha distances of its contacts), and the topological contribution to the path's effective energy as the source defines it, in angstrom. Rows are aligned with the input paths."
+    orchestrator: false
+  - number: 7
+    name: "active_channel_weights"
+    description: "Apply the framework's thermodynamics-driven truncation to a vector of raw path probabilities: rank the paths by ascending surprisal and retain the leading paths that together carry the cumulative-probability share eta of the corridor, then return the occupancy weights of the retained paths, normalised to one, with zero for every discarded path."
+    orchestrator: false
+  - number: 8
+    name: "channel_thermodynamics"
+    description: "From the occupancy weights of the active channel and the per-path table, compute the channel entropy S = -sum p ln p, the participation ratio, the channel heat capacity C = Var(E)/(kT)^2 of the effective path energy E = E_E + E_T, and its decomposition into the energetic component from E_E, the topological component from E_T and the cross-coupling component from their covariance, all averaged over the active distribution."
+    orchestrator: false
+  - number: 9
+    name: "allosteric_importance"
+    description: "Compute the allosteric importance of every residue for a channel: the fraction of the active channel ensemble whose path passes through that residue as an interior residue. The two endpoints of the channel lie on every path and are assigned zero. Return one value per residue of the protein."
+    orchestrator: false
+  - number: 10
+    name: "channel_divergence"
+    description: "Compute the Jensen-Shannon divergence (natural logarithm) between the active channel distributions of two structures of the same protein, treating each path as a symbol of the channel alphabet identified by its node sequence, with a path absent from one active ensemble carrying zero probability there."
+    orchestrator: false
+  - number: 11
+    name: "channel_convergence_ratio"
+    description: "Compute the framework's convergence ratio of a channel at a given node-length envelope: the effective resistance between the two endpoints evaluated on the source's truncated channel subgraph built from the residues visited by the enumerated simple paths, divided by the exact effective resistance of the full contact graph. Construct the truncated subgraph exactly as the source prescribes for this convergence test."
+    orchestrator: false
+  - number: 12
+    name: "importance_shift_table"
+    description: "Tabulate the relative shift of allosteric importance from the wild type to the mutant, in percent of the wild-type value, for every residue whose wild-type importance is at least 0.03, which is the source's reporting rule for these shifts; residues below that threshold are assigned zero. Return one value per residue."
+    orchestrator: false
+  - number: 13
+    name: "mutation_cross_coupling_shift"
+    description: "Orchestrate the full pipeline for the wild-type and the mutant coordinates: locate the wild type's heat-capacity peak temperature kT* in (kT_lo, kT_hi) and evaluate both structures at that temperature; build each contact Laplacian, its global thermodynamics and edge response matrix, the channel path table between residues s and t inside the node-length envelope, the per-path energies, the active channel weights at threshold eta, the channel thermodynamics, the residue importances, the convergence ratio of each channel at the envelope, the divergence between the two channels and the table of importance shifts, and return the shift of the cross-coupling component of the channel heat capacity, mutant minus wild type. Call the earlier step functions rather than reimplementing them."
+    orchestrator: true

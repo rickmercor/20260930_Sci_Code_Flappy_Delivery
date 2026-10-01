@@ -1,0 +1,48 @@
+problem_id: "Physics-Particle_Physics-6"
+subject: "physics"
+subject_area: "Particle Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2605.20048"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_effective_kernel_matrix"
+    description: "Build the effective prior covariance matrix of the log-rate at the bin centres of a template: a Mat\u00e9rn 5/2 kernel plus the contribution of a cubic B-spline mean function whose coefficients are integrated out under a broad Gaussian prior."
+    orchestrator: false
+  - number: 2
+    name: "02_lgcp_posterior_mode"
+    description: "Compute the posterior mode of the log-rate of a log-Gaussian Cox process fitted to binned Monte Carlo counts, the penalised maximum-likelihood estimate of the Laplace approximation."
+    orchestrator: false
+  - number: 3
+    name: "03_laplace_posterior_covariance"
+    description: "Compute the Laplace approximation to the posterior covariance of the log-rate of a log-Gaussian Cox process at its mode."
+    orchestrator: false
+  - number: 4
+    name: "04_laplace_log_marginal_likelihood"
+    description: "Evaluate the Laplace approximation to the log marginal likelihood of binned Monte Carlo counts under a log-Gaussian Cox process with a given prior covariance."
+    orchestrator: false
+  - number: 5
+    name: "05_select_length_scale"
+    description: "Select the length scale of the kernel from a grid of candidates by maximising the Laplace approximation to the log marginal likelihood of the Monte Carlo counts."
+    orchestrator: false
+  - number: 6
+    name: "06_combined_template_covariance"
+    description: "Build the combined covariance of the log-rate of a template, the Laplace posterior covariance of the nominal Monte Carlo sample plus one rank-1 contribution for every systematic shape variation."
+    orchestrator: false
+  - number: 7
+    name: "07_truncated_eigenvalues"
+    description: "Decompose a template covariance into eigenmodes and keep the leading modes that capture a target fraction of the total variance."
+    orchestrator: false
+  - number: 8
+    name: "08_eigenmode_template_fit"
+    description: "Fit the signal strength of a single-channel template likelihood in which the background template is deformed along the leading eigenmodes of its covariance, with one unit-Gaussian constrained amplitude per retained mode."
+    orchestrator: false
+  - number: 9
+    name: "09_barlow_beeston_fit"
+    description: "Fit the signal strength of a single-channel template likelihood with the histogram background template, the Barlow\u2013Beeston treatment of its Monte Carlo statistical uncertainty and the interpolation of its systematic shape variations by the standard framework's code 4."
+    orchestrator: false
+  - number: 10
+    name: "10_orchestrate_template_comparison"
+    description: "Run the complete pipeline: select the kernel length scale from the nominal Monte Carlo template, build the smooth template and its combined statistical and systematic covariance, fit the signal strength with the truncated eigenmodes, fit it again with the histogram template that uses per-bin Barlow\u2013Beeston factors and interpolated shape systematics, and report the residual between the two fitted signal strengths."
+    orchestrator: true

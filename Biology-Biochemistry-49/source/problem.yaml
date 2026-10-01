@@ -1,0 +1,40 @@
+problem_id: "Biology-Biochemistry-49"
+subject: "biology"
+subject_area: "Biochemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1021/acs.jctc.6c00007"
+dependencies: ""
+steps:
+  - number: 1
+    name: "step_01_pcv_progress_geometry.py"
+    description: "Compute the paper-specific soft path progress values and their analytic derivatives with respect to all string-image coordinates."
+    orchestrator: false
+  - number: 2
+    name: "step_02_pcv_orthogonal_geometry.py"
+    description: "Compute the paper-specific orthogonal string variables and their analytic derivatives with respect to all string-image coordinates."
+    orchestrator: false
+  - number: 3
+    name: "step_03_pathway_bias_geometry.py"
+    description: "Combine the progress and orthogonal coordinates with the fixed bias convention to produce pathway biases and their geometry Jacobians"
+    orchestrator: false
+  - number: 4
+    name: "step_04_binless_reweighting_factors.py"
+    description: "Evaluate the configuration-dependent reciprocal WHAM denominator for every pooled sample using stable log-sum-exp arithmetic."
+    orchestrator: false
+  - number: 5
+    name: "step_05_wham_offset_update.py"
+    description: "Perform one simultaneous gauge-fixed relative free-energy update from the current WHAM factors."
+    orchestrator: false
+  - number: 6
+    name: "step_06_solve_wham_offsets.py"
+    description: "Iterate simultaneous relative-offset updates from zero to the documented inclusive convergence threshold."
+    orchestrator: false
+  - number: 7
+    name: "step_07_wham_geometry_gradient.py"
+    description: "Implicitly differentiate the converged WHAM equations and normalized committor correlations with respect to every string-image coordinate."
+    orchestrator: false
+  - number: 8
+    name: "step_08_binless_wham_geometry_sensitivity.py"
+    description: "Run the complete pipeline and return the Frobenius norm of the selected-lag correlation gradient over all interior string images."
+    orchestrator: true

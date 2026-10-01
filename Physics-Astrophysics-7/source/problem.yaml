@@ -1,0 +1,60 @@
+problem_id: "Physics-Astrophysics-7"
+subject: "physics"
+subject_area: "Astrophysics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2609.11056"
+dependencies: ""
+steps:
+  - number: 1
+    name: "exact_hubble"
+    description: "Return the Hubble rate of a flat universe containing the axion described by the complex wavefunction psi together with all other species, whose combined energy density is rho_other. m is the axion mass and m_pl the reduced Planck mass. Raise ValueError if the total density comes out negative."
+    orchestrator: false
+  - number: 2
+    name: "slow_hubble"
+    description: "Return the Hubble rate that the effective theory assigns to the slow-mode wavefunction psi_s, with rho_other_s the slow-mode energy density of all other species. Write A for abs(psi_s)**2. The effective total density is m*A + rho_other_s + (3*A/(32*m*m_pl**2)) * (m*A + 2*rho_other_s), and the slow-mode Hubble rate is sqrt of that total divided by 3*m_pl**2. Note that this is not the exact constraint of the previous step with slow variables substituted: the effective theory carries a relativistic correction of its own, the term with coefficient 3/32 above. Raise ValueError if the total comes out negative."
+    orchestrator: false
+  - number: 3
+    name: "exact_rate"
+    description: "Return the proper-time derivative of the exact complex wavefunction psi at time t, given the Hubble rate hubble and the axion mass m. The result is complex and has the shape of psi. t may be a scalar or an array, and broadcasts against the other array inputs."
+    orchestrator: false
+  - number: 4
+    name: "slow_rate"
+    description: "Return the proper-time derivative of the slow-mode wavefunction psi_s under the effective theory, given the slow-mode Hubble rate hubble_s and the slow-mode energy density and pressure of all other species. Write A for abs(psi_s)**2. The derivative is the sum of three terms: -1.5*hubble_s*psi_s, plus (3j/(16*m*m_pl**2)) * psi_s * (3*m*A + 2*rho_other_s), minus (9/(32*m**2*m_pl**2)) * hubble_s * psi_s * (m*A + rho_other_s + p_other_s). The result is complex and has the shape of psi_s. It carries no explicit dependence on time."
+    orchestrator: false
+  - number: 5
+    name: "matching_coefficients"
+    description: "Return the four coefficients that turn the reconstruction into a linear system for the real and imaginary parts of the slow-mode wavefunction at time t. The first two are the coefficients multiplying the unknown slow-mode parts; the last two collect everything that does not multiply an unknown linearly. Outputs are stacked along a new leading axis of length 4 in that order, all real. Write R and I for the real and imaginary parts of psi_s, c2 and s2 for cos and sin of 2*m*t, c4 and s4 for cos and sin of 4*m*t, and w for rho_other_s + p_other_s. The four are, in order: (3*hubble_s/(4*m))*s2; (3*hubble_s/(4*m))*c2; (3/(64*m*m_pl**2)) * (c4*R**3 + (4*s2 - s4)*I**3 - (4*s2 - 3*s4)*R**2*I + (8*c2 - 3*c4)*R*I**2) + (3/(16*m**2*m_pl**2))*w*(c2*R + s2*I); (3/(64*m*m_pl**2)) * ((4*s2 + s4)*R**3 + c4*I**3 - (8*c2 + 3*c4)*R**2*I - (4*s2 + 3*s4)*R*I**2) + (3/(16*m**2*m_pl**2))*w*(s2*R - c2*I). t may be a scalar or an array, and broadcasts against the other array inputs."
+    orchestrator: false
+  - number: 6
+    name: "solve_matching_system"
+    description: "Return the real and imaginary parts of the slow-mode wavefunction implied by one sweep of the matching, given the known exact complex wavefunction psi and the four coefficients from the previous step in the order that step returns them. psi is a complex scalar and coeffs a length-4 real array. Raise ValueError if coeffs is not length 4, or if the system is singular."
+    orchestrator: false
+  - number: 7
+    name: "exact_perturbation_rate"
+    description: "Return the proper-time derivative of the exact complex wavefunction perturbation dpsi at comoving wavenumber k, in the synchronous gauge. psi is the exact background wavefunction, hubble the exact expansion rate, hdot the proper-time derivative of the synchronous metric perturbation, and a the scale factor. Writing q for 1j*k**2/(2*m*a**2), the derivative is -(1.5*hubble + q)*dpsi - 0.25*psi*hdot + exp(2j*m*t) * ((1.5*hubble - q)*conj(dpsi) + 0.25*conj(psi)*hdot). Note the sign of the gradient term reverses inside the oscillating bracket. The result is complex and has the shape of dpsi. t may be a scalar or an array, and broadcasts against the other array inputs."
+    orchestrator: false
+  - number: 8
+    name: "slow_perturbation_rate"
+    description: "Return the proper-time derivative of the slow-mode wavefunction perturbation dpsi_s at comoving wavenumber k under the effective theory. It carries no explicit dependence on time. The derivative is the sum of five terms: -(1.5*hubble_s + 1j*k**2/(2*m*a_s**2))*dpsi_s, minus 0.25*hdot_s*psi_s, plus (3j*hubble_s/(8*m) + k**2/(16*m**2*a_s**2))*psi_s*hdot_s, plus (3j*psi_s**2/(16*m_pl**2))*conj(dpsi_s), plus (9j*hubble_s**2/(8*m) + 3j*abs(psi_s)**2/(8*m_pl**2) + 1j*k**4/(8*m**3*a_s**4))*dpsi_s. The result is complex and has the shape of dpsi_s."
+    orchestrator: false
+  - number: 9
+    name: "metric_slow_rates"
+    description: "Return the proper-time derivatives of the two slow-mode synchronous metric perturbations at comoving wavenumber k, for a universe whose non-axion species carry no perturbations. Write P for conj(psi_s)*dpsi_s + psi_s*conj(dpsi_s) and M for conj(psi_s)*dpsi_s - psi_s*conj(dpsi_s). The first output is ((2*m_pl**2*k**2/(a_s**2*hubble_s))*eta_s + (m/hubble_s)*Re(P)) / m_pl**2. The second output is the real part of ((1j*m/4)*M - (1/16)*abs(psi_s)**2*hdot_s - (3/8)*hubble_s*P - (1j*k**2/(16*m*a_s**2))*M) / m_pl**2, where hdot_s is the first output. The two are stacked along a new leading axis of length 2 in that order, both real."
+    orchestrator: false
+  - number: 10
+    name: "perturbation_matching"
+    description: "Return the slow-mode perturbation and the slow-mode trace metric rate implied by matching at time t, given the exact perturbation dpsi and the exact trace metric rate hdot there, and the slow-mode background psi_s with its expansion rate. Write R and I for the real and imaginary parts of psi_s, c2 and s2 for cos and sin of 2*m*t, and define Bp = (3*hubble_s/(4*m))*c2 + (k**2/(4*m**2*a_s**2))*s2, Bm = (3*hubble_s/(4*m))*s2 - (k**2/(4*m**2*a_s**2))*c2, Dp = (c2*R + s2*I)/(8*m), Dm = (c2*I - s2*R)/(8*m), Ep = (3/m_pl**2)*(I*s2 + R*c2), Em = (3/m_pl**2)*(I*c2 - R*s2). Solve the real three by three system whose matrix rows are [1+Bm, -Bp, -Dm], [-Bp, 1-Bm, -Dp] and [-Em, -Ep, 1] against the right-hand side [Re(dpsi), Im(dpsi), hdot]. The three outputs are the real part of the slow-mode perturbation, its imaginary part, and the slow-mode trace metric rate, in that order. Raise ValueError if the system is singular."
+    orchestrator: false
+  - number: 11
+    name: "reconstruct_perturbation"
+    description: "Return the exact complex wavefunction perturbation at proper time t and comoving wavenumber k, rebuilt from the slow-mode perturbation dpsi_s. Write E for exp(2j*m*t). The reconstruction is dpsi_s minus ((3j*hubble_s/(4*m) + k**2/(4*m**2*a_s**2))*conj(dpsi_s) + (1j*hdot_s/(8*m))*conj(psi_s)) * E. The result is complex and has the shape of dpsi_s. t may be a scalar or an array, and broadcasts against the other array inputs."
+    orchestrator: false
+  - number: 12
+    name: "slow_perturbation_observables"
+    description: "Return the slow-mode axion density, pressure and velocity perturbations at comoving wavenumber k. Write P for conj(psi_s)*dpsi_s + psi_s*conj(dpsi_s) and M for conj(psi_s)*dpsi_s - psi_s*conj(dpsi_s). The density perturbation is m*Re(P). The pressure perturbation is (k**2/(4*m*a_s**2))*Re(P); it is not the slow part of the exact pressure perturbation, which carries the oscillating factor instead, and it vanishes with the wavenumber. The velocity perturbation is the real part of -0.5j*M + (3*hubble_s/(4*m))*P + (1j*k**2/(8*m**2*a_s**2))*M + (1/(8*m))*abs(psi_s)**2*hdot_s. The three are stacked along a new leading axis of length 3 in that order, all real."
+    orchestrator: false
+  - number: 13
+    name: "axion_reconstruction_audit"
+    description: "Run the whole audit at the given refinement by calling every earlier step function and using its output, and return the reported diagnostics. Use classical fourth-order Runge-Kutta. Set nominal counts n_exact=26000*refine and n_slow=2600*refine. Evolve the exact system from 0 to t*=5 with round(n_exact*5/65) uniform steps. Then compare at t_j=5+0.15*j for j=1,...,400, advancing both systems between successive comparison times with uniform steps: max(1, round(n_exact*0.15/65)) exact steps and max(1, round(n_slow*0.15/60)) effective steps per interval. Here round uses nearest-integer rounding with ties to even. Use four background-matching sweeps, starting the slow background guess at the exact transition value and computing its slow Hubble rate before each sweep. psi_init is the axion wavefunction at t=0 and defaults to the prescribed instance; the benchmark is axion_reconstruction_audit(1). For the returned density contrast use delta_a_s=delta_rho_a_s/rho_a_s, where rho_a_s=m*abs(psi_s)**2 + 3*(m*abs(psi_s)**2+rho_other_s)*abs(psi_s)**2/(16*m*m_pl**2). Here delta_rho_a_s is the density perturbation returned by slow_perturbation_observables, rho_other_s is the other-component density evaluated at a_s, and m and m_pl are the axion and reduced Planck masses. Evaluate these quantities at the end time."
+    orchestrator: true

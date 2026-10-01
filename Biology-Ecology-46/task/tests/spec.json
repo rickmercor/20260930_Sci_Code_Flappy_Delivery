@@ -1,0 +1,61 @@
+{
+  "problem_id": "Biology-Ecology-46",
+  "sub_steps": [
+    {
+      "step_number": "Biology-Ecology-46.1",
+      "test_cases": [
+        "import numpy as np\nscores = np.array([1.59, 1.54, 1.51, 1.6, 1.5, 1.69, 1.61, 1.59, 1.35, 1.26, 1.26, 1.36])\nassert np.allclose(newborn_calibration(scores), target)",
+        "import numpy as np\nscores = np.array([1.2, 1.8])\nassert np.allclose(newborn_calibration(scores), target)",
+        "import numpy as np\nscores = np.array([0.35, 2.4, 0.9, 1.6, 0.12, 3.3, 0.7])\nassert np.allclose(newborn_calibration(scores), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-46.2",
+      "test_cases": [
+        "assert np.allclose(sampled_age_distribution(0.17, 0.38, 7, 0.05, 4, 150), target)",
+        "assert np.allclose(sampled_age_distribution(0.2, 0.45, 5, 0.0, 0, 30), target)",
+        "assert np.allclose(sampled_age_distribution(0.09, 0.3, 9, -0.07, 2, 60), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-46.3",
+      "test_cases": [
+        "assert np.allclose(score_bin_probabilities(3.0, 5.0, 1.49, 0.82, 0.009, 150), target)",
+        "assert np.allclose(score_bin_probabilities(0.0, 2.0, 1.5, 0.8, 0.01, 20), target)",
+        "assert np.allclose(score_bin_probabilities(30.0, 40.0, 1.0, 1.2, 0.4, 60), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-46.4",
+      "test_cases": [
+        "assert np.allclose(maternal_half_sibling_matrix(2016, 2024, 0.16, 3000.0, 0.05, 2024, 1.6, 3, 40), target)",
+        "assert np.allclose(maternal_half_sibling_matrix(2020, 2020, 0.2, 1500.0, 0.0, 2020, 1.0, 1, 12), target)",
+        "assert np.allclose(maternal_half_sibling_matrix(2024, 2016, 0.12, 800.0, -0.03, 2010, 0.0, 4, 30), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-46.5",
+      "test_cases": [
+        "import numpy as np\nc1 = np.array([2016.0, 3.0, 5.0, 0.0])\nc2 = np.array([2024.0, 3.0, 5.0, 4.0])\ncal = np.array([1.49, 0.82, 0.009])\ndem = np.array([0.16, 3000.0, 0.05, 1.6, 0.3, 8])\nassert np.allclose(class_pair_mhsp_probability(c1, c2, cal, dem, 2024, 3, 150), target)",
+        "import numpy as np\nc1 = np.array([2016.0, 3.0, 5.0, 0.0])\ncal = np.array([1.49, 0.82, 0.009])\ndem = np.array([0.16, 3000.0, 0.0, 1.0, 0.42, 5])\nassert np.allclose(class_pair_mhsp_probability(c1, c1, cal, dem, 2016, 1, 150), target)",
+        "import numpy as np\nc1 = np.array([2016.0, 17.0, 19.0, 0.0])\nc2 = np.array([2024.0, 7.0, 9.0, 4.0])\ncal = np.array([1.2, 0.9, 0.05])\ndem = np.array([0.1, 2000.0, 0.03, 0.0, 0.28, 9])\nassert np.allclose(class_pair_mhsp_probability(c1, c2, cal, dem, 2020, 4, 200), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-46.6",
+      "test_cases": [
+        "import numpy as np\nA16 = [2016.0, 3.0, 5.0, 0.0]\nA20 = [2020.0, 3.0, 5.0, 0.0]\nA24 = [2024.0, 3.0, 5.0, 4.0]\nB16 = [2016.0, 9.0, 11.0, 0.0]\nB20 = [2020.0, 9.0, 11.0, 0.0]\ncls = np.array([[A16, A16], [A16, A20], [A16, A24], [A16, B16],\n                [A20, A20], [A20, A24], [B16, B16], [B16, B20]])\nsiz = np.array([[520, 520], [520, 480], [520, 300], [520, 150],\n                [480, 480], [480, 300], [150, 150], [150, 140]])\ncnt = np.array([108, 71, 21, 14, 84, 39, 12, 9])\nnb = np.array([1.4883333333333333, 0.009032872781593575])\nassert np.allclose(contrast_fit(cls, siz, cnt, nb, 0.05, 0.3, 8, 2024, 3, 0.05, 120), target)",
+        "import numpy as np\nA12 = [2012.0, 3.0, 5.0, 0.0]\nA16 = [2016.0, 3.0, 5.0, 0.0]\nB12 = [2012.0, 9.0, 11.0, 0.0]\nB16 = [2016.0, 9.0, 11.0, 2.0]\ncls = np.array([[A12, A12], [A12, A16], [A12, B12], [A12, B16], [A16, A16], [B12, B12]])\nsiz = np.array([[450, 450], [450, 380], [450, 160], [450, 120], [380, 380], [160, 160]])\ncnt = np.array([63, 49, 11, 19, 43, 9])\nnb = np.array([1.5075, 0.0025970907262187976])\nassert np.allclose(contrast_fit(cls, siz, cnt, nb, 0.03, 0.42, 5, 2016, 2, 0.05, 100), target)",
+        "import numpy as np\nA18 = [2018.0, 3.0, 5.0, 0.0]\nA22 = [2022.0, 3.0, 5.0, 3.0]\nB18 = [2018.0, 7.0, 9.0, 0.0]\nC18 = [2018.0, 11.0, 13.0, 0.0]\ncls = np.array([[A18, A18], [A18, A22], [A18, B18], [A18, C18], [A22, A22], [B18, B18],\n                [B18, A22]])\nsiz = np.array([[520, 520], [520, 340], [520, 300], [520, 220], [340, 340], [300, 300],\n                [300, 340]])\ncnt = np.array([217, 48, 44, 9, 152, 62, 19])\nnb = np.array([1.35125, 0.0014762600088645752])\nassert np.allclose(contrast_fit(cls, siz, cnt, nb, -0.015, 0.28, 9, 2022, 4, 0.05, 110), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-46.7",
+      "test_cases": [
+        "import numpy as np\nneo = np.array([1.59, 1.54, 1.51, 1.6, 1.5, 1.69, 1.61, 1.59, 1.35, 1.26, 1.26, 1.36])\nA16 = [2016.0, 3.0, 5.0, 0.0]\nA20 = [2020.0, 3.0, 5.0, 0.0]\nA24 = [2024.0, 3.0, 5.0, 4.0]\nB16 = [2016.0, 9.0, 11.0, 0.0]\nB20 = [2020.0, 9.0, 11.0, 0.0]\nclasses = np.array([[A16, A16], [A16, A20], [A16, A24], [A16, B16],\n                    [A20, A20], [A20, A24], [B16, B16], [B16, B20]])\nsizes = np.array([[520, 520], [520, 480], [520, 300], [520, 150],\n                  [480, 480], [480, 300], [150, 150], [150, 140]])\ncounts = np.array([108, 71, 21, 14, 84, 39, 12, 9])\ntargets = np.array([[2016.0, 17.0, 19.0, 0.0], [2024.0, 7.0, 9.0, 4.0]])\nassert np.allclose(kin_rate_per_million(neo, classes, sizes, counts, 0.05, 0.3, 8, 2024, 3, 0.05, targets, 120), target)",
+        "import numpy as np\nneo = np.array([1.5, 1.42, 1.61, 1.55, 1.47, 1.53, 1.6, 1.38])\nA12 = [2012.0, 3.0, 5.0, 0.0]\nA16 = [2016.0, 3.0, 5.0, 0.0]\nB12 = [2012.0, 9.0, 11.0, 0.0]\nB16 = [2016.0, 9.0, 11.0, 2.0]\nclasses = np.array([[A12, A12], [A12, A16], [A12, B12], [A12, B16], [A16, A16], [B12, B12]])\nsizes = np.array([[450, 450], [450, 380], [450, 160], [450, 120], [380, 380], [160, 160]])\ncounts = np.array([63, 49, 11, 19, 43, 9])\ntargets = np.array([[2012.0, 15.0, 17.0, 0.0], [2016.0, 9.0, 11.0, 2.0]])\nassert np.allclose(kin_rate_per_million(neo, classes, sizes, counts, 0.03, 0.42, 5, 2016, 2, 0.05, targets, 100), target)",
+        "import numpy as np\nneo = np.array([1.31, 1.4, 1.36, 1.28, 1.44, 1.33, 1.39, 1.3])\nA18 = [2018.0, 3.0, 5.0, 0.0]\nA22 = [2022.0, 3.0, 5.0, 3.0]\nB18 = [2018.0, 7.0, 9.0, 0.0]\nC18 = [2018.0, 11.0, 13.0, 0.0]\nclasses = np.array([[A18, A18], [A18, A22], [A18, B18], [A18, C18], [A22, A22], [B18, B18],\n                    [B18, A22]])\nsizes = np.array([[520, 520], [520, 340], [520, 300], [520, 220], [340, 340], [300, 300],\n                  [300, 340]])\ncounts = np.array([217, 48, 44, 9, 152, 62, 19])\ntargets = np.array([[2018.0, 11.0, 13.0, 0.0], [2022.0, 7.0, 9.0, 3.0]])\nassert np.allclose(kin_rate_per_million(neo, classes, sizes, counts, -0.015, 0.28, 9, 2022, 4, 0.05, targets, 110), target)"
+      ]
+    }
+  ]
+}

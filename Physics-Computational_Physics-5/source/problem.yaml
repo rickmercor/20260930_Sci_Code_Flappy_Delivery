@@ -1,0 +1,48 @@
+problem_id: "Physics-Computational_Physics-5"
+subject: "physics"
+subject_area: "Computational Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2604.25112"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_evaluate_kinetic_response"
+    description: "Evaluate the kinetic response function of a Maxwellian electron population at a set of normalised complex phase speeds."
+    orchestrator: false
+  - number: 2
+    name: "02_solve_kinetic_root"
+    description: "Locate the least-damped root of the exact kinetic dispersion relation of an electrostatic Maxwellian plasma at a prescribed normalised wave number."
+    orchestrator: false
+  - number: 3
+    name: "03_solve_matched_pade_coefficients"
+    description: "Determine the coefficients of the three-pole Pade approximant of the kinetic response by forcing it to reproduce prescribed response values at two prescribed phase speeds."
+    orchestrator: false
+  - number: 4
+    name: "04_build_asymptotic_pade_coefficients"
+    description: "Return the coefficients of the conventional three-pole Pade approximants of the kinetic response, the ones obtained by matching its asymptotic power series rather than the plasma's own roots."
+    orchestrator: false
+  - number: 5
+    name: "05_evaluate_closure_parameters"
+    description: "Convert the coefficients of a three-pole Pade approximant of the kinetic response into the three real coefficients of the corresponding heat-flux closure."
+    orchestrator: false
+  - number: 6
+    name: "06_build_moment_evolution_matrix"
+    description: "Assemble the linear operator that advances the three normalised Fourier moments of an electrostatic electron plasma once a heat-flux closure has been supplied."
+    orchestrator: false
+  - number: 7
+    name: "07_integrate_moment_history"
+    description: "Advance a linear Fourier-space moment system over a fixed number of equal steps with an explicit two-stage second-order Runge-Kutta scheme and record every time level."
+    orchestrator: false
+  - number: 8
+    name: "08_compute_field_amplitude_history"
+    description: "Reduce a recorded moment history to the history of the perturbed electrostatic field amplitude that the Poisson equation ties to it."
+    orchestrator: false
+  - number: 9
+    name: "09_compute_relative_field_deviation"
+    description: "Measure how far one recorded field history departs from a reference history over the whole run, as a single dimensionless number."
+    orchestrator: false
+  - number: 10
+    name: "10_run_closure_fidelity_pipeline"
+    description: "Chain the sub-problem functions 01-09 end to end over a band of wave numbers and return the aggregate relative departure of a conventional asymptotic closure from the wave-number-dependent one."
+    orchestrator: true

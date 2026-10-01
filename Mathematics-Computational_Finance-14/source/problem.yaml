@@ -1,0 +1,44 @@
+problem_id: "Mathematics-Computational_Finance-14"
+subject: "mathematics"
+subject_area: "Computational Finance"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: " https://doi.org/10.48550/arXiv.2601.18634"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_generate_brownian_increments"
+    description: "Generate the Brownian increments for the fixed Monte Carlo paths.\n\nA Brownian increment over a uniform interval of length h has independent\n\ncomponents distributed as N(0, h). Drawing the complete tensor in time-major\n\norder fixes both the pseudorandom stream and the association between increments,\n\npaths, and Brownian dimensions.\n\nInputs\n\n------\n\nseed: Nonnegative seed for the NumPy random generator.\n\nn_steps: Positive number of uniform time increments.\n\nn_paths: Positive number of Monte Carlo paths.\n\ndim_w: Positive Brownian dimension.\n\nh: Positive uniform time step.\n\nReturns\n\n-------\n\nincrements: Float array of shape (n_steps, n_paths, dim_w)."
+    orchestrator: false
+  - number: 2
+    name: "02_simulate_gbm_paths"
+    description: "Advance the risk-neutral asset process on the uniform grid.\n\nUnder the risk-neutral measure, the Euler-Maruyama state update must retain the\n\nmultiplicative dependence of each asset on its current level and respect the\n\nasset-by-Brownian orientation of the volatility matrix. Every grid state is\n\nretained because later BSDE components begin and end at different dates.\n\nInputs\n\n------\n\nx0: Positive initial asset vector of shape (d,).\n\nq: Dividend-yield vector of shape (d,).\n\nsigma: Volatility matrix of shape (d, dim_w).\n\nr: Risk-free rate.\n\nh: Positive uniform time step.\n\nincrements: Brownian array of shape (n_steps, n_paths, dim_w).\n\nReturns\n\n-------\n\npaths: Float array of shape (n_steps + 1, n_paths, d)."
+    orchestrator: false
+  - number: 3
+    name: "03_evaluate_value_heads"
+    description: "Evaluate the frozen value head at every segment start.\n\nA fully forward compound-BSDE solver parameterizes the value at the beginning\n\nof every segment as a function of the state there, including random intermediate\n\nstates. Each frozen value head is a linear readout of a shared tanh feature map\n\nof normalized log prices.\n\nInputs\n\n------\n\npaths: Positive asset paths of shape (n_times, n_paths, d).\n\nsegment_starts: Increasing grid indices for the segment starts.\n\nx_scale: Positive log-price scale of shape (d,).\n\nfeature_matrix, feature_bias: Shared tanh feature parameters.\n\nvalue_weights, value_bias: Segment-specific value-head parameters.\n\nReturns\n\n-------\n\nvalues: Float array of shape (n_segments, n_paths)."
+    orchestrator: false
+  - number: 4
+    name: "04_evaluate_control_heads"
+    description: "Evaluate the frozen martingale-control heads along the path grid.\n\nThe martingale control is parameterized separately at every grid point in a\n\ndeep BSDE discretization. Each frozen head consumes the shared normalized\n\nlog-price features and returns one coefficient per Brownian dimension.\n\nPreserving the distinct time, path, Brownian, and feature axes is essential\n\nwhen evaluating all heads over the path grid.\n\nInputs\n\n------\n\npaths: Positive asset paths of shape (n_steps + 1, n_paths, d).\n\nx_scale: Positive log-price scale of shape (d,).\n\nfeature_matrix, feature_bias: Shared tanh feature parameters.\n\ncontrol_weights, control_bias: Grid-specific control-head parameters.\n\nReturns\n\n-------\n\ncontrols: Float array of shape (n_steps, n_paths, dim_w)."
+    orchestrator: false
+  - number: 5
+    name: "05_propagate_bsde_segments"
+    description: "Propagate every BSDE component forward on its own interval.\n\nEvery backward component is rewritten as a forward recurrence on its own\n\ninterval. The driver depends on both the value and the control, so the\n\ndiscrete drift contributes one term proportional to the current value and a\n\nsecond proportional to the control contracted with the driver coefficient.\n\nThe control also enters through the Brownian contraction at each local step.\n\nEvery segment begins from its separately parameterized value head.\n\nInputs\n\n------\n\nvalue_starts: Segment-start values of shape (n_segments, n_paths).\n\ncontrols: Grid controls of shape (n_steps, n_paths, dim_w).\n\nincrements: Brownian increments with the same shape as controls.\n\nsegment_steps: Positive grid counts for the successive segments.\n\nr: Risk-free rate in the driver f=-rY+theta.Z.\n\nh: Positive uniform time step.\n\ntheta: Driver control coefficient of shape (dim_w,).\n\nReturns\n\n-------\n\nterminals: Float array of segment right-end values."
+    orchestrator: false
+  - number: 6
+    name: "06_construct_bermudan_targets"
+    description: "Construct the intermediate reflection and final payoff targets.\n\nAt each intermediate Bermudan date, the paper's compounding condition couples\n\nthe ending component to the next segment's continuation value and the immediate\n\nexercise value. The final boundary follows the terminal convention rather than\n\nan intermediate coupling. Exercise depends on the geometric basket formed from\n\nthe asset state at the corresponding segment endpoint.\n\nInputs\n\n------\n\npaths: Positive asset paths of shape (n_steps + 1, n_paths, d).\n\nvalue_starts: Continuation values at the segment starts.\n\nsegment_steps: Positive grid counts for the successive segments.\n\nstrikes: Put strikes for the compounding and terminal dates.\n\nReturns\n\n-------\n\ntargets: Float array of shape (n_segments, n_paths)."
+    orchestrator: false
+  - number: 7
+    name: "07_compute_joint_objective"
+    description: "Evaluate the simultaneous residual objective across all segments.\n\nThe compound method enforces every intermediate condition and the final\n\nterminal condition simultaneously. Empirical endpoint residuals are reduced\n\nover paths for each component, then combined according to the paper's joint\n\nobjective convention.\n\nInputs\n\n------\n\nterminals: Forward-propagated endpoint values by segment and path.\n\ntargets: Intermediate compounding and final payoff targets of matching shape.\n\nReturns\n\n-------\n\nloss_summary: Segment mean squared losses followed by the joint objective."
+    orchestrator: false
+  - number: 8
+    name: "08_compute_error_certificate"
+    description: "Form the constant-free a posteriori residual certificate.\n\nThe a posteriori estimate for the fully forward compound system controls the\n\naggregate state, value, and control error through the discretization scale and\n\nthe complete joint residual objective. Removing the unknown multiplicative\n\nconstant leaves the paper-defined computable certificate.\n\nInputs\n\n------\n\nloss_summary: Segment losses followed by their validated joint sum.\n\nh: Positive uniform time step.\n\nReturns\n\n-------\n\ncertificate: Native float containing the constant-free error certificate."
+    orchestrator: false
+  - number: 9
+    name: "09_run_full_pipeline"
+    description: "Assemble the frozen three-segment compound-BSDE calculation.\n\nThe configured surrogate evaluates independent value and control heads for the\n\nsuccessive BSDE components. The complete calculation couples adjacent forward\n\nsegments at the exercise dates and reduces all residual conditions to the\n\nconstant-free a posteriori certificate. This orchestrator is the final step in\n\nStudio.\n\nInputs\n\n------\n\nseed: Nonnegative seed controlling the complete Brownian tensor.\n\nReturns\n\n-------\n\ncertificate: Native float reported as the final answer."
+    orchestrator: true

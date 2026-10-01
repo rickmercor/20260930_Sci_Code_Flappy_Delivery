@@ -1,0 +1,61 @@
+{
+  "problem_id": "Biology-Genetics-31",
+  "sub_steps": [
+    {
+      "step_number": "Biology-Genetics-31.1",
+      "test_cases": [
+        "def pack(result):\n    counts, totals = result\n    packed = [len(counts)]\n    for table, total in zip(counts, totals):\n        packed.append(len(table))\n        for row in table:\n            packed.extend(row)\n        packed.extend(total)\n    return packed\nP1_sites = [\"022000\", \"0000.0\", \"00.220\"]\nP2_sites = [\"00010\", \"0010.\", \"11111\"]\nP3_sites = [\"1110\", \"1111\", \"1011\"]\nassert np.allclose(pack(site_allele_counts(P1_sites, P2_sites, P3_sites)), target)",
+        "def pack(result):\n    counts, totals = result\n    packed = [len(counts)]\n    for table, total in zip(counts, totals):\n        packed.append(len(table))\n        for row in table:\n            packed.extend(row)\n        packed.extend(total)\n    return packed\nP1_sites = [\"00.000\"]\nP2_sites = [\"00010\"]\nP3_sites = [\"....\"]\nassert np.allclose(pack(site_allele_counts(P1_sites, P2_sites, P3_sites)), target)",
+        "P1_sites = [\"000000\", \"00000\"]\nP2_sites = [\"00000\", \"00000\"]\nP3_sites = [\"0000\", \"0000\"]\ndef run_model():\n    try:\n        site_allele_counts(P1_sites, P2_sites, P3_sites)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-31.2",
+      "test_cases": [
+        "totals = [[6, 5, 4], [5, 5, 3], [6, 4, 4], [5, 5, 0]]\nassert np.allclose(rarefaction_subsample_sizes(totals), target)",
+        "totals = [[6, 5, 0]]\nassert np.allclose(rarefaction_subsample_sizes(totals), target)",
+        "totals = [[6, 5, 4], [6, -1, 4]]\ndef run_model():\n    try:\n        rarefaction_subsample_sizes(totals)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-31.3",
+      "test_cases": [
+        "sites = [([[4, 4, 1], [0, 1, 3], [2, 0, 0]], [6, 5, 4], 4),\n         ([[1, 2, 3], [4, 3, 0]], [5, 5, 3], 3)]\nassert np.allclose([[round(v, 12) for v in rarefied_pair_private_counts(c, t, g)] for c, t, g in sites], target)",
+        "counts = [[5, 4, 0], [0, 1, 0]]\ntotals = [5, 5, 0]\ng = 0\nassert np.allclose([round(v, 12) for v in rarefied_pair_private_counts(counts, totals, g)], target)",
+        "counts = [[4, 4, 1], [0, 1, 3], [2, 0, 0]]\ntotals = [6, 5, 4]\ng = 5\ndef run_model():\n    try:\n        rarefied_pair_private_counts(counts, totals, g)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-31.4",
+      "test_cases": [
+        "counts = [[4, 4, 1], [0, 1, 3], [2, 0, 0]]\ntotals = [6, 5, 4]\ng = 4\nassert np.allclose(round(rarefied_allelic_richness(counts, totals, g), 12), target)",
+        "counts = [[6, 5, 4]]\ntotals = [6, 5, 4]\ng = 4\nassert np.allclose(round(rarefied_allelic_richness(counts, totals, g), 12), target)",
+        "counts = [[4, 4, 1], [0, 1, 3]]\ntotals = [6, 5, 4]\ndef run_model():\n    try:\n        rarefied_allelic_richness(counts, totals, 4)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-31.5",
+      "test_cases": [
+        "def _rounded(window_sums):\n    indices, numerators, denominators = window_sums\n    return [list(indices), [round(v, 12) for v in numerators],\n            [round(v, 12) for v in denominators]]\npositions = [40, 180, 430, 620, 880, 1150, 1320, 1490, 1780, 2050, 2260, 2410, 2640, 2870, 3090, 3240, 3510, 3660]\npair_counts = [[0.0, 0.0], [0.6666666666666667, 0.0], [0.0, 0.0], [0.0, 1.0], [0.0, 0.0], [1.0, 0.0], [0.0, 0.8], [0.0, 1.0], [0.0, 0.8], [0.0, 1.0], [0.0, 0.0], [0.2, 0.0], [0.0, 0.0], [0.0, 0.0], [1.0, 0.0], [0.0, 0.0], [0.0, 1.0], [1.0, 1.0]]\nrichness = [1.2307692307692308, 1.6373626373626373, 1.7062937062937062, 1.9191919191919191, 1.0, 1.7062937062937062, 1.5384615384615383, 1.895104895104895, 2.2234432234432235, 1.8424908424908426, 1.0, 1.8967032967032966, 1.5054945054945055, 1.6373626373626373, 1.7417582417582418, 1.6703296703296704, 1.93006993006993, 1.9150849150849152]\nwindow_size = 500\nassert np.allclose(_rounded(window_dstar_sums(positions, pair_counts, richness, window_size)), target)",
+        "def _rounded(window_sums):\n    indices, numerators, denominators = window_sums\n    return [list(indices), [round(v, 12) for v in numerators],\n            [round(v, 12) for v in denominators]]\npositions = [40, 180, 620]\npair_counts = [[0.0, 0.0], [0.0, 0.0], [0.0, 0.0]]\nrichness = [1.5, 1.25, 2.0]\nwindow_size = 500\nassert np.allclose([len(part) for part in window_dstar_sums(positions, pair_counts, richness, window_size)], target)",
+        "positions = [40, 180]\npair_counts = [[0.0, 1.0], [0.5, 0.0]]\nrichness = [1.5, 1.25]\ndef run_model():\n    try:\n        window_dstar_sums(positions, pair_counts, richness, 0)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-31.6",
+      "test_cases": [
+        "numerators = [-0.6666666666666667, 1.0, 0.8, 0.8, 0.8, -1.0, 2.0, 1.0, 0.0, 1.9, 1.3]\ndenominators = [1.6373626373626373, 1.9191919191919191, 5.13986013986014, 2.2234432234432235, 3.7391941391941392, 1.7417582417582418, 5.80944055944056, 3.81018981018981, 1.923076923076923, 5.895371295371295, 3.5531468531468535]\nassert np.allclose([round(v, 12) for v in block_bootstrap_moments(numerators, denominators, 2000, 2026)], target)",
+        "numerators = [1.3]\ndenominators = [3.5531468531468535]\nassert np.allclose([round(v, 12) for v in block_bootstrap_moments(numerators, denominators, 5, 7)], target)",
+        "numerators = [1.0, 0.5]\ndenominators = [2.0, 0.0]\ndef run_model():\n    try:\n        block_bootstrap_moments(numerators, denominators, 100, 1)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-31.7",
+      "test_cases": [
+        "positions = [40, 180, 430, 620, 880, 1150, 1320, 1490, 1780, 2050, 2260, 2410, 2640, 2870, 3090, 3240, 3510, 3660, 3920, 4130, 4380, 4520, 4740, 4960, 5080, 5230, 5470, 5610, 5820, 5950]\nP1_sites = ['000000', '100000', '.101.1', '000..0', '000000', '.0.110', '0000..', '0000.0', '022000', '000000', '000000', '000111', '000000', '110010', '111111', '000000', '000.00', '111111', '020000', '000000', '1.1111', '011010', '000000', '00.000', '000000', '020000', '00.220', '.0.000', '0111.1', '000000']\nP2_sites = ['0000.', '00000', '00000', '0.110', '00000', '00000', '00010', '0010.', '00010', '10110', '00000', '10111', '000.0', '00000', '00000', '0.000', '11001', '000.0', '11110', '11.00', '000.0', '10100', '11111', '00010', '10101', '10001', '11111', '0100.', '11010', '00000']\nP3_sites = ['010.', '1100', '0000', '1011', '.000', '0010', '0100', '1111', '1110', '0110', '0000', '0110', '0011', '0000', '11.1', '1101', '1111', '1001', '11.1', '1111', '0111', '0101', '0110', '....', '.11.', '0111', '1011', '1100', '.000', '0000']\nassert np.allclose(round(run_full_pipeline(positions, P1_sites, P2_sites, P3_sites, 500, 2000, 2026), 12), target)",
+        "positions = [40, 180, 430, 620, 880, 1150, 1320, 1490]\nP1_sites = ['000000', '100000', '.101.1', '000..0', '000000', '.0.110', '0000..', '0000.0']\nP2_sites = ['0000.', '00000', '00000', '0.110', '00000', '00000', '00010', '0010.']\nP3_sites = ['010.', '1100', '0000', '1011', '.000', '0010', '0100', '1111']\nassert np.allclose(round(run_full_pipeline(positions, P1_sites, P2_sites, P3_sites, 1000, 50, 11), 12), target)",
+        "positions = [40, 180, 430, 620, 880]\nP1_sites = ['000000', '100000', '.101.1', '000..0', '000000', '.0.110', '0000..', '0000.0']\nP2_sites = ['0000.', '00000', '00000', '0.110', '00000', '00000', '00010', '0010.']\nP3_sites = ['010.', '1100', '0000', '1011', '.000', '0010', '0100', '1111']\n\ndef run_model():\n    try:\n        run_full_pipeline(positions, P1_sites, P2_sites, P3_sites, 500, 50, 3)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

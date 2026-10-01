@@ -1,0 +1,86 @@
+{
+  "problem_id": "Material_Science-Semiconductor_Materials-51",
+  "sub_steps": [
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-51.1",
+      "test_cases": [
+        "import numpy as np\nrng_mfp = np.random.default_rng(421)\nMFP = rng_mfp.uniform(20, 150, 6)\nrng_w = np.random.default_rng(433)\nweights = rng_w.uniform(0.5, 2.0, 6)\nassert np.allclose(weighted_mfp_average(MFP, weights), target)",
+        "MFP = [1.0, 2.0, 3.0]\nweights = [1.0, 1.0, 1.0]\nassert np.allclose(weighted_mfp_average(MFP, weights), target)",
+        "MFP = [50.0]\nweights = [1.0]\nassert np.allclose(weighted_mfp_average(MFP, weights), target)",
+        "MFP = [1.0, 2.0]\nweights = [0.0, 0.0]\ndef run_model():\n    try:\n        weighted_mfp_average(MFP, weights)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-51.2",
+      "test_cases": [
+        "MFP_avg = 61.43347477873237\nkappa = 0.72\nassert np.allclose(d0_from_mfp(MFP_avg, kappa), target)",
+        "MFP_avg = 100.0\nkappa = 1.0\nassert np.allclose(d0_from_mfp(MFP_avg, kappa), target)",
+        "MFP_avg = 30.0\nkappa = 0.5\nassert np.allclose(d0_from_mfp(MFP_avg, kappa), target)",
+        "MFP_avg = -5.0\nkappa = 0.9\ndef run_model():\n    try:\n        d0_from_mfp(MFP_avg, kappa)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-51.3",
+      "test_cases": [
+        "mu_bulk_ref = 1090.0\nT_ref = 245.0\nalpha = 1.58\nT = 370.0\nassert np.allclose(bulk_mobility_temperature_scaling(mu_bulk_ref, T_ref, alpha, T), target)",
+        "mu_bulk_ref = 1400.0\nT_ref = 300.0\nalpha = 1.5\nT = 300.0\nassert np.allclose(bulk_mobility_temperature_scaling(mu_bulk_ref, T_ref, alpha, T), target)",
+        "mu_bulk_ref = 3317.0\nT_ref = 200.0\nalpha = 2.0\nT = 400.0\nassert np.allclose(bulk_mobility_temperature_scaling(mu_bulk_ref, T_ref, alpha, T), target)",
+        "mu_bulk_ref = 1400.0\nT_ref = 300.0\nalpha = 1.5\nT = -10.0\ndef run_model():\n    try:\n        bulk_mobility_temperature_scaling(mu_bulk_ref, T_ref, alpha, T)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-51.4",
+      "test_cases": [
+        "mu_bulk_T = 568.2640565437886\nd = 190.0\nd0 = 44.23210184068731\nbeta = 1.44\nassert np.allclose(diameter_dependent_mobility(mu_bulk_T, d, d0, beta), target)",
+        "mu_bulk_T = 1000.0\nd = 200.0\nd0 = 50.0\nbeta = 2.0\nassert np.allclose(diameter_dependent_mobility(mu_bulk_T, d, d0, beta), target)",
+        "mu_bulk_T = 500.0\nd = 1000.0\nd0 = 10.0\nbeta = 1.0\nassert np.allclose(diameter_dependent_mobility(mu_bulk_T, d, d0, beta), target)",
+        "mu_bulk_T = 568.0\nd = 30.0\nd0 = 44.2\nbeta = 1.44\ndef run_model():\n    try:\n        diameter_dependent_mobility(mu_bulk_T, d, d0, beta)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-51.5",
+      "test_cases": [
+        "mu_1D = 498.6002642462811\nmu_bulk_T = 568.2640565437886\nassert np.allclose(surface_limited_mobility(mu_1D, mu_bulk_T), target)",
+        "mu_1D = 1767.0\nmu_bulk_T = 3317.0\nassert np.allclose(surface_limited_mobility(mu_1D, mu_bulk_T), target)",
+        "mu_1D = 500.0\nmu_bulk_T = 1000.0\nassert np.allclose(surface_limited_mobility(mu_1D, mu_bulk_T), target)",
+        "mu_1D = 500.0\nmu_bulk_T = 500.0\ndef run_model():\n    try:\n        surface_limited_mobility(mu_1D, mu_bulk_T)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-51.6",
+      "test_cases": [
+        "mu_bulk_T = 568.2640565437886\nd = 190.0\nd0 = 44.23210184068731\nbeta = 1.44\nassert np.allclose(surface_mobility_direct_check(mu_bulk_T, d, d0, beta), target)",
+        "mu_bulk_T = 1000.0\nd = 200.0\nd0 = 50.0\nbeta = 2.0\nassert np.allclose(surface_mobility_direct_check(mu_bulk_T, d, d0, beta), target)",
+        "mu_bulk_T = 500.0\nd = 1000.0\nd0 = 10.0\nbeta = 1.0\nassert np.allclose(surface_mobility_direct_check(mu_bulk_T, d, d0, beta), target)",
+        "mu_bulk_T = 568.0\nd = 30.0\nd0 = 44.2\nbeta = 1.44\ndef run_model():\n    try:\n        surface_mobility_direct_check(mu_bulk_T, d, d0, beta)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-51.7",
+      "test_cases": [
+        "C_b = 4.2e14\nT = 370.0\nN_I = 3.1e18\nassert np.allclose(ionized_impurity_screening_parameter(C_b, T, N_I), target)",
+        "C_b = 1.0e14\nT = 300.0\nN_I = 1.0e18\nassert np.allclose(ionized_impurity_screening_parameter(C_b, T, N_I), target)",
+        "C_b = 1.0e15\nT = 500.0\nN_I = 5.0e17\nassert np.allclose(ionized_impurity_screening_parameter(C_b, T, N_I), target)",
+        "C_b = -4.2e14\nT = 370.0\nN_I = 3.1e18\ndef run_model():\n    try:\n        ionized_impurity_screening_parameter(C_b, T, N_I)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-51.8",
+      "test_cases": [
+        "C_i = 6.5e17\nT = 370.0\nN_I = 3.1e18\nb = 18.54774193548387\nassert np.allclose(ionized_impurity_mobility(C_i, T, N_I, b), target)",
+        "C_i = 1.0e17\nT = 300.0\nN_I = 1.0e18\nb = 5.0\nassert np.allclose(ionized_impurity_mobility(C_i, T, N_I, b), target)",
+        "C_i = 1.0e18\nT = 500.0\nN_I = 5.0e17\nb = 100.0\nassert np.allclose(ionized_impurity_mobility(C_i, T, N_I, b), target)",
+        "C_i = 6.5e17\nT = 370.0\nN_I = 3.1e18\nb = -1.0\ndef run_model():\n    try:\n        ionized_impurity_mobility(C_i, T, N_I, b)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-51.9",
+      "test_cases": [
+        "import numpy as np\nrng_mfp = np.random.default_rng(421)\nMFP = rng_mfp.uniform(20, 150, 6)\nrng_w = np.random.default_rng(433)\nweights = rng_w.uniform(0.5, 2.0, 6)\nkappa = 0.72\nmu_bulk_ref = 1090.0\nT_ref = 245.0\nalpha = 1.58\nT = 370.0\nd = 190.0\nbeta = 1.44\nC_b = 4.2e14\nC_i = 6.5e17\nN_I = 3.1e18\nassert np.allclose(final_combined_mobility_ratio(MFP, weights, kappa, mu_bulk_ref, T_ref, alpha, T, d, beta, C_b, C_i, N_I), target)",
+        "import numpy as np\nrng_mfp = np.random.default_rng(421)\nMFP = rng_mfp.uniform(20, 150, 6)\nrng_w = np.random.default_rng(433)\nweights = rng_w.uniform(0.5, 2.0, 6)\nkappa = 0.72\nmu_bulk_ref = 1090.0\nT_ref = 245.0\nalpha = 1.58\nT = 245.0\nd = 190.0\nbeta = 1.44\nC_b = 4.2e14\nC_i = 6.5e17\nN_I = 3.1e18\nassert np.allclose(final_combined_mobility_ratio(MFP, weights, kappa, mu_bulk_ref, T_ref, alpha, T, d, beta, C_b, C_i, N_I), target)",
+        "import numpy as np\nrng_mfp = np.random.default_rng(421)\nMFP = rng_mfp.uniform(20, 150, 6)\nrng_w = np.random.default_rng(433)\nweights = rng_w.uniform(0.5, 2.0, 6)\nkappa = 0.72\nmu_bulk_ref = 1090.0\nT_ref = 245.0\nalpha = 1.58\nT = 370.0\nd = 380.0\nbeta = 1.44\nC_b = 4.2e14\nC_i = 6.5e17\nN_I = 3.1e18\nassert np.allclose(final_combined_mobility_ratio(MFP, weights, kappa, mu_bulk_ref, T_ref, alpha, T, d, beta, C_b, C_i, N_I), target)",
+        "MFP = [1.0, 2.0]\nweights = [0.0, 0.0]\nkappa = 0.9\nmu_bulk_ref = 1400.0\nT_ref = 300.0\nalpha = 1.5\nT = 450.0\nd = 150.0\nbeta = 1.8\nC_b = 5.0e14\nC_i = 8.0e17\nN_I = 2.5e18\ndef run_model():\n    try:\n        final_combined_mobility_ratio(MFP, weights, kappa, mu_bulk_ref, T_ref, alpha, T, d, beta, C_b, C_i, N_I)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+problem_id: "Chemistry-Computational_Chemistry-74"
+subject: "chemistry"
+subject_area: "Computational Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1063/5.0331702"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_drude_bath_exponents"
+    description: "Exponential decomposition of the correlation function of an overdamped Drude-Lorentz bath: the Drude term and the first Matsubara terms, as complex amplitudes and decay rates in picosecond units."
+    orchestrator: false
+  - number: 2
+    name: "02_underdamped_mode_exponents"
+    description: "Exponential decomposition of the correlation function of an underdamped intramolecular vibration treated as a Brownian oscillator: the oscillating pair of terms and the first Matsubara terms, with complex decay rates."
+    orchestrator: false
+  - number: 3
+    name: "03_dipole_gauge_hamiltonian"
+    description: "System Hamiltonian of a donor-acceptor pair coupled to one cavity mode in the dipole gauge, including the dipole self-energy, on a truncated photon Fock basis."
+    orchestrator: false
+  - number: 4
+    name: "04_bath_coupling_operators"
+    description: "System operators that multiply the two bath coordinates: the acceptor projector for the low-frequency bath and the three-body electron-vibration-photon operator for the intramolecular mode."
+    orchestrator: false
+  - number: 5
+    name: "05_system_liouvillian"
+    description: "Superoperator of the system alone: coherent evolution under the dipole-gauge Hamiltonian plus Lindblad photon loss from the cavity into a zero-temperature continuum."
+    orchestrator: false
+  - number: 6
+    name: "06_heom_propagate"
+    description: "Hierarchical equations of motion for a system coupled to several independent harmonic baths whose correlation functions are finite sums of exponentials with real or complex rates: propagation of the reduced density matrix with fixed-step fourth-order Runge-Kutta."
+    orchestrator: false
+  - number: 7
+    name: "07_donor_population_trace"
+    description: "Donor population versus time for the cavity-coupled donor-acceptor pair with a low-frequency bath and an intramolecular mode, starting in the donor state with the cavity in its vacuum."
+    orchestrator: false
+  - number: 8
+    name: "08_fit_transfer_rates"
+    description: "Forward and backward electron-transfer rate constants from a donor-population trace by least-squares fitting to reversible first-order two-state kinetics."
+    orchestrator: false
+  - number: 9
+    name: "09_cavity_rate_enhancement"
+    description: "Orchestrator: ratio of the forward electron-transfer rate with the lossy cavity, including the three-body coupling through the intramolecular mode, to the forward rate of the same molecule without the cavity."
+    orchestrator: true

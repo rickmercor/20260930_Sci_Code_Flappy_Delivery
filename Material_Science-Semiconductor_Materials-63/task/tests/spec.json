@@ -1,0 +1,74 @@
+{
+  "problem_id": "Material_Science-Semiconductor_Materials-63",
+  "sub_steps": [
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-63.1",
+      "test_cases": [
+        "import numpy as np\nforce_ensembles = np.zeros((2, 3, 2, 3))\nforce_ensembles[1, 1] = [[0.03, 0.0, 0.0], [0.0, 0.0, 0.0]]\nforce_ensembles[1, 2] = [[-0.03, 0.0, 0.0], [0.0, 0.0, 0.0]]\nassert np.allclose(compute_force_disagreement_scores(force_ensembles), target)",
+        "import numpy as np\nforce_ensembles = np.ones((1, 2, 1, 3)) * 0.1\nassert np.allclose(compute_force_disagreement_scores(force_ensembles), target)",
+        "import numpy as np\nforce_ensembles = np.zeros((1, 3, 3, 3))\nforce_ensembles[0, 0, 2] = [1.0, 0.0, 0.0]\nforce_ensembles[0, 1, 2] = [0.0, 1.0, 0.0]\nforce_ensembles[0, 2, 2] = [0.0, 0.0, 1.0]\nassert np.allclose(compute_force_disagreement_scores(force_ensembles), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-63.2",
+      "test_cases": [
+        "import numpy as np\nscores = np.array([0.0, 0.024494897427831, 0.004082482904638])\nthreshold = 0.01\nassert np.allclose(compute_force_labeling_mask(scores, threshold), target)",
+        "import numpy as np\nscores = np.array([0.0])\nthreshold = 0.01\nassert np.allclose(compute_force_labeling_mask(scores, threshold), target)",
+        "import numpy as np\nscores = np.array([0.01, 0.0100001])\nthreshold = 0.01\nassert np.allclose(compute_force_labeling_mask(scores, threshold), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-63.3",
+      "test_cases": [
+        "import numpy as np\nh = np.zeros((2, 3, 2, 2))\nh[1, 1] = [[0.03, 0.0], [0.0, -0.03]]\nh[1, 2] = [[-0.03, 0.0], [0.0, 0.03]]\nassert np.allclose(compute_hamiltonian_disagreement_scores(h), target)",
+        "import numpy as np\nh = np.ones((1, 2, 1, 1)) * 0.5\nassert np.allclose(compute_hamiltonian_disagreement_scores(h), target)",
+        "import numpy as np\nh = np.zeros((1, 3, 2, 2))\nh[0, 0, 0, 1] = 1.0\nh[0, 0, 1, 0] = 1.0\nh[0, 1, 0, 1] = -1.0\nh[0, 1, 1, 0] = -1.0\nassert np.allclose(compute_hamiltonian_disagreement_scores(h), target)",
+        "import numpy as np\nh = np.zeros((1, 2, 1, 1))\nh[0, 0, 0, 0] = 0.0\nh[0, 1, 0, 0] = 0.02\nassert np.allclose(compute_hamiltonian_disagreement_scores(h), target)",
+        "import numpy as np\nh = np.zeros((3, 3, 2, 2))\nh[0, 0] = [[0.10, 0.02], [0.02, -0.04]]\nh[0, 1] = [[0.00, 0.00], [0.00, 0.00]]\nh[0, 2] = [[-0.10, -0.02], [-0.02, 0.04]]\nh[1, 0] = [[0.01, 0.00], [0.00, 0.01]]\nh[1, 1] = [[0.01, 0.00], [0.00, 0.01]]\nh[1, 2] = [[0.01, 0.00], [0.00, 0.01]]\nh[2, 0, 0, 1] = 0.05\nh[2, 0, 1, 0] = 0.05\nh[2, 2, 0, 1] = -0.05\nh[2, 2, 1, 0] = -0.05\nassert np.allclose(compute_hamiltonian_disagreement_scores(h), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-63.4",
+      "test_cases": [
+        "import numpy as np\nscores = np.array([1.0, 4.0, 2.0, 5.0, 3.0, 6.0])\ndefect_ids = np.array([0, 0, 0, 1, 1, 1])\ntemperatures = np.array([100.0, 100.0, 100.0, 100.0, 100.0, 100.0])\nn_per_group = 2\nassert np.allclose(compute_balanced_acquisition_indices(scores, defect_ids, temperatures, n_per_group), target)",
+        "import numpy as np\nscores = np.array([0.9, 0.1, 0.8, 0.2])\ndefect_ids = np.array([0, 0, 0, 0])\ntemperatures = np.array([100.0, 100.0, 500.0, 500.0])\nn_per_group = 1\nassert np.allclose(compute_balanced_acquisition_indices(scores, defect_ids, temperatures, n_per_group), target)",
+        "import numpy as np\nscores = np.array([0.2, 0.2, 0.2, 0.2])\ndefect_ids = np.array([2, 2, 2, 2])\ntemperatures = np.array([300.0, 300.0, 300.0, 300.0])\nn_per_group = 3\nassert np.allclose(compute_balanced_acquisition_indices(scores, defect_ids, temperatures, n_per_group), target)",
+        "import numpy as np\nscores = np.array([0.5, 9.0, 0.4, 8.0, 7.0, 0.3, 6.0, 0.2])\ndefect_ids = np.array([1, 0, 1, 0, 1, 0, 1, 0])\ntemperatures = np.array([500.0, 100.0, 100.0, 500.0, 500.0, 100.0, 100.0, 500.0])\nn_per_group = 1\nassert np.allclose(compute_balanced_acquisition_indices(scores, defect_ids, temperatures, n_per_group), target)",
+        "import numpy as np\nscores = np.array([3.0, 5.0, 5.0, 4.0, 0.1, 0.2, 1.0, 2.0, 8.0, 7.0])\ndefect_ids = np.array([0, 0, 0, 0, 0, 0, 3, 3, 3, 3])\ntemperatures = np.array([100.0, 100.0, 100.0, 100.0, 200.0, 200.0, 100.0, 100.0, 200.0, 200.0])\nn_per_group = 2\nassert np.allclose(compute_balanced_acquisition_indices(scores, defect_ids, temperatures, n_per_group), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-63.5",
+      "test_cases": [
+        "import numpy as np\nhamiltonians = np.diag([-2.0, -1.5, -1.0, 0.1, 0.7, 1.2])\nassert np.allclose(compute_gap_spectrum_table(hamiltonians), target)",
+        "import numpy as np\nd = np.diag([0.7, -1.0, 1.2, -2.0, 0.0, -1.5])\nhamiltonians = d.reshape(1, 6, 6)\nassert np.allclose(compute_gap_spectrum_table(hamiltonians), target)",
+        "import numpy as np\nhamiltonians = np.stack([\n np.diag([-2.0, -1.5, -1.0, -0.2, 0.5, 1.0]),\n np.diag([-2.0, -1.5, -1.0, 0.0, 0.5, 1.0]),\n])\nassert np.allclose(compute_gap_spectrum_table(hamiltonians), target)",
+        "import numpy as np\nhamiltonians = np.diag([-2.0, -1.5, -1.0, 0.0, 0.5, 1.0]).astype(float)\nhamiltonians[2, 3] = hamiltonians[3, 2] = 0.22\nhamiltonians[3, 4] = hamiltonians[4, 3] = 0.18\nassert np.allclose(compute_gap_spectrum_table(hamiltonians), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-63.6",
+      "test_cases": [
+        "import numpy as np\nselected_indices = np.array([0.0, 1.0, 2.0, 3.0])\ndefect_ids = np.array([0, 4, 4, 1])\ntemperatures = np.array([100.0, 500.0, 100.0, 100.0])\neigs = np.array([\n [-2.0, -1.5, -1.0, 0.0, 0.7, 1.2],\n [-2.0, -1.5, -1.0, 0.1, 0.7, 1.2],\n [-2.0, -1.5, -1.0, 0.2, 0.7, 1.2],\n [-2.0, -1.5, -1.0, 0.05, 0.7, 1.2],\n])\ntrained_hamiltonians = np.stack([np.diag(e) for e in eigs])\nasga_defect_id = 4\nassert np.allclose(compute_asga_ordered_depth_series(selected_indices, defect_ids, temperatures, trained_hamiltonians, asga_defect_id), target)",
+        "import numpy as np\nselected_indices = np.array([1.0])\ndefect_ids = np.array([4, 4])\ntemperatures = np.array([100.0, 100.0])\ntrained_hamiltonians = np.stack([\n np.diag([-2.0, -1.5, -1.0, -0.1, 0.5, 1.0]),\n np.diag([-2.0, -1.5, -1.0, 0.0, 0.5, 1.0]),\n])\nassert np.allclose(compute_asga_ordered_depth_series(selected_indices, defect_ids, temperatures, trained_hamiltonians), target)",
+        "import numpy as np\nh = np.zeros((4, 3, 6, 6))\nbase = np.array([\n [-2.0, -1.5, -1.0, 0.0, 0.5, 1.0],\n [-2.0, -1.5, -1.0, 0.1, 0.5, 1.0],\n [-2.0, -1.5, -1.0, -0.05, 0.5, 1.0],\n [-2.0, -1.5, -1.0, 0.05, 0.5, 1.0],\n])\ntrained_hamiltonians = []\nfor i, sc in enumerate([2.0, 1.0, 3.0, 1.5]):\n    Href = np.diag(base[i])\n    Href[3, 4] = Href[4, 3] = 0.05 * sc\n    trained_hamiltonians.append(Href)\n    for m, amp in enumerate((-1.0, 0.0, 1.0)):\n        h[i, m] = Href + amp * 0.01 * sc * np.eye(6)\ntrained_hamiltonians = np.asarray(trained_hamiltonians, dtype=float)\nscores = compute_hamiltonian_disagreement_scores(h)\ndefect_ids = np.array([4, 4, 4, 4])\ntemperatures = np.array([100.0, 100.0, 500.0, 500.0])\nselected_indices = compute_balanced_acquisition_indices(scores, defect_ids, temperatures, 1)\nasga_defect_id = 4\nassert np.allclose(compute_asga_ordered_depth_series(selected_indices, defect_ids, temperatures, trained_hamiltonians, asga_defect_id), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-63.7",
+      "test_cases": [
+        "import numpy as np\nordered_depths = np.array([0.4099, 0.4298, 0.4562, 0.4317])\nn_per_temperature = 2\nassert np.allclose(compute_temperature_paired_asga_means(ordered_depths, n_per_temperature), target)",
+        "import numpy as np\nordered_depths = np.array([0.5, 0.5])\nn_per_temperature = 2\nassert np.allclose(compute_temperature_paired_asga_means(ordered_depths, n_per_temperature), target)",
+        "import numpy as np\nordered_depths = np.array([0.4, 0.2, 0.6])\nn_per_temperature = 1\nassert np.allclose(compute_temperature_paired_asga_means(ordered_depths, n_per_temperature), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-63.8",
+      "test_cases": [
+        "import numpy as np\nforce_ensembles = np.zeros((10, 3, 6, 3))\nB0 = np.array([[0.02,-0.01,0.00],[-0.03,0.02,0.01],[0.01,0.00,-0.02],[0.00,0.04,-0.01],[-0.02,-0.01,0.03],[0.01,0.02,0.00]], dtype=float)\nfor i in range(4):\n    force_ensembles[i,0]=B0; force_ensembles[i,1]=B0+0.001*(i+1); force_ensembles[i,2]=B0-0.001*(i+1)\nB1 = np.array([[0.10,-0.05,0.02],[-0.08,0.06,0.04],[0.05,0.01,-0.07],[0.03,0.09,-0.02],[-0.06,-0.04,0.08],[0.04,0.05,-0.03]], dtype=float)\nP1 = np.array([[1,0,-1],[0,1,0],[-1,0,1],[1,-1,0],[0,1,-1],[1,0,1]], dtype=float)\nP2 = np.array([[0,1,0],[1,0,-1],[0,-1,1],[-1,0,1],[1,1,0],[0,-1,0]], dtype=float)\nfor j,i in enumerate(range(4,10)):\n    force_ensembles[i,0]=B1\n    force_ensembles[i,1]=B1+0.02*(j+1)*P1\n    force_ensembles[i,2]=B1-0.025*(j+1)*P2\nforce_threshold = 0.01\ndefect_ids=[]; temperatures=[]; h_ensembles=[]; trained_hamiltonians=[]\nPw=np.zeros((6,6)); Pw[0,1]=Pw[1,0]=0.02; Pw[0,2]=Pw[2,0]=0.01; Pw[1,2]=Pw[2,1]=0.015; Pw[1,3]=Pw[3,1]=0.005; Pw[2,3]=Pw[3,2]=0.01; Pw[2,4]=Pw[4,2]=0.004; Pw[3,4]=Pw[4,3]=0.008; Pw[3,5]=Pw[5,3]=0.003; Pw[4,5]=Pw[5,4]=0.012\nPv=np.zeros((6,6)); Pv[0,1]=Pv[1,0]=0.005; Pv[0,3]=Pv[3,0]=0.018; Pv[0,4]=Pv[4,0]=0.011; Pv[1,2]=Pv[2,1]=0.007; Pv[1,4]=Pv[4,1]=0.014; Pv[1,5]=Pv[5,1]=0.009; Pv[2,3]=Pv[3,2]=0.016; Pv[2,5]=Pv[5,2]=0.006; Pv[3,4]=Pv[4,3]=0.013\nw=np.array([1.0,2.5,4.0,5.5,5.5,1.0,2.5,4.0,5.55,1.05,2.55,4.05,4.05,5.55,1.05,2.55,4.1,5.6,1.1,2.6,2.6,4.1,5.6,1.1,2.65,4.15,5.65,1.15,1.15,2.65,4.15,5.65,0.91,3.91,4.1,3.2,5.01,2.2,1.85,4.38], dtype=float)\nv=np.array([1.5,5.0,0.5,4.0,4.0,1.5,5.0,0.5,4.03,1.53,5.03,0.53,0.53,4.03,1.53,5.03,0.56,4.06,1.56,5.06,5.06,0.56,4.06,1.56,5.09,0.59,4.09,1.59,1.59,5.09,0.59,4.09,4.34,2.93,2.44,3.54,4.52,5.8,6.39,4.35], dtype=float)\namps=[(-1.0,0.0),(0.0,1.0),(1.0,-1.0)]\nfor d in range(5):\n  for T in (100.0, 500.0):\n    for c in range(4):\n      i=8*d+4*(T==500.0)+c\n      Eg=0.745-1.5e-4*(T-100.0); VBM=-0.3725; CBM=VBM+Eg\n      frac=0.28+0.05*d\n      Ed=VBM+frac*Eg+0.008*(c-1.5)+0.5e-4*(T-100.0)\n      D=np.array([VBM-1.20,VBM-0.60,VBM,Ed,CBM,CBM+0.55], dtype=float)\n      Href=np.diag(D)+2.0*(w[i]*Pw+v[i]*Pv)\n      Hs=np.stack([Href+0.002*(a*w[i]*Pw+b*v[i]*Pv) for a,b in amps])\n      defect_ids.append(d); temperatures.append(T)\n      h_ensembles.append(Hs); trained_hamiltonians.append(Href)\ndefect_ids=np.asarray(defect_ids,dtype=int)\ntemperatures=np.asarray(temperatures,dtype=float)\nh_ensembles=np.asarray(h_ensembles,dtype=float)\ntrained_hamiltonians=np.asarray(trained_hamiltonians,dtype=float)\nasga_defect_id=4\nassert np.allclose(orchestrate_defect_al_cbm_depth(force_ensembles, force_threshold, h_ensembles, defect_ids, temperatures, trained_hamiltonians, None, asga_defect_id), target)",
+        "import numpy as np\nforce_ensembles = np.zeros((1, 3, 1, 3))\nforce_ensembles[0, 1, 0, 0] = 0.02\nforce_ensembles[0, 2, 0, 0] = -0.02\nforce_threshold = 0.01\ndefect_ids = np.array([4, 4])\ntemperatures = np.array([100.0, 100.0])\ntrained_hamiltonians = np.stack([\n np.diag([-2.0, -1.5, -1.0, 0.0, 0.5, 1.0]),\n np.diag([-2.0, -1.5, -1.0, 0.1, 0.5, 1.0]),\n])\nh_ensembles = np.zeros((2, 3, 6, 6))\nfor i, sc in enumerate([2.0, 1.0]):\n    for m, amp in enumerate((-1.0, 0.0, 1.0)):\n        h_ensembles[i, m] = trained_hamiltonians[i] + amp * 0.01 * sc * np.eye(6)\nn_per_group = 1\nasga_defect_id = 4\nassert np.allclose(orchestrate_defect_al_cbm_depth(force_ensembles, force_threshold, h_ensembles, defect_ids, temperatures, trained_hamiltonians, n_per_group, asga_defect_id), target)",
+        "import numpy as np\nforce_ensembles = np.zeros((2, 3, 2, 3))\nforce_ensembles[1, 1, 0, 0] = 0.05\nforce_ensembles[1, 2, 0, 0] = -0.05\nforce_threshold = 0.01\ndefect_ids = np.array([4, 4, 0, 0, 4, 4, 0, 0])\ntemperatures = np.array([100.0, 100.0, 100.0, 100.0, 500.0, 500.0, 500.0, 500.0])\neigs = np.vstack([\n np.array([-1.5725, -0.9725, -0.3725, -0.01, 0.3725, 0.9225]),\n np.array([-1.5725, -0.9725, -0.3725, 0.00, 0.3725, 0.9225]),\n np.array([-1.5725, -0.9725, -0.3725, -0.05, 0.3725, 0.9225]),\n np.array([-1.5725, -0.9725, -0.3725, -0.05, 0.3725, 0.9225]),\n np.array([-1.5725, -0.9725, -0.3725, -0.02, 0.3125, 0.8625]),\n np.array([-1.5725, -0.9725, -0.3725, -0.01, 0.3125, 0.8625]),\n np.array([-1.5725, -0.9725, -0.3725, -0.05, 0.3725, 0.9225]),\n np.array([-1.5725, -0.9725, -0.3725, -0.05, 0.3725, 0.9225]),\n])\ntrained_hamiltonians = np.stack([np.diag(e) for e in eigs])\nh_ensembles = np.zeros((8, 3, 6, 6))\nfor i, scale in enumerate([3.0, 2.0, 1.0, 1.0, 3.0, 2.0, 1.0, 1.0]):\n    h_ensembles[i] = np.stack([trained_hamiltonians[i] + s * 0.002 * scale * np.eye(6) for s in (-1, 0, 1)])\nn_per_group = 1\nasga_defect_id = 4\nassert np.allclose(orchestrate_defect_al_cbm_depth(force_ensembles, force_threshold, h_ensembles, defect_ids, temperatures, trained_hamiltonians, n_per_group, asga_defect_id), target)"
+      ]
+    }
+  ]
+}

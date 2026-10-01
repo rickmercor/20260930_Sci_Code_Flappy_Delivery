@@ -1,0 +1,44 @@
+problem_id: "Biology-Biochemistry-37"
+subject: "biology"
+subject_area: "Biochemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2604.15716"
+dependencies: ""
+steps:
+  - number: 1
+    name: "uniform_steady_states"
+    description: "Return the interior uniform equilibrium and the bistability threshold of the cascade model for a single edge with bias phi and saturation parameter B, as the array [xi, phi_c]. Both follow in closed form from the uniform reduction of the node equation, in which every node sits at the same activity level."
+    orchestrator: false
+  - number: 2
+    name: "cascade_rate"
+    description: "Evaluate the right-hand side of the node equations of the cascade for the current activity vector x, returning dx_i/dt for every node. Node 1 is driven by the constant upstream input x_in and node i > 1 by node i - 1; the edge feeding node i has parameters alpha_i, B_i = 2 beta_i - 1 and phi_i. Use exactly the activation/inactivation form of the node equation given in the task."
+    orchestrator: false
+  - number: 3
+    name: "simulate_cascade"
+    description: "Integrate the cascade from the uniform initial activity x_init under the sustained input x_in and return the sampled activity profiles at t_j = j dt for j = 0..J as a (J + 1, N) array. J is the first sample at which the terminal node has moved by more than threshold from x_init (the run stops there); if that never happens, stop at j = max_steps. Integrate accurately (relative tolerance 1e-9 or tighter) so that the sampled profiles are reproducible to about 1e-8."
+    orchestrator: false
+  - number: 4
+    name: "instantaneous_speed"
+    description: "Estimate the instantaneous propagation speed of the front between two consecutive sampled profiles separated by dt, in units of position per unit time, with the source's shape-matching definition of the instantaneous wave velocity. The node positions may be the node indices or any increasing rescaled coordinate; the upstream input counts as node 0 at position 0, and positions before it take the input value. Search all candidate speeds from zero up to the whole pathway length per dt and return the global optimum."
+    orchestrator: false
+  - number: 5
+    name: "intrinsic_edge_speed"
+    description: "Compute the intrinsic propagation speed c(alpha, B, phi) of an edge: the asymptotic speed, in nodes per unit time, at which the front launched by the constant input x_in into the uniform resting state x_init travels through an infinitely long uniform pathway in which every edge carries the parameters (alpha, B, phi); that is, the speed at which the front's profile translates without change of shape once the boundary transient has decayed. The returned value must be accurate to a relative error of rel_tol or better; how the infinite-pathway limit is reached to that accuracy is part of the task."
+    orchestrator: false
+  - number: 6
+    name: "rescaled_positions"
+    description: "Return the rescaled node coordinate s_1..s_N of the source for a pathway whose edges have the given intrinsic speeds (edge_speeds[i-1] is the speed of the edge feeding node i), constructed so that the spacing between consecutive nodes is inversely proportional to the intrinsic speed of the connecting edge and the whole rescaled pathway has unit length, with node 0 at s = 0."
+    orchestrator: false
+  - number: 7
+    name: "wave_centre"
+    description: "Return the position of the wave centre of a sampled profile: the position at which the profile, interpolated piecewise-linearly between consecutive nodes with the upstream input counted as node 0 at position 0, first crosses zero coming from the input side. Return the terminal position if the profile never crosses zero."
+    orchestrator: false
+  - number: 8
+    name: "velocity_ise"
+    description: "Compute the velocity integral square error of a speed series over the post-transient window: the trapezoidal integral over time of the squared deviation of the speed from its mean over the window. speeds[j] is the speed on the sampling interval that starts at times[j]; the window consists of the intervals whose starting sample has the wave centre, given as a fraction of the pathway length in centres[j], in [s_lo, s_hi). The mean is the plain average of the speeds in the window."
+    orchestrator: false
+  - number: 9
+    name: "fluctuation_suppression_ratio"
+    description: "Orchestrate the whole pipeline for a heterogeneous pathway: check that every edge is bistable and that the uniform initial activity is a resting state, simulate the cascade, obtain the intrinsic edge speeds (the intrinsic speed of an edge with timescale alpha_i is alpha_i times the intrinsic speed of the unit-timescale edge with the same B_i and phi_i), build the rescaled coordinate, estimate the instantaneous speed on every sampling interval in both the node-index coordinate and the rescaled coordinate, express both as fractions of the respective pathway length per unit time, locate the wave centre at every sample in the rescaled coordinate, and return the ratio of the velocity integral square error in the rescaled coordinate to that in the node-index coordinate over the post-transient window. Call the earlier step functions rather than reimplementing them."
+    orchestrator: true

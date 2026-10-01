@@ -1,0 +1,36 @@
+problem_id: "Physics-Computational_Physics-1"
+subject: "physics"
+subject_area: "Computational Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2509.10178"
+dependencies: ""
+steps:
+  - number: 1
+    name: "reconstruct_interfaces"
+    description: "Implement reconstruct_interfaces to compute slope-limited left and right\nvalues of a cell-averaged quantity at all periodic cell interfaces."
+    orchestrator: false
+  - number: 2
+    name: "compute_macroscopic_flux"
+    description: "Implement compute_macroscopic_flux to evaluate the deterministic macroscopic\nnumerical flux H^{ma} at every periodic cell interface for the one-dimensional\nsingle-group neutron transport equation with isotropic scattering."
+    orchestrator: false
+  - number: 3
+    name: "classify_particles"
+    description: "Implement classify_particles to sample the free-transport time of each\nparticle and classify it as collisional or collisionless."
+    orchestrator: false
+  - number: 4
+    name: "free_transport_step"
+    description: "Implement free_transport_step to stream particles along their characteristic\nlines and compute their microscopic numerical flux at periodic cell interfaces."
+    orchestrator: false
+  - number: 5
+    name: "macroscopic_update"
+    description: "Implement macroscopic_update to advance the macroscopic scalar flux by one\nUGKWP time step, incorporating macroscopic, microscopic, and collisional flux\ncontributions along with the spatially varying external source."
+    orchestrator: false
+  - number: 6
+    name: "resample_particles"
+    description: "Implement resample_particles to create new particles from the updated\nmacroscopic distribution after a UGKWP time step."
+    orchestrator: false
+  - number: 7
+    name: "solve_ugkwp_steady"
+    description: "Implement solve_ugkwp_steady to compute the steady-state macroscopic scalar\nflux for the one-dimensional neutron transport equation with isotropic\nscattering and periodic boundary conditions using the UGKWP method."
+    orchestrator: true

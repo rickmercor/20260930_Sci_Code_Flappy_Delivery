@@ -1,0 +1,36 @@
+problem_id: "Biology-Biochemistry-8"
+subject: "biology"
+subject_area: "Biochemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.48550/arXiv.2607.09872"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_compute_log_inside_table"
+    description: "Tabulate log ensemble weights for every interval of an RNA sequence under the five-production grammar."
+    orchestrator: false
+  - number: 2
+    name: "02_compute_log_outside_table"
+    description: "Tabulate log outside adjoints for every interval of the five-production RNA grammar."
+    orchestrator: false
+  - number: 3
+    name: "03_evaluate_single_replacement_channels"
+    description: "Evaluate every finite one-base replacement and resolve its exact weight among the four emission roles."
+    orchestrator: false
+  - number: 4
+    name: "04_rank_single_substitutions"
+    description: "Rank exact single substitutions from their role-resolved log weights and select the strongest separated pair."
+    orchestrator: false
+  - number: 5
+    name: "05_evaluate_ordered_double_endpoints"
+    description: "Evaluate total and event-specific endpoint weights for a selected two-site substitution in an ordered mutant background."
+    orchestrator: false
+  - number: 6
+    name: "06_compute_epistatic_pairing_metrics"
+    description: "Convert total and event-specific endpoint log weights into the normalized finite interaction and double-mutant pairing share."
+    orchestrator: false
+  - number: 7
+    name: "07_compute_epistatic_pairing_share"
+    description: "Compose every earlier step to rank all single substitutions of a long reference RNA and evaluate the selected double mutant through stable total-weight and pairing-event log endpoints. Orchestrator: Yes, it builds the log inside and outside tables, evaluates role-resolved single-replacement endpoints, ranks substitutions, evaluates ordered two-site total and event endpoints, and converts them to the requested share."
+    orchestrator: true

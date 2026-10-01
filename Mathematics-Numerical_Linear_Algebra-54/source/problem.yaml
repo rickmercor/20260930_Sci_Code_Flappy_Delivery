@@ -1,0 +1,44 @@
+problem_id: "Mathematics-Numerical_Linear_Algebra-54"
+subject: "mathematics"
+subject_area: "Numerical Linear Algebra"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2607.16003"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_noise_aware_coupling"
+    description: "Build the paper's noise-aware row-sampling distribution and the matching per-row weights for a system whose right-hand side is observed under heterogeneous, fresh, zero-mean noise."
+    orchestrator: false
+  - number: 2
+    name: "02_aabk_spectral_bound"
+    description: "Compute the largest eigenvalue of the paper's symmetric positive semidefinite matrix that governs the convergence of its block-averaged, weighted row-action iteration."
+    orchestrator: false
+  - number: 3
+    name: "03_sparse_bregman_distance"
+    description: "Evaluate the Bregman distance, with respect to the sparsity-promoting strongly convex objective f(x) = lam*||x||_1 + (1/2)||x||_2^2, from the primal point encoded by a dual vector x_star to a target point y."
+    orchestrator: false
+  - number: 4
+    name: "04_aabk_beta_init"
+    description: "Compute the exact initial value of the paper's auxiliary step-size sequence from the initial Bregman distance to the exact solution and the paper's per-step noise prefactor."
+    orchestrator: false
+  - number: 5
+    name: "05_error_bound_gamma"
+    description: "Compute the exact value of the error-bound constant gamma that enters the paper's adaptive step-size rule, for the sparsity-promoting objective, from the coefficient matrix, the exact solution and the sparsity parameter."
+    orchestrator: false
+  - number: 6
+    name: "06_aabk_averaged_direction"
+    description: "Form the paper's block-averaged, weighted row-action direction for one iteration from a batch of drawn rows and the fresh noisy right-hand-side value returned for each draw."
+    orchestrator: false
+  - number: 7
+    name: "07_aabk_adaptive_step"
+    description: "Compute this iteration's adaptive step size from the paper's auxiliary sequence and advance that sequence to the next iteration, per the paper's optimal step-size rule."
+    orchestrator: false
+  - number: 8
+    name: "08_bregman_dual_update"
+    description: "Take one dual step along the averaged direction with the given step size and map the new dual iterate back to the primal iterate through the conjugate of the sparsity-promoting objective."
+    orchestrator: false
+  - number: 9
+    name: "09_aabk_orchestrator"
+    description: "[ORCHESTRATOR] Run K deterministic iterations of the paper's adaptive, block-averaged, noise-aware Bregman row-action method under the fresh-noise model and report the final squared error against the exact solution."
+    orchestrator: true

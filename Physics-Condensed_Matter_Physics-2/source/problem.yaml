@@ -1,0 +1,44 @@
+problem_id: "Physics-Condensed_Matter_Physics-2"
+subject: "physics"
+subject_area: "Condensed Matter Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.21468/SciPostPhysCore.9.1.002"
+dependencies: ""
+steps:
+  - number: 1
+    name: "map_shifted_vertices"
+    description: "Map an XYZ spin interaction and its quadratic counterterm."
+    orchestrator: false
+  - number: 2
+    name: "thermal_majorana_kernel"
+    description: "Compute equilibrium Majorana contractions at arbitrary imaginary times."
+    orchestrator: false
+  - number: 3
+    name: "wick_contraction_matrices"
+    description: "Assemble the ordered contractions of Majorana strings."
+    orchestrator: false
+  - number: 4
+    name: "pfaffian_batch"
+    description: "Evaluate signed complex Gaussian contraction weights."
+    orchestrator: false
+  - number: 5
+    name: "absolute_wick_sums"
+    description: "Compute the total magnitude of individual perfect-pairing products for a batch of complex skew matrices, including empty and singular cases."
+    orchestrator: false
+  - number: 6
+    name: "shifted_wick_weights"
+    description: "Evaluate both numerator and vacuum insertion weights, with signed Wick sums and sums of individual magnitudes kept separate. Support single time tuples and batches while retaining all residual vertices."
+    orchestrator: false
+  - number: 7
+    name: "ordered_time_rule"
+    description: "Build the prescribed ordered-simplex Gauss rule by folding times into half a thermal period, resolving both external-time boundaries and pairwise half-period crossings. Return ordered nodes and weights."
+    orchestrator: false
+  - number: 8
+    name: "connected_coefficient_series"
+    description: "Integrate the shifted insertion weights at every order through p, then remove vacuum components from both the signed and positive diagram-weight series by formal power-series division."
+    orchestrator: false
+  - number: 9
+    name: "connected_average_sign"
+    description: "Compose the earlier steps to return the real average phase of connected diagrams at the selected order, expressed as a percentage."
+    orchestrator: true

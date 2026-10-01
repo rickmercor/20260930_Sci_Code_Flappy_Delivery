@@ -1,0 +1,94 @@
+{
+  "problem_id": "Material_Science-Semiconductor_Materials-58",
+  "sub_steps": [
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-58.1",
+      "test_cases": [
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nphi = lambda q: np.sqrt(2*np.pi)/(1 + q*q/4)**1.5\nk_eval = np.array([0.0, 0.05, 0.3, 1.0, 2.5, 7.0, 30.0])\nassert np.allclose(exchange_integral(phi, k_eval.copy(), 0.0) / ((k_eval**2 + 4)*phi(k_eval)), target)",
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nphi = lambda q: np.sqrt(2*np.pi)/(1 + q*q/4)**1.5\nk_eval = np.array([0.0, 0.02, 0.4, 1.3, 3.0, 12.0])\nassert np.allclose(exchange_integral(phi, k_eval.copy(), 0.25), target)",
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\ng = lambda q: np.exp(-0.7*q*q)\nk_eval = np.array([0.001, 0.2, 0.9, 2.0, 4.0])\nassert np.allclose(exchange_integral(g, k_eval.copy(), 1.0), target)",
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe, i0e\ng = lambda q: np.exp(-q*q)\nk_eval = np.array([0.0, 0.0009, 0.011, 0.5, 1.5, 3.0, 5.0])\nassert np.allclose(exchange_integral(g, k_eval.copy(), 0.0) / (np.sqrt(np.pi)*i0e(k_eval**2/2)), target)",
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\ng = lambda q: 2*np.pi/(1 + q*q/4)**3\nk_eval = np.array([0.0, 0.7, 1.9, 6.0])\nassert np.allclose(exchange_integral(g, k_eval.copy(), 0.5), target)",
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nphi = lambda q: np.sqrt(2*np.pi)/(1 + q*q/4)**1.5\ndef _probe(fn):\n    try:\n        fn(phi, np.array([0.5, 1.0]), -0.1)\n    except ValueError:\n        return 1\n    return 0\nassert np.allclose(_probe(exchange_integral), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-58.2",
+      "test_cases": [
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nfrom scipy.linalg import eigh\nk_out = np.array([0.0, 0.3, 1.0, 2.0, 4.0, 9.0])\nref = np.concatenate([[4.0], np.sqrt(2*np.pi)/(1 + k_out**2/4)**1.5])\nassert np.allclose(exciton_state(0.0, k_out.copy()) / ref, target)",
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nfrom scipy.linalg import eigh\nk_out = np.array([0.0, 0.5, 1.5, 3.0, 8.0])\nassert np.allclose(exciton_state(0.25, k_out.copy()), target)",
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nfrom scipy.linalg import eigh\nk_out = np.array([0.002, 0.07, 0.9, 2.2, 20.0])\nassert np.allclose(exciton_state(0.5, k_out.copy()), target)",
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nfrom scipy.linalg import eigh\nk_out = np.array([0.0, 1.0, 3.5])\nassert np.allclose(exciton_state(1.0, k_out.copy()), target)",
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nfrom scipy.linalg import eigh\ndef _probe(fn):\n    try:\n        fn(0.25, np.array([0.5, -1.0]))\n    except ValueError:\n        return 1\n    return 0\nassert np.allclose(_probe(exciton_state), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-58.3",
+      "test_cases": [
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nfrom scipy.linalg import eigh\nassert np.allclose(inverse_compressibility(0.0), target)",
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nfrom scipy.linalg import eigh\nassert np.allclose(inverse_compressibility(0.25), target)",
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nfrom scipy.linalg import eigh\nassert np.allclose(inverse_compressibility(0.5), target)",
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nfrom scipy.linalg import eigh\nassert np.allclose(inverse_compressibility(1.0), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-58.4",
+      "test_cases": [
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nfrom scipy.linalg import eigh\nk_out = np.array([0.0, 0.5, 1.0, 2.0, 5.0])\nassert np.allclose(condensate_state(3.848585, 0.0, 1.0, k_out.copy()), target)",
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nfrom scipy.linalg import eigh\nk_out = np.array([0.0, 0.2, 0.8, 1.6, 3.2, 10.0])\nassert np.allclose(condensate_state(1.7815, 0.25, 2.0, k_out.copy()), target)",
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nfrom scipy.linalg import eigh\nk_out = np.array([0.0, 1.0, 3.0])\nassert np.allclose(condensate_state(3.985, 0.0, 0.5, k_out.copy()), target)",
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nfrom scipy.linalg import eigh\nk_out = np.array([0.0, 0.3, 1.2, 4.0])\nassert np.allclose(condensate_state(1.15, 0.5, 3.0, k_out.copy()), target)",
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nfrom scipy.linalg import eigh\nk_out = np.array([0.0, 1.0, 2.5])\nassert np.allclose(condensate_state(2.3, 0.25, 2.0, k_out.copy()), target)",
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nfrom scipy.linalg import eigh\ndef _probe(fn):\n    try:\n        fn(1.7815, 0.25, 0.0, np.array([0.0, 1.0]))\n    except ValueError:\n        return 1\n    return 0\nassert np.allclose(_probe(condensate_state), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-58.5",
+      "test_cases": [
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nfrom scipy.linalg import eigh\nassert np.allclose(exciton_density(3.848585, 0.0) * 100, target)",
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nfrom scipy.linalg import eigh\nassert np.allclose(exciton_density(1.7815, 0.25) * 100, target)",
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nfrom scipy.linalg import eigh\nassert np.allclose(exciton_density(0.85, 1.0) * 1000, target)",
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nfrom scipy.linalg import eigh\nassert np.allclose(exciton_density(4.5, 0.0), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-58.6",
+      "test_cases": [
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nfrom scipy.linalg import eigh\nassert np.allclose(gap_for_density(0.01, 0.25), target)",
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nfrom scipy.linalg import eigh\nassert np.allclose(gap_for_density(0.025, 0.0), target)",
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nfrom scipy.linalg import eigh\nassert np.allclose(gap_for_density(0.003, 0.5), target)",
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nfrom scipy.linalg import eigh\nassert np.allclose(gap_for_density(0.0, 1.0), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-58.7",
+      "test_cases": [
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nfrom scipy.linalg import eigh\nfrom scipy.optimize import brentq\nbiases = np.array([-3.0, -1.6, -1.2, -1.05, 0.0, 1.05, 1.3, 2.5])\nassert np.allclose(averaged_conductance(1.7815, 0.25, 2.0, biases.copy()), target)",
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nfrom scipy.linalg import eigh\nfrom scipy.optimize import brentq\nbiases = np.array([-12.0, -4.0, -2.3, 2.3, 2.6, 4.0, 12.0])\nassert np.allclose(averaged_conductance(3.848585, 0.0, 1.0, biases.copy()), target)",
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nfrom scipy.linalg import eigh\nfrom scipy.optimize import brentq\nbiases = np.array([-0.6882517896, 0.6882517896, 0.0])\nassert np.allclose(averaged_conductance(1.28, 0.5, 1.0, biases.copy()), target)",
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nfrom scipy.linalg import eigh\nfrom scipy.optimize import brentq\nbiases = np.array([-3.0, -1.5, 1.5, 3.0])\nassert np.allclose(averaged_conductance(2.3, 0.25, 2.0, biases.copy()), target)",
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nfrom scipy.linalg import eigh\nfrom scipy.optimize import brentq\ndef _probe(fn):\n    try:\n        fn(3.70, 0.0, 3.0, np.array([-3.0, 3.0]))\n    except ValueError:\n        return 1\n    return 0\nassert np.allclose(_probe(averaged_conductance), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-58.8",
+      "test_cases": [
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nfrom scipy.linalg import eigh\nfrom scipy.optimize import brentq\nfrom numpy.polynomial.legendre import leggauss\nassert np.allclose(satellite_current(1.7815, 0.25, 2.0, -1.5), target)",
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nfrom scipy.linalg import eigh\nfrom scipy.optimize import brentq\nfrom numpy.polynomial.legendre import leggauss\nassert np.allclose(satellite_current(1.7815, 0.25, 2.0, -np.inf), target)",
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nfrom scipy.linalg import eigh\nfrom scipy.optimize import brentq\nfrom numpy.polynomial.legendre import leggauss\nassert np.allclose(satellite_current(3.848585, 0.0, 0.5, -9.0), target)",
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nfrom scipy.linalg import eigh\nfrom scipy.optimize import brentq\nfrom numpy.polynomial.legendre import leggauss\nassert np.allclose(satellite_current(1.7815, 0.25, 2.0, -0.4), target)",
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nfrom scipy.linalg import eigh\nfrom scipy.optimize import brentq\nfrom numpy.polynomial.legendre import leggauss\nassert np.allclose(satellite_current(2.3, 0.25, 2.0, -3.0), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-58.9",
+      "test_cases": [
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nfrom scipy.linalg import eigh\nfrom scipy.optimize import brentq\nfrom numpy.polynomial.legendre import leggauss\nfrom scipy.interpolate import CubicSpline\nassert np.allclose(satellite_onset_conductance(-0.04*np.pi, 0.25, 2.0), target)",
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nfrom scipy.linalg import eigh\nfrom scipy.optimize import brentq\nfrom numpy.polynomial.legendre import leggauss\nfrom scipy.interpolate import CubicSpline\nassert np.allclose(satellite_onset_conductance(-0.02*np.pi, 0.25, 2.0), target)",
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nfrom scipy.linalg import eigh\nfrom scipy.optimize import brentq\nfrom numpy.polynomial.legendre import leggauss\nfrom scipy.interpolate import CubicSpline\nassert np.allclose(satellite_onset_conductance(-0.04*np.pi, 0.5, 1.0), target)",
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nfrom scipy.linalg import eigh\nfrom scipy.optimize import brentq\nfrom numpy.polynomial.legendre import leggauss\nfrom scipy.interpolate import CubicSpline\nassert np.allclose(satellite_onset_conductance(-0.02*np.pi, 0.0, 0.5), target)",
+        "import numpy as np\nfrom scipy.special import ellipk, ellipe\nfrom scipy.linalg import eigh\nfrom scipy.optimize import brentq\nfrom numpy.polynomial.legendre import leggauss\nfrom scipy.interpolate import CubicSpline\ndef _probe(fn):\n    try:\n        fn(0.1, 0.25, 2.0)\n    except ValueError:\n        return 1\n    return 0\nassert np.allclose(_probe(satellite_onset_conductance), target)"
+      ]
+    }
+  ]
+}

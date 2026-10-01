@@ -1,0 +1,36 @@
+problem_id: "Physics-Computational_Physics-3"
+subject: "physics"
+subject_area: "Computational Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2605.03803"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_surface_geometry"
+    description: "Analytic geometry of a smooth ellipsoid at surface sample positions.\n\nThe surface is sum_d (x_d/a_d)^2=1. Geometry is supplied analytically in this\ntask rather than estimated from a background point cloud. The scalar curvature\nmeasure reported in column 3 is the Euclidean norm of the two principal\ncurvatures at the sample."
+    orchestrator: false
+  - number: 2
+    name: "02_characteristic_lengths"
+    description: "Curvature-dependent target spacing with a finite physical neighborhood.\n\ncurvature supplies the scalar curvature measure of the previous step at each sample. kref is a reference value carried in the same inverse-length units as curvature, and tau weights the departure of the local curvature from it. radius is a physical Euclidean distance in the same length units as points, never a multiple of a spacing. Column 0 is the spacing this task attributes to a sample from its own curvature alone; column 1 is the spacing it attributes to the same sample once the samples lying within radius of it are taken into account.\n\nDefinitions used by this task (all arrays indexed in input row order, and d_ij the Euclidean distance between samples i and j):\n\nraw_i = h0 / sqrt(1 + tau * |curvature_i - kref|) h_i = min over all j with d_ij <= radius of raw_j (j = i included)\n\nColumn 0 is raw_i and column 1 is h_i. The neighborhood includes its center and its boundary."
+    orchestrator: false
+  - number: 3
+    name: "03_occupied_support"
+    description: "Occupied areas and local integral support for variable target resolution.\n\nlengths supplies the characteristic spacing of the previous step at each sample. packing is a dimensionless positive coefficient of this task's reference-area convention. Column 0 is the area this task attributes to a sample on the surface; column 1 is the dimensionless support that measures that attribution against the sample's own target resolution. Both columns are evaluated on the positions supplied in this call, never on cached positions carried over from an earlier state.\n\nDefinitions used by this task (d_ij the Euclidean distance between samples, h_i the characteristic spacing of sample i, sums over every sample j including j = i, whose distance is 0):\n\nr_i = 2 * h_i W_ij = 3 / (pi * r_i^2) * max(1 - d_ij / r_i, 0) rho_i = sum_j (h_j / h_i)^2 * W_ij A_i = 1 / rho_i S_i = packing * h_i^2 * rho_i\n\nColumn 0 is A_i and column 1 is S_i. Every kernel sum centered on sample i uses r_i, the cutoff built from that sample's own spacing, for every term; a neighbor at d_ij >= r_i contributes exactly zero."
+    orchestrator: false
+  - number: 4
+    name: "04_event_proposal"
+    description: "A support-triggered local adaptation proposal before surface return.\n\nInspect the single particle whose identifier equals target, using the support values supplied in this call, and report which of the three admissible outcomes that particle's support selects, together with the trial position that outcome proposes. normals supplies the outward unit normal at each sample; mu supplies a three-component perturbation consumed by the trial construction. No particle is added, removed or moved here, and no trial is returned to the surface here.\n\nDefinitions used by this task. Let k be the row whose identifier equals target, S_k its supplied support, h_k its characteristic spacing, x_k its position and n_k its outward unit normal.\n\nMerge outcome, selected when S_k > upper: the partner j is the other particle at the smallest Euclidean distance from x_k (equal distances select the smaller identifier). Return [-1, ids[j], midpoint of x_k and x_j].\n\nInsertion outcome, selected when S_k < lower: let rho_k(x) be the weighted density defined in the preceding step, with central evaluation position x and all characteristic lengths and other particle positions fixed. Its central self contribution is constant; a neighbor exactly at the kernel cutoff has zero derivative contribution. Define the tangential gradient G = (I - n_k n_k^T) grad rho_k evaluated at x_k. The trial is x_k - h_k (1 + mu) * G / ||G||, with componentwise multiplication denoted by *. The output is [+1, -1, trial]. A tangential gradient norm ||G|| <= 1e-10 is a ValueError.\n\nUnchanged outcome otherwise, including S_k equal to either threshold: return [0, -1, x_k]."
+    orchestrator: false
+  - number: 5
+    name: "05_surface_return"
+    description: "Euclidean closest-point return to a positive-axis ellipsoid.\n\nOn sum_d (x_d/axes_d)^2 = 1, return the global minimizer of Euclidean distance to trial. The trial may be outside, on, or inside the ellipsoid, including its center. The semiaxes may be unordered or repeated. When multiple points attain the minimum, return the lexicographically greatest point in Cartesian coordinate order. This deterministic convention also applies to symmetric fusion trials.\n\ntrial and axes are finite length-three array-like inputs. Every semiaxis and the finite scalar tolerance are strictly positive. tolerance requests absolute positional accuracy in the units of trial. Numerical comparisons use absolute component error 1e-9. Return a finite float array of shape (3,) without changing either input.\n\nRaises ------ ValueError For incorrect input shapes, nonfinite entries, nonpositive axes, or nonpositive/nonfinite tolerance."
+    orchestrator: false
+  - number: 6
+    name: "06_inspected_state"
+    description: "One externally scheduled inspection with current geometric and support fields.\n\nThe inspected identifier is an input, not an inferred event scheduler. Apply\nthis task's support test to fields recomputed from the data supplied in this\ncall, return any newly created sample to the ellipsoid, and preserve the\nordering of the surviving rows. A later visit must recompute its own fields\nfrom the state this call returns."
+    orchestrator: false
+  - number: 7
+    name: "07_adapted_moment"
+    description: "Final orchestrator: finite local inspection response on a curved cloud.\n\n\n\nGenerate the complete ellipsoid instance, append the tangent-ring input, run\n\nthe three supplied inspections, and obtain the occupied-area-weighted second\n\nmoment. The final orchestrator must use the earlier subproblem functions."
+    orchestrator: true

@@ -1,0 +1,40 @@
+problem_id: "Physics-Optics-30"
+subject: "physics"
+subject_area: "Optics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2609.25861"
+dependencies: ""
+steps:
+  - number: 1
+    name: "arm_emission_ratios"
+    description: "Convert one arm's measured source statistics (second-order coherence and mean photon number per pulse at the gate input) into the two emission-probability ratios that weight every multiphoton event in both the gate and the HOM bookkeeping."
+    orchestrator: false
+  - number: 2
+    name: "effective_indistinguishability"
+    description: "Compute the single effective indistinguishability that governs every three-photon emission event (a pair in one arm plus a single photon in the other) when the noise photon only partly overlaps its own arm's signal mode."
+    orchestrator: false
+  - number: 3
+    name: "cnot_event_table"
+    description: "Tabulate, for each of the five emission events kept in the fidelity bookkeeping, the trace and the target-Bell-state overlap of that event's post-selected coincidence matrix at the output of the PPBS CNOT gate (control in |D>, target in |H>, target Bell state |Phi+>)."
+    orchestrator: false
+  - number: 4
+    name: "hom_event_rates"
+    description: "Compute the two-fold coincidence rate at a single balanced HOM beam splitter, per unit event weight, for each class of emission event: one photon per arm, a pair in one arm with the other arm empty, and a pair in one arm with a single photon in the other."
+    orchestrator: false
+  - number: 5
+    name: "hom_visibility"
+    description: "Forward model of the measured two-source HOM visibility: combine each arm's emission ratios with the per-event HOM coincidence rates, and compare the total coincidence rate with the fully delayed rate."
+    orchestrator: false
+  - number: 6
+    name: "decode_intrinsic_eta"
+    description: "Invert the forward visibility model exactly: recover the intrinsic indistinguishability eta from a measured visibility V, the signal-noise overlap and both arms' source statistics."
+    orchestrator: false
+  - number: 7
+    name: "cnot_gate_fidelity"
+    description: "Assemble the |Phi+> Bell-state fidelity of the PPBS CNOT gate from the five retained emission events, given the intrinsic parameters and both arms' source statistics."
+    orchestrator: false
+  - number: 8
+    name: "run_cnot_fidelity_pipeline"
+    description: "Chain the earlier steps end to end: decode eta from the measured visibility, confirm the decoded eta reproduces that visibility through the forward model, and evaluate the gate's Bell-state fidelity. The reference implementation calls the earlier public functions by name rather than reproducing their contents."
+    orchestrator: true

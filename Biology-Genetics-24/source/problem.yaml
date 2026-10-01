@@ -1,0 +1,44 @@
+problem_id: "Biology-Genetics-24"
+subject: "biology"
+subject_area: "Genetics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: " https://doi.org/10.48550/arXiv.2603.20346"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_impute_predicted_expression"
+    description: "Genetically predicted expression is the fixed-weight linear projection of allelic dosages. For individual i, resource r, and gene g, E_hat[i,r,g] = alpha[r,g] + sum_j X[i,j] * W[r,j,g], where X contains dosage values from zero to two, W contains frozen cis-SNP weights, and alpha is the resource-specific intercept.\n\nInputs\n\n------\n\ngenotypes: Float array of shape (n_samples, n_snps).\n\nweights: Float array of shape (n_resources, n_snps, n_genes).\n\nintercepts: Float array of shape (n_resources, n_genes).\n\nReturns\n\n-------\n\npredicted_expression: Float array of shape (n_samples, n_resources, n_genes)."
+    orchestrator: false
+  - number: 2
+    name: "02_residualize_training_covariates"
+    description: "Covariate adjustment must be learned without validation leakage. For every resource-gene column, ordinary least squares fits an intercept and the supplied covariates on training samples only, applies those coefficients to every sample, subtracts the fitted covariate contribution, and adds back the unadjusted training mean so the expression scale is retained.\n\nInputs\n\n------\n\npredicted_expression: Float array of shape (n_samples, n_resources, n_genes).\n\ncovariates: Float array of shape (n_samples, n_covariates), without an intercept column.\n\ntraining_mask: Binary array of shape (n_samples,).\n\nReturns\n\n-------\n\nadjusted_expression: Float array with the same shape as predicted_expression."
+    orchestrator: false
+  - number: 3
+    name: "03_compute_split_associations"
+    description: "Training and validation evidence are computed separately across frozen expression resources. Two differential-expression summaries are used for each resource-gene pair: the case-control mean difference and the case-control median difference. Their two-sided empirical p-values use one seeded stream of label permutations per split, reused for every resource, method, and gene, with the finite-permutation correction p = (1 + c) / (B + 1).\n\nInputs\n\n------\n\nadjusted_expression: Float array of shape (n_samples, n_resources, n_genes).\n\nlabels: Binary phenotype array of shape (n_samples,).\n\nsplit_ids: Integer array of shape (n_samples,), with training coded 0 and validation coded 1.\n\nn_permutations: Positive integer B.\n\nseed: Integer seed for the permutation generator.\n\nReturns\n\n-------\n\neffects: Float array of shape (2, n_resources, 2, n_genes), with mean then median methods.\n\np_values: Float array with the same shape as effects."
+    orchestrator: false
+  - number: 4
+    name: "04_adjust_discovery_records"
+    description: "Discovery records are selected without using held-out data. Within each split, expression resource, and association method, gene-wise p-values are adjusted by the Benjamini-Hochberg step-up procedure. A record is retained only when its adjusted value is strictly below the FDR threshold and its absolute effect meets the effect threshold.\n\nInputs\n\n------\n\neffects: Float array of shape (n_splits, n_resources, n_methods, n_genes).\n\np_values: Float array with the same shape.\n\nfdr_threshold: Threshold in (0, 1].\n\neffect_threshold: Non-negative absolute-effect threshold.\n\nReturns\n\n-------\n\nfdr_values: Float array with the same shape as effects.\n\nsignificant: Binary uint8 array with the same shape."
+    orchestrator: false
+  - number: 5
+    name: "05_score_reproducible_genes"
+    description: "Discovery genes are prioritized by convergent evidence rather than one test. Reproducibility is R_g = 0.6 hits_g/max(hits) + 0.4 breadth_g/max(breadth), where breadth counts distinct resource-method combinations. Within each method, significant signed effects are centered by their median and scaled by max(IQR, 1e-6); their absolute standardized values enter E_g = 0.7 f_mean(mean z) + 0.3 f_max(max z), with a factor 1.1 for one-signed support. Confidence is C_g = 0.6(1 - min FDR) + 0.4(1 - mean FDR), and the discovery score is S_g = 0.4 R_g + 0.3 E_g + 0.3 C_g. Non-discovery genes receive zeros.\n\nInputs\n\n------\n\neffects: Float array of shape (n_splits, n_resources, n_methods, n_genes).\n\nfdr_values: Float array with the same shape.\n\nsignificant: Binary array with the same shape.\n\nReturns\n\n-------\n\ngene_scores: Float array of shape (n_genes, 4), with columns R_g, E_g, C_g, and S_g."
+    orchestrator: false
+  - number: 6
+    name: "06_propagate_pathway_support"
+    description: "Pathway evidence is propagated from recurrent enrichment rather than from one foreground cutoff. For term t, significant scans have FDR below the threshold, robustness(t) is their count, strength(t) = -log10 of their minimum FDR, and weight(t) = strength(t) * robustness(t). A gene's PathwayScore is the sum of the weights for significant terms containing that gene; unsupported terms and genes contribute zero.\n\nInputs\n\n------\n\nterm_fdr: Float array of shape (n_terms, n_scans).\n\nterm_gene_membership: Binary array of shape (n_terms, n_genes).\n\nfdr_threshold: Threshold in (0, 1).\n\nReturns\n\n-------\n\nterm_summary: Float array of shape (n_terms, 3), containing robustness, strength, and weight.\n\npathway_scores: Float array of shape (n_genes,)."
+    orchestrator: false
+  - number: 7
+    name: "07_integrate_target_evidence"
+    description: "Integrated target prioritization balances the genotype-derived discovery signal with biological and translational evidence. Each component is percentile-normalized among discovery genes by mapping the smallest average rank to zero and the largest to one, with tied values assigned their average rank. The published operating point is core_score_g = 0.45 DE_g + 0.25 Path_g + 0.25 Drug_g + 0.05 Hub_g; non-discovery genes remain zero.\n\nInputs\n\n------\n\ndiscovery_scores: Non-negative float array of shape (n_genes,), with zero marking non-discovery genes.\n\npathway_scores: Non-negative float array of shape (n_genes,).\n\ndruggability_scores: Non-negative float array of shape (n_genes,).\n\nhub_scores: Non-negative float array of shape (n_genes,).\n\nReturns\n\n-------\n\nintegrated_scores: Float array of shape (n_genes, 5), with four percentile components and core_score."
+    orchestrator: false
+  - number: 8
+    name: "08_aggregate_drug_evidence"
+    description: "Drug hypotheses aggregate evidence over ranked discovery genes. Candidate genes are ordered by decreasing core_score with smaller gene index breaking ties, and rank r among n candidates receives GeneWeight = 1 - r/n + 1e-6. Each evidence row contributes GeneWeight times its supplied clinical-stage and source weight. Drugs are ordered by summed DrugScore, then by more distinct targets, better best-gene rank, and smaller drug index.\n\nInputs\n\n------\n\ncore_scores: Non-negative float array of shape (n_genes,), with positive values marking candidates.\n\nevidence_rows: Float array of shape (n_rows, 3), holding drug index, gene index, and evidence weight.\n\nReturns\n\n-------\n\ndrug_ranking: Float array of shape (n_drugs, 5), holding drug index, DrugScore, target count, best gene rank, and drug rank."
+    orchestrator: false
+  - number: 9
+    name: "09_run_full_pipeline"
+    description: "The genotype-first prioritization chain begins with a seeded synthetic dosage cohort, projects dosages through two frozen expression resources, removes covariates using training-fitted coefficients, and combines training and validation association records without held-out leakage. Reproducibility-aware discovery scores receive recurrent pathway, druggability, and network evidence before candidate gene ranks weight the supplied drug-target rows. The reported scalar is the DrugScore in the first row of the final drug ranking.\n\nInputs\n\n------\n\ncohort_seed: Integer seed for genotype generation.\n\nassociation_seed: Integer seed for label permutations.\n\nn_permutations: Positive number of label permutations per split.\n\nReturns\n\n-------\n\ntop_drug_score: Float DrugScore of the highest-ranked synthetic compound."
+    orchestrator: true

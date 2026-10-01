@@ -1,0 +1,36 @@
+problem_id: "Physics-Computational_Physics-7"
+subject: "physics"
+subject_area: "Computational Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.3390/jne7010017"
+dependencies: ""
+steps:
+  - number: 1
+    name: "build_transmutation_matrix"
+    description: "Implement `build_transmutation_matrix` which constructs the neutron reaction matrix for a single cell."
+    orchestrator: false
+  - number: 2
+    name: "build_cell_matrix"
+    description: "Implement `build_cell_matrix` which adds radioactive decay and engineered removal\nto the transmutation matrix to form the complete single-cell depletion matrix."
+    orchestrator: false
+  - number: 3
+    name: "build_flow_coupling"
+    description: "Implement `build_flow_coupling` which constructs the flow coupling matrices for the multi-cell system."
+    orchestrator: false
+  - number: 4
+    name: "assemble_system_matrix"
+    description: "Implement `assemble_system_matrix` which builds the full coupled system matrix R."
+    orchestrator: false
+  - number: 5
+    name: "solve_timestep"
+    description: "Implement `solve_timestep` which advances the isotopic state vector by one time step with a continuously acting external source."
+    orchestrator: false
+  - number: 6
+    name: "run_msre_depletion"
+    description: "Implement `run_msre_depletion` which sets up and runs the full MSRE depletion calculation."
+    orchestrator: false
+  - number: 7
+    name: "find_optimal_flow"
+    description: "Implement `find_optimal_flow` which finds the volumetric flow rate that maximises the core Cs-135 number density."
+    orchestrator: true

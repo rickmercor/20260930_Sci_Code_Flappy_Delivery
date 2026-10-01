@@ -1,0 +1,72 @@
+{
+  "problem_id": "Biology-Ecology-35",
+  "sub_steps": [
+    {
+      "step_number": "Biology-Ecology-35.1",
+      "test_cases": [
+        "assert np.allclose(waples_ne_estimate(0.0242, 45), target)",
+        "s = 30\nr2 = 1.0 / s + 3.19 / s ** 2 + 2e-5\nassert np.allclose(waples_ne_estimate(r2, s), target)",
+        "s = 250\nr2 = 1.0 / s + 3.19 / s ** 2 + 0.03\nassert np.allclose(waples_ne_estimate(r2, s), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-35.2",
+      "test_cases": [
+        "assert np.allclose(expected_unlinked_r2(826.0, 81), target)",
+        "assert np.allclose(expected_unlinked_r2(12.5, 30), target)",
+        "assert np.allclose(expected_unlinked_r2(250000.0, 20000), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-35.3",
+      "test_cases": [
+        "import numpy as np\nraw = np.array([0.0357, 0.0352, 0.0345])\nL = np.array([3076, 2273, 1955])\nassert np.allclose(pseudo_replication_rho(raw, L, 45), target)",
+        "import numpy as np\nraw = np.array([0.0265, 0.0258])\nL = np.array([5368, 3552])\nassert np.allclose(pseudo_replication_rho(raw, L, 68), target)",
+        "import numpy as np\nS = 30\nes = 1 / S + 3.19 / S ** 2\nraw = np.array([es + 0.4, es, es + 0.05, es + 0.12])\nL = np.array([2, 800, 1500, 40])\nassert np.allclose(pseudo_replication_rho(raw, L, 30), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-35.4",
+      "test_cases": [
+        "import numpy as np\nL = np.array([3076, 2273, 1955])\nassert np.allclose(r2_confidence_limits(0.0242, 419.2392200655806, L, 1.96), target)",
+        "import numpy as np\nL = np.array([5368, 3552])\nassert np.allclose(r2_confidence_limits(0.01566, 0.0, L, 1.96), target)",
+        "import numpy as np\nL = np.array([2, 2])\nassert np.allclose(r2_confidence_limits(0.08, 1.5, L, 5.0), target)",
+        "import numpy as np\nL = np.array([400, 300, 250])\nassert np.allclose(r2_confidence_limits(0.0402, 3804.0, L, 2.5), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-35.5",
+      "test_cases": [
+        "import numpy as np\nL = np.array([3076, 2273, 1955])\ns = 81\nr2 = 1 / s + 3.19 / s ** 2 + 1 / (3 * 826.0) - 0.69 / 826.0 ** 2\nassert np.allclose(ne_confidence_limits(r2, s, 419.2392200655806, L, 1.96), target)",
+        "import numpy as np\nL = np.array([1200, 900])\nassert np.allclose(ne_confidence_limits(0.0381, 30, 0.0, L, 1.96), target)",
+        "import numpy as np\nL = np.array([60, 45, 30])\nassert np.allclose(ne_confidence_limits(0.0152, 200, 24.6, L, 2.5758293035489), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-35.6",
+      "test_cases": [
+        "import numpy as np\nL = np.array([3076, 2273, 1955])\nassert np.allclose(certification_probability(826.1457, 500.0, 45, 419.2392200655806, L, 1.96), target)",
+        "import numpy as np\nL = np.array([3076, 2273, 1955])\nassert np.allclose(certification_probability(826.1457, 500.0, 81, 419.2392200655806, L, 1.96), target)",
+        "import numpy as np\nL = np.array([5368, 3552])\nassert np.allclose(certification_probability(1258.0, 500.0, 400, 0.0, L, 1.96), target)",
+        "import numpy as np\nL = np.array([400, 300, 250])\nassert np.allclose(certification_probability(120.0, 120.0, 30, 3800.0, L, 2.5), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-35.7",
+      "test_cases": [
+        "import numpy as np\nL = np.array([3076, 2273, 1955])\nassert np.allclose(smallest_assured_sample(826.1457, 500.0, 0.9, 419.2392200655806, L, 1.96, 2000), target)",
+        "import numpy as np\nL = np.array([3076, 2273, 1955])\nassert np.allclose(smallest_assured_sample(826.1457, 500.0, 0.5, 419.2392200655806, L, 1.96, 2000), target)",
+        "import numpy as np\nL = np.array([5368, 3552])\nassert np.allclose(smallest_assured_sample(1258.0, 500.0, 0.99, 0.0, L, 1.96, 2000), target)",
+        "import numpy as np\nL = np.array([400, 300, 250])\nassert np.allclose(smallest_assured_sample(120.0, 50.0, 0.95, 1500.0, L, 2.5, 2000), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Ecology-35.8",
+      "test_cases": [
+        "import numpy as np\nraw = np.array([0.0357, 0.0352, 0.0345])\nL = np.array([3076, 2273, 1955])\nassert np.allclose(planned_upper_ne_limit(0.0242, 45, raw, L, 500.0, 0.9, 1.96, 2000), target)",
+        "import numpy as np\nraw = np.array([0.0357, 0.0352])\nL = np.array([3076, 2273])\nassert np.allclose(planned_upper_ne_limit(0.0242, 45, raw, L, 500.0, 0.9, 1.96, 2000), target)",
+        "import numpy as np\nraw = np.array([0.0302, 0.0288, 0.0311, 0.0265, 0.0297])\nL = np.array([1800, 1500, 2200, 900, 1300])\nassert np.allclose(planned_upper_ne_limit(0.0188, 60, raw, L, 250.0, 0.5, 1.6448536269514722, 2000), target)"
+      ]
+    }
+  ]
+}

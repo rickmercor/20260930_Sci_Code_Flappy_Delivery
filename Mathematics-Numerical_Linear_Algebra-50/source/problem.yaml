@@ -1,0 +1,36 @@
+problem_id: "Mathematics-Numerical_Linear_Algebra-50"
+subject: "mathematics"
+subject_area: "Numerical Linear Algebra"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: " https://doi.org/10.48550/arXiv.2608.19010"
+dependencies: ""
+steps:
+  - number: 1
+    name: "uncertain_system_matrices"
+    description: "Realize an affinely parametrized uncertain linear system at a parameter vector."
+    orchestrator: false
+  - number: 2
+    name: "lyapunov_certificate_margin"
+    description: "Evaluate the margin by which a candidate certificate pair satisfies the closed-loop contraction inequality for one realized system."
+    orchestrator: false
+  - number: 3
+    name: "select_active_index"
+    description: "Select the certificate index the supervisor will use at the current step from the current state and the current controller state."
+    orchestrator: false
+  - number: 4
+    name: "controller_state_update"
+    description: "Compute the controller state carried into the next step from the current state and the index selected at the current step."
+    orchestrator: false
+  - number: 5
+    name: "closed_loop_step"
+    description: "Advance the plant state by one step under the static gain belonging to the selected certificate index."
+    orchestrator: false
+  - number: 6
+    name: "switched_trajectory"
+    description: "Run the switched closed loop for a fixed number of steps and return the plant states and the index active at each step."
+    orchestrator: false
+  - number: 7
+    name: "terminal_state_norm"
+    description: "Run the whole pipeline on an affinely parametrized uncertain system and report the Euclidean norm of the plant state after a fixed horizon."
+    orchestrator: true

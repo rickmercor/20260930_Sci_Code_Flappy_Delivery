@@ -1,0 +1,99 @@
+{
+  "problem_id": "Mathematics-Computational_Finance-8",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Computational_Finance-8.1",
+      "test_cases": [
+        "import numpy as np\nc = 0.7\nEXPECTED = np.array([[c ** -5, 0.0, 1.0 / (3.0 * c ** 3)]])\nassert np.allclose(integrated_kernels(np.array([0.0]), c), target)",
+        "import numpy as np\ny = np.linspace(-3.0, 3.0, 13)\nc = 0.7\nassert np.allclose(integrated_kernels(y, c), target)",
+        "import numpy as np\ny = np.array([0.25, 1.5, 4.0, 9.0])\nc = 2.0\nflip = np.array([1.0, -1.0, 1.0])\nassert np.allclose(integrated_kernels(-y, c) * flip, target)",
+        "import numpy as np\ny = np.array([-250.0, -20.0, 35.0, 300.0])\nc = 20.0\nassert np.allclose(integrated_kernels(y, c), target)",
+        "import numpy as np\ny = 0.003\nc = 1e-3\nassert np.allclose(integrated_kernels(y, c), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        integrated_kernels(np.array([0.0, 1.0]), 0.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        integrated_kernels(np.array([0.0, np.nan]), 1.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-8.2",
+      "test_cases": [
+        "import numpy as np\nnodes = np.arange(7, dtype=float)\nassert np.allclose(integrated_kernel_weights(nodes, 1.0, 4.0), target)",
+        "import numpy as np\nnodes = 5.0 * np.arange(7, dtype=float)\nassert np.allclose(integrated_kernel_weights(nodes, 10.0, 20.0), target)",
+        "import numpy as np\nnodes = np.arange(-3.0, 4.0)\ndef symmetry_digest(fn):\n    w = fn(nodes, 0.0, 4.0)\n    return np.round(np.concatenate([w[0] + w[0][::-1], w[1] - w[1][::-1]]) * 1e6, 3) + 0.0\nEXPECTED = np.zeros(14)\nassert np.allclose(symmetry_digest(integrated_kernel_weights), target)",
+        "import numpy as np\nnodes = 270.0 + 5.0 * np.arange(7, dtype=float)\nassert np.allclose(integrated_kernel_weights(nodes, 300.0, 20.0), target)",
+        "import numpy as np\nnodes = np.array([0.0, 0.4, 1.3])\nassert np.allclose(integrated_kernel_weights(nodes, 0.4, 2.5), target)",
+        "import numpy as np\nnodes = np.array([0.0, 1.0, 1.0, 2.0])\ndef run_model():\n    try:\n        integrated_kernel_weights(nodes, 1.0, 1.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nnodes = np.arange(7, dtype=float)\ndef run_model():\n    try:\n        integrated_kernel_weights(nodes, 1.0, -4.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-8.3",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(analytic_interior_weights(5.0, 20.0), target)",
+        "import numpy as np\nEXPECTED = np.array([[-1/60, 3/20, -3/4, 0.0, 3/4, -3/20, 1/60],\n                     [1/90, -3/20, 3/2, -49/18, 3/2, -3/20, 1/90]])\nassert np.allclose(analytic_interior_weights(1.0, 1e7), target)",
+        "import numpy as np\nj = np.arange(-3.0, 4.0)\ndef moment_digest(fn):\n    w = fn(1.0, 4.0)\n    return np.round(np.array([w[1].sum(), (w[1] * j).sum(), (w[1] * j ** 2).sum(),\n                              (w[0] * j).sum(), (w[1] * j ** 4).sum()]), 8)\nEXPECTED = np.array([0.0, 0.0, 2.0, 1.0, -19.22715861])\nassert np.allclose(moment_digest(analytic_interior_weights), target)",
+        "import numpy as np\nassert np.allclose(analytic_interior_weights(1e-3, 4e-3), target)",
+        "import numpy as np\nassert np.allclose(analytic_interior_weights(2.0, 0.5), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        analytic_interior_weights(0.0, 1.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        analytic_interior_weights(1.0, float('inf'))\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-8.4",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(assemble_differentiation_matrices(61, 300.0, 4.0), target)",
+        "import numpy as np\nS = np.linspace(0.0, 300.0, 61)\none = np.ones(61)\ndef exactness_digest(fn):\n    # Each part is rounded at a resolution its round-off cannot reach: the\n    # sums D1 @ S and D2 @ S^2 cancel terms of size up to 1e5, so they are\n    # compared to 5 decimals; D1 @ 1 cancels only O(1) terms and the Dirichlet\n    # row is exactly zero, so they are scaled by 1e6 and kept to 3 decimals.\n    m = fn(61, 300.0, 4.0)\n    rows = np.arange(3, 58)\n    keep = np.concatenate([[0], rows])\n    return np.concatenate([np.round(1e6 * (m[0] @ one)[keep], 3),\n                           np.round((m[0] @ S)[rows], 5),\n                           np.round((m[1] @ S ** 2)[rows], 5)]) + 0.0\nEXPECTED = np.concatenate([np.zeros(56), np.ones(55), 2.0 * np.ones(55)])\nassert np.allclose(exactness_digest(assemble_differentiation_matrices), target)",
+        "import numpy as np\ndef pattern_digest(fn):\n    m = fn(15, 1.4, 4.0)\n    nz1 = (np.abs(m[0]) > 0).sum(axis=1).astype(float)\n    nz2 = (np.abs(m[1]) > 0).sum(axis=1).astype(float)\n    first = np.flatnonzero(m[1][2]).astype(float)\n    last = np.flatnonzero(m[1][12]).astype(float)\n    return np.concatenate([nz1, nz2, first, last])\nEXPECTED = np.concatenate([[0.0, 7.0, 7.0] + [6.0] * 9 + [7.0, 7.0, 0.0],\n                           [0.0] + [7.0] * 13 + [0.0], np.arange(0.0, 7.0), np.arange(8.0, 15.0)])\nassert np.allclose(pattern_digest(assemble_differentiation_matrices), target)",
+        "import numpy as np\nassert np.allclose(assemble_differentiation_matrices(7, 3.0, 4.0), target)",
+        "import numpy as np\nassert np.allclose(assemble_differentiation_matrices(21, 50.0, 12.0), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        assemble_differentiation_matrices(6, 1.0, 4.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        assemble_differentiation_matrices(11, -1.0, 4.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-8.5",
+      "test_cases": [
+        "import numpy as np\nfrom math import gamma\nalpha, n, delta = 0.8, 5, 1.0\nu = 3.0 + 2.0 * delta * np.arange(n, -1, -1)   # u(tau_{n-j}) for j = 0..n\nEXPECTED = 2.0 * (n * delta) ** (1.0 - alpha) / gamma(2.0 - alpha)\ndef apply(fn):\n    return float(delta ** (-alpha) * np.dot(fn(alpha, n), u))\nassert np.allclose(apply(l1_caputo_coefficients), target)",
+        "import numpy as np\nEXPECTED = np.array([1.0, -1.0, 0.0, 0.0, 0.0, 0.0])\nassert np.allclose(l1_caputo_coefficients(1.0, 5), target)",
+        "import numpy as np\nassert np.allclose(l1_caputo_coefficients(0.8, 400), target)",
+        "import numpy as np\nassert np.allclose(l1_caputo_coefficients(0.35, 1), target)",
+        "import numpy as np\nassert np.allclose(l1_caputo_coefficients(0.05, 37), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        l1_caputo_coefficients(1.2, 10)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        l1_caputo_coefficients(0.5, 0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-8.6",
+      "test_cases": [
+        "import numpy as np\nS = np.linspace(0.0, 4.0, 9)\nh = S[1] - S[0]\nD = np.zeros((2, 9, 9))\nfor i in range(1, 8):\n    D[0, i, i - 1], D[0, i, i + 1] = -0.5 / h, 0.5 / h\n    D[1, i, i - 1], D[1, i, i], D[1, i, i + 1] = 1 / h ** 2, -2 / h ** 2, 1 / h ** 2\nEXPECTED = np.round(np.concatenate([[0.0], -0.03 * S[1:-1] - 0.05, [0.0]]), 10)\nassert np.allclose(np.round(fractional_bs_operator(S, D, 0.3, 0.05, 0.03) @ (S + 1.0), 10), target)",
+        "import numpy as np\nrng = np.random.default_rng(7)\nS = np.linspace(0.0, 30.0, 11)\nD = rng.normal(size=(2, 11, 11))\nassert np.allclose(fractional_bs_operator(S, D, 0.4, 0.05, 0.0), target)",
+        "import numpy as np\nrng = np.random.default_rng(11)\nS = np.array([0.0, 0.5, 1.7, 2.0, 3.6])\nD = rng.normal(size=(2, 5, 5))\nassert np.allclose(fractional_bs_operator(S, D, 0.0, 0.02, 0.07), target)",
+        "import numpy as np\nS = np.array([0.0, 1.0, 2.0])\nD = np.arange(18.0).reshape(2, 3, 3)\nassert np.allclose(fractional_bs_operator(S, D, 1.5, -0.01, 0.2), target)",
+        "import numpy as np\nS = np.linspace(0.0, 1.0, 5)\nD = np.zeros((2, 4, 4))\ndef run_model():\n    try:\n        fractional_bs_operator(S, D, 0.2, 0.05, 0.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nS = np.linspace(0.0, 1.0, 5)\nD = np.zeros((2, 5, 5))\ndef run_model():\n    try:\n        fractional_bs_operator(S, D, -0.2, 0.05, 0.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-8.7",
+      "test_cases": [
+        "import numpy as np\nN, n, T = 9, 12, 0.6\nL = np.diag(-2.0 * np.ones(N)) + np.diag(np.ones(N - 1), 1) + np.diag(np.ones(N - 1), -1)\nL = 3.0 * L - 0.1 * np.eye(N)\nu0 = np.sin(np.linspace(0.0, np.pi, N)) + 0.5\nleft = 0.5 * np.exp(-np.linspace(0.0, T, n + 1))\nright = 0.5 + np.linspace(0.0, T, n + 1)\ndef implicit_euler():\n    dt = T / n\n    u = u0.copy()\n    for m in range(1, n + 1):\n        A = np.eye(N) / dt - L\n        b = u / dt\n        A[0, :] = 0.0; A[0, 0] = 1.0; b[0] = left[m]\n        A[-1, :] = 0.0; A[-1, -1] = 1.0; b[-1] = right[m]\n        u = np.linalg.solve(A, b)\n    return u\nEXPECTED = implicit_euler()\nassert np.allclose(l1_time_march(L, u0, left, right, 1.0, T), target)",
+        "import numpy as np\nN, n = 6, 30\nL = np.zeros((N, N))\nu0 = 2.5 * np.ones(N)\nedge = 2.5 * np.ones(n + 1)\nEXPECTED = np.round(u0, 10)\nassert np.allclose(np.round(l1_time_march(L, u0, edge, edge, 0.4, 1.0), 10), target)",
+        "import numpy as np\nN, n, T = 9, 40, 1.0\nL = 4.0 * (np.diag(-2.0 * np.ones(N)) + np.diag(np.ones(N - 1), 1) + np.diag(np.ones(N - 1), -1))\nu0 = np.maximum(np.linspace(-1.0, 1.0, N), 0.0)\nleft = np.zeros(n + 1)\nright = 1.0 + 0.2 * np.linspace(0.0, T, n + 1)\nassert np.allclose(l1_time_march(L, u0, left, right, 0.6, T), target)",
+        "import numpy as np\nN = 5\nL = -np.eye(N) + 0.3 * np.diag(np.ones(N - 1), 1)\nu0 = np.arange(1.0, 6.0)\nassert np.allclose(l1_time_march(L, u0, np.array([1.0, 0.9]), np.array([5.0, 4.0]), 0.7, 0.25), target)",
+        "import numpy as np\nN, n = 7, 60\nL = 0.8 * (np.diag(-2.0 * np.ones(N)) + np.diag(np.ones(N - 1), 1) + np.diag(np.ones(N - 1), -1))\nu0 = np.cos(np.linspace(0.0, 2.0, N))\nleft = np.linspace(1.0, 0.0, n + 1)\nright = np.cos(2.0) * np.ones(n + 1)\nassert np.allclose(l1_time_march(L, u0, left, right, 0.15, 3.0), target)",
+        "import numpy as np\nL = np.zeros((4, 4))\ndef run_model():\n    try:\n        l1_time_march(L, np.ones(4), np.ones(5), np.ones(6), 0.5, 1.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nL = np.zeros((4, 4))\ndef run_model():\n    try:\n        l1_time_march(L, np.ones(4), np.ones(5), np.ones(5), 0.0, 1.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-8.8",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(price_at_strike(), target)",
+        "import numpy as np\nassert np.allclose(price_at_strike(100.0, 0.05, 0.0, 0.4, 0.5, 1.0, 31, 120), target)",
+        "import numpy as np\nassert np.allclose(price_at_strike(50.0, 0.03, 0.02, 0.25, 1.0, 0.5, 31, 80), target)",
+        "import numpy as np\nassert np.allclose(price_at_strike(10.0, 0.01, 0.0, 0.6, 0.9, 2.0, 7, 25, 3.0, 6.0), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        price_at_strike(100.0, 0.05, 0.0, 0.4, 0.8, 1.0, 20, 10)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        price_at_strike(100.0, 0.05, 0.0, 0.4, 1.3, 1.0, 31, 10)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

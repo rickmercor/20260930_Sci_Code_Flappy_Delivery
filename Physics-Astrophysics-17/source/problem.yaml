@@ -1,0 +1,36 @@
+problem_id: "Physics-Astrophysics-17"
+subject: "physics"
+subject_area: "Astrophysics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1017/S0022377825101177"
+dependencies: ""
+steps:
+  - number: 1
+    name: "plasma_reference_scales"
+    description: "Reference scales of the proton-electron plasma."
+    orchestrator: false
+  - number: 2
+    name: "perpendicular_velocity_amplitude"
+    description: "The measured perpendicular fluctuation amplitude in velocity units."
+    orchestrator: false
+  - number: 3
+    name: "electron_flow_factor"
+    description: "Effective electron-flow amplitude of Alfvenic fluctuations at ion scales."
+    orchestrator: false
+  - number: 4
+    name: "electric_amplitude_parameter"
+    description: "The electric-field amplitude seen by a thermal proton."
+    orchestrator: false
+  - number: 5
+    name: "fluctuation_frequency_ratio"
+    description: "How fast the fluctuations evolve, measured in proton gyrofrequencies."
+    orchestrator: false
+  - number: 6
+    name: "gyroaveraging_weight"
+    description: "Gyro-averaging of the energy change a fluctuation can impart."
+    orchestrator: false
+  - number: 7
+    name: "proton_perpendicular_heating_rate"
+    description: "Perpendicular proton heating rate at one scale (final orchestrator step)."
+    orchestrator: true

@@ -1,0 +1,36 @@
+problem_id: "Physics-Computational_Physics-11"
+subject: "physics"
+subject_area: "Computational Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2605.20371"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_normal_diffusion_cost"
+    description: "Measure diffusion dissipation for a prescribed weak normal motion."
+    orchestrator: false
+  - number: 2
+    name: "02_minimum_deformation_lift"
+    description: "Choose a vector representative for prescribed weak normal motion."
+    orchestrator: false
+  - number: 3
+    name: "03_normal_length_force"
+    description: "Express geometric length work in weak normal coordinates."
+    orchestrator: false
+  - number: 4
+    name: "04_fixed_geometry_response"
+    description: "Find a dynamical response while keeping the prescribed geometry fixed."
+    orchestrator: false
+  - number: 5
+    name: "05_discrete_curve_trajectory"
+    description: "Resolve the regular polynomial trajectory of the finite curve model."
+    orchestrator: false
+  - number: 6
+    name: "06_relative_curve_length_loss"
+    description: "Measure endpoint lengths of curved finite-element histories."
+    orchestrator: false
+  - number: 7
+    name: "07_curve_diffusion_length_loss"
+    description: "FINAL ORCHESTRATOR: the finite curve-diffusion length-loss observable."
+    orchestrator: true

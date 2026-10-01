@@ -1,0 +1,74 @@
+{
+  "problem_id": "Mathematics-Computational_Finance-31",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Computational_Finance-31.1",
+      "test_cases": [
+        "assert np.allclose(rbf_fd_weights(10.0, 1.0, 30.0), target)",
+        "assert np.allclose(rbf_fd_weights(5.0, 1.5, 20.0), target)",
+        "assert np.allclose(rbf_fd_weights(8.0, 0.8, 24.0), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-31.2",
+      "test_cases": [
+        "assert np.allclose(spatial_derivatives((8.4032, 14.6457, 22.2960), (-0.05277777777777778, 0.0, 0.05277777777777778), (0.011111111111111111, -0.022222222222222222, 0.011111111111111111)), target)",
+        "assert np.allclose(spatial_derivatives((1.0, 4.0, 9.0), (-0.1, 0.0, 0.1), (0.01, -0.02, 0.01)), target)",
+        "assert np.allclose(spatial_derivatives((0.0, 0.0, 0.0), (-0.5, 0.0, 0.5), (1.0, -2.0, 1.0)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-31.3",
+      "test_cases": [
+        "import math\n\ndef _audit_positive_z(x, result, z_scale, residual_tol):\n    z, elasticity, curvature = result\n    if not (\n        math.isfinite(z)\n        and math.isfinite(elasticity)\n        and math.isfinite(curvature)\n        and z > 0.0\n    ):\n        return (math.nan, math.nan, math.nan, False)\n\n    y = math.sqrt(z)\n    if y < 0.05:\n        coefficients = (\n            2.0 / 3.0,\n            -8.0 / 15.0,\n            16.0 / 35.0,\n            -128.0 / 315.0,\n            256.0 / 693.0,\n            -1024.0 / 3003.0,\n            2048.0 / 6435.0,\n        )\n        g = math.fsum(\n            coefficient * y ** (2 * index + 3)\n            for index, coefficient in enumerate(coefficients)\n        )\n    else:\n        g = y - math.asinh(y) / math.hypot(1.0, y)\n\n    relative_residual = abs(g * g - x) / x\n    return (\n        z / z_scale,\n        elasticity,\n        curvature,\n        relative_residual <= 8.0 * residual_tol,\n    )\nassert np.allclose(_audit_positive_z(5e-324,positive_z_from_x(5e-324,2e-15,3),1e-108,2e-15), target)",
+        "import math\n\ndef _audit_positive_z(x, result, z_scale, residual_tol):\n    z, elasticity, curvature = result\n    if not (\n        math.isfinite(z)\n        and math.isfinite(elasticity)\n        and math.isfinite(curvature)\n        and z > 0.0\n    ):\n        return (math.nan, math.nan, math.nan, False)\n\n    y = math.sqrt(z)\n    if y < 0.05:\n        coefficients = (\n            2.0 / 3.0,\n            -8.0 / 15.0,\n            16.0 / 35.0,\n            -128.0 / 315.0,\n            256.0 / 693.0,\n            -1024.0 / 3003.0,\n            2048.0 / 6435.0,\n        )\n        g = math.fsum(\n            coefficient * y ** (2 * index + 3)\n            for index, coefficient in enumerate(coefficients)\n        )\n    else:\n        g = y - math.asinh(y) / math.hypot(1.0, y)\n\n    relative_residual = abs(g * g - x) / x\n    return (\n        z / z_scale,\n        elasticity,\n        curvature,\n        relative_residual <= 8.0 * residual_tol,\n    )\nassert np.allclose(_audit_positive_z(6.916753717622085e-9,positive_z_from_x(6.916753717622085e-9,2e-15,5),0.0025,2e-15), target)",
+        "import math\n\ndef _audit_positive_z(x, result, z_scale, residual_tol):\n    z, elasticity, curvature = result\n    if not (\n        math.isfinite(z)\n        and math.isfinite(elasticity)\n        and math.isfinite(curvature)\n        and z > 0.0\n    ):\n        return (math.nan, math.nan, math.nan, False)\n\n    y = math.sqrt(z)\n    if y < 0.05:\n        coefficients = (\n            2.0 / 3.0,\n            -8.0 / 15.0,\n            16.0 / 35.0,\n            -128.0 / 315.0,\n            256.0 / 693.0,\n            -1024.0 / 3003.0,\n            2048.0 / 6435.0,\n        )\n        g = math.fsum(\n            coefficient * y ** (2 * index + 3)\n            for index, coefficient in enumerate(coefficients)\n        )\n    else:\n        g = y - math.asinh(y) / math.hypot(1.0, y)\n\n    relative_residual = abs(g * g - x) / x\n    return (\n        z / z_scale,\n        elasticity,\n        curvature,\n        relative_residual <= 8.0 * residual_tol,\n    )\nassert np.allclose(_audit_positive_z(0.0172873290940766,positive_z_from_x(0.0172873290940766,2e-15,5),1.0,2e-15), target)",
+        "import math\n\ndef _audit_positive_z(x, result, z_scale, residual_tol):\n    z, elasticity, curvature = result\n    if not (\n        math.isfinite(z)\n        and math.isfinite(elasticity)\n        and math.isfinite(curvature)\n        and z > 0.0\n    ):\n        return (math.nan, math.nan, math.nan, False)\n\n    y = math.sqrt(z)\n    if y < 0.05:\n        coefficients = (\n            2.0 / 3.0,\n            -8.0 / 15.0,\n            16.0 / 35.0,\n            -128.0 / 315.0,\n            256.0 / 693.0,\n            -1024.0 / 3003.0,\n            2048.0 / 6435.0,\n        )\n        g = math.fsum(\n            coefficient * y ** (2 * index + 3)\n            for index, coefficient in enumerate(coefficients)\n        )\n    else:\n        g = y - math.asinh(y) / math.hypot(1.0, y)\n\n    relative_residual = abs(g * g - x) / x\n    return (\n        z / z_scale,\n        elasticity,\n        curvature,\n        relative_residual <= 8.0 * residual_tol,\n    )\nassert np.allclose(_audit_positive_z(1e12,positive_z_from_x(1e12,2e-15,3),1e12,2e-15), target)",
+        "import math\n\ndef _audit_positive_z(x, result, z_scale, residual_tol):\n    z, elasticity, curvature = result\n    if not (\n        math.isfinite(z)\n        and math.isfinite(elasticity)\n        and math.isfinite(curvature)\n        and z > 0.0\n    ):\n        return (math.nan, math.nan, math.nan, False)\n\n    y = math.sqrt(z)\n    if y < 0.05:\n        coefficients = (\n            2.0 / 3.0,\n            -8.0 / 15.0,\n            16.0 / 35.0,\n            -128.0 / 315.0,\n            256.0 / 693.0,\n            -1024.0 / 3003.0,\n            2048.0 / 6435.0,\n        )\n        g = math.fsum(\n            coefficient * y ** (2 * index + 3)\n            for index, coefficient in enumerate(coefficients)\n        )\n    else:\n        g = y - math.asinh(y) / math.hypot(1.0, y)\n\n    relative_residual = abs(g * g - x) / x\n    return (\n        z / z_scale,\n        elasticity,\n        curvature,\n        relative_residual <= 8.0 * residual_tol,\n    )\nassert np.allclose(_audit_positive_z(1.7976931348623157e308,positive_z_from_x(1.7976931348623157e308,2e-15,3),1.7976931348623157e308,2e-15), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-31.4",
+      "test_cases": [
+        "assert np.allclose(nonlinear_bs_rhs(0.7332311111111111, 0.015642222222222222, 14.6457, 100.0, 0.1, 0.0, 0.2, 0.4076834105977857), target)",
+        "assert np.allclose(nonlinear_bs_rhs(-0.25, 0.03, 11.0, 80.0, 0.04, 0.01, 0.3, 0.2), target)",
+        "assert np.allclose(nonlinear_bs_rhs(0.0, 0.0, 7.5, 50.0, 0.0, 0.0, 0.2, 0.0), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-31.5",
+      "test_cases": [
+        "P=[8.4032,14.6457,22.296,10,1,30,0.1,0,0.75,0.01,0.2,100]\nU=[0.25,-0.5,0.75,0.1,-0.02,0.2,0.01,-0.015,0.03,0.0001,0.005,0.4]\nV=[-0.4,0.2,0.1,-0.15,0.03,-0.25,-0.02,0.01,-0.04,-0.0002,0.008,-0.3]\np=[[[x,t,0.0],[s,0.0,0.0],[0.0,0.0,0.0]] for x,s,t in zip(P,U,V)]\nargs=(p[:3],p[3],p[4],p[5])\nassert np.allclose(spatial_taylor_jets(*args), target)",
+        "P=[8.4032,14.6457,22.296,10,1,30,0.1,0,0.75,0.01,0.2,100]\nU=[0.25,-0.5,0.75,0.1,-0.02,0.2,0.01,-0.015,0.03,0.0001,0.005,0.4]\nV=[-0.4,0.2,0.1,-0.15,0.03,-0.25,-0.02,0.01,-0.04,-0.0002,0.008,-0.3]\np=[[[x,t,0.0],[s,0.0,0.0],[0.0,0.0,0.0]] for x,s,t in zip(P,U,V)]\np=[[[x,0.,0.],[0.,0.,0.],[0.,0.,0.]] for x in P];args=(p[:3],p[3],p[4],p[5])\nassert np.allclose(spatial_taylor_jets(*args), target)",
+        "P=[8.4032,14.6457,22.296,10,1,30,0.1,0,0.75,0.01,0.2,100]\nU=[0.25,-0.5,0.75,0.1,-0.02,0.2,0.01,-0.015,0.03,0.0001,0.005,0.4]\nV=[-0.4,0.2,0.1,-0.15,0.03,-0.25,-0.02,0.01,-0.04,-0.0002,0.008,-0.3]\np=[[[x,t,0.0],[s,0.0,0.0],[0.0,0.0,0.0]] for x,s,t in zip(P,U,V)]\np[4][0][0]=.8;p[1][2][1]=.03;p[2][2][2]=-.02;args=(p[:3],p[3],p[4],p[5])\nassert np.allclose(spatial_taylor_jets(*args), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-31.6",
+      "test_cases": [
+        "x=[[.0172873290940766,-.003,0.],[.005,0.,0.],[0.,0.,0.]]\nassert np.allclose(implicit_z_taylor_jet(x), target)",
+        "x=[[.08,0.,0.],[0.,0.,0.],[0.,0.,0.]]\nassert np.allclose(implicit_z_taylor_jet(x), target)",
+        "x=[[.004,-.0002,.00001],[.0003,.00004,-.000002],[.000005,-.000001,.0000003]]\nassert np.allclose(implicit_z_taylor_jet(x), target)",
+        "x=[[1e-18,-1e-19,1e-20],[2e-19,3e-20,-2e-21],[1e-20,-1e-21,2e-22]]\nassert np.allclose([[v/1e-6 for v in row] for row in implicit_z_taylor_jet(x)], target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-31.7",
+      "test_cases": [
+        "P=[8.4032,14.6457,22.296,10,1,30,0.1,0,0.75,0.01,0.2,100]\nU=[0.25,-0.5,0.75,0.1,-0.02,0.2,0.01,-0.015,0.03,0.0001,0.005,0.4]\nV=[-0.4,0.2,0.1,-0.15,0.03,-0.25,-0.02,0.01,-0.04,-0.0002,0.008,-0.3]\np=[[[x,t,0.0],[s,0.0,0.0],[0.0,0.0,0.0]] for x,s,t in zip(P,U,V)]\nassert np.allclose(rk4_taylor_step(p), target)",
+        "P=[8.4032,14.6457,22.296,10,1,30,0.1,0,0.75,0.01,0.2,100]\nU=[0.25,-0.5,0.75,0.1,-0.02,0.2,0.01,-0.015,0.03,0.0001,0.005,0.4]\nV=[-0.4,0.2,0.1,-0.15,0.03,-0.25,-0.02,0.01,-0.04,-0.0002,0.008,-0.3]\np=[[[x,t,0.0],[s,0.0,0.0],[0.0,0.0,0.0]] for x,s,t in zip(P,U,V)]\np=[[[x,0.,0.],[0.,0.,0.],[0.,0.,0.]] for x in P]\nassert np.allclose(rk4_taylor_step(p), target)",
+        "P=[8.4032,14.6457,22.296,10,1,30,0.1,0,0.75,0.01,0.2,100]\nU=[0.25,-0.5,0.75,0.1,-0.02,0.2,0.01,-0.015,0.03,0.0001,0.005,0.4]\nV=[-0.4,0.2,0.1,-0.15,0.03,-0.25,-0.02,0.01,-0.04,-0.0002,0.008,-0.3]\np=[[[x,t,0.0],[s,0.0,0.0],[0.0,0.0,0.0]] for x,s,t in zip(P,U,V)]\np[4][0][0]=1.05;p[9][0][0]=.012;p[1][2][1]=.03\nassert np.allclose(rk4_taylor_step(p,.001), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-31.8",
+      "test_cases": [
+        "assert np.allclose(solve(), target)",
+        "P=[8.4032,14.6457,22.296,10,1,30,0.1,0,0.75,0.01,0.2,100]\nU=[0.25,-0.5,0.75,0.1,-0.02,0.2,0.01,-0.015,0.03,0.0001,0.005,0.4]\nV=[-0.4,0.2,0.1,-0.15,0.03,-0.25,-0.02,0.01,-0.04,-0.0002,0.008,-0.3]\np=[[[x,t,0.0],[s,0.0,0.0],[0.0,0.0,0.0]] for x,s,t in zip(P,U,V)]\nassert np.allclose(solve(direction_s=V,direction_t=U), target)",
+        "P=[8.4032,14.6457,22.296,10,1,30,0.1,0,0.75,0.01,0.2,100]\nU=[0.25,-0.5,0.75,0.1,-0.02,0.2,0.01,-0.015,0.03,0.0001,0.005,0.4]\nV=[-0.4,0.2,0.1,-0.15,0.03,-0.25,-0.02,0.01,-0.04,-0.0002,0.008,-0.3]\np=[[[x,t,0.0],[s,0.0,0.0],[0.0,0.0,0.0]] for x,s,t in zip(P,U,V)]\nassert np.allclose(solve(direction_s=[0.]*12), target)",
+        "P=[8.4032,14.6457,22.296,10,1,30,0.1,0,0.75,0.01,0.2,100]\nU=[0.25,-0.5,0.75,0.1,-0.02,0.2,0.01,-0.015,0.03,0.0001,0.005,0.4]\nV=[-0.4,0.2,0.1,-0.15,0.03,-0.25,-0.02,0.01,-0.04,-0.0002,0.008,-0.3]\np=[[[x,t,0.0],[s,0.0,0.0],[0.0,0.0,0.0]] for x,s,t in zip(P,U,V)]\nassert np.allclose(solve(direction_s=[2*x for x in U],direction_t=[-.5*x for x in V]), target)",
+        "P=[8.4032,14.6457,22.296,10,1,30,0.1,0,0.75,0.01,0.2,100]\nU=[0.25,-0.5,0.75,0.1,-0.02,0.2,0.01,-0.015,0.03,0.0001,0.005,0.4]\nV=[-0.4,0.2,0.1,-0.15,0.03,-0.25,-0.02,0.01,-0.04,-0.0002,0.008,-0.3]\np=[[[x,t,0.0],[s,0.0,0.0],[0.0,0.0,0.0]] for x,s,t in zip(P,U,V)]\nP[4]=1.05;P[9]=.012\nassert np.allclose(solve(base=P,psi=.001), target)"
+      ]
+    }
+  ]
+}

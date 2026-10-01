@@ -1,0 +1,52 @@
+problem_id: "Material_Science-Molecular_Modeling-26"
+subject: "materials"
+subject_area: "Molecular Modeling"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: " https://doi.org/10.48550/arXiv.2601.08783"
+dependencies: ""
+steps:
+  - number: 1
+    name: " 01_compute_umbrella_mean_force"
+    description: "Return umbrella-integration gradient estimates for one window or a broadcast-compatible batch of harmonically restrained windows on the model nucleation surface."
+    orchestrator: false
+  - number: 2
+    name: "02_compute_kernel_embedding"
+    description: "Evaluate Matern-1/2 kernel means for one or many query points over the full collective-variable range or over an ordered collection of subintervals."
+    orchestrator: false
+  - number: 3
+    name: "03_compute_initial_integral_variance"
+    description: "Evaluate the prior covariance of one full-range free-energy integral or of an ordered collection of subinterval integrals under the Matern-1/2 process."
+    orchestrator: false
+  - number: 4
+    name: "04_compute_posterior_mean_gradient"
+    description: "Evaluate the Gaussian-process posterior mean of the free-energy gradient at one query or an ordered query batch, conditioned on mean forces with scalar or window-specific noise."
+    orchestrator: false
+  - number: 5
+    name: "05_compute_integral_posterior_mean"
+    description: "Use the kernel embeddings from step 02 to evaluate posterior means for the full free-energy difference or for an ordered collection of local free-energy increments."
+    orchestrator: false
+  - number: 6
+    name: "06_compute_integral_posterior_variance"
+    description: "Combine steps 02 and 03 with the observation covariance to evaluate the full-range posterior integral variance or the posterior covariance matrix of local free-energy increments."
+    orchestrator: false
+  - number: 7
+    name: "07_compute_ivr_acquisition"
+    description: "Score one candidate or a batch of candidate window centres by their individual reductions of the posterior variance of the free-energy integral, allowing heteroscedastic observation noise."
+    orchestrator: false
+  - number: 8
+    name: "08_compute_free_energy_profile_value"
+    description: "Reconstruct the free-energy profile by calling step 04 once for the complete uniform-grid posterior mean gradient, integrating it, and gathering one node or an ordered node batch."
+    orchestrator: false
+  - number: 9
+    name: "09_compute_combined_acquisition"
+    description: "Compose the batched outputs of steps 07 and 08, convert variance reduction to reduction per unit sampling cost, normalize over the complete candidate grid, and return combined acquisition scores at one node or a batch of nodes."
+    orchestrator: false
+  - number: 10
+    name: "10_select_next_umbrella_center"
+    description: "Choose the next affordable restrained-window value from the batched complete-grid cost-sensitive acquisition returned by step 09, masking sampled or unaffordable nodes and applying the deterministic lower-index tie-break."
+    orchestrator: false
+  - number: 11
+    name: "11_run_bayesian_umbrella_quadrature"
+    description: "Chain sub-problems 01-10 end to end under a total sampling-cost budget, then construct the largest affordable equal-bin control and return its RMSD minus the adaptive RMSD."
+    orchestrator: true

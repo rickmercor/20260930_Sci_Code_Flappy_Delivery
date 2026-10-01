@@ -1,0 +1,48 @@
+problem_id: "Biology-Genetics-19"
+subject: "biology"
+subject_area: "Genetics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1038/s41588-025-02360-6"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_compute_cv_residuals"
+    description: "Compute the magnitude of the out-of-sample phenotype prediction error for each training individual using the observed phenotype and the prediction produced by the model trained with that individual's fold held out."
+    orchestrator: false
+  - number: 2
+    name: "02_align_test_predictions_by_fold"
+    description: "Assign to each training individual the test-individual prediction produced by the model that held out the same cross-validation fold."
+    orchestrator: false
+  - number: 3
+    name: "03_construct_lower_candidates"
+    description: "Construct one candidate lower-bound value for each training individual by subtracting that individual's absolute cross-validated residual from the corresponding fold-matched test prediction."
+    orchestrator: false
+  - number: 4
+    name: "04_construct_upper_candidates"
+    description: "Construct one candidate upper-bound value for each training individual by adding that individual's absolute cross-validated residual to the corresponding fold-matched test prediction."
+    orchestrator: false
+  - number: 5
+    name: "05_compute_interval_ranks"
+    description: "Compute the one-based finite-sample order-statistic ranks used for the lower and upper prediction-interval bounds from the training-sample size and requested confidence level."
+    orchestrator: false
+  - number: 6
+    name: "06_select_order_statistic"
+    description: "Sort a numerical candidate set in ascending order and return the value at a specified one-based rank without percentile interpolation."
+    orchestrator: false
+  - number: 7
+    name: "07_compute_prediction_interval"
+    description: "Compute the lower and upper phenotype prediction-interval bounds for one test individual from cross-validated training observations, held-out training predictions, fold assignments, and fold-specific test predictions."
+    orchestrator: false
+  - number: 8
+    name: "08_compute_prediction_intervals_for_tests"
+    description: "Compute phenotype prediction intervals for multiple test individuals using common cross-validated training data and each test individual's fold-specific predictions."
+    orchestrator: false
+  - number: 9
+    name: "09_compute_screening_metrics"
+    description: "Derive the source-study quantitative-trait high-risk threshold from the training phenotypes and compare interval-based screening, point-prediction screening, and held-out observed test phenotypes at that threshold."
+    orchestrator: false
+  - number: 10
+    name: "10_compute_target_interval_high_risk_count"
+    description: "Compute the final requested number of test individuals classified as high risk by constructing their prediction intervals, deriving the source-study quantitative-trait high-risk threshold from training phenotypes, and applying interval-based screening."
+    orchestrator: true

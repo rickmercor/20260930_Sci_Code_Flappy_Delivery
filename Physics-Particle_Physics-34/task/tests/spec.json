@@ -1,0 +1,79 @@
+{
+  "problem_id": "Physics-Particle_Physics-34",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Particle_Physics-34.1",
+      "test_cases": [
+        "g=1; marks=(3,2)\nassert np.allclose((lambda r:(r[0],*r[1],*r[2:]))(surface_descriptor(g,marks)), target)",
+        "g=0; marks=(3,)\nassert np.allclose((lambda r:(r[0],*r[1],*r[2:]))(surface_descriptor(g,marks)), target)",
+        "g=0; marks=(2,2,1)\nassert np.allclose((lambda r:(r[0],*r[1],*r[2:]))(surface_descriptor(g,marks)), target)",
+        "g=True; marks=(3,)\ndef status(fn):\n    try: fn(g,marks)\n    except ValueError: return 1\n    except Exception: return 2\n    return 0\ndef run_model(): return status(surface_descriptor)\nassert np.allclose(run_model(), target)",
+        "g=0; marks=(2,)\ndef status(fn):\n    try: fn(g,marks)\n    except ValueError: return 1\n    except Exception: return 2\n    return 0\ndef run_model(): return status(surface_descriptor)\nassert np.allclose(run_model(), target)",
+        "g=1; marks=(10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,)\ndef status(fn):\n    try: fn(g,marks)\n    except ValueError: return 1\n    except Exception: return 2\n    return 0\ndef run_model(): return status(surface_descriptor)\nassert np.allclose(run_model(), target)",
+        "g=0; marks=(4.0,)\ndef status(fn):\n    try: fn(g,marks)\n    except ValueError: return 1\n    except Exception: return 2\n    return 0\ndef run_model(): return status(surface_descriptor)\nassert np.allclose(run_model(), target)",
+        "g=0; marks=()\ndef status(fn):\n    try: fn(g,marks)\n    except ValueError: return 1\n    except Exception: return 2\n    return 0\ndef run_model(): return status(surface_descriptor)\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-34.2",
+      "test_cases": [
+        "g=1; marks=(2,3)\ndef encode(rows):\n    out=[len(rows)]\n    for parts,w in rows:\n        out.extend([w,len(parts)])\n        for g,b in parts: out.extend([g,len(b),*b])\n    return out\nassert np.allclose(encode(nonseparating_cuts(g,marks)), target)",
+        "g=0; marks=(3,)\ndef encode(rows):\n    out=[len(rows)]\n    for parts,w in rows:\n        out.extend([w,len(parts)])\n        for g,b in parts: out.extend([g,len(b),*b])\n    return out\nassert np.allclose(encode(nonseparating_cuts(g,marks)), target)",
+        "g=0; marks=(1,1,2)\ndef encode(rows):\n    out=[len(rows)]\n    for parts,w in rows:\n        out.extend([w,len(parts)])\n        for g,b in parts: out.extend([g,len(b),*b])\n    return out\nassert np.allclose(encode(nonseparating_cuts(g,marks)), target)",
+        "def status(fn):\n    try: fn(0,(True,))\n    except ValueError: return 1\n    except Exception: return 2\n    return 0\ndef run_model(): return status(nonseparating_cuts)\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-34.3",
+      "test_cases": [
+        "g=1; marks=(2,3)\ndef encode(rows):\n    out=[len(rows)]\n    for parts,w in rows:\n        out.extend([w,len(parts)])\n        for g,b in parts: out.extend([g,len(b),*b])\n    return out\nassert np.allclose(encode(separating_cuts(g,marks)), target)",
+        "g=0; marks=(3,)\ndef encode(rows):\n    out=[len(rows)]\n    for parts,w in rows:\n        out.extend([w,len(parts)])\n        for g,b in parts: out.extend([g,len(b),*b])\n    return out\nassert np.allclose(encode(separating_cuts(g,marks)), target)",
+        "g=0; marks=(4,)\ndef encode(rows):\n    out=[len(rows)]\n    for parts,w in rows:\n        out.extend([w,len(parts)])\n        for g,b in parts: out.extend([g,len(b),*b])\n    return out\nassert np.allclose(encode(separating_cuts(g,marks)), target)",
+        "g=0; marks=(2,2,1)\ndef encode(rows):\n    out=[len(rows)]\n    for parts,w in rows:\n        out.extend([w,len(parts)])\n        for g,b in parts: out.extend([g,len(b),*b])\n    return out\nassert np.allclose(encode(separating_cuts(g,marks)), target)",
+        "def status(fn):\n    try: fn(2,(3,))\n    except ValueError: return 1\n    except Exception: return 2\n    return 0\ndef run_model(): return status(separating_cuts)\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-34.4",
+      "test_cases": [
+        "g=1; marks=(2,3)\ndef encode(rows):\n    out=[len(rows)]\n    for parts,w in rows:\n        out.extend([w,len(parts)])\n        for g,b in parts: out.extend([g,len(b),*b])\n    return out\nassert np.allclose(encode(aggregate_cuts(g,marks)), target)",
+        "g=0; marks=(3,)\ndef encode(rows):\n    out=[len(rows)]\n    for parts,w in rows:\n        out.extend([w,len(parts)])\n        for g,b in parts: out.extend([g,len(b),*b])\n    return out\nassert np.allclose(encode(aggregate_cuts(g,marks)), target)",
+        "g=0; marks=(2,2,1)\ndef encode(rows):\n    out=[len(rows)]\n    for parts,w in rows:\n        out.extend([w,len(parts)])\n        for g,b in parts: out.extend([g,len(b),*b])\n    return out\nassert np.allclose(encode(aggregate_cuts(g,marks)), target)",
+        "g=1; marks=(3,)\ndef encode(rows):\n    out=[len(rows)]\n    for parts,w in rows:\n        out.extend([w,len(parts)])\n        for g,b in parts: out.extend([g,len(b),*b])\n    return out\nassert np.allclose(encode(aggregate_cuts(g,marks)), target)",
+        "def status(fn):\n    try: fn(0,())\n    except ValueError: return 1\n    except Exception: return 2\n    return 0\ndef run_model(): return status(aggregate_cuts)\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-34.5",
+      "test_cases": [
+        "g=1; marks=(2,3)\nassert np.allclose(reduced_surface_weight(g,marks), target)",
+        "g=0; marks=(3,)\nassert np.allclose(reduced_surface_weight(g,marks), target)",
+        "g=0; marks=(1,1)\nassert np.allclose(reduced_surface_weight(g,marks), target)",
+        "g=0; marks=(2,2,1)\nassert np.allclose(reduced_surface_weight(g,marks), target)",
+        "def status(fn):\n    try: fn(0,(0,4))\n    except ValueError: return 1\n    except Exception: return 2\n    return 0\ndef run_model(): return status(reduced_surface_weight)\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-34.6",
+      "test_cases": [
+        "g=1; marks=(2,3)\nassert np.allclose((lambda r:(r[0],*r[1]))(first_cut_distribution(g,marks)), target)",
+        "g=0; marks=(1,1)\nassert np.allclose((lambda r:(r[0],*r[1]))(first_cut_distribution(g,marks)), target)",
+        "g=1; marks=(3,)\nassert np.allclose((lambda r:(r[0],*r[1]))(first_cut_distribution(g,marks)), target)",
+        "g=0; marks=(2,2,1)\nassert np.allclose((lambda r:(r[0],*r[1]))(first_cut_distribution(g,marks)), target)",
+        "def status(fn):\n    try: fn(0,(3,))\n    except ValueError: return 1\n    except Exception: return 2\n    return 0\ndef run_model(): return status(first_cut_distribution)\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-34.7",
+      "test_cases": [
+        "g=1; marks=(2, 3)\nassert np.allclose(surface_collision(g,marks), target)",
+        "g=0; marks=(1, 1)\nassert np.allclose(surface_collision(g,marks), target)",
+        "g=1; marks=(3,)\nassert np.allclose(surface_collision(g,marks), target)",
+        "g=0; marks=(2, 2, 1)\nassert np.allclose(surface_collision(g,marks), target)",
+        "g=0; marks=(3,)\ndef status(fn):\n    try: fn(g,marks)\n    except ValueError: return 1\n    except Exception: return 2\n    return 0\ndef run_model(): return status(surface_collision)\nassert np.allclose(run_model(), target)",
+        "g=1; marks=(99,)\ndef status(fn):\n    try: fn(g,marks)\n    except ValueError: return 1\n    except Exception: return 2\n    return 0\ndef run_model(): return status(surface_collision)\nassert np.allclose(run_model(), target)",
+        "g=False; marks=(4,)\ndef status(fn):\n    try: fn(g,marks)\n    except ValueError: return 1\n    except Exception: return 2\n    return 0\ndef run_model(): return status(surface_collision)\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

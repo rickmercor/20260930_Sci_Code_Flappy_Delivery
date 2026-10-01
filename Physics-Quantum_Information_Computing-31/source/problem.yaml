@@ -1,0 +1,44 @@
+problem_id: "Physics-Quantum_Information_Computing-31"
+subject: "physics"
+subject_area: "Quantum Information / Computing"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2607.01608"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_acquisition_error_block.py"
+    description: "Compute the part of a bounded-joint-measurement tomography estimator's averaging error that lies strictly outside the true state's support, for a fixed sequence of round outcomes."
+    orchestrator: false
+  - number: 2
+    name: "02_density_projection.py"
+    description: "Project a Hermitian matrix onto the set of rank-r-or-less density matrices (Hermitian, positive semidefinite, trace 1, rank at most r), in Frobenius norm."
+    orchestrator: false
+  - number: 3
+    name: "03_regularized_backtrack_step.py"
+    description: "Advance the PSD factor for nuclear-norm-regularized sensing."
+    orchestrator: false
+  - number: 4
+    name: "04_regularized_recovery.py"
+    description: "Run regularized factored sensing from an acquisition estimate."
+    orchestrator: false
+  - number: 5
+    name: "05_adjoint_noise_norm.py"
+    description: "Compute the Hilbert-Schmidt adjoint of a linear measurement map applied to a given noise vector, and return its operator norm."
+    orchestrator: false
+  - number: 6
+    name: "06_sensing_isometry_constants.py"
+    description: "Compute measurement geometry for the low-rank landscape theorem."
+    orchestrator: false
+  - number: 7
+    name: "07_conditional_landscape_bound.py"
+    description: "Evaluate the landscape theorem's conditional Frobenius-error bound expression for an exact second-order critical point, given the measurement design's isometry constants and the noise level."
+    orchestrator: false
+  - number: 8
+    name: "08_regularization_from_budget.py"
+    description: "Invert the conditional landscape envelope to choose a regularization budget."
+    orchestrator: false
+  - number: 9
+    name: "09_recovery_bound_utilization.py"
+    description: "Run the complete acquisition-to-recovery bound-utilization pipeline."
+    orchestrator: true

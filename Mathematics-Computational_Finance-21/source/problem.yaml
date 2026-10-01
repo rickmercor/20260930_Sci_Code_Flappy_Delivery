@@ -1,0 +1,44 @@
+problem_id: "Mathematics-Computational_Finance-21"
+subject: "mathematics"
+subject_area: "Computational Finance"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2608.22703"
+dependencies: ""
+steps:
+  - number: 1
+    name: "step01_min_offdiagonal_entry"
+    description: "Assemble the 1-D flux-form directional Fokker-Planck generator on a cell-centred grid (zero-flux boundary faces, second-order linear-upwind convective face value with first-order upwind fallback at the boundary, central diffusive flux) and return the minimum off-diagonal entry of the assembled matrix, structural zeros included. Validates the conservative closure (column sums vanish to round-off) and the input parameters; the step deliberately excludes any time stepping."
+    orchestrator: false
+  - number: 2
+    name: "step02_stationary_minimum_mass"
+    description: "Compute the discrete stationary density of the 1-D directional generator (the kernel vector of L normalized so its entries sum to 1, obtained by a machine-accuracy direct solve) and return its smallest entry. Validates the normalization; excludes any time stepping."
+    orchestrator: false
+  - number: 3
+    name: "step03_first_order_threshold"
+    description: "Locate the positivity threshold that the source attaches to the first-order fallback factor of the directional sweep: form that factor's matrix function for the 1-D directional generator and report the edge of the one-sided window on which it is entrywise nonnegative under the pinned tolerance, located by the pinned bisection contract (bracket [glo, ghi], nbis iterations, final upper endpoint reported, 0.0 when the condition already holds at glo). Which matrix function belongs to the first-order factor is one of the ingredients the problem statement withholds and is not restated here; the second-order directional map is step 4."
+    orchestrator: false
+  - number: 4
+    name: "step04_second_order_threshold"
+    description: "Locate the positivity threshold of the source's second-order directional map itself, under exactly the same pinned bisection contract as step 3. Both the map and the single linear system by which one application of it is computed are ingredients the problem statement withholds; do not substitute a different second-order rational function of the generator. This step excludes the composite scheme."
+    orchestrator: false
+  - number: 5
+    name: "step05_directional_factor_delta_action"
+    description: "Apply one directional factor of the source's scheme at substep s to a delta datum at cell k and return the minimum entry of the result. The factor must be applied by the single linear system the source prescribes for one application, at machine accuracy. Validates exact discrete mass conservation of the factor; excludes the 2-D composite scheme."
+    orchestrator: false
+  - number: 6
+    name: "step06_mixed_action_at_node"
+    description: "Assemble the conservative one-sided mixed operator Axy = 2*Sxy*kron(Dx, Dy) (face-form one-sided differences with zero boundary faces; forward-biased in x and backward-biased in y for Sxy >= 0, forward-biased in both directions for Sxy < 0), build the pinned initial datum, and return the entry of Axy p0 at the query cell (iq, jq). Validates the exact zero column sums of the closure; excludes time stepping."
+    orchestrator: false
+  - number: 7
+    name: "step07_composite_step_density"
+    description: "Advance a given density vector by exactly one complete composite step of the source's arrangement - the two directional factors and the mixed-derivative factor, each applied by a direct dense solve at the substep length the source assigns it - and return the new density vector. The arrangement, the directional map and the mixed-block factor are withheld ingredients of the problem statement and are not restated here; the step must conserve discrete mass exactly and be second-order accurate in dt. This is the single reusable building block of the benchmark: the runs of steps 8 and 9 are built by repeated calls to this step."
+    orchestrator: false
+  - number: 8
+    name: "step08_run_nodal_value"
+    description: "Build the pinned initial datum from the configuration, advance it by nt composite steps by repeatedly calling the step 7 oracle *oracle*composite_step_density, and return the density at the report cell (istar, jstar) at final time. nt = 0 is valid and returns the initial value at that cell. Excludes the running-minimum diagnostic, which belongs to the orchestrator."
+    orchestrator: false
+  - number: 9
+    name: "step09_dfadi_positivity_benchmark"
+    description: "Orchestrator: run the complete positivity benchmark and return the most negative nodal value attained over the nt complete composite steps. The run itself is built from the earlier steps: the pinned datum is advanced by repeated calls to the step 7 oracle, and the minimum is taken over the states those calls return. Calls the oracles of steps 1-8 and uses every output: EM structure (step 1) and Perron positivity (step 2) as admissibility checks, the four thresholds (steps 3-4) as finiteness/positivity checks, the directional-factor action (step 5) and mixed action (step 6) as consistency checks against its own assembled factors, the step 7 oracle as the engine that produces every state in the run, and the step 8 oracle as a cross-check on the final-time report cell; it finally verifies discrete mass conservation."
+    orchestrator: true

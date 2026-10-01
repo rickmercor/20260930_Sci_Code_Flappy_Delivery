@@ -1,0 +1,40 @@
+problem_id: "Biology-Ecology-40"
+subject: "biology"
+subject_area: "Ecology"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.64898/2025.12.18.695187"
+dependencies: ""
+steps:
+  - number: 1
+    name: "step_01_proteome_allocation"
+    description: "Given the secondary allocation phi of a strain, its preference order over the resources and a Boolean vector marking which resources are currently present, return the metabolic proteome allocation over all resources, the potential growth rates, the per-resource uptake rates per unit biomass (allocation times potential rate) and the total growth rate (their sum). When no resource is present the allocation, the uptake and the growth rate are all zero."
+    orchestrator: false
+  - number: 2
+    name: "step_02_reallocation_lag"
+    description: "Given a strain's secondary allocation phi and preference order, the index of the resource that has just been exhausted and the Boolean presence vector just after the exhaustion, return the reallocation lag in hours and the fraction f0 of the metabolic proteome that was allocated, just before the exhaustion, to the resources still present. Use the allocation rule of the preceding step with the exhausted resource counted as present. Return a lag of zero, with f0 equal to one, when the strain was not consuming the exhausted resource or when no resource remains; return an infinite lag when f0 is zero."
+    orchestrator: false
+  - number: 3
+    name: "step_03_first_exhaustion"
+    description: "Given the remaining stock of every resource, the biomass, growth rate and per-resource uptake rates of every strain, and a positive horizon, return, resolved to near machine precision, the earliest time within the horizon at which a resource with positive stock is exhausted and the index of that resource. If no resource runs out within the horizon, return the horizon itself and the index -1. Resources with zero stock are already gone and are ignored. The growth rate of each strain must equal the sum of its uptake rates."
+    orchestrator: false
+  - number: 4
+    name: "step_04_grow_one_cycle"
+    description: "Given the secondary allocations, preference orders and starting biomasses of a community of strains and the amounts of the two resources supplied, integrate one cycle and return the final biomass of every strain, the time at which each resource was exhausted (infinity if it was not exhausted within the cycle), the index of the resource exhausted first (-1 if none) and the lag each strain incurred during the cycle (zero if none, infinity for a strain that can never switch). A resource is exhausted when the root finder of the preceding step returns it or, at the end of any interval, when its remaining stock has fallen to one part in 10^12 of the amount supplied or below; resources exhausted at the same instant are exhausted together, and when none remains no lag is incurred. The first exhausted index is the one returned by the root finder when there is one."
+    orchestrator: false
+  - number: 5
+    name: "step_05_invasion_growth_rates"
+    description: "Given the resident trait phi, an array of mutant trait values and a sequence of per-cycle supplies of the two resources, integrate the symmetric resident pair through the sequence (resident 0 prefers resource 0, resident 1 prefers resource 1; after each cycle every biomass is divided by the dilution factor). In every cycle, replay each mutant, for both preference orders, against the residents' exhaustion schedule, and return the long-run invasion growth rates averaged over the cycles after the burn-in. Also return the same average for the residents themselves, obtained by the replay, the largest absolute difference, over all retained cycles and both residents, between a resident's replayed and integrated log fold changes, and the mean durations over the retained cycles of the primary temporal niche (from the start of the cycle to the first exhaustion, capped at the cycle length) and of the secondary temporal niche (from the first exhaustion to the second, both capped at the cycle length)."
+    orchestrator: false
+  - number: 6
+    name: "step_06_selection_gradient"
+    description: "Given the resident trait phi, the supply sequence, the burn-in and a step h in ln phi, compute the invasion growth rates of mutants with traits phi exp(-h), phi and phi exp(h), for both preference orders, against the symmetric resident pair, and return the selection gradient (the central difference of the rates divided by 2h) and the curvature (the second central difference divided by h squared), each averaged over the two preference orders, together with the three-by-two table of rates. The largest mutant trait must not exceed one."
+    orchestrator: false
+  - number: 7
+    name: "step_07_singular_strategy"
+    description: "Given the supply sequence, the burn-in and a bracket (lower, upper) in phi at which the selection gradient of the preceding step is respectively positive and negative, locate the singular strategy phi* by the Illinois method in ln phi, stopping when the bracket or the step in ln phi falls below the tolerance, and return phi*, the gradients at the two ends of the initial bracket, the gradient and the curvature at phi*, the slope of the gradient with respect to ln phi at phi*, taken as the central difference of the gradient between phi* exp(-0.02) and phi* exp(0.02) divided by 0.04, and the number of gradient evaluations made inside the bracket."
+    orchestrator: false
+  - number: 8
+    name: "step_08_evolutionarily_stable_allocation"
+    description: "Given the Dirichlet concentration alpha, the number of cycles, the burn-in and a seed, draw the supply sequence as an (n_cycles, 2) array of gamma variates of shape alpha and unit scale in a single call to numpy.random.default_rng(seed).gamma, floor every variate at 1e-300 and divide each row by its sum; locate the singular strategy phi* with the preceding step using its default bracket and tolerance, and evaluate the invasion growth rates against the symmetric resident pair at phi* of mutants with traits phi* exp(x) for 25 values of x evenly spaced from -4 to ln(1 / phi*), together with a pure specialist, phi = 0. Return phi*, the largest invasion growth rate on that grid minus the resident's own rate (the largest over both preference orders), the trait at which it occurs, the curvature and the convergence slope at phi*, the mean share of resident biomass held by the resident preferring resource 0, and the replay error of the resident pair. Return also the two-resource growth rate of a resident at phi* and its lags after the exhaustion of its preferred and of its other resource; the selection gradient at phi* exp(-0.5) and at the smaller of phi* exp(0.5) and exp(-0.05); the mean durations of the primary and secondary temporal niches over the retained cycles; and, for one cycle of the resident pair at phi* started from the total biomass 1 / (D - 1), with D = 100, split between the two residents in the mean resident proportion just returned, under a supply of 0.5 of each resource, the time of the first exhaustion, found directly by the root finder of step 3, and the duration of the secondary niche from the cycle integration of step 4."
+    orchestrator: true

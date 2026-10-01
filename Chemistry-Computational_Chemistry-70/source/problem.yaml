@@ -1,0 +1,40 @@
+problem_id: "Chemistry-Computational_Chemistry-70"
+subject: "chemistry"
+subject_area: "Computational Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: " https://doi.org/10.48550/arXiv.2608.07232"
+dependencies: ""
+steps:
+  - number: 1
+    name: "lj_force_energy"
+    description: "Implement a function that computes the net force on every particle and the total potential energy of an N-particle configuration, using a finite-range, force-shifted Lennard-Jones potential evaluated under the minimum-image convention in a cubic periodic box. Pairs separated (by minimum image) by more than the cutoff contribute zero force and zero energy; pairs within the cutoff use the shifted-force form so that both energy and force go to zero continuously at r = r_c."
+    orchestrator: false
+  - number: 2
+    name: "generate_initial_condition"
+    description: "Implement a function that builds the single shared Lennard-Jones initial\n\ncondition (particle positions, velocities, and box length) used by every\n\ndownstream solver in this problem. Positions must be produced by\n\noverlap-guarded random insertion into a cubic periodic box and then\n\nenergy-relaxed; velocities must be drawn at a target reduced temperature,\n\nhave their center-of-mass component removed, and then be carried through a\n\nshort thermostatted dynamics burn-in so they become dynamically consistent\n\nwith the relaxed configuration."
+    orchestrator: false
+  - number: 3
+    name: "generate_reference_trajectory"
+    description: "Implement a function that integrates the exact, unapproximated Lennard-Jones\n\nequations of motion forward from a given initial state using velocity-Verlet,\n\nproducing the deterministic reference trajectory that every approximate\n\nsolver in this problem (the RBL stochastic-force solver and the DINaMo-style\n\nphysics-informed solver) is judged against."
+    orchestrator: false
+  - number: 4
+    name: "rbl_force"
+    description: "Implement a single-evaluation force estimator that reproduces RBMD 2.0's\n\nrandom batch list (RBL) method: for each particle, sum the exact\n\nLennard-Jones force from all neighbors inside a core cutoff, add a\n\nreweighted stochastic estimate of the force from a randomly sampled subset of\n\nthe neighbors in an outer shell, and apply the momentum-conserving\n\ncorrection that removes the net spurious force the sampling would otherwise\n\nintroduce."
+    orchestrator: false
+  - number: 5
+    name: "generate_rbl_trajectory"
+    description: "Implement a function that integrates the Lennard-Jones equations of motion\n\nforward from a given initial state using velocity-Verlet, exactly as in\n\nStep 3, but replacing the exact pairwise force evaluation at every step with\n\nRBMD 2.0's random batch list (RBL) estimator from Step 4, threading a single\n\ncontinuing pseudo-random stream through the whole trajectory rather than\n\nreseeding at each step."
+    orchestrator: false
+  - number: 6
+    name: "train_dinamo_trajectory"
+    description: "Implement a function that trains DINaMo's trajectory-unsupervised,\n\nphysics-informed neural solver on one initial-value problem and returns its\n\npredicted position trajectory at the same collocation frames used by Steps 3\n\nand 5. The predicted trajectory must be built from a hard initial-condition\n\nansatz (so the initial position, velocity, and acceleration are exact by\n\nconstruction) plus a small neural correction, trained by minimizing only\n\nresiduals of Newton's equation, momentum conservation, and energy\n\nconservation evaluated on the network's own predicted path -- never against\n\nany simulator-generated position, velocity, force, or energy."
+    orchestrator: false
+  - number: 7
+    name: "trajectory_rmse"
+    description: "Implement a function that computes the whole-trajectory position root-mean-\n\nsquare error between a predicted trajectory and the exact reference\n\ntrajectory, using the minimum-image displacement convention and per-atom,\n\nper-frame normalization. This single metric function is applied to both\n\napproximate solvers in this problem: the RBL trajectory of Step 5 and the\n\nDINaMo trajectory of Step 6, each compared against the exact reference\n\ntrajectory of Step 3."
+    orchestrator: false
+  - number: 8
+    name: "orchestrator"
+    description: "Implement the function that ties every earlier step together into the single\n\nscalar this problem asks for: build the shared Lennard-Jones initial\n\ncondition, generate the exact reference trajectory, independently generate\n\nthe RBL-approximated trajectory and train the DINaMo-style physics-only\n\ntrajectory, compute each approximate solver's whole-trajectory position RMSE\n\nagainst the exact reference, and return the base-10 logarithm of the ratio\n\nRMSE_RBL / RMSE_DINaMo."
+    orchestrator: true

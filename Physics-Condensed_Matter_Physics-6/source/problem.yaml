@@ -1,0 +1,40 @@
+problem_id: "Physics-Condensed_Matter_Physics-6"
+subject: "physics"
+subject_area: "Condensed Matter Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1103/sdlx-d3tn"
+dependencies: ""
+steps:
+  - number: 1
+    name: "build_ising_tensor_network"
+    description: "Construct the numerical data for an open rectangular Ising tensor network."
+    orchestrator: false
+  - number: 2
+    name: "solve_bp_messages"
+    description: "Compute the directed tensor-BP fixed-point messages for a supplied grid network."
+    orchestrator: false
+  - number: 3
+    name: "compute_bp_vacuum"
+    description: "Compute the BP-vacuum normalization data and oriented edge decomposition arrays."
+    orchestrator: false
+  - number: 4
+    name: "enumerate_connected_generalized_loops"
+    description: "Enumerate connected generalized-loop edge masks up to a supplied edge-weight cutoff."
+    orchestrator: false
+  - number: 5
+    name: "compute_normalized_loop_weights"
+    description: "Compute the normalized excitation weight for each supplied connected-loop mask."
+    orchestrator: false
+  - number: 6
+    name: "enumerate_connected_loop_clusters"
+    description: "Enumerate connected loop-multiset clusters through a total edge-weight cutoff."
+    orchestrator: false
+  - number: 7
+    name: "evaluate_cluster_correction"
+    description: "Evaluate the numerical connected-cluster contributions and their total correction."
+    orchestrator: false
+  - number: 8
+    name: "compute_cluster_free_energy"
+    description: "Compute the finite-weight connected-cluster physical free-energy density."
+    orchestrator: true

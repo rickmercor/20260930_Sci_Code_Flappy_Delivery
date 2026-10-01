@@ -1,0 +1,69 @@
+{
+  "problem_id": "Chemistry-Quantum_Chemistry-33",
+  "sub_steps": [
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-33.1",
+      "test_cases": [
+        "import numpy as np\nr=np.random.default_rng(3);c=r.normal(size=(5,4,3,3));s=np.array([3,2,1,3]);w=r.normal(size=(4,3))\nassert np.allclose((lambda z: [len(z),*z[0].shape,*z[1].shape,*np.concatenate([z[0].ravel(),z[1].ravel(),[z[2]]]).tolist()])(embed_localized_orbitals(c,s,w)), target)",
+        "import numpy as np\nr=np.random.default_rng(7);c=r.normal(size=(2,1,1,3));s=np.array([1]);w=r.normal(size=(2,1))\nassert np.allclose((lambda z: [len(z),*z[0].shape,*z[1].shape,*np.concatenate([z[0].ravel(),z[1].ravel(),[z[2]]]).tolist()])(embed_localized_orbitals(c,s,w)), target)",
+        "import numpy as np\nr=np.random.default_rng(11);c=r.normal(size=(7,3,4,1));s=np.array([1,4,2]);w=r.normal(size=(3,4))\nassert np.allclose((lambda z: [len(z),*z[0].shape,*z[1].shape,*np.concatenate([z[0].ravel(),z[1].ravel(),[z[2]]]).tolist()])(embed_localized_orbitals(c,s,w)), target)",
+        "import numpy as np\ndef et(fn,*a):\n try: fn(*a); return 0\n except ValueError: return 1\nc=np.zeros((2,2,3,3));s=np.array([3,0]);w=np.ones((2,3))\nassert np.allclose(et(embed_localized_orbitals,c,s,w), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-33.2",
+      "test_cases": [
+        "import numpy as np\nr=np.random.default_rng(13);x=r.normal(size=(6,4,3,3));f=np.arange(6)%2;qw=r.normal(size=(2,3,3));kw=r.normal(size=(2,3,3));vw=r.normal(size=(2,3,3));hw=r.normal(size=2)\nassert np.allclose((lambda z: [len(z),*z[0].shape,*z[1].shape,*z[2].shape,*np.concatenate([z[0].ravel(),z[1].ravel(),z[2].ravel()]).tolist()])(apply_signed_mo_attention(x,f,qw,kw,vw,hw,1e-7)), target)",
+        "import numpy as np\nr=np.random.default_rng(17);x=r.normal(size=(2,1,1,1));f=np.arange(2)%2;qw=r.normal(size=(1,1,1));kw=r.normal(size=(1,1,1));vw=r.normal(size=(1,1,1));hw=r.normal(size=1);f=np.zeros(2,dtype=int)\nassert np.allclose((lambda z: [len(z),*z[0].shape,*z[1].shape,*z[2].shape,*np.concatenate([z[0].ravel(),z[1].ravel(),z[2].ravel()]).tolist()])(apply_signed_mo_attention(x,f,qw,kw,vw,hw)), target)",
+        "import numpy as np\nr=np.random.default_rng(19);x=r.normal(size=(5,3,4,2));f=np.arange(5)%2;qw=r.normal(size=(3,4,4));kw=r.normal(size=(3,4,4));vw=r.normal(size=(3,4,4));hw=r.normal(size=3);x[0]=0\nassert np.allclose((lambda z: [len(z),*z[0].shape,*z[1].shape,*z[2].shape,*np.concatenate([z[0].ravel(),z[1].ravel(),z[2].ravel()]).tolist()])(apply_signed_mo_attention(x,f,qw,kw,vw,hw,1e-6)), target)",
+        "import numpy as np\nr=np.random.default_rng(23);x=r.normal(size=(4,2,3,3));f=np.arange(4)%2;qw=r.normal(size=(2,3,3));kw=r.normal(size=(2,3,3));vw=r.normal(size=(2,3,3));hw=r.normal(size=2)\ndef et(fn,*a):\n try: fn(*a); return 0\n except ValueError: return 1\nf=np.array([0,1,2])\nassert np.allclose(et(apply_signed_mo_attention,x,f,qw,kw,vw,hw), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-33.3",
+      "test_cases": [
+        "import numpy as np\nr=np.random.default_rng(29);x=r.normal(scale=.3,size=(6,5,4,3));pos=r.normal(size=(5,3));w1=r.normal(scale=.1,size=(4,4));w3=r.normal(scale=.03,size=(4,4));cut=2.4\nassert np.allclose((lambda z: [len(z),*z[0].shape,*z[1].shape,*np.concatenate([z[0].ravel(),z[1].ravel(),[z[2]]]).tolist()])(apply_odd_local_mixing(x,pos,cut,w1,w3)), target)",
+        "import numpy as np\nr=np.random.default_rng(31);x=r.normal(scale=.3,size=(2,2,1,1));pos=r.normal(size=(2,3));w1=r.normal(scale=.1,size=(1,1));w3=r.normal(scale=.03,size=(1,1));pos=np.array([[0.,0,0],[.5,0,0]]);cut=.5000001\nassert np.allclose((lambda z: [len(z),*z[0].shape,*z[1].shape,*np.concatenate([z[0].ravel(),z[1].ravel(),[z[2]]]).tolist()])(apply_odd_local_mixing(x,pos,cut,w1,w3)), target)",
+        "import numpy as np\nr=np.random.default_rng(37);x=r.normal(scale=.3,size=(4,3,3,2));pos=r.normal(size=(3,3));w1=r.normal(scale=.1,size=(3,3));w3=r.normal(scale=.03,size=(3,3));pos=np.array([[0.,0,0],[1.,0,0],[2.,0,0]]);cut=1.5\nassert np.allclose((lambda z: [len(z),*z[0].shape,*z[1].shape,*np.concatenate([z[0].ravel(),z[1].ravel(),[z[2]]]).tolist()])(apply_odd_local_mixing(x,pos,cut,w1,w3)), target)",
+        "import numpy as np\nr=np.random.default_rng(41);x=r.normal(scale=.3,size=(3,3,2,3));pos=r.normal(size=(3,3));w1=r.normal(scale=.1,size=(2,2));w3=r.normal(scale=.03,size=(2,2))\ndef et(fn,*a):\n try: fn(*a); return 0\n except ValueError: return 1\npos=np.eye(3)*10\ncut=.1\nassert np.allclose(et(apply_odd_local_mixing,x,pos,cut,w1,w3), target)",
+        "import numpy as np\nr=np.random.default_rng(101);x=r.normal(size=(3,4,2,3));p=r.normal(size=(4,3));q,_=np.linalg.qr(r.normal(size=(3,3)));w1=r.normal(size=(2,2));w3=r.normal(size=(2,2))\ndef rotate_result(z,q):\n return (np.einsum('pakm,mn->pakn',z[0],q),np.einsum('pakm,mn->pakn',z[1],q),z[2])\nassert np.allclose(apply_odd_local_mixing(np.einsum('pakm,mn->pakn',x,q),p@q,10.0,w1,w3), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-33.4",
+      "test_cases": [
+        "import numpy as np\nr=np.random.default_rng(43);x=r.normal(size=(7,4,3,3));pw=r.normal(scale=.2,size=(3,3));wh=r.normal(scale=.3,size=(3,5));wo=r.normal(scale=.2,size=5);o=3\nassert np.allclose((lambda z: [len(z),*z[0].shape,*z[1].shape,*np.concatenate([z[0].ravel(),z[1].ravel(),[z[2]]]).tolist()])(readout_single_amplitudes(x,o,pw,wh,wo)), target)",
+        "import numpy as np\nr=np.random.default_rng(47);x=r.normal(size=(2,1,1,1));pw=r.normal(scale=.2,size=(1,1));wh=r.normal(scale=.3,size=(1,1));wo=r.normal(scale=.2,size=1);o=1\nassert np.allclose((lambda z: [len(z),*z[0].shape,*z[1].shape,*np.concatenate([z[0].ravel(),z[1].ravel(),[z[2]]]).tolist()])(readout_single_amplitudes(x,o,pw,wh,wo,1e-6)), target)",
+        "import numpy as np\nr=np.random.default_rng(53);x=r.normal(size=(8,3,4,2));pw=r.normal(scale=.2,size=(4,4));wh=r.normal(scale=.3,size=(4,6));wo=r.normal(scale=.2,size=6);o=7\nassert np.allclose((lambda z: [len(z),*z[0].shape,*z[1].shape,*np.concatenate([z[0].ravel(),z[1].ravel(),[z[2]]]).tolist()])(readout_single_amplitudes(x,o,pw,wh,wo)), target)",
+        "import numpy as np\nr=np.random.default_rng(59);x=r.normal(size=(5,2,3,3));pw=r.normal(scale=.2,size=(3,3));wh=r.normal(scale=.3,size=(3,4));wo=r.normal(scale=.2,size=4);o=2\ndef et(fn,*a):\n try: fn(*a); return 0\n except ValueError: return 1\no=5\nassert np.allclose(et(readout_single_amplitudes,x,o,pw,wh,wo), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-33.5",
+      "test_cases": [
+        "import numpy as np\nr=np.random.default_rng(61);x=r.normal(size=(7,4,3,3));o=3;nv=7-3;z=r.normal(scale=.02,size=(o,o,nv,nv));mp2=.25*(z-z.swapaxes(0,1)-z.swapaxes(2,3)+z.transpose(1,0,3,2));pw=r.normal(scale=.2,size=(3,3));wh=r.normal(scale=.25,size=(3,5));wo=r.normal(scale=.12,size=5)\nassert np.allclose((lambda z: [len(z),*z[0].shape,*z[1].shape,*np.concatenate([z[0].ravel(),z[1].ravel(),[z[2]]]).tolist()])(readout_double_amplitudes(x,o,mp2,pw,wh,wo)), target)",
+        "import numpy as np\nr=np.random.default_rng(67);x=r.normal(size=(2,1,1,1));o=1;nv=2-1;z=r.normal(scale=.02,size=(o,o,nv,nv));mp2=.25*(z-z.swapaxes(0,1)-z.swapaxes(2,3)+z.transpose(1,0,3,2));pw=r.normal(scale=.2,size=(1,1));wh=r.normal(scale=.25,size=(1,1));wo=r.normal(scale=.12,size=1)\nassert np.allclose((lambda z: [len(z),*z[0].shape,*z[1].shape,*np.concatenate([z[0].ravel(),z[1].ravel(),[z[2]]]).tolist()])(readout_double_amplitudes(x,o,mp2,pw,wh,wo,1e-6)), target)",
+        "import numpy as np\nr=np.random.default_rng(71);x=r.normal(size=(8,3,4,2));o=6;nv=8-6;z=r.normal(scale=.02,size=(o,o,nv,nv));mp2=.25*(z-z.swapaxes(0,1)-z.swapaxes(2,3)+z.transpose(1,0,3,2));pw=r.normal(scale=.2,size=(4,4));wh=r.normal(scale=.25,size=(4,6));wo=r.normal(scale=.12,size=6)\nassert np.allclose((lambda z: [len(z),*z[0].shape,*z[1].shape,*np.concatenate([z[0].ravel(),z[1].ravel(),[z[2]]]).tolist()])(readout_double_amplitudes(x,o,mp2,pw,wh,wo)), target)",
+        "import numpy as np\nr=np.random.default_rng(73);x=r.normal(size=(5,2,3,3));o=2;nv=5-2;z=r.normal(scale=.02,size=(o,o,nv,nv));mp2=.25*(z-z.swapaxes(0,1)-z.swapaxes(2,3)+z.transpose(1,0,3,2));pw=r.normal(scale=.2,size=(3,3));wh=r.normal(scale=.25,size=(3,4));wo=r.normal(scale=.12,size=4)\ndef et(fn,*a):\n try: fn(*a); return 0\n except ValueError: return 1\nmp2[0,1,0,1]+=1\nassert np.allclose(et(readout_double_amplitudes,x,o,mp2,pw,wh,wo), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-33.6",
+      "test_cases": [
+        "import numpy as np\nr=np.random.default_rng(79);t1=r.normal(scale=.03,size=(3,4));z=r.normal(scale=.02,size=(3,3,4,4));t2=.25*(z-z.swapaxes(0,1)-z.swapaxes(2,3)+z.transpose(1,0,3,2));q=r.normal(scale=.2,size=t2.shape);g=.25*(q-q.swapaxes(0,1)-q.swapaxes(2,3)+q.transpose(1,0,3,2))\nassert np.allclose(compute_cc_correlation_audit(t1,t2,g), target)",
+        "import numpy as np\nr=np.random.default_rng(83);t1=r.normal(scale=.03,size=(1,1));z=r.normal(scale=.02,size=(1,1,1,1));t2=.25*(z-z.swapaxes(0,1)-z.swapaxes(2,3)+z.transpose(1,0,3,2));q=r.normal(scale=.2,size=t2.shape);g=.25*(q-q.swapaxes(0,1)-q.swapaxes(2,3)+q.transpose(1,0,3,2))\nassert np.allclose(compute_cc_correlation_audit(t1,t2,g), target)",
+        "import numpy as np\nr=np.random.default_rng(89);t1=r.normal(scale=.03,size=(5,2));z=r.normal(scale=.02,size=(5,5,2,2));t2=.25*(z-z.swapaxes(0,1)-z.swapaxes(2,3)+z.transpose(1,0,3,2));q=r.normal(scale=.2,size=t2.shape);g=.25*(q-q.swapaxes(0,1)-q.swapaxes(2,3)+q.transpose(1,0,3,2));t1[:]=0\nassert np.allclose(compute_cc_correlation_audit(t1,t2,g), target)",
+        "import numpy as np\nr=np.random.default_rng(97);t1=r.normal(scale=.03,size=(2,3));z=r.normal(scale=.02,size=(2,2,3,3));t2=.25*(z-z.swapaxes(0,1)-z.swapaxes(2,3)+z.transpose(1,0,3,2));q=r.normal(scale=.2,size=t2.shape);g=.25*(q-q.swapaxes(0,1)-q.swapaxes(2,3)+q.transpose(1,0,3,2))\ndef et(fn,*a):\n try: fn(*a); return 0\n except ValueError: return 1\ng=g[:,:,:,:2]\nassert np.allclose(et(compute_cc_correlation_audit,t1,t2,g), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-33.7",
+      "test_cases": [
+        "import numpy as np\na=(33027,6,3,3,4,4,3,2.25,1e-8)\nassert np.allclose((lambda z: [len(z),int(tuple(sorted(z[1]))==('amplitude_norm', 'attention_norm', 'contraction_checksum', 'correlation_energy', 'correction_ratio', 'cross_score_max', 'directed_edges', 'doubles_energy', 'embedding_checksum', 'exchange_residual', 'pair_norm', 'padding_zero', 'singles_energy', 'state_norm', 't1_checksum', 't2_checksum', 'valid_score_mean')),*z[2].shape,*z[3].shape,*z[4].shape,*np.concatenate([[z[0]],np.asarray([z[1][k] for k in sorted(z[1])]),z[2].ravel(),z[3].ravel(),z[4].ravel()]).tolist()])(compute_molecular_orbital_audit(*a)), target)",
+        "import numpy as np\na=(33113,3,1,1,2,2,1,3.0,1e-7)\nassert np.allclose((lambda z: [len(z),int(tuple(sorted(z[1]))==('amplitude_norm', 'attention_norm', 'contraction_checksum', 'correlation_energy', 'correction_ratio', 'cross_score_max', 'directed_edges', 'doubles_energy', 'embedding_checksum', 'exchange_residual', 'pair_norm', 'padding_zero', 'singles_energy', 'state_norm', 't1_checksum', 't2_checksum', 'valid_score_mean')),*z[2].shape,*z[3].shape,*z[4].shape,*np.concatenate([[z[0]],np.asarray([z[1][k] for k in sorted(z[1])]),z[2].ravel(),z[3].ravel(),z[4].ravel()]).tolist()])(compute_molecular_orbital_audit(*a)), target)",
+        "import numpy as np\na=(33221,8,4,2,6,5,4,1.9,1e-6)\nassert np.allclose((lambda z: [len(z),int(tuple(sorted(z[1]))==('amplitude_norm', 'attention_norm', 'contraction_checksum', 'correlation_energy', 'correction_ratio', 'cross_score_max', 'directed_edges', 'doubles_energy', 'embedding_checksum', 'exchange_residual', 'pair_norm', 'padding_zero', 'singles_energy', 'state_norm', 't1_checksum', 't2_checksum', 'valid_score_mean')),*z[2].shape,*z[3].shape,*z[4].shape,*np.concatenate([[z[0]],np.asarray([z[1][k] for k in sorted(z[1])]),z[2].ravel(),z[3].ravel(),z[4].ravel()]).tolist()])(compute_molecular_orbital_audit(*a)), target)",
+        "def et(fn,*a):\n try: fn(*a); return 0\n except ValueError: return 1\na=(33027,2,3,3,4,4,3,2.25,1e-8)\nassert np.allclose(et(compute_molecular_orbital_audit,*a), target)"
+      ]
+    }
+  ]
+}

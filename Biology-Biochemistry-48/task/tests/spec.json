@@ -1,0 +1,61 @@
+{
+  "problem_id": "Biology-Biochemistry-48",
+  "sub_steps": [
+    {
+      "step_number": "Biology-Biochemistry-48.1",
+      "test_cases": [
+        "import numpy as np\npos = np.zeros((10, 2))\nangles = np.zeros(10)\nseed = 42\nassert np.allclose(initialize_system(pos, angles, seed), target)",
+        "import numpy as np\npos = np.zeros((1, 2))\nangles = np.zeros(1)\nseed = 0\nassert np.allclose(initialize_system(pos, angles, seed), target)",
+        "import numpy as np\npos = np.zeros((100, 2))\nangles = np.zeros(100)\nseed = 4294967290\nassert np.allclose(initialize_system(pos, angles, seed), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-48.2",
+      "test_cases": [
+        "import numpy as np\npos = np.array([[0.0, 0.0], [2.0, 0.0]])\nn_cells = 2\ndist_matrix = np.zeros((2, 2))\nr_hat_matrix = np.zeros((2, 2, 2))\nassert np.allclose(compute_distances_and_neighbors(pos, n_cells, dist_matrix, r_hat_matrix), target)",
+        "import numpy as np\npos = np.array([[0.0, 0.0]])\nn_cells = 1\ndist_matrix = np.zeros((1, 1))\nr_hat_matrix = np.zeros((1, 1, 2))\nassert np.allclose(compute_distances_and_neighbors(pos, n_cells, dist_matrix, r_hat_matrix), target)",
+        "import numpy as np\npos = np.array([[0.0, 0.0], [0.0, 0.0]])\nn_cells = 2\ndist_matrix = np.zeros((2, 2))\nr_hat_matrix = np.zeros((2, 2, 2))\nassert np.allclose(compute_distances_and_neighbors(pos, n_cells, dist_matrix, r_hat_matrix), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-48.3",
+      "test_cases": [
+        "import numpy as np\npos = np.array([[0.0, 0.0], [1.0, 0.0]])\nangles = np.array([0.0, np.pi/2])\ndist_matrix = np.array([[0.0, 1.0], [1.0, 0.0]])\nr_hat_matrix = np.array([[[0.0, 0.0], [1.0, 0.0]], [[-1.0, 0.0], [0.0, 0.0]]])\nn_cells = 2\np = 1.0\nbeta = 2.0\ntau_V = 1.0\ntau_B = 0.5\nr_max = 5.0\nforces = np.zeros((2, 2))\ntorques = np.zeros(2)\nassert np.allclose(compute_forces_and_torques(pos,angles, dist_matrix, r_hat_matrix, n_cells, p, beta, tau_V, tau_B, r_max, forces, torques), target)",
+        "import numpy as np\npos = np.array([[0.0, 0.0]])\nangles = np.array([0.0])\ndist_matrix = np.zeros((1, 1))\nr_hat_matrix = np.zeros((1, 1, 2))\nn_cells = 1\np = 1.0\nbeta = 0.2\ntau_V = 10.0\ntau_B = 1.0\nr_max = 2.5\nforces = np.zeros((1, 2))\ntorques = np.zeros(1)\nassert np.allclose(compute_forces_and_torques(pos, angles, dist_matrix, r_hat_matrix, n_cells, p, beta, tau_V, tau_B, r_max, forces, torques), target)",
+        "import numpy as np\npos = np.array([[0.0, 0.0], [3.0, 0.0]])\nangles = np.array([0.0, 0.0])\ndist_matrix = np.array([[0.0, 3.0], [3.0, 0.0]])\nr_hat_matrix = np.array([[[0.0, 0.0], [1.0, 0.0]], [[-1.0, 0.0], [0.0, 0.0]]])\nn_cells = 2\np = 0.0\nbeta = 0.1\ntau_V = 1.0\ntau_B = 0.0\nr_max = 2.5\nforces = np.zeros((2, 2))\ntorques = np.zeros(2)\nassert np.allclose(compute_forces_and_torques(pos, angles, dist_matrix, r_hat_matrix, n_cells, p, beta, tau_V, tau_B, r_max, forces, torques), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-48.4",
+      "test_cases": [
+        "import numpy as np\npos = np.array([[0.0, 0.0]])\nangles = np.array([0.0])\nforces = np.array([[1.0, -1.0]])\ntorques = np.array([0.5])\nn_cells = 1\ndt = 0.1\nassert np.allclose(update_states(pos.copy(), angles.copy(), forces, torques, n_cells, dt), target)",
+        "import numpy as np\npos = np.array([[0.0, 0.0]])\nangles = np.array([2 * np.pi - 0.1])\nforces = np.array([[0.0, 0.0]])\ntorques = np.array([0.2])\nn_cells = 1\ndt = 1.0\nassert np.allclose(update_states(pos.copy(), angles.copy(), forces, torques, n_cells, dt), target)",
+        "import numpy as np\npos = np.array([[0.0, 0.0]])\nangles = np.array([0.0])\nforces = np.array([[0.0, 0.0]])\ntorques = np.array([0.0])\nn_cells = 0\ndt = 0.1\nassert np.allclose(update_states(pos.copy(), angles.copy(), forces, torques, n_cells, dt), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-48.5",
+      "test_cases": [
+        "import numpy as np\npos = np.zeros((2, 2))\nangles = np.zeros(2)\nn_cells = 1\nr_star = 2.0\nseed = 42\nassert np.allclose(cell_division(pos, angles, n_cells, r_star, seed), target)",
+        "import numpy as np\npos = np.zeros((10, 2))\nangles = np.zeros(10)\nn_cells = 9\nr_star = 2.0\nseed = 0\nassert np.allclose(cell_division(pos, angles, n_cells, r_star, seed), target)",
+        "import numpy as np\npos = np.zeros((5, 2))\nangles = np.zeros(5)\nn_cells = 1\nr_star = 0.0\nseed = 99\nassert np.allclose(cell_division(pos, angles, n_cells, r_star, seed), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-48.6",
+      "test_cases": [
+        "import numpy as np\npos = np.array([[0.0, 0.0], [2.0, 0.0]])\nn_cells = 2\nassert np.allclose(classify_structure(pos, n_cells), target)",
+        "import numpy as np\npos = np.array([[0.0, 0.0]])\nn_cells = 1\nassert np.allclose(classify_structure(pos, n_cells), target)",
+        "import numpy as np\npos = np.array([[0.0, 0.0], [0.0, 0.0]])\nn_cells = 0\nassert np.allclose(classify_structure(pos, n_cells), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-48.7",
+      "test_cases": [
+        "import numpy as np\nmax_cells = 3\np = 1.0\ntau_B = 1.0\nbeta = 0.2\ndt = 0.01\ntau_V = 10.0\ntau_div = 10\nr_max = 2.5\nr_star = 2.0\nseed = 42\nassert np.allclose(simulate_morphogenesis(max_cells, p, tau_B, beta, dt, tau_V, tau_div, r_max, r_star, seed), target)",
+        "import numpy as np\nmax_cells = 1\np = 0.5\ntau_B = 0.5\nbeta = 0.1\ndt = 0.1\ntau_V = 1.0\ntau_div = 5\nr_max = 2.5\nr_star = 2.0\nseed = 0\nassert np.allclose(simulate_morphogenesis(max_cells, p, tau_B, beta, dt, tau_V, tau_div, r_max, r_star, seed), target)",
+        "import numpy as np\nmax_cells = 2\np = 0.0\ntau_B = 0.0\nbeta = 0.2\ndt = 0.05\ntau_V = 5.0\ntau_div = 2\nr_max = 2.5\nr_star = 2.0\nseed = 99\nassert np.allclose(simulate_morphogenesis(max_cells, p, tau_B, beta, dt, tau_V, tau_div, r_max, r_star, seed), target)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+problem_id: "Chemistry-Computational_Chemistry-13"
+subject: "chemistry"
+subject_area: "Computational Chemistry"
+difficulty: "medium"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1063/5.0327624"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_potential_jet"
+    description: "Evaluate the supplied polynomial potential, its gradient, and its Hessian at one geometry."
+    orchestrator: false
+  - number: 2
+    name: "02_initial_frame"
+    description: "Construct a fixed gauge for the ground-state Gaussian with a full mass matrix."
+    orchestrator: false
+  - number: 3
+    name: "03_centre_action"
+    description: "Propagate the centre and classical action with a specified fourth-order composition."
+    orchestrator: false
+  - number: 4
+    name: "04_width_path"
+    description: "Evolve the width with the constant reference Hessian and retain the determinant phase."
+    orchestrator: false
+  - number: 5
+    name: "05_dipole_coefficients"
+    description: "Expand all three Cartesian transition-dipole components in the initial Hagedorn basis."
+    orchestrator: false
+  - number: 6
+    name: "06_overlap_generator"
+    description: "Construct the Gaussian generating function for overlaps of two Hagedorn bases."
+    orchestrator: false
+  - number: 7
+    name: "07_fock_overlap"
+    description: "Extract normalized overlap coefficients for repeated vibrational occupations."
+    orchestrator: false
+  - number: 8
+    name: "08_correlation_path"
+    description: "Contract the basis overlaps with coherent dipole coefficients at each time."
+    orchestrator: false
+  - number: 9
+    name: "09_solve"
+    description: "Integrate the complete single-Hessian dipole correlation on the stated grid."
+    orchestrator: true

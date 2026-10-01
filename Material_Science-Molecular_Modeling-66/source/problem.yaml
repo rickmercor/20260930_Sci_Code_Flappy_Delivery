@@ -1,0 +1,40 @@
+problem_id: "Material_Science-Molecular_Modeling-66"
+subject: "materials"
+subject_area: "Molecular Modeling"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2606.24653"
+dependencies: ""
+steps:
+  - number: 1
+    name: "clc_shape_offsets"
+    description: "Builds the integer lattice vectors of a finite crystal of given shape and size, with the central cell removed."
+    orchestrator: false
+  - number: 2
+    name: "clc_direct_potential"
+    description: "Evaluates the finite Coulomb lattice sum at one ion of an orthorhombic unit cell over a finite crystal of given shape and size."
+    orchestrator: false
+  - number: 3
+    name: "clc_ewald_potential"
+    description: "Evaluates the shape independent bulk potential of the infinite orthorhombic lattice by Ewald summation with the tinfoil convention."
+    orchestrator: false
+  - number: 4
+    name: "clc_boundary_term"
+    description: "Isolates the shape dependent boundary term together with the finite size correction, as the finite lattice sum minus the Ewald bulk potential."
+    orchestrator: false
+  - number: 5
+    name: "clc_nearest_neighbour"
+    description: "Finds the Cartesian distance from the reference ion to its nearest neighbour, searching every basis ion in every cell within a given span."
+    orchestrator: false
+  - number: 6
+    name: "clc_shape_sequence"
+    description: "Scans finite shape residuals and the source's macroscopic boundary contribution across crystal shapes."
+    orchestrator: false
+  - number: 7
+    name: "clc_boundary_decomposition"
+    description: "Fits the paper-defined boundary and finite-size decomposition across several crystal sizes, then checks its stability by leave-one-size-out refits."
+    orchestrator: false
+  - number: 8
+    name: "clc_audit"
+    description: "Assembles the audit from all seven earlier steps, cross-checks three aspect-ratio residuals and macroscopic boundary values, and reduces their contamination, instability and curvature to J."
+    orchestrator: true

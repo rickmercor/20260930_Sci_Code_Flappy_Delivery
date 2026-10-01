@@ -1,0 +1,93 @@
+{
+  "problem_id": "Material_Science-Molecular_Modeling-12",
+  "sub_steps": [
+    {
+      "step_number": "Material_Science-Molecular_Modeling-12.1",
+      "test_cases": [
+        "import numpy as np\n# normal: benchmark liquid-argon state\ntemperature = 125.7\nmass_density = 1419.7\npressure = 85.31e6\ncv_specific = 520.0\ncompressibility = 1.49e-9\nexpansion = 2.64e-3\nmolar_mass = 0.040\ncg_degree = 5\nassert np.allclose(reduced_state(temperature, mass_density, pressure, cv_specific, compressibility, expansion, molar_mass, cg_degree), target)",
+        "import numpy as np\n# boundary: minimum valid positive-integer coarse-graining degree\ntemperature = 418.8\nmass_density = 695.99\npressure = 85.31e6\ncv_specific = 356.0\ncompressibility = 6.83e-9\nexpansion = 1.97e-3\nmolar_mass = 0.040\ncg_degree = 1\nassert np.allclose(reduced_state(temperature, mass_density, pressure, cv_specific, compressibility, expansion, molar_mass, cg_degree), target)",
+        "import numpy as np\n# edge: low-pressure, low-expansion state at a different molecular scale\ntemperature = 300.0\nmass_density = 997.0\npressure = 1.0e5\ncv_specific = 4130.0\ncompressibility = 4.5e-10\nexpansion = 2.6e-4\nmolar_mass = 0.018015\ncg_degree = 3\nassert np.allclose(reduced_state(temperature, mass_density, pressure, cv_specific, compressibility, expansion, molar_mass, cg_degree), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-12.2",
+      "test_cases": [
+        "import numpy as np\n# normal: reduced liquid-argon state\nt_star = 0.01105407273373585\np_star = 0.1271119\ncv_bar = 12.508324924443508\nalpha_bar = 30.02042848761392\nkappa_bar = 1.0\ncbar = 1.0\nassert np.allclose(lth_parameters(t_star, p_star, cv_bar, alpha_bar, kappa_bar, cbar), target)",
+        "import numpy as np\n# boundary: heat capacity just above the C_V = 3/2 positivity floor\nt_star = 0.02\np_star = 0.10\ncv_bar = 1.500001\nalpha_bar = 1.0\nkappa_bar = 1.0\ncbar = 1.0\nassert np.allclose(lth_parameters(t_star, p_star, cv_bar, alpha_bar, kappa_bar, cbar), target)",
+        "import numpy as np\n# edge: near the ideal-gas compressibility threshold kappa*c*T = 1\nt_star = 0.49\np_star = 0.80\ncv_bar = 3.0\nalpha_bar = 2.0\nkappa_bar = 2.0\ncbar = 1.0\nassert np.allclose(lth_parameters(t_star, p_star, cv_bar, alpha_bar, kappa_bar, cbar), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-12.3",
+      "test_cases": [
+        "import numpy as np\n# normal: scalar mean density at the largest benchmark cutoff\nnb = 0.8583615\nrcut = 2.1564\nfcut = 1.33\nassert np.allclose(particle_volume(nb, rcut, fcut), target)",
+        "import numpy as np\n# boundary: minimum permitted fcut = 1\nnb = 1.0\nrcut = 1.6839\nfcut = 1.0\nassert np.allclose(particle_volume(nb, rcut, fcut), target)",
+        "import numpy as np\n# edge: vectorized primitive densities spanning dilute to dense values\nnb = np.array([0.05, 0.35, 1.0, 2.0])\nrcut = 1.3365\nfcut = 1.41\nassert np.allclose(particle_volume(nb, rcut, fcut), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-12.4",
+      "test_cases": [
+        "import numpy as np\n# normal: benchmark liquid state and scalar mean density\nparams = np.array([0.01105407273373585, 1.0, 0.11605782726626415, 1.0111776310806926, 29.34480813105209, 11.008324924443508])\ntemperature = 0.01105407273373585\nnb = 0.8583615\nrcut = 2.1564\nfcut = 1.33\nassert np.allclose(interaction_coefficients(nb, temperature, rcut, fcut, params), target)",
+        "import numpy as np\n# boundary: minimum permitted fcut = 1\nparams = np.array([0.01105407273373585, 1.0, 0.11605782726626415, 1.0111776310806926, 29.34480813105209, 11.008324924443508])\ntemperature = 0.01105407273373585\nnb = 1.0\nrcut = 1.6839\nfcut = 1.0\nassert np.allclose(interaction_coefficients(nb, temperature, rcut, fcut, params), target)",
+        "import numpy as np\n# edge: vectorized densities at the supercritical reference state\nparams = np.array([0.08276268387913284, 1.0, 0.4999046161208672, 1.0902303934047828, 9.77794449766948, 7.063391679042095])\ntemperature = 0.08276268387913284\nnb = np.array([0.30, 0.80, 1.40])\nrcut = 1.6839\nfcut = 1.35\nassert np.allclose(interaction_coefficients(nb, temperature, rcut, fcut, params), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-12.5",
+      "test_cases": [
+        "import numpy as np\n# normal: benchmark-like repulsive kernel table\ndr = 0.025\nr = dr * np.arange(1, 101)\nrcut = 2.1564\nw = np.where(r < rcut, 15.0 / (2.0 * np.pi * rcut**3) * (1.0 - r / rcut)**2, 0.0)\nbetau = 2.0 * 0.1229 * w / 0.011054\nrho = 1.0\nassert np.allclose(hnc_structure(betau, rho, dr), target)",
+        "import numpy as np\n# boundary: minimum permitted table length of eight nodes\ndr = 0.25\nr = dr * np.arange(1, 9)\nbetau = 0.2 * np.exp(-r)\nrho = 0.2\nassert np.allclose(hnc_structure(betau, rho, dr), target)",
+        "import numpy as np\n# edge: zero pair potential, whose HNC solution is the structureless g(r)=1 limit\ndr = 0.2\nbetau = np.zeros(16)\nrho = 0.9\nassert np.allclose(hnc_structure(betau, rho, dr), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-12.6",
+      "test_cases": [
+        "import numpy as np\n# normal: benchmark liquid state\nparams = np.array([0.01105407273373585, 1.0, 0.11605782726626415, 1.0111776310806926, 29.34480813105209, 11.008324924443508])\ntemperature = 0.01105407273373585\nrho = 1.0\nrcut = 2.1564\nfcut = 1.33\nn_grid = 100\ndr = 0.025\nassert np.allclose(self_consistent_structure(temperature, rho, rcut, fcut, params, n_grid, dr), target)",
+        "import numpy as np\n# boundary: minimum permitted HNC grid length n_grid = 8, with the grid just beyond the cutoff\nparams = np.array([0.1, 1.0, 0.0, 1000.0, 0.0, 1.0])\ntemperature = 0.1\nrho = 0.1\nrcut = 0.5\nfcut = 1.0\nn_grid = 8\ndr = 0.06666666666666667\nassert np.allclose(self_consistent_structure(temperature, rho, rcut, fcut, params, n_grid, dr), target)",
+        "import numpy as np\n# edge: dilute, strongly structured valid state with a large volume-rescaling factor\nparams = np.array([0.1, 1.0, 0.0, 10.0, 0.0, 1.0])\ntemperature = 0.1\nrho = 0.1\nrcut = 1.0\nfcut = 2.0\nn_grid = 24\ndr = 0.05\nassert np.allclose(self_consistent_structure(temperature, rho, rcut, fcut, params, n_grid, dr), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-12.7",
+      "test_cases": [
+        "import numpy as np\n# normal: liquid-like correlation hole and first peak on a resolved grid\nparams = np.array([0.01105407273373585, 1.0, 0.11605782726626415, 1.0111776310806926, 29.34480813105209, 11.008324924443508])\ntemperature = 0.01105407273373585\nrho = 1.0\nrcut = 2.1564\nfcut = 1.33\ndr = 0.05\nr = dr * np.arange(1, 65)\ng = 1.0 - 0.8 * np.exp(-(r / 0.7)**2) + 0.12 * np.exp(-((r - 1.2) / 0.25)**2)\nassert np.allclose(eos_state(g, temperature, rho, rcut, fcut, params, dr), target)",
+        "import numpy as np\n# boundary: minimum permitted g table length of eight nodes\nparams = np.array([0.08276268387913284, 1.0, 0.4999046161208672, 1.0902303934047828, 9.77794449766948, 7.063391679042095])\ntemperature = 0.08276268387913284\nrho = 0.5\nrcut = 1.0\nfcut = 1.0\ndr = 0.15\ng = np.linspace(0.7, 1.05, 8)\nassert np.allclose(eos_state(g, temperature, rho, rcut, fcut, params, dr), target)",
+        "import numpy as np\n# edge: structureless g(r)=1, which removes the h=g-1 correlation contribution\nparams = np.array([0.08276268387913284, 1.0, 0.4999046161208672, 1.0902303934047828, 9.77794449766948, 7.063391679042095])\ntemperature = 0.08276268387913284\nrho = 0.6\nrcut = 1.2\nfcut = 1.0\ndr = 0.1\ng = np.ones(16)\nassert np.allclose(eos_state(g, temperature, rho, rcut, fcut, params, dr), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-12.8",
+      "test_cases": [
+        "import numpy as np\n# normal: liquid-like correlated structure\nparams = np.array([0.01105407273373585, 1.0, 0.11605782726626415, 1.0111776310806926, 29.34480813105209, 11.008324924443508])\ntemperature = 0.01105407273373585\nrho = 1.0\nrcut = 2.1564\nfcut = 1.33\ndr = 0.05\nr = dr * np.arange(1, 65)\ng = 1.0 - 0.8 * np.exp(-(r / 0.7)**2) + 0.12 * np.exp(-((r - 1.2) / 0.25)**2)\nassert np.allclose(density_fluctuations(g, temperature, rho, rcut, fcut, params, dr), target)",
+        "import numpy as np\n# boundary: minimum permitted g table length of eight nodes\nparams = np.array([0.08276268387913284, 1.0, 0.4999046161208672, 1.0902303934047828, 9.77794449766948, 7.063391679042095])\ntemperature = 0.08276268387913284\nrho = 0.5\nrcut = 1.0\nfcut = 1.0\ndr = 0.15\ng = np.linspace(0.7, 1.05, 8)\nassert np.allclose(density_fluctuations(g, temperature, rho, rcut, fcut, params, dr), target)",
+        "import numpy as np\n# edge: structureless g(r)=1, where the correlation part of the convolution vanishes\nparams = np.array([0.08276268387913284, 1.0, 0.4999046161208672, 1.0902303934047828, 9.77794449766948, 7.063391679042095])\ntemperature = 0.08276268387913284\nrho = 0.6\nrcut = 1.2\nfcut = 1.0\ndr = 0.1\ng = np.ones(16)\nassert np.allclose(density_fluctuations(g, temperature, rho, rcut, fcut, params, dr), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-12.9",
+      "test_cases": [
+        "import numpy as np\n# normal: benchmark liquid calibration\nparams = np.array([0.01105407273373585, 1.0, 0.11605782726626415, 1.0111776310806926, 29.34480813105209, 11.008324924443508])\ntemperature = 0.01105407273373585\nrho = 1.0\nrcut = 2.1564\nfcut = 1.33\np_target = 0.1271119\nn_grid = 100\ndr = 0.025\nassert np.allclose(calibrate_reference_pressure(temperature, rho, rcut, fcut, params, p_target, n_grid, dr), target)",
+        "import numpy as np\n# boundary: minimum permitted HNC grid length n_grid = 8\nparams = np.array([0.1, 1.0, 0.0, 1000.0, 0.0, 1.0])\ntemperature = 0.1\nrho = 0.1\nrcut = 0.5\nfcut = 1.0\np_target = 0.00794165813986\nn_grid = 8\ndr = 0.06666666666666667\nassert np.allclose(calibrate_reference_pressure(temperature, rho, rcut, fcut, params, p_target, n_grid, dr), target)",
+        "import numpy as np\n# edge: dilute strongly structured state with a target pressure displaced from the initial EOS value\nparams = np.array([0.1, 1.0, 0.0, 10.0, 0.0, 1.0])\ntemperature = 0.1\nrho = 0.1\nrcut = 1.0\nfcut = 2.0\np_target = 0.00732378684218\nn_grid = 24\ndr = 0.05\nassert np.allclose(calibrate_reference_pressure(temperature, rho, rcut, fcut, params, p_target, n_grid, dr), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-12.10",
+      "test_cases": [
+        "import numpy as np\n# normal: benchmark liquid response with symmetric relative differences\nparams = np.array([0.01105407273373585, 1.0, 0.11605782726626415, 1.0111776310806926, 29.34480813105209, 11.008324924443508])\ntemperature = 0.01105407273373585\nrho = 1.0\nrcut = 2.1564\nfcut = 1.33\nn_grid = 100\ndr = 0.025\ndeltas = (1.0e-2, 1.0e-2)\nassert np.allclose(response_coefficients(temperature, rho, rcut, fcut, params, n_grid, dr, deltas), target)",
+        "import numpy as np\n# boundary: minimum permitted HNC grid length n_grid = 8\nparams = np.array([0.1, 1.0, 0.0, 1000.0, 0.0, 1.0])\ntemperature = 0.1\nrho = 0.1\nrcut = 0.5\nfcut = 1.0\nn_grid = 8\ndr = 0.06666666666666667\ndeltas = (1.0e-2, 1.0e-2)\nassert np.allclose(response_coefficients(temperature, rho, rcut, fcut, params, n_grid, dr, deltas), target)",
+        "import numpy as np\n# edge: strongly unequal but positive temperature and density difference steps\nparams = np.array([0.1, 1.0, 0.0, 10.0, 0.0, 1.0])\ntemperature = 0.1\nrho = 0.1\nrcut = 1.0\nfcut = 2.0\nn_grid = 24\ndr = 0.05\ndeltas = (2.0e-3, 5.0e-2)\nassert np.allclose(response_coefficients(temperature, rho, rcut, fcut, params, n_grid, dr, deltas), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-12.11",
+      "test_cases": [
+        "import numpy as np\n# normal: benchmark liquid state with one production cutoff\nstate = (125.7, 1419.7, 85.31e6, 520.0, 1.49e-9, 2.64e-3)\ncutoffs = [(2.1564, 1.33)]\nmolar_mass = 0.040\ncg_degree = 5\nn_grid = 100\ndr = 0.025\ndeltas = (1.0e-2, 1.0e-2)\nassert np.allclose(lth_audit(state, cutoffs, molar_mass, cg_degree, n_grid, dr, deltas), target)",
+        "import numpy as np\n# boundary: one cutoff, minimum cg_degree = 1 and minimum HNC grid length n_grid = 8\nstate = (418.8, 695.99, 85.31e6, 356.0, 6.83e-9, 1.97e-3)\ncutoffs = [(1.0, 1.0)]\nmolar_mass = 0.040\ncg_degree = 1\nn_grid = 8\ndr = 0.15\ndeltas = (1.0e-2, 1.0e-2)\nassert np.allclose(lth_audit(state, cutoffs, molar_mass, cg_degree, n_grid, dr, deltas), target)",
+        "import numpy as np\n# edge: two different cutoffs in one audit, exercising aggregation over multiple rows\nstate = (418.8, 695.99, 85.31e6, 356.0, 6.83e-9, 1.97e-3)\ncutoffs = [(1.0, 1.5), (1.5, 1.5)]\nmolar_mass = 0.040\ncg_degree = 5\nn_grid = 32\ndr = 0.05\ndeltas = (1.0e-2, 1.0e-2)\nassert np.allclose(lth_audit(state, cutoffs, molar_mass, cg_degree, n_grid, dr, deltas), target)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+problem_id: "Biology-Genetics-13"
+subject: "biology"
+subject_area: "Genetics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: " https://doi.org/10.48550/arXiv.2608.26488"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_polarize_carrier_sets.py"
+    description: "Biallelic polarization changes the represented mutation when the alternate allele is ancestral. For site i, the alternate-carrier indicator A_i is replaced within the observed haplotype indicator C_i by S_i = C_i - A_i; a site whose alternate allele is not ancestral retains A_i. All indicators are binary, and an alternate carrier must also be observed.\n\nInputs\n\n------\n\nalternate_carriers: Binary array of shape (k, n_samples).\n\nobserved_haplotypes: Binary array of shape (k, n_samples).\n\nancestral_is_alternate: Binary array of shape (k,).\n\nReturns\n\n-------\n\ntarget_carriers: Binary uint8 array of shape (k, n_samples)."
+    orchestrator: false
+  - number: 2
+    name: "02_pack_leaf_memberships"
+    description: "Shared candidate discovery carries one compatibility bit per update. If carrier matrix entry X_{i,s} is one, bit i mod w is set in word floor(i/w) for leaf s, where w is the selected word width. The resulting q = ceil(k/w) words let one bitwise operation update several mutation states at once.\n\nInputs\n\n------\n\ncarrier_matrix: Binary array of shape (k, n_samples).\n\nword_size: Number of active bits in each packed word.\n\nReturns\n\n-------\n\npacked_memberships: Integer array of shape (n_samples, ceil(k / word_size))."
+    orchestrator: false
+  - number: 3
+    name: "03_encode_adaptive_descendants"
+    description: "A genotype representation graph stores the reach D(n) of node n as the union of the disjoint reaches of its children, with D(s) = {s} for a sample leaf. A reach of density |D(n)| / N at least tau is represented by a width-N bitset; a lower-density reach remains a sparse list. Ordered node identifiers place every child before its parent.\n\nInputs\n\n------\n\nchildren: Child node identifiers for every graph node.\n\nn_samples: Number of leaf nodes at the beginning of the node array.\n\ndense_threshold: Carrier-set density at which bitset storage is used.\n\nReturns\n\n-------\n\nencoding: Native numeric descendant lists, representation flags, storage payloads, and cardinalities."
+    orchestrator: false
+  - number: 4
+    name: "04_discover_shared_candidates"
+    description: "Batched candidate discovery starts from the union of target carriers and visits the ordered graph upward once. A leaf state is its packed update membership, while an internal state is the wordwise intersection of every child state. A nonzero internal state identifies the updates for which the node reach is compatible and propagates to parents; an all-zero state terminates that branch.\n\nInputs\n\n------\n\nchildren: Ordered child identifiers for the fixed graph snapshot.\n\nn_samples: Number of sample leaves.\n\npacked_leaf_memberships: Packed update bits for each sample leaf.\n\ndescendant_lists: Reach D(n) for every graph node.\n\nn_updates: Number of updates represented by the packed words.\n\nword_size: Number of active bits per word.\n\nReturns\n\n-------\n\ndiscovery: Packed node states, per-update candidate lists, candidate sizes, and visited nodes."
+    orchestrator: false
+  - number: 5
+    name: "05_plan_greedy_attachments"
+    description: "A compatible node can be reused because its reach is contained in the target carrier set. An exact reach receives the mutation without a topology change. Otherwise, compatible nodes are considered by decreasing reach size and retained only when their reaches are disjoint from those already selected; any carriers left uncovered remain direct leaf children of a new mutation node.\n\nInputs\n\n------\n\ncandidate_lists: Compatible internal node identifiers for every update.\n\ndescendant_lists: Reach D(n) for every snapshot node.\n\ntarget_carriers: Binary target carrier matrix.\n\nn_samples: Number of sample leaves.\n\nReturns\n\n-------\n\nattachment_plan: Exact matches, selected candidates, uncovered leaves, target lists, and creation flags."
+    orchestrator: false
+  - number: 6
+    name: "06_apply_snapshot_batch"
+    description: "Candidate discovery is separated from mutation application. Every update in one batch consumes a plan derived from the same read-only snapshot, so a new node created for an earlier update cannot become a candidate for a later update in that batch. Exact matches reuse a snapshot node, while other plans append one node in fixed update order.\n\nInputs\n\n------\n\nchildren: Ordered child lists for the discovery snapshot.\n\nattachment_plan: Fixed-snapshot exact matches and new-node child plans.\n\nn_samples: Number of sample leaves.\n\nReturns\n\n-------\n\nupdated_graph: Updated child lists, attachment nodes, new node identifiers, and edge count."
+    orchestrator: false
+  - number: 7
+    name: "07_trace_independent_visits"
+    description: "Independent mutation mapping runs the same upward compatibility recurrence once per target. A carrier leaf is compatible, an internal node is compatible only when every child is compatible, and only compatible nodes propagate to their parents. A reached internal node is counted as visited even when its failed compatibility test terminates that branch.\n\nInputs\n\n------\n\nchildren: Ordered child lists for the updated graph.\n\nn_samples: Number of sample leaves.\n\ncarrier_matrix: Binary audit carrier sets, one row per independent traversal.\n\nReturns\n\n-------\n\ntraces: Visit matrix, visited counts, and compatible internal candidates."
+    orchestrator: false
+  - number: 8
+    name: "08_compute_overlap_factor"
+    description: "Traversal overlap compares repeated independent work with the distinct nodes touched by a shared pass. For visit sets V_i, the overlap factor is rho(k) = sum_i |V_i| / |union_i V_i|. A batch using word width w propagates q = ceil(k/w) words per node, so rho(k) greater than q is the paper's asymptotic criterion for shared discovery to reduce traversal work.\n\nInputs\n\n------\n\nvisit_matrix: Binary matrix whose rows identify independent visit sets.\n\nword_size: Number of update bits in one packed word.\n\nReturns\n\n-------\n\noverlap: Independent and distinct visit counts, word count, overlap factor, and advantage flag."
+    orchestrator: false
+  - number: 9
+    name: "09_run_full_pipeline"
+    description: "The full calculation polarizes the first carrier batch, packs its leaf memberships, constructs adaptive node reaches, discovers snapshot candidates, plans and applies reuse-aware edits, traces an audit batch independently on the edited graph, and evaluates the audit overlap factor. The final scalar is rho(k) for those audit traversals.\n\nInputs\n\n------\n\nchildren: Ordered graph child lists.\n\nn_samples: Number of sample leaves.\n\nalternate_carriers: Binary alternate-carrier matrix for the edit batch.\n\nobserved_haplotypes: Binary observed-haplotype matrix for the edit batch.\n\nancestral_is_alternate: Binary polarization flags for the edit batch.\n\naudit_carriers: Binary carrier matrix for independent post-edit traversals.\n\nword_size: Number of update bits per packed word.\n\ndense_threshold: Density threshold for dense reach storage.\n\nReturns\n\n-------\n\noverlap_factor: float, the post-edit traversal overlap factor."
+    orchestrator: true

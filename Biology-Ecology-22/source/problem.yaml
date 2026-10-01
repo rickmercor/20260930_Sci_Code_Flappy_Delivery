@@ -1,0 +1,48 @@
+problem_id: "Biology-Ecology-22"
+subject: "biology"
+subject_area: "Ecology"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1371/journal.pesy.0000022"
+dependencies: ""
+steps:
+  - number: 1
+    name: "length_to_weight"
+    description: "Return the body weight in kilograms of female fish of the given total lengths in metres from the allometric length-weight relation log10(weight in kg) = intercept + slope * log10(length in m), evaluated element-wise (base-10 logarithms)."
+    orchestrator: false
+  - number: 2
+    name: "survival_probability"
+    description: "Return the annual survival probability of female fish of the given total lengths in metres, s(z) = exp(-slope * w ** exponent) with w the body weight in grams, obtained from the length-weight relation of step 01 with its default coefficients (kilograms converted to grams), evaluated element-wise."
+    orchestrator: false
+  - number: 3
+    name: "maturity_probability"
+    description: "Return the probability that a female of the given total length in metres is mature, the logistic function m(z) = 1 / (1 + exp(-(intercept + slope * z))), which increases with length when slope is positive, evaluated element-wise."
+    orchestrator: false
+  - number: 4
+    name: "midpoint_mesh"
+    description: "Return the midpoint-rule mesh of n_bins equal bins on [z_min, z_max]: an array of shape (2, n_bins) whose row 0 holds the bin midpoints in increasing order and whose row 1 holds the bin widths, all equal to (z_max - z_min) / n_bins, so that sum(row 1 * f(row 0)) approximates the integral of f over the interval."
+    orchestrator: false
+  - number: 5
+    name: "growth_kernel"
+    description: "Return the midpoint-rule growth matrix on a mesh of bin midpoints: G[i, j] is the normal probability density of the next-census length z_i of a female whose current length is z_j, with mean mu0 + mu1 * z_j and standard deviation sd (metres), multiplied by the bin width, so that G @ f approximates the integral of the growth kernel times f(z) over z on the mesh. The density is evaluated as is: the columns are not renormalised over the finite mesh, so probability mass that falls outside the mesh is lost."
+    orchestrator: false
+  - number: 6
+    name: "recruit_length_density"
+    description: "Return the length density of age-1 female recruits at the given mesh midpoints: the normal probability density in metres with the given mean and standard deviation, evaluated as is, without renormalisation over the mesh."
+    orchestrator: false
+  - number: 7
+    name: "ricker_allee_target"
+    description: "Return the target biomass (kg) for the next census predicted from the current female biomass (kg) by the discrete-time Ricker model with an Allee effect in the form the source adopts (its Eq. 2), with intrinsic growth rate gamma, Allee threshold allee_threshold and carrying capacity carrying_capacity (both in kg), applied to biomass rather than to counts. The target equals the current biomass when the current biomass lies exactly at the Allee threshold or at the carrying capacity, exceeds it in between and falls below it outside that range."
+    orchestrator: false
+  - number: 8
+    name: "spawning_proportion"
+    description: "Return the proportion A_t of the mature females that spawn in the current year according to the source's biomass-balance rule (its Fig. 1, phases 1 and 2), given the expected female length density on the mesh, the mesh of step 04, the growth matrix of step 05, the survival probabilities, weights (kg) and maturity probabilities at the midpoints, the recruit length density of step 06 with recruits_per_spawner female recruits per spawning female, and the target biomass for the next census from step 07. The rule sets the spawning level from how the target compares with the biomass the present females themselves contribute to the next census and with the biomass that recruitment can add; the result lies in [0, 1], with no spawning when the target is already met, universal spawning when recruitment cannot reach it, and 0 whenever no female can spawn (zero maximum recruit biomass, e.g. an empty population)."
+    orchestrator: false
+  - number: 9
+    name: "expected_trajectory"
+    description: "Starting from a founding cohort of n0 females whose lengths follow a normal density with mean mean_len0 and standard deviation sd_len0 (metres), project the expected female length distribution forward through n_years annual censuses with the source's expected projection equation on the midpoint mesh of n_bins equal bins on [z_min, z_max] (step 04): the vital rates of steps 01-03 with their default coefficients, the growth matrix of step 05, the recruit length density of step 06 with mean recruit_mean and standard deviation recruit_sd, the Ricker-Allee target of step 07 with gamma, allee_threshold and carrying_capacity, and the spawning proportion of step 08 with recruits_per_spawner female recruits per spawning female. Each year the density advances by the source's expected kernel: the survivors propagated by the growth matrix plus the recruits produced by the mature females that spawn. Return the array of expected densities (females per metre at the midpoints) with row t the census t, t = 0 to n_years. Call the earlier step functions rather than reimplementing them."
+    orchestrator: false
+  - number: 10
+    name: "mature_count_probability"
+    description: "Orchestrator. For the founding cohort and parameters of step 09, return the exact probability that at least threshold mature females are present at census n_years in the source's discrete-individual branching process, computed without simulation. In that process every female present at a census independently follows the source's four outcomes (dies; survives; reproduces; survives and reproduces), survival with the probability of step 02 and reproduction with the maturity probability of step 03 times the spawning proportion of that year, the two events independent; the spawning proportion of every year is the one of the expected trajectory of step 09 (steps 07-08 applied to its rows). A survivor's next-census length is drawn from the growth kernel of step 05 (a survivor whose length falls outside the mesh leaves the population); each of the recruits_per_spawner recruits of a spawning female receives an independent length from the recruit density of step 06; at the final census each female present is mature independently with the probability of step 03. The founders are whole individuals: the expected number in each bin (row 0 of step 09 times the bin width) is converted to individuals by the source's rule for the fractional individual of a bin, and every founder starts a lineage independent of the others. Call the earlier step functions rather than reimplementing them."
+    orchestrator: true

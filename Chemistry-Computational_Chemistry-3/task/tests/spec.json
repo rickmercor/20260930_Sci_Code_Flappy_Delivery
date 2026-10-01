@@ -1,0 +1,105 @@
+{
+  "problem_id": "Chemistry-Computational_Chemistry-3",
+  "sub_steps": [
+    {
+      "step_number": "Chemistry-Computational_Chemistry-3.1",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(extract_radial_parameters(47.0, 1.1, 7.37, 1.61), target)",
+        "import numpy as np\nassert np.allclose(extract_radial_parameters(50.0, 1.0, 8.0, 2.0), target)",
+        "import numpy as np\nassert np.allclose(extract_radial_parameters(1.0, 0.5, 7.0, 0.25), target)",
+        "import numpy as np\nassert np.allclose(extract_radial_parameters(47.0, 1.1, 6.5, 1.61), target)",
+        "import numpy as np\ndef _c(fn):\n    try:\n        fn(47.0, 1.1, 6.0, 1.61)\n    except ValueError:\n        return 1\n    except Exception:\n        return 0\n    return 0\nassert np.allclose(_c(extract_radial_parameters), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-3.2",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(radial_potential(3.4, 47.0, 1.1, 7.37, 1.61), target)",
+        "import numpy as np\nassert np.allclose(radial_potential(np.array([2.0, 3.0, 4.0]), 47.0, 1.1, 7.37, 1.61), target)",
+        "import numpy as np\nassert np.allclose(radial_potential(1.1, 47.0, 1.1, 7.37, 1.61), target)",
+        "import numpy as np\nassert np.allclose(radial_potential(12.0, 47.0, 1.1, 7.37, 1.61), target)",
+        "import numpy as np\ndef _c(fn):\n    try:\n        fn(-1.0, 47.0, 1.1, 7.37, 1.61)\n    except ValueError:\n        return 1\n    except Exception:\n        return 0\n    return 0\nassert np.allclose(_c(radial_potential), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-3.3",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(angular_potential(0.9, 0.3, 3.2, 55.0, 1.0, 1.1, 0.0), target)",
+        "import numpy as np\nassert np.allclose(angular_potential(0.9, 0.3, 3.2, 55.0, 1.0, 1.1, 0.45), target)",
+        "import numpy as np\nassert np.allclose(angular_potential(0.0, 0.0, 3.5, 55.0, 1.0, 1.1, 0.45), target)",
+        "import numpy as np\nassert np.allclose(angular_potential(np.array([1.0,-1.0]), np.array([0.2,0.2]), np.array([3.0,3.0]), 55.0, 1.0, 1.1, 0.3), target)",
+        "import numpy as np\ndef _c(fn):\n    try:\n        fn(0.9, 0.3, 3.2, 55.0, 1.0, 1.1, -0.1)\n    except ValueError:\n        return 1\n    except Exception:\n        return 0\n    return 0\nassert np.allclose(_c(angular_potential), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-3.4",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(hamiltonian(np.array([0.0,0.0,3.65072544,0.59303049,0.0,0.0]), dict(ix=2.373409, iz=4.746818, m=0.9445, de=47.0, re=1.1, c1=7.37, c2=1.61, ve=55.0, alpha=1.0, b=0.0)), target)",
+        "import numpy as np\nassert np.allclose(hamiltonian(np.array([0.8,0.3,3.2,0.2,-0.1,0.05]), dict(ix=2.373409, iz=4.746818, m=0.9445, de=47.0, re=1.1, c1=7.37, c2=1.61, ve=55.0, alpha=1.0, b=0.0)), target)",
+        "import numpy as np\nassert np.allclose(hamiltonian(np.array([0.8,0.3,3.2,0.2,-0.1,0.05]), dict(ix=2.373409, iz=4.746818, m=0.9445, de=47.0, re=1.1, c1=7.37, c2=1.61, ve=55.0, alpha=1.0, b=0.30)), target)",
+        "import numpy as np\nassert np.allclose(hamiltonian(np.array([1e-4,5e-5,3.4,0.05,-0.02,0.1]), dict(ix=2.373409, iz=4.746818, m=0.9445, de=47.0, re=1.1, c1=7.37, c2=1.61, ve=55.0, alpha=1.0, b=0.30)), target)",
+        "import numpy as np\ndef _c(fn):\n    try:\n        fn(np.array([0.0,0.0,3.0,0.1,0.0]), dict(ix=2.373409, iz=4.746818, m=0.9445, de=47.0, re=1.1, c1=7.37, c2=1.61, ve=55.0, alpha=1.0, b=0.0))\n    except ValueError:\n        return 1\n    except Exception:\n        return 0\n    return 0\nassert np.allclose(_c(hamiltonian), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-3.5",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(vector_field(np.array([0.0,0.0,3.65072544,0.59303049,0.0,0.0]), dict(ix=2.373409, iz=4.746818, m=0.9445, de=47.0, re=1.1, c1=7.37, c2=1.61, ve=55.0, alpha=1.0, b=0.0)), target)",
+        "import numpy as np\nassert np.allclose(vector_field(np.array([0.8,0.3,3.2,0.2,-0.1,0.05]), dict(ix=2.373409, iz=4.746818, m=0.9445, de=47.0, re=1.1, c1=7.37, c2=1.61, ve=55.0, alpha=1.0, b=0.0)), target)",
+        "import numpy as np\nassert np.allclose(vector_field(np.array([0.8,0.3,3.2,0.2,-0.1,0.05]), dict(ix=2.373409, iz=4.746818, m=0.9445, de=47.0, re=1.1, c1=7.37, c2=1.61, ve=55.0, alpha=1.0, b=0.30)), target)",
+        "import numpy as np\nassert np.allclose(vector_field(np.array([1e-4,5e-5,3.4,0.05,-0.02,0.1]), dict(ix=2.373409, iz=4.746818, m=0.9445, de=47.0, re=1.1, c1=7.37, c2=1.61, ve=55.0, alpha=1.0, b=0.30)), target)",
+        "import numpy as np\ndef _c(fn):\n    try:\n        fn(np.array([0.0,0.0,3.0]), dict(ix=2.373409, iz=4.746818, m=0.9445, de=47.0, re=1.1, c1=7.37, c2=1.61, ve=55.0, alpha=1.0, b=0.0))\n    except ValueError:\n        return 1\n    except Exception:\n        return 0\n    return 0\nassert np.allclose(_c(vector_field), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-3.6",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(planar_return_map(3.65072544, 0.0, 0.5, dict(ix=2.373409, iz=4.746818, m=0.9445, de=47.0, re=1.1, c1=7.37, c2=1.61, ve=55.0, alpha=1.0, b=0.0)), target)",
+        "import numpy as np\nassert np.allclose(planar_return_map(3.6, 0.05, 0.5, dict(ix=2.373409, iz=4.746818, m=0.9445, de=47.0, re=1.1, c1=7.37, c2=1.61, ve=55.0, alpha=1.0, b=0.0)), target)",
+        "import numpy as np\nassert np.allclose(planar_return_map(3.63193607, 0.10566843, 0.5, dict(ix=2.373409, iz=4.746818, m=0.9445, de=47.0, re=1.1, c1=7.37, c2=1.61, ve=55.0, alpha=1.0, b=0.30)), target)",
+        "import numpy as np\nassert np.allclose(planar_return_map(3.5, 0.0, 1.1, dict(ix=2.373409, iz=4.746818, m=0.9445, de=47.0, re=1.1, c1=7.37, c2=1.61, ve=55.0, alpha=1.0, b=0.30)), target)",
+        "import numpy as np\ndef _c(fn):\n    try:\n        fn(-3.6, 0.0, 0.5, dict(ix=2.373409, iz=4.746818, m=0.9445, de=47.0, re=1.1, c1=7.37, c2=1.61, ve=55.0, alpha=1.0, b=0.0))\n    except ValueError:\n        return 1\n    except Exception:\n        return 0\n    return 0\nassert np.allclose(_c(planar_return_map), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-3.7",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(locate_periodic_orbit(3.65, 0.0, 0.5, dict(ix=2.373409, iz=4.746818, m=0.9445, de=47.0, re=1.1, c1=7.37, c2=1.61, ve=55.0, alpha=1.0, b=0.0)), target)",
+        "import numpy as np\nassert np.allclose(locate_periodic_orbit(3.63, 0.10, 0.5, dict(ix=2.373409, iz=4.746818, m=0.9445, de=47.0, re=1.1, c1=7.37, c2=1.61, ve=55.0, alpha=1.0, b=0.30)), target)",
+        "import numpy as np\nassert np.allclose(locate_periodic_orbit(3.66, 0.01, 0.5, dict(ix=2.373409, iz=4.746818, m=0.9445, de=47.0, re=1.1, c1=7.37, c2=1.61, ve=55.0, alpha=1.0, b=0.0)), target)",
+        "import numpy as np\nassert np.allclose(locate_periodic_orbit(3.60, 0.17, 0.5, dict(ix=2.373409, iz=4.746818, m=0.9445, de=47.0, re=1.1, c1=7.37, c2=1.61, ve=55.0, alpha=1.0, b=0.45)), target)",
+        "import numpy as np\ndef _c(fn):\n    try:\n        fn(0.5, 0.0, 0.5, dict(ix=2.373409, iz=4.746818, m=0.9445, de=47.0, re=1.1, c1=7.37, c2=1.61, ve=55.0, alpha=1.0, b=0.0))\n    except ValueError:\n        return 1\n    except Exception:\n        return 0\n    return 0\nassert np.allclose(_c(locate_periodic_orbit), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-3.8",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(orbit_action(3.65, 0.0, 0.5, dict(ix=2.373409, iz=4.746818, m=0.9445, de=47.0, re=1.1, c1=7.37, c2=1.61, ve=55.0, alpha=1.0, b=0.0)), target)",
+        "import numpy as np\nassert np.allclose(orbit_action(3.63, 0.10, 0.5, dict(ix=2.373409, iz=4.746818, m=0.9445, de=47.0, re=1.1, c1=7.37, c2=1.61, ve=55.0, alpha=1.0, b=0.30)), target)",
+        "import numpy as np\nassert np.allclose(orbit_action(3.66, 0.0, 0.5, dict(ix=2.373409, iz=4.746818, m=0.9445, de=47.0, re=1.1, c1=7.37, c2=1.61, ve=55.0, alpha=1.0, b=0.0)), target)",
+        "import numpy as np\nassert np.allclose(orbit_action(3.60, 0.17, 0.5, dict(ix=2.373409, iz=4.746818, m=0.9445, de=47.0, re=1.1, c1=7.37, c2=1.61, ve=55.0, alpha=1.0, b=0.45)), target)",
+        "import numpy as np\ndef _c(fn):\n    try:\n        fn(0.5, 0.0, 0.5, dict(ix=2.373409, iz=4.746818, m=0.9445, de=47.0, re=1.1, c1=7.37, c2=1.61, ve=55.0, alpha=1.0, b=0.0))\n    except ValueError:\n        return 1\n    except Exception:\n        return 0\n    return 0\nassert np.allclose(_c(orbit_action), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-3.9",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(monodromy_matrix(np.array([0.0,0.0,3.65072544,0.59303049,0.0,0.0]), dict(ix=2.373409, iz=4.746818, m=0.9445, de=47.0, re=1.1, c1=7.37, c2=1.61, ve=55.0, alpha=1.0, b=0.0), 5.92861852), target)",
+        "import numpy as np\nassert np.allclose(monodromy_matrix(np.array([0.0,0.0,3.63193607,0.61566,0.0,0.10566843]), dict(ix=2.373409, iz=4.746818, m=0.9445, de=47.0, re=1.1, c1=7.37, c2=1.61, ve=55.0, alpha=1.0, b=0.30), 5.90399), target)",
+        "import numpy as np\nassert np.allclose(monodromy_matrix(np.array([0.0,0.0,3.65072544,0.59303049,0.0,0.0]), dict(ix=2.373409, iz=4.746818, m=0.9445, de=47.0, re=1.1, c1=7.37, c2=1.61, ve=55.0, alpha=1.0, b=0.0), 2.9643), target)",
+        "import numpy as np\nassert np.allclose(monodromy_matrix(np.array([0.0,0.0,3.6,0.6,0.0,0.05]), dict(ix=2.373409, iz=4.746818, m=0.9445, de=47.0, re=1.1, c1=7.37, c2=1.61, ve=55.0, alpha=1.0, b=0.0), 1.0), target)",
+        "import numpy as np\ndef _c(fn):\n    try:\n        fn(np.array([0.0,0.0,3.65,0.59,0.0,0.0]), dict(ix=2.373409, iz=4.746818, m=0.9445, de=47.0, re=1.1, c1=7.37, c2=1.61, ve=55.0, alpha=1.0, b=0.0), -1.0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 0\n    return 0\nassert np.allclose(_c(monodromy_matrix), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-3.10",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(roaming_stability_report(0.5, 0.0, 4), target)",
+        "import numpy as np\nassert np.allclose(roaming_stability_report(0.5, 0.30, 6), target)",
+        "import numpy as np\nassert np.allclose(roaming_stability_report(0.8, 0.20, 8), target)",
+        "import numpy as np\nassert np.allclose(roaming_stability_report(1.10, 0.45, 12), target)",
+        "import numpy as np\ndef _c(fn):\n    try:\n        fn(-0.5, 0.0, 4)\n    except ValueError:\n        return 1\n    except Exception:\n        return 0\n    return 0\nassert np.allclose(_c(roaming_stability_report), target)"
+      ]
+    }
+  ]
+}

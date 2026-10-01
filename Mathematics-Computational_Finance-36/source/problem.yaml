@@ -1,0 +1,36 @@
+problem_id: "Mathematics-Computational_Finance-36"
+subject: "mathematics"
+subject_area: "Computational Finance"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.3934/math.2026457"
+dependencies: ""
+steps:
+  - number: 1
+    name: "build_smoothed_payoff"
+    description: "Construct the spatial discretization and the corresponding regularized initial data required by the numerical formulation specified in the reference work. The construction must faithfully reproduce the reference treatment of the nonsmooth terminal payoff while remaining consistent with the supplied option parameters and computational domain.\n\n\n\n\n\n\nThe implementation should return the complete spatial grid together with the initial data evaluated on that grid. Preserve the ordering, numerical precision, and dimensionality required by the downstream numerical stages."
+    orchestrator: false
+  - number: 2
+    name: "compute_nsfd_coefficients"
+    description: "Construct all discretization quantities required by the reference work for the interior spatial rows and the temporal evolution of the implicit numerical formulation.\n\n\n\n\n\n\nThe implementation must recover the paper-specific construction from the reference method rather than replacing it with a conventional finite-difference approximation. The returned quantities must be organized so that each spatial row corresponds consistently to the associated interior grid point and can be consumed directly by the subsequent linear-system construction."
+    orchestrator: false
+  - number: 3
+    name: "assemble_nsfd_timestep"
+    description: "Construct the linear system associated with one implicit numerical update from the supplied previous solution and discretization data.\n\n\n\n\n\n\nThe construction must incorporate the spatial coefficients and the prescribed boundary information consistently with the reference formulation. This function is responsible only for forming the system representation required by the numerical solver; it must not perform the subsequent linear solve."
+    orchestrator: false
+  - number: 4
+    name: "solve_nsfd_surface"
+    description: "Compute the complete numerical solution over the prescribed space-time mesh using the implicit structure-preserving discretization defined by the reference work.\n\n\n\nThe calculation must begin from the regularized initial state, repeatedly construct the appropriate implicit update, solve the resulting interior system, and enforce the required spatial boundary values at every time level. The returned object must represent the complete numerical solution rather than only the terminal state or interior unknowns.\n\n\n\nThis stage must be implemented through the preceding computational components rather than by substituting an unrelated numerical method."
+    orchestrator: false
+  - number: 5
+    name: "compute_black_scholes_reference"
+    description: "Evaluate the analytical reference valuation corresponding to the continuous model on the same space-time mesh used by the numerical solution.\n\n\n\nThe implementation must maintain the same parameter convention, temporal interpretation, spatial ordering, and mesh dimensions as the numerical calculation so that every analytical value corresponds to exactly one numerical node."
+    orchestrator: false
+  - number: 6
+    name: "compute_max_nodal_error"
+    description: "Determine the global discrepancy between two solution surfaces defined on the same computational mesh.\n\n\n\nThe comparison must be performed node by node over the complete domain, without discarding boundary nodes or restricting the calculation to a selected region. The function should return the single scalar quantity specified by the benchmark's error definition."
+    orchestrator: false
+  - number: 7
+    name: "run_nsfd_benchmark"
+    description: "Execute the complete benchmark workflow for the fixed numerical instance specified by the task.\n\n\n\nThe final computation must be obtained by composing the preceding public stages in their intended dependency order: construction of the initial data, construction of the reference discretization quantities, formation and solution of the numerical evolution, construction of the analytical reference, and evaluation of the global nodal discrepancy.\n\n\n\nDo not replace the preceding workflow with an independently hard-coded final calculation. The function represents the complete scientific experiment and must return only its requested deterministic result."
+    orchestrator: true

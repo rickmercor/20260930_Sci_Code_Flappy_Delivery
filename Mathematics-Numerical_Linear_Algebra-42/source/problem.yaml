@@ -1,0 +1,40 @@
+problem_id: "Mathematics-Numerical_Linear_Algebra-42"
+subject: "mathematics"
+subject_area: "Numerical Linear Algebra"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2604.20536"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_compute_glr_laguerre_state"
+    description: "Compute the classical Laguerre nodes and weighted derivatives simultaneously.\n\n\n\nUse the source's modified Glaser--Liu--Rokhlin construction rather than a\n\nJacobi eigensolve followed by global polynomial evaluation.  The distinction\n\nis consequential beyond the floating-point boundary where otherwise valid\n\nroot routines or separately evaluated exponential factors cease to return a\n\ncomplete finite state."
+    orchestrator: false
+  - number: 2
+    name: "02_build_truncated_collocation_state"
+    description: "Build coupled first- and second-derivative blocks from a weighted grid state.\n\n\n\nImplement the source's augmented generalized-Laguerre Tables 2 and 3 as one\n\noperation.  A noncontiguous principal block retains the original polynomial\n\ndegree and parameter; it is not the differentiation matrix of the selected\n\nnodes viewed as a smaller grid."
+    orchestrator: false
+  - number: 3
+    name: "03_scale_and_reduce_second_order"
+    description: "Map a full augmented second-derivative operator to the physical half-line.\n\n\n\nThe coordinate scale acts quadratically on the second derivative.  The\n\nhomogeneous endpoint condition is then imposed by removing the endpoint row\n\nand column, while the positive physical nodes retain their original order."
+    orchestrator: false
+  - number: 4
+    name: "04_sample_woods_saxon_profile"
+    description: "Sample the positive Woods--Saxon weight on the reduced half-line grid.\n\n\n\nThe generalized Sturm--Liouville pencil uses the decaying profile\n\n`$q(x) = 1 / (1 + exp((x - radius) / diffuseness))$`.  A stable logistic\n\nevaluation is required because large Laguerre nodes can make the raw\n\nexponential overflow even though the mathematical profile remains finite."
+    orchestrator: false
+  - number: 5
+    name: "05_assemble_generalized_pencil"
+    description: "Assemble the reduced generalized Sturm--Liouville matrix pencil.\n\n\n\nFor the equation ``-y'' + y = lambda q(x) y``, endpoint deletion has already\n\nbeen applied to the second-derivative matrix.  The left pencil matrix is\n\ntherefore `$A = -D2 + I$` and the right matrix is the diagonal sampling of the\n\nstrictly positive profile."
+    orchestrator: false
+  - number: 6
+    name: "06_compute_finite_spectral_magnitudes"
+    description: "Extract and order the finite spectrum of a generalized matrix pencil.\n\n\n\nThe homogeneous generalized-eigenvalue representation `$alpha / beta$` is\n\nused so infinite modes can be identified before division.  This matters for\n\nsingular right-hand matrices and avoids treating overflowed quotients as\n\nordinary finite eigenvalues."
+    orchestrator: false
+  - number: 7
+    name: "07_select_one_based_mode"
+    description: "Select a one-based mode from an already ordered finite spectrum.\n\n\n\nThe scientific convention numbers modes beginning at one.  This boundary\n\nstage enforces that convention and rejects unordered or contaminated spectra\n\ninstead of silently selecting from malformed upstream data."
+    orchestrator: false
+  - number: 8
+    name: "08_compute_laguerre_woods_saxon_mode"
+    description: "Run the complete half-line collocation pipeline and report one mode magnitude.\n\n\n\nThis final stage composes the simultaneous GLR root/derivative state, the direct\n\nfirst/second collocation block, physical scaling, stable Woods--Saxon sampling,\n\ngeneralized-pencil assembly, homogeneous finite-spectrum extraction, and\n\none-based mode selection.  The physical task uses the classical Laguerre case\n\n`$alpha = 0$` while retaining the full-grid degree convention."
+    orchestrator: true

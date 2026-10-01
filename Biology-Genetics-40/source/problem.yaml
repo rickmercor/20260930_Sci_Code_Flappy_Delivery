@@ -1,0 +1,52 @@
+problem_id: "Biology-Genetics-40"
+subject: "biology"
+subject_area: "Genetics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.48550/arXiv.2604.23085"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_build_expression_panel"
+    description: "Generate the deterministic standardized single-cell expression panel that every later step conditions on."
+    orchestrator: false
+  - number: 2
+    name: "02_compute_subset_weights"
+    description: "Express every subset meta-analysis statistic as a fixed linear form in the centred genotypes and return the table of per-subject coefficients."
+    orchestrator: false
+  - number: 3
+    name: "03_compute_subset_correlation"
+    description: "Build the null correlation matrix of the family of subset meta-analysis statistics from the table of per-subject coefficients."
+    orchestrator: false
+  - number: 4
+    name: "04_build_neighbour_table"
+    description: "Enumerate, for every nonempty subset of cell types, the subsets reached by toggling one cell type, marking the toggles that leave the admissible set."
+    orchestrator: false
+  - number: 5
+    name: "05_compute_dlm_pvalue"
+    description: "Evaluate the analytic discrete local maxima significance of the all-subset maximum for a Gaussian family of subset statistics."
+    orchestrator: false
+  - number: 6
+    name: "06_compute_subset_cgf"
+    description: "Evaluate the conditional cumulant generating function of one subset statistic under the genotype null, together with its first two derivatives."
+    orchestrator: false
+  - number: 7
+    name: "07_solve_tilting_parameters"
+    description: "Find, for every subset and each sign of the threshold, the exponential tilt that moves the mean of the subset statistic onto that threshold."
+    orchestrator: false
+  - number: 8
+    name: "08_sample_tilted_genotypes"
+    description: "Draw one genotype vector from the exponentially tilted Hardy-Weinberg law attached to a subset and a tilt, using a supplied vector of uniforms."
+    orchestrator: false
+  - number: 9
+    name: "09_compute_is_weight"
+    description: "Evaluate the likelihood-ratio contribution of one simulated genotype vector to the estimated tail probability."
+    orchestrator: false
+  - number: 10
+    name: "10_run_importance_sampling"
+    description: "Run the mixture importance sampling loop over replicates, drawing each replicate with sub-problem 08 and weighting it with sub-problem 09, and return the estimated tail probability with its standard error."
+    orchestrator: false
+  - number: 11
+    name: "11_run_asset_discrepancy_pipeline"
+    description: "Chain the sub-problem functions 01-10 end to end on the single-cell eQTL testbed and return the base-ten logarithm of the ratio of the analytic significance to the genotype-conditional estimate.\n\n\n\n\nOrchestrator: yes - this is the final step; it integrates the earlier sub-problems (build_expression_panel, compute_subset_weights, compute_subset_correlation, build_neighbour_table, compute_dlm_pvalue, compute_subset_cgf, solve_tilting_parameters, sample_tilted_genotypes, compute_is_weight, run_importance_sampling) rather than reimplementing them."
+    orchestrator: true

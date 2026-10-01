@@ -1,0 +1,40 @@
+problem_id: "Physics-Quantum_Information_Computing-28"
+subject: "physics"
+subject_area: "Quantum Information / Computing"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2606.12301"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_build_binary_quotient"
+    description: "Construct a canonical binary quotient that separates syndrome and logical coordinates."
+    orchestrator: false
+  - number: 2
+    name: "02_build_detector_constraints"
+    description: "Assemble temporal detector constraints and cumulative logical observables."
+    orchestrator: false
+  - number: 3
+    name: "03_build_conditional_branches"
+    description: "Construct energy-labelled physical transitions under conditional reliability."
+    orchestrator: false
+  - number: 4
+    name: "04_solve_spacetime_sectors"
+    description: "Find the globally admissible logical sector and reconstruct its least history."
+    orchestrator: false
+  - number: 5
+    name: "05_iterate_spacetime_recovery"
+    description: "Propagate reliability between two complete spacetime recovery problems."
+    orchestrator: false
+  - number: 6
+    name: "06_build_joint_transition_jets"
+    description: "Form the correlated Pauli quotient kernel and its first two rate derivatives."
+    orchestrator: false
+  - number: 7
+    name: "07_propagate_conditioned_jets"
+    description: "Condition joint logical-sector probability derivatives on the full temporal record."
+    orchestrator: false
+  - number: 8
+    name: "08_compute_log_odds_curvature"
+    description: "Evaluate the rate curvature of the frozen recovery\u2019s conditional failure odds."
+    orchestrator: true

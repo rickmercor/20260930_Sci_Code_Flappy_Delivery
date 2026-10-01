@@ -1,0 +1,36 @@
+problem_id: "Physics-Particle_Physics-32"
+subject: "physics"
+subject_area: "Particle Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1007/JHEP07(2026)251"
+dependencies: ""
+steps:
+  - number: 1
+    name: "Clear denominator samples"
+    description: "Clear the known common denominator from rational finite-field samples."
+    orchestrator: false
+  - number: 2
+    name: "Interpolate bivariate numerator"
+    description: "Recover the bivariate numerator coefficient tensor by modular interpolation."
+    orchestrator: false
+  - number: 3
+    name: "Pair ideal membership"
+    description: "Identify the candidate denominator pairs that can be separated in the partial-fraction decomposition."
+    orchestrator: false
+  - number: 4
+    name: "04_encode_pair_ideals"
+    description: "Convert accepted pairs into denominator-factor exponent tensors."
+    orchestrator: false
+  - number: 5
+    name: "05_simplified_intersection"
+    description: "Combine accepted constraints through LCM generators and membership rechecks."
+    orchestrator: false
+  - number: 6
+    name: "06_fit_pfd_numerators"
+    description: "Fit a deterministic set of lower-degree partial-fraction numerators."
+    orchestrator: false
+  - number: 7
+    name: "07_run_pfd_pipeline"
+    description: "Run the complete reconstruction workflow and return its checksum and diagnostics."
+    orchestrator: true

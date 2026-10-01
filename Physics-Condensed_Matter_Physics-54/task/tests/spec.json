@@ -1,0 +1,103 @@
+{
+  "problem_id": "Physics-Condensed_Matter_Physics-54",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-54.1",
+      "test_cases": [
+        "import numpy as np\nfrom copy import deepcopy\nimport numpy as np\n\ndef pack(a):\n    a = np.asarray(a)\n    return np.stack((a.real, a.imag), axis=-1)\nassert np.allclose(pack(magnetic_ribbon(deepcopy(np.array([0.0, 0.7, 2.9])), deepcopy(np.array([0.1, -0.2, 0.03, 0.05])))), target)",
+        "import numpy as np\nfrom copy import deepcopy\nimport numpy as np\n\ndef pack(a):\n    a = np.asarray(a)\n    return np.stack((a.real, a.imag), axis=-1)\nassert np.allclose(pack(magnetic_ribbon(deepcopy(np.linspace(0, 6, 5)), deepcopy(np.linspace(-0.1, 0.2, 6)), deepcopy(0.013), deepcopy(0.4))), target)",
+        "import numpy as np\nfrom copy import deepcopy\nimport numpy as np\n\ndef pack(a):\n    a = np.asarray(a)\n    return np.stack((a.real, a.imag), axis=-1)\nassert np.allclose(pack(magnetic_ribbon(deepcopy(np.array([-0.4, 6.1])), deepcopy(np.zeros(5)), deepcopy(-0.02), deepcopy(-0.3))), target)",
+        "import numpy as np\nfrom copy import deepcopy\n\ndef raises_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(lambda: magnetic_ribbon(deepcopy(np.array([])), deepcopy(np.zeros(4)))), target)",
+        "import numpy as np\nfrom copy import deepcopy\n\ndef raises_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(lambda: magnetic_ribbon(deepcopy(np.array([0])), deepcopy(np.zeros(3)))), target)",
+        "import numpy as np\nfrom copy import deepcopy\n\ndef raises_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(lambda: magnetic_ribbon(deepcopy(np.array([0])), deepcopy(np.zeros(4)), deepcopy(np.nan))), target)",
+        "import numpy as np\nfrom copy import deepcopy\n\ndef raises_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(lambda: magnetic_ribbon(deepcopy(np.array([1j])), deepcopy(np.zeros(4)))), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-54.2",
+      "test_cases": [
+        "import numpy as np\nfrom copy import deepcopy\nimport numpy as np\n\ndef pack(a):\n    a = np.asarray(a)\n    return np.stack((a.real, a.imag), axis=-1)\nh = np.array([np.diag([-2.0, 0.0, 1.0, 3.0]), np.diag([-3.0, -2.0, -1.0, 0.0]), np.eye(4), -np.eye(4)])\nassert np.allclose(pack(fixed_mu_projectors(deepcopy(h), deepcopy(0.0))), target)",
+        "import numpy as np\nfrom copy import deepcopy\nimport numpy as np\n\ndef pack(a):\n    a = np.asarray(a)\n    return np.stack((a.real, a.imag), axis=-1)\nrng = np.random.default_rng(71)\na = rng.normal(size=(3, 6, 6)) + 1j * rng.normal(size=(3, 6, 6))\nh = a + a.swapaxes(-1, -2).conj()\nassert np.allclose(pack(fixed_mu_projectors(deepcopy(h), deepcopy(0.15))), target)",
+        "import numpy as np\nfrom copy import deepcopy\nimport numpy as np\n\ndef pack(a):\n    a = np.asarray(a)\n    return np.stack((a.real, a.imag), axis=-1)\nh_c = magnetic_ribbon(np.linspace(0, 6, 7), np.linspace(-0.1, 0.1, 6), 0.01)\nassert np.allclose(pack(fixed_mu_projectors(deepcopy(h_c), deepcopy(0.08))), target)",
+        "import numpy as np\nfrom copy import deepcopy\n\ndef raises_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(lambda: fixed_mu_projectors(deepcopy(np.zeros((1, 3, 3))), deepcopy(0.0))), target)",
+        "import numpy as np\nfrom copy import deepcopy\n\ndef raises_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(lambda: fixed_mu_projectors(deepcopy(np.array([[[0, 1], [0, 0]]])), deepcopy(0.0))), target)",
+        "import numpy as np\nfrom copy import deepcopy\n\ndef raises_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(lambda: fixed_mu_projectors(deepcopy(np.zeros((1, 2, 2))), deepcopy(np.inf))), target)",
+        "import numpy as np\nfrom copy import deepcopy\n\ndef raises_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(lambda: fixed_mu_projectors(deepcopy(np.full((1, 2, 2), np.nan)), deepcopy(0.0))), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-54.3",
+      "test_cases": [
+        "import numpy as np\nfrom copy import deepcopy\nassert np.allclose(fermi_partition(deepcopy(np.zeros(6)), deepcopy(0.003), deepcopy(0.08), deepcopy(64)), target)",
+        "import numpy as np\nfrom copy import deepcopy\nassert np.allclose(fermi_partition(deepcopy(np.linspace(-0.15, 0.12, 8)), deepcopy(-0.006), deepcopy(-0.03), deepcopy(96)), target)",
+        "import numpy as np\nfrom copy import deepcopy\nassert np.allclose(fermi_partition(deepcopy(np.zeros(5)), deepcopy(0.002), deepcopy(20.0), deepcopy(32)), target)",
+        "import numpy as np\nfrom copy import deepcopy\n\ndef raises_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(lambda: fermi_partition(deepcopy(np.zeros(6)), deepcopy(0.003), deepcopy(0.08), deepcopy(True))), target)",
+        "import numpy as np\nfrom copy import deepcopy\n\ndef raises_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(lambda: fermi_partition(deepcopy(np.zeros(6)), deepcopy(0.003), deepcopy(0.08), deepcopy(7))), target)",
+        "import numpy as np\nfrom copy import deepcopy\n\ndef raises_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(lambda: fermi_partition(deepcopy(np.zeros(6)), deepcopy(0.003), deepcopy(np.nan))), target)",
+        "import numpy as np\nfrom copy import deepcopy\n\ndef raises_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(lambda: fermi_partition(deepcopy(np.zeros(3)), deepcopy(0.003), deepcopy(0.08))), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-54.4",
+      "test_cases": [
+        "import numpy as np\nfrom copy import deepcopy\nd = np.linspace(-0.12, 0.1, 6)\ncuts_c = fermi_partition(d.copy(), 0.004, 0.08, 128)\nassert np.allclose(partition_density(deepcopy(d), deepcopy(0.004), deepcopy(0.08), deepcopy(cuts_c), deepcopy(8)), target)",
+        "import numpy as np\nfrom copy import deepcopy\nd = np.linspace(-0.12, 0.1, 6)\ncuts_c = fermi_partition(d.copy(), 0.004, 0.08, 128)\nassert np.allclose(partition_density(deepcopy(d), deepcopy(0.004), deepcopy(0.08), deepcopy(cuts_c), deepcopy(32)), target)",
+        "import numpy as np\nfrom copy import deepcopy\nassert np.allclose(partition_density(deepcopy(np.zeros(5)), deepcopy(0.0), deepcopy(20.0), deepcopy(np.array([0.0, 0.2, 2.0, 2 * np.pi])), deepcopy(8)), target)",
+        "import numpy as np\nfrom copy import deepcopy\nd = np.linspace(-0.12, 0.1, 6)\ndef raises_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(lambda: partition_density(deepcopy(d), deepcopy(0.004), deepcopy(0.08), deepcopy(np.array([0.0, 0.0, 2 * np.pi])), deepcopy(8))), target)",
+        "import numpy as np\nfrom copy import deepcopy\nd = np.linspace(-0.12, 0.1, 6)\ncuts_c = fermi_partition(d.copy(), 0.004, 0.08, 128)\n\ndef raises_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(lambda: partition_density(deepcopy(d), deepcopy(0.004), deepcopy(0.08), deepcopy(cuts_c), deepcopy(3))), target)",
+        "import numpy as np\nfrom copy import deepcopy\nd = np.linspace(-0.12, 0.1, 6)\ndef raises_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(lambda: partition_density(deepcopy(d), deepcopy(0.004), deepcopy(0.08), deepcopy(np.array([0.0, 5.0])), deepcopy(8))), target)",
+        "import numpy as np\nfrom copy import deepcopy\nd = np.linspace(-0.12, 0.1, 6)\ncuts_c = fermi_partition(d.copy(), 0.004, 0.08, 128)\n\ndef raises_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(lambda: partition_density(deepcopy(d), deepcopy(0.004), deepcopy(0.08), deepcopy(cuts_c), deepcopy(True))), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-54.5",
+      "test_cases": [
+        "import numpy as np\nfrom copy import deepcopy\nd = np.linspace(-0.12, 0.1, 6)\ncuts_c = fermi_partition(d.copy(), 0.004, 0.08, 128)\n\ninitial_c = partition_density(d.copy(), 0.004, 0.08, cuts_c, 8)\nassert np.allclose(refine_density(deepcopy(d), deepcopy(0.004), deepcopy(0.08), deepcopy(cuts_c), deepcopy(initial_c)), target)",
+        "import numpy as np\nfrom copy import deepcopy\nd = np.linspace(-0.12, 0.1, 6)\ncuts_c = fermi_partition(d.copy(), 0.004, 0.08, 128)\n\ninitial_c = partition_density(d.copy(), 0.004, 0.08, cuts_c, 8)\nassert np.allclose(refine_density(deepcopy(d), deepcopy(0.004), deepcopy(0.08), deepcopy(cuts_c), deepcopy(initial_c), deepcopy(8), deepcopy(1e-07), deepcopy(128)), target)",
+        "import numpy as np\nfrom copy import deepcopy\nd = np.linspace(-0.12, 0.1, 6)\ncuts_c = fermi_partition(d.copy(), 0.004, 0.08, 128)\n\nexact16_c = partition_density(d.copy(), 0.004, 0.08, cuts_c, 16)\nassert np.allclose(refine_density(deepcopy(d), deepcopy(0.004), deepcopy(0.08), deepcopy(cuts_c), deepcopy(exact16_c), deepcopy(8), deepcopy(1e-12), deepcopy(16)), target)",
+        "import numpy as np\nfrom copy import deepcopy\nd = np.linspace(-0.12, 0.1, 6)\ncuts_c = fermi_partition(d.copy(), 0.004, 0.08, 128)\n\ninitial_c = partition_density(d.copy(), 0.004, 0.08, cuts_c, 8)\n\ndef raises_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(lambda: refine_density(deepcopy(d), deepcopy(0.004), deepcopy(0.08), deepcopy(cuts_c), deepcopy(initial_c), deepcopy(8), deepcopy(0.0), deepcopy(256))), target)",
+        "import numpy as np\nfrom copy import deepcopy\nd = np.linspace(-0.12, 0.1, 6)\ncuts_c = fermi_partition(d.copy(), 0.004, 0.08, 128)\n\ninitial_c = partition_density(d.copy(), 0.004, 0.08, cuts_c, 8)\n\ndef raises_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(lambda: refine_density(deepcopy(d), deepcopy(0.004), deepcopy(0.08), deepcopy(cuts_c), deepcopy(initial_c), deepcopy(8), deepcopy(1e-10), deepcopy(8))), target)",
+        "import numpy as np\nfrom copy import deepcopy\nd = np.linspace(-0.12, 0.1, 6)\ncuts_c = fermi_partition(d.copy(), 0.004, 0.08, 128)\n\nexact16_c = partition_density(d.copy(), 0.004, 0.08, cuts_c, 16)\n\ndef raises_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(lambda: refine_density(deepcopy(d), deepcopy(0.004), deepcopy(0.08), deepcopy(cuts_c), deepcopy(exact16_c + 1.0), deepcopy(8), deepcopy(1e-10), deepcopy(16))), target)",
+        "import numpy as np\nfrom copy import deepcopy\nd = np.linspace(-0.12, 0.1, 6)\ncuts_c = fermi_partition(d.copy(), 0.004, 0.08, 128)\n\ndef raises_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(lambda: refine_density(deepcopy(d), deepcopy(0.004), deepcopy(0.08), deepcopy(cuts_c), deepcopy(np.zeros(2)))), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-54.6",
+      "test_cases": [
+        "import numpy as np\nfrom copy import deepcopy\np_c = fixed_mu_projectors(magnetic_ribbon(2 * np.pi * np.arange(33) / 33, np.linspace(-0.1, 0.1, 6)), 0.08)\nassert np.allclose(embedded_chern(deepcopy(p_c)), target)",
+        "import numpy as np\nfrom copy import deepcopy\np_c = fixed_mu_projectors(magnetic_ribbon(2 * np.pi * np.arange(24) / 24, np.linspace(0.1, -0.1, 7)), 0.02)\nassert np.allclose(embedded_chern(deepcopy(p_c)), target)",
+        "import numpy as np\nfrom copy import deepcopy\nrng = np.random.default_rng(18)\np = rng.normal(size=(10, 8, 8)) + 1j * rng.normal(size=(10, 8, 8))\nassert np.allclose(embedded_chern(deepcopy(p)), target)",
+        "import numpy as np\nfrom copy import deepcopy\n\ndef raises_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(lambda: embedded_chern(deepcopy(np.zeros((4, 8, 8))))), target)",
+        "import numpy as np\nfrom copy import deepcopy\n\ndef raises_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(lambda: embedded_chern(deepcopy(np.zeros((5, 7, 7))))), target)",
+        "import numpy as np\nfrom copy import deepcopy\n\ndef raises_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(lambda: embedded_chern(deepcopy(np.zeros((5, 8, 9))))), target)",
+        "import numpy as np\nfrom copy import deepcopy\n\ndef raises_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(lambda: embedded_chern(deepcopy(np.full((5, 8, 8), np.nan)))), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-54.7",
+      "test_cases": [
+        "import numpy as np\nfrom copy import deepcopy\nassert np.allclose(boundary_discrepancy(deepcopy(np.zeros(6)), deepcopy(np.array([1.0, 2, 3, 4, 5, 6])), deepcopy(np.zeros(6)), deepcopy(0.5), deepcopy(1)), target)",
+        "import numpy as np\nfrom copy import deepcopy\nc = np.array([-0.6, -0.9, -1.0, -0.98, -0.91, -0.7])\np = np.array([0.98, 1.01, 1.02, 0.95, 0.94, 0.96])\nm = p + 0.006 * np.array([0.5, 0.8, 1.01, 0.99, 0.82, 0.51])\nassert np.allclose(boundary_discrepancy(deepcopy(c), deepcopy(p), deepcopy(m), deepcopy(0.003), deepcopy(2)), target)",
+        "import numpy as np\nfrom copy import deepcopy\nassert np.allclose(boundary_discrepancy(deepcopy(np.zeros(7)), deepcopy(np.ones(7)), deepcopy(np.ones(7)), deepcopy(0.002), deepcopy(3)), target)",
+        "import numpy as np\nfrom copy import deepcopy\n\ndef raises_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(lambda: boundary_discrepancy(deepcopy(np.zeros(6)), deepcopy(np.zeros(6)), deepcopy(np.zeros(6)), deepcopy(0.0), deepcopy(1))), target)",
+        "import numpy as np\nfrom copy import deepcopy\n\ndef raises_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(lambda: boundary_discrepancy(deepcopy(np.zeros(6)), deepcopy(np.zeros(6)), deepcopy(np.zeros(6)), deepcopy(0.01), deepcopy(3))), target)",
+        "import numpy as np\nfrom copy import deepcopy\n\ndef raises_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(lambda: boundary_discrepancy(deepcopy(np.zeros(6)), deepcopy(np.zeros(5)), deepcopy(np.zeros(6)), deepcopy(0.01), deepcopy(1))), target)",
+        "import numpy as np\nfrom copy import deepcopy\n\ndef raises_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(lambda: boundary_discrepancy(deepcopy(np.zeros(6)), deepcopy(np.zeros(6)), deepcopy(np.zeros(6)), deepcopy(0.01), deepcopy(True))), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-54.8",
+      "test_cases": [
+        "import numpy as np\nfrom copy import deepcopy\nassert np.allclose(run_ribbon_comparison(deepcopy(7), deepcopy(17), deepcopy(4), deepcopy(0.003), deepcopy(0.08), deepcopy(1)), target)",
+        "import numpy as np\nfrom copy import deepcopy\nassert np.allclose(run_ribbon_comparison(deepcopy(9), deepcopy(24), deepcopy(51), deepcopy(0.003), deepcopy(-0.02), deepcopy(2)), target)",
+        "import numpy as np\nfrom copy import deepcopy\nassert np.allclose(run_ribbon_comparison(deepcopy(10), deepcopy(35), deepcopy(4294967295), deepcopy(0.005), deepcopy(0.08), deepcopy(1)), target)",
+        "import numpy as np\nfrom copy import deepcopy\n\ndef raises_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(lambda: run_ribbon_comparison(deepcopy(True))), target)",
+        "import numpy as np\nfrom copy import deepcopy\n\ndef raises_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(lambda: run_ribbon_comparison(deepcopy(5))), target)",
+        "import numpy as np\nfrom copy import deepcopy\n\ndef raises_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(lambda: run_ribbon_comparison(deepcopy(6), deepcopy(4))), target)",
+        "import numpy as np\nfrom copy import deepcopy\n\ndef raises_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(lambda: run_ribbon_comparison(deepcopy(6), deepcopy(17), deepcopy(-1))), target)",
+        "import numpy as np\nfrom copy import deepcopy\n\ndef raises_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(lambda: run_ribbon_comparison(deepcopy(6), deepcopy(17), deepcopy(3), deepcopy(0.0))), target)",
+        "import numpy as np\nfrom copy import deepcopy\n\ndef raises_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(lambda: run_ribbon_comparison(deepcopy(6), deepcopy(17), deepcopy(3), deepcopy(0.002), deepcopy(0.08), deepcopy(3))), target)"
+      ]
+    }
+  ]
+}

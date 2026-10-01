@@ -1,0 +1,95 @@
+{
+  "problem_id": "Material_Science-Semiconductor_Materials-16",
+  "sub_steps": [
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-16.1",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(hopping_vectors(3.69, 0.5965), target)",
+        "import numpy as np\nassert np.allclose(hopping_vectors(1.0, 0.7853981633974483), target)",
+        "import numpy as np\nassert np.allclose(hopping_vectors(3.652, 0.5993), target)",
+        "import numpy as np\ndef _c():\n    try:\n        hopping_vectors(3.69, 1.5707963267948966)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_c(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-16.2",
+      "test_cases": [
+        "import numpy as np\nZR=np.array([-1.5007,-2.2542,1.6748,-5.3555,-4.5714,0.0188,0.1288,-0.1255,0.9063,-0.1974,-1.4874,0.9276,-0.1167,-0.0165,0.0605,-0.0078,-0.0109])\nV=np.arange(45,dtype=float).reshape(15,3)*0.17-2.6\nassert np.allclose(bloch_hamiltonian(np.array([0.31,-0.17,0.0]), V, ZR, -1), target)",
+        "import numpy as np\nZR=np.array([-1.5007,-2.2542,1.6748,-5.3555,-4.5714,0.0188,0.1288,-0.1255,0.9063,-0.1974,-1.4874,0.9276,-0.1167,-0.0165,0.0605,-0.0078,-0.0109])\nV=np.arange(45,dtype=float).reshape(15,3)*0.17-2.6\nassert np.allclose(bloch_hamiltonian(np.zeros(3), V, ZR, -1), target)",
+        "import numpy as np\nHF=np.array([-1.1472,-2.0304,1.6231,-5.6310,-4.7654,0.1490,0.1999,-0.1820,1.0371,-0.2387,-1.6199,0.9885,-0.2041,-0.0082,0.0909,0.0122,-0.0205])\nV=np.arange(45,dtype=float).reshape(15,3)*0.17-2.6\nassert np.allclose(bloch_hamiltonian(np.array([1.7,0.9,0.0]), V, HF, 1), target)",
+        "import numpy as np\nZR=np.array([-1.5007,-2.2542,1.6748,-5.3555,-4.5714,0.0188,0.1288,-0.1255,0.9063,-0.1974,-1.4874,0.9276,-0.1167,-0.0165,0.0605,-0.0078,-0.0109])\nV=np.arange(45,dtype=float).reshape(15,3)*0.17-2.6\ndef _c():\n    try:\n        bloch_hamiltonian(np.array([0.31,-0.17,0.0]), V, ZR, 3)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_c(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-16.3",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(brillouin_zone(3.69), target)",
+        "import numpy as np\nassert np.allclose(brillouin_zone(1.0), target)",
+        "import numpy as np\nassert np.allclose(brillouin_zone(3.652), target)",
+        "import numpy as np\ndef _c():\n    try:\n        brillouin_zone(0.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_c(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-16.4",
+      "test_cases": [
+        "import numpy as np\nZR=np.array([-1.5007,-2.2542,1.6748,-5.3555,-4.5714,0.0188,0.1288,-0.1255,0.9063,-0.1974,-1.4874,0.9276,-0.1167,-0.0165,0.0605,-0.0078,-0.0109])\nV=np.arange(45,dtype=float).reshape(15,3)*0.17-2.6\nR=np.array([[1.703,-0.983,0.],[0.,1.966,0.],[0.,0.,0.],[0.851,-0.492,0.],[1.135,0.,0.]])\nassert np.allclose(indirect_gap(V, R, ZR, 5, 6), target)",
+        "import numpy as np\nZR=np.array([-1.5007,-2.2542,1.6748,-5.3555,-4.5714,0.0188,0.1288,-0.1255,0.9063,-0.1974,-1.4874,0.9276,-0.1167,-0.0165,0.0605,-0.0078,-0.0109])\nV=np.arange(45,dtype=float).reshape(15,3)*0.17-2.6\nR=np.array([[1.703,-0.983,0.],[0.,1.966,0.],[0.,0.,0.],[0.851,-0.492,0.],[1.135,0.,0.]])\nassert np.allclose(indirect_gap(V, R, ZR, 1, 6), target)",
+        "import numpy as np\nHF=np.array([-1.1472,-2.0304,1.6231,-5.6310,-4.7654,0.1490,0.1999,-0.1820,1.0371,-0.2387,-1.6199,0.9885,-0.2041,-0.0082,0.0909,0.0122,-0.0205])\nV=np.arange(45,dtype=float).reshape(15,3)*0.17-2.6\nR=np.array([[1.703,-0.983,0.],[0.,1.966,0.],[0.,0.,0.],[0.851,-0.492,0.],[1.135,0.,0.]])\nassert np.allclose(indirect_gap(V, R, HF, 4, 4), target)",
+        "import numpy as np\nZR=np.array([-1.5007,-2.2542,1.6748,-5.3555,-4.5714,0.0188,0.1288,-0.1255,0.9063,-0.1974,-1.4874,0.9276,-0.1167,-0.0165,0.0605,-0.0078,-0.0109])\nV=np.arange(45,dtype=float).reshape(15,3)*0.17-2.6\nR=np.array([[1.703,-0.983,0.],[0.,1.966,0.],[0.,0.,0.],[0.851,-0.492,0.],[1.135,0.,0.]])\ndef _c():\n    try:\n        indirect_gap(V, R, ZR, 5, 11)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_c(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-16.5",
+      "test_cases": [
+        "import numpy as np\nZR=np.array([-1.5007,-2.2542,1.6748,-5.3555,-4.5714,0.0188,0.1288,-0.1255,0.9063,-0.1974,-1.4874,0.9276,-0.1167,-0.0165,0.0605,-0.0078,-0.0109])\nV=np.arange(45,dtype=float).reshape(15,3)*0.17-2.6\nassert np.allclose(effective_mass(V, ZR, 5, np.zeros(3), np.array([1.0,-0.57735,0.0]), 0.01, 7), target)",
+        "import numpy as np\nZR=np.array([-1.5007,-2.2542,1.6748,-5.3555,-4.5714,0.0188,0.1288,-0.1255,0.9063,-0.1974,-1.4874,0.9276,-0.1167,-0.0165,0.0605,-0.0078,-0.0109])\nV=np.arange(45,dtype=float).reshape(15,3)*0.17-2.6\nassert np.allclose(effective_mass(V, ZR, 5, np.zeros(3), np.array([1.0,0.0,0.0]), 0.01, 3), target)",
+        "import numpy as np\nHF=np.array([-1.1472,-2.0304,1.6231,-5.6310,-4.7654,0.1490,0.1999,-0.1820,1.0371,-0.2387,-1.6199,0.9885,-0.2041,-0.0082,0.0909,0.0122,-0.0205])\nV=np.arange(45,dtype=float).reshape(15,3)*0.17-2.6\nassert np.allclose(effective_mass(V, HF, 6, np.array([0.86,-0.4965,0.0]), np.array([-0.86,0.4965,0.0]), 0.005, 9), target)",
+        "import numpy as np\nZR=np.array([-1.5007,-2.2542,1.6748,-5.3555,-4.5714,0.0188,0.1288,-0.1255,0.9063,-0.1974,-1.4874,0.9276,-0.1167,-0.0165,0.0605,-0.0078,-0.0109])\nV=np.arange(45,dtype=float).reshape(15,3)*0.17-2.6\ndef _c():\n    try:\n        effective_mass(V, ZR, 5, np.zeros(3), np.array([1.0,0.0,0.0]), 0.01, 4)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_c(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-16.6",
+      "test_cases": [
+        "import numpy as np\nZR=np.array([-1.5007,-2.2542,1.6748,-5.3555,-4.5714,0.0188,0.1288,-0.1255,0.9063,-0.1974,-1.4874,0.9276,-0.1167,-0.0165,0.0605,-0.0078,-0.0109])\nV=np.arange(45,dtype=float).reshape(15,3)*0.17-2.6\nR=np.array([[1.703,-0.983,0.],[0.,1.966,0.],[0.,0.,0.],[0.851,-0.492,0.],[1.135,0.,0.]])\nassert np.allclose(interband_transitions(V, R, ZR, 3, 6, 0), target)",
+        "import numpy as np\nZR=np.array([-1.5007,-2.2542,1.6748,-5.3555,-4.5714,0.0188,0.1288,-0.1255,0.9063,-0.1974,-1.4874,0.9276,-0.1167,-0.0165,0.0605,-0.0078,-0.0109])\nV=np.arange(45,dtype=float).reshape(15,3)*0.17-2.6\nR=np.array([[1.703,-0.983,0.],[0.,1.966,0.],[0.,0.,0.],[0.851,-0.492,0.],[1.135,0.,0.]])\nassert np.allclose(interband_transitions(V, R, ZR, 1, 6, 0), target)",
+        "import numpy as np\nHF=np.array([-1.1472,-2.0304,1.6231,-5.6310,-4.7654,0.1490,0.1999,-0.1820,1.0371,-0.2387,-1.6199,0.9885,-0.2041,-0.0082,0.0909,0.0122,-0.0205])\nV=np.arange(45,dtype=float).reshape(15,3)*0.17-2.6\nR=np.array([[1.703,-0.983,0.],[0.,1.966,0.],[0.,0.,0.],[0.851,-0.492,0.],[1.135,0.,0.]])\nassert np.allclose(interband_transitions(V, R, HF, 2, 4, 1), target)",
+        "import numpy as np\nZR=np.array([-1.5007,-2.2542,1.6748,-5.3555,-4.5714,0.0188,0.1288,-0.1255,0.9063,-0.1974,-1.4874,0.9276,-0.1167,-0.0165,0.0605,-0.0078,-0.0109])\nV=np.arange(45,dtype=float).reshape(15,3)*0.17-2.6\nR=np.array([[1.703,-0.983,0.],[0.,1.966,0.],[0.,0.,0.],[0.851,-0.492,0.],[1.135,0.,0.]])\ndef _c():\n    try:\n        interband_transitions(V, R, ZR, 0, 6, 0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_c(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-16.7",
+      "test_cases": [
+        "import numpy as np\nT=np.array([[1.5,0.83],[2.14,0.31],[3.77,1.92],[2.14,0.07],[5.6,0.44]])\nassert np.allclose(quantum_metric(T, 3), target)",
+        "import numpy as np\nT=np.array([[1.5,0.83],[2.14,0.31],[3.77,1.92],[2.14,0.07],[5.6,0.44]])\nassert np.allclose(quantum_metric(T[:1], 1), target)",
+        "import numpy as np\nT=np.array([[1.5,0.83],[2.14,0.31],[3.77,1.92],[2.14,0.07],[5.6,0.44]])\nassert np.allclose(quantum_metric(T*1e-4, 12), target)",
+        "import numpy as np\ndef _c():\n    try:\n        quantum_metric(np.array([[0.0,1.0]]), 3)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_c(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-16.8",
+      "test_cases": [
+        "import numpy as np\nT=np.array([[1.5,0.83],[2.14,0.31],[3.77,1.92],[2.14,0.07],[5.6,0.44]])\nassert np.allclose(optical_conductivity(np.linspace(1.0,6.0,11), T, 3, 0.1), target)",
+        "import numpy as np\nT=np.array([[1.5,0.83],[2.14,0.31],[3.77,1.92],[2.14,0.07],[5.6,0.44]])\nassert np.allclose(optical_conductivity(np.array([2.14]), T, 1, 0.001), target)",
+        "import numpy as np\nT=np.array([[1.5,0.83],[2.14,0.31],[3.77,1.92],[2.14,0.07],[5.6,0.44]])\nassert np.allclose(optical_conductivity(np.linspace(0.1,20.0,7), T, 12, 2.5), target)",
+        "import numpy as np\nT=np.array([[1.5,0.83],[2.14,0.31],[3.77,1.92],[2.14,0.07],[5.6,0.44]])\ndef _c():\n    try:\n        optical_conductivity(np.linspace(1.0,6.0,11), T, 3, 0.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_c(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-16.9",
+      "test_cases": [
+        "import numpy as np\nW=np.linspace(1.0,14.0,401)\nassert np.allclose(spectral_weight(W, np.exp(-(W-3.1)**2)*2.0+0.05), target)",
+        "import numpy as np\nassert np.allclose(spectral_weight(np.array([1.0,2.0]), np.array([0.5,0.25])), target)",
+        "import numpy as np\nW=np.linspace(1.0,14.0,401)\nassert np.allclose(spectral_weight(W*0.01+0.2, np.sin(W)**2*1e-3), target)",
+        "import numpy as np\ndef _c():\n    try:\n        spectral_weight(np.array([0.0,2.0]), np.array([0.5,0.25]))\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_c(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-16.10",
+      "test_cases": [
+        "import numpy as np\nZR=np.array([-1.5007,-2.2542,1.6748,-5.3555,-4.5714,0.0188,0.1288,-0.1255,0.9063,-0.1974,-1.4874,0.9276,-0.1167,-0.0165,0.0605,-0.0078,-0.0109])\nassert np.allclose(tb_optics_report(3.69, 0.5965, ZR, 30, 6, 0.01, 1.0, 14.0, 13001, 0.01, 7), target)",
+        "import numpy as np\nZR=np.array([-1.5007,-2.2542,1.6748,-5.3555,-4.5714,0.0188,0.1288,-0.1255,0.9063,-0.1974,-1.4874,0.9276,-0.1167,-0.0165,0.0605,-0.0078,-0.0109])\nassert np.allclose(tb_optics_report(3.69, 0.5965, ZR, 6, 6, 0.05, 1.0, 14.0, 1301, 0.02, 3), target)",
+        "import numpy as np\nHF=np.array([-1.1472,-2.0304,1.6231,-5.6310,-4.7654,0.1490,0.1999,-0.1820,1.0371,-0.2387,-1.6199,0.9885,-0.2041,-0.0082,0.0909,0.0122,-0.0205])\nassert np.allclose(tb_optics_report(3.652, 0.5993, HF, 12, 6, 0.001, 1.5, 16.0, 2901, 0.005, 9), target)",
+        "import numpy as np\nZR=np.array([-1.5007,-2.2542,1.6748,-5.3555,-4.5714,0.0188,0.1288,-0.1255,0.9063,-0.1974,-1.4874,0.9276,-0.1167,-0.0165,0.0605,-0.0078,-0.0109])\ndef _c():\n    try:\n        tb_optics_report(3.69, 0.5965, ZR, 6, 6, 0.01, 14.0, 1.0, 1301, 0.01, 7)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_c(), target)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+problem_id: "Chemistry-Computational_Chemistry-49"
+subject: "chemistry"
+subject_area: "Computational Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1039/d6dd00016a"
+dependencies: ""
+steps:
+  - number: 1
+    name: "generate_sobol_trial_crystals"
+    description: "Generate Sobol trial crystals and append the experimental reference."
+    orchestrator: false
+  - number: 2
+    name: "apply_triple_radius_validation"
+    description: "Apply triple-radius validation to trial crystals."
+    orchestrator: false
+  - number: 3
+    name: "build_batched_pbc_neighbor_lists"
+    description: "Build batched periodic neighbor lists for the validated crystals."
+    orchestrator: false
+  - number: 4
+    name: "two_stage_batched_relax"
+    description: "Relax a validated crystal batch with the two-step damped cell-length map."
+    orchestrator: false
+  - number: 5
+    name: "deduplicate_ccdc_packing"
+    description: "Remove duplicate packings with the paper's similarity rule."
+    orchestrator: false
+  - number: 6
+    name: "relative_lattice_energy"
+    description: "Score the unique list with the paper's relative lattice energy."
+    orchestrator: false
+  - number: 7
+    name: "run_bomlip_csp"
+    description: "Orchestrate the complete BOMLIP-CSP ranking pipeline."
+    orchestrator: true

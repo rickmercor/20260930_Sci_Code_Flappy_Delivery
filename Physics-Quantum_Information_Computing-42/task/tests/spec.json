@@ -1,0 +1,70 @@
+{
+  "problem_id": "Physics-Quantum_Information_Computing-42",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Quantum_Information_Computing-42.1",
+      "test_cases": [
+        "import numpy as np\n\ntheta_rx = 0.8453\ntheta_rz = 0.4217\nassert np.allclose(reconstruct_source_gate_encodings(theta_rx, theta_rz), target)",
+        "import numpy as np\n\ntheta_rx = 0.0\ntheta_rz = 0.0\nassert np.allclose(reconstruct_source_gate_encodings(theta_rx, theta_rz), target)",
+        "import numpy as np\n\ntheta_rx = np.nan\ntheta_rz = 0.0\n\ndef run_model():\n    try:\n        reconstruct_source_gate_encodings(\n            theta_rx,\n            theta_rz,\n        )\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-42.2",
+      "test_cases": [
+        "import numpy as np\n\ntheta_rx0 = 0.8453\ntheta_rx1 = 0.1729\ntheta_rx2 = 0.6331\ntheta_rz0 = 0.4217\ntheta_rz2 = 0.2876\nassert np.allclose(compute_target_identity_cyclic_fidelity(theta_rx0, theta_rx1, theta_rx2, theta_rz0, theta_rz2), target)",
+        "import numpy as np\n\ntheta_rx0 = 0.0\ntheta_rx1 = 0.0\ntheta_rx2 = 0.0\ntheta_rz0 = 0.0\ntheta_rz2 = 0.0\nassert np.allclose(compute_target_identity_cyclic_fidelity(theta_rx0, theta_rx1, theta_rx2, theta_rz0, theta_rz2), target)",
+        "import numpy as np\n\ntheta_rx0 = np.nan\ntheta_rx1 = 0.0\ntheta_rx2 = 0.0\ntheta_rz0 = 0.0\ntheta_rz2 = 0.0\n\ndef run_model():\n    try:\n        compute_target_identity_cyclic_fidelity(\n            theta_rx0,\n            theta_rx1,\n            theta_rx2,\n            theta_rz0,\n            theta_rz2,\n        )\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-42.3",
+      "test_cases": [
+        "import numpy as np\n\nschedule = np.array([\n    [\n        [1, 0, -1],\n        [1, 1, -1],\n        [1, 2, -1],\n    ],\n    [\n        [2, 0, -1],\n        [4, 2,  1],\n        [-1,-1,-1],\n    ],\n    [\n        [1, 0, -1],\n        [1, 1, -1],\n        [2, 2, -1],\n    ],\n    [\n        [4, 0,  1],\n        [1, 2, -1],\n        [-1,-1,-1],\n    ],\n], dtype=float)\nassert np.allclose(validate_source_schedule(schedule), target)",
+        "import numpy as np\n\n# H0 immediately followed by H0: source-invalid.\nschedule = np.array([\n    [\n        [1,0,-1],\n        [0,1,-1],\n        [0,2,-1],\n    ],\n    [\n        [1,0,-1],\n        [0,1,-1],\n        [0,2,-1],\n    ],\n], dtype=float)\nassert np.allclose(validate_source_schedule(schedule), target)",
+        "import numpy as np\n\nschedule = np.array([\n    [\n        [4,0,0],\n        [0,2,-1],\n        [-1,-1,-1],\n    ],\n], dtype=float)\n\ndef run_model():\n    try:\n        validate_source_schedule(schedule)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-42.4",
+      "test_cases": [
+        "import numpy as np\n\nschedule = np.array([\n    [\n        [1, 0, -1],\n        [1, 1, -1],\n        [1, 2, -1],\n    ],\n    [\n        [2, 0, -1],\n        [4, 2,  1],\n        [-1,-1,-1],\n    ],\n    [\n        [1, 0, -1],\n        [1, 1, -1],\n        [2, 2, -1],\n    ],\n    [\n        [4, 0,  1],\n        [1, 2, -1],\n        [-1,-1,-1],\n    ],\n], dtype=float)\nassert np.allclose(compute_fixed_schedule_cyclic_fidelity(0.8453,0.1729,0.6331,0.4217,0.2876,schedule), target)",
+        "import numpy as np\n\nschedule = np.array([\n    [\n        [4,0,1],\n        [0,2,-1],\n        [-1,-1,-1],\n    ],\n], dtype=float)\nassert np.allclose(compute_fixed_schedule_cyclic_fidelity(0.8453,0.1729,0.6331,0.4217,0.2876,schedule), target)",
+        "import numpy as np\n\nschedule = np.array([\n    [\n        [1,0,-1],\n        [1,1,-1],\n        [-1,-1,-1],\n    ],\n], dtype=float)\n\ndef run_model():\n    try:\n        compute_fixed_schedule_cyclic_fidelity(\n            0.8453,0.1729,0.6331,0.4217,0.2876,schedule\n        )\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-42.5",
+      "test_cases": [
+        "import numpy as np\n\na,b,c,d,e = 0.8453,0.1729,0.6331,0.4217,0.2876\ndepth = 1\nthreshold = 0.90\nassert np.allclose(optimize_fixed_depth_d4max(a,b,c,d,e,depth,threshold), target)",
+        "import numpy as np\n\na,b,c,d,e = 0.8453,0.1729,0.6331,0.4217,0.2876\ndepth = 2\nthreshold = 0.90\nassert np.allclose(optimize_fixed_depth_d4max(a,b,c,d,e,depth,threshold), target)",
+        "import numpy as np\n\na,b,c,d,e = 0.8453,0.1729,0.6331,0.4217,0.2876\ndepth = 0\nthreshold = 0.90\n\ndef run_model():\n    try:\n        optimize_fixed_depth_d4max(\n            a,b,c,d,e,depth,threshold\n        )\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-42.6",
+      "test_cases": [
+        "import numpy as np\n\na,b,c,d,e = 0.8453,0.1729,0.6331,0.4217,0.2876\nepsilon = 0.30\nmax_depth = 4\nassert np.allclose(search_source_depths_d4max(a,b,c,d,e,epsilon,max_depth), target)",
+        "import numpy as np\n\na,b,c,d,e = 0.8453,0.1729,0.6331,0.4217,0.2876\nepsilon = 0.81\nmax_depth = 4\nassert np.allclose(search_source_depths_d4max(a,b,c,d,e,epsilon,max_depth), target)",
+        "import numpy as np\n\na,b,c,d,e = 0.8453,0.1729,0.6331,0.4217,0.2876\nepsilon = -0.1\nmax_depth = 4\n\ndef run_model():\n    try:\n        search_source_depths_d4max(\n            a,b,c,d,e,epsilon,max_depth\n        )\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-42.7",
+      "test_cases": [
+        "import numpy as np\n\ndepth_results = np.array([\n    [1.0, 0.0, 0.19329500596619154],\n    [2.0, 0.0, 0.7063610711381948],\n    [3.0, 0.0, 0.7063610711381948],\n    [4.0, 1.0, 0.90],\n])\n\nepsilon = 0.10\nassert np.allclose(select_first_feasible_depth(depth_results, epsilon), target)",
+        "import numpy as np\n\ndepth_results = np.array([\n    [1.0, 0.0, 0.19329500596619154],\n    [2.0, 1.0, 0.70],\n])\n\nepsilon = 0.30\nassert np.allclose(select_first_feasible_depth(depth_results, epsilon), target)",
+        "import numpy as np\n\n# Malformed depth sequence: depth 2 is missing.\ndepth_results = np.array([\n    [1.0, 0.0, 0.1],\n    [3.0, 1.0, 0.9],\n])\n\nepsilon = 0.10\n\ndef run_model():\n    try:\n        select_first_feasible_depth(\n            depth_results,\n            epsilon,\n        )\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\n\n# threshold_met=2 is malformed; only 0 or 1 is allowed.\ndepth_results = np.array([\n    [1.0, 2.0, 0.90],\n])\n\nepsilon = 0.10\n\ndef run_model():\n    try:\n        select_first_feasible_depth(\n            depth_results,\n            epsilon,\n        )\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-42.8",
+      "test_cases": [
+        "import numpy as np\n\nepsilon = 0.30\nmax_depth = 4\na,b,c,d,e = 0.8453,0.1729,0.6331,0.4217,0.2876\nassert np.allclose(run_paper_faithful_quokka_synthesis(epsilon,max_depth,a,b,c,d,e), target)",
+        "import numpy as np\n\nepsilon = 0.81\nmax_depth = 4\na,b,c,d,e = 0.8453,0.1729,0.6331,0.4217,0.2876\nassert np.allclose(run_paper_faithful_quokka_synthesis(epsilon,max_depth,a,b,c,d,e), target)",
+        "import numpy as np\n\nepsilon = 0.10\nmax_depth = 0\na,b,c,d,e = 0.8453,0.1729,0.6331,0.4217,0.2876\n\ndef run_model():\n    try:\n        run_paper_faithful_quokka_synthesis(\n            epsilon,max_depth,a,b,c,d,e\n        )\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

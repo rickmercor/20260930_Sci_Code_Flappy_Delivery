@@ -1,0 +1,56 @@
+problem_id: "Biology-Ecology-51"
+subject: "biology"
+subject_area: "Ecology"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1111/2041-210x.70372"
+dependencies: ""
+steps:
+  - number: 1
+    name: "ricker_trajectory"
+    description: "Return the n_states successive community states of the discrete-time Ricker-Lotka-Volterra map N_{t+1,s} = N_{t,s} exp(r_s (1 - (A N_t)_s / K_s)) started from the absolute abundances initial (row 0 of the result is initial itself, row t is the state after t applications of the map)."
+    orchestrator: false
+  - number: 2
+    name: "regime_states"
+    description: "Return the relative-abundance states of a synthetic dynamic regime of n_traj trajectories with n_states states each: trajectory j (j = 1, ..., n_traj) starts from the absolute abundances base_s (1 + amplitude (2 h_{j,s} / 1000 - 1)) with the integer hash h_{j,s} = (1103 j + 617 s + 251 j s) mod 1001 (species s = 1, ..., S), follows the Ricker map of step 01 with growth, capacity and interaction for n_states states, and every state is divided by its total abundance. Rows are ordered by trajectory and, within a trajectory, by state."
+    orchestrator: false
+  - number: 3
+    name: "bray_curtis_matrix"
+    description: "Return the symmetric matrix of Bray-Curtis dissimilarities between all pairs of rows of states, d(x, y) = sum_s |x_s - y_s| / sum_s (x_s + y_s), with zeros on the diagonal."
+    orchestrator: false
+  - number: 4
+    name: "trajectory_dissimilarity"
+    description: "Return the dissimilarity between the target trajectory and one reference trajectory that the source uses for multi-state targets: the directed segment path dissimilarity of its companion trajectory-analysis source, evaluated from the target to the reference on the given state dissimilarity matrix and constructed as follows. To project a state P onto the directed segment from state A to state B, take L = d(A, B), a = d(P, A) and b = d(P, B); if these three values violate the triangle inequality, first add to each of them the smallest constant that restores it, max(L - a - b, a - L - b, b - L - a), and use the corrected values in everything that follows. The position of the projection along the segment is p = (a^2 + L^2 - b^2) / (2 L) and the distance of P to the segment is h = sqrt(a^2 - p^2); if a^2 - p^2 < 0, p < 0 or p > L, the projection is the nearer endpoint instead, with position 0 and distance a when a < b, and position L and distance b otherwise. For two directed segments S1 = (s1 -> e1) and S2 = (s2 -> e2), project s1 and e1 onto S2 and s2 and e2 onto S1. If the projection of s1 lies strictly further along S2 than that of e1, S1 runs against S2 and the distance of e1 is replaced by d(s1, e1) + min(h(s1), h(e1)); S2 is treated the same way with respect to S1. The distance between the two segments is the largest of the four endpoint distances, and the dissimilarity from the target to the reference is the mean, over the target's segments, of the distance to the closest segment of the reference. Both trajectories are given as time-ordered state indices; consecutive indices form the segments."
+    orchestrator: false
+  - number: 5
+    name: "trajectory_weights"
+    description: "Return, as a vector with one entry per state, the trajectory weights that the source's distance-weighting scheme (its Eq 2 with the exponential function of its Table S1 and shape parameter alpha) assigns around a multi-state target: a reference trajectory T receives the weight exp(-alpha d_T / d_max) when it contains one of the k nearest states, among all states outside the target's trajectory (ties in index order), of the target's first or last state and has a state at dissimilarity at most radius from some state of the target, where d_T is the trajectory dissimilarity of step 04 from the target to T and the scale factor d_max is the larger of radius and the largest d_T over those trajectories (the trajectory that sets d_max keeps the weight exp(-alpha)); every state of a trajectory carries that trajectory's weight, states of the target's own trajectory carry 0, and trajectories outside the source's weighted set carry 0."
+    orchestrator: false
+  - number: 6
+    name: "neighbour_states"
+    description: "Return the indices of the reference states that the source's forecasting algorithm keeps as the neighbourhood of one extreme state of the target: the neighbourhood is built from the k nearest states of other trajectories in the dissimilarity matrix, the radius (the source's dissimilarity threshold) and, when weights are given, the trajectory weights, following the source's order of operations and its treatment of states that fail the radius or carry no weight. Indices are returned in ascending dissimilarity to the extreme state, ties in index order."
+    orchestrator: false
+  - number: 7
+    name: "sweep_states"
+    description: "Return the sequence of states that the source's forecasting algorithm predicts in one direction from a neighbourhood: the sweep moves along the neighbouring trajectories, one state per step, backward (direction -1) or forward (direction +1), and forms each predicted state as the weighted mean of the state variables of the states reached, following the source's rule for which states enter each step and its stopping rule governed by min_pts. Rows are ordered from the first predicted state outward."
+    orchestrator: false
+  - number: 8
+    name: "predicted_trajectory"
+    description: "Assemble the predicted trajectory of a multi-state target from its observed states, the backward sweep of its first state and the forward sweep of its last state (step 07): an array whose column 0 holds the state label (the observed labels for the target's own states, decreasing by one per backward predicted state from the first label and increasing by one per forward predicted state from the last label) and whose remaining columns hold the state variables; the target's own states are included and rows are sorted by label. Either sweep may be empty."
+    orchestrator: false
+  - number: 9
+    name: "mean_predicted_deviation"
+    description: "Return the source's mean predicted deviation (its Eq 3) of the predicted trajectory of a multi-state target: every predicted state is in turn forecast as a new single-state target with the source's algorithm (the same k, radius and min_pts, through steps 03, 06, 07 and 08), with the regime trajectories (the original target removed) as the reference, the predicted state forming a one-state trajectory of its own with weight 0, and every regime state keeping the original target's trajectory weight; the deviation is the average, over every pair of an observed target state and a predicted state, of the smallest Bray-Curtis dissimilarity between the observed state and the states of the trajectory forecast from that predicted state (its step 08 assembly, the predicted state itself included)."
+    orchestrator: false
+  - number: 10
+    name: "forecast_deviation"
+    description: "Whole forecast at one radius. Build the synthetic regime of step 02 (n_traj trajectories of n_states states from base, amplitude, growth, capacity and interaction), define the target as states first_state to last_state of the Ricker run (step 01) started from the mean of the initial communities of trajectories source_a and source_b (the same hashed initial abundances as step 02), append it to the regime as its own trajectory, compute the Bray-Curtis matrix (step 03), the trajectory weights (step 05, exponential with alpha), the trajectory dissimilarity of step 04 from the target to every weighted trajectory (called directly, as a consistency check of the weights that raises ValueError on disagreement), the neighbourhoods of the first and last target states (step 06 with k and radius), the backward and forward sweeps (step 07 with min_pts), the predicted trajectory (step 08) and return its mean predicted deviation (step 09). Call the earlier step functions rather than reimplementing them."
+    orchestrator: false
+  - number: 11
+    name: "optimal_radius_deviation"
+    description: "The source's selection of the radius by minimising the mean predicted deviation. For the same regime, target, k, min_pts and alpha as step 10, return the infimum of the step-10 deviation over all radii radius_min <= radius <= radius_max, together with the infimum and the supremum of the radii at which the deviation equals that value (equality within 1e-12), all three exact to the working precision (a sampled approximation does not meet the contract). The caller guarantees that, for every radius of the domain, the scale factor of step 05 is at least that radius and the forecast holds at least one predicted state; raise ValueError if either guarantee fails. Call the earlier step functions, including step 10, rather than reimplementing them."
+    orchestrator: false
+  - number: 12
+    name: "optimal_shape_parameter"
+    description: "Orchestrator: the source's selection of the neighbourhood parameters by minimising the mean predicted deviation. For the same regime, target, k and min_pts as step 10, (i) at the fixed radius return alpha_star, the shape parameter in [alpha_min, alpha_max] at which the step-10 deviation attains its minimum over that range, and the deviation there, alpha_star exact to 1e-9 and the deviation to 1e-9 (a sampled or tolerance-limited search does not meet the contract); the deviation is not smooth in alpha: it jumps where a neighbourhood or a set of averaged states changes and has kinks where a nearest forecast state or the sign of a species difference changes, so the minimum may lie at such a point, and the caller guarantees that the minimum over the range is unique, lies strictly inside the range and is attained at a point where the deviation is continuous (raise ValueError otherwise); (ii) at the fixed shape parameter alpha_ref return the radius selection of step 11 over [radius_min, radius_max]. Return the five values [alpha_star, deviation at alpha_star, minimal deviation over the radius range, infimum of the optimal radii, supremum of the optimal radii]. Call the earlier step functions, including steps 10 and 11, rather than reimplementing them."
+    orchestrator: true

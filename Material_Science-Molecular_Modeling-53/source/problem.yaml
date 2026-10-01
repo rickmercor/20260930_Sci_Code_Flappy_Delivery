@@ -1,0 +1,40 @@
+problem_id: "Material_Science-Molecular_Modeling-53"
+subject: "materials"
+subject_area: "Molecular Modeling"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2608.24378"
+dependencies: ""
+steps:
+  - number: 1
+    name: "morse_potential"
+    description: "Evaluate the source's Morse bond-stretching potential at the given bond length(s), for dissociation energy De, inverse range parameter a and equilibrium length le (the paper's Eq. S8)."
+    orchestrator: false
+  - number: 2
+    name: "bending_kernel"
+    description: "Build the source's angular coupling kernel between the polar angles of two successive bonds (the paper's Eq. S61). The bending energy penalises departures of the local bond angle from its equilibrium value with stiffness kphi (Eq. S9); because only the RELATIVE azimuth of the two bonds is unconstrained, the source removes it by integrating over it, which is what turns a bending energy of the bond angle into a kernel in the two polar angles. Recover from the paper both how the bond angle follows from the two polar angles and that relative azimuth, and what is integrated. Use a uniform grid of 121 polar angles spanning 0 to pi and a uniform grid of 121 azimuths spanning 0 to 2*pi, both with composite Simpson weights."
+    orchestrator: false
+  - number: 3
+    name: "local_intact_weight"
+    description: "Return the natural logarithm of the source's local intact weight for one bond held at each polar angle of the declared grid, given that bond's rupture threshold (the paper's Eq. S60). The weight integrates the Boltzmann factor of the bond over the allowed bond-length interval, carrying the configurational measure the source uses. Because beta is large the raw weight spans hundreds of orders of magnitude, so return its logarithm and build it stably. Integrate over bond length with composite Simpson quadrature on 1201 uniform points from zero to the threshold. Where the measure vanishes at the two grid endpoints the log is returned as the finite floor -1e300 rather than minus infinity, so the array stays comparable. Raise ValueError on a non-positive threshold."
+    orchestrator: false
+  - number: 4
+    name: "tm_angular_weights"
+    description: "Propagate the source's transfer-matrix messages along the chain and return the angular weight of every bond on the declared polar-angle grid (the paper's Eqs. S72 to S79). One message sweeps from the first bond toward the last and the other sweeps back, each step folding in the local intact weight of the bond just passed and the angular coupling kernel; the two boundary messages are uniform in the polar angle and normalised. Only the NORMALISED message shapes are needed, so renormalise each message to unit integral over the polar angle after every step and the accumulated magnitudes never have to be carried. The angular weight of a bond is then formed from the two messages meeting at that bond, in the source's way. Recover the propagation, the normalisation and the combination rule from the paper."
+    orchestrator: false
+  - number: 5
+    name: "tm_pmf"
+    description: "Evaluate the source's bond-length potential of mean force for a bond whose angular weight is given, at the requested bond length(s) (the paper's Eq. S82). Besides the bare stretching energy the PMF contains an entropic contribution: an angular average over the grid, weighted by that bond's angular weight, of the force coupling, together with the configurational measure the source uses. An l-independent additive constant is irrelevant and may be dropped. Recover the exact expression from the paper."
+    orchestrator: false
+  - number: 6
+    name: "self_consistent_thresholds"
+    description: "Determine the source's rupture thresholds for a chain of N bonds self-consistently (the numbered procedure in the paper's Sec. S2.2). Each bond's PMF depends parametrically on the thresholds of the OTHER bonds, so the source alternates between rebuilding the angular weights for the current threshold set and updating each threshold to the stationary point that the variational transition-state principle selects, until the set stops changing. Start every threshold at 2.4 and run exactly 8 sweeps, which is far past convergence here. Locate stationary points by scanning bond lengths on [0.6, 6.0] with 24001 uniform points, taking the first decreasing-to-increasing sign change and then the next increasing-to-decreasing one, refining each by 80 ternary-search iterations on half-width 0.02. Raise ValueError unless N is an integer of at least 2. Assemble by calling the earlier sub-problem functions."
+    orchestrator: false
+  - number: 7
+    name: "bond_barriers"
+    description: "Return the source's bond-resolved activation barriers, in units of kT, for a chain of N bonds at the given force. For each bond the barrier is the PMF difference between the two stationary points of that bond's converged PMF, taken in the source's sense. Because the chain ends truncate the orientational correlations, the barriers depend on bond position and the source's construction makes them symmetric about the chain midpoint. Assemble by calling the earlier sub-problem functions."
+    orchestrator: false
+  - number: 8
+    name: "scission_audit"
+    description: "Run the full finite-bending chain-scission audit over the three declared configurations. Each configuration is a chain of N bonds at base force f0 multiplied by force_scale, with (N, f0) = (5, 0.20), (4, 0.15) and (3, 0.25). Report a row of: the converged rupture threshold of the first bond, the converged threshold of the bond at index N//2, the activation barrier of the first bond in kT, the largest bond activation barrier in kT, and the sum of the bond activation barriers in kT. Use De = 1.0, a = 2.15, le = 1.0, beta = 279.0, equilibrium bond angle 69 degrees, and a bending stiffness such that beta*kphi*pi**2 = 1820. Assemble by calling the earlier sub-problem functions. Raise ValueError on a non-positive or nonfinite force_scale."
+    orchestrator: true

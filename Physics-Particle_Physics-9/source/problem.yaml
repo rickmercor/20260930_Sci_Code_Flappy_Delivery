@@ -1,0 +1,36 @@
+problem_id: "Physics-Particle_Physics-9"
+subject: "physics"
+subject_area: "Particle Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2606.26247"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_assemble_qqbar_sector_jets"
+    description: "Construct the regular quark-pair and polarization jets in any of the seven sectors."
+    orchestrator: false
+  - number: 2
+    name: "02_assemble_nonabelian_sector_jets"
+    description: "Assemble the full nonabelian regular jets using the quark-pair and polarization series."
+    orchestrator: false
+  - number: 3
+    name: "03_assemble_laurent_sector_rule"
+    description: "Build an endpoint-smoothed pole and plus-distribution quadrature."
+    orchestrator: false
+  - number: 4
+    name: "04_combine_laurent_sector_coefficients"
+    description: "Contract the regular jets with every bulk, face and pole-intersection term."
+    orchestrator: false
+  - number: 5
+    name: "05_assemble_opposite_hemisphere_coefficients"
+    description: "Integrate the opposite-hemisphere contributions II1 and II2."
+    orchestrator: false
+  - number: 6
+    name: "06_combine_sector_finite_parts"
+    description: "Total the seven sector finite coefficients and apply the factor four for the other energy order and hard-leg hemisphere."
+    orchestrator: false
+  - number: 7
+    name: "07_compute_nonabelian_integrated_finite_part"
+    description: "Sum the seven sector finite parts and apply the factor four for the other energy order and hard-leg hemisphere."
+    orchestrator: true

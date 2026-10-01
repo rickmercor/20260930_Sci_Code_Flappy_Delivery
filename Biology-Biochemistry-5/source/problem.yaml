@@ -1,0 +1,36 @@
+problem_id: "Biology-Biochemistry-5"
+subject: "biology"
+subject_area: "Biochemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2604.03794"
+dependencies: ""
+steps:
+  - number: 1
+    name: "truncated_generator"
+    description: "Assemble the generator of the dimerization reaction network of Table I restricted to the truncated state space, namely the copy numbers 0 through N-1. Each row holds the transition rates out of one state into the other truncated states, with the diagonal carrying the total outflow that the source's construction prescribes for a truncated state, so that the matrix is exactly the operator the backward equation runs on."
+    orchestrator: false
+  - number: 2
+    name: "boundary_input_column"
+    description: "Return the input column through which the boundary conditional moment enters the truncated backward equation. Exactly one truncated state exchanges probability with the boundary in this network; the column carries that state's rate into the boundary and zero elsewhere."
+    orchestrator: false
+  - number: 3
+    name: "upper_input_polynomial"
+    description: "Construct the polynomial upper bound of the source on the generator applied to the monomial x^mu for the dimerization network, returned as the coefficient vector [c_0, c_1, c_2] of c_0 + c_1 x + c_2 x^2. Use the source's constructive expression, which treats the reaction classes differently; do not return the exact generator action."
+    orchestrator: false
+  - number: 4
+    name: "input_bound_ode_matrix"
+    description: "Assemble the constant 3 x 3 matrix of the closed linear system that governs the upper input bounds for the first and second monomials, on the augmented state [u_1, u_2, 1], from the two polynomial coefficient vectors of the previous step. Apply the source's rule for how each cross coefficient couples the two bounds, and its choice of lower input bound for this network."
+    orchestrator: false
+  - number: 5
+    name: "bounding_output_at_time"
+    description: "Integrate the two bounding state-space models for the test function x^alpha and return their outputs [y_plus(t), y_minus(t)] for an initial copy number of zero. The upper system is driven by the input-bound system through the boundary column; use the source's initial conditions for the boundary inputs and its lower input choice."
+    orchestrator: false
+  - number: 6
+    name: "variance_bracket"
+    description: "Combine the four moment bounds into the guaranteed bracket [V_plus, V_minus] of the transient variance E[X^2] - (E[X])^2, pairing the second-moment and mean bounds the way the source does so that each side of the bracket is a valid bound."
+    orchestrator: false
+  - number: 7
+    name: "variance_upper_bound"
+    description: "Orchestrate the whole pipeline: build the truncated generator and boundary column, construct the two upper polynomials and the input-bound system, integrate the bounding models for the first and second moments, and return the guaranteed upper bound on the variance of the copy number at time t for an initial copy number of zero. Call the earlier step functions rather than reimplementing any of them."
+    orchestrator: true

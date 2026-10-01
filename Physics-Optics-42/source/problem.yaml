@@ -1,0 +1,48 @@
+problem_id: "Physics-Optics-42"
+subject: "physics"
+subject_area: "Optics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.48550/arXiv.2608.04950"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_spectral_operators_and_weights"
+    description: "Construct tensor-product spectral derivatives and normalized volume weights."
+    orchestrator: false
+  - number: 2
+    name: "02_radiation_and_bohren_data"
+    description: "Construct radiation branches and circular-channel incident boundary data."
+    orchestrator: false
+  - number: 3
+    name: "03_centered_channel_profiles"
+    description: "Build the envelope and arbitrary-center circular-channel coefficients."
+    orchestrator: false
+  - number: 4
+    name: "04_assemble_transmission_operator"
+    description: "Assemble the transmission-matched arbitrary-center scattering operator."
+    orchestrator: false
+  - number: 5
+    name: "05_assemble_transmission_source"
+    description: "Assemble one transmission-matched perturbation source term."
+    orchestrator: false
+  - number: 6
+    name: "06_solve_transmission_channel_series"
+    description: "Generate a transmission-matched deformation series for one channel."
+    orchestrator: false
+  - number: 7
+    name: "07_reconstruct_electric_series"
+    description: "Reconstruct Cartesian electric-field coefficients from both scalar channels."
+    orchestrator: false
+  - number: 8
+    name: "08_electric_intensity_coefficients"
+    description: "Form the real Taylor series of normalized volume-averaged electric intensity."
+    orchestrator: false
+  - number: 9
+    name: "09_pade_second_derivative"
+    description: "Continue a real Taylor series and evaluate its rational curvature."
+    orchestrator: false
+  - number: 10
+    name: "10_chiral_field_intensity_curvature"
+    description: "Compose the complete transmission-matched chiral continuation pipeline."
+    orchestrator: true

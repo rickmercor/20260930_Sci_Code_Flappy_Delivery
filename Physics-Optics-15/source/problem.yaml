@@ -1,0 +1,40 @@
+problem_id: "Physics-Optics-15"
+subject: "physics"
+subject_area: "Optics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2606.14861"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_material_fields"
+    description: "Interpolate the first-principles dielectric-tensor field."
+    orchestrator: false
+  - number: 2
+    name: "02_voigt_surface_responses"
+    description: "Solve the semi-infinite anisotropic Voigt boundary problem."
+    orchestrator: false
+  - number: 3
+    name: "03_full_maxwell_metrics"
+    description: "Extract signed Maxwell strength, support, and lobe separation."
+    orchestrator: false
+  - number: 4
+    name: "04_enz_design_coordinates"
+    description: "Recover the anchor paper's local ENZ design coordinates."
+    orchestrator: false
+  - number: 5
+    name: "05_universal_law_metrics"
+    description: "Evaluate the anchor paper's universal strength and bandwidth laws."
+    orchestrator: false
+  - number: 6
+    name: "06_window_guarantees"
+    description: "Apply universal-law validity and guarantee one Maxwell passband."
+    orchestrator: false
+  - number: 7
+    name: "07_select_operating_point"
+    description: "Select the strongest law-screened fixed-geometry common passband."
+    orchestrator: false
+  - number: 8
+    name: "08_robust_surface_advantage"
+    description: "Compose the law-screened target and robust full-Maxwell benchmark."
+    orchestrator: true

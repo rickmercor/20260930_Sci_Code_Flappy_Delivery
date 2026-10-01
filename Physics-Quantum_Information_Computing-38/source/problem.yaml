@@ -1,0 +1,40 @@
+problem_id: "Physics-Quantum_Information_Computing-38"
+subject: "physics"
+subject_area: "Quantum Information / Computing"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2609.10291"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_build_bloch_generator"
+    description: "Build the real affine generator that propagates the Bloch vector of a qubit whose ensemble-averaged state follows a Lindblad master equation."
+    orchestrator: false
+  - number: 2
+    name: "02_propagate_averaged_drift"
+    description: "Propagate the ensemble-averaged Bloch vector of the monitored qubit and return the averaged homodyne drift together with its exact parameter derivatives on the left ends of a uniform sampling grid."
+    orchestrator: false
+  - number: 3
+    name: "03_evaluate_contrast_model"
+    description: "Evaluate the discretely sampled averaged-state contrast of the ensemble-mean record, its parameter gradient and its plug-in information matrix at one parameter value."
+    orchestrator: false
+  - number: 4
+    name: "04_locate_contrast_candidates"
+    description: "Scan the contrast on a uniform parameter grid and select the highest, well-separated grid local maxima as starting points for continuous refinement."
+    orchestrator: false
+  - number: 5
+    name: "05_maximize_contrast"
+    description: "Refine each grid candidate by bounded Gauss-Newton ascent of the contrast and return the refined local maximizer with the largest contrast as the maximum-contrast estimate."
+    orchestrator: false
+  - number: 6
+    name: "06_estimate_sandwich_covariance"
+    description: "Estimate the covariance of the scaled estimation error from the per-record score contributions and the plug-in information at a parameter value."
+    orchestrator: false
+  - number: 7
+    name: "07_compute_studentized_statistics"
+    description: "Studentize the estimation error against a reference parameter value with a covariance estimate, componentwise and jointly, and form the squared joint distance."
+    orchestrator: false
+  - number: 8
+    name: "08_assess_nominal_calibration"
+    description: "Compose every earlier step to estimate the drive and measurement parameters of a monitored qubit from repeated homodyne records and return the squared joint Studentized distance of the estimate from a nominal calibration."
+    orchestrator: true

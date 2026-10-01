@@ -1,0 +1,44 @@
+problem_id: "Mathematics-Computational_Finance-42"
+subject: "mathematics"
+subject_area: "Computational Finance"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2606.21800"
+dependencies: ""
+steps:
+  - number: 1
+    name: "Harmonic fluctuation width"
+    description: "Return the width of the Gaussian fluctuations that a path makes about its own time average, for a trial harmonic action of a given frequency over a given horizon. This single scalar is what the smearing operator of the variational scheme integrates against, so every quantity built later in the pipeline inherits it. It depends only on the frequency, the horizon and the diffusion coefficient, never on the state or on the default intensity."
+    orchestrator: false
+  - number: 2
+    name: "Variational frequency"
+    description: "Solve the variational condition that fixes the trial frequency at one average point and return that frequency. The condition matches the curvature of the trial quadratic potential to the smeared curvature of the true one, which makes the frequency and the fluctuation width mutually dependent and the problem a scalar fixed point rather than a formula."
+    orchestrator: false
+  - number: 3
+    name: "Linear coefficient integrals"
+    description: "Build the linear coefficient of the trial potential at one average point and return it together with the three weighted time integrals of it that every later stage consumes. The linear coefficient comes from matching the smeared first derivative of the true potential; the integrals weight it against the two hyperbolic solutions of the trial equation of motion, which is how the endpoints of the interval feel a force applied in its interior."
+    orchestrator: false
+  - number: 4
+    name: "Displacement and correction"
+    description: "Turn the reduced response integrals into the two displacements and the one action correction that the linear part of the trial potential generates. A constant force applied to a harmonic path does three things: it shifts the whole path, it shifts the point about which the constrained fluctuation is centred, and it lowers the action by an amount quadratic in the force. The three outputs here are exactly those three effects."
+    orchestrator: false
+  - number: 5
+    name: "Log trial normalisation"
+    description: "Assemble the logarithm of the normalisation of the constrained trial propagator at one average point. Three ingredients enter: the Gaussian prefactor of the constrained measure, the ratio of the half-product to its hyperbolic sine, and the exponential of the action correction less the time integral of the constant part of the trial potential. The logarithm is returned rather than the value because the exponent runs over many tens across the integration window and the value itself underflows long before the contribution to the integral becomes negligible."
+    orchestrator: false
+  - number: 6
+    name: "Endpoint integration coefficients"
+    description: "Carry out the integral over the terminal state analytically and return the quadratic, linear and constant coefficients it is performed with, the point the remaining payoff is evaluated at, and the logarithm of the resulting weight for this average point. The terminal state appears quadratically in three places at once: in the constrained propagator between the endpoints, in the propagator's dependence on the average, and in the drift-removal factor that turned the mean-reverting process into a driftless one. Collecting all three is what makes the integral Gaussian and therefore closed-form."
+    orchestrator: false
+  - number: 7
+    name: "Average-point quadrature grid"
+    description: "Build the fixed quadrature grid over the average point on which the whole estimator is evaluated. The grid is a Gauss-Legendre rule mapped onto a window centred on the mean of the time average of the mean-reverting process and scaled by the standard deviation that a driftless path of the same diffusion would have for its own time average. Both the centre and the scale are closed-form, so the grid is a deterministic function of the horizon and the model and costs nothing to rebuild at each maturity."
+    orchestrator: false
+  - number: 8
+    name: "Assemble expectation"
+    description: "Apply the smearing operator to the payoff and sum the per-node weights into the two expectations the pricing needs: the one for a payoff identically equal to one, and the one for a payoff equal to the intensity itself. Both are produced from the same per-node data, because the terminal integration has already been carried out and all that remains is a Gaussian smearing of the payoff about the point that integration left behind."
+    orchestrator: false
+  - number: 9
+    name: "Par CDS spread"
+    description: "Chain the eight earlier steps over the whole premium schedule and return the par spread the semi-analytical method produces. For every premium date the grid over the average point is rebuilt, the variational frequency and width are solved at each node, the reduced integrals, displacements, correction, normalisation and endpoint coefficients are assembled, and the two expectations are summed; the survival values build the premium annuity and the intensity-weighted values build the protection leg. This is the orchestrator step: it chains the eight earlier reference implementations rather than reproducing any of them inline."
+    orchestrator: true

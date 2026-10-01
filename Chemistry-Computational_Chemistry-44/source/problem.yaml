@@ -1,0 +1,36 @@
+problem_id: "Chemistry-Computational_Chemistry-44"
+subject: "chemistry"
+subject_area: "Computational Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1039/d6cp01520d"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_morse_dipole_matrix"
+    description: "Step 01: Dipole matrix between exact Morse vibrational eigenstates."
+    orchestrator: false
+  - number: 2
+    name: "02_driven_level_populations"
+    description: "Step 02: Level populations of a vibrational ladder under a classical cosine field."
+    orchestrator: false
+  - number: 3
+    name: "03_least_flow_transition_matrices"
+    description: "Step 03: Minimal-flow transition matrices of a population history."
+    orchestrator: false
+  - number: 4
+    name: "04_nonparticipation_probability"
+    description: "Step 04: Non-participation probability of a target level."
+    orchestrator: false
+  - number: 5
+    name: "05_excitation_delay"
+    description: "Step 05: Excitation delay at a given confidence level."
+    orchestrator: false
+  - number: 6
+    name: "06_overtone_nonparticipation"
+    description: "Step 06: Overtone non-participation for a Morse molecule driven at its multiphoton resonance."
+    orchestrator: false
+  - number: 7
+    name: "07_threshold_intensity"
+    description: "Step 07: Threshold intensity for a given confidence within a given time (orchestrator)."
+    orchestrator: true

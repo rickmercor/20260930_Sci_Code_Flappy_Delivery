@@ -1,0 +1,36 @@
+problem_id: "Physics-Particle_Physics-8"
+subject: "physics"
+subject_area: "Particle Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1140/epjc/s10052-026-15342-7"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_assign_unordered_antenna_sectors"
+    description: "Assign the paper's sectors for three unordered emissions."
+    orchestrator: false
+  - number: 2
+    name: "02_assign_ordered_pair_antenna_sectors"
+    description: "Assign sectors for one unordered emission and an ordered pair."
+    orchestrator: false
+  - number: 3
+    name: "03_assign_multidipole_antenna_sectors"
+    description: "Assign sectors for a gluon emitted between multiple dipoles."
+    orchestrator: false
+  - number: 4
+    name: "04_generate_five_parton_events"
+    description: "Generate deterministic five-particle massless phase space."
+    orchestrator: false
+  - number: 5
+    name: "05_tabulate_sector_populations"
+    description: "Tabulate sector occupancies for all three taxonomies."
+    orchestrator: false
+  - number: 6
+    name: "06_compute_ordering_disagreements"
+    description: "Measure pairwise disagreement of the selected colour chains."
+    orchestrator: false
+  - number: 7
+    name: "07_compute_sector_mapping_index"
+    description: "Compose the phase-sector taxonomy diversity index."
+    orchestrator: true

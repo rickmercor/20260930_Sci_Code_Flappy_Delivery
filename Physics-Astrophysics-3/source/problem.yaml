@@ -1,0 +1,40 @@
+problem_id: "Physics-Astrophysics-3"
+subject: "physics"
+subject_area: "Astrophysics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.3847/2041-8213/ae82f5"
+dependencies: ""
+steps:
+  - number: 1
+    name: "seed_field"
+    description: "Step 01: build the seed vector field F0 that the rest of the pipeline starts\n\nfrom."
+    orchestrator: false
+  - number: 2
+    name: "wavevector_grid"
+    description: "Discrete wavevector grid for the periodic unit cube."
+    orchestrator: false
+  - number: 3
+    name: "solenoidal_projection"
+    description: "Implement solenoidal_projection, the operator that returns the divergence-free\n\npart of a vector field on the periodic unit cube."
+    orchestrator: false
+  - number: 4
+    name: "unit_normalise"
+    description: "Step 04: pointwise unit-magnitude normalisation of a vector field."
+    orchestrator: false
+  - number: 5
+    name: "deflection_angles"
+    description: "Step 05: the deflection angle of the local field direction from the background."
+    orchestrator: false
+  - number: 6
+    name: "max_divergence"
+    description: "Implement max_divergence, the spectral divergence diagnostic of a periodic\n\nvector field."
+    orchestrator: false
+  - number: 7
+    name: "magnitude_defect"
+    description: "Implement magnitude_defect, the uniformity diagnostic of the field magnitude."
+    orchestrator: false
+  - number: 8
+    name: "packet_max_deflection"
+    description: "Step 08: the end-to-end driver for the construction and its maximum deflection\n\nangle."
+    orchestrator: true

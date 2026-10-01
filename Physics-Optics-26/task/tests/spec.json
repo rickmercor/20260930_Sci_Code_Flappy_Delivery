@@ -1,0 +1,89 @@
+{
+  "problem_id": "Physics-Optics-26",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Optics-26.1",
+      "test_cases": [
+        "import numpy as np\ndef as_real(x):\n    return np.asarray(x, dtype=float)\nassert np.allclose(as_real(field_multiplication_coefficients(3, 2, 0.3)), target)",
+        "import numpy as np\ndef as_real(x):\n    return np.asarray(x, dtype=float)\nassert np.allclose(as_real(field_multiplication_coefficients(2, -3, 0.25)), target)",
+        "import numpy as np\ndef as_real(x):\n    return np.asarray(x, dtype=float)\nassert np.allclose(as_real(field_multiplication_coefficients(0, 0, 0.1)), target)",
+        "import numpy as np\ndef as_real(x):\n    return np.asarray(x, dtype=float)\nassert np.allclose(as_real(field_multiplication_coefficients(0, 1, 0.0)), target)",
+        "import numpy as np\ndef as_real(x):\n    return np.asarray(x, dtype=float)\nassert np.allclose(as_real(field_multiplication_coefficients(7, -1, 0.05)), target)",
+        "import numpy as np\ndef as_real(x):\n    return np.asarray(x, dtype=float)\nassert np.allclose(as_real(field_multiplication_coefficients(4, 0, 0.3)), target)",
+        "def run_model():\n    try:\n        field_multiplication_coefficients(-1, 0, 0.1)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-26.2",
+      "test_cases": [
+        "import numpy as np\ndef as_real(x):\n    return np.asarray(x, dtype=float)\nassert np.allclose(as_real(atomic_multiplication_matrices(1, 0.3)), target)",
+        "import numpy as np\ndef as_real(x):\n    return np.asarray(x, dtype=float)\nassert np.allclose(as_real(atomic_multiplication_matrices(2, 0.77)), target)",
+        "import numpy as np\ndef as_real(x):\n    return np.asarray(x, dtype=float)\nassert np.allclose(as_real(atomic_multiplication_matrices(3, 0.6)), target)",
+        "import numpy as np\ndef as_real(x):\n    return np.asarray(x, dtype=float)\nassert np.allclose(as_real(atomic_multiplication_matrices(4, 0.88)), target)",
+        "def run_model():\n    try:\n        atomic_multiplication_matrices(3, 1.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-26.3",
+      "test_cases": [
+        "import numpy as np\n\n\ndef split_re_im(x):\n    x = np.asarray(x)\n    return np.stack((x.real, x.imag), axis=0)\nassert np.allclose(split_re_im(radial_blocks(0, 2, 1.0, 0.7, 0.35, 1.1, 0.6, 0.4, 0.1)), target)",
+        "import numpy as np\n\n\ndef split_re_im(x):\n    x = np.asarray(x)\n    return np.stack((x.real, x.imag), axis=0)\nassert np.allclose(split_re_im(radial_blocks(1, 3, 1.0, 0.7, 0.35, 1.1, 0.9, 0.0, 0.0)), target)",
+        "import numpy as np\n\n\ndef split_re_im(x):\n    x = np.asarray(x)\n    return np.stack((x.real, x.imag), axis=0)\nassert np.allclose(split_re_im(radial_blocks(5, 4, 1.0, 0.8, 0.5, 1.25, 0.88, 0.3, 0.05)), target)",
+        "import numpy as np\n\n\ndef split_re_im(x):\n    x = np.asarray(x)\n    return np.stack((x.real, x.imag), axis=0)\nassert np.allclose(split_re_im(radial_blocks(2, 1, 0.5, 1.0, 0.8, 0.9, 0.3, -0.2, 0.2)), target)",
+        "def run_model():\n    try:\n        radial_blocks(1, 2, 1.0, 0.7, 0.3, 1.1, 0.6, 0.0, 0.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-26.4",
+      "test_cases": [
+        "import numpy as np\n\n\ndef split_re_im(x):\n    x = np.asarray(x)\n    return np.stack((x.real, x.imag), axis=0)\nassert np.allclose(split_re_im(asymptotic_transfer_matrix(3, 1.0, 0.7, 0.35, 1.1, 0.9, 0.0, 0.0)), target)",
+        "import numpy as np\n\n\ndef split_re_im(x):\n    x = np.asarray(x)\n    return np.stack((x.real, x.imag), axis=0)\nassert np.allclose(split_re_im(asymptotic_transfer_matrix(3, 1.0, 0.7, 0.35, 2.4, 0.05, 0.0, 0.0)), target)",
+        "import numpy as np\n\n\ndef split_re_im(x):\n    x = np.asarray(x)\n    return np.stack((x.real, x.imag), axis=0)\nassert np.allclose(split_re_im(asymptotic_transfer_matrix(2, 1.0, 0.7, 0.45, 1.1, 0.6, 0.7, 0.1)), target)",
+        "import numpy as np\n\n\ndef split_re_im(x):\n    x = np.asarray(x)\n    return np.stack((x.real, x.imag), axis=0)\nassert np.allclose(split_re_im(asymptotic_transfer_matrix(4, 1.0, 0.8, 0.5, 1.25, 0.88, 0.3, 0.05)), target)",
+        "def run_model():\n    try:\n        asymptotic_transfer_matrix(3, 0.0, 0.7, 0.35, 1.1, 0.6, 0.0, 0.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-26.5",
+      "test_cases": [
+        "import numpy as np\n\n\ndef split_re_im(x):\n    x = np.asarray(x)\n    return np.stack((x.real, x.imag), axis=0)\nassert np.allclose(split_re_im(stationary_radial_coefficients(2, 1.0, 0.7, 0.35, 1.1, 0.3, 0.0, 0.0, 30)), target)",
+        "import numpy as np\n\n\ndef split_re_im(x):\n    x = np.asarray(x)\n    return np.stack((x.real, x.imag), axis=0)\nassert np.allclose(split_re_im(stationary_radial_coefficients(3, 1.0, 0.7, 0.35, 1.1, 0.6, 0.0, 0.1, 30)), target)",
+        "import numpy as np\n\n\ndef split_re_im(x):\n    x = np.asarray(x)\n    return np.stack((x.real, x.imag), axis=0)\nassert np.allclose(split_re_im(stationary_radial_coefficients(3, 1.0, 0.7, 0.35, 1.1, 0.6, 2.0, 0.0, 25)), target)",
+        "import numpy as np\n\n\ndef split_re_im(x):\n    x = np.asarray(x)\n    return np.stack((x.real, x.imag), axis=0)\nassert np.allclose(split_re_im(stationary_radial_coefficients(4, 1.0, 0.8, 0.5, 1.25, 0.88, 0.3, 0.05, 30)), target)",
+        "def run_model():\n    try:\n        stationary_radial_coefficients(\n            2, 1.0, 0.7, 0.35, 1.1, 0.3, 0.0, 0.0, 1\n        )\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-26.6",
+      "test_cases": [
+        "import numpy as np\ndef as_real(x):\n    return np.asarray(x, dtype=float)\nassert np.allclose(as_real(exact_stationary_observables(2, 1.0, 0.7, 0.35, 1.1, 0.9, 0.0, 0.0, 40)), target)",
+        "import numpy as np\ndef as_real(x):\n    return np.asarray(x, dtype=float)\nassert np.allclose(as_real(exact_stationary_observables(3, 1.0, 0.7, 0.35, 1.1, 0.9, 0.0, 0.0, 40)), target)",
+        "import numpy as np\ndef as_real(x):\n    return np.asarray(x, dtype=float)\nassert np.allclose(as_real(exact_stationary_observables(3, 1.0, 0.8, 0.55, 1.3, 0.85, 0.35, 0.07, 40)), target)",
+        "import numpy as np\ndef as_real(x):\n    return np.asarray(x, dtype=float)\nassert np.allclose(as_real(exact_stationary_observables(2, 0.1, 1.0, 0.5, 0.5, 0.9, 0.0, 0.0, 90)), target)",
+        "import numpy as np\ndef as_real(x):\n    return np.asarray(x, dtype=float)\nassert np.allclose(as_real(exact_stationary_observables(4, 1.0, 0.8, 0.5, 1.25, 0.88, 0.3, 0.05, 40)), target)",
+        "def run_model():\n    try:\n        exact_stationary_observables(1, 1.0, 0.7, 0.35, 1.1, 0.6, 0.0, 0.0, 30)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-26.7",
+      "test_cases": [
+        "import numpy as np\ndef as_real(x):\n    return np.asarray(x, dtype=float)\nassert np.allclose(as_real(second_order_closure_stationary(3, 1.0, 0.7, 0.35, 1.1, 0.9, 0.0, 0.0)), target)",
+        "import numpy as np\ndef as_real(x):\n    return np.asarray(x, dtype=float)\nassert np.allclose(as_real(second_order_closure_stationary(2, 0.1, 1.0, 0.5, 0.5, 0.9, 0.0, 0.0)), target)",
+        "import numpy as np\ndef as_real(x):\n    return np.asarray(x, dtype=float)\nassert np.allclose(as_real(second_order_closure_stationary(3, 0.1, 1.0, 0.5, 0.5, 0.9, 0.0, 0.0)), target)",
+        "import numpy as np\ndef as_real(x):\n    return np.asarray(x, dtype=float)\nassert np.allclose(as_real(second_order_closure_stationary(4, 1.0, 0.8, 0.5, 1.25, 0.88, 0.3, 0.05)), target)",
+        "import numpy as np\ndef as_real(x):\n    return np.asarray(x, dtype=float)\nassert np.allclose(as_real(second_order_closure_stationary(2, 1.0, 0.7, 0.4, 1.1, 0.3, -0.5, 0.2)), target)",
+        "def run_model():\n    try:\n        second_order_closure_stationary(3, 1.0, 0.7, 0.35, 1.1, 1.2, 0.0, 0.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-26.8",
+      "test_cases": [
+        "import numpy as np\ndef as_real(x):\n    return np.asarray(x, dtype=float)\nassert np.allclose(as_real(pair_coherence_closure_error(3, 1.0, 0.7, 0.35, 1.1, 0.9, 0.0, 0.0, 40)), target)",
+        "import numpy as np\ndef as_real(x):\n    return np.asarray(x, dtype=float)\nassert np.allclose(as_real(pair_coherence_closure_error(2, 1.0, 0.7, 0.35, 1.1, 0.6, 0.0, 0.0, 40)), target)",
+        "import numpy as np\ndef as_real(x):\n    return np.asarray(x, dtype=float)\nassert np.allclose(as_real(pair_coherence_closure_error(3, 1.0, 0.8, 0.55, 1.3, 0.85, 0.35, 0.07, 40)), target)",
+        "import numpy as np\ndef as_real(x):\n    return np.asarray(x, dtype=float)\nassert np.allclose(as_real(pair_coherence_closure_error(4, 1.0, 0.8, 0.5, 1.25, 0.88, 0.3, 0.05, 40)), target)",
+        "def run_model():\n    try:\n        pair_coherence_closure_error(3, 1.0, 0.7, 0.2, 1.1, 0.6, 0.0, 0.0, 30)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

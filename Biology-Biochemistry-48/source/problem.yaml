@@ -1,0 +1,36 @@
+problem_id: "Biology-Biochemistry-48"
+subject: "biology"
+subject_area: "Biochemistry"
+difficulty: "medium"
+answer_type: "single_numeric"
+paper_doi: "10.1371/journal.pcbi.1013939"
+dependencies: ""
+steps:
+  - number: 1
+    name: "Initialize the first cell at the origin with a random polarity angle."
+    description: "Initializes the first cell at the origin with a random polarity angle."
+    orchestrator: false
+  - number: 2
+    name: "Compute distances and neighbors"
+    description: "Computes pairwise distances and unit vectors between all cells."
+    orchestrator: false
+  - number: 3
+    name: "Compute forces and torques"
+    description: "Computes spatial forces and angular torques for each cell."
+    orchestrator: false
+  - number: 4
+    name: "update states"
+    description: "Integrates the state using the Euler method."
+    orchestrator: false
+  - number: 5
+    name: "cell division"
+    description: "Spawns a new daughter cell."
+    orchestrator: false
+  - number: 6
+    name: "Classify structure"
+    description: "Classifies the final structure by computing the average distance from the center of mass."
+    orchestrator: false
+  - number: 7
+    name: "orchestrator"
+    description: "Runs the full morphogenesis simulation."
+    orchestrator: true

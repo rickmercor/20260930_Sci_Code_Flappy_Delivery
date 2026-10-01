@@ -1,0 +1,40 @@
+problem_id: "Mathematics-Numerical_Linear_Algebra-32"
+subject: "mathematics"
+subject_area: "Numerical Linear Algebra"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.48550/arXiv.2603.26298"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_construct_flat_spectrum_matrix"
+    description: "Build A = U diag(s) V^T from thin QR factors of Gaussians drawn by default_rng(seed). The singular values s are prescribed and positive. Require m >= n >= 1."
+    orchestrator: false
+  - number: 2
+    name: "02_draw_gaussian_test_matrices"
+    description: "Draw three independent standard_normal test matrices from default_rng(seed), in order Omega of shape (n, s_width), Psi of shape (d, m), and Phi of shape (n, l). Require min(l, d) > s_width >= 1 and s_width <= min(m, n). Pack them as one vector: six shape integers followed by the three matrices in row-major order."
+    orchestrator: false
+  - number: 3
+    name: "03_form_one_pass_sketches"
+    description: "Unpack the test-matrix pack into Omega, Psi, and Phi. Form the rangefinder Y = A Omega, the corange sketch W = Psi A, and the wider amplifier Z = A Phi. Return those three sketches packed with the same 6-entry shape header."
+    orchestrator: false
+  - number: 4
+    name: "04_amplify_rangefinder"
+    description: "Apply the wider amplifier Z to the rangefinder Y for exactly q >= 1 steps. Each step takes a thin QR of Z^T Yhat and replaces Yhat by Z X. Reject q = 0: an unamplified rangefinder is a different method."
+    orchestrator: false
+  - number: 5
+    name: "05_rangefinder_thin_factors"
+    description: "Compute thin QR factors of the amplified rangefinder Yhat and return them stacked as [Q; R], with Q of shape (m, s_width) on top of the s_width-by-s_width triangular factor. Require m >= s_width >= 1 and a full-column-rank rangefinder."
+    orchestrator: false
+  - number: 6
+    name: "06_sketched_coefficient_matrix"
+    description: "Recover the coefficient matrix B by solving (Psi Q) B = W in the least-squares sense. Require d >= s_width and matching inner dimensions. This is a sketched corange fit, not Q^T A."
+    orchestrator: false
+  - number: 7
+    name: "07_reconstruction_entry"
+    description: "Form Q times the best rank-r approximation of B and return the entry in the given 0-based row and column. Require 1 <= rank <= min(B.shape) and indices inside the reconstruction."
+    orchestrator: false
+  - number: 8
+    name: "08_run_sketch_power_entry"
+    description: "Orchestrator. Call steps 1-7 in order: construct A, draw the three test matrices, form (Y, W, Z), amplify the rangefinder for q steps, take thin factors, recover B from the sketched corange, and return the requested entry of the rank-r reconstruction. This is the scalar required by the prompt."
+    orchestrator: true

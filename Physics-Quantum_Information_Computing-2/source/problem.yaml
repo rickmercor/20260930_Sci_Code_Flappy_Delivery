@@ -1,0 +1,48 @@
+problem_id: "Physics-Quantum_Information_Computing-2"
+subject: "physics"
+subject_area: "Quantum Information / Computing"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1103/3gvb-qqx1"
+dependencies: ""
+steps:
+  - number: 1
+    name: "damped_resource"
+    description: "Construct the amplitude-damped Bell resource."
+    orchestrator: false
+  - number: 2
+    name: "conditional_fidelity_law"
+    description: "Encode a recorded or erased fidelity distribution."
+    orchestrator: false
+  - number: 3
+    name: "fidelity_preimages"
+    description: "Find each branch preimage of the cumulative-fidelity event."
+    orchestrator: false
+  - number: 4
+    name: "fidelity_cdf"
+    description: "Evaluate the realized-fidelity cumulative distribution."
+    orchestrator: false
+  - number: 5
+    name: "fidelity_moments"
+    description: "Evaluate raw moments of the realized conditional fidelity."
+    orchestrator: false
+  - number: 6
+    name: "importance_expectations"
+    description: "Evaluate beta-weighted expectations of the fidelity distribution."
+    orchestrator: false
+  - number: 7
+    name: "classical_reference"
+    description: "Compute the classical reference for either record assessment."
+    orchestrator: false
+  - number: 8
+    name: "infer_damping"
+    description: "Infer the ordered reference damping pair from distributional calibration."
+    orchestrator: false
+  - number: 9
+    name: "optimize_policy"
+    description: "Find the robust randomized hardware policy."
+    orchestrator: false
+  - number: 10
+    name: "teleportation_benchmark"
+    description: "Compose the distribution-calibrated robust teleportation benchmark."
+    orchestrator: true

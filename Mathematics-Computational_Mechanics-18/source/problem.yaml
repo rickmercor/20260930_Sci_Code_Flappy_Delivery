@@ -1,0 +1,40 @@
+problem_id: "Mathematics-Computational_Mechanics-18"
+subject: "mathematics"
+subject_area: "Computational Mechanics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2608.05589"
+dependencies: ""
+steps:
+  - number: 1
+    name: "bspline_basis"
+    description: "Return every quadratic (degree p) B-spline basis function and its first parametric derivative at a single parameter value from an open knot vector, evaluated by the recursion the paper uses to build its global patch (the paper's Eqs. 34-36). Row 0 holds the n basis values N_{i,p}(xi) and row 1 holds dN_{i,p}/dxi, in ascending basis index. Recover the exact recursion and the derivative rule from the paper."
+    orchestrator: false
+  - number: 2
+    name: "wave_factor"
+    description: "Return the velocity-dependent factor A_I that converts the dynamic energy release rate to the mode-I dynamic stress intensity factor for a crack running at speed V, together with the two elastic wave speeds and the two Rayleigh factors it is built from (the paper's Eqs. 10-14). Plane strain, isotropic. Recover the exact universal function and the two wave-speed expressions from the paper; the quasi-static limit is a different, velocity-independent constant."
+    orchestrator: false
+  - number: 3
+    name: "q_weight"
+    description: "Return the nodal values of the weight (virtual crack extension) function used by the domain-form J-integral, for local nodes given by their position relative to the crack tip at the origin (the paper's Eqs. 21-23). A node takes the value one when it lies within the source's declared J-integration radius of the tip and zero outside. Recover the exact radius rule from the paper (it is a fixed multiple of the local element size)."
+    orchestrator: false
+  - number: 4
+    name: "energy_densities"
+    description: "Return the strain-energy density and the kinetic-energy density at a point from the stress, strain, density and velocity there (the paper's Eqs. 18-19). Stress and strain are given in engineering Voigt order (xx, yy, xy) with the shear entry the engineering shear strain. These two densities are the ones that enter the dynamic J-integral integrand."
+    orchestrator: false
+  - number: 5
+    name: "coupling_matrix"
+    description: "Assemble the coupling stiffness between the global B-spline patch and the overlaid local Lagrange (bilinear Q4) mesh in the s-version isogeometric method (the paper's Eq. 46): the integral over the local domain of the global strain-displacement operator transpose times the plane-strain elasticity matrix times the local strain-displacement operator. Integrate element by element over the local mesh with the standard three-point Gauss rule per direction; the global geometry is the identity map, so the global basis is evaluated at the physical Gauss location. Because the global B-spline basis is smooth across its knot spans, no sub-element partitioning is used. Recover the coupling operator and the plane-strain matrix from the paper. Equation 46 is an integral over the whole local domain, so the result is assembled and not a collection of per-element blocks: element contributions are scatter-added into the degrees of freedom of the local nodes they share, and a node used by several elements carries one pair of columns in total. Local nodes are numbered by first appearance while scanning the element list, each contributing its x degree of freedom before its y, so the operator is (2*nG, 2*nL) with nL the number of distinct local nodes."
+    orchestrator: false
+  - number: 6
+    name: "dynamic_j_integral"
+    description: "Evaluate the domain (equivalent-domain-integral) form of the crack-tip J-integral over the local mesh, given nodal displacement, velocity and acceleration fields and the nodal weight function, integrated element by element with the standard 3x3 Gauss rule (the paper's Eq. 17 for static=False, its quasi-static reduction Eq. 20 for static=True). The crack extends in the +x direction, so x1 is the x axis. In the dynamic form the crack-tip energy flux carries the kinetic-energy density inside the Eshelby term AND an explicit inertia term in acceleration and velocity gradient; the quasi-static form keeps only the strain-energy density and drops the inertia term. Stresses follow from the plane-strain elasticity matrix. Recover the exact integrand from the paper; omitting the kinetic and inertia contributions gives the wrong (quasi-static) value."
+    orchestrator: false
+  - number: 7
+    name: "dsif"
+    description: "Convert an energy release rate (J-integral value) into the mode-I stress intensity factor (the paper's Eq. 9 when dynamic=True, its quasi-static counterpart Eq. 16 when dynamic=False). The dynamic conversion divides by the velocity-dependent factor A_I; the quasi-static conversion uses the plane-strain effective modulus and is independent of the crack speed. Recover both relations from the paper."
+    orchestrator: false
+  - number: 8
+    name: "hsiga_audit"
+    description: "Run the full hybrid s-version isogeometric dynamic-fracture audit for a crack running at the given speed, on the declared fixed configuration (a quadratic global B-spline patch on [-1.5, 1.5]^2 with an overlaid 3x3 local Q4 mesh, the declared displacement and velocity fields with the velocity scaled by the crack speed, and E = 1.0, nu = 0.3, rho = 1.0). Return the audit vector [A_I, V1, V2, J_dynamic, J_static, K_dynamic, K_static, coupling_norm, q_count, W_ref, K_ref, partition] where: A_I, V1, V2 come from the wave factor; J_dynamic and J_static are the magnitudes of the dynamic and quasi-static J-integrals over the local mesh; K_dynamic and K_static are the corresponding mode-I stress intensity factors; coupling_norm is the Frobenius norm of the global-local coupling stiffness; q_count is the total number of local element-nodes inside the J-domain; W_ref and K_ref are the strain- and kinetic-energy densities at the declared reference state; partition is the sum of the global basis values at parameter 0.3. Assemble by calling the earlier sub-problem functions. The stress intensity factors must use the dynamic conversion for K_dynamic and the quasi-static conversion for K_static."
+    orchestrator: true

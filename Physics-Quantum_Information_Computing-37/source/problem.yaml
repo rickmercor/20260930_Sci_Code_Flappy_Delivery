@@ -1,0 +1,36 @@
+problem_id: "Physics-Quantum_Information_Computing-37"
+subject: "physics"
+subject_area: "Quantum Information / Computing"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.48550/arXiv.2607.19156"
+dependencies: ""
+steps:
+  - number: 1
+    name: "build_clock_instrument"
+    description: "Construct the controlled instrument of a finite quantum renewal clock in the specified tail-state gauge."
+    orchestrator: false
+  - number: 2
+    name: "solve_routed_stationary"
+    description: "Find the stationary quantum-memory blocks conditioned on the state of a correlated classical input generator."
+    orchestrator: false
+  - number: 3
+    name: "select_memory_subspace"
+    description: "Return the gauge-independent projector that maximizes the retained stationary agent-memory weight at a fixed rank."
+    orchestrator: false
+  - number: 4
+    name: "repair_controlled_instrument"
+    description: "Convert the projected controlled dynamics into a valid reduced quantum instrument by stimulus-wise polar completion."
+    orchestrator: false
+  - number: 5
+    name: "compute_history_rate"
+    description: "Evaluate the purified-history divergence rate from the common-label mixed transfer map under the correlated reference."
+    orchestrator: false
+  - number: 6
+    name: "compute_record_loglikelihood"
+    description: "Condition sequentially on a supplied stimulus/action record and accumulate its finite log probability."
+    orchestrator: false
+  - number: 7
+    name: "evaluate_compression_logratio"
+    description: "Use the six preceding public operations to select a certified retained dimension and evaluate the reduced-to-original log-likelihood ratio."
+    orchestrator: true

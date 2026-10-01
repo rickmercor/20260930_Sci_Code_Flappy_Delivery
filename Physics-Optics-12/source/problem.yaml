@@ -1,0 +1,56 @@
+problem_id: "Physics-Optics-12"
+subject: "physics"
+subject_area: "Optics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2608.02782"
+dependencies: ""
+steps:
+  - number: 1
+    name: "relativistic_electron_constants"
+    description: "Compute the paper's relativistic wavelength and interaction constant. Use V=1000*voltage_kv volts, lambda=h/sqrt(2*m0*e*V*(1+e*V/(2*m0*c^2)))*1e10 \u00c5, and sigma=2*pi/(lambda*V)*(m0*c^2+e*V)/(2*m0*c^2+e*V), with h=6.62607015e-34, m0=9.1093837139e-31, e=1.602176634e-19, and c=299792458. Reject nonfinite or nonpositive voltage."
+    orchestrator: false
+  - number: 2
+    name: "build_grouped_strong_scattering_stack"
+    description: "Construct the explicit six-slice periodic benchmark, then sum consecutive groups. On L=N*dx, wrap each coordinate displacement to [-L/2,L/2). Axis 0 is x and axis 1 is y: a center (cx,cy) sits at array index [cx/pixel_size_a,cy/pixel_size_a] modulo N, equivalently meshgrid indexing='ij'. Use centers (0,0), (L/2,L/2), (L/4,3L/4), w=0.42 \u00c5, and A*exp(-r_periodic^2/(2*width^2)). In slice j=0..5, the central amplitude is (1500 for hypothesis 1, else 1050)*(1+0.08*((j%3)-1)); the other amplitudes are 650*(1+0.05*(-1)^j) and 400*(1-0.04*(-1)^j), with widths w,1.25w,0.9w. For g in {1,2,3,6}, return 6/g slices formed by summing base[j:j+g]."
+    orchestrator: false
+  - number: 3
+    name: "amplitude_encoded_stem_probe"
+    description: "Form a displaced QuScope STEM input state on two log2(N)-qubit registers. With unshifted fftfreq and ij indexing, use A(k)=1 for |k|<=alpha*1e-3/lambda+1e-15; chi=pi*lambda*defocus*k^2+(pi/2)*(cs_mm*1e7)*lambda^3*k^4; multiply by exp(-2*pi*i*(kx*x_scan+ky*y_scan)), compute the orthonormal IFFT2, then normalize once. Array entry [a,b] is the amplitude of |a>row tensor |b>column in row-major flattening."
+    orchestrator: false
+  - number: 4
+    name: "quantum_slice_block"
+    description: "Apply the exact position-space phase grating D[exp(i*sigma*V)]. If propagate_after is True, also apply the separable orthonormal forward transform F@state@F.T with F[a,b]=exp(-2*pi*i*a*b/N)/sqrt(N), the reciprocal phase exp(-i*pi*lambda*Delta_z*(kx^2+ky^2)) on the unshifted ij-indexed grid, and the inverse transform. If False, omit the whole propagation segment. The public optional flag makes interior and terminal STEM gratings explicit; projected potentials are in V \u00c5."
+    orchestrator: false
+  - number: 5
+    name: "quantum_multislice_exit_state"
+    description: "Execute quantum_slice_block once for each consecutive grouped potential, in order. Use propagation distance base_slice_thickness_a*group_factor and propagate_after=True only when another retained grating follows; use False for the final grating. The stack contains exactly 6/group_factor slices. Return the immediate post-grating STEM exit, without an objective lens or final free-propagation segment."
+    orchestrator: false
+  - number: 6
+    name: "annular_detector_vector"
+    description: "Transform the exit amplitudes to momentum space with orthonormal FFT2, form normalized intensity |psi(k)|^2/||psi||^2, and sum it over the three consecutive half-open annuli [e0,e1), [e1,e2), [e2,e3). Use theta_mrad=1000*lambda*sqrt(kx^2+ky^2), unshifted fftfreq, ij indexing, and reject an empty mask."
+    orchestrator: false
+  - number: 7
+    name: "bivariate_multislice_orders"
+    description: "Resolve the task-defined linearized transmission model by scattering origin.\n\nFor two projected-potential stacks B and D, define a formal exit wave by using\nthe grating 1+i*sigma*(a*B_j+b*D_j) at each slice, and the declared Fresnel\npropagation between successive gratings. Return the complex coefficients of\nthis bivariate polynomial in a and b at the immediate post-final-grating plane.\nThese are polynomial coefficients, not derivatives or probabilities. This\ndiagnostic is derived from QuScope's ordered coherent propagation; it is not a\nseparate simulation feature claimed to ship in QuScope."
+    orchestrator: false
+  - number: 8
+    name: "annular_order_coherence"
+    description: "Return the detector-restricted coherence of scattering-order amplitudes.\n\nThe order labels describe coherent alternatives, not an incoherent ensemble.\nThe requested matrices retain their complex cross terms and their absolute\nnorms. They permit the normalized detector probability of any reconstructed\nexit wave to be evaluated against the full-space norm, including interference.\nThis is a task-derived representation of the paper's momentum-plane observable."
+    orchestrator: false
+  - number: 9
+    name: "transpiled_multislice_resources"
+    description: "Cost the released STEM probe-circuit body for an N-by-N grid and s retained gratings. With q=log2(N), nq=2q, count s transmission diagonals and s-1 propagation diagonals, each at 2^nq-2 CX, and 2(s-1) separable two-dimensional Fourier transforms. A full q-qubit register QFT costs q(q-1)+3*floor(q/2) CX, including swaps, and each two-dimensional transform acts on both registers. This all-to-all analytic synthesis convention reproduces the paper's STEM resource examples; state preparation, detector-plane readout and device routing are outside the boundary. Return [nq,2s-1,2(s-1),total_CX]."
+    orchestrator: false
+  - number: 10
+    name: "quantum_resource_design_table"
+    description: "Evaluate every candidate-major (candidate,N,group) row over all declared probe positions. Use dx=6.4/N and an ungrouped N=64 classical scan. Across voltage-major defocus scenarios, classes H0 then H1, and scan positions in input order, record axial-Nyquist feasibility, minimum normalized state fidelity, maximum detector-vector relative error with index S*(2*(D*v+d)+h)+scan where D is the defocus count, minimum same-position H1/H0 contrast defined as the unnormalized Euclidean norm ||d_H1-d_H0||_2, and total scan-workload CX. Return columns [candidate_index,N,group,slices,nq,nyquist_ok,min_fidelity,max_error,min_contrast,total_scan_CX,worst_error_index,feasible,N_position,group_position]; feasibility requires fidelity>=0.999999999999, error<=0.02, contrast>=0.121, and valid Nyquist/nonempty masks everywhere. Both candidate and classical-reference paths end immediately after their final grating; every cost is the STEM body count defined in step 09. The synthetic candidate grid, N=64 reference and feasibility rules are task-defined."
+    orchestrator: false
+  - number: 11
+    name: "select_quantum_resource_design"
+    description: "Filter column 11 for feasible rows, then select the lexicographic minimum by (CX column 9, max error column 7, negative contrast column 8, candidate index, N_position, group_position, stable row index). Return [row_index,candidate_index,N,group,slices,nq,worst_error_index,min_fidelity,max_error,min_contrast,CX]. Raise ValueError if no row is feasible."
+    orchestrator: false
+  - number: 12
+    name: "quscope_quantum_resource_design"
+    description: "Compose every preceding public function to select the task-defined admissible STEM design. Exact and linearized paths apply propagation only between retained gratings. For the selected row, compare the once-normalized full linearized exit with the exact exit over the complete voltage/defocus/hypothesis/position scan, using E_lin=max ||d_lin-d_exact||_2/||d_exact||_2. Define M=min_voltage[1000*lambda/(2*dx)-max(alpha,outer_edge)] mrad, theta0=1 mrad and mu=M/theta0. With f_D=scan_count*(2*slices-1)*(2^logical_qubits-2)/total_scan_CX, return round(total_scan_CX*E_ref*E_lin/(C_min*mu*f_D),6). R is a dimensionless task-authored post-selection audit, not a published QuScope quantity. Resolve the linearized wave with bivariate_multislice_orders using B=H0 and D=H1-H0, and obtain its detector probability from annular_order_coherence at (a,b)=(1,0) or (1,1), respectively. The full-space coherence channel supplies the normalization of the complete reconstructed exit. This coherent order representation is an exact re-expression of the existing linearized model, not an additional approximation or a new resource charge."
+    orchestrator: true

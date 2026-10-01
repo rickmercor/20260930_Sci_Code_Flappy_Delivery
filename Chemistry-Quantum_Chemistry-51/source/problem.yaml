@@ -1,0 +1,44 @@
+problem_id: "Chemistry-Quantum_Chemistry-51"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2606.16678"
+dependencies: ""
+steps:
+  - number: 1
+    name: "ppp_hamiltonian"
+    description: "Return the array [h, V] of shape (2, K, K) for the open PPP chain with K = len(eps_site) sites: h_{i,i+1} = h_{i+1,i} = -t (1 + delta (-1)^i) for i = 0..K-2 (all other off-diagonal elements zero), h_ii = eps_i - sum_{j != i} V_ij (every site carries a +1 background charge), and the Ohno interaction V_ij = U / sqrt(1 + (U |i - j| / kappa)^2), so V_ii = U. The two-electron integrals of the model are of density-density form, (pq|rs) = delta_pq delta_rs V_pr in the site basis (chemists' notation). Raise ValueError if eps_site is not a 1-D array with at least two entries, if t, U or kappa is not positive, or if |delta| >= 1."
+    orchestrator: false
+  - number: 2
+    name: "rhf_orbitals"
+    description: "Return the restricted closed-shell Hartree-Fock orbitals C (K, K) of the Hamiltonian with one-body matrix h and density-density integrals (pq|rs) = delta_pq delta_rs V_pr, with P = n_pairs doubly occupied orbitals: solve the Roothaan equations F C = C eps, F = h + J - K/2 with J_pq = delta_pq sum_r V_pr D_rr and K_pq = V_pq D_pq for the density D = 2 C_occ C_occ^T, by damped fixed-point iteration (new density averaged 1:1 with the previous one) started from the eigenvectors of h, until the density changes by less than 1e-12 element-wise; then diagonalise the final Fock matrix once more. Columns ordered by ascending orbital energy. Column phase convention: in every column the first component with |c| > 1e-8 is positive. Raise ValueError if h or V is not a symmetric (K, K) matrix with K >= 2, if n_pairs is outside [1, K - 1], or if the iteration does not converge within 2000 cycles."
+    orchestrator: false
+  - number: 3
+    name: "mo_two_electron_integrals"
+    description: "Return the four-index array of chemists' two-electron integrals (pq|rs) = sum_{ij} C_ip C_iq V_ij C_jr C_js in the orbital basis C for the density-density site-basis integrals (pq|rs)_site = delta_pq delta_rs V_pr. Raise ValueError if V and C are not both (K, K) matrices."
+    orchestrator: false
+  - number: 4
+    name: "pccd_amplitudes"
+    description: "Return the pCCD amplitudes c (P, K - P) in the given orbital basis (orbitals 0..P-1 doubly occupied in the reference). pCCD (pair coupled cluster doubles) wavefunction |Psi> = exp(T)|Phi0> with T = sum_{i occ, a vir} c_ia P+_a P_i, P+_p = a+_{p alpha} a+_{p beta} the pair creation operator, |Phi0> the closed-shell determinant of the first P orbitals of the given basis; amplitudes c (P, K - P) solve the projected equations <Phi_i^a| exp(-T) H exp(T) |Phi0> = 0 for every pair-excited determinant |Phi_i^a> = P+_a P_i |Phi0>. The Hamiltonian is H = sum_pq h_pq E_pq + (1/2) sum_pqrs (pq|rs) (E_pq E_rs - delta_qr E_ps) with E_pq the spin-summed excitation operator. Solve the equations to a residual below 1e-12 in every component, starting from c = 0 (the solution continuously connected to the reference). Raise ValueError if the shapes are inconsistent, n_pairs is outside [1, K - 1], or the equations do not converge."
+    orchestrator: false
+  - number: 5
+    name: "pccd_lambda_amplitudes"
+    description: "Return the Lagrange multipliers lambda (P, K - P) of the pCCD energy functional L = <Phi0| exp(-T) H exp(T) |Phi0> + sum_{ia} lambda_ia <Phi_i^a| exp(-T) H exp(T) |Phi0>, i.e. the solution of dL/dc_ia = 0 at the converged amplitudes c (the pCCD Lambda equations, a linear system for lambda). pCCD (pair coupled cluster doubles) wavefunction |Psi> = exp(T)|Phi0> with T = sum_{i occ, a vir} c_ia P+_a P_i, P+_p = a+_{p alpha} a+_{p beta} the pair creation operator, |Phi0> the closed-shell determinant of the first P orbitals of the given basis; amplitudes c (P, K - P) solve the projected equations <Phi_i^a| exp(-T) H exp(T) |Phi0> = 0 for every pair-excited determinant |Phi_i^a> = P+_a P_i |Phi0>. Raise ValueError if the shapes are inconsistent or c does not satisfy the pCCD equations to 1e-8."
+    orchestrator: false
+  - number: 6
+    name: "pccd_response_rdms"
+    description: "Return the response reduced density matrices of the pCCD wavefunction with amplitudes c and multipliers lam, per spin (alpha electrons), as one array (3, K, K) in the orbital basis (orbitals 0..P-1 occupied in the reference): rdms[0] the diagonal 1-RDM diag(gamma_p); rdms[1][p, q] = Gamma^{p qbar}_{p qbar} = <a+_{p alpha} a+_{q beta} a_{q beta} a_{p alpha}> (equal to the same-spin element Gamma^{pq}_{pq} for p != q, with the diagonal set to gamma_p); rdms[2][p, q] = Gamma^{p pbar}_{q qbar} = <a+_{p alpha} a+_{p beta} a_{q beta} a_{q alpha}> (pair transfer q -> p). Response (Lagrangian) density matrices: gamma_pq = <Phi0| (1 + Lambda) exp(-T) a+_{p alpha} a_{q alpha} exp(T) |Phi0> and Gamma^{pq}_{rs} = <Phi0| (1 + Lambda) exp(-T) a+_p a+_q a_s a_r exp(T) |Phi0> (spin labels as indicated), with the de-excitation operator Lambda = sum_{ia} lambda_ia P+_i P_a; the 1-RDM is diagonal and the only non-zero 2-RDM blocks are Gamma^{pq}_{pq} = Gamma^{p qbar}_{p qbar} (same-orbital-pair, p != q) and the pair-transfer block Gamma^{p pbar}_{q qbar} (Gamma^{p pbar}_{p pbar} = gamma_p). Raise ValueError if c and lam are not 2-D arrays of the same shape."
+    orchestrator: false
+  - number: 7
+    name: "generalized_fock"
+    description: "Return the generalised Fock matrix (orbital Lagrangian) of pCCD, F[p, q] = -<Phi0| (1 + Lambda) exp(-T) a+_{q alpha} [H, a_{p alpha}] exp(T) |Phi0> (alpha electron removed; H = sum h_pq E_pq + (1/2) sum (pq|rs) (E_pq E_rs - delta_qr E_ps)), evaluated from the per-spin response density matrices rdms of the preceding step, with the pair-transfer block entering only through its symmetrised form (Gamma^{p pbar}_{q qbar} + Gamma^{q qbar}_{p pbar}) / 2. Raise ValueError if the shapes are inconsistent."
+    orchestrator: false
+  - number: 8
+    name: "oo_pccd_orbitals"
+    description: "Return the orbitals C (K, K) that minimise the pCCD energy E(C) = <Phi0| exp(-T) H exp(T) |Phi0> (amplitudes re-solved from the projected equations at every orbital set; the first P columns doubly occupied in the reference) over all real orthogonal rotations of the starting orbitals C0, for the Hamiltonian with site-basis one-body matrix h and density-density integrals (pq|rs) = delta_pq delta_rs V_pr. Occupied-occupied, occupied-virtual and virtual-virtual rotations are all non-redundant. Converge until every component of the orbital gradient of the energy functional (dE/dkappa_pq for the rotation generator kappa, obtained from the generalised Fock matrix of the preceding step) is below 1e-10 in magnitude. Return the pCCD natural orbitals of the minimum: the columns ordered by descending per-spin occupation number of the response 1-RDM (the 1-RDM is diagonal in this basis). Column phase convention: in every column the first component with |c| > 1e-8 is positive. Raise ValueError if the shapes are inconsistent, n_pairs is outside [1, K - 1], or the optimisation does not converge."
+    orchestrator: false
+  - number: 9
+    name: "first_ionization_potential"
+    description: "Orchestrator. Return the first ionisation potential of the half-filled open PPP chain (K = len(eps_site) sites, K electrons, P = K/2 pairs) from the extended Koopmans' theorem built on orbital-optimised pCCD: build the model of step 1, take the RHF orbitals, optimise the orbitals (step 8, started from the RHF orbitals), and in the resulting natural-orbital basis obtain the amplitudes, the multipliers, the response density matrices and the generalised Fock matrix F of the earlier steps; discard every natural orbital whose per-spin occupation gamma_p is below cutoff; symmetrise F on the kept orbitals, F_s = (F + F^T)/2, transform F' = gamma^{-1/2} F_s gamma^{-1/2} with gamma the diagonal 1-RDM on the kept orbitals, and diagonalise F'. The ionisation potentials are the negatives of those eigenvalues whose unit-norm eigenvectors of F' carry more than half of their squared norm on the P most strongly occupied natural orbitals; return the smallest of them. Call the earlier step functions rather than reimplementing them. Raise ValueError if the number of sites is odd or below 4, if cutoff is outside [0, 1), or if no eigenvector of occupied character exists."
+    orchestrator: true

@@ -1,0 +1,36 @@
+problem_id: "Chemistry-Quantum_Chemistry-30"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1021/acs.jctc.5c01738"
+dependencies: ""
+steps:
+  - number: 1
+    name: "validate_roks_orbitals"
+    description: "Validate the overlap and the ROKS orbital sets of the source paper."
+    orchestrator: false
+  - number: 2
+    name: "ground_state_density"
+    description: "Form the closed-shell ground-state spatial density."
+    orchestrator: false
+  - number: 3
+    name: "frozen_projection_density"
+    description: "Form the projection-state density that precedes the frozen intermediate."
+    orchestrator: false
+  - number: 4
+    name: "purify_intermediate_state"
+    description: "Build a valid intermediate frozen-state density."
+    orchestrator: false
+  - number: 5
+    name: "excited_state_density"
+    description: "Form the final ROKS spatial density."
+    orchestrator: false
+  - number: 6
+    name: "ovocv_relaxation_promotions"
+    description: "Compute OVOCV electron-promotion numbers for the spectator relaxation."
+    orchestrator: false
+  - number: 7
+    name: "run_roks_excitation_eda"
+    description: "Orchestrate the complete ROKS excitation EDA on the printed fixture."
+    orchestrator: true

@@ -1,0 +1,166 @@
+{
+  "problem_id": "Physics-Condensed_Matter_Physics-32",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-32.1",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(extended_ssh_hamiltonian(3, 1.0, 0.6, 1.5, True), target)",
+        "import numpy as np\nassert np.allclose(extended_ssh_hamiltonian(3, 1.0, 0.6, 1.5, False), target)",
+        "import numpy as np\nassert np.allclose(extended_ssh_hamiltonian(2, 0.7, 1.3, 0.4, True), target)",
+        "import numpy as np\nassert np.allclose(extended_ssh_hamiltonian(4, 2.0, 0.0, 0.0, True), target)",
+        "import numpy as np\nassert np.allclose(extended_ssh_hamiltonian(12, 1.0, 2.0, 0.5, True)[::5, ::3], target)",
+        "import numpy as np\nassert np.allclose(extended_ssh_hamiltonian(np.int64(5), 0.0, 1.0, 0.0, False), target)",
+        "import numpy as np\n\ndef raises_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(extended_ssh_hamiltonian, 1, 1.0, 1.0, 0.0, True), target)",
+        "import numpy as np\n\ndef raises_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(extended_ssh_hamiltonian, True, 1.0, 1.0, 0.0, True), target)",
+        "import numpy as np\n\ndef raises_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(extended_ssh_hamiltonian, 3, -1.0, 1.0, 0.0, True), target)",
+        "import numpy as np\n\ndef raises_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(extended_ssh_hamiltonian, 3, 1.0, np.inf, 0.0, True), target)",
+        "import numpy as np\n\ndef raises_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(extended_ssh_hamiltonian, 3.0, 1.0, 1.0, 0.0, True), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-32.2",
+      "test_cases": [
+        "import numpy as np\ndef chain(n, t1, t2, t3, periodic=True):\n    h = np.zeros((2 * n, 2 * n))\n    for j in range(n):\n        h[2 * j, 2 * j + 1] -= t1\n        if j + 1 < n or periodic:\n            k = (j + 1) % n\n            h[2 * j + 1, 2 * k] -= t2\n            h[2 * j, 2 * k + 1] -= t3\n    return h + h.T\nassert np.allclose(fermi_correlation_matrix(chain(3, 1.0, 0.6, 1.5), 2.0), target)",
+        "import numpy as np\ndef chain(n, t1, t2, t3, periodic=True):\n    h = np.zeros((2 * n, 2 * n))\n    for j in range(n):\n        h[2 * j, 2 * j + 1] -= t1\n        if j + 1 < n or periodic:\n            k = (j + 1) % n\n            h[2 * j + 1, 2 * k] -= t2\n            h[2 * j, 2 * k + 1] -= t3\n    return h + h.T\nassert np.allclose(fermi_correlation_matrix(chain(3, 1.0, 0.6, 1.5), 0.0), target)",
+        "import numpy as np\ndef chain(n, t1, t2, t3, periodic=True):\n    h = np.zeros((2 * n, 2 * n))\n    for j in range(n):\n        h[2 * j, 2 * j + 1] -= t1\n        if j + 1 < n or periodic:\n            k = (j + 1) % n\n            h[2 * j + 1, 2 * k] -= t2\n            h[2 * j, 2 * k + 1] -= t3\n    return h + h.T\nassert np.allclose(fermi_correlation_matrix(chain(4, 1.0, 1.0, 0.0), np.inf), target)",
+        "import numpy as np\ndef chain(n, t1, t2, t3, periodic=True):\n    h = np.zeros((2 * n, 2 * n))\n    for j in range(n):\n        h[2 * j, 2 * j + 1] -= t1\n        if j + 1 < n or periodic:\n            k = (j + 1) % n\n            h[2 * j + 1, 2 * k] -= t2\n            h[2 * j, 2 * k + 1] -= t3\n    return h + h.T\nassert np.allclose(fermi_correlation_matrix(chain(4, 1.0, 1.0, 0.0), 1e300), target)",
+        "import numpy as np\ndef chain(n, t1, t2, t3, periodic=True):\n    h = np.zeros((2 * n, 2 * n))\n    for j in range(n):\n        h[2 * j, 2 * j + 1] -= t1\n        if j + 1 < n or periodic:\n            k = (j + 1) % n\n            h[2 * j + 1, 2 * k] -= t2\n            h[2 * j, 2 * k + 1] -= t3\n    return h + h.T\nassert np.allclose(fermi_correlation_matrix(chain(5, 2.0, 0.5, 0.0), 1e5), target)",
+        "import numpy as np\ndef chain(n, t1, t2, t3, periodic=True):\n    h = np.zeros((2 * n, 2 * n))\n    for j in range(n):\n        h[2 * j, 2 * j + 1] -= t1\n        if j + 1 < n or periodic:\n            k = (j + 1) % n\n            h[2 * j + 1, 2 * k] -= t2\n            h[2 * j, 2 * k + 1] -= t3\n    return h + h.T\nassert np.allclose(fermi_correlation_matrix(chain(6, 0.3, 1.1, 0.9, False), 37.5), target)",
+        "import numpy as np\ndef chain(n, t1, t2, t3, periodic=True):\n    h = np.zeros((2 * n, 2 * n))\n    for j in range(n):\n        h[2 * j, 2 * j + 1] -= t1\n        if j + 1 < n or periodic:\n            k = (j + 1) % n\n            h[2 * j + 1, 2 * k] -= t2\n            h[2 * j, 2 * k + 1] -= t3\n    return h + h.T\nassert np.allclose(fermi_correlation_matrix(np.array([[0.0]]), 3.0), target)",
+        "import numpy as np\ndef chain(n, t1, t2, t3, periodic=True):\n    h = np.zeros((2 * n, 2 * n))\n    for j in range(n):\n        h[2 * j, 2 * j + 1] -= t1\n        if j + 1 < n or periodic:\n            k = (j + 1) % n\n            h[2 * j + 1, 2 * k] -= t2\n            h[2 * j, 2 * k + 1] -= t3\n    return h + h.T\nassert np.allclose(fermi_correlation_matrix(np.diag([1e-12, -1.0, 1.0, 2e-12]), 1e300), target)",
+        "import numpy as np\ndef chain(n, t1, t2, t3, periodic=True):\n    h = np.zeros((2 * n, 2 * n))\n    for j in range(n):\n        h[2 * j, 2 * j + 1] -= t1\n        if j + 1 < n or periodic:\n            k = (j + 1) % n\n            h[2 * j + 1, 2 * k] -= t2\n            h[2 * j, 2 * k + 1] -= t3\n    return h + h.T\nassert np.allclose(fermi_correlation_matrix(np.diag([3e-12, -3e-12, 1.0, -1.0]), np.inf), target)",
+        "import numpy as np\ndef chain(n, t1, t2, t3, periodic=True):\n    h = np.zeros((2 * n, 2 * n))\n    for j in range(n):\n        h[2 * j, 2 * j + 1] -= t1\n        if j + 1 < n or periodic:\n            k = (j + 1) % n\n            h[2 * j + 1, 2 * k] -= t2\n            h[2 * j, 2 * k + 1] -= t3\n    return h + h.T\nassert np.allclose(fermi_correlation_matrix(np.diag([-1e6, 5e-7, 1e6, -2e-6]), 1e8), target)",
+        "import numpy as np\ndef chain(n, t1, t2, t3, periodic=True):\n    h = np.zeros((2 * n, 2 * n))\n    for j in range(n):\n        h[2 * j, 2 * j + 1] -= t1\n        if j + 1 < n or periodic:\n            k = (j + 1) % n\n            h[2 * j + 1, 2 * k] -= t2\n            h[2 * j, 2 * k + 1] -= t3\n    return h + h.T\n\ndef raises_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(fermi_correlation_matrix, chain(3, 1.0, 0.6, 1.5), -1.0), target)",
+        "import numpy as np\ndef chain(n, t1, t2, t3, periodic=True):\n    h = np.zeros((2 * n, 2 * n))\n    for j in range(n):\n        h[2 * j, 2 * j + 1] -= t1\n        if j + 1 < n or periodic:\n            k = (j + 1) % n\n            h[2 * j + 1, 2 * k] -= t2\n            h[2 * j, 2 * k + 1] -= t3\n    return h + h.T\n\ndef raises_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(fermi_correlation_matrix, chain(3, 1.0, 0.6, 1.5), np.nan), target)",
+        "import numpy as np\ndef chain(n, t1, t2, t3, periodic=True):\n    h = np.zeros((2 * n, 2 * n))\n    for j in range(n):\n        h[2 * j, 2 * j + 1] -= t1\n        if j + 1 < n or periodic:\n            k = (j + 1) % n\n            h[2 * j + 1, 2 * k] -= t2\n            h[2 * j, 2 * k + 1] -= t3\n    return h + h.T\n\ndef raises_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(fermi_correlation_matrix, np.array([[0.0, 1.0], [2.0, 0.0]]), 1.0), target)",
+        "import numpy as np\ndef chain(n, t1, t2, t3, periodic=True):\n    h = np.zeros((2 * n, 2 * n))\n    for j in range(n):\n        h[2 * j, 2 * j + 1] -= t1\n        if j + 1 < n or periodic:\n            k = (j + 1) % n\n            h[2 * j + 1, 2 * k] -= t2\n            h[2 * j, 2 * k + 1] -= t3\n    return h + h.T\n\ndef raises_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(fermi_correlation_matrix, np.ones((2, 3)), 1.0), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-32.3",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(log_partition_function(np.array([-2.0, -0.5, 0.5, 2.0]), 1.3), target)",
+        "import numpy as np\nassert np.allclose(log_partition_function(np.array([-2.0, -0.5, 0.5, 2.0]), 0.0), target)",
+        "import numpy as np\nassert np.allclose(log_partition_function(np.array([-3.0, 3.0, 1e-15, -1e-14]), 1e5), target)",
+        "import numpy as np\nassert np.allclose(log_partition_function(np.array([-1.0, 1.0]), 1e300), target)",
+        "import numpy as np\nassert np.allclose(log_partition_function(np.linspace(-3.0, 3.0, 7), 400.0), target)",
+        "import numpy as np\nassert np.allclose(log_partition_function(np.array([1e-9, -2e-9]), 1e8), target)",
+        "import numpy as np\nassert np.allclose(log_partition_function(np.array([1e-12, -2e-12]), 1e14), target)",
+        "import numpy as np\nassert np.allclose(log_partition_function(np.array([5e-7, -2e-6, 3e-7, 1e6]), 1e8), target)",
+        "import numpy as np\n\ndef raises_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(log_partition_function, np.array([1.0, -1.0]), -0.1), target)",
+        "import numpy as np\n\ndef raises_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(log_partition_function, np.array([1.0, -1.0]), np.inf), target)",
+        "import numpy as np\n\ndef raises_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(log_partition_function, np.array([]), 1.0), target)",
+        "import numpy as np\n\ndef raises_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(log_partition_function, np.array([1.0, np.nan]), 1.0), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-32.4",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(bloch_hamiltonian(0.0, 1.0, 0.6, 1.5), target)",
+        "import numpy as np\nassert np.allclose(bloch_hamiltonian(np.pi, 1.0, 0.6, 1.5), target)",
+        "import numpy as np\nassert np.allclose(bloch_hamiltonian(2.0 * np.pi / 7.0, 0.8, 1.3, 0.0), target)",
+        "import numpy as np\nassert np.allclose(bloch_hamiltonian(-1.1, 2.0, 0.0, 0.4), target)",
+        "import numpy as np\nassert np.allclose(bloch_hamiltonian(13.7, 0.3, 0.9, 1.2), target)",
+        "import numpy as np\n\ndef raises_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(bloch_hamiltonian, np.nan, 1.0, 1.0, 0.0), target)",
+        "import numpy as np\n\ndef raises_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(bloch_hamiltonian, 0.5, 1.0, -1.0, 0.0), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-32.5",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(global_twist_expectation(2, 1.0, 0.2, 0.3, 0.2), target)",
+        "import numpy as np\n\ndef raises_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(global_twist_expectation, 2, 1.0, 0.2, 0.3, 1e-18), target)",
+        "import numpy as np\n\ndef raises_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(global_twist_expectation, 2, 1.0, 2.0, 0.0, 50.0), target)",
+        "import numpy as np\nassert np.allclose(global_twist_expectation(5, 1.3, 0.7, 0.0, 0.9), target)",
+        "import numpy as np\nassert np.allclose(global_twist_expectation(6, 0.8, 1.5, 0.0, 1.2), target)",
+        "import numpy as np\nassert np.allclose(global_twist_expectation(7, 1.0, 0.6, 0.4, 0.7), target)",
+        "import numpy as np\nassert np.allclose(global_twist_expectation(151, 1.0, 0.6, 1.5, 3.8), target)",
+        "import numpy as np\nassert np.allclose(global_twist_expectation(150, 3.0, 2.0, 0.0, 50.0), target)",
+        "import numpy as np\nassert np.allclose(global_twist_expectation(151, 1.0, 2.0, 0.5, 400.0), target)",
+        "import numpy as np\nassert np.allclose(global_twist_expectation(20001, 1.0, 0.6, 1.5, 2.0), target)",
+        "import numpy as np\nassert np.allclose(global_twist_expectation(41, 0.5, 0.6, 1.2, 0.0), target)",
+        "import numpy as np\nassert np.allclose(global_twist_expectation(20001, 1.0, 0.6, 1.5, 3000.0), target)",
+        "import numpy as np\nassert np.allclose(global_twist_expectation(20000, 3.0, 2.0, 0.0, 300.0), target)",
+        "import numpy as np\nassert np.allclose(global_twist_expectation(2000, 1.0, 2.0, 0.0, 500.0), target)",
+        "import numpy as np\n\ndef raises_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(global_twist_expectation, 1, 1.0, 1.0, 0.0, 1.0), target)",
+        "import numpy as np\n\ndef raises_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(global_twist_expectation, 5, 1.0, 1.0, 0.0, np.inf), target)",
+        "import numpy as np\n\ndef raises_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(global_twist_expectation, 5, 1.0, -1.0, 0.0, 1.0), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-32.6",
+      "test_cases": [
+        "import numpy as np\ndef thermal(n, t1, t2, t3, beta):\n    h = np.zeros((2 * n, 2 * n))\n    for j in range(n):\n        h[2 * j, 2 * j + 1] -= t1\n        k = (j + 1) % n\n        h[2 * j + 1, 2 * k] -= t2\n        h[2 * j, 2 * k + 1] -= t3\n    h = h + h.T\n    e, v = np.linalg.eigh(h)\n    return (v * (0.5 * (1.0 - np.tanh(0.5 * beta * e)))) @ v.T\nassert np.allclose(diagonal_twist_expectation(thermal(3, 1.0, 0.6, 1.5, 2.0), np.linspace(0.1, 2.3, 6)), target)",
+        "import numpy as np\ndef thermal(n, t1, t2, t3, beta):\n    h = np.zeros((2 * n, 2 * n))\n    for j in range(n):\n        h[2 * j, 2 * j + 1] -= t1\n        k = (j + 1) % n\n        h[2 * j + 1, 2 * k] -= t2\n        h[2 * j, 2 * k + 1] -= t3\n    h = h + h.T\n    e, v = np.linalg.eigh(h)\n    return (v * (0.5 * (1.0 - np.tanh(0.5 * beta * e)))) @ v.T\nassert np.allclose(diagonal_twist_expectation(np.diag([0.8, 0.3]), np.array([-np.pi, 0.0])), target)",
+        "import numpy as np\ndef thermal(n, t1, t2, t3, beta):\n    h = np.zeros((2 * n, 2 * n))\n    for j in range(n):\n        h[2 * j, 2 * j + 1] -= t1\n        k = (j + 1) % n\n        h[2 * j + 1, 2 * k] -= t2\n        h[2 * j, 2 * k + 1] -= t3\n    h = h + h.T\n    e, v = np.linalg.eigh(h)\n    return (v * (0.5 * (1.0 - np.tanh(0.5 * beta * e)))) @ v.T\nassert np.allclose(diagonal_twist_expectation(np.diag([0.8, 0.3]), np.array([np.pi, 0.0])), target)",
+        "import numpy as np\ndef thermal(n, t1, t2, t3, beta):\n    h = np.zeros((2 * n, 2 * n))\n    for j in range(n):\n        h[2 * j, 2 * j + 1] -= t1\n        k = (j + 1) % n\n        h[2 * j + 1, 2 * k] -= t2\n        h[2 * j, 2 * k + 1] -= t3\n    h = h + h.T\n    e, v = np.linalg.eigh(h)\n    return (v * (0.5 * (1.0 - np.tanh(0.5 * beta * e)))) @ v.T\nassert np.allclose(diagonal_twist_expectation(0.5 * np.eye(900), np.full(900, 2.9)), target)",
+        "import numpy as np\ndef thermal(n, t1, t2, t3, beta):\n    h = np.zeros((2 * n, 2 * n))\n    for j in range(n):\n        h[2 * j, 2 * j + 1] -= t1\n        k = (j + 1) % n\n        h[2 * j + 1, 2 * k] -= t2\n        h[2 * j, 2 * k + 1] -= t3\n    h = h + h.T\n    e, v = np.linalg.eigh(h)\n    return (v * (0.5 * (1.0 - np.tanh(0.5 * beta * e)))) @ v.T\nassert np.allclose(diagonal_twist_expectation(thermal(151, 1.0, 0.6, 1.5, 3.8), 2.0 * np.pi / 151.0 * np.repeat(np.arange(151.0), 2)), target)",
+        "import numpy as np\ndef thermal(n, t1, t2, t3, beta):\n    h = np.zeros((2 * n, 2 * n))\n    for j in range(n):\n        h[2 * j, 2 * j + 1] -= t1\n        k = (j + 1) % n\n        h[2 * j + 1, 2 * k] -= t2\n        h[2 * j, 2 * k + 1] -= t3\n    h = h + h.T\n    e, v = np.linalg.eigh(h)\n    return (v * (0.5 * (1.0 - np.tanh(0.5 * beta * e)))) @ v.T\nassert np.allclose(diagonal_twist_expectation(thermal(40, 2.0, 0.5, 0.0, 0.02), np.linspace(-3.0, 3.0, 80)), target)",
+        "import numpy as np\ndef thermal(n, t1, t2, t3, beta):\n    h = np.zeros((2 * n, 2 * n))\n    for j in range(n):\n        h[2 * j, 2 * j + 1] -= t1\n        k = (j + 1) % n\n        h[2 * j + 1, 2 * k] -= t2\n        h[2 * j, 2 * k + 1] -= t3\n    h = h + h.T\n    e, v = np.linalg.eigh(h)\n    return (v * (0.5 * (1.0 - np.tanh(0.5 * beta * e)))) @ v.T\n\ndef raises_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(diagonal_twist_expectation, np.eye(2), np.zeros(3)), target)",
+        "import numpy as np\ndef thermal(n, t1, t2, t3, beta):\n    h = np.zeros((2 * n, 2 * n))\n    for j in range(n):\n        h[2 * j, 2 * j + 1] -= t1\n        k = (j + 1) % n\n        h[2 * j + 1, 2 * k] -= t2\n        h[2 * j, 2 * k + 1] -= t3\n    h = h + h.T\n    e, v = np.linalg.eigh(h)\n    return (v * (0.5 * (1.0 - np.tanh(0.5 * beta * e)))) @ v.T\n\ndef raises_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(diagonal_twist_expectation, np.array([[0.5, 0.1], [0.0, 0.5]]), np.zeros(2)), target)",
+        "import numpy as np\ndef thermal(n, t1, t2, t3, beta):\n    h = np.zeros((2 * n, 2 * n))\n    for j in range(n):\n        h[2 * j, 2 * j + 1] -= t1\n        k = (j + 1) % n\n        h[2 * j + 1, 2 * k] -= t2\n        h[2 * j, 2 * k + 1] -= t3\n    h = h + h.T\n    e, v = np.linalg.eigh(h)\n    return (v * (0.5 * (1.0 - np.tanh(0.5 * beta * e)))) @ v.T\n\ndef raises_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(diagonal_twist_expectation, 0.5 * np.eye(2), np.array([np.pi, 0.0]) + np.array([0.0, np.nan])), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-32.7",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(local_twist_phases(5, 'intra', 2, 0.25), target)",
+        "import numpy as np\nassert np.allclose(local_twist_phases(5, 'inter', 4, 0.25), target)",
+        "import numpy as np\nassert np.allclose(local_twist_phases(5, 'nnn', 4, 0.25), target)",
+        "import numpy as np\nassert np.allclose(local_twist_phases(5, 'intra2', 4, 0.25), target)",
+        "import numpy as np\nassert np.allclose(local_twist_phases(2, 'intra2', 1, 0.1), target)",
+        "import numpy as np\nassert np.allclose(local_twist_phases(7, 'inter', 3, 0.0), target)",
+        "import numpy as np\nassert np.allclose(local_twist_phases(np.int64(9), 'nnn', np.int64(0), -0.3), target)",
+        "import numpy as np\n\ndef raises_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(local_twist_phases, 5, 'bond', 2, 0.25), target)",
+        "import numpy as np\n\ndef raises_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(local_twist_phases, 5, 'intra', 5, 0.25), target)",
+        "import numpy as np\n\ndef raises_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(local_twist_phases, 5, 'intra', 2.0, 0.25), target)",
+        "import numpy as np\n\ndef raises_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(local_twist_phases, 5, 'intra', 2, np.nan), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-32.8",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(local_indicators(151, 1.0, 0.6, 1.5, 3.8, 0.25), target)",
+        "import numpy as np\nassert np.allclose(local_indicators(151, 1.0, 1.5, 0.6, 3.0, 0.25), target)",
+        "import numpy as np\nassert np.allclose(local_indicators(31, 3.0, 1.0, 0.5, 3.0, 0.25), target)",
+        "import numpy as np\nassert np.allclose(local_indicators(31, 1.0, 0.6, 1.5, np.inf, 0.25), target)",
+        "import numpy as np\nassert np.allclose(local_indicators(21, 2.0, 0.7, 0.9, 0.0, 0.1), target)",
+        "import numpy as np\nassert np.allclose(local_indicators(3, 0.5, 1.0, 0.2, 2.0, 0.25), target)",
+        "import numpy as np\n\ndef raises_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(local_indicators, 30, 1.0, 0.6, 1.5, 3.8, 0.25), target)",
+        "import numpy as np\n\ndef raises_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(local_indicators, 1, 1.0, 0.6, 1.5, 3.8, 0.25), target)",
+        "import numpy as np\n\ndef raises_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(local_indicators, 31, 1.0, 0.6, 1.5, -1.0, 0.25), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-32.9",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(bloch_local_indicators(20001, 1.0, 0.6, 1.5, 9.506626670411208, 0.25), target)",
+        "import numpy as np\nassert np.allclose(bloch_local_indicators(151, 1.0, 0.6, 1.5, 3.8, 0.25), target)",
+        "import numpy as np\nassert np.allclose(bloch_local_indicators(20001, 1.0, 1.5, 0.6, 3.0, 0.25), target)",
+        "import numpy as np\nassert np.allclose(bloch_local_indicators(19999, 3.0, 1.0, 0.5, 3.0, 0.25), target)",
+        "import numpy as np\nassert np.allclose(bloch_local_indicators(20001, 1.0, 0.6, 1.5, np.inf, 0.25), target)",
+        "import numpy as np\nassert np.allclose(bloch_local_indicators(4001, 2.0, 0.7, 0.9, 0.0, 0.1), target)",
+        "import numpy as np\nassert np.allclose(bloch_local_indicators(3, 0.5, 1.0, 0.2, 2.0, 0.25), target)",
+        "import numpy as np\nassert np.allclose(bloch_local_indicators(12345, 0.8, 1.1, 0.3, 40.0, 0.375), target)",
+        "import numpy as np\nassert np.allclose(bloch_local_indicators(9, 1.0, 1.0, 1.0, np.inf, 0.25), target)",
+        "import numpy as np\n\ndef raises_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(bloch_local_indicators, 20000, 1.0, 0.6, 1.5, 3.8, 0.25), target)",
+        "import numpy as np\n\ndef raises_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(bloch_local_indicators, 151, 1.0, 0.6, 1.5, -1.0, 0.25), target)",
+        "import numpy as np\n\ndef raises_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(bloch_local_indicators, 151, 1.0, 0.6, 1.5, 3.8, np.nan), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-32.10",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(twist_crossing_beta(31, 1e-7, 0.0, 0.0, 0.01, np.array([1e6, 5e8]), 0.25, 31), target)",
+        "import numpy as np\nassert np.allclose(twist_crossing_beta(31, 1.0, 0.6, 1.5, 0.01, np.array([0.2, 50.0]), 0.25, 31), target)",
+        "import numpy as np\nassert np.allclose(twist_crossing_beta(31, 3.0, 2.0, 0.0, 0.01, np.array([0.2, 50.0]), 0.25, 31), target)",
+        "import numpy as np\nassert np.allclose(twist_crossing_beta(21, 1.0, 1.5, 0.6, 0.2, np.array([0.2, 40.0]), 0.25, 21), target)",
+        "import numpy as np\nassert np.allclose(twist_crossing_beta(400, 1.0, 0.6, 1.5, 0.01, np.array([2.0, 30.0]), 0.25, 20001), target)",
+        "import numpy as np\nassert np.allclose(twist_crossing_beta(2001, 3.0, 2.0, 0.0, 0.05, np.array([1.0, 30.0]), 0.1, 19999), target)",
+        "import numpy as np\n\ndef raises_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(twist_crossing_beta, 31, 1.0, 0.6, 1.5, 1.5, np.array([0.1, 50.0]), 0.25, 31), target)",
+        "import numpy as np\n\ndef raises_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(twist_crossing_beta, 31, 1.0, 0.6, 1.5, 0.01, np.array([40.0, 50.0]), 0.25, 31), target)",
+        "import numpy as np\n\ndef raises_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(raises_value_error(twist_crossing_beta, 31, 1.0, 0.6, 1.5, 0.01, np.array([0.2, 50.0]), 0.25, 20000), target)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+problem_id: "Physics-Particle_Physics-11"
+subject: "physics"
+subject_area: "Particle Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2607.29436"
+dependencies: ""
+steps:
+  - number: 1
+    name: "profile_background_estimate"
+    description: "Compute the profiled background estimate of the on/off counting experiment for a fixed signal strength."
+    orchestrator: false
+  - number: 2
+    name: "signed_likelihood_root"
+    description: "Evaluate the signed likelihood-ratio root of the background-only test for arrays of on/off counts."
+    orchestrator: false
+  - number: 3
+    name: "auxiliary_statistic"
+    description: "Evaluate the auxiliary statistic of the higher-order likelihood-root correction for the on/off counting experiment."
+    orchestrator: false
+  - number: 4
+    name: "corrected_discovery_significance"
+    description: "Apply the higher-order likelihood-root correction and the discovery convention to obtain the corrected significance."
+    orchestrator: false
+  - number: 5
+    name: "first_order_asimov_significance"
+    description: "Compute the first-order Asimov median discovery significance of the on/off experiment from the background uncertainty."
+    orchestrator: false
+  - number: 6
+    name: "corrected_asimov_significance"
+    description: "Compute the higher-order corrected Asimov median discovery significance of the on/off experiment."
+    orchestrator: false
+  - number: 7
+    name: "profile_construction_significance"
+    description: "Evaluate the exact profile-construction discovery significance of an observed on/off outcome by Poisson tail summation."
+    orchestrator: false
+  - number: 8
+    name: "median_discovery_significance"
+    description: "Compute the exact median discovery significance of the on/off experiment for a nominal signal strength."
+    orchestrator: false
+  - number: 9
+    name: "orchestrate_asimov_residual"
+    description: "Orchestrate the sensitivity calculation and report the residual of the corrected Asimov estimate against the exact median significance."
+    orchestrator: true

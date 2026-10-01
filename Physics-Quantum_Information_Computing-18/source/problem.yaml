@@ -1,0 +1,40 @@
+problem_id: "Physics-Quantum_Information_Computing-18"
+subject: "physics"
+subject_area: "Quantum Information / Computing"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2603.05428"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_construct_physical_cycle_ensemble"
+    description: "Construct the ordered physical error configurations represented by closed relative cycles."
+    orchestrator: false
+  - number: 2
+    name: "02_build_oriented_transition"
+    description: "Construct the elementary transition matrix for a fixed tail in the conditional cycle ensemble."
+    orchestrator: false
+  - number: 3
+    name: "03_compute_work_recording_kernel"
+    description: "Compute the completed-update recording kernel with work coefficients through order three."
+    orchestrator: false
+  - number: 4
+    name: "04_compute_count_work_transfer"
+    description: "Compute joint physical count, terminal-state and work coefficients for every initial cycle."
+    orchestrator: false
+  - number: 5
+    name: "05_transfer_retained_phase"
+    description: "Transfer a joint retained-state and accumulated-work law through one empirical-feedback phase."
+    orchestrator: false
+  - number: 6
+    name: "06_compute_report_work_transfer"
+    description: "Compute joint physical plurality-report and work coefficients from every initial cycle."
+    orchestrator: false
+  - number: 7
+    name: "07_compute_adaptive_work_moments"
+    description: "Compute the physical report law and work coefficients of the retained-state feedback decoder."
+    orchestrator: false
+  - number: 8
+    name: "08_compute_conditional_work_skewness"
+    description: "Compute conditional work skewness for a reported physical logical class."
+    orchestrator: true

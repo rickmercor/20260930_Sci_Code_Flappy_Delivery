@@ -1,0 +1,36 @@
+problem_id: "Chemistry-Quantum_Chemistry-50"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.48550/arXiv.2509.01454"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_assemble_action_derivatives"
+    description: "Evaluate a partial derivative with respect to the imaginary-time split of the discretized flux-side ring-polymer action on the coupled Eckart-Morse surface, together with its gradient, Hessian and bead-resolved third- and fourth-derivative tensors."
+    orchestrator: false
+  - number: 2
+    name: "02_locate_flux_instanton"
+    description: "Locate the delocalized stationary ring-polymer path of the flux-side action with one bead of each half fixed on the dividing surface x = 0, and differentiate that path twice with respect to the imaginary-time split."
+    orchestrator: false
+  - number: 3
+    name: "03_compute_spatial_correction"
+    description: "Compute the first-order hbar correction coefficient of the discretized flux-flux path integral at a fixed imaginary-time split."
+    orchestrator: false
+  - number: 4
+    name: "04_compute_action_time_derivatives"
+    description: "Evaluate the stationary action as a function of the imaginary-time split together with its first four total derivatives with respect to that split."
+    orchestrator: false
+  - number: 5
+    name: "05_compute_prefactor_time_derivatives"
+    description: "Evaluate the first and second total derivatives of the logarithm of the flux-flux prefactor with respect to the imaginary-time split, following the stationary path."
+    orchestrator: false
+  - number: 6
+    name: "06_compute_reactant_correction"
+    description: "Compute the first-order hbar correction coefficient of the discretized reactant partition function."
+    orchestrator: false
+  - number: 7
+    name: "07_compute_corrected_rate"
+    description: "Build the coupled Eckart-Morse surface from spectroscopic data and return the cumulant-resummed first-order corrected ring-polymer instanton rate constant per unit length."
+    orchestrator: true

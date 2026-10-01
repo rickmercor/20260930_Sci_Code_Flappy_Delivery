@@ -1,0 +1,40 @@
+problem_id: "Physics-Astrophysics-28"
+subject: "physics"
+subject_area: "Astrophysics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2607.01596"
+dependencies: ""
+steps:
+  - number: 1
+    name: "Evaluate the non-spinning 2PN ADM Hamiltonian"
+    description: "Compute the total reduced Hamiltonian H = H_N + eps*H_1PN + eps^2*H_2PN for a single phase-space point. This is used for the initial and final energies and for the final relative error."
+    orchestrator: false
+  - number: 2
+    name: "Analytic gradients of the PN perturbation H_1"
+    description: "Return the vector fields f = -dH_1/dQ and g = dH_1/dP of the PN perturbation H_1 = H_1PN + eps*H_2PN. These drive the exact cross-coupled flows A and B."
+    orchestrator: false
+  - number: 3
+    name: "Exact universal-variable Kepler flow"
+    description: "Advance (P, Q) exactly under H_0 = P^2/2 - 1/r for a signed time t, on elliptic, parabolic or hyperbolic arcs. This is the H_C sub-flow, applied separately to (p, q) and to (x, y)."
+    orchestrator: false
+  - number: 4
+    name: "Cross-coupled flow of eps*H_1(p, y)"
+    description: "Apply the exact flow of the sub-Hamiltonian eps*H_A = eps*H_1(p, y) to a doubled state [p, q, x, y] for scaled time tau = eps*t, given the gradients evaluated at (p, y)."
+    orchestrator: false
+  - number: 5
+    name: "Cross-coupled flow of eps*H_1(x, q)"
+    description: "Apply the exact flow of the sub-Hamiltonian eps*H_B = eps*H_1(x, q) to a doubled state [p, q, x, y] for scaled time tau = eps*t, given the gradients evaluated at (x, q)."
+    orchestrator: false
+  - number: 6
+    name: "Parity-alternating projection onto the diagonal"
+    description: "Map a doubled state back onto the submanifold x = p, y = q with weights (lam0, mu0), swapping their roles on even steps."
+    orchestrator: false
+  - number: 7
+    name: "DS4 sub-step durations"
+    description: "Return the 13 sub-step durations of one DS4 step, in the operator order C B A B C B A B C B A B C. C entries are physical times and A/B entries are scaled times tau = eps*weight*h."
+    orchestrator: false
+  - number: 8
+    name: "DS4 integration and relative energy error"
+    description: "Chain the earlier sub-problems: evaluate H(z_0) with pn_hamiltonian, build the schedule with ds4_schedule, advance the doubled state through the 13 sub-flows with kepler_flow, pn_perturbation_gradients, doubled_flow_A and doubled_flow_B, apply doubled_projection after each step, and return |H(z_N) - H(z_0)|/|H(z_0)|."
+    orchestrator: true

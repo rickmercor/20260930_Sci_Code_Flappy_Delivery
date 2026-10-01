@@ -1,0 +1,48 @@
+problem_id: "Material_Science-Semiconductor_Materials-41"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2606.24227"
+dependencies: ""
+steps:
+  - number: 1
+    name: "configuration_coordinate"
+    description: "Reduce one deep level to its configuration coordinate diagram. From the lattice relaxation that accompanies the charge-state change, the effective phonon energy and the electronic transition energy, return the oscillator length of the mass-weighted coordinate, the Huang-Rhys factor, the relaxation energy, the classical capture barrier of the diagram, and the dimensionless displacement between the two parabolas, the last of these defined so that its square is the Huang-Rhys factor. Work in the mass-weighted coordinate in which the kinetic operator carries no mass, so that a relaxation quoted in amu^(1/2) Angstrom and a phonon energy quoted in eV fix the oscillator length with no further input."
+    orchestrator: false
+  - number: 2
+    name: "oscillator_basis"
+    description: "Tabulate the harmonic oscillator eigenfunctions that the phonon matrix elements are built from, on a uniform grid of the reduced coordinate, for every quantum number from zero up to the retained cut-off. Normalise each eigenfunction so that the grid quadrature reproduces orthonormality, and generate them by the three-term recurrence in the normalised functions rather than by evaluating Hermite polynomials and a Gaussian separately, which overflows well before the cut-off this calculation needs. Return the grid in the first row and the eigenfunctions in the rows below it."
+    orchestrator: false
+  - number: 3
+    name: "franck_condon_overlaps"
+    description: "Build the matrix of overlaps between the phonon states of the two charge states, the initial-state oscillator centred at the origin of the mass-weighted coordinate and the final-state oscillator centred at the lattice relaxation. Integrate on the grid of the previous step and use the same grid spacing as the quadrature weight. Index the matrix with the initial quantum number first."
+    orchestrator: false
+  - number: 4
+    name: "coordinate_matrix_elements"
+    description: "Build the matrix of phonon matrix elements that the transition rate of the source is actually made of. The source writes the rate with one particular operator between the initial-state and final-state phonon states, and it is not the identity; the whole difference from the older model rests on which operator it is. Return the matrix in the mass-weighted coordinate measured from the centre of the initial-state surface, indexed with the initial quantum number first, on the same grid as the previous steps."
+    orchestrator: false
+  - number: 5
+    name: "lineshape_function"
+    description: "Evaluate, at each requested temperature, the lineshape function of the transition rate and the two energies whose difference governs its temperature derivative. The lineshape function is the thermally weighted sum over initial phonon states of the squared matrix element of the previous step, with the final phonon state fixed by energy conservation; replace the energy-conserving delta by a normalised Gaussian of the given width in energy, summed over final states out to the given multiple of that width, and normalise the Gaussian weights over the retained final states. A final state is retained when its energy lies within that multiple of the width of the energy-conserving target, so the retained states are those whose quantum number differs from the target by at most the given multiple of the width divided by the phonon energy. Then return the averaged initial-state phonon energy that the source defines, whose weight is the product of the thermal occupation and the squared matrix element, and the ordinary quantum-statistical average energy of one oscillator at that temperature. Take the thermal occupation to be the normalised Boltzmann weight of the initial-state oscillator."
+    orchestrator: false
+  - number: 6
+    name: "nmp_cross_section"
+    description: "Propagate the capture cross section across the temperature grid from its value at the reference temperature, using the closed-form result the source obtains by integrating its own expression for the temperature derivative. The integral runs from the reference temperature to each grid temperature and its integrand is built from the two energies of the previous step; carry it out with a cumulative Simpson rule on the given grid. The source's result also carries an algebraic prefactor in temperature that does not come from the integral; include it. Require the reference temperature to be a node of the grid and raise if it is not, so that the integral is anchored without interpolation."
+    orchestrator: false
+  - number: 7
+    name: "henry_lang_cross_section"
+    description: "Evaluate the older model's capture cross section on the same grid, anchored to the same value at the same reference temperature. That model puts the classical barrier of the configuration coordinate diagram into an activated exponential and carries one algebraic power of temperature in front of it; the source writes both and states which power it is. Return the curve normalised so that it agrees with the reference value at the reference temperature."
+    orchestrator: false
+  - number: 8
+    name: "emission_rate"
+    description: "Convert a capture cross section into the thermal emission rate that a transient spectroscopy experiment measures, using detailed balance: the rate is the cross section times the carrier thermal velocity times the effective density of states of the band, divided by the ratio of the degeneracies of the two charge states, times the Boltzmann factor of the thermodynamic level. Take the effective density of states to be two times the usual (2 pi m* k_B T / h^2) raised to the three halves. The thermal velocity is the one the source writes, including its numerical factor."
+    orchestrator: false
+  - number: 9
+    name: "arrhenius_signature"
+    description: "Carry out the analysis an experimentalist performs. Form the ordinate that the constant-cross-section model predicts to be a straight line against the reciprocal temperature in units of inverse kilokelvin, sample it at equally spaced reciprocal temperatures across the given window by linear interpolation of that ordinate on the supplied grid, and fit a straight line by least squares. Return the apparent thermodynamic level that the slope implies, the apparent capture cross section that the intercept implies once the temperature-independent prefactor built from the thermal velocity and the band density of states is divided out, and the root-mean-square residual of the fit. Interpolate the ordinate itself rather than the rate, so that a genuinely constant cross section is recovered exactly."
+    orchestrator: false
+  - number: 10
+    name: "dlts_audit"
+    description: "Run the whole analysis on the configuration and report it. Build the temperature grid, and for each lattice relaxation in turn reduce the level to its configuration coordinate diagram, build the phonon matrix elements, propagate the rigorous cross section and the older model's cross section from the same reference value, convert both to emission rates, and then for each fit window apply the constant-cross-section analysis to both. Accumulate, over every relaxation and every window, the base-ten logarithm of the ratio between the cross section the constant-cross-section analysis extracts from the rigorous rates and the true rigorous cross section at the reference temperature; that running total is the reported value. Record one row per relaxation and window, with the run-level quantities in a leading row."
+    orchestrator: true

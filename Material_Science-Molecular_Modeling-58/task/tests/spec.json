@@ -1,0 +1,79 @@
+{
+  "problem_id": "Material_Science-Molecular_Modeling-58",
+  "sub_steps": [
+    {
+      "step_number": "Material_Science-Molecular_Modeling-58.1",
+      "test_cases": [
+        "assert np.allclose(build_error_panel(58031,96), target)",
+        "assert np.allclose(build_error_panel(58079,84), target)",
+        "assert np.allclose(build_error_panel(58121,24), target)",
+        "assert np.allclose(build_error_panel(58163,108), target)",
+        "def _candidate_probe():\n    try: build_error_panel(1,23); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(_candidate_probe(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-58.2",
+      "test_cases": [
+        "pc=build_error_panel(58031,96)\nassert np.allclose(curate_active_pool(pc,3.4,0.85), target)",
+        "pc=build_error_panel(58079,84)\nassert np.allclose(curate_active_pool(pc,3.0,0.8), target)",
+        "pc=build_error_panel(58121,72)\nassert np.allclose(curate_active_pool(pc,3.8,0.9), target)",
+        "pc=build_error_panel(58163,108)\nassert np.allclose(curate_active_pool(pc,4.2,0.75), target)",
+        "pc=np.zeros((12,9,4));pg=pc.copy()\ndef _candidate_probe():\n    try: curate_active_pool(pc); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(_candidate_probe(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-58.3",
+      "test_cases": [
+        "sc=curate_active_pool(build_error_panel(58031,96))\nassert np.allclose(build_relative_landscapes(sc,8123,6), target)",
+        "sc=curate_active_pool(build_error_panel(58079,84))\nassert np.allclose(build_relative_landscapes(sc,8177,4), target)",
+        "sc=curate_active_pool(build_error_panel(58121,72))\nassert np.allclose(build_relative_landscapes(sc,8219,7), target)",
+        "sc=curate_active_pool(build_error_panel(58163,108))\nassert np.allclose(build_relative_landscapes(sc,8263,5), target)",
+        "sc=np.zeros((9,7));sg=sc.copy()\ndef _candidate_probe():\n    try: build_relative_landscapes(sc,1,3); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(_candidate_probe(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-58.4",
+      "test_cases": [
+        "xc=build_relative_landscapes(curate_active_pool(build_error_panel(58031,96)),8123,6)\nassert np.allclose(rank_polymorphs(xc), target)",
+        "xc=build_relative_landscapes(curate_active_pool(build_error_panel(58079,84)),8177,4)\nassert np.allclose(rank_polymorphs(xc), target)",
+        "xc=build_relative_landscapes(curate_active_pool(build_error_panel(58121,72)),8219,7)\nassert np.allclose(rank_polymorphs(xc), target)",
+        "xc=build_relative_landscapes(curate_active_pool(build_error_panel(58163,108)),8263,5)\nassert np.allclose(rank_polymorphs(xc), target)",
+        "xc=np.zeros((9,3,3));xg=xc.copy()\ndef _candidate_probe():\n    try: rank_polymorphs(xc); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(_candidate_probe(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-58.5",
+      "test_cases": [
+        "sc=curate_active_pool(build_error_panel(58031,96))\nassert np.allclose(compute_packing_fidelity(sc,9917,240), target)",
+        "sc=curate_active_pool(build_error_panel(58079,84))\nassert np.allclose(compute_packing_fidelity(sc,9967,180), target)",
+        "sc=curate_active_pool(build_error_panel(58121,72))\nassert np.allclose(compute_packing_fidelity(sc,10009,60), target)",
+        "sc=curate_active_pool(build_error_panel(58163,108))\nassert np.allclose(compute_packing_fidelity(sc,10061,300), target)",
+        "sc=np.zeros((9,7));sg=sc.copy()\ndef _candidate_probe():\n    try: compute_packing_fidelity(sc,1,59); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(_candidate_probe(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-58.6",
+      "test_cases": [
+        "sc=curate_active_pool(build_error_panel(58031,96))\nassert np.allclose(compute_dynamic_stability(sc,9917,240), target)",
+        "sc=curate_active_pool(build_error_panel(58079,84))\nassert np.allclose(compute_dynamic_stability(sc,9967,180), target)",
+        "sc=curate_active_pool(build_error_panel(58121,72))\nassert np.allclose(compute_dynamic_stability(sc,10009,60), target)",
+        "sc=curate_active_pool(build_error_panel(58163,108))\nassert np.allclose(compute_dynamic_stability(sc,10061,300), target)",
+        "sc=np.zeros((9,7));sg=sc.copy()\ndef _candidate_probe():\n    try: compute_dynamic_stability(sc,1,59); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(_candidate_probe(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-58.7",
+      "test_cases": [
+        "assert np.allclose(compute_molcryst_audit(58031,96,8123,9917), target)",
+        "assert np.allclose(compute_molcryst_audit(58079,84,8177,9967), target)",
+        "assert np.allclose(compute_molcryst_audit(58121,72,8219,10009), target)",
+        "assert np.allclose(compute_molcryst_audit(58163,108,8263,10061), target)",
+        "assert np.allclose(compute_molcryst_audit(58031,96,8123,9917)[-1], target)",
+        "assert np.allclose(compute_molcryst_audit(58079,84,8177,9967)[-1], target)",
+        "assert np.allclose(compute_molcryst_audit(58121,72,8219,10009)[-1], target)",
+        "assert np.allclose(compute_molcryst_audit(58163,108,8263,10061)[-1], target)",
+        "def _candidate_probe():\n    try: compute_molcryst_audit(1,23,2,3); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(_candidate_probe(), target)"
+      ]
+    }
+  ]
+}

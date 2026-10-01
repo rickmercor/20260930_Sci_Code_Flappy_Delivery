@@ -1,0 +1,40 @@
+problem_id: "Material_Science-Molecular_Modeling-40"
+subject: "materials"
+subject_area: "Molecular Modeling"
+difficulty: "medium"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1063/5.0307700"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_gaussian_jet"
+    description: " Cartesian Gaussian interaction derivatives through fifth order."
+    orchestrator: false
+  - number: 2
+    name: "02_multipole_operator."
+    description: "Charge, dipole and traceless-quadrupole interaction blocks and nuclear derivatives."
+    orchestrator: false
+  - number: 3
+    name: "03_shadow_response"
+    description: "Global constrained relaxation of complete fragment blocks and the residual Jacobian."
+    orchestrator: false
+  - number: 4
+    name: "04_shadow_state"
+    description: "Relaxed shadow energy and fixed-auxiliary nuclear forces."
+    orchestrator: false
+  - number: 5
+    name: "05_krylov_action"
+    description: "Preconditioned nonsymmetric Krylov inverse action with a prescribed rank cap."
+    orchestrator: false
+  - number: 6
+    name: "06_shadow_step"
+    description: "One coupled nuclear and auxiliary multipole update."
+    orchestrator: false
+  - number: 7
+    name: "07_shadow_trajectory"
+    description: "Initialization and finite shadow trajectory with physical diagnostics."
+    orchestrator: false
+  - number: 8
+    name: "08_solve"
+    description: "Finite-window unnormalized physical-dipole correlation"
+    orchestrator: true

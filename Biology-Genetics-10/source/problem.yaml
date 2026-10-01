@@ -1,0 +1,40 @@
+problem_id: "Biology-Genetics-10"
+subject: "biology"
+subject_area: "Genetics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: " https://doi.org/10.48550/arXiv.2608.05002"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_compute_fixed_margins"
+    description: "Fixed allele-frequency margins for a binary haplotype panel.\n\nFor n phased haplotypes and ALT count m_j at variant j, the fixed-margin\n\nHaploPerturb model uses the Jeffreys-corrected frequency\n\np_j = (m_j + 1/2) / (n + 1). The latent Gaussian threshold is\n\ntau_j = Phi^{-1}(1 - p_j), so thresholding a standard normal above tau_j\n\nreproduces p_j while keeping thresholds finite even for counts of zero or n.\n\nInputs\n\n------\n\nalt_counts : one-dimensional ALT counts ordered as lead then partners\n\nn_haplotypes : number of phased haplotypes in the panel\n\nReturns\n\n-------\n\ncorrected_frequencies : corrected ALT frequencies\n\nthresholds : standard-normal thresholds"
+    orchestrator: false
+  - number: 2
+    name: "02_map_factor_parameters"
+    description: "Map working-scale probit coefficients to a unit-variance factor model.\n\nFor working coefficient a_j and fixed threshold tau_j, the one-factor model\n\nuses psi_j = 1 / (1 + a_j^2), b_j = a_j sqrt(psi_j), and\n\nbeta_j = -tau_j / sqrt(psi_j). This absorbs b_j^2 + psi_j = 1 exactly.\n\nThe factor reflection is fixed by orienting the lead loading b_0 to be positive,\n\nand every uniqueness must remain at or above the prescribed floor psi_min.\n\nInputs\n\n------\n\nworking_loadings : one-dimensional working-scale coefficients\n\nthresholds : fixed latent Gaussian thresholds\n\npsi_min : minimum admissible uniqueness\n\nReturns\n\n-------\n\nloadings : oriented latent factor loadings\n\nuniqueness : residual variances\n\nintercepts : working-scale probit intercepts"
+    orchestrator: false
+  - number: 3
+    name: "03_build_conditional_mixture"
+    description: "Discretize the factor distribution conditional on a lead allele.\n\nAt factor value f, variant j has ALT probability\n\nq_j(f) = Phi((b_j f - tau_j) / sqrt(psi_j)). Conditioning on lead state s\n\nreweights the standard-normal factor density by q_0(f)^s[1-q_0(f)]^(1-s).\n\nA fixed Gauss-Legendre rule on a symmetric finite interval turns this posterior\n\nfactor law into normalized mixture weights and partner Bernoulli probabilities.\n\nInputs\n\n------\n\nloadings : oriented one-factor loadings, lead first\n\nuniqueness : residual variances\n\nthresholds : fixed Gaussian thresholds\n\nlead_state : conditioned lead allele, zero or one\n\nquadrature_order : number of fixed Gauss-Legendre nodes\n\nfactor_bound : positive half-width of the integration interval\n\nReturns\n\n-------\n\nfactor_nodes : transformed quadrature nodes\n\nmixture_weights : normalized lead-conditioned factor weights\n\npartner_probabilities : ALT probabilities for every node and partner"
+    orchestrator: false
+  - number: 4
+    name: "04_enumerate_factor_modes"
+    description: "Enumerate conditional partner modes along a one-dimensional factor.\n\nAt a fixed factor value f, conditional independence makes the modal partner\n\nallele x_j*(f) = 1{b_j f > tau_j}. Every nonzero loading contributes one\n\nbreakpoint t_j = tau_j / b_j. Sorting the distinct breakpoints partitions the\n\nfactor line into intervals on which the full modal configuration is constant,\n\nso one interior representative per interval enumerates the candidate path.\n\nInputs\n\n------\n\npartner_loadings : one-factor loadings for partner variants\n\npartner_thresholds : fixed thresholds for the same partners\n\nReturns\n\n-------\n\nmode_candidates : unique binary modal configurations in lexicographic order"
+    orchestrator: false
+  - number: 5
+    name: "05_score_conditional_candidates"
+    description: "Evaluate candidate haplotypes under a lead-conditioned factor mixture.\n\nGiven normalized quadrature weights w_g and partner ALT probabilities q_j(f_g),\n\nthe conditional probability of configuration x is the weighted product-Bernoulli\n\nsum over factor nodes: sum_g w_g product_j q_j(f_g)^x_j\n\n[1-q_j(f_g)]^(1-x_j). This is the fixed-node approximation to the paper's\n\nlead-conditioned latent-factor integral.\n\nInputs\n\n------\n\nconfigurations : binary partner configurations\n\nmixture_weights : normalized conditioned factor weights\n\npartner_probabilities : node-specific partner ALT probabilities\n\nReturns\n\n-------\n\nconditional_probabilities : probability of each candidate configuration"
+    orchestrator: false
+  - number: 6
+    name: "06_expand_mode_candidates"
+    description: "Expand the deterministic factor-mode set around its leading configuration.\n\nThe one-factor breakpoint path contains only configurations that are modal at\n\nsome factor value. After these modes are scored for one lead state, the paper's\n\nlocal repair selects the highest-probability mode and adjoins every configuration\n\nobtained by flipping exactly one partner allele. The union removes duplicates and\n\nis ordered lexicographically before final probability scoring.\n\nInputs\n\n------\n\nmode_candidates : binary configurations from factor-space enumeration\n\nmode_probabilities : conditioned probabilities for those configurations\n\nReturns\n\n-------\n\nexpanded_candidates : mode set plus all one-allele neighbors of its leader"
+    orchestrator: false
+  - number: 7
+    name: "07_summarize_top_burden"
+    description: "Summarize the highest-ranked conditional haplotypes as an allele burden.\n\nCandidates are ranked by decreasing conditional probability, with binary\n\nlexicographic order breaking exact ties. For the first L configurations, the\n\nreported burden is the number of partner ALT alleles averaged with probabilities\n\nrenormalized within that top-L set. The retained mass is also returned so the\n\ntruncation can be inspected.\n\nInputs\n\n------\n\nconfigurations : expanded binary partner configurations\n\nconditional_probabilities : probability assigned to each configuration\n\ntop_l : number of leading configurations retained\n\nReturns\n\n-------\n\nmean_burden : top-L probability-weighted partner ALT count\n\ntop_configurations : ranked leading configurations\n\ntop_probabilities : their unnormalized conditional probabilities\n\ntop_mass : total conditional mass of the retained configurations"
+    orchestrator: false
+  - number: 8
+    name: "08_run_haploperturb_benchmark"
+    description: "Orchestrate the fixed-margin conditional haplotype benchmark.\n\nThe panel counts determine fixed Gaussian thresholds, working coefficients map\n\nto an oriented unit-variance factor model, and a breakpoint sweep enumerates\n\npartner modes. For each lead state, fixed quadrature builds the conditional\n\nfactor mixture, the modes are scored, the leading mode receives its one-allele\n\nneighborhood expansion, and the expanded candidates are rescored and ranked.\n\nThe final scalar is the alternate-state top-L mean partner ALT burden minus the\n\ncorresponding reference-state burden.\n\nInputs\n\n------\n\nalt_counts : ALT counts ordered as lead then partners\n\nn_haplotypes : number of phased haplotypes\n\nworking_loadings : fitted one-factor working coefficients\n\npsi_min : uniqueness floor\n\nquadrature_order : fixed Gauss-Legendre order\n\nfactor_bound : half-width of the factor interval\n\ntop_l : number of leading haplotypes retained per lead state\n\nReturns\n\n-------\n\nburden_contrast : alternate-conditioned minus reference-conditioned mean burden"
+    orchestrator: true

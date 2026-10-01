@@ -1,0 +1,44 @@
+problem_id: "Biology-Ecology-4"
+subject: "biology"
+subject_area: "Ecology"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2608.28215"
+dependencies: ""
+steps:
+  - number: 1
+    name: "s01_grass_fraction_removed"
+    description: "Grass removal by a grazer population under the encounter model of the source, expressed as a fraction of the standing grass biomass. The step builds the population-level capture probability of each grazer species from its per-encounter capture probability and its number of individuals, combines the grazers into the total fraction of grass captured, applies the source's rule that only grass surviving intrinsic mortality can be grazed, and partitions the total removal among the grazer species. It also returns the per-individual removal of a vanishingly rare grazer species in the presence of the resident grazers (the rare-invader limit), which is the quantity that enters an invasion analysis. It validates that the inputs are admissible (non-negative counts, capture probabilities in [0, 1), a grass mortality proportion in [0, 1)) and raises ValueError otherwise. It deliberately excludes the conversion of removed grass into assimilated biomass and any dynamics of the grass pool."
+    orchestrator: false
+  - number: 2
+    name: "s02_prey_biomass_killed"
+    description: "Biomass of a structured prey species removed by the predator population under the source's encounter model of consumption. The step discretises the prey's body-mass distribution on the benchmark mesh, evaluates the per-encounter kill probability as a decreasing sigmoid of prey mass with the frozen parameters of the prey-predator pair, raises the survival of one encounter to the number of predators, weights the removal by the prey's intrinsic survival (only individuals that survive intrinsic causes of death are exposed to consumers) and integrates mass times removal probability over the distribution. In the vanishing-predator limit it returns the removal per predator. It validates the prey distribution specification and raises ValueError on inadmissible inputs. It excludes acquisition efficiencies and assimilation."
+    orchestrator: false
+  - number: 3
+    name: "s03_assimilated_mass"
+    description: "Net assimilated mass per individual per year from the total mass of resources acquired by a population, under the source's saturating consumption-and-assimilation model, including its vanishing-density form for a rare population. The step validates the inputs (non-negative masses and counts, positive rate constants) and raises ValueError otherwise. It excludes how the acquired mass is obtained and how the assimilated mass is allocated."
+    orchestrator: false
+  - number: 4
+    name: "s04_asymptotic_growth_rate"
+    description: "Asymptotic annual growth rate (natural logarithm of the dominant eigenvalue) of one structured species in a fixed environment, from the source's projection kernel assembled on the benchmark mesh: intrinsic survival, survival of encounters with a given number of predators, reproduction probability and offspring number, bioenergetic allocation of a given per-capita assimilated mass to maintenance, reproduction and growth, and the column-normalised recruitment and growth kernels. It validates the species index and raises ValueError on an unknown species. It excludes the feedback from the species onto its environment."
+    orchestrator: false
+  - number: 5
+    name: "s05_annual_step_factor"
+    description: "One year of the full ecosystem map of the benchmark configuration: the decomposer, nutrient and grass pools advanced by the source's difference equations with the organic-matter pool held fixed, and every structured species projected through its kernel evaluated at the current state (grass removal partitioned among grazers, prey biomass removed by the predator and by intraspecific predation, saturating assimilation, allocation, column-normalised kernels). The step reports the one-year multiplication factor of a chosen quantity (a species' number of individuals, or one of the three dynamic pools). It validates the state specification and the selector and raises ValueError on inadmissible input (including a zero starting value of the selected quantity). It excludes equilibrium location."
+    orchestrator: false
+  - number: 6
+    name: "s06_boundary_equilibrium"
+    description: "Location of the fixed point of the ecosystem map restricted to a sub-community (a face of the boundary), to the benchmark residual, and report of one of its coordinates. The step solves the reduced fixed-point system in which each resident's distribution is the Perron vector of its own kernel (dominant eigenvalue exactly one), the nutrient and grass balances close, and the intraspecific kill flux of the predator is self-consistent, then verifies the componentwise relative residual of the full map; consumer faces are seeded from the equilibrium of their resource sub-face. It returns 0.0 for a face that carries no feasible fixed point (a species absent from the face, or a consumer that cannot persist there). It validates the face and the selector and raises ValueError on inadmissible input. It excludes invasion analysis."
+    orchestrator: false
+  - number: 7
+    name: "s07_invasion_growth_rate"
+    description: "Invasion growth rate of a species at the fixed point of a sub-community: the natural logarithm of the spectral radius of the species' projection kernel evaluated at the located boundary equilibrium in the limit of a vanishing population of that species (per-capita acquisition in the rare limit, consumers evaluated at their resident numbers, and no feedback of the rare species on the residents). For a species that belongs to the sub-community the same construction returns its resident rate, which vanishes at the fixed point. The step locates the equilibrium internally, validates the face, the species and the existence of the fixed point, and raises ValueError otherwise. It excludes the census and the permanence criterion."
+    orchestrator: false
+  - number: 8
+    name: "s08_permanence_margin"
+    description: "Permanence margin of the three-species community at a given predator survival: the boundary census (every proper sub-community that carries a feasible fixed point, consumer faces being admitted only when a fixed point exists with all members positive), the invasion growth rates of all absent species at every census vertex, the invasion graph on the census and its acyclicity, and the margin defined as the minimum over vertices of the largest invasion rate among the species absent from that vertex. The step raises ValueError if the invasion graph is cyclic (the criterion then does not apply). It excludes root finding in the control parameter."
+    orchestrator: false
+  - number: 9
+    name: "s09_permanence_window_length"
+    description: "Orchestrator: length of the interval of predator survival values within the scanned bracket over which the three-species community is robustly permanent. The step brackets the sign changes of the permanence margin on a coarse grid, locates each threshold by Brent's method to 1e-12, identifies at each threshold the census vertex and the invader whose rate vanishes there, rebuilds that vanishing rate independently from the elementary steps (grass removal or prey removal in the rare limit, saturating assimilation, kernel growth rate) using the vertex coordinates, checks that the vertex is a fixed point of the annual map, and returns the measure of the set of theta values with positive margin. Every earlier step is called and its output consumed on the answer path; inconsistencies raise ValueError. A local re-trace of the equilibrium state is used only to obtain the residents' mass distributions, which no earlier step exposes."
+    orchestrator: true

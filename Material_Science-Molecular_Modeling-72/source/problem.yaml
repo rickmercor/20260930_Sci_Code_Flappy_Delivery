@@ -1,0 +1,44 @@
+problem_id: "Material_Science-Molecular_Modeling-72"
+subject: "materials"
+subject_area: "Molecular Modeling"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1063/5.0335247"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_simulate_biased_paths"
+    description: "Generate the recorded one-dimensional molecular trajectories under moving harmonic restraints."
+    orchestrator: false
+  - number: 2
+    name: "02_compute_path_actions"
+    description: "Evaluate conditional path-density increments and their target-potential response on the fixed biased record."
+    orchestrator: false
+  - number: 3
+    name: "03_accumulate_path_counts"
+    description: "Accumulate the raw conditional path-weighted transition counts and their response."
+    orchestrator: false
+  - number: 4
+    name: "04_compute_equilibrium_masses"
+    description: "Compute target Boltzmann microstate masses and their perturbation response."
+    orchestrator: false
+  - number: 5
+    name: "05_fit_stationary_flux"
+    description: "Fit a reversible transition model with independently fixed equilibrium populations."
+    orchestrator: false
+  - number: 6
+    name: "06_differentiate_stationary_flux"
+    description: "Differentiate the reversible fixed-population likelihood optimum with respect to the molecular perturbation."
+    orchestrator: false
+  - number: 7
+    name: "07_assemble_transition_response"
+    description: "Convert equilibrium flux and its response to the kinetic transition operator and its response."
+    orchestrator: false
+  - number: 8
+    name: "08_compute_relaxation_response"
+    description: "Extract the slow positive relaxation mode and its logarithmic sensitivity."
+    orchestrator: false
+  - number: 9
+    name: "09_infer_kinetic_sensitivity"
+    description: "Infer the perturbation response of the slow molecular relaxation time from the complete recorded-trajectory reconstruction."
+    orchestrator: true

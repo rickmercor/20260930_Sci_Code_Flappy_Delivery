@@ -1,0 +1,48 @@
+problem_id: "Mathematics-Numerical_Linear_Algebra-5"
+subject: "mathematics"
+subject_area: "Numerical Linear Algebra"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1002/nla.70102"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_build_kaczmarz_instance"
+    description: "Builds a fully pinned, deterministically inconsistent least-squares instance for the double-block extended Kaczmarz march: a sparse random coefficient matrix, a right-hand side whose noise component is exactly orthogonal to the matrix's column space, and the derived scalars every later step needs to sample and solve against it."
+    orchestrator: false
+  - number: 2
+    name: "02_sample_index_block"
+    description: "Draws a block of distinct indices without replacement from a probability vector, using sequential inverse-cumulative-distribution-function sampling from a supplied random number generator, and is the shared sampling primitive used for both the column block and the row block of every iteration."
+    orchestrator: false
+  - number: 3
+    name: "03_column_phase_update"
+    description: "Runs one iteration's column phase of the serial march end to end: forms the residual-derived column sampling weight from the current auxiliary vector, draws a block of column indices from it, and updates the auxiliary vector using the sampled columns, returning only the updated vector."
+    orchestrator: false
+  - number: 4
+    name: "04_row_phase_update"
+    description: "Runs one iteration's row phase of the serial march end to end: forms the residual-derived row sampling weight from the solution estimate and the auxiliary vector as it stands when this step is called, draws a block of row indices from it, and updates the solution estimate with a block least-squares step over the sampled rows."
+    orchestrator: false
+  - number: 5
+    name: "05_march_rgdbek"
+    description: "Runs the full serial RGDBEK march for a fixed number of iterations: every iteration runs the column phase and then runs the row phase against the auxiliary vector the column phase just produced, never against its pre-update value, with a single random number generator threaded through every sampling draw of the whole march."
+    orchestrator: false
+  - number: 6
+    name: "06_parallel_column_phase"
+    description: "Computes one iteration's column-phase update of the auxiliary residual vector for the hybrid-parallel march, using the same residual-derived column sampling weight and the same shared draw as the single-rank formulation, then producing the updated auxiliary vector across the fixed rank partition."
+    orchestrator: false
+  - number: 7
+    name: "07_parallel_row_phase"
+    description: "Computes one iteration's row-phase update of the solution estimate for the hybrid-parallel march, applying the row phase separately within each rank of the fixed rank partition, each rank drawing its own row-index block from the shared sampling stream restricted to its own rows, in increasing rank order, to produce the iteration's updated solution estimate."
+    orchestrator: false
+  - number: 8
+    name: "08_march_parallel_rgdbek"
+    description: "Runs the full hybrid-parallel RGDBEK march for a fixed number of iterations: every iteration runs the parallel column phase and then runs the parallel row phase against the auxiliary vector the column phase just produced, never against its pre-update value, with a single random number generator threaded through every sampling draw of every rank of the whole march."
+    orchestrator: false
+  - number: 9
+    name: "09_convergence_diagnostics"
+    description: "Computes the convergence diagnostics that compare a finished serial march and a finished parallel march against the instance's exact targets, and against each other: the relative solution error of each march, the ratio of the parallel march's relative solution error to the serial march's, and the auxiliary-residual error ratio of each march measured against the auxiliary vector's known initial value."
+    orchestrator: false
+  - number: 10
+    name: "10_run_rgdbek_comparison"
+    description: "Chains the instance construction, the full serial RGDBEK march, the full hybrid-parallel RGDBEK march, and the convergence diagnostics of the preceding steps, in order, at the requested configuration, and extracts the single requested observable: the ratio of the parallel march's relative solution error to the serial march's relative solution error."
+    orchestrator: true

@@ -1,0 +1,92 @@
+{
+  "problem_id": "Material_Science-Molecular_Modeling-66",
+  "sub_steps": [
+    {
+      "step_number": "Material_Science-Molecular_Modeling-66.1",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(clc_shape_offsets(3,3,3,False), target)",
+        "import numpy as np\nassert np.allclose(clc_shape_offsets(5,4,2,False), target)",
+        "import numpy as np\nassert np.allclose(clc_shape_offsets(6,6,6,True), target)",
+        "import numpy as np\n# boundary: the smallest crystal, one shell of twenty six cells\nassert np.allclose(clc_shape_offsets(1,1,1,False), target)",
+        "import numpy as np\n# invalid input: a zero half width leaves no cells along that axis\ndef _probe(fn):\n    try:\n        fn(3,3,0,False)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(clc_shape_offsets), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-66.2",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(clc_direct_potential(np.array([1.,1,1]),np.array([[0.,0,0],[0.5,0,0]]),np.array([1.,-1]),1,12,12,12,False), target)",
+        "import numpy as np\nassert np.allclose(clc_direct_potential(np.array([1.,1.3,0.7]),np.array([[0.,0,0],[0.5,0,0]]),np.array([1.,-1]),1,10,10,10,False), target)",
+        "import numpy as np\nassert np.allclose(clc_direct_potential(np.array([1.,1,1]),np.array([[0.,0,0],[0.5,0.5,0],[0.5,0,0.5],[0,0.5,0.5],[0.5,0.5,0.5],[0.5,0,0],[0,0.5,0],[0,0,0.5]]),np.array([1.,1,1,1,-1,-1,-1,-1]),0,5,5,5,False), target)",
+        "import numpy as np\n# boundary: a crystal one cell thick along z, where the shape is a plate\nassert np.allclose(clc_direct_potential(np.array([1.,1,1.6]),np.array([[0.,0,0],[0.5,0,0]]),np.array([1.,-1]),1,10,10,1,False), target)",
+        "import numpy as np\n# invalid input: a cell edge of zero has no Cartesian embedding\ndef _probe(fn):\n    try:\n        fn(np.array([1.,0,1]),np.array([[0.,0,0],[0.5,0,0]]),np.array([1.,-1]),1,4,4,4,False)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(clc_direct_potential), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-66.3",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(clc_ewald_potential(np.array([1.,1,1]),np.array([[0.,0,0],[0.5,0.5,0.5]]),np.array([1.,-1]),1,4.0,3,8), target)",
+        "import numpy as np\nassert np.allclose(clc_ewald_potential(np.array([1.,1.3,0.7]),np.array([[0.,0,0],[0.5,0,0]]),np.array([1.,-1]),1,4.0,3,9), target)",
+        "import numpy as np\nassert np.allclose(clc_ewald_potential(np.array([1.,1,1.6]),np.array([[0.,0,0],[0.5,0.5,0],[0.5,0,0.5],[0,0.5,0.5],[0.5,0.5,0.5],[0.5,0,0],[0,0.5,0],[0,0,0.5]]),np.array([1.,1,1,1,-1,-1,-1,-1]),0,4.0,3,8), target)",
+        "import numpy as np\n# boundary: a small splitting parameter, where the real space part carries most of the sum\nassert np.allclose(clc_ewald_potential(np.array([1.,1,1]),np.array([[0.,0,0],[0.5,0.5,0.5]]),np.array([1.,-1]),1,2.0,4,6), target)",
+        "import numpy as np\n# invalid input: a non-positive splitting parameter\ndef _probe(fn):\n    try:\n        fn(np.array([1.,1,1]),np.array([[0.,0,0],[0.5,0.5,0.5]]),np.array([1.,-1]),1,0.0,3,8)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(clc_ewald_potential), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-66.4",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(clc_boundary_term(np.array([1.,1,1]),np.array([[0.,0,0],[0.5,0,0]]),np.array([1.,-1]),1,16,16,4,False,4.0,3,8), target)",
+        "import numpy as np\nassert np.allclose(clc_boundary_term(np.array([1.,1.3,0.7]),np.array([[0.,0,0],[0.5,0,0]]),np.array([1.,-1]),1,14,14,14,False,4.0,3,9), target)",
+        "import numpy as np\nassert np.allclose(clc_boundary_term(np.array([1.,1,1.6]),np.array([[0.,0,0],[0.5,0,0]]),np.array([1.,-1]),1,10,10,20,False,4.0,3,8), target)",
+        "import numpy as np\n# boundary: this particular rocksalt basis cancels its site-boundary potential\nassert np.allclose(clc_boundary_term(np.array([1.,1,1]),np.array([[0.,0,0],[0.5,0.5,0],[0.5,0,0.5],[0,0.5,0.5],[0.5,0.5,0.5],[0.5,0,0],[0,0.5,0],[0,0,0.5]]),np.array([1.,1,1,1,-1,-1,-1,-1]),0,8,8,8,False,4.0,3,8), target)",
+        "import numpy as np\n# invalid input: a reference index past the last basis ion\ndef _probe(fn):\n    try:\n        fn(np.array([1.,1,1]),np.array([[0.,0,0],[0.5,0,0]]),np.array([1.,-1]),2,6,6,6,False,4.0,3,8)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(clc_boundary_term), target)",
+        "import numpy as np\n# neutral zero-dipole basis with a nonzero site-boundary potential\nassert np.allclose(clc_boundary_term(np.array([1.,1.,1.]),np.array([[0.25,0.5,0.5],[0.5,0.5,0.5],[0.75,0.5,0.5]]),np.array([1.,-2.,1.]),1,16,16,16,False,4.0,3,9), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-66.5",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(clc_nearest_neighbour(np.array([1.,1,1]),np.array([[0.,0,0],[0.5,0,0]]),1,2), target)",
+        "import numpy as np\nassert np.allclose(clc_nearest_neighbour(np.array([1.,1.3,0.7]),np.array([[0.,0,0],[0.5,0,0]]),1,2), target)",
+        "import numpy as np\nassert np.allclose(clc_nearest_neighbour(np.array([1.,1,1]),np.array([[0.,0,0],[0.5,0.5,0],[0.5,0,0.5],[0,0.5,0.5],[0.5,0.5,0.5],[0.5,0,0],[0,0.5,0],[0,0,0.5]]),0,2), target)",
+        "import numpy as np\n# boundary: a strongly squashed cell, where the nearest ion is an image along the short axis\nassert np.allclose(clc_nearest_neighbour(np.array([1.,1,0.3]),np.array([[0.,0,0],[0.5,0,0]]),0,2), target)",
+        "import numpy as np\n# invalid input: a zero search span finds no other cell\ndef _probe(fn):\n    try:\n        fn(np.array([1.,1,1]),np.array([[0.,0,0],[0.5,0,0]]),1,0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(clc_nearest_neighbour), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-66.6",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(clc_shape_sequence(np.array([1.,1,1]),np.array([[0.,0,0],[0.5,0,0]]),np.array([1.,-1]),1,12,np.array([0.25,0.5,1.0,2.0]),4.0,3,8), target)",
+        "import numpy as np\nassert np.allclose(clc_shape_sequence(np.array([1.,1.3,0.7]),np.array([[0.,0,0],[0.5,0,0]]),np.array([1.,-1]),1,10,np.array([0.3,1.0,3.0]),4.0,3,9), target)",
+        "import numpy as np\nassert np.allclose(clc_shape_sequence(np.array([1.,1,1.6]),np.array([[0.,0,0],[0.,0.5,0]]),np.array([1.,-1]),1,9,np.array([0.5,1.0,2.0]),5.0,3,9), target)",
+        "import numpy as np\n# boundary: a single ratio of one, the crystal cubic in cell counts\nassert np.allclose(clc_shape_sequence(np.array([1.,1,1]),np.array([[0.,0,0],[0.5,0,0]]),np.array([1.,-1]),1,7,np.array([1.0]),4.0,3,8), target)",
+        "import numpy as np\n# invalid input: an empty list of thickness ratios\ndef _probe(fn):\n    try:\n        fn(np.array([1.,1,1]),np.array([[0.,0,0],[0.5,0,0]]),np.array([1.,-1]),1,6,np.array([]),4.0,3,8)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(clc_shape_sequence), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-66.7",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(clc_boundary_decomposition(np.array([1.,1.3,0.42]),np.array([[0.,0,0],[0.5,0,0]]),np.array([1.,-1]),1,16,4,np.array([4,8,12,16,20,24]),4.0,3,9,2), target)",
+        "import numpy as np\nassert np.allclose(clc_boundary_decomposition(np.array([1.,1.,1.]),np.array([[0.,0,0],[0.5,0,0]]),np.array([1.,-1]),1,12,3,np.array([4,8,12,16,20,24]),4.0,3,8,2), target)",
+        "import numpy as np\nassert np.allclose(clc_boundary_decomposition(np.array([1.,1.,1.6]),np.array([[0.,0,0],[0.5,0.5,0],[0.5,0,0.5],[0,0.5,0.5],[0.5,0.5,0.5],[0.5,0,0],[0,0.5,0],[0,0,0.5]]),np.array([1.,1,1,1,-1,-1,-1,-1]),0,8,4,np.array([4,6,8,10,12,14]),4.0,3,8,2), target)",
+        "import numpy as np\n# boundary: a one-layer target with six independent fit sizes\nassert np.allclose(clc_boundary_decomposition(np.array([1.,1.3,0.7]),np.array([[0.,0,0],[0.5,0,0]]),np.array([1.,-1]),1,8,1,np.array([4,8,12,16,20,24]),4.0,3,9,2), target)",
+        "import numpy as np\n# invalid input: duplicate convergence sizes violate the fit contract\ndef _probe(fn):\n    try:\n        fn(np.array([1.,1.,1.]),np.array([[0.,0,0],[0.5,0,0]]),np.array([1.,-1]),1,12,3,np.array([4,8,8,12,16,20]),4.0,3,8,2)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(clc_boundary_decomposition), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-66.8",
+      "test_cases": [
+        "import numpy as np\n# all entries except the aspect scores and J\nassert np.allclose(np.delete(clc_audit(np.array([1.,1.3,0.7]),np.array([[0.,0,0],[0.5,0,0]]),np.array([1.,-1]),1,16,4,4.0,3,9,2),[14,15,16,21]), target)",
+        "import numpy as np\n# aspect scores and J: ratios of small fit diagnostics, sensitive to summation order\nassert np.allclose(clc_audit(np.array([1.,1.3,0.7]),np.array([[0.,0,0],[0.5,0,0]]),np.array([1.,-1]),1,16,4,4.0,3,9,2)[[14,15,16,21]], target)",
+        "import numpy as np\n# all entries except the aspect scores and J\nassert np.allclose(np.delete(clc_audit(np.array([1.,1.,1.]),np.array([[0.,0,0],[0.5,0,0]]),np.array([1.,-1]),1,12,3,4.0,3,8,2),[14,15,16,21]), target)",
+        "import numpy as np\n# aspect scores and J: ratios of small fit diagnostics, sensitive to summation order\nassert np.allclose(clc_audit(np.array([1.,1.,1.]),np.array([[0.,0,0],[0.5,0,0]]),np.array([1.,-1]),1,12,3,4.0,3,8,2)[[14,15,16,21]], target)",
+        "import numpy as np\n# four-ion basis with a nonzero site boundary term on an elongated cell\n# all entries except the aspect scores and J\nassert np.allclose(np.delete(clc_audit(np.array([1.,1.,1.6]),np.array([[0.,0,0],[0.5,0.5,0],[0.5,0,0.5],[0,0.5,0.5]]),np.array([1.,1,-1,-1]),0,8,4,4.0,3,8,2),[14,15,16,21]), target)",
+        "import numpy as np\n# four-ion basis with a nonzero site boundary term on an elongated cell\n# aspect scores and J: ratios of small fit diagnostics, sensitive to summation order\nassert np.allclose(clc_audit(np.array([1.,1.,1.6]),np.array([[0.,0,0],[0.5,0.5,0],[0.5,0,0.5],[0,0.5,0.5]]),np.array([1.,1,-1,-1]),0,8,4,4.0,3,8,2)[[14,15,16,21]], target)",
+        "import numpy as np\n# boundary: the thinnest flattened crystal, one cell layer along z\n# all entries except the aspect scores and J\nassert np.allclose(np.delete(clc_audit(np.array([1.,1.3,0.7]),np.array([[0.,0,0],[0.5,0,0]]),np.array([1.,-1]),1,8,1,4.0,3,9,2),[14,15,16,21]), target)",
+        "import numpy as np\n# boundary: the thinnest flattened crystal, one cell layer along z\n# aspect scores and J: ratios of small fit diagnostics, sensitive to summation order\nassert np.allclose(clc_audit(np.array([1.,1.3,0.7]),np.array([[0.,0,0],[0.5,0,0]]),np.array([1.,-1]),1,8,1,4.0,3,9,2)[[14,15,16,21]], target)",
+        "import numpy as np\n# invalid input: a thickness larger than the width\ndef _probe(fn):\n    try:\n        fn(np.array([1.,1,1]),np.array([[0.,0,0],[0.5,0,0]]),np.array([1.,-1]),1,6,7,4.0,3,8,2)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(clc_audit), target)",
+        "import numpy as np\n# zero dipole does not eliminate the site-boundary potential for this basis\n# all entries except the aspect scores and J\nassert np.allclose(np.delete(clc_audit(np.array([1.,1.,1.]),np.array([[0.25,0.5,0.5],[0.5,0.5,0.5],[0.75,0.5,0.5]]),np.array([1.,-2.,1.]),0,12,3,4.0,3,9,2),[14,15,16,21]), target)",
+        "import numpy as np\n# zero dipole does not eliminate the site-boundary potential for this basis\n# aspect scores and J: ratios of small fit diagnostics, sensitive to summation order\nassert np.allclose(clc_audit(np.array([1.,1.,1.]),np.array([[0.25,0.5,0.5],[0.5,0.5,0.5],[0.75,0.5,0.5]]),np.array([1.,-2.,1.]),0,12,3,4.0,3,9,2)[[14,15,16,21]], target)"
+      ]
+    }
+  ]
+}

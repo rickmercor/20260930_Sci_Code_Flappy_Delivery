@@ -1,0 +1,79 @@
+{
+  "problem_id": "Biology-Biochemistry-26",
+  "sub_steps": [
+    {
+      "step_number": "Biology-Biochemistry-26.1",
+      "test_cases": [
+        "import numpy as np\ns=[(0,),(1,),(2,),(0,1),(0,2),(1,2),(0,1,2)]\nf=np.array([-.5,0,.1,1.,1.2,1.4,2.5])\nassert np.allclose(reduce_finite_topology(s,f), target)",
+        "import numpy as np\nimport itertools\ns=[x for k in range(1,5) for x in itertools.combinations(range(4),k)]\nf=np.array([len(x)-1.0 for x in s])\nassert np.allclose(reduce_finite_topology(s,f), target)",
+        "import numpy as np\ns=[(0,),(1,),(2,),(0,1),(0,2),(1,2),(0,1,2)]\nf=np.array([-.5,0,.1,1.,1.2,1.4,2.5])\nf[:]=0\nassert np.allclose(reduce_finite_topology(s,f), target)",
+        "import numpy as np\ns=[(0,),(1,),(2,),(0,1),(0,2),(1,2),(0,1,2)]\nf=np.array([-.5,0,.1,1.,1.2,1.4,2.5])\ns=s[:-1];f=f[:-1]\nassert np.allclose(reduce_finite_topology(s,f), target)",
+        "import numpy as np\ns=[(0,),(1,),(2,),(0,1),(0,2),(1,2),(0,1,2)]\nf=np.array([-.5,0,.1,1.,1.2,1.4,2.5])\ns[0]=(0.5,)\n\ndef run_model():\n    try:\n        reduce_finite_topology(s,f)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-26.2",
+      "test_cases": [
+        "import numpy as np\nd=np.array([[800.,900.,30.,12.3,1.1],[920.,1010.,-12.,-25.,0.]])\nassert np.allclose(evaluate_morphometric_state(d,.22,1.3,.7,2.), target)",
+        "import numpy as np\nd=np.zeros((1,5))\nassert np.allclose(evaluate_morphometric_state(d,.3665,1.4,1.,0.), target)",
+        "import numpy as np\nd=np.array([[2.,3.,-.5,-4.,0.],[4.,8.,2.,1.,.2]])\nassert np.allclose(evaluate_morphometric_state(d,.001,.8,2.1,.4), target)",
+        "import numpy as np\nd=np.zeros((2,5))\n\ndef run_model():\n    try:\n        evaluate_morphometric_state(d,1.,1.,1.,0.)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-26.3",
+      "test_cases": [
+        "import numpy as np\ng=np.array([1.,-3.,5.]);p=np.array([[4.,2.,1.],[2.,7.,3.],[5.,1.,6.]])\nr=np.array([[1.,-.2,-.8,.4,2.],[.3,.1,-.7,.7,4.]])\nassert np.allclose(compose_candidate_energies(g,p,r), target)",
+        "import numpy as np\ng=np.array([2.]);p=np.array([[1.,2.,3.]]);r=np.array([[1.,2.,3.,0.,1.],[1.,2.,3.,1.,7.]])\nassert np.allclose(compose_candidate_energies(g,p,r), target)",
+        "import numpy as np\ng=np.array([0.,0.]);p=np.zeros((2,3));r=np.array([[1.,-1.,1.,.5,.1]])\nassert np.allclose(compose_candidate_energies(g,p,r), target)",
+        "import numpy as np\ng=np.array([1.]);p=np.array([[-1.,0.,0.]]);r=np.array([[1.,1.,1.,.5,2.]])\n\ndef run_model():\n    try:\n        compose_candidate_energies(g,p,r)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-26.4",
+      "test_cases": [
+        "import numpy as np\ne=np.array([[3.,1.,-2.,0.],[0.,-1.,2.,4.]]);t=np.array([1.,2.]);maps=np.array([[1,0,3,2],[0,2,1,3]]);m=np.array([[0,1,0,1],[1,0,1,0]]);u=np.array([[.2,.7,.1,.9],[.4,.3,.5,.1]])\nassert np.allclose(replay_state_search(e,t,maps,m,u,0), target)",
+        "import numpy as np\ne=np.zeros((1,2));t=np.ones(1);maps=np.array([[1,0]]);m=np.zeros((2,0),dtype=int);u=np.empty((2,0))\nassert np.allclose(replay_state_search(e,t,maps,m,u,1), target)",
+        "import numpy as np\ne=np.zeros((1,2));t=np.ones(1);maps=np.array([[1,0]]);m=np.zeros((2,3),dtype=int);u=np.zeros((2,3))\nassert np.allclose(replay_state_search(e,t,maps,m,u,1), target)",
+        "import numpy as np\ne=np.array([[0.,1.,-1.]]);t=np.ones(1);maps=np.array([[1,0,2],[0,2,1]]);m=np.array([[0,1],[0,1]]);u=np.array([[np.exp(-1.),0.],[0.,0.]])\nassert np.allclose(replay_state_search(e,t,maps,m,u,0), target)",
+        "import numpy as np\ne=np.zeros((1,3));t=np.ones(1);maps=np.array([[1,2,0]]);m=np.zeros((1,1),dtype=int);u=np.zeros((1,1))\n\ndef run_model():\n    try:\n        replay_state_search(e,t,maps,m,u,0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-26.5",
+      "test_cases": [
+        "import numpy as np\na=np.array([[0.,0.,0.],[1.7,.2,-.4],[-.3,1.2,.5],[.1,-.8,2.1]])\nr=np.array([[1.,0,0,0,0,0,0],[1.,0,0,0,5,0,0],[1.,0,0,0,0,6,0]])\nc=r.copy()\nc[2,4]+=2.3\nassert np.allclose(measure_assembly_distance(a,c,r), target)",
+        "import numpy as np\na=np.array([[0.,0.,0.],[1.7,.2,-.4],[-.3,1.2,.5],[.1,-.8,2.1]])\nr=np.array([[1.,0,0,0,0,0,0],[1.,0,0,0,5,0,0],[1.,0,0,0,0,6,0]])\nc=r.copy()\nc[:,:4]*=-2.7;c[:,4:]+=np.array([3.,-7.,1.])\nassert np.allclose(measure_assembly_distance(a,c,r), target)",
+        "import numpy as np\na=np.array([[0.,0.,0.],[1.7,.2,-.4],[-.3,1.2,.5],[.1,-.8,2.1]])\nr=np.array([[1.,0,0,0,0,0,0],[1.,0,0,0,5,0,0],[1.,0,0,0,0,6,0]])\nc=r.copy()\nc[0,:4]=[.8,.2,-.1,.3];c[1,4:]+=[-.2,.8,.3];r=r[[2,0,1]]\nassert np.allclose(measure_assembly_distance(a,c,r), target)",
+        "import numpy as np\na=np.array([[0.,0.,0.],[1.7,.2,-.4],[-.3,1.2,.5],[.1,-.8,2.1]])\nr=np.array([[1.,0,0,0,0,0,0],[1.,0,0,0,5,0,0],[1.,0,0,0,0,6,0]])\nc=r.copy()\nc[1,:4]=0\n\ndef run_model():\n    try:\n        measure_assembly_distance(a,c,r)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-26.6",
+      "test_cases": [
+        "import numpy as np\ne=np.array([2.,-1.,0.]);d=np.array([3.,.7,1.8]);m=np.array([1,1,0,2,1])\nassert np.allclose(certify_benchmark_setup(e,d,m,2.,1.8), target)",
+        "import numpy as np\ne=np.array([0.,1.]);d=np.array([2.,3.]);m=np.zeros(12,dtype=int)\nassert np.allclose(certify_benchmark_setup(e,d,m,2.,1.96), target)",
+        "import numpy as np\ne=np.array([-1.,-1.]);d=np.array([4.,0.]);m=np.ones(7,dtype=int)\nassert np.allclose(certify_benchmark_setup(e,d,m,1.,2.), target)",
+        "import numpy as np\ne=np.zeros(2);d=np.zeros(2);m=np.array([2])\n\ndef run_model():\n    try:\n        certify_benchmark_setup(e,d,m,1.,2.)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-26.7",
+      "test_cases": [
+        "import numpy as np\nc=np.array([[[1,.01,.2,1],[8,.6,.9,1],[9,.7,.95,1]],[[1,.01,.2,1],[8,.6,.9,1],[9,.7,.95,0]]])\nassert np.allclose(select_robust_candidate(c), target)",
+        "import numpy as np\nc=np.array([[[0,0,.1,1],[8,.6,.9,1],[8,.6,.9,1]]])\nassert np.allclose(select_robust_candidate(c), target)",
+        "import numpy as np\nc=np.array([[[0,0,.25,1],[5,.25,.8,1],[5,np.nextafter(.25,1.),.8,1]]])\nassert np.allclose(select_robust_candidate(c), target)",
+        "import numpy as np\nc=np.array([[[0,0,.3,1],[1,.2,.4,1]]])\n\ndef run_model():\n    try:\n        select_robust_candidate(c)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Biochemistry-26.8",
+      "test_cases": [
+        "import numpy as np\nf=_test_fixture()\nf[\"baseline_temperature\"]=4.0\nassert np.allclose(solve_assembly_panel(f), target)",
+        "import numpy as np\nf=_test_fixture()\nrng=np.random.default_rng(np.random.PCG64(1))\nf[\"moves\"]=np.searchsorted([.50,.65,.88,1.],rng.random((12,28)),side=\"right\")\nf[\"uniforms\"]=rng.random((12,28))\nassert np.allclose(solve_assembly_panel(f), target)",
+        "import numpy as np\nf=_test_fixture()\nf[\"filtrations\"]=np.asarray(f[\"filtrations\"])+.137\nf[\"references\"]=np.asarray(f[\"references\"])[:,[2,0,1],:]\nassert np.allclose(solve_assembly_panel(f), target)",
+        "import numpy as np\nf=_test_fixture()\nf.pop(\"descriptors\")\n\ndef run_model():\n    try:\n        solve_assembly_panel(f)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+problem_id: "Biology-Genetics-1"
+subject: "biology"
+subject_area: "Genetics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2605.03498"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_flank_survival_and_density.py"
+    description: "Survival function and density of one side of the run of homozygosity around a focal position."
+    orchestrator: false
+  - number: 2
+    name: "02_class_mass_given_time.py"
+    description: "Probability that the run of homozygosity around a focal position has a length in a given class, for each coalescence time."
+    orchestrator: false
+  - number: 3
+    name: "03_fitness_variance_under_ratchet.py"
+    description: "Standing genetic variance for fitness at mutation-selection-drift balance, reduced by the recurrent fixation of deleterious mutations."
+    orchestrator: false
+  - number: 4
+    name: "04_selection_reduction_factor.py"
+    description: "Factor by which background selection reduces the effective size of a neutral position after a given number of generations of association."
+    orchestrator: false
+  - number: 5
+    name: "05_coalescence_weights.py"
+    description: "Probability that a random pair of haplotypes first coalesces at each generation before the present."
+    orchestrator: false
+  - number: 6
+    name: "06_class_coverage_from_reported_size.py"
+    description: "Coverage of a length class given by the source's closed-form steady-state expression at a constant population size."
+    orchestrator: false
+  - number: 7
+    name: "07_bottleneck_end_from_class_coverage.py"
+    description: "Number of generations since the bottleneck ended whose model coverage of a length class is closest to an observed value."
+    orchestrator: false
+  - number: 8
+    name: "08_sweep_frequency_trajectory.py"
+    description: "Expected frequency of a favourable mutation in each generation since it arose as a single copy."
+    orchestrator: false
+  - number: 9
+    name: "09_sweep_size_reduction.py"
+    description: "Factor by which a sweeping favourable mutation reduces the effective size of a linked neutral position in each past generation."
+    orchestrator: false
+  - number: 10
+    name: "10_focal_coalescence_weights.py"
+    description: "Probability that a random pair of haplotypes first coalesces at each generation before the present, at a neutral position linked to a sweeping favourable mutation."
+    orchestrator: false
+  - number: 11
+    name: "11_far_side_class_profile.py"
+    description: "Probability, mean coalescence time and sweep share of a length class of the side of the run of homozygosity away from the selected site."
+    orchestrator: false
+  - number: 12
+    name: "12_sweep_age_from_far_side.py"
+    description: "Number of generations since a favourable mutation arose whose model far-side class probability is closest to an observed value."
+    orchestrator: false
+  - number: 13
+    name: "13_swept_focal_mean_coalescence_time.py"
+    description: "Mean coalescence time of the pairs whose run extends a reported length on the side of a swept neutral position away from the selected site, at the recovered bottleneck end and sweep age."
+    orchestrator: true

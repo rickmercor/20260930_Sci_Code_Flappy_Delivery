@@ -1,0 +1,48 @@
+problem_id: "Biology-Genetics-46"
+subject: "biology"
+subject_area: "Genetics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2512.04393"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_enumerate_valid_phasings"
+    description: "Enumerate, in a canonical order, every haplotype phasing of a short run of heterozygous biallelic SNPs that is consistent with the called polyploid genotypes."
+    orchestrator: false
+  - number: 2
+    name: "02_compute_phasing_potentials"
+    description: "Score every candidate phasing of a short run of SNPs against the aligned fragments that cover the whole run, producing the factor potential the phasing carries in the graphical model."
+    orchestrator: false
+  - number: 3
+    name: "03_build_snp_line_graph"
+    description: "Turn the aligned fragment matrix into the ordered vertex set of the SNP line graph, the structure on which the phasing distribution is defined."
+    orchestrator: false
+  - number: 4
+    name: "04_build_transition_matrix"
+    description: "Convert the potential of the joint run spanned by two adjacent vertices into the normalised conditional distribution of the second vertex phasing given the first."
+    orchestrator: false
+  - number: 5
+    name: "05_decode_map_phasings"
+    description: "Decode one phasing per vertex of the SNP line graph by maximising the joint score of the directed phasing model over each connected component."
+    orchestrator: false
+  - number: 6
+    name: "06_select_next_position"
+    description: "Choose the next variant to add to the growing global assembly, or open a new phasing block when the current one is exhausted, from the state of the SNP line graph alone."
+    orchestrator: false
+  - number: 7
+    name: "07_generate_position_candidates"
+    description: "Enumerate every haplotype matrix over the SNP window spanned by the frontier vertices that both reproduces the alleles already assigned and respects the called genotypes."
+    orchestrator: false
+  - number: 8
+    name: "08_score_phasing_candidates"
+    description: "Rank the admissible haplotype matrices of a window by combining their read likelihood, their error-correction cost and their agreement with the phasings decoded on the graph."
+    orchestrator: false
+  - number: 9
+    name: "09_compute_block_adjusted_mec"
+    description: "Score a finished, possibly fragmented and partially phased assembly by the minimum number of read allele corrections it needs, charged for every extra block a fragment has to span."
+    orchestrator: false
+  - number: 10
+    name: "10_run_phapcompass_short_pipeline"
+    description: "Chain the sub-problem functions 01-09 end to end on the tetraploid fragment testbed and return the block-adjusted minimum error correction of the assembly they produce."
+    orchestrator: true

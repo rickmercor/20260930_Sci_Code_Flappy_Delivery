@@ -1,0 +1,40 @@
+problem_id: "Chemistry-Quantum_Chemistry-58"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1039/d6cp01090c"
+dependencies: ""
+steps:
+  - number: 1
+    name: "ohno_interaction_matrix"
+    description: "Through-space Ohno interaction matrix of a planar zigzag polyene chain built from its bond lengths and bond angle."
+    orchestrator: false
+  - number: 2
+    name: "sector_eigenvalues"
+    description: "Lowest eigenvalues of the Pariser-Parr-Pople Hamiltonian in a sector of fixed numbers of spin-up and spin-down electrons."
+    orchestrator: false
+  - number: 3
+    name: "covalent_triplet_family"
+    description: "Energies and covalent weights of the lowest members of the covalent triplet family of a chain, selected by their alternancy eigenvalue."
+    orchestrator: false
+  - number: 4
+    name: "dark_state_energies"
+    description: "Energies of the ground state, the lowest triplet, the covalent dark state 2(1)Ag and the lowest quintet of a chain."
+    orchestrator: false
+  - number: 5
+    name: "triplet_pair_gram_spectrum"
+    description: "Eigenvalues of the overlap matrix of the raw triplet-pair tensor products built from the covalent triplets of every left and right subchain."
+    orchestrator: false
+  - number: 6
+    name: "triplet_pair_populations"
+    description: "Triplet-pair population of the dark state 2(1)Ag resolved over the Loewdin-orthonormalised triplet-pair products."
+    orchestrator: false
+  - number: 7
+    name: "quintet_population_and_binding"
+    description: "Triplet-pair population of the lowest quintet and the triplet-pair binding energy of the dark state."
+    orchestrator: false
+  - number: 8
+    name: "extrapolated_triplet_pair_population"
+    description: "Infinite-chain triplet-pair population of the dark state from an exact three-point power-law fit through the populations of three chain lengths."
+    orchestrator: true

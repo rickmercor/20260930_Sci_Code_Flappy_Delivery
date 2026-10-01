@@ -1,0 +1,40 @@
+problem_id: "Chemistry-Quantum_Chemistry-59"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1021/acs.jctc.6c00445"
+dependencies: ""
+steps:
+  - number: 1
+    name: "apply_fermion_string"
+    description: "Apply an ordered fermionic operator string in factorized spin channels."
+    orchestrator: false
+  - number: 2
+    name: "build_selected_hamiltonian"
+    description: "Construct a determinant-space electronic Hamiltonian."
+    orchestrator: false
+  - number: 3
+    name: "normalized_configuration_probabilities"
+    description: "Convert signed log-amplitudes into stable normalized probabilities."
+    orchestrator: false
+  - number: 4
+    name: "select_cumulative_support"
+    description: "Select the minimal probability-ranked support reaching a mass target."
+    orchestrator: false
+  - number: 5
+    name: "screen_dynamic_perturbative_space"
+    description: "Screen and canonically order the dynamic perturbative determinant space."
+    orchestrator: false
+  - number: 6
+    name: "deterministic_energy_diagnostics"
+    description: "Evaluate deterministic variational, asymmetric, proxy and diagonal energies."
+    orchestrator: false
+  - number: 7
+    name: "decomposed_epstein_nesbet_pt2"
+    description: "Decompose the Epstein\u2013Nesbet correction into internal and external terms."
+    orchestrator: false
+  - number: 8
+    name: "nqs_internal_pt2_share"
+    description: "Orchestrate deterministic support construction and PT2 error attribution."
+    orchestrator: true

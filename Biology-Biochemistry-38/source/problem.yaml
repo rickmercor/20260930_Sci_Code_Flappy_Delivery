@@ -1,0 +1,36 @@
+problem_id: "Biology-Biochemistry-38"
+subject: "biology"
+subject_area: "Biochemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.48550/arXiv.2608.22627"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_enumerate_processive_states"
+    description: "List every copy-number state of the sequential processive n-site phosphorylation and dephosphorylation network that can be reached from a given initial state."
+    orchestrator: false
+  - number: 2
+    name: "02_build_channel_generators"
+    description: "Assemble, for every reaction channel of the processive network, the unit-rate generator matrix of the continuous-time Markov chain on a supplied closed set of states."
+    orchestrator: false
+  - number: 3
+    name: "03_compute_observable_derivatives"
+    description: "Compute the expected value of an observable of a finite continuous-time Markov chain at a fixed time, together with its exact derivatives of every order up to a given one with respect to one rate constant."
+    orchestrator: false
+  - number: 4
+    name: "04_build_stencil_weights"
+    description: "Compute the weights that combine the values of a smooth function at several shifted arguments into an estimate of one of its derivatives."
+    orchestrator: false
+  - number: 5
+    name: "05_compute_stencil_moments"
+    description: "Compute the exact mean and second moment of a finite-difference numerator built from several copies of a finite chain whose perturbed rate constants follow a stencil and which are generated jointly by stacking channel intensities on one Poisson point process."
+    orchestrator: false
+  - number: 6
+    name: "06_minimize_stencil_rmse"
+    description: "Step description: Find the perturbation size that minimizes the exact mean squared error of a stencil-based Monte Carlo derivative estimator with a fixed number of replications, and report the minimized root mean square error."
+    orchestrator: false
+  - number: 7
+    name: "07_estimate_minimum_relative_rmse"
+    description: "Compose every earlier step to obtain the smallest root-mean-square error, relative to the true derivative, of a jointly generated finite-difference estimator of a rate sensitivity of the processive phosphorylation network at a fixed path budget.\nOrchestrator: yes - enumerates the reachable states (enumerate_processive_states), builds the channel generators (build_channel_generators), obtains the exact target derivative (compute_observable_derivatives), weights the stencil (build_stencil_weights), minimizes the exact mean square error over the perturbation size (minimize_stencil_rmse, which uses compute_stencil_moments) and re-evaluates the numerator moments at the optimum (compute_stencil_moments), consuming each output rather than reimplementing any step."
+    orchestrator: true

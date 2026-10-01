@@ -1,0 +1,48 @@
+problem_id: "Material_Science-Semiconductor_Materials-74"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2608.12808"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_diamond_metrics"
+    description: "Compute the area and the directional coupling factor of one interior diamond cell.\n\nA diamond cell is the quadrilateral spanned by the two primal cell centres and the two dual cell centres that share an interface. It is fixed by the primal edge length |sigma|, the dual edge length |sigma*|, the angle theta between the primal and dual directions, and the two outward unit normals n_KL and n_K**L**.\n\n|D| = 0.5 * |sigma| * |sigma*| * sin(theta)\n\nc   = n_KL . n_K*L*\n\nThe scalar c is the factor that multiplies every cross-direction term of the flux discretization; it vanishes exactly when the two normals are orthogonal."
+    orchestrator: false
+  - number: 2
+    name: "02_bernoulli_factor"
+    description: "Evaluate the Bernoulli factor that carries the drift term inside the flux coefficient.\n\n    B(t) = t / (exp(t) - 1)   for t != 0,\n\n    B(0) = 1.\n\nB is the classical exponential-fitting weight: B(t) -> 0 in the convection-dominated limit t -> +inf and B(0) = 1 in the diffusion-dominated limit. The naive quotient loses all significant digits for small |t| because exp(t) - 1 cancels catastrophically, so the implementation must use expm1 well away from the origin, and the Taylor series\n\nB(t) = 1 - t/2 + t^2/12 - t^4/720 + O(t^6)\n\nnear it."
+    orchestrator: false
+  - number: 3
+    name: "03_primal_electron_flux"
+    description: "Compute the electron flux across the primal interface of one interior diamond cell, for a locally conservative primal-dual finite-volume discretization of the stationary drift-diffusion model that does not assume mesh orthogonality.\n\nThe flux is assembled from two contributions. One acts along the primal edge direction and reproduces the classical exponentially fitted form built from the electron densities at K and L and the Bernoulli weights of the primal potential jump. The other is a cross-direction contribution built from the dual-cell densities at K* and L* and the Bernoulli weights of the dual potential jump; it enters weighted by the projection of the two outward normals on each other and by the mixed edge-length product, and it is the term that a one-dimensional edge-based scheme omits."
+    orchestrator: false
+  - number: 4
+    name: "04_dual_electron_flux"
+    description: "Compute the electron flux across the dual interface of the same interior diamond cell treated in the previous step.\n\nThe dual flux mirrors the primal one: its diagonal contribution runs along the dual edge direction and is built from the dual-cell electron densities and the Bernoulli weights of the dual potential jump, while its cross-direction contribution is built from the primal-cell densities and the Bernoulli weights of the primal potential jump. The two contributions carry different edge-length prefactors, and the cross-direction one is weighted by the same projection of the two outward normals that appears in the primal flux."
+    orchestrator: false
+  - number: 5
+    name: "05_primal_hole_flux"
+    description: "Compute the hole flux across the primal interface of the same interior diamond cell treated in the previous steps.\n\nHoles have the opposite charge sign, so the self-adjoint change of variable that linearizes their transport carries the opposite exponential factor. The resulting flux has the same two-contribution structure as its electron counterpart and the same geometric prefactors, but every Bernoulli weight is evaluated at the negative of the argument used for electrons, which exchanges the roles of the upwind and downwind cells."
+    orchestrator: false
+  - number: 6
+    name: "06_dual_hole_flux"
+    description: "Compute the hole flux across the dual interface of the same interior diamond cell treated in the previous steps.\n\n\n\nThis is the dual-direction counterpart of the primal hole flux: it carries the dual edge-length prefactor on its diagonal contribution and the mixed prefactor with the normal projection on its cross-direction contribution, and it uses the same reversed Bernoulli arguments that distinguish holes from electrons."
+    orchestrator: false
+  - number: 7
+    name: "07_reversed_interface_fluxes"
+    description: "Rebuild the four carrier fluxes of the same interior interface as seen from the neighbouring pair of cells.\n\nEvery interior interface is shared by two primal cells and two dual cells, and each side of it computes its own outward flux. Re-deriving the fluxes from the neighbour's point of view means exchanging the primal labels K and L, exchanging the dual labels K* and L*, and reversing both outward unit normals, then evaluating exactly the same discretization again. The diamond geometry itself is unchanged. This step must recompute all four fluxes from the swapped data rather than reuse the forward values, because the relation between the two orientations is the property being established, not an assumption."
+    orchestrator: false
+  - number: 8
+    name: "08_orthogonal_sg_limit"
+    description: "Evaluate the same four carrier fluxes on the auxiliary diamond whose primal and dual outward normals are orthogonal.\n\n\nOrthogonal normals make the projection between the two directions vanish, so the cross-direction contribution of every flux disappears and each flux collapses to a single exponentially fitted edge term along its own direction. Recovering this limit is the consistency check that ties the non-orthogonal discretization back to the classical edge-based scheme it generalizes. The auxiliary diamond keeps the edge lengths, potentials, densities and diffusion coefficients of the original one and changes only the angle and the two normals, so its area is not the same as the non-orthogonal one and has to be recomputed."
+    orchestrator: false
+  - number: 9
+    name: "09_consistency_defect"
+    description: "Compute, for one carrier, the two drift coefficients that the construction freezes on the edges of an interior diamond cell, and the defect that the construction introduces into the primal flux when it re-associates those coefficients with the two mesh directions.\n\n\n\n\nWrite z = +1 for electrons and z = -1 for holes, and define the carrier's scaled variable Phi = rho * exp(-z * psi) at each cell, where rho is the carrier density. On an edge whose two endpoints carry potentials a and b, the frozen coefficient is the reciprocal of the mean of exp(-z * u) along the edge, with u varying linearly between a and b, which evaluates to\n\n    E(a, b) = exp(z * a) * B(z * (a - b)),    B(t) = t / (exp(t) - 1).\n\nThe primal edge joins the two dual cell centres and the dual edge joins the two primal cell centres, so the two coefficients of the cell are\n\n\n    E_primal = E(psi_Kstar, psi_Lstar),    E_dual = E(psi_K, psi_L).\n\nKeeping E_primal in both terms of the primal flux gives one flux; the construction instead places E_dual on the term along the primal direction. The cross-direction terms are identical, so the unpaired flux minus the construction's flux is\n\n    defect = |sigma|^2 * D / (2 |D|) * (E_primal - E_dual) * (Phi_K - Phi_L)."
+    orchestrator: false
+  - number: 10
+    name: "10_pipeline"
+    description: "Run the complete interior-diamond diagnostic end to end and return the requested scalar.\n\nThe orchestrator chains every preceding step: it forms the diamond area and the normal projection, evaluates the four carrier fluxes of the non-orthogonal diamond, rebuilds the same four fluxes seen by the neighbouring cells and checks that each forward/reverse pair cancels to machine precision, evaluates the auxiliary orthogonal diamond and checks that its decoupled fluxes are finite, and evaluates the primal-flux defect of each carrier. The electron flux carries the sign opposite to the electron current, so the signed electrical current combines the two carriers as -F(n) + F(p); the value returned is the same signed combination of the two defects."
+    orchestrator: true

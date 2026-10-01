@@ -1,0 +1,36 @@
+problem_id: "Physics-Optics-10"
+subject: "physics"
+subject_area: "Optics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2607.03471"
+dependencies: ""
+steps:
+  - number: 1
+    name: "reduced_dispersion_coefficients"
+    description: "Compute the two reduced dispersion coefficients that recur throughout the analysis of a uniaxial dielectric medium with isotropic magneto-electric chirality (a gyroelectric metamaterial with constitutive tensors epsilon = diag(4, 4, eps_z), mu = I_3x3, and gamma = gamma0 * I_3x3). "
+    orchestrator: false
+  - number: 2
+    name: "equatorial_critical_gamma0_sq"
+    description: "Compute the critical squared-chirality value at which the medium's equatorial (kz = 0) exceptional-point ring is born, for axial permittivities in the regime -12 < eps_z < -4."
+    orchestrator: false
+  - number: 3
+    name: "classify_ep_sector"
+    description: "Classify which finite-frequency exceptional-point (EP) regime a given (eps_z, gamma0) point of the gyroelectric-chiral medium falls into."
+    orchestrator: false
+  - number: 4
+    name: "ep_ring_kz_squared"
+    description: "Compute the squared axial wavevector component kz^2 on the finite-frequency exceptional-point ring of the gyroelectric-chiral medium, at a prescribed frequency omega, for parameter pairs (eps_z, gamma0) that admit such a ring (see the sector classifier). "
+    orchestrator: false
+  - number: 5
+    name: "ep_ring_transverse_squared"
+    description: "Compute the squared transverse wavevector radius kx^2 + ky^2 on the finite-frequency exceptional-point ring of the gyroelectric-chiral medium, at a prescribed frequency omega, for parameter pairs (eps_z, gamma0) that admit such a ring (see the sector classifier)."
+    orchestrator: false
+  - number: 6
+    name: "combine_ep_wavevector"
+    description: "Assemble the total wavevector magnitude on the finite-frequency exceptional-point ring from its previously computed axial and transverse squared components."
+    orchestrator: false
+  - number: 7
+    name: "run_metamaterial_ep_pipeline"
+    description: "Chain the six earlier steps into the full pipeline: reduce the constitutive tensors to their dispersion coefficients, use those coefficients to gate physical admissibility, classify whether a finite-frequency exceptional-point ring exists, compute its axial and transverse squared wavevector components at the prescribed frequency, and combine them into the total wavevector magnitude. The reference implementation calls the earlier public functions by name rather than reproducing their contents. "
+    orchestrator: true

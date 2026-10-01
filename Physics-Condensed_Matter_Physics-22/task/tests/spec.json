@@ -1,0 +1,69 @@
+{
+  "problem_id": "Physics-Condensed_Matter_Physics-22",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-22.1",
+      "test_cases": [
+        "import numpy as np\nomega = np.array([0.75, 1.20, 1.85, 2.55], dtype=float)\nomega_gold = omega.copy()\nbeta = 1.5\ngamma_ph = np.array([0.18, 0.22, 0.27, 0.34], dtype=float)\ngamma_ph_gold = gamma_ph.copy()\nassert np.allclose(np.round(compute_modal_properties(omega, beta, gamma_ph), 10), target)",
+        "import numpy as np\nomega = np.array([0.75], dtype=float)\nomega_gold = omega.copy()\nbeta = 1.5\ngamma_ph = np.array([0.18], dtype=float)\ngamma_ph_gold = gamma_ph.copy()\nassert np.allclose(np.round(compute_modal_properties(omega, beta, gamma_ph), 10), target)",
+        "import numpy as np\nomega = np.array([1.0e-8, 0.50], dtype=float)\nomega_gold = omega.copy()\nbeta = 0.75\ngamma_ph = np.array([0.05, 0.40], dtype=float)\ngamma_ph_gold = gamma_ph.copy()\nassert np.allclose(np.round(compute_modal_properties(omega, beta, gamma_ph), 10), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-22.2",
+      "test_cases": [
+        "import numpy as np\nomega = np.array([0.75, 1.20, 1.85, 2.55], dtype=float)\nomega_gold = omega.copy()\n\nnu = np.array([\n    [1.20, 0.55, 0.20, 0.10],\n    [0.55, 1.00, 0.50, 0.18],\n    [0.20, 0.50, 0.78, 0.40],\n    [0.10, 0.18, 0.40, 0.58]\n], dtype=float)\nnu_gold = nu.copy()\n\nbeta = 1.5\ngamma_tr = 0.09011247684\nassert np.allclose(np.round(construct_spectral_components(omega, nu, beta, gamma_tr), 10), target)",
+        "import numpy as np\nomega = np.array([1.0], dtype=float)\nomega_gold = omega.copy()\n\nnu = np.array([[0.8]], dtype=float)\nnu_gold = nu.copy()\n\nbeta = 1.2\ngamma_tr = 0.05\nassert np.allclose(np.round(construct_spectral_components(omega, nu, beta, gamma_tr), 10), target)",
+        "import numpy as np\nomega = np.array([1.00, 1.02, 1.80], dtype=float)\nomega_gold = omega.copy()\n\nnu = np.array([\n    [1.0, 0.5, 0.2],\n    [0.5, 0.9, 0.4],\n    [0.2, 0.4, 0.7]\n], dtype=float)\nnu_gold = nu.copy()\n\nbeta = 2.0\ngamma_tr = 0.04\nassert np.allclose(np.round(construct_spectral_components(omega, nu, beta, gamma_tr), 10), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-22.3",
+      "test_cases": [
+        "import numpy as np\nomega = np.array([0.75, 1.20, 1.85, 2.55], dtype=float)\nomega_gold = omega.copy()\n\nnu = np.array([\n    [1.20, 0.55, 0.20, 0.10],\n    [0.55, 1.00, 0.50, 0.18],\n    [0.20, 0.50, 0.78, 0.40],\n    [0.10, 0.18, 0.40, 0.58]\n], dtype=float)\nnu_gold = nu.copy()\n\nbeta = 1.5\ngamma_tr = 0.09011247684\n\ntau = np.array(\n    [0.060, 0.150, 0.270, 0.420, 0.585, 0.750],\n    dtype=float,\n)\ntau_gold = tau.copy()\nassert np.allclose(np.round(transform_to_imaginary_time(omega, nu, beta, gamma_tr, tau), 8), target)",
+        "import numpy as np\nomega = np.array([0.8, 1.4], dtype=float)\nomega_gold = omega.copy()\n\nnu = np.array([\n    [1.0, 0.3],\n    [0.3, 0.8]\n], dtype=float)\nnu_gold = nu.copy()\n\nbeta = 1.2\ngamma_tr = 0.06\n\ntau = np.array([0.60], dtype=float)\ntau_gold = tau.copy()\nassert np.allclose(np.round(transform_to_imaginary_time(omega, nu, beta, gamma_tr, tau), 8), target)",
+        "import numpy as np\nomega = np.array([0.75, 1.20], dtype=float)\nomega_gold = omega.copy()\n\nnu = np.array([\n    [1.0, 0.3],\n    [0.3, 0.8]\n], dtype=float)\nnu_gold = nu.copy()\n\nbeta = 1.5\ngamma_tr = 0.09\n\ntau = np.array([1.0e-6, 1.499999], dtype=float)\ntau_gold = tau.copy()\nassert np.allclose(np.round(transform_to_imaginary_time(omega, nu, beta, gamma_tr, tau), 8), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-22.4",
+      "test_cases": [
+        "import numpy as np\n\nomega = np.array([0.75, 1.20, 1.85, 2.55], dtype=float)\nomega_gold = omega.copy()\n\nnu = np.array([\n    [1.20, 0.55, 0.20, 0.10],\n    [0.55, 1.00, 0.50, 0.18],\n    [0.20, 0.50, 0.78, 0.40],\n    [0.10, 0.18, 0.40, 0.58]\n], dtype=float)\nnu_gold = nu.copy()\n\nbeta = 1.5\n\ntau = np.array(\n    [0.060, 0.150, 0.270, 0.420, 0.585, 0.750],\n    dtype=float,\n)\ntau_gold = tau.copy()\n\nc_obs = np.array([\n    1.514473717829,\n    1.462768236466,\n    1.416173007618,\n    1.376243100066,\n    1.353349579459,\n    1.345265301976\n], dtype=float)\nc_obs_gold = c_obs.copy()\n\nsigma = np.array(\n    [0.0018, 0.0016, 0.0014, 0.0012, 0.0011, 0.0011],\n    dtype=float,\n)\nsigma_gold = sigma.copy()\n\ngamma_bounds = (0.03, 0.30)\nxi_bounds = (0.5, 2.5)\nassert np.allclose(np.round(fit_transport_reconstruction(omega, nu, beta, tau, c_obs, sigma, gamma_bounds, xi_bounds), 6), target)",
+        "import numpy as np\n\nomega = np.array([0.8, 1.4], dtype=float)\nomega_gold = omega.copy()\n\nnu = np.array([\n    [1.0, 0.3],\n    [0.3, 0.8]\n], dtype=float)\nnu_gold = nu.copy()\n\nbeta = 1.2\n\ntau = np.array([0.12, 0.36, 0.60], dtype=float)\ntau_gold = tau.copy()\n\nc_obs = np.array([\n    0.987747280022827,\n    0.970093034693898,\n    0.964928825882618\n], dtype=float)\nc_obs_gold = c_obs.copy()\n\nsigma = np.array([0.002, 0.002, 0.002], dtype=float)\nsigma_gold = sigma.copy()\n\ngamma_bounds = (0.03, 0.25)\nxi_bounds = (0.5, 2.5)\nassert np.allclose(np.round(fit_transport_reconstruction(omega, nu, beta, tau, c_obs, sigma, gamma_bounds, xi_bounds), 6), target)",
+        "import numpy as np\n\nomega = np.array([1.00, 1.02, 1.80], dtype=float)\nomega_gold = omega.copy()\n\nnu = np.array([\n    [1.0, 0.5, 0.2],\n    [0.5, 0.9, 0.4],\n    [0.2, 0.4, 0.7]\n], dtype=float)\nnu_gold = nu.copy()\n\nbeta = 2.0\n\ntau = np.array([0.10, 0.50, 1.00], dtype=float)\ntau_gold = tau.copy()\n\nc_obs = np.array([\n    0.502142710540689,\n    0.463360303598931,\n    0.450633355019335\n], dtype=float)\nc_obs_gold = c_obs.copy()\n\nsigma = np.array([0.0015, 0.0012, 0.0010], dtype=float)\nsigma_gold = sigma.copy()\n\ngamma_bounds = (0.03, 0.15)\nxi_bounds = (0.5, 2.5)\nassert np.allclose(np.round(fit_transport_reconstruction(omega, nu, beta, tau, c_obs, sigma, gamma_bounds, xi_bounds), 6), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-22.5",
+      "test_cases": [
+        "import numpy as np\n\nomega = np.array([0.75, 1.20, 1.85, 2.55], dtype=float)\nomega_gold = omega.copy()\n\nnu = np.array([\n    [1.20, 0.55, 0.20, 0.10],\n    [0.55, 1.00, 0.50, 0.18],\n    [0.20, 0.50, 0.78, 0.40],\n    [0.10, 0.18, 0.40, 0.58]\n], dtype=float)\nnu_gold = nu.copy()\n\nbeta = 1.5\ngamma_tr = 0.09011247684\nxi = 1.40975379461\nassert np.allclose(np.round(evaluate_zero_frequency_spectrum(omega, nu, beta, gamma_tr, xi), 9), target)",
+        "import numpy as np\n\nomega = np.array([0.8, 1.4], dtype=float)\nomega_gold = omega.copy()\n\nnu = np.array([\n    [1.0, 0.3],\n    [0.3, 0.8]\n], dtype=float)\nnu_gold = nu.copy()\n\nbeta = 1.2\ngamma_tr = 0.06\nxi = 0.5\nassert np.allclose(np.round(evaluate_zero_frequency_spectrum(omega, nu, beta, gamma_tr, xi), 9), target)",
+        "import numpy as np\n\nomega = np.array([1.00, 1.02, 1.80], dtype=float)\nomega_gold = omega.copy()\n\nnu = np.array([\n    [1.0, 0.5, 0.2],\n    [0.5, 0.9, 0.4],\n    [0.2, 0.4, 0.7]\n], dtype=float)\nnu_gold = nu.copy()\n\nbeta = 2.0\ngamma_tr = 0.04\nxi = 2.3\nassert np.allclose(np.round(evaluate_zero_frequency_spectrum(omega, nu, beta, gamma_tr, xi), 9), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-22.6",
+      "test_cases": [
+        "beta = 1.5\nlambda_zero = 6.48556825465\nassert np.allclose(round(compute_reconstructed_conductivity(beta, lambda_zero), 10), target)",
+        "beta = 1.0\nlambda_zero = 2.5\nassert np.allclose(round(compute_reconstructed_conductivity(beta, lambda_zero), 10), target)",
+        "beta = 0.25\nlambda_zero = 0.0\nassert np.allclose(round(compute_reconstructed_conductivity(beta, lambda_zero), 10), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-22.7",
+      "test_cases": [
+        "import numpy as np\nomega = np.array([0.75, 1.20, 1.85, 2.55], dtype=float)\nomega_gold = omega.copy()\nbeta = 1.5\ngamma_ph = np.array([0.18, 0.22, 0.27, 0.34], dtype=float)\ngamma_ph_gold = gamma_ph.copy()\nvelocity = np.array([1.20, 1.00, 0.78, 0.58], dtype=float)\nvelocity_gold = velocity.copy()\nassert np.allclose(round(compute_pb_rta_conductivity(omega, beta, gamma_ph, velocity), 10), target)",
+        "import numpy as np\nomega = np.array([1.0], dtype=float)\nomega_gold = omega.copy()\nbeta = 1.0\ngamma_ph = np.array([0.2], dtype=float)\ngamma_ph_gold = gamma_ph.copy()\nvelocity = np.array([0.8], dtype=float)\nvelocity_gold = velocity.copy()\nassert np.allclose(round(compute_pb_rta_conductivity(omega, beta, gamma_ph, velocity), 10), target)",
+        "import numpy as np\nomega = np.array([1.0e-8, 0.5], dtype=float)\nomega_gold = omega.copy()\nbeta = 0.75\ngamma_ph = np.array([0.05, 0.40], dtype=float)\ngamma_ph_gold = gamma_ph.copy()\nvelocity = np.array([1.0, 0.2], dtype=float)\nvelocity_gold = velocity.copy()\nassert np.allclose(round(compute_pb_rta_conductivity(omega, beta, gamma_ph, velocity), 10), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-22.8",
+      "test_cases": [
+        "import numpy as np\n\nomega = np.array([0.75, 1.20, 1.85, 2.55], dtype=float)\nomega_gold = omega.copy()\n\nnu = np.array([\n    [1.20, 0.55, 0.20, 0.10],\n    [0.55, 1.00, 0.50, 0.18],\n    [0.20, 0.50, 0.78, 0.40],\n    [0.10, 0.18, 0.40, 0.58]\n], dtype=float)\nnu_gold = nu.copy()\n\nbeta = 1.5\n\ntau = np.array(\n    [0.060, 0.150, 0.270, 0.420, 0.585, 0.750],\n    dtype=float,\n)\ntau_gold = tau.copy()\n\nc_obs = np.array([\n    1.514473717829,\n    1.462768236466,\n    1.416173007618,\n    1.376243100066,\n    1.353349579459,\n    1.345265301976\n], dtype=float)\nc_obs_gold = c_obs.copy()\n\nsigma = np.array(\n    [0.0018, 0.0016, 0.0014, 0.0012, 0.0011, 0.0011],\n    dtype=float,\n)\nsigma_gold = sigma.copy()\n\ngamma_ph = np.array(\n    [0.18, 0.22, 0.27, 0.34],\n    dtype=float,\n)\ngamma_ph_gold = gamma_ph.copy()\n\nvelocity = np.array(\n    [1.20, 1.00, 0.78, 0.58],\n    dtype=float,\n)\nvelocity_gold = velocity.copy()\n\ngamma_bounds = (0.03, 0.30)\nxi_bounds = (0.5, 2.5)\nassert np.allclose(round(run_transport_reconstruction_pipeline(omega, nu, beta, tau, c_obs, sigma, gamma_ph, velocity, gamma_bounds, xi_bounds), 7), target)",
+        "import numpy as np\n\nomega = np.array([0.8, 1.4], dtype=float)\nomega_gold = omega.copy()\n\nnu = np.array([\n    [1.0, 0.3],\n    [0.3, 0.8]\n], dtype=float)\nnu_gold = nu.copy()\n\nbeta = 1.2\n\ntau = np.array([0.12, 0.36, 0.60], dtype=float)\ntau_gold = tau.copy()\n\nc_obs = np.array([\n    0.987747280022827,\n    0.970093034693898,\n    0.964928825882618\n], dtype=float)\nc_obs_gold = c_obs.copy()\n\nsigma = np.array([0.002, 0.002, 0.002], dtype=float)\nsigma_gold = sigma.copy()\n\ngamma_ph = np.array([0.14, 0.20], dtype=float)\ngamma_ph_gold = gamma_ph.copy()\n\nvelocity = np.array([1.0, 0.8], dtype=float)\nvelocity_gold = velocity.copy()\n\ngamma_bounds = (0.03, 0.25)\nxi_bounds = (0.5, 2.5)\nassert np.allclose(round(run_transport_reconstruction_pipeline(omega, nu, beta, tau, c_obs, sigma, gamma_ph, velocity, gamma_bounds, xi_bounds), 7), target)",
+        "import numpy as np\n\nomega = np.array([1.00, 1.02, 1.80], dtype=float)\nomega_gold = omega.copy()\n\nnu = np.array([\n    [1.0, 0.5, 0.2],\n    [0.5, 0.9, 0.4],\n    [0.2, 0.4, 0.7]\n], dtype=float)\nnu_gold = nu.copy()\n\nbeta = 2.0\n\ntau = np.array([0.10, 0.50, 1.00], dtype=float)\ntau_gold = tau.copy()\n\nc_obs = np.array([\n    0.502142710540689,\n    0.463360303598931,\n    0.450633355019335\n], dtype=float)\nc_obs_gold = c_obs.copy()\n\nsigma = np.array([0.0015, 0.0012, 0.0010], dtype=float)\nsigma_gold = sigma.copy()\n\ngamma_ph = np.array([0.10, 0.11, 0.20], dtype=float)\ngamma_ph_gold = gamma_ph.copy()\n\nvelocity = np.array([1.0, 0.95, 0.7], dtype=float)\nvelocity_gold = velocity.copy()\n\ngamma_bounds = (0.03, 0.15)\nxi_bounds = (0.5, 2.5)\nassert np.allclose(round(run_transport_reconstruction_pipeline(omega, nu, beta, tau, c_obs, sigma, gamma_ph, velocity, gamma_bounds, xi_bounds), 7), target)"
+      ]
+    }
+  ]
+}

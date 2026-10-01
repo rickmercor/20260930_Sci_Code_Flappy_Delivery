@@ -1,0 +1,40 @@
+problem_id: "Physics-Particle_Physics-10"
+subject: "physics"
+subject_area: "Particle Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2511.09330"
+dependencies: ""
+steps:
+  - number: 1
+    name: "step_01_compton_kinematics_lo"
+    description: "Convert a fixed-target photon energy into the Mandelstam variable s and mass ratio tau, and evaluate the exact leading-order (Klein-Nishina) total Compton cross section."
+    orchestrator: false
+  - number: 2
+    name: "step_02_lo_high_energy_series"
+    description: "Evaluate the paper's high-energy leading-order Compton total cross section through the tau^4 term."
+    orchestrator: false
+  - number: 3
+    name: "step_03_nlo_high_energy_series"
+    description: "Evaluate the paper's high-energy next-to-leading-order (order alpha^3) correction to the Compton total cross section, through the tau^3 term."
+    orchestrator: false
+  - number: 4
+    name: "step_04_nnlo_high_energy_series"
+    description: "Evaluate the paper's high-energy next-to-next-to-leading-order (order alpha^4) correction to the Compton total cross section, through the tau^1 term."
+    orchestrator: false
+  - number: 5
+    name: "step_05_ll_ladder_term"
+    description: "Evaluate the paper's all-order leading-logarithmic contribution of the n-loop ladder to the Compton total cross section at order alpha^{n+1}, i.e. the N^{n-1}LO leading logarithm ln^{2n-1} tau with its closed-form coefficient."
+    orchestrator: false
+  - number: 6
+    name: "step_06_ll_resummed"
+    description: "Evaluate the paper's all-order leading-logarithmic Compton total cross section and its remainder beyond a supplied fixed order."
+    orchestrator: false
+  - number: 7
+    name: "step_07_compton_nnlo_ll"
+    description: "Compute the Compton total cross section at NNLO matched to the all-order leading-logarithmic resummation for a single fixed-target photon energy, and return it in microbarn."
+    orchestrator: false
+  - number: 8
+    name: "step_08_spectrum_averaged_cross_section"
+    description: "[ORCHESTRATOR] Compute the NNLO+LL Compton total cross section averaged over a supplied fixed-target photon-energy window with the specified 1/E_gamma spectral weight, using Gauss-Legendre quadrature in ln E_gamma."
+    orchestrator: true

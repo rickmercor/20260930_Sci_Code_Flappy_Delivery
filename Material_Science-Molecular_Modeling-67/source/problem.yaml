@@ -1,0 +1,40 @@
+problem_id: "Material_Science-Molecular_Modeling-67"
+subject: "materials"
+subject_area: "Molecular Modeling"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2606.16500"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_integrate_surface_tension"
+    description: "Recover each film's single-interface surface tension from its sampled stress profile."
+    orchestrator: false
+  - number: 2
+    name: "02_compute_film_thickness"
+    description: "Convert film inventory and phase densities into thermodynamic thickness."
+    orchestrator: false
+  - number: 3
+    name: "03_fit_interfacial_curve"
+    description: "Fit a common exponential surface-tension curve to all films."
+    orchestrator: false
+  - number: 4
+    name: "04_differentiate_disjoining_pressure"
+    description: "Evaluate the signed pressure and its local differential from an interfacial fit."
+    orchestrator: false
+  - number: 5
+    name: "05_evaluate_bulk_response"
+    description: "Evaluate liquid density and the differential response of the implicit reservoir."
+    orchestrator: false
+  - number: 6
+    name: "06_solve_coupled_thickness"
+    description: "Solve the mutually dependent thickness, surface-tension fit, and bulk density."
+    orchestrator: false
+  - number: 7
+    name: "07_compute_coupled_sensitivity"
+    description: "Compute the full second-order pressure response to bulk compressibility and population redistribution."
+    orchestrator: false
+  - number: 8
+    name: "08_compute_nanofilm_response"
+    description: "Compute the curvature of the peak pressure while its maximizing compressibility moves."
+    orchestrator: true

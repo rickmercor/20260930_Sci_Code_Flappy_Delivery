@@ -1,0 +1,66 @@
+{
+  "problem_id": "Biology-Genetics-15",
+  "sub_steps": [
+    {
+      "step_number": "Biology-Genetics-15.1",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(np.asarray(locus_stationary_moments(-0.0051, 0.012, 0.0, 0.06, 0.4, 20000.0, 400)) / np.array([0.30000000000000004, 0.07, 9.999999999999999e-06, 0.01]), target)",
+        "import numpy as np\nassert np.allclose(np.asarray(locus_stationary_moments(0.2, 0.008, 0.007, 0.1, 0.3, 0.0, 400)) / np.array([0.2, 0.08, 8e-06, 0.02]), target)",
+        "import numpy as np\nassert np.allclose(np.asarray(locus_stationary_moments(-0.0007, 0.01, -0.008, 0.2, 0.2, 200000.0, 400)) / np.array([0.9, 0.01, 2e-06, 0.0008]), target)",
+        "import numpy as np\nassert np.allclose(np.asarray(locus_stationary_moments(0.05, 0.02, 0.015, 0.5, 0.5, 2000.0, 400)) / np.array([0.2, 0.1, 7.999999999999999e-05, 0.02]), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-15.2",
+      "test_cases": [
+        "import numpy as np\nalpha = np.array([0.012, 0.008, 0.010])\ndom = np.array([0.0, 0.007, -0.008])\ntp = np.array([0.06, 0.1, 0.2])\ntm = np.array([0.4, 0.3, 0.2])\ncounts = np.array([60, 40, 20])\nassert np.allclose(np.asarray(architecture_mean_and_variances(-0.00512, 20000.0, alpha, dom, tp, tm, counts, 400)) / np.array([1.0, 0.002, 0.0002]), target)",
+        "import numpy as np\nalpha = np.array([0.02])\ndom = np.array([0.003])\ntp = np.array([0.15])\ntm = np.array([0.45])\ncounts = np.array([50])\nassert np.allclose(np.asarray(architecture_mean_and_variances(0.3, 0.0, alpha, dom, tp, tm, counts, 400)) / np.array([0.5, 0.004, 2.9999999999999997e-05]), target)",
+        "import numpy as np\nalpha = np.array([0.015, 0.01])\ndom = np.array([0.012, -0.009])\ntp = np.array([0.05, 0.25])\ntm = np.array([0.35, 0.25])\ncounts = np.array([30, 70])\nassert np.allclose(np.asarray(architecture_mean_and_variances(-0.35, 300.0, alpha, dom, tp, tm, counts, 400)) / np.array([1.0, 0.004, 0.0008]), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-15.3",
+      "test_cases": [
+        "import numpy as np\nalpha = np.array([0.012, 0.008, 0.010])\ndom = np.array([0.0, 0.007, -0.008])\ntp = np.array([0.06, 0.1, 0.2])\ntm = np.array([0.4, 0.3, 0.2])\ncounts = np.array([60, 40, 20])\nassert np.allclose(equilibrium_trait_deviation(20000.0, 1.15, alpha, dom, tp, tm, counts, 400, 1e-13), target)",
+        "import numpy as np\nalpha = np.array([0.012, 0.008, 0.010])\ndom = np.array([0.0, 0.007, -0.008])\ntp = np.array([0.06, 0.1, 0.2])\ntm = np.array([0.4, 0.3, 0.2])\ncounts = np.array([60, 40, 20])\nassert np.allclose(equilibrium_trait_deviation(200.0, 1.15, alpha, dom, tp, tm, counts, 400, 1e-13), target)",
+        "import numpy as np\nalpha = np.array([0.02, 0.01])\ndom = np.array([0.01, -0.005])\ntp = np.array([0.3, 0.4])\ntm = np.array([0.1, 0.2])\ncounts = np.array([40, 40])\nassert np.allclose(equilibrium_trait_deviation(5000.0, 1.6, alpha, dom, tp, tm, counts, 400, 1e-13), target)",
+        "import numpy as np\nalpha = np.array([0.01])\ndom = np.array([0.05])\ntp = np.array([0.2])\ntm = np.array([0.2])\ncounts = np.array([10])\nassert np.allclose(equilibrium_trait_deviation(10000.0, 0.5, alpha, dom, tp, tm, counts, 400, 1e-13), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-15.4",
+      "test_cases": [
+        "import numpy as np\nalpha = np.array([0.012, 0.008, 0.010])\ndom = np.array([0.0, 0.007, -0.008])\ntp = np.array([0.06, 0.1, 0.2])\ntm = np.array([0.4, 0.3, 0.2])\ncounts = np.array([60, 40, 20])\nassert np.allclose(neutral_variance_components(alpha, dom, tp, tm, counts), target)",
+        "import numpy as np\nalpha = np.array([0.01])\ndom = np.array([0.01])\ntp = np.array([0.25])\ntm = np.array([0.25])\ncounts = np.array([100])\nassert np.allclose(neutral_variance_components(alpha, dom, tp, tm, counts), target)",
+        "import numpy as np\nalpha = np.array([0.03, 0.005])\ndom = np.array([-0.02, 0.004])\ntp = np.array([0.01, 0.02])\ntm = np.array([0.05, 0.01])\ncounts = np.array([10, 200])\nassert np.allclose(neutral_variance_components(alpha, dom, tp, tm, counts), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-15.5",
+      "test_cases": [
+        "import numpy as np\nmup = np.array([3e-06, 5e-06, 1e-05])\nmum = np.array([2e-05, 1.5e-05, 1e-05])\nalpha = np.array([0.012, 0.008, 0.010])\ndom = np.array([0.0, 0.007, -0.008])\ncounts = np.array([60, 40, 20])\ngrid = 10.0 ** (np.arange(-4, 5) / 10.0)\nassert np.allclose(variance_ratio_curve(10000, mup, mum, alpha, dom, counts, 1.15, grid, 400, 1e-13), target)",
+        "import numpy as np\nmup = np.array([2e-05])\nmum = np.array([6e-05])\nalpha = np.array([0.02])\ndom = np.array([0.0])\ncounts = np.array([50])\ngrid = np.array([0.0, 0.05])\nassert np.allclose(variance_ratio_curve(2500, mup, mum, alpha, dom, counts, 1.1, grid, 400, 1e-13), target)",
+        "import numpy as np\nmup = np.array([1e-04, 5e-05])\nmum = np.array([2.5e-05, 5e-05])\nalpha = np.array([0.015, 0.01])\ndom = np.array([0.012, -0.009])\ncounts = np.array([30, 70])\ngrid = np.array([0.02, 0.2, 2.0, 20.0])\nassert np.allclose(variance_ratio_curve(1000, mup, mum, alpha, dom, counts, 0.7, grid, 400, 1e-13), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-15.6",
+      "test_cases": [
+        "import numpy as np\nmup = np.array([3e-06, 5e-06, 1e-05])\nmum = np.array([2e-05, 1.5e-05, 1e-05])\nalpha = np.array([0.012, 0.008, 0.010])\ndom = np.array([0.0, 0.007, -0.008])\ncounts = np.array([60, 40, 20])\nassert np.allclose(np.asarray(equilibrium_state_at_strength(10000, mup, mum, alpha, dom, counts, 1.15, 1.0, 400, 1e-13)) / np.array([0.005, 0.002, 0.08, 0.30000000000000004, 500.0]), target)",
+        "import numpy as np\nmup = np.array([2e-05])\nmum = np.array([6e-05])\nalpha = np.array([0.02])\ndom = np.array([0.004])\ncounts = np.array([50])\nassert np.allclose(np.asarray(equilibrium_state_at_strength(2500, mup, mum, alpha, dom, counts, 1.1, 0.002, 400, 1e-13)) / np.array([0.5, 0.004, 0.01, 0.30000000000000004, 100000.0]), target)",
+        "import numpy as np\nmup = np.array([1e-04, 5e-05])\nmum = np.array([2.5e-05, 5e-05])\nalpha = np.array([0.015, 0.01])\ndom = np.array([0.012, -0.009])\ncounts = np.array([30, 70])\nassert np.allclose(np.asarray(equilibrium_state_at_strength(1000, mup, mum, alpha, dom, counts, 0.7, 30.0, 400, 1e-13)) / np.array([0.001, 0.0004, 0.30000000000000004, 0.6000000000000001, 80.0]), target)",
+        "import numpy as np\nmup = np.array([3e-06, 5e-06, 1e-05])\nmum = np.array([2e-05, 1.5e-05, 1e-05])\nalpha = np.array([0.012, 0.008, 0.010])\ndom = np.array([0.0, 0.007, -0.008])\ncounts = np.array([60, 40, 20])\nassert np.allclose((equilibrium_state_at_strength(10000, mup, mum, alpha, dom, counts, 1.15, 1.0, 400, 1e-13))[0], target)",
+        "import numpy as np\nmup = np.array([2e-05])\nmum = np.array([6e-05])\nalpha = np.array([0.02])\ndom = np.array([0.004])\ncounts = np.array([50])\nassert np.allclose((equilibrium_state_at_strength(2500, mup, mum, alpha, dom, counts, 1.1, 0.002, 400, 1e-13))[0], target)",
+        "import numpy as np\nmup = np.array([1e-04, 5e-05])\nmum = np.array([2.5e-05, 5e-05])\nalpha = np.array([0.015, 0.01])\ndom = np.array([0.012, -0.009])\ncounts = np.array([30, 70])\nassert np.allclose((equilibrium_state_at_strength(1000, mup, mum, alpha, dom, counts, 0.7, 30.0, 400, 1e-13))[0], target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-15.7",
+      "test_cases": [
+        "import numpy as np\nmup = np.array([3e-06, 5e-06, 1e-05])\nmum = np.array([2e-05, 1.5e-05, 1e-05])\nalpha = np.array([0.012, 0.008, 0.010])\ndom = np.array([0.0, 0.007, -0.008])\ncounts = np.array([60, 40, 20])\ngrid = 10.0 ** (np.arange(-20, 11) / 10.0)\nassert np.allclose(relaxation_time_at_variance_crossing(10000, mup, mum, alpha, dom, counts, 1.15, grid, 400, 1e-13), target)",
+        "import numpy as np\nmup = np.array([3e-06, 5e-06, 1e-05])\nmum = np.array([2e-05, 1.5e-05, 1e-05])\nalpha = np.array([0.012, 0.008, 0.010])\ndom = np.array([0.0, 0.007, -0.008])\ncounts = np.array([60, 40, 20])\ngrid = 10.0 ** (np.arange(-4, 2) / 5.0)\nassert np.allclose(relaxation_time_at_variance_crossing(10000, mup, mum, alpha, dom, counts, 1.15, grid, 400, 1e-13), target)",
+        "import numpy as np\nmup = np.array([1e-04, 5e-05])\nmum = np.array([2.5e-05, 5e-05])\nalpha = np.array([0.015, 0.01])\ndom = np.array([0.012, -0.009])\ncounts = np.array([30, 70])\ngrid = np.array([0.01, 0.03, 0.1, 0.3, 1.0, 3.0, 10.0, 30.0])\nassert np.allclose(relaxation_time_at_variance_crossing(1000, mup, mum, alpha, dom, counts, 0.7, grid, 400, 1e-13), target)"
+      ]
+    }
+  ]
+}

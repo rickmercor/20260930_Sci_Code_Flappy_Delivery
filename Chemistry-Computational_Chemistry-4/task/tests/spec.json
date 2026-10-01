@@ -1,0 +1,61 @@
+{
+  "problem_id": "Chemistry-Computational_Chemistry-4",
+  "sub_steps": [
+    {
+      "step_number": "Chemistry-Computational_Chemistry-4.1",
+      "test_cases": [
+        "import numpy as np\nenergies = np.array([0.0, -3.0])\nassert np.allclose(glauber_transition_matrix(energies), target)",
+        "import numpy as np\nenergies = np.array([0.0, 25.0, -25.0])\nassert np.allclose(glauber_transition_matrix(energies), target)",
+        "import numpy as np\nenergies = np.array([1.5, 1.5, 1.5, 1.5])\nassert np.allclose(glauber_transition_matrix(energies), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-4.2",
+      "test_cases": [
+        "import numpy as np\nH = np.array([[0.0,0.0,0.0,0.0],[-8.0,-5.0,-2.0,8.0]])\nassert np.allclose(work_increments(H), target)",
+        "import numpy as np\nH = np.array([[0.0,0.0],[-8.0,8.0]])\nassert np.allclose(work_increments(H), target)",
+        "import numpy as np\nH = np.array([[1.0,1.0,1.0],[2.0,2.0,2.0],[3.0,3.0,3.0]])\nassert np.allclose(work_increments(H), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-4.3",
+      "test_cases": [
+        "import numpy as np\nenergies_here = np.array([0.0, -8.0])\nenergies_ahead = np.array([0.0, -5.4])\nalpha = 2.0\nassert np.allclose(tilted_transition_matrix(energies_here, energies_ahead, alpha), target)",
+        "import numpy as np\nenergies_here = np.array([0.0, 3.0, -2.0])\nenergies_ahead = np.array([0.0, 1.0, -1.0])\nalpha = 0.0\nassert np.allclose(tilted_transition_matrix(energies_here, energies_ahead, alpha), target)",
+        "import numpy as np\nenergies_here = np.array([0.0, -8.0])\nenergies_ahead = np.array([0.0, 8.0])\nalpha = -2.0\nassert np.allclose(tilted_transition_matrix(energies_here, energies_ahead, alpha), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-4.4",
+      "test_cases": [
+        "import numpy as np\nH = np.array([\n    [0.0, 0.0, 0.0, 0.0, 0.0],\n    [-8.0, -5.0, -2.0, 3.0, 8.0],\n])\nalpha = 2.0\nassert np.allclose(exponential_work_average(H, alpha), target)",
+        "import numpy as np\nH = np.array([[0.0, 0.0], [-8.0, 8.0]])\nalpha = 1.0\nassert np.allclose(exponential_work_average(H, alpha), target)",
+        "import numpy as np\nH = np.array([\n    [0.0, 1.0, -1.0, 0.0],\n    [2.0, 0.5, -0.5, -2.0],\n    [4.0, 2.0, 1.0, -4.0],\n])\nalpha = 0.0\nassert np.allclose(exponential_work_average(H, alpha), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-4.5",
+      "test_cases": [
+        "Ei = -8.0\nEf = 8.0\nN = 10\nalpha = 2.0\nassert np.allclose(linear_interpolation_mse(Ei, Ef, N, alpha), target)",
+        "Ei = -3.0\nEf = 3.0\nN = 1\nalpha = 2.0\nassert np.allclose(linear_interpolation_mse(Ei, Ef, N, alpha), target)",
+        "Ei = 3.0\nEf = 3.0\nN = 6\nalpha = 2.0\nassert np.allclose(linear_interpolation_mse(Ei, Ef, N, alpha), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-4.6",
+      "test_cases": [
+        "Ei = -8.0\nEf = 8.0\nN = 10\nalpha = 2.0\nn_restarts = 30\nseed = 0\nassert np.allclose(optimal_intermediate_energies(Ei, Ef, N, alpha, n_restarts, seed), target)",
+        "Ei = -2.0\nEf = 2.0\nN = 1\nalpha = 2.0\nn_restarts = 5\nseed = 1\nassert np.allclose(optimal_intermediate_energies(Ei, Ef, N, alpha, n_restarts, seed), target)",
+        "Ei = 0.0\nEf = 0.0\nN = 5\nalpha = 2.0\nn_restarts = 5\nseed = 2\nassert np.allclose(optimal_intermediate_energies(Ei, Ef, N, alpha, n_restarts, seed), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-4.7",
+      "test_cases": [
+        "Ei = -8.0\nEf = 8.0\nN = 10\nalpha = 2.0\nn_restarts = 30\nseed = 0\nassert np.allclose(orchestrator(Ei, Ef, N, alpha, n_restarts, seed), target)",
+        "Ei = -2.0\nEf = 2.0\nN = 1\nalpha = 2.0\nn_restarts = 5\nseed = 1\nassert np.allclose(orchestrator(Ei, Ef, N, alpha, n_restarts, seed), target)",
+        "Ei = 0.0\nEf = 0.0\nN = 5\nalpha = 2.0\nn_restarts = 5\nseed = 2\nassert np.allclose(orchestrator(Ei, Ef, N, alpha, n_restarts, seed), target)"
+      ]
+    }
+  ]
+}

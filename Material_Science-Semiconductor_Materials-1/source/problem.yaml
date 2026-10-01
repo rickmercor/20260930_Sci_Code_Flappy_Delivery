@@ -1,0 +1,40 @@
+problem_id: "Material_Science-Semiconductor_Materials-1"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1063/5.0325353"
+dependencies: ""
+steps:
+  - number: 1
+    name: "Sheet carrier density from room-temperature transport"
+    description: "Recover the areal density of a two-dimensional electron gas from a non-contact transport measurement.\n\nAn as-grown heterostructure is characterised without any processing by an eddy-current measurement that\nreturns the sheet resistance together with the room-temperature Hall mobility. For a single carrier\nspecies the sheet conductance is the product of the carrier charge, the areal density and the mobility."
+    orchestrator: false
+  - number: 2
+    name: "Total polarization of a layer grown coherently on relaxed GaN"
+    description: "Total polarization of a group-III nitride layer grown coherently on a thick relaxed GaN buffer.\n\nThe layer is forced to the in-plane lattice constant of the buffer while its own free-standing constant\nfollows the composition, so its in-plane strain is (a_GaN - a(x)) / a(x), measured against the layer's own\nlattice constant a(x). Its polarization along the c axis has two parts: the spontaneous polarization the\nmaterial carries unstrained, and the part the strain induces. The layer has a free top surface, so it\ncarries no stress along the c axis. Every alloy constant is linear in Al fraction between the binary\nendpoints. The buffer itself is the relaxed binary, so passing it in at zero Al fraction returns its\nspontaneous value alone."
+    orchestrator: false
+  - number: 3
+    name: "Pinch-off threshold voltage with the bound sheets displaced"
+    description: "Pinch-off threshold voltage of a gated AlGaN/GaN barrier when the two bound polarization sheets at the\nheterointerface are displaced by a separation delta, symmetrically about the interface.\n\nWith the channel empty, walking the conduction band from the gate metal to the neutral buffer gives the\nthreshold voltage of the displaced-sheet model,\n\n    V_th = phi_B - dE_C + |P_sp,GaN| (delta / 2) (1 / eps_b + 1 / eps_GaN) - sigma (d_B - delta) / eps_b,\n\nwith all terms in volts. phi_B is the metal barrier height, dE_C the conduction band offset in eV (it\nenters directly in volts), |P_sp,GaN| the spontaneous polarization magnitude of the relaxed GaN buffer,\nsigma the net bound interface charge (total polarization of the strained barrier minus |P_sp,GaN|), d_B the\nbarrier thickness, eps_b the absolute permittivity of the barrier (relative permittivity linear in Al\nfraction) and eps_GaN that of the buffer. The third term is the potential step across the thin slab\nbetween the two displaced sheets; the fourth is the field of the net bound charge over the reduced span\nd_B - delta. Setting delta to zero recovers the coincident-sheet result."
+    orchestrator: false
+  - number: 4
+    name: "Self-consistent Fermi level of the channel"
+    description: "Fermi level of the two-dimensional electron gas relative to the conduction band edge at the interface,\nfor a given sheet density, from a self-consistent Schrodinger-Poisson solution of the GaN channel.\n\nThe channel is the GaN side of the heterointerface, z >= 0, with the interface treated as an impenetrable\nwall. Electrons of effective mass m* move in a conduction band that their own charge bends; the field at\nthe interface is tied to the electron sheet by Gauss's law and vanishes deep in the buffer, so no barrier\nquantity enters. At zero temperature every subband below the Fermi level is occupied with the\ntwo-dimensional density of states m* / (pi hbar^2), and the total density fixes E_F.\n\nThe object is defined on a uniform grid z_j = j h, j = 0 .. M-1, spanning a box of length L, h = L/(M-1).\nThe envelope functions vanish at both ends of the box, the kinetic operator is the second-order central\ndifference, and each envelope is normalised so that h * sum_j |psi_i(z_j)|^2 = 1. The electron density is\nn(z_j) = sum_i N_i |psi_i(z_j)|^2 with N_i = (m* / (pi hbar^2)) (E_F - E_i) over the occupied subbands, and\nthe field and band edge follow from plain sums, F_j = (q / eps_GaN) h sum_(k >= j) n(z_k) and\nE_C(z_j) - E_C(0) = q h sum_(k < j) F_k. The lowest four levels are computed, which covers every density\nin this task. Schrodinger and Poisson are iterated to self-consistency; the converged Fermi level does not\ndepend on the mixing scheme and is reproducible to better than 1e-8 eV. At zero density the Fermi level\nis placed at the ground level of the empty box."
+    orchestrator: false
+  - number: 5
+    name: "Self-consistent zero-bias sheet density"
+    description: "Sheet density of the two-dimensional electron gas at zero gate bias, solved self-consistently for the\ndisplaced-sheet barrier.\n\nAt zero bias the channel holds the charge that the barrier, acting as a capacitor over its whole thickness\nd_B, supports against the gate overdrive -V_th, reduced by the Fermi level the electrons themselves occupy.\nThe free charges, on the metal at the surface and in the channel at the interface, do not move with the\nbound sheets, so the displacement enters only through V_th:\n\n    n_s = eps_b ( -V_th - E_F(n_s) ) / ( q d_B ),\n\nwith V_th the displaced-sheet threshold voltage and E_F(n_s) the self-consistent Schrodinger-Poisson\nFermi level of the channel in volts, from the Fermi-level step at its default grid. Because E_F grows with\nn_s, this is a fixed-point equation with a single root, to be solved numerically. When -V_th does not\nexceed the Fermi level of the empty channel, E_F(0), the channel is empty and the density is zero."
+    orchestrator: false
+  - number: 6
+    name: "Fit of the sheet separation to a set of as-grown structures"
+    description: "Fit the sheet separation of the displaced-sheet model to a set of as-grown structures.\n\nGiven several heterostructures of known Al fraction and barrier thickness with measured zero-bias sheet\ndensities, and a common metal barrier height, find the single sheet separation delta that minimises the\nsum over structures of the squared relative residual\n\n    sum_i ( n_model,i(delta) / n_meas,i - 1 )^2,\n\nwhere n_model,i is the self-consistent sheet density of structure i. The search runs over\n0 <= delta <= 1.5 nm, where the cost has one minimum; return that minimiser converged to at least\n1e-15 m."
+    orchestrator: false
+  - number: 7
+    name: "Barrier height required to reproduce a measured density"
+    description: "Metal barrier height that the displaced-sheet model, with a given sheet separation, requires in order to\nreproduce a measured zero-bias sheet density.\n\nThe self-consistent sheet density falls monotonically as the barrier height rises, so the barrier height\nthat reproduces a measured density is the single root of n_model(phi_B) = n_meas. Search over\n0.1 V <= phi_B <= 5.0 V and return the root converged to at least 1e-12 V."
+    orchestrator: false
+  - number: 8
+    name: "End-to-end barrier height of the as-grown wafer after fitting"
+    description: "End-to-end pipeline: fit the displaced-sheet model to a set of as-grown structures and report the barrier\nheight it then requires for a separately characterised as-grown sample.\n\nChain the earlier steps. Recover the sample's sheet density from its transport pair; fit the common sheet\nseparation to the structure set at the literature barrier height; then find the barrier height at which\nthe fitted, self-consistent displaced-sheet model reproduces the sample's measured density."
+    orchestrator: true

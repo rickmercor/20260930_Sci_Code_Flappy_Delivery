@@ -1,0 +1,48 @@
+problem_id: "Chemistry-Quantum_Chemistry-53"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1088/2516-1075/ae8066"
+dependencies: ""
+steps:
+  - number: 1
+    name: "ring_one_body"
+    description: "The model is a ring of L localized orbitals (lattice sites) with nearest-neighbour hopping of amplitude t and periodic boundary conditions, so that site L-1 is bonded to site 0."
+    orchestrator: false
+  - number: 2
+    name: "gks_density_matrix"
+    description: "The full-size reference system of the embedding is a generalized Kohn-Sham (gKS) determinant: a single closed-shell Slater determinant that is the ground state of    h_gKS = h + v_Hx[gamma] + sum_i v_c[i] n_i,  where h is the one-electron matrix of the ring, v_Hx[gamma] is the Hartree-Fock (100 percent exact exchange) potential built from the reference one-electron reduced density matrix gamma itself, and v_c is a local (site diagonal) correlation potential that is an external input of this step (it is optimized in a later step)."
+    orchestrator: false
+  - number: 3
+    name: "bath_orbital"
+    description: "In single-orbital density matrix embedding, every localized orbital chi_i (site i) is embedded in turn into a quantum bath made of one delocalized orbital b^(i)."
+    orchestrator: false
+  - number: 4
+    name: "cluster_hamiltonian"
+    description: "In the interacting-bath formulation of density matrix embedding, the cluster Hamiltonian of the embedded site i is the exact projection of the full Hamiltonian H onto the space spanned by the determinants    |Phi_core Phi_alpha>,  where Phi_core is the product of the occupied reference (gKS) orbitals that have no overlap with the impurity (they are also orthogonal to the bath, because the impurity plus bath space is invariant under gamma), and Phi_alpha runs over all determinants that distribute two electrons among the impurity orbital I = chi_i and the bath orbital B = b^(i)."
+    orchestrator: false
+  - number: 5
+    name: "impurity_chemical_potential"
+    description: "Projecting the Hamiltonian onto an embedding cluster is exact only for a non-interacting or Hartree-Fock state."
+    orchestrator: false
+  - number: 6
+    name: "cluster_site_density"
+    description: "The embedding cluster of site i is described by the Hamiltonian    H^(i) = P^(i) H P^(i) - mu_imp^(i) n_I,  where the first term is the projected cluster Hamiltonian of the previous steps (a 4 x 4 matrix in the S_z = 0 basis |I up, I down>, |I up, B down>, |B up, I down>, |B up, B down>) and n_I = n_{I up} + n_{I down} counts the electrons on the impurity orbital."
+    orchestrator: false
+  - number: 7
+    name: "density_mismatch"
+    description: "The self-consistency condition of gLPFET is a set of local density constraints: for every site i, the occupation of site i in the gKS reference determinant must equal the correlated occupation of that site in its own embedding cluster,    <n_i>_gKS = <n_i>_H^(i)   for all i,  both being spin-summed densities (n_i^gKS = 2 gamma_ii)."
+    orchestrator: false
+  - number: 8
+    name: "solve_correlation_potential"
+    description: "The outer loop of gLPFET determines the local correlation potential v_c from the local density constraints: the L unknowns v_c[0..L-1] are fixed by the L equations    n_i^cl(v_c) - n_i^gKS(v_c) = 0,   i = 0..L-1."
+    orchestrator: false
+  - number: 9
+    name: "hubbard_fci_reference"
+    description: "Construct the exact closed-shell FCI benchmark and return its energy, full spin-summed one-particle density matrix, site-resolved double occupations, and exact static density-response matrix."
+    orchestrator: false
+  - number: 10
+    name: "glpfet_impurity_potential"
+    description: "Run the complete gLPFET workflow, validate the exact reduced-density and static-response FCI reference, and return the converged impurity chemical potential of the requested site."
+    orchestrator: true

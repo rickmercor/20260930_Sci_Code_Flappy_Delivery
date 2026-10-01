@@ -1,0 +1,40 @@
+problem_id: "Chemistry-Quantum_Chemistry-73"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1021/acs.jpca.6c01739"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_polarized_exchange_per_electron"
+    description: "Step 01: Exchange energy per electron of the spin-polarized soft-Coulomb uniform gas."
+    orchestrator: false
+  - number: 2
+    name: "02_polarized_exchange_potential"
+    description: "Step 02: Local exchange potential of one spin channel."
+    orchestrator: false
+  - number: 3
+    name: "03_soft_coulomb_states"
+    description: "Step 03: Lowest eigenstates of soft-Coulomb protons on a finite-difference grid."
+    orchestrator: false
+  - number: 4
+    name: "04_hartree_exchange_energy"
+    description: "Step 04: Hartree plus local spin-density exchange energy on a grid."
+    orchestrator: false
+  - number: 5
+    name: "05_lsda_ground_state_energy"
+    description: "Step 05: Lowest self-consistent LSDA energy of a one-electron system."
+    orchestrator: false
+  - number: 6
+    name: "06_maximally_localized_orbital"
+    description: "Step 06: Maximally left-localized orbital in a two-state span."
+    orchestrator: false
+  - number: 7
+    name: "07_dissociation_errors"
+    description: "Step 07: Binding-energy errors of SCF and density-corrected LSDA for H2+."
+    orchestrator: false
+  - number: 8
+    name: "08_crossover_separation"
+    description: "Step 08: Crossover separation of localized density correction and SCF LSDA (orchestrator)."
+    orchestrator: true

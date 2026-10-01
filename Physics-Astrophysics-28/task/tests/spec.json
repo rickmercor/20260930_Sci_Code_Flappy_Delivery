@@ -1,0 +1,82 @@
+{
+  "problem_id": "Physics-Astrophysics-28",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Astrophysics-28.1",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(pn_hamiltonian(\n    np.array([0.0, 0.18]),\n    np.array([25.34, 0.0]),\n    0.1708984375,\n    0.6309573444801932,\n)\n, target)",
+        "import numpy as np\nassert np.allclose(pn_hamiltonian(\n    np.array([0.1, 0.2]),\n    np.array([3.0, 4.0]),\n    0.25,\n    0.0,\n)\n, target)",
+        "import numpy as np\nassert np.allclose(pn_hamiltonian(\n    np.array([0.05, 0.21, -0.03]),\n    np.array([8.0, -3.0, 1.5]),\n    0.2,\n    0.3,\n)\n, target)",
+        "import numpy as np\n\ndef run_model():\n    try:\n        pn_hamiltonian(\n            np.array([0.0, 0.18]),\n            np.array([0.0, 0.0]),\n            0.1708984375,\n            0.6309573444801932,\n        )\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model()\n, target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-28.2",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(pn_perturbation_gradients(\n    np.array([0.0, 0.18]),\n    np.array([25.34, 0.0]),\n    0.1708984375,\n    0.6309573444801932,\n)\n, target)",
+        "import numpy as np\nassert np.allclose(pn_perturbation_gradients(\n    np.array([0.03, 0.18]),\n    np.array([25.34, 3.1]),\n    0.1708984375,\n    0.0,\n)\n, target)",
+        "import numpy as np\nassert np.allclose(pn_perturbation_gradients(\n    np.array([0.05, 0.21, -0.03]),\n    np.array([8.0, -3.0, 1.5]),\n    0.25,\n    0.3,\n)\n, target)",
+        "import numpy as np\n\ndef run_model():\n    try:\n        pn_perturbation_gradients(\n            np.array([0.0, 0.18]),\n            np.array([25.34, 0.0]),\n            0.3,\n            0.1,\n        )\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model()\n, target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-28.3",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(kepler_flow(\n    np.array([0.0, 0.18]),\n    np.array([25.34, 0.0]),\n    1.3512071919596578,\n)\n, target)",
+        "import numpy as np\nassert np.allclose(kepler_flow(\n    np.array([0.0, 0.18]),\n    np.array([25.34, 0.0]),\n    0.0,\n)\n, target)",
+        "import numpy as np\nassert np.allclose(kepler_flow(\n    np.array([0.03, 0.18]),\n    np.array([25.34, 3.1]),\n    -35.0,\n)\n, target)",
+        "import numpy as np\nassert np.allclose(kepler_flow(\n    np.array([0.1, 0.5, 0.05]),\n    np.array([4.0, 0.0, 0.5]),\n    12.0,\n)\n, target)",
+        "import numpy as np\nassert np.allclose(kepler_flow(\n    np.array([2.0, 0.5]),\n    np.array([1.0, 0.0]),\n    200.0,\n)\n, target)",
+        "import numpy as np\nassert np.allclose(kepler_flow(\n    np.array([2.0, 0.5]),\n    np.array([1.0, 0.0]),\n    1000.0,\n)\n, target)",
+        "import numpy as np\nassert np.allclose(kepler_flow(\n    np.array([1.5, 0.3, 0.4]),\n    np.array([1.0, 0.5, -0.2]),\n    -120.0,\n)\n, target)",
+        "import numpy as np\n\ndef run_model():\n    try:\n        kepler_flow(\n            np.array([0.0, 0.18]),\n            np.array([0.0, 0.0]),\n            1.0,\n        )\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model()\n, target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-28.4",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(doubled_flow_A(\n    np.array(\n        [\n            0.0,\n            0.18,\n            25.34,\n            0.0,\n            0.001,\n            0.179,\n            25.3,\n            0.05,\n        ],\n    ),\n    1.0758461279590061,\n    np.array(\n        [\n            -1.2084446551113163e-05,\n            0.0,\n            0.0,\n            -0.0226974034122999,\n        ],\n    ),\n)\n, target)",
+        "import numpy as np\nassert np.allclose(doubled_flow_A(\n    np.array([0.1, 0.2, 3.0, 4.0, 0.11, 0.19, 3.1, 3.9]),\n    0.0,\n    np.array([1.0, 2.0, 3.0, 4.0]),\n)\n, target)",
+        "import numpy as np\nassert np.allclose(doubled_flow_A(\n    np.linspace(-1.0, 1.0, 12),\n    -1.3554304,\n    np.array([0.1, -0.2, 0.3, -0.4, 0.5, -0.6]),\n)\n, target)",
+        "import numpy as np\n\ndef run_model():\n    try:\n        doubled_flow_A(np.arange(8.0), 0.5, np.ones(6))\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model()\n, target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-28.5",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(doubled_flow_B(\n    np.array(\n        [\n            0.0,\n            0.18,\n            25.34,\n            0.0,\n            0.001,\n            0.179,\n            25.3,\n            0.05,\n        ],\n    ),\n    0.5379230639795031,\n    np.array(\n        [\n            -1.2084446551113163e-05,\n            0.0,\n            0.0,\n            -0.0226974034122999,\n        ],\n    ),\n)\n, target)",
+        "import numpy as np\nassert np.allclose(doubled_flow_B(\n    np.array([0.1, 0.2, 3.0, 4.0, 0.11, 0.19, 3.1, 3.9]),\n    0.0,\n    np.array([1.0, 2.0, 3.0, 4.0]),\n)\n, target)",
+        "import numpy as np\nassert np.allclose(doubled_flow_B(\n    np.linspace(-1.0, 1.0, 12),\n    -0.6777152,\n    np.array([0.1, -0.2, 0.3, -0.4, 0.5, -0.6]),\n)\n, target)",
+        "import numpy as np\n\ndef run_model():\n    try:\n        doubled_flow_B(np.arange(10.0), 0.5, np.ones(5))\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model()\n, target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-28.6",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(doubled_projection(\n    np.array(\n        [\n            0.01,\n            0.18,\n            25.3,\n            0.4,\n            0.012,\n            0.181,\n            25.31,\n            0.41,\n        ],\n    ),\n    1,\n    (1.0 / np.e),\n    (1.0 / np.pi),\n)\n, target)",
+        "import numpy as np\nassert np.allclose(doubled_projection(\n    np.array(\n        [\n            0.01,\n            0.18,\n            25.3,\n            0.4,\n            0.012,\n            0.181,\n            25.31,\n            0.41,\n        ],\n    ),\n    2,\n    (1.0 / np.e),\n    (1.0 / np.pi),\n)\n, target)",
+        "import numpy as np\nassert np.allclose(doubled_projection(\n    np.linspace(-1.0, 1.0, 12),\n    7,\n    0.5,\n    0.5,\n)\n, target)",
+        "import numpy as np\n\ndef run_model():\n    try:\n        doubled_projection(np.arange(8.0), 1, 1.2, 0.3)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model()\n, target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-28.7",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(ds4_schedule(2.0, 0.6309573444801932)\n, target)",
+        "import numpy as np\nassert np.allclose(ds4_schedule(2.0, 0.0)\n, target)",
+        "import numpy as np\nassert np.allclose(ds4_schedule(0.5, 0.1)\n, target)",
+        "import numpy as np\n\ndef run_model():\n    try:\n        ds4_schedule(-1.0, 0.1)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model()\n, target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-28.8",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(np.log(\n    run_ds4_pn_energy_error(\n        0.28,\n        0.6309573444801932,\n        np.array([0.0, 0.18]),\n        np.array([25.34, 0.0]),\n        2.0,\n        500,\n        (1.0 / np.e),\n        (1.0 / np.pi),\n    ),\n)\n, target)",
+        "import numpy as np\nassert np.allclose(np.log(\n    run_ds4_pn_energy_error(\n        0.28,\n        0.1,\n        np.array([0.0, 0.18]),\n        np.array([25.34, 0.0]),\n        4.0,\n        250,\n        (1.0 / np.e),\n        (1.0 / np.pi),\n    ),\n)\n, target)",
+        "import numpy as np\nassert np.allclose(run_ds4_pn_energy_error(\n    0.28,\n    0.0,\n    np.array([0.0, 0.18]),\n    np.array([25.34, 0.0]),\n    2.0,\n    100,\n    (1.0 / np.e),\n    (1.0 / np.pi),\n)\n, target)",
+        "import numpy as np\nassert np.allclose(np.log(\n    run_ds4_pn_energy_error(\n        1.0,\n        0.1,\n        np.array([0.02, 0.2, 0.03]),\n        np.array([20.0, 0.0, 1.0]),\n        4.0,\n        100,\n        (1.0 / np.e),\n        (1.0 / np.pi),\n    ),\n)\n, target)",
+        "import numpy as np\n\ndef run_model():\n    try:\n        run_ds4_pn_energy_error(\n            0.28,\n            0.6309573444801932,\n            np.array([0.0, 0.18]),\n            np.array([25.34, 0.0]),\n            2.0,\n            0,\n            (1.0 / np.e),\n            (1.0 / np.pi),\n        )\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model()\n, target)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+problem_id: "Biology-Genetics-45"
+subject: "biology"
+subject_area: "Genetics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1016/j.xgen.2025.101072"
+dependencies: ""
+steps:
+  - number: 1
+    name: "arg_carrier_genotypes"
+    description: "Sweep an ancestral recombination graph from left to right and return, for the\n\nmutations it carries, the diploid genotype matrix together with the genomic\n\nextent over which each carrying clade persists."
+    orchestrator: false
+  - number: 2
+    name: "standardize_arg_genotypes"
+    description: "Filter the mutations on minor allele count and return the centred,\n\nfrequency-scaled genotype matrix used to build the relatedness matrix."
+    orchestrator: false
+  - number: 3
+    name: "build_arg_grm"
+    description: "Form the regional genetic relatedness matrix from the scaled genotype matrix and\n\nreturn it together with its scaling factor."
+    orchestrator: false
+  - number: 4
+    name: "hutchinson_trace_squared"
+    description: "Estimate the trace of the squared relatedness matrix stochastically."
+    orchestrator: false
+  - number: 5
+    name: "rhe_variance_component"
+    description: "Standardise the phenotype and return the two variance components the moment\n\nsystem assigns to the region and to the residual."
+    orchestrator: false
+  - number: 6
+    name: "loco_covariance_product"
+    description: "Return the action of the leave-one-chromosome-out phenotypic covariance on a set\n\nof vectors, without forming that covariance."
+    orchestrator: false
+  - number: 7
+    name: "conjugate_gradient_solve"
+    description: "Solve the leave-one-chromosome-out system against the standardised phenotype and\n\nreturn the solution together with the number of iterations spent on it."
+    orchestrator: false
+  - number: 8
+    name: "blup_residual_phenotype"
+    description: "Return the phenotype left over once the polygenic prediction from the retained\n\nchromosomes has been subtracted."
+    orchestrator: false
+  - number: 9
+    name: "grammar_gamma_statistic"
+    description: "Return the score statistic of one variant against the residual phenotype."
+    orchestrator: false
+  - number: 10
+    name: "run_full_pipeline"
+    description: "Run the full ancestral recombination graph mixed model scan and return the score\n\nstatistic reported for the variant under test."
+    orchestrator: true

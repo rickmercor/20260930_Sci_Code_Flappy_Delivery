@@ -1,0 +1,69 @@
+{
+  "problem_id": "Mathematics-Numerical_Linear_Algebra-34",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-34.1",
+      "test_cases": [
+        "import numpy as np\nexponents = np.array([[8, 0, 0], [0, 4, 0], [0, 0, 2], [4, 2, 0]])\nassert np.allclose(identify_scaling_structure(exponents), target)",
+        "import numpy as np\nexponents = np.array([[4, 0], [0, 4], [2, 2]])\nassert np.allclose(identify_scaling_structure(exponents), target)",
+        "import numpy as np\nexponents = np.array([[9, 0, 0], [0, 6, 0], [0, 0, 3], [3, 4, 0]])\nassert np.allclose(identify_scaling_structure(exponents), target)",
+        "import numpy as np\nexponents = np.array([[12, 0, 0, 0], [0, 6, 0, 0], [0, 0, 4, 0], [0, 0, 0, 3], [6, 3, 0, 0]])\nassert np.allclose(identify_scaling_structure(exponents), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-34.2",
+      "test_cases": [
+        "import numpy as np\ncoeffs = np.array([2.0, 2.0, 2.0, -2.0])\nexponents = np.array([[8, 0, 0], [0, 4, 0], [0, 0, 2], [4, 2, 0]])\nassert np.allclose(compute_certified_maximum(coeffs, exponents), target)",
+        "import numpy as np\ncoeffs = np.array([1.0, 1.0])\nexponents = np.array([[4, 0], [0, 2]])\nassert np.allclose(compute_certified_maximum(coeffs, exponents), target)",
+        "import numpy as np\ncoeffs = np.array([1.0])\nexponents = np.array([[4, 0]])\nassert np.allclose(compute_certified_maximum(coeffs, exponents), target)",
+        "import numpy as np\ncoeffs = np.array([5.0, -7.0, 3.0, -2.0])\nexponents = np.array([[8, 0, 0], [0, 4, 0], [0, 0, 2], [4, 2, 0]])\nassert np.allclose(compute_certified_maximum(coeffs, exponents), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-34.3",
+      "test_cases": [
+        "import numpy as np\ncoeffs = np.array([2.0, 2.0, 2.0, -2.0])\nexponents = np.array([[8, 0, 0], [0, 4, 0], [0, 0, 2], [4, 2, 0]])\nK = 6\nassert np.allclose(compute_box_moments(coeffs, exponents, K), target)",
+        "import numpy as np\ncoeffs = np.array([1.0, 1.0])\nexponents = np.array([[4, 0], [0, 2]])\nK = 5\nassert np.allclose(compute_box_moments(coeffs, exponents, K), target)",
+        "import numpy as np\ncoeffs = np.array([1.0, 1.0, 1.0, -1.0])\nexponents = np.array([[6, 0, 0], [0, 3, 0], [0, 0, 2], [3, 1, 0]])\nK = 4\nassert np.allclose(compute_box_moments(coeffs, exponents, K), target)",
+        "import numpy as np\ncoeffs = np.array([2.0, 2.0, 2.0, -2.0])\nexponents = np.array([[8, 0, 0], [0, 4, 0], [0, 0, 2], [4, 2, 0]])\nK = 14\nassert np.allclose(compute_box_moments(coeffs, exponents, K), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-34.4",
+      "test_cases": [
+        "import numpy as np\nweights = np.array([1, 2, 4])\nm = 8\nK = 6\nassert np.allclose(compute_reference_moments(weights, m, K), target)",
+        "import numpy as np\nweights = np.array([1, 1])\nm = 4\nK = 5\nassert np.allclose(compute_reference_moments(weights, m, K), target)",
+        "import numpy as np\nweights = np.array([2, 2, 3])\nm = 6\nK = 5\nassert np.allclose(compute_reference_moments(weights, m, K), target)",
+        "import numpy as np\nweights = np.array([1, 2, 4])\nm = 8\nK = 14\nassert np.allclose(compute_reference_moments(weights, m, K), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-34.5",
+      "test_cases": [
+        "import numpy as np\nfrom fractions import Fraction\ncoef = [Fraction(2), Fraction(2), Fraction(2), Fraction(-2)]\nexpo = [(8, 0, 0), (0, 4, 0), (0, 0, 2), (4, 2, 0)]\npoly = {}\nfor c, e in zip(coef, expo):\n    poly[e] = poly.get(e, Fraction(0)) + c\ncur = {(0, 0, 0): Fraction(1)}\nys = []\nfor _ in range(15):\n    t = Fraction(0)\n    for a, c in cur.items():\n        if any(v % 2 for v in a):\n            continue\n        w = c\n        for v in a:\n            w /= (v + 1)\n        t += w\n    ys.append(float(t))\n    nxt = {}\n    for a, ca in cur.items():\n        for b, cb in poly.items():\n            k2 = tuple(p + q for p, q in zip(a, b))\n            nxt[k2] = nxt.get(k2, Fraction(0)) + ca * cb\n    cur = nxt\ny = np.array(ys)\nz = np.array([float(Fraction(7, 7 + 8 * k)) for k in range(15)])\nn = 3\nassert np.allclose(compute_upper_bound(y, z, n), target)",
+        "import numpy as np\nfrom fractions import Fraction\ny = np.array([1.0, 52.0 / 45.0, 410288.0 / 208845.0, 45964096.0 / 11486475.0, 64170635008.0 / 6995263275.0, 4627392439985152.0 / 201624473375325.0, 5664835468095488.0 / 92204876128365.0])\nz = np.array([float(Fraction(7, 7 + 8 * k)) for k in range(7)])\nn = 3\nassert np.allclose(compute_upper_bound(y, z, n), target)",
+        "import numpy as np\nfrom fractions import Fraction\ny = np.array([1.0, 52.0 / 45.0, 410288.0 / 208845.0, 45964096.0 / 11486475.0, 64170635008.0 / 6995263275.0, 4627392439985152.0 / 201624473375325.0])\nz = np.array([float(Fraction(7, 7 + 8 * k)) for k in range(6)])\nn = 3\nassert np.allclose(compute_upper_bound(y, z, n), target)",
+        "import numpy as np\ny = np.array([1.0])\nz = np.array([1.0])\nn = 3\nassert np.allclose(compute_upper_bound(y, z, n), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-34.6",
+      "test_cases": [
+        "import numpy as np\nfrom fractions import Fraction\ncoef = [Fraction(2), Fraction(2), Fraction(2), Fraction(-2)]\nexpo = [(8, 0, 0), (0, 4, 0), (0, 0, 2), (4, 2, 0)]\npoly = {}\nfor c, e in zip(coef, expo):\n    poly[e] = poly.get(e, Fraction(0)) + c\ncur = {(0, 0, 0): Fraction(1)}\nys = []\nfor _ in range(15):\n    t = Fraction(0)\n    for a, c in cur.items():\n        if any(v % 2 for v in a):\n            continue\n        w = c\n        for v in a:\n            w /= (v + 1)\n        t += w\n    ys.append(float(t))\n    nxt = {}\n    for a, ca in cur.items():\n        for b, cb in poly.items():\n            k2 = tuple(p + q for p, q in zip(a, b))\n            nxt[k2] = nxt.get(k2, Fraction(0)) + ca * cb\n    cur = nxt\ny = np.array(ys)\nz = np.array([float(Fraction(7, 7 + 8 * k)) for k in range(15)])\ngbar = 8.0\nn = 3\nassert np.allclose(compute_lower_bound(y, z, gbar, n), target)",
+        "import numpy as np\nfrom fractions import Fraction\ncoef = [Fraction(2), Fraction(2), Fraction(2), Fraction(-2)]\nexpo = [(8, 0, 0), (0, 4, 0), (0, 0, 2), (4, 2, 0)]\npoly = {}\nfor c, e in zip(coef, expo):\n    poly[e] = poly.get(e, Fraction(0)) + c\ncur = {(0, 0, 0): Fraction(1)}\nys = []\nfor _ in range(15):\n    t = Fraction(0)\n    for a, c in cur.items():\n        if any(v % 2 for v in a):\n            continue\n        w = c\n        for v in a:\n            w /= (v + 1)\n        t += w\n    ys.append(float(t))\n    nxt = {}\n    for a, ca in cur.items():\n        for b, cb in poly.items():\n            k2 = tuple(p + q for p, q in zip(a, b))\n            nxt[k2] = nxt.get(k2, Fraction(0)) + ca * cb\n    cur = nxt\ny = np.array(ys)\nz = np.array([float(Fraction(7, 7 + 8 * k)) for k in range(15)])\ngbar = 4.0\nn = 3\nassert np.allclose(compute_lower_bound(y, z, gbar, n), target)",
+        "import numpy as np\nfrom fractions import Fraction\ny = np.array([1.0, 52.0 / 45.0, 410288.0 / 208845.0])\nz = np.array([float(Fraction(7, 7 + 8 * k)) for k in range(3)])\ngbar = 8.0\nn = 3\nassert np.allclose(compute_lower_bound(y, z, gbar, n), target)",
+        "import numpy as np\nfrom fractions import Fraction\ny = np.array([1.0, 52.0 / 45.0, 410288.0 / 208845.0, 45964096.0 / 11486475.0, 64170635008.0 / 6995263275.0, 4627392439985152.0 / 201624473375325.0, 5664835468095488.0 / 92204876128365.0])\nz = np.array([float(Fraction(7, 7 + 8 * k)) for k in range(7)])\ngbar = 8.0\nn = 3\nassert np.allclose(compute_lower_bound(y, z, gbar, n), target)",
+        "import numpy as np\ny = np.array([1.0])\nz = np.array([1.0])\ngbar = 8.0\nn = 3\ndef run_model():\n    try:\n        compute_lower_bound(y, z, gbar, n)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-34.7",
+      "test_cases": [
+        "import numpy as np\ncoeffs = np.array([2.0, 2.0, 2.0, -2.0])\nexponents = np.array([[8, 0, 0], [0, 4, 0], [0, 0, 2], [4, 2, 0]])\nK = 6\nassert np.allclose(compute_certified_volume_bound(coeffs, exponents, K), target)",
+        "import numpy as np\ncoeffs = np.array([2.0, 2.0, 2.0, -2.0])\nexponents = np.array([[8, 0, 0], [0, 4, 0], [0, 0, 2], [4, 2, 0]])\nK = 4\nassert np.allclose(compute_certified_volume_bound(coeffs, exponents, K), target)",
+        "import numpy as np\ncoeffs = np.array([1.0, 1.0, 1.0])\nexponents = np.array([[2, 0, 0], [0, 2, 0], [0, 0, 2]])\nK = 6\nassert np.allclose(compute_certified_volume_bound(coeffs, exponents, K), target)",
+        "import numpy as np\ncoeffs = np.array([2.0, 2.0, 2.0, -2.0])\nexponents = np.array([[8, 0, 0], [0, 4, 0], [0, 0, 2], [4, 2, 0]])\nK = 14\nassert np.allclose(compute_certified_volume_bound(coeffs, exponents, K), target)"
+      ]
+    }
+  ]
+}

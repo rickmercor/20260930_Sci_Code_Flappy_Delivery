@@ -1,0 +1,36 @@
+problem_id: "Mathematics-Computational_Finance-29"
+subject: "mathematics"
+subject_area: "Computational Finance"
+difficulty: "difficult"
+answer_type: "numeric"
+paper_doi: "10.48550/arXiv.2603.29430"
+dependencies: ""
+steps:
+  - number: 1
+    name: "displacement_levels"
+    description: "Given the tenor grid tau_0 = 0 < tau_1 < ... < tau_n and the at-the-money implied volatilities sigma_BS(tau_1), ..., sigma_BS(tau_n), return the displacement levels a_0, a_1, ..., a_{n-1} of the piecewise-constant displacement of equation (4) of the source, with a_0 = 0 and the remaining levels fixed by the recursion of Remark 1 (the displaced Black-Scholes calibration to the at-the-money term structure). The spot volatility of that recursion is the first at-the-money volatility."
+    orchestrator: false
+  - number: 2
+    name: "displacement_functionals"
+    description: "Let phi_tilde(s) = 1 + a_k / sigma_0 on each tenor interval [tau_k, tau_{k+1}) be the normalised displacement profile of Theorem 1 of the source, supplied here as the array levels (one level per interval). For a tenor tau that is one of the grid points, return the eight distinct time-integral functionals of phi_tilde over [0, tau] that appear in the statement of Theorem 1, in the order in which they first appear there, each evaluated exactly (the profile is piecewise constant, so every integrand is a piecewise polynomial). Do not use the single-interval closed forms of Corollary 2 of the source: for a profile that changes level they are not equal to the integrals of Theorem 1."
+    orchestrator: false
+  - number: 3
+    name: "expansion_blocks"
+    description: "At Fourier frequency u and tenor tau, return the six correction blocks that appear inside the large parentheses of the expansion of Theorem 1 of the source, in their order of appearance, each as a complex number: the block driven by the price-side volatility-of-volatility, the block driven by delta_0, the block driven by alpha_0, the block driven by eta_0, the block quadratic in the price-side volatility-of-volatility, and the block quadratic in the orthogonal volatility-of-volatility. The price-side and orthogonal volatility-of-volatility coefficients follow from the spot volatility-of-volatility vov and the spot leverage rho as in equation (2) of the source. The displacement enters only through functionals, the array returned by displacement_functionals. u is a complex scalar or a one-dimensional array of frequencies; in the array case the blocks are evaluated elementwise."
+    orchestrator: false
+  - number: 4
+    name: "continuous_cf_expansion"
+    description: "Assemble the second-order expansion of Theorem 1 of the source for the characteristic function of the standardised, demeaned continuous log-return at tenor tau (a tenor grid point) and complex frequency u: normalise the displacement levels shifts into the profile of Theorem 1, evaluate the displacement functionals and the six correction blocks, and combine them with the Gaussian leading factor exactly as the theorem states. u is a complex scalar or a one-dimensional array of frequencies, evaluated elementwise."
+    orchestrator: false
+  - number: 5
+    name: "fourier_call_price"
+    description: "Price a European call with spot s0, strike strike and tenor tau (a tenor grid point) by the Fourier representation of equation (9) of the source, with zero interest rate and no jump component, using continuous_cf_expansion as the characteristic function. model is a dict with keys 'sigma0', 'vov', 'rho', 'eta0', 'alpha0', 'delta0', 'tenors' and 'shifts'. Evaluate each of the two integrals over the positive frequency axis with the midpoint rule on (0, u_max] with n_nodes equal cells."
+    orchestrator: false
+  - number: 6
+    name: "implied_volatility"
+    description: "Invert the zero-rate Black-Scholes call formula for the volatility that reproduces price at spot s0, strike strike and tenor tau, by bisection on the interval [1e-4, 5] with exactly 200 halvings, returning the midpoint of the final bracket. Reject prices outside the no-arbitrage bounds."
+    orchestrator: false
+  - number: 7
+    name: "risk_reversal"
+    description: "Integrate the pipeline and report one number. config holds 'tenors' (tau_0 = 0 first), 'atm_vols', the model coefficients 'vov', 'rho', 'eta0', 'alpha0', 'delta0', the spot 's0', the two log-moneyness levels 'm_put' and 'm_call', and the quadrature settings 'n_nodes' and 'u_max'. Calibrate the displacement levels from the at-the-money term structure with displacement_levels, take the spot volatility as the first at-the-money volatility, check the assembled expansion at zero frequency, set the two strikes at the last tenor by the log-moneyness convention of equation (12) of the source with that tenor's at-the-money volatility, price both calls with fourier_call_price, invert them with implied_volatility, and return the implied volatility at m_put minus the implied volatility at m_call."
+    orchestrator: true

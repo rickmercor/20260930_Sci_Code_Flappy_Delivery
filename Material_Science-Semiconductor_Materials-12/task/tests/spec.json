@@ -1,0 +1,76 @@
+{
+  "problem_id": "Material_Science-Semiconductor_Materials-12",
+  "sub_steps": [
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-12.1",
+      "test_cases": [
+        "import numpy as np\np = np.array([1.2, 0.0, 0.1, 2.5, 1.2, 0.25, 0.1])\np_g = p.copy()\nassert np.allclose(reaction_coordinate_drift(p, 1.0, 0.0), target)",
+        "import numpy as np\np = np.array([1.2, 0.0, 0.1, 2.5, 1.2, 0.25, 0.1])\np_g = p.copy()\nassert np.allclose(reaction_coordinate_drift(p, 0.0, 1.0), target)",
+        "import numpy as np\np = np.array([-0.4, -1.5, 0.8, 0.6, 2.0, 0.05, 3.0])\np_g = p.copy()\nassert np.allclose(reaction_coordinate_drift(p, 0.3, 0.7), target)",
+        "import numpy as np\np = np.array([0.9, 0.2, 1.0, 1.0, 0.5, 2.0, 0.4])\np_g = p.copy()\nassert np.allclose(reaction_coordinate_drift(p, 0.0, 0.0), target)",
+        "import numpy as np\ndef _probe(fn):\n    try:\n        fn(np.array([1.0, 0.0, -0.1, 1.0, 1.0, 0.2, 0.1]), 1.0, 0.0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_probe(reaction_coordinate_drift), target)",
+        "import numpy as np\ndef _probe(fn):\n    try:\n        fn(np.array([1.0, 0.0, 0.1, 1.0, 1.0, 0.2, 0.1]), 1.5, 0.0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_probe(reaction_coordinate_drift), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-12.2",
+      "test_cases": [
+        "import numpy as np\nfrom scipy.linalg import expm\np = np.array([1.2, 0.0, 0.1, 2.5, 1.2, 0.25, 0.1])\nk1 = 1.0 * np.sqrt(p[3] * p[2] / 2.0)\nk2 = 0.0 * np.sqrt(p[6] * p[5] / 2.0)\nm = -np.diag([1j * p[0], p[2] + 1j * p[1], p[5] + 1j * p[4]]).astype(complex)\nm[0, 1] = m[1, 0] = -1j * k1\nm[0, 2] = m[2, 0] = -1j * k2\nw = np.array([-30.0, -3.0, -0.5, 0.0, 0.37, 1.2])\nm_g = m.copy()\nw_g = w.copy()\nassert np.allclose(segment_response(m, 1.128, w), target)",
+        "import numpy as np\nfrom scipy.linalg import expm\np = np.array([1.2, 0.0, 0.1, 2.5, 1.2, 0.25, 0.1])\nk1 = 0.0 * np.sqrt(p[3] * p[2] / 2.0)\nk2 = 1.0 * np.sqrt(p[6] * p[5] / 2.0)\nm = -np.diag([1j * p[0], p[2] + 1j * p[1], p[5] + 1j * p[4]]).astype(complex)\nm[0, 1] = m[1, 0] = -1j * k1\nm[0, 2] = m[2, 0] = -1j * k2\nw = np.linalg.eigvals(1j * m).real\nm_g = m.copy()\nw_g = w.copy()\nassert np.allclose(segment_response(m, 40.0, w), target)",
+        "import numpy as np\nfrom scipy.linalg import expm\np = np.array([-0.4, -1.5, 0.8, 0.6, 2.0, 0.05, 3.0])\nk1 = 0.3 * np.sqrt(p[3] * p[2] / 2.0)\nk2 = 0.7 * np.sqrt(p[6] * p[5] / 2.0)\nm = -np.diag([1j * p[0], p[2] + 1j * p[1], p[5] + 1j * p[4]]).astype(complex)\nm[0, 1] = m[1, 0] = -1j * k1\nm[0, 2] = m[2, 0] = -1j * k2\nw = np.array([-1.0, 0.5])\nm_g = m.copy()\nw_g = w.copy()\nassert np.allclose(segment_response(m, 0.0, w), target)",
+        "import numpy as np\nfrom scipy.linalg import expm\np = np.array([-0.4, -1.5, 0.8, 0.6, 2.0, 0.05, 3.0])\nk1 = 0.3 * np.sqrt(p[3] * p[2] / 2.0)\nk2 = 0.7 * np.sqrt(p[6] * p[5] / 2.0)\nm = -np.diag([1j * p[0], p[2] + 1j * p[1], p[5] + 1j * p[4]]).astype(complex)\nm[0, 1] = m[1, 0] = -1j * k1\nm[0, 2] = m[2, 0] = -1j * k2\nw = np.linspace(1.8, 2.2, 9)\nm_g = m.copy()\nw_g = w.copy()\nassert np.allclose(segment_response(m, 3.3, w), target)",
+        "import numpy as np\nfrom scipy.linalg import expm\ndef _probe(fn):\n    try:\n        fn(np.diag([-1j, -0.1 - 0.2j, -0.3 + 0.0j]), 1.0, np.array([0.0]))\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_probe(segment_response), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-12.3",
+      "test_cases": [
+        "import numpy as np\nfrom scipy.linalg import expm\np = np.array([1.2, 0.0, 0.1, 2.5, 1.2, 0.25, 0.1])\np_g = p.copy()\nassert np.allclose(cycle_propagator(p, 1.128, 4.1), target)",
+        "import numpy as np\nfrom scipy.linalg import expm\np = np.array([1.25, 0.0, 0.5, 2.5, 1.25, 0.125, 0.25])\np_g = p.copy()\nassert np.allclose(cycle_propagator(p, 0.2, 25.0), target)",
+        "import numpy as np\nfrom scipy.linalg import expm\np = np.array([-0.4, -1.5, 0.8, 0.6, 2.0, 0.05, 3.0])\np_g = p.copy()\nassert np.allclose(cycle_propagator(p, 2.7, 0.9), target)",
+        "import numpy as np\nfrom scipy.linalg import expm\np = np.array([0.9, 0.2, 1.0, 1.0, 0.5, 2.0, 0.4])\np_g = p.copy()\nassert np.allclose(cycle_propagator(p, 1e-4, 2e-4), target)",
+        "import numpy as np\nfrom scipy.linalg import expm\ndef _probe(fn):\n    try:\n        fn(np.array([1.0, 0.0, 0.1, 1.0, 1.0, 0.2, 0.1]), 1.0, 0.0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_probe(cycle_propagator), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-12.4",
+      "test_cases": [
+        "import numpy as np\nfrom scipy.linalg import expm\np = np.array([1.2, 0.0, 0.1, 2.5, 1.2, 0.25, 0.1])\nw = np.array([-20.0, -2.0, -0.6, -0.1, 0.0])\np_g = p.copy()\nw_g = w.copy()\nassert np.allclose(limit_cycle_weights(p, 1.128, 4.1, w, 1), target)",
+        "import numpy as np\nfrom scipy.linalg import expm\np = np.array([1.2, 0.0, 0.1, 2.5, 1.2, 0.25, 0.1])\nw = np.array([-5.0, 0.3, 0.8, 1.0])\np_g = p.copy()\nw_g = w.copy()\nassert np.allclose(limit_cycle_weights(p, 1.128, 9.0, w, 2), target)",
+        "import numpy as np\nfrom scipy.linalg import expm\np = np.array([1.25, 0.0, 0.5, 2.5, 1.25, 0.125, 0.25])\nw = np.array([-2 * np.pi / 3.0, 0.0])\np_g = p.copy()\nw_g = w.copy()\nassert np.allclose(limit_cycle_weights(p, 1.0, 2.0, w, 1), target)",
+        "import numpy as np\nfrom scipy.linalg import expm\np = np.array([-0.4, -1.5, 0.8, 0.6, 2.0, 0.05, 3.0])\nw = np.array([-3.0, -1.5, -0.2])\np_g = p.copy()\nw_g = w.copy()\nassert np.allclose(limit_cycle_weights(p, 30.0, 45.0, w, 2), target)",
+        "import numpy as np\nfrom scipy.linalg import expm\ndef _probe(fn):\n    try:\n        fn(np.array([1.0, 0.0, 0.1, 1.0, 1.0, 0.2, 0.1]), 1.0, 1.0, np.array([0.0]), 3)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_probe(limit_cycle_weights), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-12.5",
+      "test_cases": [
+        "import numpy as np\nfrom scipy.linalg import expm\np = np.array([1.2, 0.0, 0.1, 2.5, 1.2, 0.25, 0.1])\np_g = p.copy()\nassert np.allclose(limit_cycle_correlations(p, 1.128, 4.3, 1.0), target)",
+        "import numpy as np\nfrom scipy.linalg import expm\np = np.array([1.25, 0.0, 0.5, 2.5, 1.25, 0.125, 0.25])\np_g = p.copy()\nassert np.allclose(limit_cycle_correlations(p, 0.78, 3.6, 1.5), target)",
+        "import numpy as np\nfrom scipy.linalg import expm\np = np.array([0.8, -0.5, 1.0, 1.5, 0.6, 1.2, 0.8])\np_g = p.copy()\nassert np.allclose(limit_cycle_correlations(p, 9.0, 10.0, 0.5), target)",
+        "import numpy as np\nfrom scipy.linalg import expm\np = np.array([-0.3, 0.4, 0.3, 1.0, -0.2, 0.08, 4.0])\np_g = p.copy()\nassert np.allclose(limit_cycle_correlations(p, 2.0, 1.5, 2.0), target)",
+        "import numpy as np\nfrom scipy.linalg import expm\ndef _probe(fn):\n    try:\n        fn(np.array([1.0, 0.0, 0.1, 1.0, 1.0, 0.2, 0.1]), 1.0, 1.0, 0.0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_probe(limit_cycle_correlations), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-12.6",
+      "test_cases": [
+        "import numpy as np\nfrom scipy.linalg import expm\np = np.array([1.2, 0.0, 0.1, 2.5, 1.2, 0.25, 0.1])\np_g = p.copy()\nassert np.allclose(pumping_performance(p, 1.128, 4.0, 1.0), target)",
+        "import numpy as np\nfrom scipy.linalg import expm\np = np.array([1.2, 0.0, 0.1, 2.5, 1.2, 0.25, 0.1])\np_g = p.copy()\nassert np.allclose(pumping_performance(p, 1.128, 9.0, 1.0), target)",
+        "import numpy as np\nfrom scipy.linalg import expm\np = np.array([1.25, 0.0, 0.5, 2.5, 1.25, 0.125, 0.25])\np_g = p.copy()\nassert np.allclose(pumping_performance(p, 0.7793, 3.5, 1.0), target)",
+        "import numpy as np\nfrom scipy.linalg import expm\np = np.array([1.5, 1.0, 0.6, 1.0, 1.0, 0.6, 1.0])\np_g = p.copy()\nassert np.allclose(pumping_performance(p, 6.0, 6.0, 1.0), target)",
+        "import numpy as np\nfrom scipy.linalg import expm\ndef _probe(fn):\n    try:\n        fn(np.array([1.0, 0.0, 0.1, 1.0, 1.0, 0.2, 0.1]), -1.0, 1.0, 1.0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_probe(pumping_performance), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-12.7",
+      "test_cases": [
+        "import numpy as np\nfrom scipy.linalg import expm\nfrom scipy.optimize import minimize_scalar\np = np.array([1.2, 0.0, 0.1, 2.5, 1.2, 0.25, 0.1])\np_g = p.copy()\nassert np.allclose(maximal_pumping_efficiency(p, 1.128, 1.0, 12.0, 1.0), target)",
+        "import numpy as np\nfrom scipy.linalg import expm\nfrom scipy.optimize import minimize_scalar\np = np.array([1.2, 0.0, 0.1, 2.5, 1.2, 0.25, 0.1])\np_g = p.copy()\nassert np.allclose(maximal_pumping_efficiency(p, 1.128, 6.0, 12.0, 1.0), target)",
+        "import numpy as np\nfrom scipy.linalg import expm\nfrom scipy.optimize import minimize_scalar\np = np.array([1.25, 0.0, 0.5, 2.5, 1.25, 0.125, 0.25])\np_g = p.copy()\nassert np.allclose(maximal_pumping_efficiency(p, 0.7793, 1.0, 10.0, 1.0), target)",
+        "import numpy as np\nfrom scipy.linalg import expm\nfrom scipy.optimize import minimize_scalar\np = np.array([1.2, 0.0, 0.1, 2.5, 1.2, 0.25, 0.1])\np_g = p.copy()\nassert np.allclose(maximal_pumping_efficiency(p, 1.128, 3.0, 4.2, 1.0), target)",
+        "import numpy as np\nfrom scipy.linalg import expm\nfrom scipy.optimize import minimize_scalar\ndef _probe(fn):\n    try:\n        fn(np.array([1.2, 0.0, 0.1, 2.5, 1.2, 0.25, 0.1]), 1.128, 5.0, 5.0, 1.0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_probe(maximal_pumping_efficiency), target)"
+      ]
+    }
+  ]
+}

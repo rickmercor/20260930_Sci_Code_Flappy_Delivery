@@ -1,0 +1,40 @@
+problem_id: "Material_Science-Semiconductor_Materials-11"
+subject: "materials"
+subject_area: "Molecular Modeling"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1038/s41467-026-73232-8"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_pswf_bandwidth_sensitivity"
+    description: "Construct the unit-integral prolate window samples and their analytic bandwidth sensitivity."
+    orchestrator: false
+  - number: 2
+    name: "02_prolate_transform_sensitivity"
+    description: "Evaluate the normalized prolate-window transform and its analytic derivatives."
+    orchestrator: false
+  - number: 3
+    name: "03_centered_reciprocal_indices"
+    description: "Enumerate the centered even reciprocal index cube used by the truncated spectral sum."
+    orchestrator: false
+  - number: 4
+    name: "04_sheared_reciprocal_geometry"
+    description: "Construct reciprocal vectors for a volume-preserving simple shear and differentiate them analytically."
+    orchestrator: false
+  - number: 5
+    name: "05_fractional_structure_factors"
+    description: "Evaluate reciprocal charge structure factors from fractional particle coordinates."
+    orchestrator: false
+  - number: 6
+    name: "06_scaled_inverse_residual"
+    description: "Assemble the bounded inverse residual and its full analytic Jacobian."
+    orchestrator: false
+  - number: 7
+    name: "07_damped_lm_iteration"
+    description: "Perform one deterministic damped least-squares iteration in bounded logistic coordinates."
+    orchestrator: false
+  - number: 8
+    name: "08_solve_inverse_precision"
+    description: "Solve the complete bounded inverse prolate-Ewald problem and return the recovered force-error parameter."
+    orchestrator: true

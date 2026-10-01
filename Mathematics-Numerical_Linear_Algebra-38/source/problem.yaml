@@ -1,0 +1,40 @@
+problem_id: "Mathematics-Numerical_Linear_Algebra-38"
+subject: "mathematics"
+subject_area: "Numerical Linear Algebra"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2607.10354"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_build_convdiff_operator"
+    description: "Construct the convection-diffusion operator and the normalized starting vector for the deterministic matrix-function computation."
+    orchestrator: false
+  - number: 2
+    name: "02_sparse_sign_sketch"
+    description: "Generate the sparse randomized embedding used by the adaptive Krylov computation."
+    orchestrator: false
+  - number: 3
+    name: "03_truncated_arnoldi_cycle"
+    description: "Generate one adaptive Krylov decomposition using truncated orthogonalization and sketch-based conditioning."
+    orchestrator: false
+  - number: 4
+    name: "04_rank1_harmonic_update"
+    description: "Apply the correction required by the reduced representation after a truncated Krylov cycle."
+    orchestrator: false
+  - number: 5
+    name: "05_arnoldi_like_approx"
+    description: "Evaluate the reduced inverse-square-root approximation associated with the corrected cycle."
+    orchestrator: false
+  - number: 6
+    name: "06_restart_error_scalar_kernel"
+    description: "Evaluate one scalar value of the restart correction kernel associated with the previous reduced problem."
+    orchestrator: false
+  - number: 7
+    name: "07_error_kernel_matrix_apply"
+    description: "Construct the matrix-valued restart correction on the reduced problem of the next cycle."
+    orchestrator: false
+  - number: 8
+    name: "08_orchestrator_sketch_and_restart"
+    description: "Assemble the preceding numerical stages into the complete deterministic two-cycle computation."
+    orchestrator: true

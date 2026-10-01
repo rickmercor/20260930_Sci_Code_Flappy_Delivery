@@ -1,0 +1,48 @@
+problem_id: "Mathematics-Numerical_Linear_Algebra-4"
+subject: "mathematics"
+subject_area: "Numerical Linear Algebra"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2605.06572"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_construct_resultant_tensor"
+    description: "*Build the degree-major coefficient tensor of a hidden-variable elimination matrix.*"
+    orchestrator: false
+  - number: 2
+    name: "02_generate_unit_circle_samples"
+    description: "Generate the ordered roots-of-unity sample points."
+    orchestrator: false
+  - number: 3
+    name: "03_evaluate_resultant_fft"
+    description: "Evaluate a polynomial matrix and its ordinary derivatives on a Fourier grid."
+    orchestrator: false
+  - number: 4
+    name: "04_compute_determinant_samples"
+    description: "Evaluate determinant derivatives without assuming an invertible base matrix."
+    orchestrator: false
+  - number: 5
+    name: "05_recover_determinant_coefficients"
+    description: "Recover a determinant polynomial from confluent Fourier data and certify it off grid."
+    orchestrator: false
+  - number: 6
+    name: "06_extract_hidden_candidates"
+    description: "Extract admissible real hidden-variable candidates."
+    orchestrator: false
+  - number: 7
+    name: "07_recover_and_filter_solutions"
+    description: "Recover the second variable at each candidate and discard spurious roots."
+    orchestrator: false
+  - number: 8
+    name: "08_compute_hidden_root_condition"
+    description: "Run the complete elimination-and-recovery pipeline and report one scalar."
+    orchestrator: false
+  - number: 9
+    name: "09_continue_condition_jets"
+    description: "Continue a simple determinant root and its logarithmic conditioning response."
+    orchestrator: false
+  - number: 10
+    name: "10_compute_condition_response"
+    description: "Compute a high-order perturbation response of the largest retained condition number."
+    orchestrator: true

@@ -1,0 +1,77 @@
+{
+  "problem_id": "Physics-Particle_Physics-8",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Particle_Physics-8.1",
+      "test_cases": [
+        "# case: normal\np=_c_generate_five_parton_events(26082901,240)\nassert np.allclose(assign_unordered_antenna_sectors(p), target)",
+        "# case: normal\np=_c_generate_five_parton_events(26082902,1200)\nassert np.allclose(assign_unordered_antenna_sectors(p), target)",
+        "# case: normal\np=_c_generate_five_parton_events(26082903,4096)\nassert np.allclose(assign_unordered_antenna_sectors(p), target)",
+        "# case: boundary\np=_c_generate_five_parton_events(0,1)\nassert np.allclose(assign_unordered_antenna_sectors(p), target)",
+        "# case: edge\ndef capture_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\np=np.zeros((1,5,3), dtype=float)\nassert np.allclose(capture_value_error(lambda: assign_unordered_antenna_sectors(p)), target)",
+        "# case: edge\ndef capture_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\np=np.zeros((0,5,4), dtype=float)\nassert np.allclose(capture_value_error(lambda: assign_unordered_antenna_sectors(p)), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-8.2",
+      "test_cases": [
+        "# case: normal\np=_c_generate_five_parton_events(26082901,240)\nassert np.allclose(assign_ordered_pair_antenna_sectors(p), target)",
+        "# case: normal\np=_c_generate_five_parton_events(26082902,1200)\nassert np.allclose(assign_ordered_pair_antenna_sectors(p), target)",
+        "# case: normal\np=_c_generate_five_parton_events(26082903,4096)\nassert np.allclose(assign_ordered_pair_antenna_sectors(p), target)",
+        "# case: boundary\np=_c_generate_five_parton_events(0,1)\nassert np.allclose(assign_ordered_pair_antenna_sectors(p), target)",
+        "# case: edge\ndef capture_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\np=np.zeros((1,5,3), dtype=float)\nassert np.allclose(capture_value_error(lambda: assign_ordered_pair_antenna_sectors(p)), target)",
+        "# case: edge\ndef capture_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\np=np.zeros((0,5,4), dtype=float)\nassert np.allclose(capture_value_error(lambda: assign_ordered_pair_antenna_sectors(p)), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-8.3",
+      "test_cases": [
+        "# case: normal\np=_c_generate_five_parton_events(26082901,240)\nassert np.allclose(assign_multidipole_antenna_sectors(p), target)",
+        "# case: normal\np=_c_generate_five_parton_events(26082902,1200)\nassert np.allclose(assign_multidipole_antenna_sectors(p), target)",
+        "# case: normal\np=_c_generate_five_parton_events(26082903,4096)\nassert np.allclose(assign_multidipole_antenna_sectors(p), target)",
+        "# case: boundary\np=_c_generate_five_parton_events(0,1)\nassert np.allclose(assign_multidipole_antenna_sectors(p), target)",
+        "# case: edge\ndef capture_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\np=np.zeros((1,5,3), dtype=float)\nassert np.allclose(capture_value_error(lambda: assign_multidipole_antenna_sectors(p)), target)",
+        "# case: edge\ndef capture_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\np=np.zeros((0,5,4), dtype=float)\nassert np.allclose(capture_value_error(lambda: assign_multidipole_antenna_sectors(p)), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-8.4",
+      "test_cases": [
+        "# case: normal\nassert np.allclose(generate_five_parton_events(3,17), target)",
+        "# case: normal\nassert np.allclose(generate_five_parton_events(260829,257), target)",
+        "# case: normal\nassert np.allclose(generate_five_parton_events(20260829,1024), target)",
+        "# case: boundary\nassert np.allclose(generate_five_parton_events(0,1), target)",
+        "# case: edge\ndef capture_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(capture_value_error(lambda: generate_five_parton_events(0,0)), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-8.5",
+      "test_cases": [
+        "# case: normal\np=_c_generate_five_parton_events(26082901,240)\nu=_c_assign_unordered_antenna_sectors(p)\no=_c_assign_ordered_pair_antenna_sectors(p)\nc=_c_assign_multidipole_antenna_sectors(p)\nassert np.allclose(tabulate_sector_populations(u,o,c), target)",
+        "# case: normal\np=_c_generate_five_parton_events(26082902,1200)\nu=_c_assign_unordered_antenna_sectors(p)\no=_c_assign_ordered_pair_antenna_sectors(p)\nc=_c_assign_multidipole_antenna_sectors(p)\nassert np.allclose(tabulate_sector_populations(u,o,c), target)",
+        "# case: normal\np=_c_generate_five_parton_events(26082903,4096)\nu=_c_assign_unordered_antenna_sectors(p)\no=_c_assign_ordered_pair_antenna_sectors(p)\nc=_c_assign_multidipole_antenna_sectors(p)\nassert np.allclose(tabulate_sector_populations(u,o,c), target)",
+        "# case: boundary\np=_c_generate_five_parton_events(0,1)\nu=_c_assign_unordered_antenna_sectors(p)\no=_c_assign_ordered_pair_antenna_sectors(p)\nc=_c_assign_multidipole_antenna_sectors(p)\nassert np.allclose(tabulate_sector_populations(u,o,c), target)",
+        "# case: edge\ndef capture_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nu=np.zeros((1,5), dtype=int)\no=np.zeros((1,6), dtype=int)\nc=np.zeros((1,6), dtype=int)\nassert np.allclose(capture_value_error(lambda: tabulate_sector_populations(u,o,c)), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-8.6",
+      "test_cases": [
+        "# case: normal\np=_c_generate_five_parton_events(26082901,240)\nu=_c_assign_unordered_antenna_sectors(p)\no=_c_assign_ordered_pair_antenna_sectors(p)\nc=_c_assign_multidipole_antenna_sectors(p)\nassert np.allclose(compute_ordering_disagreements(u,o,c), target)",
+        "# case: normal\np=_c_generate_five_parton_events(26082902,1200)\nu=_c_assign_unordered_antenna_sectors(p)\no=_c_assign_ordered_pair_antenna_sectors(p)\nc=_c_assign_multidipole_antenna_sectors(p)\nassert np.allclose(compute_ordering_disagreements(u,o,c), target)",
+        "# case: normal\np=_c_generate_five_parton_events(26082903,4096)\nu=_c_assign_unordered_antenna_sectors(p)\no=_c_assign_ordered_pair_antenna_sectors(p)\nc=_c_assign_multidipole_antenna_sectors(p)\nassert np.allclose(compute_ordering_disagreements(u,o,c), target)",
+        "# case: boundary\np=_c_generate_five_parton_events(0,1)\nu=_c_assign_unordered_antenna_sectors(p)\no=_c_assign_ordered_pair_antenna_sectors(p)\nc=_c_assign_multidipole_antenna_sectors(p)\nassert np.allclose(compute_ordering_disagreements(u,o,c), target)",
+        "# case: edge\ndef capture_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nu=np.zeros((1,5), dtype=int)\no=np.zeros((1,6), dtype=int)\nc=np.zeros((1,6), dtype=int)\nassert np.allclose(capture_value_error(lambda: compute_ordering_disagreements(u,o,c)), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-8.7",
+      "test_cases": [
+        "# case: normal\nassert np.allclose(compute_sector_mapping_index(17,1024), target)",
+        "# case: normal\nassert np.allclose(compute_sector_mapping_index(260829,4096), target)",
+        "# case: normal\nassert np.allclose(compute_sector_mapping_index(20260829,8192), target)",
+        "# case: boundary\nassert np.allclose(compute_sector_mapping_index(20260829,1), target)"
+      ]
+    }
+  ]
+}

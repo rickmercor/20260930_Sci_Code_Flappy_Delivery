@@ -1,0 +1,44 @@
+problem_id: "Physics-Particle_Physics-40"
+subject: "physics"
+subject_area: "Particle Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1007/JHEP01(2026)024"
+dependencies: ""
+steps:
+  - number: 1
+    name: "gluon_beam_density"
+    description: "Construct the prescribed unit-trace second-beam polarization density S=P/Tr(P)."
+    orchestrator: false
+  - number: 2
+    name: "hard_spin_color_density"
+    description: "Form the normalized joint first-beam spin and hard-color density h[p,q,a,b] defined explicitly in the main problem."
+    orchestrator: false
+  - number: 3
+    name: "color_spin_response"
+    description: "Contract the hard density with the three ordered color-response matrices."
+    orchestrator: false
+  - number: 4
+    name: "dimensional_spin_kernel"
+    description: "Evaluate the two dimensional-expansion coefficients of the physical traceless source tensor."
+    orchestrator: false
+  - number: 5
+    name: "finite_glauber_prefactors"
+    description: "Extract the two common Laurent prefactors for the physical traceless matching term."
+    orchestrator: false
+  - number: 6
+    name: "finite_veto_tensors"
+    description: "Integrate the three Laurent tensor contributions over the angular veto."
+    orchestrator: false
+  - number: 7
+    name: "finite_attachment_channels"
+    description: "Contract the finite source tensor with the joint color-spin response."
+    orchestrator: false
+  - number: 8
+    name: "infer_beam_state"
+    description: "Fit the common preparation state and gain."
+    orchestrator: false
+  - number: 9
+    name: "heldout_glauber_prediction"
+    description: "Return the gain-adjusted held-out finite percentage coefficient."
+    orchestrator: true

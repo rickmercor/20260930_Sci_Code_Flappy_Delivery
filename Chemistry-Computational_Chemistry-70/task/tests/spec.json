@@ -1,0 +1,69 @@
+{
+  "problem_id": "Chemistry-Computational_Chemistry-70",
+  "sub_steps": [
+    {
+      "step_number": "Chemistry-Computational_Chemistry-70.1",
+      "test_cases": [
+        "import numpy as np\npositions = np.array([\n    [0.5, 0.5, 0.5],\n    [1.6, 0.7, 0.4],\n    [0.9, 1.8, 1.1],\n    [2.3, 2.1, 0.6],\n    [1.2, 1.3, 2.4],\n])\nbox_length = 5.0\ncutoff = 2.0\nassert np.allclose(lj_force_energy(positions, box_length, cutoff), target)",
+        "import numpy as np\nbox_length = 10.0\ncutoff = 2.5\npositions = np.array([\n    [1.0, 1.0, 1.0],\n    [1.0 + cutoff, 1.0, 1.0],\n])\nassert np.allclose(lj_force_energy(positions, box_length, cutoff), target)",
+        "import numpy as np\nbox_length = 8.0\ncutoff = 3.0\npositions = np.array([\n    [4.0, 4.0, 4.0],\n    [4.0 + 0.85, 4.0, 4.0],\n])\nepsilon = 1.5\nsigma = 1.0\nassert np.allclose(lj_force_energy(positions, box_length, cutoff, epsilon, sigma), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-70.2",
+      "test_cases": [
+        "n_atoms = 6\ndensity = 0.15\ntemperature = 1.5\npos_seed = 1\nvel_seed = 2\ncutoff = 1.5\nminimize_steps = 50\nburn_in_steps = 50\nassert np.allclose(generate_initial_condition(n_atoms, density, temperature, pos_seed, vel_seed, cutoff=cutoff, minimize_steps=minimize_steps, burn_in_steps=burn_in_steps), target)",
+        "n_atoms = 2\ndensity = 0.1\ntemperature = 1.0\npos_seed = 5\nvel_seed = 7\ncutoff = 1.2\nassert np.allclose(generate_initial_condition(n_atoms, density, temperature, pos_seed, vel_seed, cutoff=cutoff, minimize_steps=0, burn_in_steps=0), target)",
+        "n_atoms = 10\ndensity = 0.3\ntemperature = 2.0\npos_seed = 11\nvel_seed = 13\nmin_separation = 0.85\ncutoff = 1.5\nepsilon = 1.2\nsigma = 1.0\nassert np.allclose(generate_initial_condition(n_atoms, density, temperature, pos_seed, vel_seed, min_separation=min_separation, cutoff=cutoff, epsilon=epsilon, sigma=sigma, minimize_steps=20, burn_in_steps=20, rescale_interval=5), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-70.3",
+      "test_cases": [
+        "import numpy as np\npositions0 = np.array([\n    [1.0, 1.0, 1.0],\n    [2.2, 1.3, 1.1],\n    [1.4, 2.5, 1.6],\n    [2.6, 2.3, 2.0],\n])\nvelocities0 = np.array([\n    [0.3, -0.1, 0.2],\n    [-0.2, 0.4, -0.1],\n    [0.1, 0.1, -0.3],\n    [-0.2, -0.4, 0.2],\n])\nbox_length = 5.0\ncutoff = 2.0\nn_steps = 5\ndt = 1e-3\nassert np.allclose(generate_reference_trajectory(positions0, velocities0, box_length, n_steps, dt=dt, cutoff=cutoff), target)",
+        "import numpy as np\npositions0 = np.array([\n    [0.5, 0.5, 0.5],\n    [6.2, -1.3, 2.7],\n])\nvelocities0 = np.array([\n    [0.1, 0.0, -0.1],\n    [-0.1, 0.2, 0.0],\n])\nbox_length = 6.0\ncutoff = 2.5\nn_steps = 0\nassert np.allclose(generate_reference_trajectory(positions0, velocities0, box_length, n_steps, cutoff=cutoff), target)",
+        "import numpy as np\npositions0 = np.array([\n    [4.0, 4.0, 4.0],\n    [4.9, 4.0, 4.0],\n])\nvelocities0 = np.array([\n    [0.0, 0.0, 0.0],\n    [0.0, 0.0, 0.0],\n])\nbox_length = 8.0\ncutoff = 3.0\nn_steps = 10\ndt = 1e-4\nassert np.allclose(generate_reference_trajectory(positions0, velocities0, box_length, n_steps, dt=dt, cutoff=cutoff), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-70.4",
+      "test_cases": [
+        "import numpy as np\npositions = np.array([\n    [1.0, 1.0, 1.0],\n    [1.8, 1.0, 1.0],\n    [1.0, 1.8, 1.0],\n    [1.0, 1.0, 1.8],\n    [2.4, 1.2, 1.1],\n    [1.1, 2.4, 1.3],\n    [1.3, 1.1, 2.4],\n    [2.2, 2.2, 2.2],\n])\nbox_length = 10.0\ncore_cutoff = 1.0\ncutoff = 2.5\nbatch_size = 3\nrng_call = np.random.default_rng(42)\nrng_gold = np.random.default_rng(42)\nassert np.allclose(rbl_force(positions, box_length, core_cutoff, cutoff, batch_size, rng_call), target)",
+        "import numpy as np\npositions = np.array([\n    [1.0, 1.0, 1.0],\n    [2.5, 1.0, 1.0],\n    [1.0, 2.5, 1.0],\n])\nbox_length = 10.0\ncore_cutoff = 1.0\ncutoff = 3.0\nbatch_size = 2\nrng_call = np.random.default_rng(7)\nrng_gold = np.random.default_rng(7)\nassert np.allclose(rbl_force(positions, box_length, core_cutoff, cutoff, batch_size, rng_call), target)",
+        "import numpy as np\npositions = np.array([\n    [1.0, 1.0, 1.0],\n    [1.6, 1.0, 1.0],\n    [1.0, 1.6, 1.0],\n    [8.0, 8.0, 8.0],\n])\nbox_length = 20.0\ncore_cutoff = 1.0\ncutoff = 2.0\nbatch_size = 4\nrng_call = np.random.default_rng(3)\nrng_gold = np.random.default_rng(3)\nassert np.allclose(rbl_force(positions, box_length, core_cutoff, cutoff, batch_size, rng_call), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-70.5",
+      "test_cases": [
+        "import numpy as np\npositions0 = np.array([\n    [1.0, 1.0, 1.0],\n    [1.7, 1.1, 1.0],\n    [1.0, 1.7, 1.2],\n    [1.9, 1.9, 1.1],\n    [1.2, 1.3, 1.9],\n])\nvelocities0 = np.array([\n    [0.2, -0.1, 0.1],\n    [-0.1, 0.2, -0.1],\n    [0.1, 0.1, -0.2],\n    [-0.2, -0.1, 0.2],\n    [0.0, -0.1, 0.1],\n])\nbox_length = 10.0\ncore_cutoff = 1.0\ncutoff = 2.5\nbatch_size = 2\nn_steps = 5\ndt = 1e-3\nseed = 123\nassert np.allclose(generate_rbl_trajectory(positions0, velocities0, box_length, n_steps, core_cutoff, cutoff, batch_size, seed, dt=dt), target)",
+        "import numpy as np\npositions0 = np.array([\n    [0.5, 0.5, 0.5],\n    [11.2, -1.3, 2.7],\n])\nvelocities0 = np.array([\n    [0.1, 0.0, -0.1],\n    [-0.1, 0.2, 0.0],\n])\nbox_length = 12.0\ncore_cutoff = 1.0\ncutoff = 3.0\nbatch_size = 4\nn_steps = 0\nseed = 99\nassert np.allclose(generate_rbl_trajectory(positions0, velocities0, box_length, n_steps, core_cutoff, cutoff, batch_size, seed), target)",
+        "import numpy as np\npositions0 = np.array([\n    [1.0, 1.0, 1.0],\n    [1.6, 1.0, 1.0],\n    [1.0, 1.6, 1.0],\n    [1.6, 1.6, 1.0],\n    [1.3, 1.3, 1.6],\n])\nvelocities0 = np.zeros((5, 3))\nbox_length = 10.0\ncore_cutoff = 0.8\ncutoff = 2.5\nbatch_size = 1\nn_steps = 8\ndt = 5e-4\nseed = 2026\nassert np.allclose(generate_rbl_trajectory(positions0, velocities0, box_length, n_steps, core_cutoff, cutoff, batch_size, seed, dt=dt), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-70.6",
+      "test_cases": [
+        "import numpy as np\npositions0 = np.array([\n    [1.0, 1.0, 1.0],\n    [1.6, 1.1, 1.0],\n    [1.0, 1.6, 1.2],\n])\nvelocities0 = np.array([\n    [0.1, -0.1, 0.0],\n    [-0.1, 0.1, 0.1],\n    [0.0, 0.0, -0.1],\n])\nbox_length = 8.0\ncutoff = 2.0\nn_steps = 5\ndt = 1e-3\nassert np.allclose(train_dinamo_trajectory(positions0, velocities0, box_length, n_steps, dt=dt, cutoff=cutoff, hidden_width=8, n_epochs=30, lr=1e-2, seed=0), target)",
+        "import numpy as np\npositions0 = np.array([\n    [1.0, 1.0, 1.0],\n    [1.7, 1.0, 1.0],\n])\nvelocities0 = np.array([\n    [0.2, 0.0, 0.0],\n    [-0.2, 0.1, 0.0],\n])\nbox_length = 8.0\ncutoff = 2.5\nn_steps = 3\ndt = 1e-3\nassert np.allclose(train_dinamo_trajectory(positions0, velocities0, box_length, n_steps, dt=dt, cutoff=cutoff, n_epochs=0, final_layer_scale=0.0), target)",
+        "import numpy as np\npositions0 = np.array([\n    [0.5, 0.5, 0.5],\n    [9.3, -1.1, 2.2],\n])\nvelocities0 = np.array([\n    [0.1, 0.0, 0.0],\n    [-0.1, 0.0, 0.0],\n])\nbox_length = 8.0\ncutoff = 2.0\nn_steps = 0\nassert np.allclose(train_dinamo_trajectory(positions0, velocities0, box_length, n_steps, cutoff=cutoff, hidden_width=8, n_epochs=10), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-70.7",
+      "test_cases": [
+        "import numpy as np\nreference_trajectory = np.array([\n    [[1.0, 1.0, 1.0], [2.0, 2.0, 2.0], [3.0, 3.0, 3.0]],\n    [[1.1, 1.0, 1.0], [2.0, 2.1, 2.0], [3.0, 3.0, 2.9]],\n    [[1.2, 1.0, 1.0], [2.0, 2.2, 2.0], [3.0, 3.0, 2.8]],\n    [[1.3, 1.0, 1.0], [2.0, 2.3, 2.0], [3.0, 3.0, 2.7]],\n])\npredicted_trajectory = reference_trajectory + 0.01\nbox_length = 10.0\nassert np.allclose(trajectory_rmse(predicted_trajectory, reference_trajectory, box_length), target)",
+        "import numpy as np\nreference_trajectory = np.array([\n    [[0.5, 0.5, 0.5], [4.0, 4.0, 4.0]],\n    [[0.6, 0.5, 0.5], [4.1, 4.0, 4.0]],\n])\npredicted_trajectory = reference_trajectory.copy()\nbox_length = 8.0\nassert np.allclose(trajectory_rmse(predicted_trajectory, reference_trajectory, box_length), target)",
+        "import numpy as np\nbox_length = 10.0\nreference_trajectory = np.array([\n    [[0.2, 5.0, 5.0], [5.0, 5.0, 5.0]],\n])\npredicted_trajectory = np.array([\n    [[9.9, 5.0, 5.0], [5.0, 5.0, 5.0]],\n])\nassert np.allclose(trajectory_rmse(predicted_trajectory, reference_trajectory, box_length), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-70.8",
+      "test_cases": [
+        "n_atoms = 8\ndensity = 0.5\ntemperature = 1.5\npos_seed = 1\nvel_seed = 2\nn_steps = 5\ndt = 1e-3\ncutoff = 1.25\ncore_cutoff = 0.9\nbatch_size = 1\nrbl_seed = 10\nhidden_width = 8\nn_epochs = 20\nlr = 1e-2\ndinamo_seed = 0\nmin_separation = 0.4\nminimize_steps = 20\nburn_in_steps = 20\nrescale_interval = 5\nassert np.allclose(orchestrator(n_atoms, density, temperature, pos_seed, vel_seed, n_steps, dt, cutoff, core_cutoff, batch_size, rbl_seed, hidden_width, n_epochs, lr, dinamo_seed, min_separation=min_separation, minimize_steps=minimize_steps, burn_in_steps=burn_in_steps, rescale_interval=rescale_interval), target)",
+        "n_atoms = 2\ndensity = 0.2\ntemperature = 1.0\npos_seed = 5\nvel_seed = 6\nn_steps = 3\ndt = 1e-3\ncutoff = 1.0\ncore_cutoff = 0.5\nbatch_size = 1\nrbl_seed = 11\nhidden_width = 4\nn_epochs = 10\nlr = 1e-2\ndinamo_seed = 1\nmin_separation = 0.4\nminimize_steps = 10\nburn_in_steps = 10\nrescale_interval = 5\nassert np.allclose(orchestrator(n_atoms, density, temperature, pos_seed, vel_seed, n_steps, dt, cutoff, core_cutoff, batch_size, rbl_seed, hidden_width, n_epochs, lr, dinamo_seed, min_separation=min_separation, minimize_steps=minimize_steps, burn_in_steps=burn_in_steps, rescale_interval=rescale_interval), target)",
+        "n_atoms = 5\ndensity = 0.25\ntemperature = 1.2\npos_seed = 3\nvel_seed = 4\nn_steps = 4\ndt = 1e-3\ncutoff = 1.3\ncore_cutoff = 0.6\nbatch_size = 1\nrbl_seed = 12\nhidden_width = 4\nn_epochs = 0\nlr = 1e-2\ndinamo_seed = 2\nmin_separation = 0.4\nminimize_steps = 20\nburn_in_steps = 20\nrescale_interval = 5\nassert np.allclose(orchestrator(n_atoms, density, temperature, pos_seed, vel_seed, n_steps, dt, cutoff, core_cutoff, batch_size, rbl_seed, hidden_width, n_epochs, lr, dinamo_seed, min_separation=min_separation, minimize_steps=minimize_steps, burn_in_steps=burn_in_steps, rescale_interval=rescale_interval), target)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+problem_id: "Biology-Ecology-3"
+subject: "biology"
+subject_area: "Ecology"
+difficulty: "medium"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1002/ece3.73932"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_estimate_rates"
+    description: "Step 1: estimate the age-specific rates from the monitoring records."
+    orchestrator: false
+  - number: 2
+    name: "02_transition_matrix"
+    description: "Step 2: build the transition matrix."
+    orchestrator: false
+  - number: 3
+    name: "03_birth_pulse_operator"
+    description: "Step 3: build the birth-pulse operator."
+    orchestrator: false
+  - number: 4
+    name: "04_survival_ageing_decomposition"
+    description: "Step 4: decompose the annual transition into survival and ageing."
+    orchestrator: false
+  - number: 5
+    name: "05_fractional_survival_powers"
+    description: "Step 5: fractional powers of the survival operator."
+    orchestrator: false
+  - number: 6
+    name: "06_intermediate_projection"
+    description: "Step 6: assemble the projection matrix for an intermediate census."
+    orchestrator: false
+  - number: 7
+    name: "07_dominant_eigenpair"
+    description: "Step 7: the growth rate and the stable age distribution."
+    orchestrator: false
+  - number: 8
+    name: "08_reproductive_values"
+    description: "Step 8: reproductive values: the left eigenvector of the projection matrix."
+    orchestrator: false
+  - number: 9
+    name: "09_relative_reproductive_value"
+    description: "Step 9: orchestrator: the relative reproductive value of one class."
+    orchestrator: true

@@ -1,0 +1,36 @@
+problem_id: "Physics-Particle_Physics-33"
+subject: "physics"
+subject_area: "Particle Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2602.02344"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_assemble_t3_hamiltonian"
+    description: "Assemble the 1+1D T3 Kogut-Susskind qutrit Hamiltonian."
+    orchestrator: false
+  - number: 2
+    name: "02_assemble_t1_hamiltonian"
+    description: "Assemble the 1+1D T1 Kogut-Susskind qubit Hamiltonian."
+    orchestrator: false
+  - number: 3
+    name: "03_vacuum_connected_indices"
+    description: "Basis states reachable from the free vacuum."
+    orchestrator: false
+  - number: 4
+    name: "04_lowest_spectral_gap"
+    description: "Lowest spectral gap of a finite real square matrix."
+    orchestrator: false
+  - number: 5
+    name: "05_subspace_gap"
+    description: "Lowest spectral gap of a Hamiltonian restricted to a block."
+    orchestrator: false
+  - number: 6
+    name: "06_isolated_meson_energy"
+    description: "Isolated meson energy of the truncated Kogut-Susskind theory."
+    orchestrator: false
+  - number: 7
+    name: "07_compute_truncation_gap_index"
+    description: "Truncation gap index of the SU(Nc) link truncations."
+    orchestrator: true

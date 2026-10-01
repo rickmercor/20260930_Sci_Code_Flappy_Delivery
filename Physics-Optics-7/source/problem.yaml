@@ -1,0 +1,44 @@
+problem_id: "Physics-Optics-7"
+subject: "physics"
+subject_area: "Optics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1088/1475-7516/2026/09/022"
+dependencies: ""
+steps:
+  - number: 1
+    name: "fold_frame"
+    description: "Recover the oriented Gaussian fold and its cubic scale."
+    orchestrator: false
+  - number: 2
+    name: "gaussian_jet"
+    description: "Compute the mixed Taylor coefficients of the Gaussian screen in an orthonormal frame."
+    orchestrator: false
+  - number: 3
+    name: "fold_powers"
+    description: "Construct the graded perturbation polynomials for the full two-dimensional fold."
+    orchestrator: false
+  - number: 4
+    name: "fold_contractions"
+    description: "Evaluate the Airy and transverse Gaussian contractions of each graded polynomial."
+    orchestrator: false
+  - number: 5
+    name: "saddle_series"
+    description: "Evaluate the nondegenerate two-dimensional refractive correction series."
+    orchestrator: false
+  - number: 6
+    name: "gaussian_diffraction"
+    description: "Evaluate the full Gaussian-screen diffraction amplitude with controlled cancellation."
+    orchestrator: false
+  - number: 7
+    name: "coherent_hybrid"
+    description: "Match the uniform fold pair to the regular image at each retained order."
+    orchestrator: false
+  - number: 8
+    name: "error_profile"
+    description: "Measure the weighted complex-field error of every truncation in each trial."
+    orchestrator: false
+  - number: 9
+    name: "plasma_fold_benchmark"
+    description: "Compose every preceding public function to select the fold truncation and its error certificate."
+    orchestrator: true

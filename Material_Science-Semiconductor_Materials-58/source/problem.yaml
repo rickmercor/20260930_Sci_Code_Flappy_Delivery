@@ -1,0 +1,44 @@
+problem_id: "Material_Science-Semiconductor_Materials-58"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1103/mb3n-l45p"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_exchange_integral"
+    description: "Step 01 - Exchange integral with the two-dimensional layered Coulomb kernel."
+    orchestrator: false
+  - number: 2
+    name: "02_exciton_state"
+    description: "Step 02 - Binding energy and wave function of the interlayer exciton."
+    orchestrator: false
+  - number: 3
+    name: "03_inverse_compressibility"
+    description: "Step 03 - Inverse compressibility of the dilute exciton condensate."
+    orchestrator: false
+  - number: 4
+    name: "04_condensate_state"
+    description: "Step 04 - Self-consistent condensate: occupation, pairing amplitude and quasiparticle bands."
+    orchestrator: false
+  - number: 5
+    name: "05_exciton_density"
+    description: "Step 05 - Exciton density of the self-consistent condensate."
+    orchestrator: false
+  - number: 6
+    name: "06_gap_for_density"
+    description: "Step 06 - Bare gap that sustains a prescribed exciton density."
+    orchestrator: false
+  - number: 7
+    name: "07_averaged_conductance"
+    description: "Step 07 - Spatially averaged tunnelling conductance versus bias."
+    orchestrator: false
+  - number: 8
+    name: "08_satellite_current"
+    description: "Step 08 - Integrated current of the satellite feature."
+    orchestrator: false
+  - number: 9
+    name: "09_satellite_onset_conductance"
+    description: "Step 09 - Onset conductance of the satellite feature from the measured satellite weight (orchestrator)."
+    orchestrator: true

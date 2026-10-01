@@ -1,0 +1,48 @@
+problem_id: "Biology-Biochemistry-31"
+subject: "biology"
+subject_area: "Biochemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1126/sciadv.aeb3022"
+dependencies: ""
+steps:
+  - number: 1
+    name: "Compute_reaction_driving_forces"
+    description: "Compute the forward driving force for every aligned metabolite-state and reaction pair."
+    orchestrator: false
+  - number: 2
+    name: "compute_direct_binding_saturation_factors"
+    description: "Compute the direct-binding saturation factor for every aligned state and reaction."
+    orchestrator: false
+  - number: 3
+    name: "compute_thermodynamic_efficiency_factors"
+    description: "Compute thermodynamic efficiency factors from forward driving forces."
+    orchestrator: false
+  - number: 4
+    name: "encode_pattern_group_states"
+    description: "Encode reaction-level binary records as aligned source-consistent group-state summaries."
+    orchestrator: false
+  - number: 5
+    name: "select_source_screen_records"
+    description: "Resolve the source-carried records from aligned family and constrained-screen metadata."
+    orchestrator: false
+  - number: 6
+    name: "classify_pattern_state_eligibility"
+    description: "Encode thermodynamic eligibility for every binary record and metabolite state."
+    orchestrator: false
+  - number: 7
+    name: "compute_candidate_state_metrics"
+    description: "Compute objective, enzyme demand, profile deviation, feasibility, and reaction-resolved enzyme masses for each candidate/state point."
+    orchestrator: false
+  - number: 8
+    name: "filter_source_postprocessing_points"
+    description: "Encode the source-retained candidate/state points for terminal postprocessing."
+    orchestrator: false
+  - number: 9
+    name: "select_source_terminal_point"
+    description: "Select one deterministic candidate/state point from the source-retained terminal set."
+    orchestrator: false
+  - number: 10
+    name: "resolve_auxiliary_enzyme_fraction"
+    description: "Compose the complete source-consistent calculation and return the selected auxiliary enzyme-mass fraction."
+    orchestrator: true

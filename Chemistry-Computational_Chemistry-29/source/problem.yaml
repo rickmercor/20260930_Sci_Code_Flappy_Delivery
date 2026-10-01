@@ -1,0 +1,36 @@
+problem_id: "Chemistry-Computational_Chemistry-29"
+subject: "chemistry"
+subject_area: "Computational Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1063/5.0348103"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_radial_fourier_transform"
+    description: "Discrete three-dimensional Fourier transform of radially symmetric functions on the uniform grid that every later step uses, in the forward and the inverse direction."
+    orchestrator: false
+  - number: 2
+    name: "02_solvent_structure"
+    description: "Pair structure of a multicomponent dissipative particle dynamics (DPD) solvent in the hypernetted-chain (HNC) closure: the total and direct correlation functions of every species pair on the radial grid."
+    orchestrator: false
+  - number: 3
+    name: "03_solute_chemical_potential"
+    description: "Excess chemical potential, in the HNC closure, of single solute beads inserted at infinite dilution into a DPD solvent."
+    orchestrator: false
+  - number: 4
+    name: "04_excluded_volume_functions"
+    description: "Generalised excluded-volume functions of solute beads in a multicomponent DPD solvent: the single-bead functions whose convolutions build the solvent-mediated interaction between any two beads."
+    orchestrator: false
+  - number: 5
+    name: "05_solvent_mediated_pmf"
+    description: "Solvent-mediated potential of mean force between every pair of solute beads at infinite dilution in a DPD solvent, in the HNC closure."
+    orchestrator: false
+  - number: 6
+    name: "06_dimer_chemical_potential"
+    description: "Excess chemical potential of a flexible two-bead molecule at infinite dilution in a DPD solvent."
+    orchestrator: false
+  - number: 7
+    name: "07_dimer_partition_coefficient"
+    description: "Oil/water partition coefficient of the flexible two-bead molecule; the final orchestrator step of the pipeline."
+    orchestrator: true

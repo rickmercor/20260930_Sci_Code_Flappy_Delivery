@@ -1,0 +1,36 @@
+problem_id: "Physics-Condensed_Matter_Physics-43"
+subject: "physics"
+subject_area: "Condensed Matter Physics"
+difficulty: "medium"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.48550/arXiv.2603.28349"
+dependencies: ""
+steps:
+  - number: 1
+    name: "Normal decomposition"
+    description: "Compute the basis-independent normal-decomposition invariants of an MPS tensor."
+    orchestrator: false
+  - number: 2
+    name: "Twisted local systems"
+    description: "Construct the ordered homogeneous local equation system for each injective\n\nnormal factor and return only its basis-independent dimensions."
+    orchestrator: false
+  - number: 3
+    name: "Intersected sector space"
+    description: "Construct the physical local operator space by projecting each normal-factor\n\nkernel and intersecting the projected spaces."
+    orchestrator: false
+  - number: 4
+    name: "Periodic momentum spaces"
+    description: "Compute the full-tensor finite periodic-chain momentum spaces and state norms."
+    orchestrator: false
+  - number: 5
+    name: "Twisted telescoping space"
+    description: "Construct the momentum-dependent telescoping density space with the exact\n\nbasis convention used by the benchmark."
+    orchestrator: false
+  - number: 6
+    name: "Momentum quotients"
+    description: "Compute the twisted telescoping quotient, covariance checks, and finite-size\n\ncomparison using a fully specified representative-selection rule."
+    orchestrator: false
+  - number: 7
+    name: "Momentum diagnostic"
+    description: "Assemble the complete momentum-resolved local/global calculation, verify that\n\nall preceding sub-problems are mutually consistent, and return one scalar: the\n\nphysical momentum-sector dimension d_N=s_N-z_N at the last requested chain\n\nsize."
+    orchestrator: true

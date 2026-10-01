@@ -1,0 +1,40 @@
+problem_id: "Physics-Condensed_Matter_Physics-24"
+subject: "physics"
+subject_area: "Condensed Matter Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1088/1361-648X/ae6f5d"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_fock_space_operators"
+    description: "Construct the fermionic creation and annihilation matrices for a finite Fock space. The input fixes the number of modes and the returned arrays hold the real matrix elements of every creation operator together with its corresponding annihilation operator. Invalid input raises ValueError: n_modes must be an integer between 1 and 16."
+    orchestrator: false
+  - number: 2
+    name: "02_anderson_impurity_hamiltonian"
+    description: "Assemble the two-orbital Anderson impurity Hamiltonian in the many-body basis. The scalar interactions, bath arrays and system sizes determine a real symmetric matrix whose entries are many-body transition amplitudes and occupation energies in the Fock basis. Invalid input raises ValueError: the two size arguments must be positive integers, both bath arrays must have shape (n_orb, n_bath_per_orb) and the four scalar energies must be finite."
+    orchestrator: false
+  - number: 3
+    name: "03_thermal_density_matrix"
+    description: "Construct the normalized thermal density matrix of a finite many-body Hamiltonian at inverse temperature beta. The returned matrix is real symmetric with unit trace, and every subsequent expectation value in this calculation is a trace against it. Invalid input raises ValueError: H must be a two-dimensional square symmetric array and beta must be positive and finite."
+    orchestrator: false
+  - number: 4
+    name: "04_retained_configuration_weights"
+    description: "Return the weights of four retained local configurations of a two-orbital impurity, ordered as a doubly occupied first orbital with an empty second, an up electron on the first with a down electron on the second, a down electron on the first with an up electron on the second, and an empty first orbital with a doubly occupied second. Invalid input raises ValueError: the two size arguments must be positive integers and rho must be square with the full Fock-space dimension."
+    orchestrator: false
+  - number: 5
+    name: "05_spin_exchange_correlator"
+    description: "Return the magnitude of the spin-exchange coherence between the two impurity orbitals, evaluated in the supplied thermal state. Invalid input raises ValueError: the two size arguments must be positive integers and rho must be square with the full Fock-space dimension."
+    orchestrator: false
+  - number: 6
+    name: "06_pair_transfer_coherence"
+    description: "Return the magnitude of the coherence that transfers an electron pair from the second impurity orbital to the first, evaluated in the supplied thermal state. Invalid input raises ValueError: the two size arguments must be positive integers and rho must be square with the full Fock-space dimension."
+    orchestrator: false
+  - number: 7
+    name: "07_orbital_concurrence"
+    description: "Return the orbital entanglement measure built from four retained configuration weights and the magnitude of the surviving coherence between them. Invalid input raises ValueError: weights must hold four finite nonnegative numbers and z_magnitude must be a finite nonnegative scalar."
+    orchestrator: false
+  - number: 8
+    name: "08_run_pipeline"
+    description: "Orbital entanglement of a two-orbital Kanamori impurity at finite temperature."
+    orchestrator: true

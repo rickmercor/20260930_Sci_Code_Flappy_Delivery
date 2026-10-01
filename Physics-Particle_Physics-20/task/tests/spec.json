@@ -1,0 +1,93 @@
+{
+  "problem_id": "Physics-Particle_Physics-20",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Particle_Physics-20.1",
+      "test_cases": [
+        "import numpy as np\nn_channels = 5\nseed = 21\nassert np.allclose(generate_channel_parameters(n_channels, seed), target)",
+        "import numpy as np\nn_channels = 1\nseed = 0\nassert np.allclose(generate_channel_parameters(n_channels, seed), target)",
+        "import numpy as np\nn_channels = 12\nseed = 987654321\nassert np.allclose(generate_channel_parameters(n_channels, seed), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        generate_channel_parameters(0, 21)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        generate_channel_parameters(5, 2.5)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-20.2",
+      "test_cases": [
+        "import numpy as np\nparams = np.array([[4.0806938730, 3.7533280686, 2.2745029760],\n                   [1.2, 0.4, 0.9],\n                   [3.5, 5.1, 1.7]], dtype=float)\nassert np.allclose(compute_asimov_counts(params.copy()), target)",
+        "import numpy as np\nparams = np.array([[0.8, 0.3, 0.5]], dtype=float)\nassert np.allclose(compute_asimov_counts(params.copy()), target)",
+        "import numpy as np\nparams = np.array([[2.0, 1.0, 3.0], [5.0, 6.0, 2.99]], dtype=float)\nassert np.allclose(compute_asimov_counts(params.copy()), target)",
+        "import numpy as np\nparams = np.array([[1e200, 1e200, 1.0]], dtype=float)\ndef run_model():\n    try:\n        compute_asimov_counts(params.copy())\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nparams = np.array([[1.0, 2.0], [3.0, 4.0]], dtype=float)\ndef run_model():\n    try:\n        compute_asimov_counts(params.copy())\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nparams = np.array([[2.0, 0.0, 1.5]], dtype=float)\ndef run_model():\n    try:\n        compute_asimov_counts(params.copy())\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-20.3",
+      "test_cases": [
+        "import numpy as np\nn, m, tau, s = 7.8340219416, 8.5375650697, 2.2745029760, 0.0\nassert np.allclose(compute_profiled_background(n, m, tau, s), target)",
+        "import numpy as np\nn, m, tau, s = 2.0, 1.0, 1.5, 4.0\nassert np.allclose(compute_profiled_background(n, m, tau, s), target)",
+        "import numpy as np\nn, m, tau, s = 3.0, 0.0, 2.0, 1.0\nassert np.allclose(compute_profiled_background(n, m, tau, s), target)",
+        "import numpy as np\nn, m, tau, s = 2.0, 1.0, 1.5, 1000000000000.0\nassert np.allclose(compute_profiled_background(n, m, tau, s), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        compute_profiled_background(3.0, 2.0, 0.0, 0.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        compute_profiled_background(2.0, 1.0, 1.5, 1e16)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        compute_profiled_background(3.0, 2.0, 1.0, -0.5)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-20.4",
+      "test_cases": [
+        "import numpy as np\nn, m, tau = 5.0565705494, 0.7883573968, 2.2496124098\nassert np.allclose(compute_signed_root(n, m, tau), target)",
+        "import numpy as np\nn, m, tau = 2.0, 4.0, 2.0\nassert np.allclose(compute_signed_root(n, m, tau), target)",
+        "import numpy as np\nn, m, tau = 1.5, 6.0, 2.0\nassert np.allclose(compute_signed_root(n, m, tau), target)",
+        "import numpy as np\nn, m, tau = 100000001.0, 100000000.0, 1.0\nassert np.allclose(compute_signed_root(n, m, tau), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        compute_signed_root(3.0, 0.0, 1.5)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        compute_signed_root(1e13, 1e12, 1.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        compute_signed_root(float('nan'), 2.0, 1.5)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-20.5",
+      "test_cases": [
+        "import numpy as np\nn, m, tau = 5.0565705494, 0.7883573968, 2.2496124098\nassert np.allclose(compute_auxiliary_statistic(n, m, tau), target)",
+        "import numpy as np\nn, m, tau = 2.0, 4.0, 2.0\nassert np.allclose(compute_auxiliary_statistic(n, m, tau), target)",
+        "import numpy as np\nn, m, tau = 1.1, 0.15, 0.5\nassert np.allclose(compute_auxiliary_statistic(n, m, tau), target)",
+        "import numpy as np\nn, m, tau = 1000000000000.0, 500000000000.0, 1.5\nassert np.allclose(compute_auxiliary_statistic(n, m, tau), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        compute_auxiliary_statistic(0.0, 2.0, 1.5)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        compute_auxiliary_statistic(1e200, 1e200, 1.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        compute_auxiliary_statistic(3.0, 2.0, -1.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-20.6",
+      "test_cases": [
+        "import numpy as np\nr0, u0 = 2.8061669282, 2.2043944471\nassert np.allclose(compute_corrected_significance(r0, u0), target)",
+        "import numpy as np\nr0, u0 = 1.7, 0.0\nassert np.allclose(compute_corrected_significance(r0, u0), target)",
+        "import numpy as np\nr0, u0 = -1.0, -0.5\nassert np.allclose(compute_corrected_significance(r0, u0), target)",
+        "import numpy as np\nr0, u0 = 2.25, 2.25\nassert np.allclose(compute_corrected_significance(r0, u0), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        compute_corrected_significance(float('inf'), 1.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-20.7",
+      "test_cases": [
+        "import numpy as np\nn, m, tau = 7.0, 4.0, 2.0\nassert np.allclose(compute_signal_probability(n, m, tau), target)",
+        "import numpy as np\nn, m, tau = 7.8340219416, 8.5375650697, 2.2745029760\nassert np.allclose(compute_signal_probability(n, m, tau), target)",
+        "import numpy as np\nn, m, tau = 0.0, 0.0, 1.5\nassert np.allclose(compute_signal_probability(n, m, tau), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        compute_signal_probability(1e13, 2.0, 1.5)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        compute_signal_probability(-1.0, 2.0, 1.5)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        compute_signal_probability(3.0, 2.0, 0.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Particle_Physics-20.8",
+      "test_cases": [
+        "import numpy as np\nn_channels, seed, threshold = 120, 21, 0.95\nassert np.allclose(compute_combined_sensitivity(n_channels, seed, threshold), target)",
+        "import numpy as np\nn_channels, seed, threshold = 10, 3, 0.95\nassert np.allclose(compute_combined_sensitivity(n_channels, seed, threshold), target)",
+        "import numpy as np\nn_channels, seed, threshold = 5, 7, 0.999999\nassert np.allclose(compute_combined_sensitivity(n_channels, seed, threshold), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        compute_combined_sensitivity(10, 3, 1.2)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        compute_combined_sensitivity(-5, 3, 0.95)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

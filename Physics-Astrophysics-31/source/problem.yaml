@@ -1,0 +1,48 @@
+problem_id: "Physics-Astrophysics-31"
+subject: "physics"
+subject_area: "Astrophysics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1051/0004-6361/202555912"
+dependencies: ""
+steps:
+  - number: 1
+    name: "stratified_background"
+    description: "Step 01: evaluate the prescribed static background on the height grid.\n\nContract\n--------\nThe atmosphere is completely prescribed; nothing here is solved for. On a\nheight grid $z$ measured from the base of the domain, evaluate\n\n- the hydrogen number density, falling off exponentially with scale height\n$H$ from its base value $n_base$;\n- the mass density, obtained from the hydrogen number density by adding the\nhelium mass, with a helium-to-hydrogen abundance ratio $A_He$, so that\n$rho = m_p (1 + 4 A_He) n_H$;\n- the temperature, rising from $T_base$ towards $T_base + dT$ as\n1 - exp(-z / LT);\n- the magnetic field strength, falling as the inverse square of the distance\nfrom the solar centre, $B = B0 (R_sun / (z + R_sun))^2$ with\n`R_sun = 695.7` Mm;\n- the strand radius, which follows the field through conservation of the\nmagnetic flux threading one strand, R = R0 sqrt(B0 / B);\n- the density contrast, relaxing from `zeta0` towards 1 as\nzeta = (zeta0 - 1) exp(-z / Lzeta) + 1."
+    orchestrator: false
+  - number: 2
+    name: "cross_section_structure"
+    description: "Step 02: resolve the cross-sectional density structure of the strand bundle.\n\nContract\n--------\nSeen end-on, the bundle is a two-component medium: a fraction $f$ of the\ncross-sectional area is strand interior at mass density $rho_i$, the\nremaining $1 - f$ is ambient material at $rho_e$, and the two are related\nby the density contrast $zeta = rho_i / rho_e$. The single density carried by\nthe one-dimensional model is the area-weighted mean over the cross-section,\n$rho_avg$, which is what this step is given.\n\nGiven $rho_avg$, `zeta` and $f$, return the two component densities that\nreproduce that area-weighted mean."
+    orchestrator: false
+  - number: 3
+    name: "channel_speeds"
+    description: "Step 03: the speed at which each wave channel is carried along the bundle.\n\nContract\n--------\nTwo families of waves travel along the bundle and they do not share a\npropagation speed.\n\n- Row 0: the speed at which the Alfven channel is carried. It is built on the\nfield strength and on the single density the one-dimensional model carries,\nthe area-weighted mean.\n- Row 1: the speed at which the transverse displacement channel is carried.\nThat channel is a collective oscillation in which a strand and the material\nsurrounding it move together, so its speed is set by the field strength and\nby BOTH component densities, and it is not the Alfven speed of either\ncomponent alone. The same field threads the strand interior and the ambient\nmedium.\n\nNeither speed is written out here; supply both."
+    orchestrator: false
+  - number: 4
+    name: "perpendicular_correlation_lengths"
+    description: "Step 04: the perpendicular correlation length of each wave channel.\n\n\n\nContract\n\n--------\n\nEvaluate the two correlation lengths specified in the Scientific background.\n\nReturn the transverse displacement (kink) channel length in row 0 and the\n\nAlfven channel length in row 1. The first depends on strand radius, density\n\ncontrast and filling factor; the second depends on local temperature and\n\nfield strength."
+    orchestrator: false
+  - number: 5
+    name: "deposition_rates"
+    description: "Step 05: the volumetric rate at which each wave population deposits its energy.\n\n\n\nContract\n\n--------\n\nEvaluate the three local dissipation closures specified in the Scientific\n\nbackground. Given the wave energy densities, local mass densities and\n\ncorrelation lengths, return the deposition rates of the transverse\n\ndisplacement channel, the outward Alfven population and the inward Alfven\n\npopulation, in that row order. Each rate depends only on the supplied\n\nlocal arguments."
+    orchestrator: false
+  - number: 6
+    name: "transverse_channel_profile"
+    description: "Step 06: steady-state profile of the transverse displacement channel.\n\nContract\n--------\nOnly an outward-travelling population of this channel is present, injected at\nthe base with energy density $W_base$, so its profile follows from a single\nintegration from the base to the top of the grid.\n\nThe background is static and there is no bulk flow, so in steady state the\nheight derivative of this channel's energy flux balances minus the volumetric\nrate at which the channel deposits energy. The flux is the channel's energy\ndensity times the speed at which it is carried. The deposition rate is the one\nreturned in row 0 by $deposition_rates$; call that function, do not\nre-derive it here."
+    orchestrator: false
+  - number: 7
+    name: "alfven_channel_profile"
+    description: "Step 07: steady-state profile of the two-population Alfven channel.\n\nContract\n--------\nThis channel carries TWO populations. An outward-travelling one is injected at\nthe base of the domain with energy density $W_out_base$; an inward-travelling\none enters at the top with energy density $W_in_top$ and propagates towards\nthe base. Both are carried at the Alfven speed.\n\nAs in step 06 the background is static, so in steady state the height\nderivative of a population's energy flux balances minus the volumetric rate at\nwhich that population deposits energy, and the flux is that population's energy\ndensity times the Alfven speed. Those two rates are the ones returned in rows 1\nand 2 by $deposition_rates$; call that function, do not re-derive them here.\nBecause the two boundary conditions sit at opposite ends of the domain, this is\na two-point boundary-value problem and must be relaxed rather than integrated\nonce."
+    orchestrator: false
+  - number: 8
+    name: "radiative_loss_profile"
+    description: "Step 08: optically thin radiative loss rate of the structured bundle.\n\nContract\n--------\nRadiation is a local, optically thin, two-body process: at every point inside\nthe bundle the plasma loses energy at a volumetric rate equal to the radiative\nloss function evaluated at the local temperature, multiplied by the square of\nthe LOCAL hydrogen number density at that point.\n\nThe bundle is not homogeneous across its cross-section. A fraction $f$ of the\narea is strand interior at mass density $rho_i$, the rest is ambient material\nat $rho_e$, and the one-dimensional model carries only the area-weighted mean\n$rho_avg$ and the corresponding area-weighted mean hydrogen number density\n$n_H$. The composition is the same everywhere, so at any point the hydrogen\nnumber density is in the same ratio to $n_H$ as the local mass density is to\n$rho_avg$. The temperature is uniform across the cross-section.\n\nReturn the loss rate per unit volume of the bundle as a whole. How that rate\nfollows from the arguments is NOT written out here; supply it.\n\nThe radiative loss function is prescribed, not modelled. It is the single\npower law\n\n$Lambda(T) = lambda0 (T / 1 MK)^lambda_exponent$\n\nwith `lambda0` given in units of 1e-35 W m^3 and $lambda_exponent$ the\npower-law index."
+    orchestrator: false
+  - number: 9
+    name: "first_balance_height"
+    description: "Step 09: locate the lowest height at which heating balances losses.\n\nContract\n--------\nGiven a heating rate and a loss rate sampled on a common uniform height grid,\nfind the LOWEST height at which their difference changes sign, that is the\nfirst crossing of heating and losses as one moves up from the base."
+    orchestrator: false
+  - number: 10
+    name: "orchestrator"
+    description: "Step 10 (FINAL ORCHESTRATOR): the two-channel radiative balance height.\n\nContract\n--------\nRun the whole chain end to end and return one scalar: the lowest height at\nwhich the total wave heating deposited by BOTH channels first rises to equal\nthe local optically thin radiative loss rate of the bundle.\n\nThe chain is: the prescribed background on a uniform height grid (step 01);\nthe cross-sectional density split (step 02); the two propagation speeds\n(step 03); the two perpendicular correlation lengths (step 04); the\ndissipation closures (step 05); the steady-state profile and deposition rate of\nthe transverse displacement channel (step 06); the same for the two-population\nAlfven channel (step 07); the radiative loss rate (step 08); and the first\ncrossing of their sum with the losses (step 09).\n\nThe driver composes the functions of steps 01-09; it does not re-implement\nthem. Called with no arguments it runs the benchmark configuration of the\nproblem statement."
+    orchestrator: true

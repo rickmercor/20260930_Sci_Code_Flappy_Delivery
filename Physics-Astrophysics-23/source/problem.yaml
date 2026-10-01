@@ -1,0 +1,40 @@
+problem_id: "Physics-Astrophysics-23"
+subject: "physics"
+subject_area: "Astrophysics"
+difficulty: "medium"
+answer_type: "single_numeric"
+paper_doi: "10.1051/0004-6361/202558023"
+dependencies: ""
+steps:
+  - number: 1
+    name: "infer_coupling_factor"
+    description: "Implement infer_coupling_factor, which recovers the p-g coupling factor q of\nthe quadrupolar (l = 2) mixed modes of an evolved solar-like star from the\nfrequencies of two observed m = 0 mixed modes of the same radial-order region."
+    orchestrator: false
+  - number: 2
+    name: "infer_gravity_phase"
+    description: "Implement infer_gravity_phase, which recovers the gravity-mode phase offset\neps_g of the quadrupolar mixed modes from one observed m = 0 mixed-mode\nfrequency once the coupling factor q is known."
+    orchestrator: false
+  - number: 3
+    name: "find_mixed_modes"
+    description: "Implement find_mixed_modes, which returns every unperturbed (non-rotating)\nquadrupolar mixed-mode frequency of the asymptotic model inside a frequency\nwindow."
+    orchestrator: false
+  - number: 4
+    name: "compute_trapping_fraction"
+    description: "Implement compute_trapping_fraction, which evaluates the asymptotic trapping\nfraction zeta of a quadrupolar mixed mode, the ratio of the mode inertia in\nthe gravity-mode cavity to the total mode inertia."
+    orchestrator: false
+  - number: 5
+    name: "compute_core_coupling"
+    description: "Implement compute_core_coupling, which evaluates the asymptotic core-cavity\nnear-degeneracy coupling coefficient gamma_c between two distinct quadrupolar\nmixed modes of an evolved solar-like star."
+    orchestrator: false
+  - number: 6
+    name: "assemble_rotation_matrix"
+    description: "Implement assemble_rotation_matrix, which builds the rotational coupling\nmatrix of a set of quadrupolar mixed modes for one azimuthal order m in a\ntwo-zone rotation model (core rotating at the cyclic rate nu_core, envelope\nat nu_env)."
+    orchestrator: false
+  - number: 7
+    name: "solve_rotational_multiplets"
+    description: "Implement solve_rotational_multiplets, which computes the perturbed\nfrequencies of a set of coupled quadrupolar mixed modes for one azimuthal\norder by solving the rotating eigenvalue problem exactly in the basis of the\nunperturbed modes."
+    orchestrator: false
+  - number: 8
+    name: "compute_multiplet_asymmetry"
+    description: "Implement compute_multiplet_asymmetry, the end-to-end pipeline that predicts\nthe near-degeneracy asymmetry of one rotational multiplet of quadrupolar\nmixed modes from two observed m = 0 frequencies, the global seismic\nparameters and the two-zone rotation rates."
+    orchestrator: true

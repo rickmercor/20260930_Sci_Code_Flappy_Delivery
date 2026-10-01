@@ -1,0 +1,48 @@
+problem_id: "Material_Science-Molecular_Modeling-41"
+subject: "materials"
+subject_area: "Molecular Modeling"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1515/zna-2025-0354"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_correlation_transform"
+    description: "Normalize a vector velocity correlation and evaluate its generating sum"
+    orchestrator: false
+  - number: 2
+    name: "02_shared_rational_fit"
+    description: "Fit matrix samples using a common scalar barycentric denominator."
+    orchestrator: false
+  - number: 3
+    name: "03_continuous_poles"
+    description: "Extract stable continuous exponents of a barycentric denominator."
+    orchestrator: false
+  - number: 4
+    name: "04_constrained_residues"
+    description: "Fit matrix exponential residues with inertial short-time constraints."
+    orchestrator: false
+  - number: 5
+    name: "05_real_velocity_embedding"
+    description: "Construct a real minimal residue realization with velocity first."
+    orchestrator: false
+  - number: 6
+    name: "06_singular_memory_reduction"
+    description: "Reduce a purely inertial embedding to a regular auxiliary noise problem."
+    orchestrator: false
+  - number: 7
+    name: "07_regular_lure"
+    description: "Solve the stabilizing regular Lur'e covariance completion."
+    orchestrator: false
+  - number: 8
+    name: "08_complete_discrete_embedding"
+    description: "Complete the stationary covariance and integrate the embedded noise."
+    orchestrator: false
+  - number: 9
+    name: "09_velocity_innovation_score"
+    description: "Evaluate the stationary Gaussian innovation likelihood of probe velocities."
+    orchestrator: false
+  - number: 10
+    name: "10_molecular_memory_score"
+    description: "Reconstruct an inertial vector memory model and score a held-out trajectory."
+    orchestrator: true

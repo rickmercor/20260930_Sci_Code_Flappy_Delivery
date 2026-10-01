@@ -1,0 +1,85 @@
+{
+  "problem_id": "Physics-Condensed_Matter_Physics-10",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-10.1",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(round(float(np.asarray(fermi_occupation(np.array([0.0]), 5.0))[0]), 12), target)",
+        "import numpy as np\nassert np.allclose([round(float(v), 10) for v in np.asarray(fermi_occupation(np.array([-2.0, 0.0, 2.0]), 0.0))], target)",
+        "import numpy as np\nassert np.allclose(int(bool(np.all(np.asarray(fermi_occupation(np.array([1e6, -1e6]), 1e-6)) >= 0.0))), target)",
+        "import numpy as np\nassert np.allclose(np.asarray(fermi_occupation(np.array([-1.5, 0.0, 1.5]), 12.0)), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        fermi_occupation(np.array([0.0]), -1.0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-10.2",
+      "test_cases": [
+        "assert np.allclose(round(float(gap_kernel(1.7, 8.0, 2.6)), 12), target)",
+        "assert np.allclose(round(float(gap_kernel(2.0, 0.0, 2.6)), 12), target)",
+        "assert np.allclose(round(float(gap_kernel(1e-6, 10.0, 2.6)), 12), target)",
+        "import numpy as np\nassert np.allclose(round(float(gap_kernel(1.3, 0.0, 2.6) - np.arcsinh(2.6 / 1.3)), 12), target)",
+        "def run_model():\n    try:\n        gap_kernel(0.0, 7.0, 2.6)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-10.3",
+      "test_cases": [
+        "assert np.allclose(round(float(equilibrium_gap(0.01, 2.6, 1.11)), 12), target)",
+        "assert np.allclose(round(float(equilibrium_gap(15.3, 2.6, 1.11)), 12), target)",
+        "assert np.allclose(round(float(equilibrium_gap(0.0, 1.0, 0.2)), 12), target)",
+        "import numpy as np\nassert np.allclose(round(float(equilibrium_gap(0.0, 2.6, 1.11) - 2.6 / np.sinh(1.0 / 1.11)), 12), target)",
+        "def run_model():\n    try:\n        equilibrium_gap(-1.0, 2.6, 1.11)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-10.4",
+      "test_cases": [
+        "assert np.allclose(round(float(critical_temperature(2.6, 1.11)), 6), target)",
+        "assert np.allclose(int(critical_temperature(2.6, 1.30) > critical_temperature(2.6, 0.80)), target)",
+        "assert np.allclose(round(float(critical_temperature(5.2, 1.11) / critical_temperature(2.6, 1.11)), 6), target)",
+        "import numpy as np\ndef run_model():\n    for args in ((np.nan, 1.11), (2.6, 0.0), (2.6, 1e-6)):\n        try:\n            critical_temperature(*args)\n        except ValueError:\n            continue\n        except Exception:\n            return 2\n        return 0\n    return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-10.5",
+      "test_cases": [
+        "assert np.allclose(float('%.7g' % inertia_coefficient(1.7, 8.0, 2.6)), target)",
+        "assert np.allclose(float('%.7g' % inertia_coefficient(2.0, 0.0, 2.6)), target)",
+        "assert np.allclose(float('%.7g' % inertia_coefficient(0.05, 10.0, 2.6)), target)",
+        "assert np.allclose(int(inertia_coefficient(1.5, 4.0, 2.6) > inertia_coefficient(1.5, 12.0, 2.6)), target)",
+        "def run_model():\n    try:\n        inertia_coefficient(0.0, 7.0, 2.6)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-10.6",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(round(float(np.asarray(pulse_envelope(np.array([0.0]), 0.0, 0.4, 0.8, 0.25, 0.0))[0]), 12), target)",
+        "import numpy as np\nassert np.allclose([round(float(v), 10) for v in np.asarray(pulse_envelope(np.array([-0.5, 0.5]), 0.0, 0.4, 0.8, 0.25, 0.0))], target)",
+        "import numpy as np\nassert np.allclose(int(bool(np.all(np.abs(np.asarray(pulse_envelope(np.array([-8.0, 8.0]), 0.0, 0.5, 1.0, 0.4, 0.0))) < 1e-20))), target)",
+        "import numpy as np\nassert np.allclose([round(float(v), 10) for v in np.asarray(pulse_envelope(np.array([-1.0, 0.0, 1.0]), 0.0, 1.0, 1.0, 0.0, 0.0))], target)",
+        "import numpy as np\ndef run_model():\n    try:\n        pulse_envelope(np.array([0.0, np.nan]), 0.0, 0.4, 0.8, 0.25, 0.0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-10.7",
+      "test_cases": [
+        "assert np.allclose(round(float(drive_coefficient(0.4, 7.6306183138, 12.2089893021, 2.6, 1.11)), 12), target)",
+        "assert np.allclose(round(float(drive_coefficient(0.4, 7.6306183138, 7.6306183138, 2.6, 1.11)), 12), target)",
+        "assert np.allclose(round(float(drive_coefficient(0.0, 7.6306183138, 12.2089893021, 2.6, 1.11)), 12), target)",
+        "assert np.allclose(int(drive_coefficient(0.4, 5.0, 10.0, 2.6, 1.11) > 0.4), target)",
+        "def run_model():\n    try:\n        drive_coefficient(-0.1, 7.6306183138, 12.2089893021, 2.6, 1.11)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Condensed_Matter_Physics-10.8",
+      "test_cases": [
+        "assert np.allclose(round(float(run_pipeline(2.6, 1.11, 0.5, 0.8, 0.4, 0.03, 0.6, 1.341, 5.065, -6.33, 4.76, 40.0)), 9), target)",
+        "assert np.allclose(round(float(run_pipeline(2.6, 1.11, 0.5, 0.8, 0.0, 0.03, 0.6, 1.341, 5.065, -6.33, 4.76, 40.0)), 9), target)",
+        "assert np.allclose(int(bool(0.0 < run_pipeline(2.6, 1.11, 0.5, 0.8, 0.2, 0.03, 0.6, 1.341, 5.065, -6.33, 4.76, 40.0) <= 1.0)), target)",
+        "assert np.allclose(int(bool(run_pipeline(2.6, 1.11, 0.5, 0.8, 0.6, 0.03, 0.6, 1.341, 5.065, -6.33, 4.76, 40.0) < run_pipeline(2.6, 1.11, 0.5, 0.8, 0.2, 0.03, 0.6, 1.341, 5.065, -6.33, 4.76, 40.0))), target)",
+        "def run_model():\n    try:\n        run_pipeline(2.6, 1.11, 1.5, 0.8, 0.4, 0.03, 0.6, 1.341, 5.065, -6.33, 4.76, 40.0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(run_model(), target)",
+        "def run_model():\n    try:\n        run_pipeline(2.6, 1.11, 0.5, 0.8, -0.1, 0.03, 0.6, 1.341, 5.065, -6.33, 4.76, 40.0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+problem_id: "Material_Science-Semiconductor_Materials-48"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1038/s41699-026-00722-0"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_screened_gaussian_moments"
+    description: "Step 01 - Gaussian moments of the screened electron-hole interaction in a monolayer."
+    orchestrator: false
+  - number: 2
+    name: "02_exciton_ground_state"
+    description: "Step 02 - Lowest bound state of the screened Wannier problem in a Gaussian basis."
+    orchestrator: false
+  - number: 3
+    name: "03_exchange_constant"
+    description: "Step 03 - Long-wavelength fermionic exchange constant of two 1s excitons."
+    orchestrator: false
+  - number: 4
+    name: "04_saturation_overlap"
+    description: "Step 04 - Phase-space-filling overlap of a zero-momentum pair state with an exciton at momentum Q."
+    orchestrator: false
+  - number: 5
+    name: "05_polariton_branches"
+    description: "Step 05 - Lower and upper polariton dispersions and Hopfield amplitudes."
+    orchestrator: false
+  - number: 6
+    name: "06_thermal_exciton_fraction"
+    description: "Step 06 - Mean exciton fraction of a thermal polariton gas."
+    orchestrator: false
+  - number: 7
+    name: "07_normal_incidence_shifts"
+    description: "Step 07 - Density-induced shifts of the lower and upper polariton at normal incidence."
+    orchestrator: false
+  - number: 8
+    name: "08_polariton_splitting_change"
+    description: "Step 08 - Density-induced change of the normal-incidence LP-UP splitting (orchestrator)."
+    orchestrator: true

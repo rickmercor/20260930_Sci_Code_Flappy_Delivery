@@ -1,0 +1,48 @@
+problem_id: "Physics-Computational_Physics-24"
+subject: "physics"
+subject_area: "Computational Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.5281/zenodo.20803942"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_evaluate_multiplicity_moments"
+    description: "Reduce a tabulated prompt-fission multiplicity distribution to the two moments that the point-kinetic and stochastic descriptions of the neutron balance both need."
+    orchestrator: false
+  - number: 2
+    name: "02_compute_neutron_event_rates"
+    description: "Convert the point-kinetic constants and the fission multiplicity moments into the per-neutron event rates of the equivalent stochastic process and into the amplitude of the neutron noise."
+    orchestrator: false
+  - number: 3
+    name: "03_build_kinetics_matrix"
+    description: "Assemble the drift matrix of the two-region perfectly-mixed point-kinetic model, whose state carries the neutron population together with one in-core and one ex-core precursor population per delayed group."
+    orchestrator: false
+  - number: 4
+    name: "04_compute_drift_reactivity_loss"
+    description: "Determine the reactivity that circulation of the fuel removes from the two-region system, which is the reactivity at which the circulating configuration is exactly critical."
+    orchestrator: false
+  - number: 5
+    name: "05_solve_steady_state_populations"
+    description: "Solve the source-driven stationary state of the two-region point-kinetic model for the neutron population and for the in-core and ex-core precursor inventory of every delayed group."
+    orchestrator: false
+  - number: 6
+    name: "06_build_jump_diffusion_matrix"
+    description: "Assemble the diffusion matrix of the exact continuous-time Markov jump process at a given state, accumulating over every elementary event the product of its rate with the outer product of its state increment."
+    orchestrator: false
+  - number: 7
+    name: "07_build_diffusive_noise_matrix"
+    description: "Assemble the diffusion matrix of the It\u00f4 stochastic point-kinetic description, in which the whole stochastic forcing is a single scalar Brownian term attached to the neutron balance."
+    orchestrator: false
+  - number: 8
+    name: "08_solve_stationary_covariance"
+    description: "Obtain the stationary covariance matrix of a linear stochastic system from its drift matrix and its diffusion matrix, without sampling any trajectory."
+    orchestrator: false
+  - number: 9
+    name: "09_compute_inventory_dispersion_ratio"
+    description: "Reduce two stationary covariance matrices to the ratio of the standard deviations they predict for one weighted sum of the state components."
+    orchestrator: false
+  - number: 10
+    name: "10_run_precursor_dispersion_pipeline"
+    description: "Chain the sub-problem functions 01-09 end to end on the circulating-fuel testbed and return the ratio of the stationary standard deviations that the exact jump process and the diffusive description predict for the selected inventory."
+    orchestrator: true

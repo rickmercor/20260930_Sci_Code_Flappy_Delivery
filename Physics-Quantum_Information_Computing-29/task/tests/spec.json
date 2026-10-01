@@ -1,0 +1,98 @@
+{
+  "problem_id": "Physics-Quantum_Information_Computing-29",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Quantum_Information_Computing-29.1",
+      "test_cases": [
+        "import numpy as np\na=np.array([[0,1,2],[0,1,3],[0,2,4]])\nassert np.allclose(detector_matrix(7,a.copy()), target)",
+        "import numpy as np\na=np.array([[0,1]])\nassert np.allclose(detector_matrix(3,a.copy()), target)",
+        "import numpy as np\na=np.array([[0,2,4,5],[1,2,3,5]])\nassert np.allclose(detector_matrix(6,a.copy()), target)",
+        "import numpy as np\ndef run_model():\n    try: detector_matrix(3,[[0,0]])\n    except ValueError: return 1\n    except Exception: return 2\n    return 0\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-29.2",
+      "test_cases": [
+        "import numpy as np\nH=np.array([[1,1,1,0],[0,1,1,1]]);s=np.array([1,0]);f=np.array([-1,-1,-1,1])\nassert np.allclose(residual_syndrome(H.copy(),s.copy(),f.copy()), target)",
+        "import numpy as np\nH=np.ones((1,2),int);s=np.array([1]);f=np.array([-1,-1])\nassert np.allclose(residual_syndrome(H.copy(),s.copy(),f.copy()), target)",
+        "import numpy as np\nH=np.array([[1,1,1,1,0],[0,1,1,1,1]]);s=np.array([0,1]);f=np.array([1,-1,-1,1,0])\nassert np.allclose(residual_syndrome(H.copy(),s.copy(),f.copy()), target)",
+        "import numpy as np\ndef run_model():\n    try: residual_syndrome([[1,1]],[0],[1,-1])\n    except ValueError: return 1\n    except Exception: return 2\n    return 0\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-29.3",
+      "test_cases": [
+        "import numpy as np\nH=np.array([[1,1,1,0],[0,1,1,1]]);L=np.array([1.,-.5,2.,.3]);s=np.array([1,0]);E=np.array([[.5,-1,2,0],[0,1.5,-.7,.2]]);f=np.array([-1,-1,-1,1])\nassert np.allclose(masked_run(H.copy(),L.copy(),s.copy(),E.copy(),f.copy(),5), target)",
+        "import numpy as np\nH=np.ones((1,2),int);L=np.zeros(2);s=np.array([0]);E=np.zeros((1,2));f=np.array([-1,-1])\nassert np.allclose(masked_run(H.copy(),L.copy(),s.copy(),E.copy(),f.copy(),1), target)",
+        "import numpy as np\nH=np.array([[1,1,1,1,0],[0,1,1,1,1]]);L=np.array([2.,-1.,.25,3.,-.5]);s=np.array([0,1]);E=H*np.array([.5,0,-.25,2,1]);f=np.array([1,-1,-1,0,-1])\nassert np.allclose(masked_run(H.copy(),L.copy(),s.copy(),E.copy(),f.copy(),8), target)",
+        "import numpy as np\ndef run_model():\n    try: masked_run([[1,1]],[0,0],[0],[[0,0]],[-1,-1],True)\n    except ValueError: return 1\n    except Exception: return 2\n    return 0\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nH=np.ones((3,4),int);L=np.array([.25,-.5,.75,-1.25]);s=np.zeros(3,int);E=np.array([[1e16]*4,[1.]*4,[-1e16,1e16,1e16,1e16]]);f=np.full(4,-1)\nassert np.allclose(masked_run(H.copy(),L.copy(),s.copy(),E.copy(),f.copy(),1), target)",
+        "import numpy as np\nH=np.ones((3,4),int);L=np.array([.25,-.5,.75,-1.25]);s=np.zeros(3,int);E=np.array([[1e16]*4,[1.]*4,[-1e16,1e16,1e16,1e16]]);f=np.full(4,-1)\nassert np.allclose((lambda out: np.array([out[0][1,0],out[2],out[4]]))(masked_run(H.copy(),L.copy(),s.copy(),E.copy(),f.copy(),5)), target)",
+        "import numpy as np\nH=np.ones((3,5),int);L=np.array([.25,-.5,.75,-1.25,2.]);s=np.ones(3,int);E=np.array([[1e17]*5,[.125]*5,[-1e17,1e17,1e17,1e17,1e17]]);f=np.array([-1,-1,-1,-1,1])\nassert np.allclose(masked_run(H.copy(),L.copy(),s.copy(),E.copy(),f.copy(),3), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-29.4",
+      "test_cases": [
+        "import numpy as np\na=np.array([-2.,28.125,-9.,39.375]);f=np.full(4,-1)\nassert np.allclose(path_statistics(a.copy(),f.copy(),12), target)",
+        "import numpy as np\na=np.zeros(2);f=np.array([-1,0])\nassert np.allclose(path_statistics(a.copy(),f.copy(),1), target)",
+        "import numpy as np\na=np.array([0.,-3.,3.,15.]);f=np.array([1,-1,-1,-1])\nassert np.allclose(path_statistics(a.copy(),f.copy(),3), target)",
+        "import numpy as np\ndef run_model():\n    try: path_statistics([1,2],[0,-1],2)\n    except ValueError: return 1\n    except Exception: return 2\n    return 0\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-29.5",
+      "test_cases": [
+        "import numpy as np\ns=np.array([4.,9.,9.,2.]);p=np.array([[[0,1]],[[3,0]],[[1,1]],[[2,0]]])\nassert np.allclose(rank_paths(s.copy(),p.copy(),2), target)",
+        "import numpy as np\ns=np.array([0.]);p=np.empty((1,0,2),int)\nassert np.allclose(rank_paths(s.copy(),p.copy(),1), target)",
+        "import numpy as np\ns=np.array([3.,3.,3.]);p=np.array([[[2,1],[0,0]],[[2,0],[1,1]],[[2,1],[0,0]]])\nassert np.allclose(rank_paths(s.copy(),p.copy(),3), target)",
+        "import numpy as np\ndef run_model():\n    try: rank_paths([1],[[[2,0],[2,1]]],1)\n    except ValueError: return 1\n    except Exception: return 2\n    return 0\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-29.6",
+      "test_cases": [
+        "import numpy as np\nH=np.array([[1,1,1,1,0],[0,1,1,1,1]]);L=np.array([1.,-.5,2.,.3,.75]);s=np.array([1,0])\nassert np.allclose(branch_trajectory(H.copy(),L.copy(),s.copy(),3,4,2,2), target)",
+        "import numpy as np\nH=np.ones((1,3),int);L=np.array([.25,1.,2.]);s=np.array([1])\nassert np.allclose(branch_trajectory(H.copy(),L.copy(),s.copy(),1,1,1,1), target)",
+        "import numpy as np\nH=np.array([[1,1,1,1,1,0],[0,1,1,1,1,1],[1,0,1,1,1,1]]);L=np.array([1.,-.25,.5,2.,-.75,1.25]);s=np.array([1,0,1])\nassert np.allclose(branch_trajectory(H.copy(),L.copy(),s.copy(),5,4,3,4), target)",
+        "import numpy as np\ndef run_model():\n    try: branch_trajectory([[1,1,1]],[1,2,3],[0],1,1,2,1)\n    except ValueError: return 1\n    except Exception: return 2\n    return 0\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-29.7",
+      "test_cases": [
+        "import numpy as np\na=np.array([[0,1,2],[0,1,3],[0,2,4]]);L=np.array([29,47,23,61,37,53,31,43,59,19,41,67,17,71,73,79,83,89,97,101,103])/16;s=np.array([1,0,0,1,1,0,0])\nassert np.allclose(terminal_score(7,a.copy(),L.copy(),s.copy(),12,8,6,4), target)",
+        "import numpy as np\na=np.array([[0,1,2]]);L=np.array([.25,1.,2.]);s=np.ones(3,int)\nassert np.allclose(terminal_score(3,a.copy(),L.copy(),s.copy(),1,1,1,1), target)",
+        "import numpy as np\na=np.array([[0,1,2],[0,2,3]]);L=np.array([.25,1.,2.,-.5,1.5,-.25,.75,1.25]);s=np.array([0,1,0,1])\nassert np.allclose(terminal_score(4,a.copy(),L.copy(),s.copy(),3,4,3,2), target)",
+        "import numpy as np\ndef run_model():\n    try: terminal_score(3,[[0,1]],[1,2,3],[0,0,0],1,1,1,1)\n    except ValueError: return 1\n    except Exception: return 2\n    return 0\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-29.8",
+      "test_cases": [
+        "import numpy as np\nH=np.ones((2,4),int);b=np.array([.25,1.,-.5,2.]);d=np.array([0.,.5,0.,0.]);s=np.array([1,0])\nassert np.allclose(trace_score_cell(H.copy(),b.copy(),d.copy(),s.copy(),[1,7],[[-1,2],[1,2]],2,2,1,2), target)",
+        "import numpy as np\nH=np.ones((1,3),int);b=np.zeros(3);d=np.zeros(3);s=np.array([0])\nassert np.allclose(trace_score_cell(H.copy(),b.copy(),d.copy(),s.copy(),[0,1],[[-1,1],[1,1]],1,1,1,1), target)",
+        "import numpy as np\nH=np.ones((2,5),int);b=np.array([.5,-.75,1.25,2.,.125]);d=np.array([.25,0.,-.5,0.,.25]);s=np.array([1,1])\nassert np.allclose(trace_score_cell(H.copy(),b.copy(),d.copy(),s.copy(),[2,7],[[-1,1],[1,1]],3,2,2,2), target)",
+        "import numpy as np\ndef run_model():\n    try: trace_score_cell([[1,1,1]],[0,0,0],[1,0,0],[0],[0,1],[[-1,1],[1,1]],1,1,1,1)\n    except ValueError: return 1\n    except Exception: return 2\n    return 0\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-29.9",
+      "test_cases": [
+        "import numpy as np\nc=[[-1,16],[1,16],[5,2],[3,1]]\nassert np.allclose(cell_squared_integral([row[:] for row in c],2.), target)",
+        "import numpy as np\nc=[[0,1],[1,2],[0,1],[0,1]]\nassert np.allclose(cell_squared_integral([row[:] for row in c],0.), target)",
+        "import numpy as np\nc=[[1,3],[2,3],[1000000000000,1],[-3,1]]\nassert np.allclose(cell_squared_integral([row[:] for row in c],1e12), target)",
+        "import numpy as np\ndef run_model():\n    try: cell_squared_integral([[0,0],[1,1],[1,1],[1,1]],0.)\n    except ValueError: return 1\n    except Exception: return 2\n    return 0\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-29.10",
+      "test_cases": [
+        "import numpy as np\na=np.array([[0,1,2]]);b=np.array([.25,1.,2.]);s=np.ones(3,int)\nassert np.allclose(uncertainty_response(3,a.copy(),b.copy(),s.copy(),1,(-1,16),(1,16),1,1,1,1), target)",
+        "import numpy as np\na=np.array([[0,1,2]]);b=np.zeros(3);s=np.zeros(3,int)\nassert np.allclose(uncertainty_response(3,a.copy(),b.copy(),s.copy(),0,(-1,32),(1,32),1,1,1,1), target)",
+        "import numpy as np\na=np.array([[0,1,2],[0,2,3]]);b=np.array([.25,1.,2.,-.5,1.5,-.25,.75,1.25]);s=np.array([0,1,0,1])\nassert np.allclose(uncertainty_response(4,a.copy(),b.copy(),s.copy(),2,(-1,64),(1,32),2,2,1,2), target)",
+        "import numpy as np\ndef run_model():\n    try: uncertainty_response(3,[[0,1,2]],[0,0,0],[0,0,0],3)\n    except ValueError: return 1\n    except Exception: return 2\n    return 0\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

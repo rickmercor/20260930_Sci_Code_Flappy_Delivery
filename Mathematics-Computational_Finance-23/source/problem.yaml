@@ -1,0 +1,44 @@
+problem_id: "Mathematics-Computational_Finance-23"
+subject: "mathematics"
+subject_area: "Computational Finance"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1080/14697688.2026.2647986"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_simulate_correlated_antithetic_gbm_paths"
+    description: "Generate deterministic two-asset risk-neutral GBM paths with correlation and antithetic pairing."
+    orchestrator: false
+  - number: 2
+    name: "02_min_put_polynomial_basis"
+    description: "Evaluate the nested two-asset normalized polynomial basis, optionally after pathwise sorting."
+    orchestrator: false
+  - number: 3
+    name: "03_fit_min_put_primal_policy"
+    description: "Fit the backward primal stopping policy on the independent training sample."
+    orchestrator: false
+  - number: 4
+    name: "04_evaluate_min_put_payoff_process"
+    description: "Replay the fixed policy on independent evaluation paths and recover the full realized-payoff process."
+    orchestrator: false
+  - number: 5
+    name: "05_single_projection_alpha_martingale"
+    description: "Construct the paper-specific single-projection alpha martingale on unsorted or sorted states."
+    orchestrator: false
+  - number: 6
+    name: "06_double_projection_beta_martingale"
+    description: "Construct the paper-specific unsorted double-projection beta martingale."
+    orchestrator: false
+  - number: 7
+    name: "07_unsorted_primal_dual_bounds"
+    description: "Compute the unsorted primal lower estimate and both paper-specific dual upper estimates for one basis degree."
+    orchestrator: false
+  - number: 8
+    name: "08_sorting_aware_bound_vector"
+    description: "Extend the unsorted bound vector with the source-approved sorted primal and alpha bounds."
+    orchestrator: false
+  - number: 9
+    name: "09_cumulative_sorting_basis_path"
+    description: "Accumulate the normalized sorting/projection gap path across polynomial basis enrichment."
+    orchestrator: true

@@ -1,0 +1,48 @@
+problem_id: "Physics-Optics-23"
+subject: "physics"
+subject_area: "Optics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1117/1.APN.5.5.056010"
+dependencies: ""
+steps:
+  - number: 1
+    name: "orthonormal_source_modes"
+    description: "Build the orthonormal coherent modes of the benchmark source on a pixel grid."
+    orchestrator: false
+  - number: 2
+    name: "coupled_residuals"
+    description: "Remove the leading separable component of each coherent mode and return the coupled remainder."
+    orchestrator: false
+  - number: 3
+    name: "residual_stack"
+    description: "Stack the eigenvalue-weighted coupled residuals as the rows of one matrix."
+    orchestrator: false
+  - number: 4
+    name: "compressed_residuals"
+    description: "Return the shared low-rank compression of the residual stack at a requested component count, as one field per mode."
+    orchestrator: false
+  - number: 5
+    name: "cumulative_energy_ratio"
+    description: "Evaluate the nominal cumulative compression score at a requested number of shared residual components."
+    orchestrator: false
+  - number: 6
+    name: "element_transmission"
+    description: "Sample the complex transmission of the rotated super-Gaussian phase element on the pixel grid."
+    orchestrator: false
+  - number: 7
+    name: "element_terms"
+    description: "Decouple the element transmission into the separable terms that carry a requested fraction of its occupation."
+    orchestrator: false
+  - number: 8
+    name: "separable_transport"
+    description: "Transport the leading separable component of every mode through the retained element terms to the output plane."
+    orchestrator: false
+  - number: 9
+    name: "coupled_transport"
+    description: "Transport the restored coupled residual of every mode through the full element to the output plane."
+    orchestrator: false
+  - number: 10
+    name: "transport_intensity_error_percent"
+    description: "Run the compressed transport of the partially coherent source through the element and report the percent intensity error at the output plane."
+    orchestrator: true

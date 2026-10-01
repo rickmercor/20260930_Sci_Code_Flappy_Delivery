@@ -1,0 +1,36 @@
+problem_id: "Physics-Astrophysics-36"
+subject: "physics"
+subject_area: "Astrophysics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.48550/arXiv.2509.19451"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_order_parameter"
+    description: "Compute the large-d Hankel order parameter used by the scalar Tangherlini virtual-absorption approximation."
+    orchestrator: false
+  - number: 2
+    name: "02_mode_basis_at_match"
+    description: "Evaluate the inner and zero-reflection outer basis functions and their dimensionless derivatives at the large-d matching point."
+    orchestrator: false
+  - number: 3
+    name: "03_matching_residual"
+    description: "Assemble a scale-invariant complex compatibility residual for matching the two large-d radial bases."
+    orchestrator: false
+  - number: 4
+    name: "04_continuation_seed"
+    description: "Build a local continuation predictor for the intended scalar VA branch from neighboring large-d results in the paper."
+    orchestrator: false
+  - number: 5
+    name: "05_candidate_roots"
+    description: "Search a deterministic neighborhood of the continuation predictor for distinct positive-quadrant zeros of the matching residual."
+    orchestrator: false
+  - number: 6
+    name: "06_select_va_branch"
+    description: "Select the complex VA root that is consistent with continuation of the Table II scalar branch."
+    orchestrator: false
+  - number: 7
+    name: "07_final_answer"
+    description: "Convert the selected continued VA mode into the single dimensionless scalar."
+    orchestrator: true

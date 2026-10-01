@@ -1,0 +1,71 @@
+{
+  "problem_id": "Material_Science-Molecular_Modeling-43",
+  "sub_steps": [
+    {
+      "step_number": "Material_Science-Molecular_Modeling-43.1",
+      "test_cases": [
+        "import numpy as np\ndef _pack(result):\n    trace, accepted = result\n    return np.r_[trace, float(accepted)]\na=np.zeros((3,2,3)); a[:,0,0]=[0,1,2]; a[:,1,0]=[0,.1,.2]; b=a.copy(); m=np.array([False,True])\nassert np.allclose(_pack(framework_msd_screen(a,m,.05)), target)",
+        "import numpy as np\ndef _pack(result):\n    trace, accepted = result\n    return np.r_[trace, float(accepted)]\na=np.zeros((3,2,3)); a[:,1,0]=[0,.1,.2]; b=a.copy(); m=np.array([False,True])\nassert np.allclose(_pack(framework_msd_screen(a,m,.04)), target)",
+        "import numpy as np\ndef _pack(result):\n    trace, accepted = result\n    return np.r_[trace, float(accepted)]\na=np.zeros((3,3,3)); a[:,1,0]=[0,.1,.2]; a[:,2,0]=[0,.2,.4]; b=a.copy(); m=np.array([False,True,True])\nassert np.allclose(_pack(framework_msd_screen(a,m,.11)), target)",
+        "import numpy as np\ndef _pack(result):\n    trace, accepted = result\n    return np.r_[trace, float(accepted)]\na=np.zeros((12,2,3)); a[1,1,0]=.3; a[10:,1,0]=.1; b=a.copy(); m=np.array([False,True])\nassert np.allclose(_pack(framework_msd_screen(a,m,.04,start=10)), target)",
+        "import numpy as np\ndef _raises(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    return 0\na=np.zeros((3,2,3)); m=np.array([False,False]); b=a.copy(); mg=m.copy()\nassert np.allclose(_raises(lambda: framework_msd_screen(a,m,.02)), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-43.2",
+      "test_cases": [
+        "import numpy as np\nrng=np.random.default_rng(12); a=rng.normal(size=(40,5)); b=a.copy(); ag=a.copy(); bg=b.copy()\nassert np.allclose(feature_coverage(a,b,7), target)",
+        "import numpy as np\nrng=np.random.default_rng(15); a=rng.normal(size=(18,3)); b=rng.normal(loc=.7,size=(18,3)); ag=a.copy(); bg=b.copy()\nassert np.allclose(feature_coverage(a,b,3,.8), target)",
+        "import numpy as np\nrng=np.random.default_rng(77); a=rng.normal(size=(60,9)); b=.75*a+.25*rng.normal(size=(60,9)); ag=a.copy(); bg=b.copy()\nassert np.allclose(feature_coverage(a,b,19,1.2), target)",
+        "import numpy as np\ndef _raises(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    return 0\na=np.zeros((8,3)); b=a.copy(); ag=a.copy(); bg=b.copy()\nassert np.allclose(_raises(lambda: feature_coverage(a,b,4)), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-43.3",
+      "test_cases": [
+        "import numpy as np\na=np.array([3.,4.]); b=np.array([0.,4.]); ag=a.copy(); bg=b.copy()\nassert np.allclose(relative_rmse(a,b), target)",
+        "import numpy as np\na=np.array([-1.,1.]); b=a.copy(); ag=a.copy(); bg=b.copy()\nassert np.allclose(relative_rmse(a,b), target)",
+        "import numpy as np\na=np.array([.1,.2,.3,1.]); b=np.array([.2,.1,.5,.8]); ag=a.copy(); bg=b.copy()\nassert np.allclose(relative_rmse(a,b), target)",
+        "import numpy as np\ndef _raises(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    return 0\na=np.zeros(3); b=np.ones(3); ag=a.copy(); bg=b.copy()\nassert np.allclose(_raises(lambda: relative_rmse(a,b)), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-43.4",
+      "test_cases": [
+        "import numpy as np\na=np.array([[[0.,0,0],[1.,0,0]]]); e=np.array([0.,1.5,5.]); ag=a.copy(); eg=e.copy()\nassert np.allclose(radial_distribution(a,10.,e), target)",
+        "import numpy as np\na=np.array([[[.1,0,0],[9.9,0,0]],[[.2,0,0],[9.8,0,0]]]); e=np.array([0.,.3,.6,5.]); ag=a.copy(); eg=e.copy()\nassert np.allclose(radial_distribution(a,10.,e), target)",
+        "import numpy as np\nrng=np.random.default_rng(9); a=rng.uniform(0,10,size=(4,12,3)); e=np.linspace(0,5,11); ag=a.copy(); eg=e.copy()\nassert np.allclose(radial_distribution(a,10.,e), target)",
+        "import numpy as np\ndef _raises(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    return 0\na=np.zeros((1,2,3)); e=np.array([0.,2.,6.]); ag=a.copy(); eg=e.copy()\nassert np.allclose(_raises(lambda: radial_distribution(a,10.,e)), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-43.5",
+      "test_cases": [
+        "import numpy as np\ndef _pack(result):\n    values, first = result\n    return np.r_[values, -1.0 if first is None else first]\nr=np.array([0.,1.,2.]); a=np.array([.2,.3]); m=np.array([[.2,.3],[.21,.28],[.7,.3]]); rg=r.copy(); ag=a.copy(); mg=m.copy()\nassert np.allclose(_pack(rdf_stability(a,m,r,.5)), target)",
+        "import numpy as np\ndef _pack(result):\n    values, first = result\n    return np.r_[values, -1.0 if first is None else first]\nr=np.array([0.,1.,2.]); a=np.array([.2,.3]); m=np.tile(a,(5,1)); rg=r.copy(); ag=a.copy(); mg=m.copy()\nassert np.allclose(_pack(rdf_stability(a,m,r,.25)), target)",
+        "import numpy as np\ndef _pack(result):\n    values, first = result\n    return np.r_[values, -1.0 if first is None else first]\nr=np.array([0.,.5,2.]); a=np.array([1.,1.]); m=np.array([[1.,1.],[1.,1.],[1.4,1.]]); rg=r.copy(); ag=a.copy(); mg=m.copy()\nassert np.allclose(_pack(rdf_stability(a,m,r,.5)), target)",
+        "import numpy as np\ndef _raises(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    return 0\na=np.zeros(2); m=np.zeros((5,2)); r=np.array([0.,1.,2.]); ag=a.copy(); mg=m.copy(); rg=r.copy()\nassert np.allclose(_raises(lambda: rdf_stability(a,m,r,.3)), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-43.6",
+      "test_cases": [
+        "import numpy as np\nr=np.array([1.,2.,3.,4.]); e=np.array([4.,2.,1.,2.]); rg=r.copy(); eg=e.copy()\nassert np.allclose(diatomic_turning_point(r,e), target)",
+        "import numpy as np\nr=np.array([.1,.2,.3]); e=np.array([3.,2.,1.]); rg=r.copy(); eg=e.copy()\nassert np.allclose(diatomic_turning_point(r,e), target)",
+        "import numpy as np\nr=np.linspace(.2,1.5,22); e=3/r**2-3*np.exp(-((r-.91)/.12)**2); rg=r.copy(); eg=e.copy()\nassert np.allclose(diatomic_turning_point(r,e), target)",
+        "import numpy as np\ndef _raises(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    return 0\nr=np.array([.2,.1,.3]); e=np.ones(3); rg=r.copy(); eg=e.copy()\nassert np.allclose(_raises(lambda: diatomic_turning_point(r,e)), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-43.7",
+      "test_cases": [
+        "import numpy as np\ndef _audit_pack(result):\n    score, record = result\n    return np.r_[score, float(record.shape == (3,9)), record.ravel()]\nassert np.allclose(_audit_pack(compute_source_method_audit(7261,2000)), target)",
+        "import numpy as np\ndef _audit_pack(result):\n    score, record = result\n    return np.r_[score, float(record.shape == (3,9)), record.ravel()]\nassert np.allclose(_audit_pack(compute_source_method_audit(7261,100)), target)",
+        "import numpy as np\ndef _audit_pack(result):\n    score, record = result\n    return np.r_[score, float(record.shape == (3,9)), record.ravel()]\nassert np.allclose(_audit_pack(compute_source_method_audit(7261,1200)), target)",
+        "import numpy as np\ndef _audit_pack(result):\n    score, record = result\n    return np.r_[score, float(record.shape == (3,9)), record.ravel()]\nassert np.allclose(_audit_pack(compute_source_method_audit(801,2000)), target)",
+        "import numpy as np\ndef _audit_pack(result):\n    score, record = result\n    return np.r_[score, float(record.shape == (3,9)), record.ravel()]\nassert np.allclose(_audit_pack(compute_source_method_audit(0,2000)), target)",
+        "import numpy as np\ndef _raises(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1\n    return 0\nassert np.allclose(_raises(lambda: compute_source_method_audit(7261,99)), target)"
+      ]
+    }
+  ]
+}

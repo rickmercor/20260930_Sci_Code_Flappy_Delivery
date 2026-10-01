@@ -1,0 +1,82 @@
+{
+  "problem_id": "Mathematics-Computational_Finance-5",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Computational_Finance-5.1",
+      "test_cases": [
+        "args=(2.5, 2.4, 0.35, 0.9, 2)\nassert np.allclose(matched_arrival_rate(*args).tolist(), target)",
+        "args=(3.2, 1.7, 0.2, 0.8, 0)\nassert np.allclose(matched_arrival_rate(*args).tolist(), target)",
+        "args=(1.4, 1.9, 0.6, 1.1, 1)\nassert np.allclose(matched_arrival_rate(*args).tolist(), target)",
+        "def check(f):\n    try:\n        f(2.5,.1,.35,.9,2)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(check(matched_arrival_rate), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-5.2",
+      "test_cases": [
+        "import numpy as np\nargs=([0.0, 0.3, 1.1, -2.0], 0.8, [0.4, -0.12, 0.08], 0.35, 0.9, 0.15, 0.22, 5)\ndef pack(z):\n    return np.r_[z.real.ravel(),z.imag.ravel()].tolist()\nassert np.allclose(pack(queue_kernel_curvature(*args)), target)",
+        "import numpy as np\nargs=([0.0, 0.7, -0.7, 2.4], 2.2, [0.3, -0.05, -0.12], 0.55, 0.75, -0.12, 0.3, 12)\ndef pack(z):\n    return np.r_[z.real.ravel(),z.imag.ravel()].tolist()\nassert np.allclose(pack(queue_kernel_curvature(*args)), target)",
+        "import numpy as np\nargs=([0.0, 0.2, 1.7], 1.3, [0.15, 0.0, 0.0], 0.4, 1.1, 0.2, 0.15, 9)\ndef pack(z):\n    return np.r_[z.real.ravel(),z.imag.ravel()].tolist()\nassert np.allclose(pack(queue_kernel_curvature(*args)), target)",
+        "import numpy as np\nargs=([0.0, 0.4, 1.2], 0.6, [0.8, -0.6, 0.9], 0.08, 1.7, -0.18, 0.28, 7)\ndef pack(z):\n    return np.r_[z.real.ravel(),z.imag.ravel()].tolist()\nassert np.allclose(pack(queue_kernel_curvature(*args)), target)",
+        "import numpy as np\nargs=([0.0, 0.4], 0.0, [0.4, -0.12, 0.08], 0.35, 0.9, 0.15, 0.22, 5)\ndef pack(z):\n    return np.r_[z.real.ravel(),z.imag.ravel()].tolist()\nassert np.allclose(pack(queue_kernel_curvature(*args)), target)",
+        "def check(f):\n    try:\n        f([0.,1.],1.,[.4,-.1],.35,.9,.1,.2,4)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(check(queue_kernel_curvature), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-5.3",
+      "test_cases": [
+        "import numpy as np\nargs=([0.0, 0.4, 1.7, -2.0], 0.75, 0.04, 0.22, 0.08)\ndef pack(z):\n    return np.r_[z.real.ravel(),z.imag.ravel()].tolist()\nassert np.allclose(pack(diffusion_discount_factor(*args)), target)",
+        "import numpy as np\nargs=([[0.0, 1.0], [-1.0, 3.0]], 1.4, -0.03, 0.3, 0.05)\ndef pack(z):\n    return np.r_[z.real.ravel(),z.imag.ravel()].tolist()\nassert np.allclose(pack(diffusion_discount_factor(*args)), target)",
+        "import numpy as np\nargs=([0.2, 0.8], 0.0, 0.1, 0.0, -0.01)\ndef pack(z):\n    return np.r_[z.real.ravel(),z.imag.ravel()].tolist()\nassert np.allclose(pack(diffusion_discount_factor(*args)), target)",
+        "def check(f):\n    try:\n        f([0.,1.],-1.,.04,.22,.08)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(check(diffusion_discount_factor), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-5.4",
+      "test_cases": [
+        "import numpy as np\nK = 197.22\na_p = -8.491686480930326\nb_p = 19.450892115737147\nassert np.allclose(np.round(call_payoff_cosine_coeffs(K, a_p, b_p, 8), 6).tolist(), target)",
+        "import numpy as np\nK = 197.22\na_p = -8.491686480930326\nb_p = 19.450892115737147\nidx = [0, 1, 2, 17, 512, 1023]\ndef sample(V):\n    V = np.asarray(V, dtype=float)\n    return np.round(V[idx], 6).tolist()\nassert np.allclose(sample(call_payoff_cosine_coeffs(K, a_p, b_p, 1024)), target)",
+        "import numpy as np\nK = 0.5\na_p = 0.0\nb_p = 4.0\nassert np.allclose(np.round(call_payoff_cosine_coeffs(K, a_p, b_p, 12), 8).tolist(), target)",
+        "import numpy as np\nK = 80.0\na_p = 0.7776\nb_p = 8.4224\nassert np.allclose(np.round(call_payoff_cosine_coeffs(K, a_p, b_p, 64), 8).tolist(), target)",
+        "import numpy as np\nK = 500.0\na_p = 0.0\nb_p = 5.0\ndef all_zero(V):\n    return bool(np.all(np.asarray(V, dtype=float) == 0.0))\nassert np.allclose(all_zero(call_payoff_cosine_coeffs(K, a_p, b_p, 16)), target)",
+        "import numpy as np\ndef run_model_iv():\n    try:\n        call_payoff_cosine_coeffs(100.0, 2.0, 2.0, 8)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model_iv(), target)",
+        "import numpy as np\ndef run_model_K():\n    try:\n        call_payoff_cosine_coeffs(0.0, 0.0, 5.0, 8)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model_K(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-5.5",
+      "test_cases": [
+        "import numpy as np\nrng=np.random.default_rng(9)\nK=rng.normal(size=(3,2,3,7))+1j*rng.normal(size=(3,2,3,7))\nH=rng.normal(size=(3,3,7))\nD=rng.normal(size=7)+1j*rng.normal(size=7)\ndef pack(z):return np.r_[z.real.ravel(),z.imag.ravel()].tolist()\nassert np.allclose(pack(state_continuation_jet(K,H,D)), target)",
+        "import numpy as np\nrng=np.random.default_rng(17)\nK=rng.normal(size=(3,4,2,5))+1j*rng.normal(size=(3,4,2,5))\nH=rng.normal(size=(3,2,5))\nD=rng.normal(size=5)+1j*rng.normal(size=5)\ndef pack(z):return np.r_[z.real.ravel(),z.imag.ravel()].tolist()\nassert np.allclose(pack(state_continuation_jet(K,H,D)), target)",
+        "import numpy as np\nrng=np.random.default_rng(23)\nK=rng.normal(size=(3,1,1,3))+1j*rng.normal(size=(3,1,1,3))\nH=rng.normal(size=(3,1,3))\nD=rng.normal(size=3)+1j*rng.normal(size=3)\ndef pack(z):return np.r_[z.real.ravel(),z.imag.ravel()].tolist()\nassert np.allclose(pack(state_continuation_jet(K,H,D)), target)",
+        "import numpy as np\ndef check(f):\n    try:\n        f(np.zeros((3,2,3,4)),np.zeros((3,2,4)),np.ones(4))\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(check(state_continuation_jet), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-5.6",
+      "test_cases": [
+        "import numpy as np\nroots=np.array([0.7, 1.4, 2.2])\nw=np.array([0.,.8,1.6]);C=np.zeros((len(roots),3),complex)\nC[:,0]=2*(3.5+2*np.cos(.8*(roots+1)))\nC[:,1]=-2\nargs=(C,w,-1.,0.,2.8,3.5)\nassert np.allclose(queue_exercise_boundaries(*args).tolist(), target)",
+        "import numpy as np\nroots=np.array([1.1])\nw=np.array([0.,.8,1.6]);C=np.zeros((len(roots),3),complex)\nC[:,0]=2*(3.5+2*np.cos(.8*(roots+1)))\nC[:,1]=-2\nargs=(C,w,-1.,0.,2.8,3.5)\nassert np.allclose(queue_exercise_boundaries(*args).tolist(), target)",
+        "import numpy as np\nroots=np.array([0.3, 0.9, 1.8, 2.5])\nw=np.array([0.,.8,1.6]);C=np.zeros((len(roots),3),complex)\nC[:,0]=2*(3.5+2*np.cos(.8*(roots+1)))\nC[:,1]=-2\nargs=(C,w,-1.,0.,2.8,3.5)\nassert np.allclose(queue_exercise_boundaries(*args).tolist(), target)",
+        "import numpy as np\ndef check(f):\n    try:\n        f(np.zeros((2,3)),[0.,1.,2.],-1.,0.,2.,3.5)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(check(queue_exercise_boundaries), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-5.7",
+      "test_cases": [
+        "import numpy as np\nrng=np.random.default_rng(13)\nq,n,m=2,5,7\nw=np.arange(n)*.8;nu=np.arange(m)*.8\nroots=np.linspace(.7,1.8,q);C=np.zeros((3,q,n),complex)\nC[0,:,0]=2*(3.5+2*np.cos(.8*(roots+1)));C[0,:,1]=-2\nC[1:]=.15*(rng.normal(size=(2,q,n))+1j*rng.normal(size=(2,q,n)))\nargs=(C,w,nu,-1.,0.,2.8,roots,3.5)\nassert np.allclose(queue_payoff_jet(*args).ravel().tolist(), target)",
+        "import numpy as np\nrng=np.random.default_rng(23)\nq,n,m=3,8,8\nw=np.arange(n)*.8;nu=np.arange(m)*.8\nroots=np.linspace(.7,1.8,q);C=np.zeros((3,q,n),complex)\nC[0,:,0]=2*(3.5+2*np.cos(.8*(roots+1)));C[0,:,1]=-2\nC[1:]=.15*(rng.normal(size=(2,q,n))+1j*rng.normal(size=(2,q,n)))\nargs=(C,w,nu,-1.,0.,2.8,roots,3.5)\nassert np.allclose(queue_payoff_jet(*args).ravel().tolist(), target)",
+        "import numpy as np\nrng=np.random.default_rng(31)\nq,n,m=1,3,4\nw=np.arange(n)*.8;nu=np.arange(m)*.8\nroots=np.linspace(.7,1.8,q);C=np.zeros((3,q,n),complex)\nC[0,:,0]=2*(3.5+2*np.cos(.8*(roots+1)));C[0,:,1]=-2\nC[1:]=.15*(rng.normal(size=(2,q,n))+1j*rng.normal(size=(2,q,n)))\nargs=(C,w,nu,-1.,0.,2.8,roots,3.5)\nassert np.allclose(queue_payoff_jet(*args).ravel().tolist(), target)",
+        "import numpy as np\ndef check(f):\n    try:\n        f(np.ones((3,1,3)),[0.,1.,2.],[0.,1.],0.,0.,2.,[3.],1.)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(check(queue_payoff_jet), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-5.8",
+      "test_cases": [
+        "kw={}\nassert np.allclose(persistent_clustering_curvature(**kw), target)",
+        "kw={'times': (0.8, 1.7), 'costs': (9.0,), 'intervals': ((1.0, 8.5), (-1.0, 11.5)), 'N': (160, 256), 'max_state': 20, 'q0': 1, 'target': 1.6, 'alpha': 0.3, 'beta': 1.1, 'mu_J': -0.04, 'sigma_J': 0.2}\nassert np.allclose(persistent_clustering_curvature(**kw), target)",
+        "kw={'times': (0.5, 1.2, 2.0, 3.0), 'costs': (3.0, 6.0, 10.0), 'intervals': ((1.8, 8.8), (0.0, 10.5), (-1.8, 12.0), (-3.5, 13.5)), 'N': (128, 160, 224, 320), 'max_state': 20, 'S0': 110.0, 'Kterm': 115.0, 'sigma': 0.25, 'rho': 0.06, 'alpha': 0.2, 'beta': 0.8, 'q0': 0, 'target': 1.5, 'mu_J': 0.1}\nassert np.allclose(persistent_clustering_curvature(**kw), target)",
+        "def check(f):\n    try:\n        f(times=(2.,1.),costs=(9.,),intervals=((1.,8.),(0.,10.)),N=(64,64))\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(check(persistent_clustering_curvature), target)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+problem_id: "Physics-Computational_Physics-12"
+subject: "physics"
+subject_area: "Computational Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1103/p8yf-12yz"
+dependencies: ""
+steps:
+  - number: 1
+    name: "short time coefficients"
+    description: "Short-time coefficients of the same-junction waiting-time densities."
+    orchestrator: false
+  - number: 2
+    name: "detection and rate constants"
+    description: "Registration probabilities and rate constants of the two resolved junctions."
+    orchestrator: false
+  - number: 3
+    name: "kernel moments"
+    description: "Row-normalized zeroth, first and second time moments of a recorded kernel."
+    orchestrator: false
+  - number: 4
+    name: "junction dissipation"
+    description: "Registered event frequencies and the dissipation carried by the resolved junctions."
+    orchestrator: false
+  - number: 5
+    name: "discarded record moments"
+    description: "Kernel-level resummation of a record with registered transitions removed at random."
+    orchestrator: false
+  - number: 6
+    name: "counting cumulants"
+    description: "Joint counting cumulants of the two registered currents."
+    orchestrator: false
+  - number: 7
+    name: "waiting time irreversibility"
+    description: "Waiting-time irreversibility rate of a four-state semi-Markov record."
+    orchestrator: false
+  - number: 8
+    name: "certified dissipation ratio"
+    description: "Final orchestrator: certified dissipation expressed in units of junction dissipation."
+    orchestrator: true

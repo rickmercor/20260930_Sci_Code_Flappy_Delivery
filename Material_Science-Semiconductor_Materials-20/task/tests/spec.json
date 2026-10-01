@@ -1,0 +1,69 @@
+{
+  "problem_id": "Material_Science-Semiconductor_Materials-20",
+  "sub_steps": [
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-20.1",
+      "test_cases": [
+        "import numpy as np\nw = np.linspace(0.0, 8.0, 41)\nlat = np.array([7.0, -3.5, 5370.0, 5110.0, 3.5, 3.5 / 1.15])\nassert np.allclose(lattice_spectral_density(w.copy(), lat.copy()), target)",
+        "import numpy as np\nw = np.array([0.0, 1.0e-4, 25.0, 40.0])\nlat = np.array([7.0, -3.5, 5370.0, 5110.0, 3.0, 3.0 / 1.15])\nassert np.allclose(lattice_spectral_density(w.copy(), lat.copy()), target)",
+        "import numpy as np\nw = np.array([0.3, 1.1, 2.7, 4.4, 6.0, 9.5])\nlat = np.array([8.5, 2.0, 4800.0, 4700.0, 2.0, 2.0])\nassert np.allclose(lattice_spectral_density(w.copy(), lat.copy()), target)",
+        "import numpy as np\nlat = np.array([7.0, -3.5, 5370.0, 5110.0, 3.5, 3.0])\ndef run_model():\n    try:\n        lattice_spectral_density(np.array([-0.5, 1.0]), lat.copy())\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-20.2",
+      "test_cases": [
+        "import numpy as np\nt = np.array([0.0, 0.05, 0.2, 0.5, 1.0, 2.0, 4.0])\nlat = np.array([7.0, -3.5, 5370.0, 5110.0, 3.5, 3.5 / 1.15])\nassert np.allclose(phonon_propagator(t.copy(), 20.0, lat.copy()), target)",
+        "import numpy as np\nt = np.array([0.0])\nlat = np.array([7.0, -3.5, 5370.0, 5110.0, 3.0, 3.0 / 1.15])\nassert np.allclose(phonon_propagator(t.copy(), 0.5, lat.copy()), target)",
+        "import numpy as np\nt = np.array([0.0, 0.3, 0.9, 1.7, 3.3, 6.5, 12.0])\nlat = np.array([7.0, -3.5, 5370.0, 5110.0, 5.0, 4.0])\nassert np.allclose(phonon_propagator(t.copy(), 70.0, lat.copy()), target)",
+        "import numpy as np\nlat = np.array([7.0, -3.5, 5370.0, 5110.0, 3.5, 3.0])\ndef run_model():\n    try:\n        phonon_propagator(np.array([0.0, 1.0]), 0.0, lat.copy())\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-20.3",
+      "test_cases": [
+        "import numpy as np\nom = np.array([-2.0, -1.2, -0.45, 0.0, 0.3, 0.9, 1.6, 2.4])\nlat = np.array([7.0, -3.5, 5370.0, 5110.0, 3.5, 3.5 / 1.15])\nassert np.allclose(polaron_response_functions(om.copy(), 20.0, lat.copy()), target)",
+        "import numpy as np\nom = np.array([-1.0, -0.2, 0.2, 1.0])\nlat = np.array([7.0, -3.5, 5370.0, 5110.0, 3.0, 3.0 / 1.15])\nassert np.allclose(polaron_response_functions(om.copy(), 2.0, lat.copy()), target)",
+        "import numpy as np\nom = np.array([-3.0, -0.7, 0.05, 0.7, 3.0])\nlat = np.array([7.0, -3.5, 5370.0, 5110.0, 5.0, 4.2])\nassert np.allclose(polaron_response_functions(om.copy(), 60.0, lat.copy()), target)",
+        "import numpy as np\nlat = np.array([7.0, -3.5, 5370.0, 5110.0, 3.5, 3.0])\ndef run_model():\n    try:\n        polaron_response_functions(np.array([0.1, np.nan]), 10.0, lat.copy())\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-20.4",
+      "test_cases": [
+        "import numpy as np\nrng = np.random.default_rng(11)\nA = rng.normal(size=(13, 13)) + 1j * rng.normal(size=(13, 13))\nR = A @ A.conj().T\nR = R / np.trace(R)\ndot = np.array([1.2, 0.15, 0.2, 0.3])\nlat = np.array([7.0, -3.5, 5370.0, 5110.0, 3.5, 3.5 / 1.15])\nassert np.allclose(polaron_master_equation_rhs(R.copy(), 20.0, dot.copy(), lat.copy()), target)",
+        "import numpy as np\nrng = np.random.default_rng(5)\nR = rng.normal(size=(13, 13)) + 1j * rng.normal(size=(13, 13))\ndot = np.array([1.5, 0.0, 0.1, 0.25])\nlat = np.array([7.0, -3.5, 5370.0, 5110.0, 3.0, 3.0 / 1.15])\nassert np.allclose(polaron_master_equation_rhs(R.copy(), 2.0, dot.copy(), lat.copy()), target)",
+        "import numpy as np\nrng = np.random.default_rng(23)\nS = rng.normal(size=(3, 13, 13)) + 1j * rng.normal(size=(3, 13, 13))\ndot = np.array([0.6, 0.05, 0.35, 0.2])\nlat = np.array([7.0, -3.5, 5370.0, 5110.0, 2.5, 2.5 / 1.15])\nassert np.allclose(polaron_master_equation_rhs(S.copy(), 45.0, dot.copy(), lat.copy()), target)",
+        "import numpy as np\nrng = np.random.default_rng(2)\nR = rng.normal(size=(13, 13))\nR = R + R.T\ndot = np.array([2.0, 0.3, 0.12, 0.0])\nlat = np.array([7.0, -3.5, 5370.0, 5110.0, 4.5, 4.5 / 1.15])\nassert np.allclose(polaron_master_equation_rhs(R.copy(), 10.0, dot.copy(), lat.copy()), target)",
+        "import numpy as np\ndot = np.array([1.2, 0.15, 0.2, 0.3])\nlat = np.array([7.0, -3.5, 5370.0, 5110.0, 3.5, 3.0])\ndef run_model():\n    try:\n        polaron_master_equation_rhs(np.eye(5, dtype=complex), 10.0, dot.copy(), lat.copy())\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-20.5",
+      "test_cases": [
+        "import numpy as np\ndot = np.array([1.2, 0.15, 0.2, 0.3])\nlat = np.array([7.0, -3.5, 5370.0, 5110.0, 3.5, 3.5 / 1.15])\nassert np.allclose(integrated_pair_correlations(10.0, dot.copy(), lat.copy()), target)",
+        "import numpy as np\ndot = np.array([1.5, 0.1, 0.1, 0.25])\nlat = np.array([7.0, -3.5, 5370.0, 5110.0, 3.0, 3.0 / 1.15])\nassert np.allclose(integrated_pair_correlations(2.0, dot.copy(), lat.copy()), target)",
+        "import numpy as np\ndot = np.array([0.9, 0.0, 0.3, 0.45])\nlat = np.array([7.0, -3.5, 5370.0, 5110.0, 4.0, 4.0 / 1.15])\nassert np.allclose(integrated_pair_correlations(35.0, dot.copy(), lat.copy()), target)",
+        "import numpy as np\nlat = np.array([7.0, -3.5, 5370.0, 5110.0, 3.5, 3.0])\ndef run_model():\n    try:\n        integrated_pair_correlations(10.0, np.array([1.2, 0.15, 0.2, 0.0]), lat.copy())\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-20.6",
+      "test_cases": [
+        "import numpy as np\ndot = np.array([1.2, 0.15, 0.2, 0.3])\nlat = np.array([7.0, -3.5, 5370.0, 5110.0, 3.5, 3.5 / 1.15])\nassert np.allclose(integrated_concurrence(30.0, dot.copy(), lat.copy()), target)",
+        "import numpy as np\ndot = np.array([1.5, 0.1, 0.1, 0.25])\nlat = np.array([7.0, -3.5, 5370.0, 5110.0, 3.0, 3.0 / 1.15])\nassert np.allclose(integrated_concurrence(4.0, dot.copy(), lat.copy()), target)",
+        "import numpy as np\ndot = np.array([0.8, 0.4, 0.25, 0.5])\nlat = np.array([7.0, -3.5, 5370.0, 5110.0, 3.5, 3.5 / 1.15])\nassert np.allclose(integrated_concurrence(15.0, dot.copy(), lat.copy()), target)",
+        "import numpy as np\ndot = np.array([1.2, 0.15, 0.2, 0.3])\nlat = np.array([7.0, -3.5, 5370.0, 5110.0, 3.5, 3.0])\ndef run_model():\n    try:\n        integrated_concurrence(-5.0, dot.copy(), lat.copy())\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-20.7",
+      "test_cases": [
+        "import numpy as np\nfrom scipy.optimize import brentq\ndot = np.array([1.2, 0.15, 0.2, 0.3])\nlat = np.array([7.0, -3.5, 5370.0, 5110.0, 3.5, 3.5 / 1.15])\nassert np.allclose(entanglement_threshold_temperature(0.95, 4.0, 40.0, dot.copy(), lat.copy()), target)",
+        "import numpy as np\nfrom scipy.optimize import brentq\ndot = np.array([1.5, 0.1, 0.1, 0.25])\nlat = np.array([7.0, -3.5, 5370.0, 5110.0, 3.0, 3.0 / 1.15])\nassert np.allclose(entanglement_threshold_temperature(0.985, 2.0, 30.0, dot.copy(), lat.copy()), target)",
+        "import numpy as np\nfrom scipy.optimize import brentq\ndot = np.array([1.0, 0.2, 0.3, 0.35])\nlat = np.array([7.0, -3.5, 5370.0, 5110.0, 4.5, 4.5 / 1.15])\nassert np.allclose(entanglement_threshold_temperature(0.94, 5.0, 60.0, dot.copy(), lat.copy()), target)",
+        "import numpy as np\nfrom scipy.optimize import brentq\ndot = np.array([1.2, 0.15, 0.2, 0.3])\nlat = np.array([7.0, -3.5, 5370.0, 5110.0, 3.5, 3.5 / 1.15])\ndef run_model():\n    try:\n        entanglement_threshold_temperature(0.99, 4.0, 40.0, dot.copy(), lat.copy())\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

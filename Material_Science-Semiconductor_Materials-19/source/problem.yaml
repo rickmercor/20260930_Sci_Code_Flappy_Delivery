@@ -1,0 +1,48 @@
+problem_id: "Material_Science-Semiconductor_Materials-19"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2605.02478"
+dependencies: ""
+steps:
+  - number: 1
+    name: "seb_response"
+    description: "Integrates the source's deterministic reduced electrothermal model of an ion strike and returns the carrier population, the normalised temperature and the accumulated electrothermal input at requested times."
+    orchestrator: false
+  - number: 2
+    name: "seb_indicators"
+    description: "Returns the source's two deterministic burnout indicators of a strike, the deposited-work factor and the window maximum of the normalised temperature, with the time of that maximum and the carrier peak."
+    orchestrator: false
+  - number: 3
+    name: "seb_threshold"
+    description: "Returns the deterministic burnout threshold in ionisation strength within the observation window, its window-free counterpart defined by the unconstrained temperature peak, and the time of that peak."
+    orchestrator: false
+  - number: 4
+    name: "seb_feedback_boundary"
+    description: "Returns the reference avalanche factor on the source's deterministic feedback-relaxation boundary at a given relaxation strength and ionisation strength."
+    orchestrator: false
+  - number: 5
+    name: "seb_linear_noise"
+    description: "Propagates the linear-noise covariance of the carrier population and the normalised temperature along the deterministic trajectory, with the multiplicative carrier noise and the additive thermal noise of the source's stochastic model."
+    orchestrator: false
+  - number: 6
+    name: "seb_gaussian_burnout"
+    description: "Returns the linear-noise (Gaussian) estimate of the burnout probability of a strike within the observation window, the time of the most probable crossing and the maximal standardised margin to the boundary."
+    orchestrator: false
+  - number: 7
+    name: "seb_gaussian_width"
+    description: "Returns the ionisation strengths at which the Gaussian burnout estimate equals 0.1 and 0.9 and the resulting transition width, the source's measure of stochastic threshold broadening."
+    orchestrator: false
+  - number: 8
+    name: "seb_instanton_action"
+    description: "Returns the minimum Freidlin-Wentzell action of a fluctuation path that carries the strike to the burnout boundary at a prescribed time, with the terminal Hamiltonian and the terminal carrier population of the optimal path."
+    orchestrator: false
+  - number: 9
+    name: "seb_subthreshold_rate"
+    description: "Returns the rare-event exponent of noise-induced subthreshold burnout within the observation window, the optimal crossing time and the Gaussian counterpart of the exponent."
+    orchestrator: false
+  - number: 10
+    name: "seb_audit"
+    description: "Runs the whole chain at one strike: deterministic indicators and thresholds, the feedback boundary, the Gaussian burnout estimate and transition width, and the rare-event exponent with its Gaussian counterpart and their ratio, with the internal consistency checks."
+    orchestrator: true

@@ -1,0 +1,75 @@
+{
+  "problem_id": "Physics-Astrophysics-19",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Astrophysics-19.1",
+      "test_cases": [
+        "import numpy as np\nr=np.array([0.7, -0.2, 0.4])\nassert np.allclose(kernel_derivatives(r.copy(), 0.18, 4), target)",
+        "import numpy as np\nr=np.array([0.0, 0.0, 0.0])\nassert np.allclose(kernel_derivatives(r.copy(), 0.3, 0), target)",
+        "import numpy as np\nr=np.array([0.0, 0.0, 0.0])\nassert np.allclose(kernel_derivatives(r.copy(), 0.2, 5), target)",
+        "import numpy as np\nr=np.array([1.1, 0.0, -0.3])\nassert np.allclose(kernel_derivatives(r.copy(), 0.1, 6), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-19.2",
+      "test_cases": [
+        "import numpy as np\nx=np.array([[.2,-.1,.3],[-.4,.5,.1]])\nm=np.array([.8,1.2])\nc=np.array([.1,.1,0.])\nassert np.allclose(particle_moments(x.copy(), m.copy(), c.copy(), 4), target)",
+        "import numpy as np\nx=np.empty((0,3))\nm=np.empty(0)\nc=np.ones(3)\nassert np.allclose(particle_moments(x.copy(), m.copy(), c.copy(), 2), target)",
+        "import numpy as np\nx=np.array([[1.,0.,0.],[-1.,0.,0.]])\nm=np.array([1.,-1.])\nc=np.zeros(3)\nassert np.allclose(particle_moments(x.copy(), m.copy(), c.copy(), 3), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-19.3",
+      "test_cases": [
+        "import numpy as np\nq=np.arange(20,dtype=float)/13\nd=np.array([.2,-.1,.3])\nassert np.allclose(translate_moments(q.copy(), d.copy(), 3), target)",
+        "import numpy as np\nq=np.array([2.])\nd=np.array([.3,.4,.5])\nassert np.allclose(translate_moments(q.copy(), d.copy(), 0), target)",
+        "import numpy as np\nq=np.linspace(-.4,.6,35)\nd=np.zeros(3)\nassert np.allclose(translate_moments(q.copy(), d.copy(), 4), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-19.4",
+      "test_cases": [
+        "import numpy as np\nq=np.linspace(-.1,.4,35)\nd=np.array([2.,.1,-.2])\nassert np.allclose(multipole_to_local(q.copy(), d.copy(), .18, 4, .7), target)",
+        "import numpy as np\nq=np.array([2.])\nd=np.zeros(3)\nassert np.allclose(multipole_to_local(q.copy(), d.copy(), .2, 0, 1.), target)",
+        "import numpy as np\nq=np.array([0.,.3,-.2,.1,0.,0.,0.,0.,0.,0.])\nd=np.array([-.9,.2,.4])\nassert np.allclose(multipole_to_local(q.copy(), d.copy(), .1, 2, .8), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-19.5",
+      "test_cases": [
+        "import numpy as np\nl=np.linspace(-.3,.2,35)\nd=np.array([.1,.2,-.1])\nassert np.allclose(translate_locals(l.copy(), d.copy(), 4), target)",
+        "import numpy as np\nl=np.array([-.8])\nd=np.array([.2,.3,.4])\nassert np.allclose(translate_locals(l.copy(), d.copy(), 0), target)",
+        "import numpy as np\nl=np.arange(20,dtype=float)/11\nd=np.zeros(3)\nassert np.allclose(translate_locals(l.copy(), d.copy(), 3), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-19.6",
+      "test_cases": [
+        "import numpy as np\nimport copy\nx=np.array([[-1.15,-.1,.05],[-.95,.13,-.02],[1.05,-.08,.04],[1.2,.16,-.06]])\ntree=dict(leaf_ids=np.arange(4),parent_ids=np.array([0,0,1,1]),\n          leaf_centers=np.array([[-1.1,-.1,0],[-1.1,.2,0],[1.1,-.1,0],[1.1,.2,0]]),\n          parent_centers=np.array([[-1.1,.05,0],[1.1,.05,0]]))\nq=np.zeros((4,20)); q[:,0]=[.8,1.2,.9,1.1]\nassert np.allclose(evaluate_fixed_fmm(x.copy(), q.copy(), copy.deepcopy(tree), .18, 3, .7), target)",
+        "import numpy as np\nimport copy\nx=np.zeros((1,3))\nq=np.array([[1.]])\ntree=dict(leaf_ids=np.array([0]),parent_ids=np.array([0]),leaf_centers=np.zeros((1,3)),parent_centers=np.zeros((1,3)))\nassert np.allclose(evaluate_fixed_fmm(x.copy(), q.copy(), copy.deepcopy(tree), .2, 0, 1.), target)",
+        "import numpy as np\nimport copy\nx=np.array([[-1.15,-.1,.05],[-.95,.13,-.02],[1.05,-.08,.04],[1.2,.16,-.06]])\ntree=dict(leaf_ids=np.arange(4),parent_ids=np.array([0,0,1,1]),\n          leaf_centers=np.array([[-1.1,-.1,0],[-1.1,.2,0],[1.1,-.1,0],[1.1,.2,0]]),\n          parent_centers=np.array([[-1.1,.05,0],[1.1,.05,0]]))\nq=np.zeros((4,20)); q[:,0]=[.8,1.2,.9,1.1]\nq[:,0]=0\nq[:,1:4]=np.arange(12).reshape(4,3)/17-.2\nx[1]=x[0]\nassert np.allclose(evaluate_fixed_fmm(x.copy(), q.copy(), copy.deepcopy(tree), .25, 3, .9), target)",
+        "import numpy as np\nimport copy\nx=np.array([[-1.18,-.16,.08],[-1.02,-.04,-.07],[-.91,.18,.04],[-1.13,.26,-.09],[1.06,-.12,.13],[1.24,.02,-.08],[.96,.19,.02],[1.17,.28,-.11]])\ntree=dict(leaf_ids=np.array([0,0,1,1,2,2,3,3]),parent_ids=np.array([0,0,1,1]),leaf_centers=np.array([[-1.1,-.1,0],[-1.1,.2,0],[1.1,-.1,0],[1.1,.2,0]]),parent_centers=np.array([[-1.1,.05,0],[1.1,.05,0]]))\nq=np.zeros((8,35)); q[:,0]=[.8,1.1,.9,1.2,1.05,.75,1.15,.95]\nassert np.allclose(evaluate_fixed_fmm(x.copy(), q.copy(), copy.deepcopy(tree), .18, 4, .7), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-19.7",
+      "test_cases": [
+        "import numpy as np\nimport copy\nx=np.array([[-1.15,-.1,.05],[-.95,.13,-.02],[1.05,-.08,.04],[1.2,.16,-.06]])\ntree=dict(leaf_ids=np.arange(4),parent_ids=np.array([0,0,1,1]),\n          leaf_centers=np.array([[-1.1,-.1,0],[-1.1,.2,0],[1.1,-.1,0],[1.1,.2,0]]),\n          parent_centers=np.array([[-1.1,.05,0],[1.1,.05,0]]))\nq=np.zeros((4,20)); q[:,0]=[.8,1.2,.9,1.1]\nb=np.zeros_like(q); b[:,:4]=np.arange(16).reshape(4,4)/19-.3\nassert np.allclose(pullback_fixed_fmm(x.copy(), q[:,0].copy(), b.copy(), copy.deepcopy(tree), .18, 3, .7), target)",
+        "import numpy as np\nimport copy\nx=np.array([[-1.15,-.1,.05],[-.95,.13,-.02],[1.05,-.08,.04],[1.2,.16,-.06]])\ntree=dict(leaf_ids=np.arange(4),parent_ids=np.array([0,0,1,1]),\n          leaf_centers=np.array([[-1.1,-.1,0],[-1.1,.2,0],[1.1,-.1,0],[1.1,.2,0]]),\n          parent_centers=np.array([[-1.1,.05,0],[1.1,.05,0]]))\nq=np.zeros((4,20)); q[:,0]=[.8,1.2,.9,1.1]\nb=np.zeros_like(q)\nassert np.allclose(pullback_fixed_fmm(x.copy(), q[:,0].copy(), b.copy(), copy.deepcopy(tree), .18, 3, .7), target)",
+        "import numpy as np\nimport copy\nx=np.array([[-1.15,-.1,.05],[-.95,.13,-.02],[1.05,-.08,.04],[1.2,.16,-.06]])\ntree=dict(leaf_ids=np.arange(4),parent_ids=np.array([0,0,1,1]),\n          leaf_centers=np.array([[-1.1,-.1,0],[-1.1,.2,0],[1.1,-.1,0],[1.1,.2,0]]),\n          parent_centers=np.array([[-1.1,.05,0],[1.1,.05,0]]))\nq=np.zeros((4,20)); q[:,0]=[.8,1.2,.9,1.1]\nb=np.zeros_like(q); b[:,0]=[.2,-.1,.4,.3]\nx[1]=x[0]\nassert np.allclose(pullback_fixed_fmm(x.copy(), q[:,0].copy(), b.copy(), copy.deepcopy(tree), .2, 3, .7), target)",
+        "import numpy as np\nimport copy\nx=np.array([[-1.15,-.1,.05],[-.95,.13,-.02],[-1.02,.05,.08],[-1.21,-.03,-.07]])\ntree=dict(leaf_ids=np.array([0,0,1,1]),parent_ids=np.array([0,0]),\n          leaf_centers=np.array([[-1.1,-.1,0],[-1.1,.2,0]]),\n          parent_centers=np.array([[-1.1,.05,0]]))\nm=np.array([.8,-1.2,.9,1.1])\nb=np.zeros((4,35)); b[:,0]=[.2,-.1,.4,.3]; b[:,1:4]=np.arange(12).reshape(4,3)/23-.25\nassert np.allclose(pullback_fixed_fmm(x.copy(), m.copy(), b.copy(), copy.deepcopy(tree), .18, 4, .7), target)",
+        "import numpy as np\nimport copy\nx=np.array([[-1.15,-.1,.05],[1.05,-.08,.04],[.1,.9,-.3],[-.2,-1.1,.25]])\ntree=dict(leaf_ids=np.arange(4),parent_ids=np.arange(4),\n          leaf_centers=np.array([[-1.1,-.1,0],[1.1,-.1,0],[.1,.9,0],[-.2,-1.1,0]]),\n          parent_centers=np.array([[-1.1,-.1,0],[1.1,-.1,0],[.1,.9,0],[-.2,-1.1,0]]))\nm=np.array([.8,1.2,-.9,1.1])\nb=np.zeros((4,35)); b[:,1:4]=np.arange(12).reshape(4,3)/17-.3\nassert np.allclose(pullback_fixed_fmm(x.copy(), m.copy(), b.copy(), copy.deepcopy(tree), .22, 4, .9), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-19.8",
+      "test_cases": [
+        "import numpy as np\nimport copy\nX=np.array([[-1.18,-.16,.08],[-1.02,-.04,-.07],[-.91,.18,.04],[-1.13,.26,-.09],[1.06,-.12,.13],[1.24,.02,-.08],[.96,.19,.02],[1.17,.28,-.11]])\nV=np.array([[.04,.11,-.03],[-.08,.02,.06],[.03,-.09,.04],[.07,.01,-.05],[-.02,-.07,.05],[.06,.08,-.04],[-.05,.03,-.02],[.01,-.04,.07]])\ni=np.arange(8)\nU=.01*np.column_stack((i-3.5,(-1.)**i,i%3-1))\nW=.02*np.column_stack(((-1.)**(i+1),(i-2)/3,np.ones(8)))\nmu=.03*(-1.)**i\nY=X+.08*V+np.column_stack((.015*(-1.)**i,-.01*np.ones(8),.005*(i-3)))\ntree=dict(leaf_ids=np.array([0,0,1,1,2,2,3,3]),parent_ids=np.array([0,0,1,1]),leaf_centers=np.array([[-1.1,-.1,0],[-1.1,.2,0],[1.1,-.1,0],[1.1,.2,0]]),parent_centers=np.array([[-1.1,.05,0],[1.1,.05,0]]))\nconfig=dict(x=X,v=V,masses=np.array([.8,1.1,.9,1.2,1.05,.75,1.15,.95]),weights=np.array([1,1.3,.7,1.1,.9,1.4,.8,1.2]),target=Y,dx=U,dv=W,dm=mu,tree=tree,epsilon=.18,p=4,G=.7,h=.025,steps=4,lam=.05)\nassert np.allclose(trajectory_sensitivity(copy.deepcopy(config)), target)",
+        "import numpy as np\nimport copy\nX=np.array([[-1.18,-.16,.08],[-1.02,-.04,-.07],[-.91,.18,.04],[-1.13,.26,-.09],[1.06,-.12,.13],[1.24,.02,-.08],[.96,.19,.02],[1.17,.28,-.11]])\nV=np.array([[.04,.11,-.03],[-.08,.02,.06],[.03,-.09,.04],[.07,.01,-.05],[-.02,-.07,.05],[.06,.08,-.04],[-.05,.03,-.02],[.01,-.04,.07]])\ni=np.arange(8)\nU=.01*np.column_stack((i-3.5,(-1.)**i,i%3-1))\nW=.02*np.column_stack(((-1.)**(i+1),(i-2)/3,np.ones(8)))\nmu=.03*(-1.)**i\nY=X+.08*V+np.column_stack((.015*(-1.)**i,-.01*np.ones(8),.005*(i-3)))\ntree=dict(leaf_ids=np.array([0,0,1,1,2,2,3,3]),parent_ids=np.array([0,0,1,1]),leaf_centers=np.array([[-1.1,-.1,0],[-1.1,.2,0],[1.1,-.1,0],[1.1,.2,0]]),parent_centers=np.array([[-1.1,.05,0],[1.1,.05,0]]))\nconfig=dict(x=X,v=V,masses=np.array([.8,1.1,.9,1.2,1.05,.75,1.15,.95]),weights=np.array([1,1.3,.7,1.1,.9,1.4,.8,1.2]),target=Y,dx=U,dv=W,dm=mu,tree=tree,epsilon=.18,p=4,G=.7,h=.025,steps=4,lam=.05)\nconfig['steps']=0\nassert np.allclose(trajectory_sensitivity(copy.deepcopy(config)), target)",
+        "import numpy as np\nimport copy\nX=np.array([[-1.18,-.16,.08],[-1.02,-.04,-.07],[-.91,.18,.04],[-1.13,.26,-.09],[1.06,-.12,.13],[1.24,.02,-.08],[.96,.19,.02],[1.17,.28,-.11]])\nV=np.array([[.04,.11,-.03],[-.08,.02,.06],[.03,-.09,.04],[.07,.01,-.05],[-.02,-.07,.05],[.06,.08,-.04],[-.05,.03,-.02],[.01,-.04,.07]])\ni=np.arange(8)\nU=.01*np.column_stack((i-3.5,(-1.)**i,i%3-1))\nW=.02*np.column_stack(((-1.)**(i+1),(i-2)/3,np.ones(8)))\nmu=.03*(-1.)**i\nY=X+.08*V+np.column_stack((.015*(-1.)**i,-.01*np.ones(8),.005*(i-3)))\ntree=dict(leaf_ids=np.array([0,0,1,1,2,2,3,3]),parent_ids=np.array([0,0,1,1]),leaf_centers=np.array([[-1.1,-.1,0],[-1.1,.2,0],[1.1,-.1,0],[1.1,.2,0]]),parent_centers=np.array([[-1.1,.05,0],[1.1,.05,0]]))\nconfig=dict(x=X,v=V,masses=np.array([.8,1.1,.9,1.2,1.05,.75,1.15,.95]),weights=np.array([1,1.3,.7,1.1,.9,1.4,.8,1.2]),target=Y,dx=U,dv=W,dm=mu,tree=tree,epsilon=.18,p=4,G=.7,h=.025,steps=4,lam=.05)\nconfig['steps']=1\nconfig['p']=2\nconfig['epsilon']=.35\nconfig['dx']=np.zeros_like(X)\nconfig['dv']=np.zeros_like(V)\nassert np.allclose(trajectory_sensitivity(copy.deepcopy(config)), target)",
+        "import numpy as np\nimport copy\nX=np.array([[-1.18,-.16,.08],[-1.02,-.04,-.07],[-.91,.18,.04],[-1.13,.26,-.09],[1.06,-.12,.13],[1.24,.02,-.08],[.96,.19,.02],[1.17,.28,-.11]])\nV=np.array([[.04,.11,-.03],[-.08,.02,.06],[.03,-.09,.04],[.07,.01,-.05],[-.02,-.07,.05],[.06,.08,-.04],[-.05,.03,-.02],[.01,-.04,.07]])\ni=np.arange(8)\nU=.01*np.column_stack((i-3.5,(-1.)**i,i%3-1))\nW=.02*np.column_stack(((-1.)**(i+1),(i-2)/3,np.ones(8)))\nmu=.03*(-1.)**i\nY=X+.08*V+np.column_stack((.015*(-1.)**i,-.01*np.ones(8),.005*(i-3)))\ntree=dict(leaf_ids=np.array([0,0,1,1,2,2,3,3]),parent_ids=np.array([0,0,1,1]),leaf_centers=np.array([[-1.1,-.1,0],[-1.1,.2,0],[1.1,-.1,0],[1.1,.2,0]]),parent_centers=np.array([[-1.1,.05,0],[1.1,.05,0]]))\nconfig=dict(x=X,v=V,masses=np.array([.8,1.1,.9,1.2,1.05,.75,1.15,.95]),weights=np.array([1,1.3,.7,1.1,.9,1.4,.8,1.2]),target=Y,dx=U,dv=W,dm=mu,tree=tree,epsilon=.18,p=4,G=.7,h=.025,steps=4,lam=.05)\nconfig['steps']=3\nconfig['dx']=np.zeros_like(X)\nconfig['dm']=np.zeros(8)\nassert np.allclose(trajectory_sensitivity(copy.deepcopy(config)), target)",
+        "import numpy as np\nimport copy\nX=np.array([[-1.18,-.16,.08],[-1.02,-.04,-.07],[-.91,.18,.04],[-1.13,.26,-.09],[1.06,-.12,.13],[1.24,.02,-.08],[.96,.19,.02],[1.17,.28,-.11]])\nV=np.array([[.04,.11,-.03],[-.08,.02,.06],[.03,-.09,.04],[.07,.01,-.05],[-.02,-.07,.05],[.06,.08,-.04],[-.05,.03,-.02],[.01,-.04,.07]])\ni=np.arange(8)\nU=.01*np.column_stack((i-3.5,(-1.)**i,i%3-1))\nW=.02*np.column_stack(((-1.)**(i+1),(i-2)/3,np.ones(8)))\nmu=.03*(-1.)**i\nY=X+.08*V+np.column_stack((.015*(-1.)**i,-.01*np.ones(8),.005*(i-3)))\ntree=dict(leaf_ids=np.array([0,0,0,0,1,1,1,1]),parent_ids=np.array([0,0]),leaf_centers=np.array([[-1.1,.05,0],[1.1,.05,0]]),parent_centers=np.array([[0.,.05,0]]))\nconfig=dict(x=X,v=V,masses=np.array([.8,1.1,.9,1.2,1.05,.75,1.15,.95]),weights=np.array([1,1.3,.7,1.1,.9,1.4,.8,1.2]),target=Y,dx=U,dv=W,dm=mu,tree=tree,epsilon=.18,p=4,G=.7,h=.025,steps=4,lam=.05)\nconfig['steps']=2\nconfig['p']=3\nassert np.allclose(trajectory_sensitivity(copy.deepcopy(config)), target)"
+      ]
+    }
+  ]
+}

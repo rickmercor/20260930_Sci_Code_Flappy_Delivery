@@ -1,0 +1,36 @@
+problem_id: "Mathematics-Computational_Finance-9"
+subject: "mathematics"
+subject_area: "Computational Finance"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: " https://doi.org/10.48550/arXiv.2606.26024"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_scale_constants"
+    description: "Scale constants of the lognormal-volatility normal-return model."
+    orchestrator: false
+  - number: 2
+    name: "02_normal_call_terms"
+    description: "Closed-form normal-model call value and its two underlying-price derivatives."
+    orchestrator: false
+  - number: 3
+    name: "03_normalized_moment"
+    description: "Signed normalized Brownian exponential-functional moments at short maturity."
+    orchestrator: false
+  - number: 4
+    name: "04_expectation_vector"
+    description: "The physical moment family consumed by the truncated coefficient matrix."
+    orchestrator: false
+  - number: 5
+    name: "05_coefficient_matrix"
+    description: "Assemble the strike-independent coefficient matrix of the expansion."
+    orchestrator: false
+  - number: 6
+    name: "06_matrix_values"
+    description: "One coefficient polynomial gives prices and both spot derivatives."
+    orchestrator: false
+  - number: 7
+    name: "07_matrix_expansion_gamma"
+    description: "Short-maturity matrix valuation: final orchestrator."
+    orchestrator: true

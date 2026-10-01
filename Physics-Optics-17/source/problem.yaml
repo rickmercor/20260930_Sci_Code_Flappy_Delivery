@@ -1,0 +1,44 @@
+problem_id: "Physics-Optics-17"
+subject: "physics"
+subject_area: "Optics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1063/5.0316814"
+dependencies: ""
+steps:
+  - number: 1
+    name: "logarithmic_wave_jets"
+    description: "Stable logarithmic Riccati-Bessel data and parameter tangents."
+    orchestrator: false
+  - number: 2
+    name: "shell_ratio_jets"
+    description: "Stable propagation of the within-shell radial quotient."
+    orchestrator: false
+  - number: 3
+    name: "composite_impedance_jets"
+    description: "Electric and magnetic composite impedances across a shell."
+    orchestrator: false
+  - number: 4
+    name: "host_radial_jets"
+    description: "Host Riccati-Bessel functions with geometric tangents."
+    orchestrator: false
+  - number: 5
+    name: "layered_coefficient_jets"
+    description: "Layered-sphere electric and magnetic scattering coefficients."
+    orchestrator: false
+  - number: 6
+    name: "mie_efficiency_jets"
+    description: "Dimensionless efficiencies and their full shape derivatives."
+    orchestrator: false
+  - number: 7
+    name: "spectral_loss_gradient"
+    description: "Differentiable spectral objective for the three-layer design."
+    orchestrator: false
+  - number: 8
+    name: "adam_design_step"
+    description: "Bias-corrected Adam step for the physical design variables."
+    orchestrator: false
+  - number: 9
+    name: " run_layered_design"
+    description: "Final orchestrator: the fixed differentiable spectral design experiment."
+    orchestrator: true

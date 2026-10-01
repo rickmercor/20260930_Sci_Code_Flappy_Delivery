@@ -1,0 +1,85 @@
+{
+  "problem_id": "Material_Science-Molecular_Modeling-13",
+  "sub_steps": [
+    {
+      "step_number": "Material_Science-Molecular_Modeling-13.1",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(swi_bulk_thermo(0.6,1.0,1.5), target)",
+        "import numpy as np\nassert np.allclose(swi_bulk_thermo(0.037,1.0,1.5), target)",
+        "import numpy as np\nassert np.allclose(swi_bulk_thermo(0.45,1.2,1.8), target)",
+        "import numpy as np\n# boundary: a range of exactly one, where the well has the volume of the core\nassert np.allclose(swi_bulk_thermo(0.3,0.8,1.0), target)",
+        "import numpy as np\n# invalid input: a range below one must raise ValueError\ndef _probe(fn):\n    try:\n        fn(0.3,1.0,0.9)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(swi_bulk_thermo), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-13.2",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(swi_solute_bulk(0.601647,2.0,1.179731,4.0/3.0), target)",
+        "import numpy as np\nassert np.allclose(swi_solute_bulk(0.036986,2.0,1.179731,4.0/3.0), target)",
+        "import numpy as np\nassert np.allclose(swi_solute_bulk(0.5,3.0,1.6,1.25), target)",
+        "import numpy as np\n# boundary: a solute identical to the solvent, whose excess chemical potential is the solvent's own\nassert np.allclose(swi_solute_bulk(0.6,1.0,1.0,1.5), target)",
+        "import numpy as np\n# invalid input: a non-positive solute diameter must raise ValueError\ndef _probe(fn):\n    try:\n        fn(0.6,0.0,1.0,1.5)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(swi_solute_bulk), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-13.3",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(swi_symmetric_energy(0.036986,0.601647,2.0,1.0,1.5), target)",
+        "import numpy as np\nassert np.allclose(swi_symmetric_energy(0.036986,0.601647,3.0,1.0,1.5), target)",
+        "import numpy as np\nassert np.allclose(swi_symmetric_energy(0.020203,0.670941,1.5,1.1,1.5), target)",
+        "import numpy as np\n# boundary: a solute of the solvent's size, whose ranges reduce to the solvent's\nassert np.allclose(swi_symmetric_energy(0.036986,0.601647,1.0,1.0,1.5), target)",
+        "import numpy as np\n# invalid input: a vapor density above the liquid density must raise ValueError\ndef _probe(fn):\n    try:\n        fn(0.7,0.6,2.0,1.0,1.5)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(swi_symmetric_energy), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-13.4",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(swi_weighted_densities(0.0,0.036986,0.601647,1.79,0.5), target)",
+        "import numpy as np\nassert np.allclose(swi_weighted_densities(-0.7,0.036986,0.601647,1.79,0.5), target)",
+        "import numpy as np\nassert np.allclose(swi_weighted_densities(0.4,0.02,0.67,2.2,1.0), target)",
+        "import numpy as np\n# boundary: deep in the liquid, where the scalar weighted densities reach their uniform values and the vector ones vanish\nassert np.allclose(swi_weighted_densities(30.0,0.036986,0.601647,1.79,0.5), target)",
+        "import numpy as np\n# invalid input: a non-positive radius must raise ValueError\ndef _probe(fn):\n    try:\n        fn(0.0,0.036986,0.601647,1.79,0.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(swi_weighted_densities), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-13.5",
+      "test_cases": [
+        "import numpy as np\nn=np.array([0.6016472,0.3008236,1.8901305,0.3150217,0.0,0.0])\nassert np.allclose(swi_wb_derivatives(n.copy()), target)",
+        "import numpy as np\nn=np.array([0.32,0.16,1.0,0.17,-0.03,-0.19])\nassert np.allclose(swi_wb_derivatives(n.copy()), target)",
+        "import numpy as np\nn=np.array([0.5,0.25,1.57,0.26,0.02,0.12])\nassert np.allclose(swi_wb_derivatives(n.copy()), target)",
+        "import numpy as np\n# boundary: the dilute vapor, where the free energy density is close to its low-density limit\nn=np.array([0.036986,0.018493,0.116199,0.019367,0.0,0.0])\nassert np.allclose(swi_wb_derivatives(n.copy()), target)",
+        "import numpy as np\n# invalid input: a packing weighted density of one must raise ValueError\ndef _probe(fn):\n    try:\n        fn(np.array([0.6,0.3,1.9,1.0,0.0,0.0]))\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(swi_wb_derivatives), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-13.6",
+      "test_cases": [
+        "import numpy as np\nP=(0.036986,0.601647,1.79,2.0,1.179731,4.0/3.0)\nassert np.allclose(swi_solute_c1(0.0,*P), target)",
+        "import numpy as np\nP=(0.036986,0.601647,1.79,2.0,1.179731,4.0/3.0)\nassert np.allclose(swi_solute_c1(-0.2,*P), target)",
+        "import numpy as np\nP=(0.020203,0.670941,2.0,1.5,1.0,1.4)\nassert np.allclose(swi_solute_c1(0.5,*P), target)",
+        "import numpy as np\n# boundary: deep in the vapor, where the potential tends to the difference of the two bulk excess chemical potentials\nP=(0.036986,0.601647,1.79,2.0,1.5,4.0/3.0)\nassert np.allclose(swi_solute_c1(-30.0,*P), target)",
+        "import numpy as np\n# invalid input: a solvent-solute range below one must raise ValueError\ndef _probe(fn):\n    try:\n        fn(0.0,0.036986,0.601647,1.79,2.0,1.179731,0.8)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(swi_solute_c1), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-13.7",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(swi_coexistence(1.0,1.5), target)",
+        "import numpy as np\nassert np.allclose(swi_coexistence(1.1,1.5), target)",
+        "import numpy as np\nassert np.allclose(swi_coexistence(1.2,1.4), target)",
+        "import numpy as np\n# boundary: a temperature close to the critical point, where the two densities approach each other\nassert np.allclose(swi_coexistence(0.8,1.5), target)",
+        "import numpy as np\n# invalid input: above the critical temperature there is no coexistence and ValueError must be raised\ndef _probe(fn):\n    try:\n        fn(0.5,1.5)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(swi_coexistence), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-13.8",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(swi_audit(1.0,1.5,1.79,2.0), target)",
+        "import numpy as np\nassert np.allclose(swi_audit(1.1,1.5,2.0,1.5), target)",
+        "import numpy as np\nassert np.allclose(swi_audit(1.2,1.4,2.2,2.5), target)",
+        "import numpy as np\n# boundary: a solute of the solvent's own size\nassert np.allclose(swi_audit(1.0,1.5,1.79,1.0), target)",
+        "import numpy as np\n# invalid input: no coexistence above the critical temperature, so ValueError must be raised\ndef _probe(fn):\n    try:\n        fn(0.5,1.5,1.79,2.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(swi_audit), target)"
+      ]
+    }
+  ]
+}

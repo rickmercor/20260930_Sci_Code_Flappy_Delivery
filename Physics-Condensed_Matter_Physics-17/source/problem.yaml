@@ -1,0 +1,40 @@
+problem_id: "Physics-Condensed_Matter_Physics-17"
+subject: "physics"
+subject_area: "Condensed Matter Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.48550/arXiv.2605.20918"
+dependencies: ""
+steps:
+  - number: 1
+    name: "build_periodic_chain_tangent"
+    description: "Construct the periodic distances, overlap, bare Hamiltonian, and their frozen-support derivative with respect to one orbital position."
+    orchestrator: false
+  - number: 2
+    name: "build_colored_signed_probes"
+    description: "Greedily color a distance graph in orbital order and form its unnormalized signed probe block."
+    orchestrator: false
+  - number: 3
+    name: "canonical_block_krylov_basis"
+    description: "Build a deterministic orthonormal block-Krylov basis with two-pass rank deflation."
+    orchestrator: false
+  - number: 4
+    name: "projected_inverse_sqrt_action"
+    description: "Evaluate the compressed overlap inverse-square-root action on arbitrary right-hand sides in a supplied orthonormal subspace."
+    orchestrator: false
+  - number: 5
+    name: "extract_sparse_operator"
+    description: "Reconstruct a symmetric operator from a signed probe-action block, then apply the spatial and offdiagonal-magnitude masks."
+    orchestrator: false
+  - number: 6
+    name: "solve_fixed_population_density"
+    description: "Construct the finite-depth nonorthogonal density action and determine its chemical potential from the particle count of the spatially extracted density."
+    orchestrator: false
+  - number: 7
+    name: "compute_frozen_potential_force"
+    description: "Reconstruct the energy-weighted density from the unextracted density action and return the Hamiltonian, overlap-Pulay, and total electronic force contributions."
+    orchestrator: false
+  - number: 8
+    name: "run_chromatic_charge_force"
+    description: "Orchestrate the finite-SCF force benchmark, rebuilding the compressed Hamiltonian and fixed-population density after each charge update and once at the final charge."
+    orchestrator: true

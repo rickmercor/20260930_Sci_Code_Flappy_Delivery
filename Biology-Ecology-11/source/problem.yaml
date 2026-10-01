@@ -1,0 +1,52 @@
+problem_id: "Biology-Ecology-11"
+subject: "biology"
+subject_area: "Ecology"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1088/1742-5468/ae727d"
+dependencies: ""
+steps:
+  - number: 1
+    name: "step_01_dendritic_landscape"
+    description: "This stage assembles the weight matrix and the site numbers from the drainage map, and records the two structural facts the later stages rely on: the out-strength q_i = sum_j w_ij of every patch, which is the total rate factor with which an explorer leaves it, and whether the directed network is strongly connected. Persistence theory for the effective dynamics needs an irreducible colonisation kernel, and the kernel inherits irreducibility from strong connectivity of the dispersal network.\n\nA drainage map is valid only if it has exactly one outlet and every downstream path reaches that outlet without revisiting a patch; a map with a cycle does not describe a river."
+    orchestrator: false
+  - number: 2
+    name: "step_02_explorer_resolvent"
+    description: "When explorers are fast compared with the turnover of settled individuals, their densities sit at the quasi-stationary balance F x = b / lambda for the current production b, so what the settled population experiences is the resolvent F^(-1). The operator L does not depend on f or g, so it is diagonalised once, L = V Omega V^(-1), and the resolvent for any exploration efficiency and mortality ratio follows from the same eigenbasis,\n\nF^(-1) = V diag(1 / (1 + g + f omega_l)) V^(-1),\n\nwhich is how the effective kernel is written as an explicit function of the dispersal dynamics and the topology. For a directed network the eigenvalues and eigenvectors are in general complex, the inverse eigenvector matrix is not the transpose of the eigenvector matrix, and the resolvent is real only after the conjugate pairs are summed. An operator whose eigenvector matrix is numerically singular cannot be inverted this way."
+    orchestrator: false
+  - number: 3
+    name: "step_03_effective_colonisation_kernel"
+    description: "In densities, the production of explorers in patch j is b_j = sum_i c_i C_ij [S_i] / M_j = sum_i c_i (M_i / M_j) C_ij p_i, with p_i = [S_i] / M_i the fraction of occupied sites. With explorers at their quasi-stationary balance F x = b / lambda, the colonisation attempt rate per site is lambda x = F^(-1) b, and colonisation of patch i proceeds at lambda x_i (1 - p_i). The settled dynamics close on the occupancies alone,\n\ndp_i/dt = -e_i p_i + (1 - p_i) sum_j K_ij c_j p_j,\n\nwith the effective colonisation kernel\n\nK_ij = sum_k (F^(-1))_ik (M_j / M_k) C_jk.\n\nThe kernel is independent of the occupancies because an attempt on an occupied site also consumes the explorer, so explorer loss by attempts is lambda x_i whatever the occupancy. It depends on the dispersal dynamics through f and g and on the topology through the eigenbasis of the explorer operator. The ratio of site numbers sits inside the sum, at the patch k where the explorers are released, not outside it: the resolvent already carries the size weighting of movement, and a factor M_j / M_i outside the sum counts it twice.\n\nThe same kernel is often wanted in counts. At vanishing occupancy one settled individual of patch j generates new settled individuals in patch i at rate K_ij c_j M_i / M_j, which does not involve the site numbers at all. Every explorer ends either in a colonisation attempt or in death, so summing the count kernel over targets gives the colonisation budget sum_i K_ij M_i / M_j = xi q_j / [(1 + 1 / f)(1 + g)] of a source patch."
+    orchestrator: false
+  - number: 4
+    name: "step_04_generalised_capacity"
+    description: "This stage computes lambda_max, the normalised positive right and left Perron vectors, the leading eigenvalue of the kernel alone for comparison with the classical capacity, and whether the kernel is irreducible. Irreducibility is decided on the pattern of positive entries, since a directed walk must join every ordered pair of patches."
+    orchestrator: false
+  - number: 5
+    name: "step_05_equilibrium_occupancy"
+    description: "The stage runs the fixed-point iteration from full occupancy, polishes the result with Newton steps on the residual -e_i p_i + (1 - p_i) s_i, and reports the stability of the result through the largest real part of the eigenvalues of the Jacobian J = -diag(e + s) + diag(1 - p) K C of the occupancy dynamics."
+    orchestrator: false
+  - number: 6
+    name: "step_06_establishment_multiplier"
+    description: "Introduce the invader in small numbers into the landscape held by the resident at its own deterministic steady state p_1*. Linearised in the invader, its occupancies grow as dp_2/dt = [diag(1 - p_1*) K_2 C_2 - E_2] p_2, while the resident is left unchanged at first order. The invader increases exactly when the Perron eigenvalue of diag(1 - p_1*) K_2 C_2 E_2^(-1) exceeds one: the generalised capacity of the kernel diag(1 - p_1*) K_2, the invader's kernel thinned by the space the resident holds. Multiplying every fecundity c_2i by a common factor scales that eigenvalue by the same factor, so the multiplier at which the invader changes from declining to increasing is its reciprocal. A multiplier below one means the invader can already establish at its stated fecundities.\n\nThe stage computes the resident steady state, the resident-conditioned invasion capacity, the invader's capacity alone for comparison, and the establishment multiplier."
+    orchestrator: false
+  - number: 7
+    name: "step_07_coexistence_state"
+    description: "Their stable steady state is found here by relaxation: from several interior initial conditions the dynamics are integrated until they settle, and the result is polished by Newton steps on the steady-state equations. Agreement of every start, positivity of every species in every patch, and a Jacobian whose eigenvalues all have negative real parts establish that the pair coexists at a unique stable state. Relaxation is slow when the species are close competitors, because the exchange of space between them decays at a small rate, and the stage reports that rate.\n\nThe steady state of these occupancy equations is also the steady state of the full rate equations of settled individuals and explorers, whatever the relative speed of explorers, because the explorer balance holds exactly at a steady state; only the approach to it and the fluctuations about it depend on the explorer speed."
+    orchestrator: false
+  - number: 8
+    name: "step_08_chain_linearisation"
+    description: "The deterministic state supplies the settled numbers; the explorer numbers follow from the exact explorer balance, which is linear in the explorers,\n\n[diag(D_a q + gamma_a + lambda_a) - D_a W^T] X_a = C_a^T (c_a * S_a),\n\nbecause every attempt consumes an explorer whether or not it succeeds. The state vector is ordered as the settled numbers of species 1 to S, patch by patch, followed by the explorer numbers in the same order."
+    orchestrator: false
+  - number: 9
+    name: "step_09_stationary_covariance"
+    description: "The quantities of ecological interest are sums over patches. The total number of settled individuals of species a is the sum of its N settled components, so its variance is the sum of the corresponding N by N block of Sigma, and the covariance between the totals of two species is the sum of their cross block. For competitors sharing sites that covariance is typically strongly negative, because space one species gains is space the other loses; and when the two species exchange space slowly, that slow mode dominates the variance of each total.\n\nEverything here depends on J and B only. Eliminating the explorers first and adding noise to the settled numbers alone is a different linear process whenever explorers are not much faster than settled turnover, and gives a different covariance."
+    orchestrator: false
+  - number: 10
+    name: "step_10_mean_shift"
+    description: "Writing <n> = n* + delta about the steady state n*, and keeping the leading order, J delta + h = 0 with h = (1/2) H : Sigma. The only non-zero second derivatives are those of the settled drift of species a in patch i with respect to X_ai and any S_bi in the same patch, each equal to -lambda_a / M_i, so that\n\nh_{S_ai} = -(lambda_a / M_i) sum_b Sigma_{X_ai, S_bi},\n\nand h vanishes in every explorer component. The explorer drift is linear, because every colonisation attempt removes the explorer whether or not it succeeds. The mean shift of the total of species a is the sum of its settled components of delta.\n\nThe sign follows the covariance between explorers and settled individuals in each patch: where more explorers coincide with more occupied sites, colonisation is less efficient on average than at the mean state, and the settled means fall below the deterministic values."
+    orchestrator: false
+  - number: 11
+    name: "step_11_two_species_fluctuation_report"
+    description: "The graded quantity is the standard deviation of the total number of settled individuals of species 2. The capacity of species 1, the establishment multiplier, the sites held by each species, the standard deviation for species 1 and the mean shift of species 2 are returned alongside it, because each is a step the graded number depends on."
+    orchestrator: true

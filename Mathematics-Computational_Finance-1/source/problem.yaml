@@ -1,0 +1,44 @@
+problem_id: "Mathematics-Computational_Finance-1"
+subject: "mathematics"
+subject_area: "Computational Finance"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2609.00438"
+dependencies: ""
+steps:
+  - number: 1
+    name: "Fractional Adams convolution weights"
+    description: "Produce the two triangular weight arrays the fractional Adams predictor-corrector scheme uses to advance the Volterra form of the fractional Riccati equation on a uniform grid. Step j+1 consumes a corrector row of length j+2 and a predictor row of length j+1, so both arrays are square and lower triangular with row 0 unused. The weights depend only on the fractional order, the step size and the number of steps, never on the Fourier argument, so they are built once per discretization level and reused at every quadrature node; that reuse is what keeps the multilevel estimator affordable."
+    orchestrator: false
+  - number: 2
+    name: "Solve the fractional Riccati equation"
+    description: "Advance the rough Heston Riccati solution at one complex Fourier argument across the whole grid, consuming the weight arrays from the previous step. Each step predicts a value from the history with the predictor row, evaluates the Riccati right-hand side there, and corrects with the corrector row. The solution is complex but is returned as one flat real array, real parts first, because a step may not return a tuple."
+    orchestrator: false
+  - number: 3
+    name: "Fully discrete characteristic exponent"
+    description: "Turn the nodal Riccati values into the exponent of the implemented characteristic function at that level. The exponent is the deterministic drift contribution plus the time integral of a combination of the Riccati solution and its own right-hand side, taken on the same grid the solution lives on. The maturity is recovered from the grid rather than passed separately, so this step cannot silently disagree with the solver about the interval."
+    orchestrator: false
+  - number: 4
+    name: "Laguerre weight scaling factor"
+    description: "Return the factor that replaces the standard exponential weight of the Gauss-Laguerre rule by one matched to the integrand at hand. The factor combines a correlation-dependent prefactor with a bracket holding a term linear in maturity and a term carrying the fractional order through a Gamma function. It depends on the model and the maturity only, not on the strike, the damping or the discretization level."
+    orchestrator: false
+  - number: 5
+    name: "Scaled Gauss-Laguerre quadrature rule"
+    description: "Return the nodes and weights of the N-point Gauss-Laguerre rule associated with a scaled exponential weight. The rule is the generalized Gauss-Laguerre rule with zero algebraic exponent, and it is obtained from the standard rule by a single change of scale that acts on nodes and weights alike. Nodes come back in increasing order so that callers can index the smallest and largest without sorting."
+    orchestrator: false
+  - number: 6
+    name: "Fourier integrand values"
+    description: "Combine the characteristic exponent with the payoff transform along the damped contour and return the real integrand of the Fourier valuation formula at every node. The exponent arrives already evaluated, as two real arrays, so this step does no model work and is a pure assembly of the pricing formula. The discount factor and the constant of the inverse transform are included here rather than left to the caller."
+    orchestrator: false
+  - number: 7
+    name: "Select the discretization level"
+    description: "Choose the finest level of the time-step hierarchy from the first level difference and the discretization share of the tolerance. The rule extrapolates the observed convergence rate from a single difference between two consecutive levels, converts it into a predicted error at any level, and returns the smallest level at which the prediction meets the target. The level is never returned below one, since that is where the indicator is defined."
+    orchestrator: false
+  - number: 8
+    name: "Allocate quadrature points across levels"
+    description: "Distribute the quadrature points over the hierarchy so that the total work is smallest among all allocations meeting the quadrature tolerance. Half the tolerance is reserved for the level-zero term and half for the level differences taken together, and each relaxed optimum is rounded up. The per-node cost of a level difference is the sum of the costs at the two levels it spans, because one evaluation needs a solve at each."
+    orchestrator: false
+  - number: 9
+    name: "Run the multilevel Fourier pricer"
+    description: "Chain the eight earlier steps into the whole calculation and return the value the method produces. Fix the scaling factor, compute the diagnostic level difference, select the level, allocate the points, then evaluate the level-zero term and each level difference with its own point count and add them. This is the orchestrator step: it chains the eight earlier public functions rather than reproducing any of them inline."
+    orchestrator: true

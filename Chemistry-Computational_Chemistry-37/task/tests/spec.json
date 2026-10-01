@@ -1,0 +1,140 @@
+{
+  "problem_id": "Chemistry-Computational_Chemistry-37",
+  "sub_steps": [
+    {
+      "step_number": "Chemistry-Computational_Chemistry-37.1",
+      "test_cases": [
+        "import numpy as np\ninterfaces = np.array([-1.0, -0.4, 0.2, 0.7, 1.0])\nlam_max = np.array([-0.95, -0.18, 0.36, 0.84, 1.12])\nassert np.allclose(sampling_record(lam_max, interfaces), target)",
+        "import numpy as np\n# boundary: every maximum sits exactly on an interface\ninterfaces = np.array([-1.0, -0.4, 0.2, 0.7, 1.0])\nlam_max = np.array([-0.4, 0.2, 0.7])\nassert np.allclose(sampling_record(lam_max, interfaces), target)",
+        "import numpy as np\n# edge: a single trajectory that only just clears the first interface\ninterfaces = np.array([-1.0, -0.4, 0.2])\nlam_max = np.array([-0.999999])\nassert np.allclose(sampling_record(lam_max, interfaces), target)",
+        "import numpy as np\ninterfaces = np.array([-1.0, -0.4, -0.4, 1.0])   # not strictly increasing\nlam_max = np.array([0.1])\ndef run(f):\n    try:\n        f(lam_max, interfaces); return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run(sampling_record), target)",
+        "import numpy as np\ninterfaces = np.array([-1.0, 1.0])               # too few interfaces\nlam_max = np.array([0.1])\ndef run(f):\n    try:\n        f(lam_max, interfaces); return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run(sampling_record), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-37.2",
+      "test_cases": [
+        "import numpy as np\nmu = np.array([[2.0, 0.0, 0.0],\n               [3.0, 1.5, 0.0],\n               [4.0, 2.0, 1.25]])\nassert np.allclose(ensemble_path_totals(mu), target)",
+        "import numpy as np\n# boundary: an ensemble that no trajectory ever visited\nmu = np.array([[1.0, 0.0],\n               [2.0, 0.0]])\nassert np.allclose(ensemble_path_totals(mu), target)",
+        "import numpy as np\n# edge: one trajectory, one ensemble\nmu = np.array([[7.5]])\nassert np.allclose(ensemble_path_totals(mu), target)",
+        "import numpy as np\nmu = np.array([[1.0, -2.0]])     # negative visitation count\ndef run(f):\n    try:\n        f(mu); return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run(ensemble_path_totals), target)",
+        "import numpy as np\nmu = np.array([1.0, 2.0, 3.0])   # 1D instead of 2D\ndef run(f):\n    try:\n        f(mu); return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run(ensemble_path_totals), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-37.3",
+      "test_cases": [
+        "import numpy as np\nmu = np.array([[2.0, 0.0, 0.0],\n               [3.0, 3.0, 0.0],\n               [4.0, 2.0, 4.0],\n               [1.0, 1.0, 1.0]])\nw = np.array([[1.0, 1.0, 1.0],\n              [1.0, 2.5, 1.0],\n              [1.0, 1.75, 3.25],\n              [1.0, 1.0, 1.75]])\nassert np.allclose(unbiased_sampling_weights(mu, w), target)",
+        "import numpy as np\n# boundary: unit acceptance weights leave the counts untouched\nmu = np.array([[2.0, 1.0],\n               [3.0, 4.0]])\nw = np.ones((2, 2))\nassert np.allclose(unbiased_sampling_weights(mu, w), target)",
+        "import numpy as np\n# edge: an entirely empty ensemble column must stay at zero\nmu = np.array([[1.0, 0.0],\n               [2.0, 0.0]])\nw = np.array([[1.0, 3.0],\n              [2.0, 4.0]])\nassert np.allclose(unbiased_sampling_weights(mu, w), target)",
+        "import numpy as np\n# edge: a zero acceptance weight is tolerated where the count is zero\nmu = np.array([[1.0, 0.0],\n               [2.0, 3.0]])\nw = np.array([[2.0, 0.0],\n              [1.0, 1.5]])\nassert np.allclose(unbiased_sampling_weights(mu, w), target)",
+        "import numpy as np\nmu = np.array([[1.0, 2.0]])\nw = np.array([[1.0, 0.0]])       # zero weight where the count is non-zero\ndef run(f):\n    try:\n        f(mu, w); return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run(unbiased_sampling_weights), target)",
+        "import numpy as np\nmu = np.array([[1.0, 2.0]])\nw = np.array([[1.0, 2.0], [1.0, 2.0]])   # mismatched shapes\ndef run(f):\n    try:\n        f(mu, w); return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run(unbiased_sampling_weights), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-37.4",
+      "test_cases": [
+        "import numpy as np\ninterfaces = np.array([-1.0, -0.4, 0.2, 0.7, 1.0])\nlam_max = np.array([-0.95, -0.18, 0.36, 0.84, 1.12])\nassert np.allclose(highest_ensemble_index(lam_max, interfaces), target)",
+        "import numpy as np\n# boundary: maxima sitting exactly on interfaces take the lower label\ninterfaces = np.array([-1.0, -0.4, 0.2, 0.7, 1.0])\nlam_max = np.array([-0.4, 0.2, 0.7])\nassert np.allclose(highest_ensemble_index(lam_max, interfaces), target)",
+        "import numpy as np\n# edge: everything past the highest sampled interface collapses onto n-1\ninterfaces = np.array([-1.0, -0.4, 0.2, 0.7, 1.0])\nlam_max = np.array([0.70001, 5.0, 1.0])\nassert np.allclose(highest_ensemble_index(lam_max, interfaces), target)",
+        "import numpy as np\ninterfaces = np.array([-1.0, -0.4, 0.2, 1.0])\nlam_max = np.array([-1.0])       # sits on the reactant boundary, in no ensemble\ndef run(f):\n    try:\n        f(lam_max, interfaces); return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run(highest_ensemble_index), target)",
+        "import numpy as np\ninterfaces = np.array([-1.0, -0.4, 0.2, 1.0])\nlam_max = np.array([np.nan])     # non-finite maximum\ndef run(f):\n    try:\n        f(lam_max, interfaces); return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run(highest_ensemble_index), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-37.5",
+      "test_cases": [
+        "import numpy as np\ninterfaces = np.array([-1.0, -0.4, 0.2, 0.7, 1.0])\nlam_max = np.array([-0.95, -0.18, 0.36, 0.84, 1.12])\nt = np.array([[2.0, 0.0, 0.0, 0.0],\n              [1.0, 3.0, 0.0, 0.0],\n              [4.0, 2.0, 4.0, 0.0],\n              [3.0, 1.0, 3.0, 1.0],\n              [1.0, 3.0, 1.0, 3.0]])\nassert np.allclose(interface_crossing_totals(t, lam_max, interfaces, 2), target)",
+        "import numpy as np\n# boundary: the first interface is passed by every trajectory in the record\ninterfaces = np.array([-1.0, -0.4, 0.2, 0.7, 1.0])\nlam_max = np.array([-0.95, -0.18, 0.36, 0.84, 1.12])\nt = np.ones((5, 4))\nassert np.allclose(interface_crossing_totals(t, lam_max, interfaces, 0), target)",
+        "import numpy as np\n# edge: a maximum exactly on the interface does not count as passing it\ninterfaces = np.array([-1.0, -0.4, 0.2, 0.7, 1.0])\nlam_max = np.array([0.2, 0.2000001])\nt = np.array([[1.0, 1.0, 1.0, 1.0],\n              [2.0, 2.0, 2.0, 2.0]])\nassert np.allclose(interface_crossing_totals(t, lam_max, interfaces, 2), target)",
+        "import numpy as np\n# edge: nothing reaches the product interface\ninterfaces = np.array([-1.0, -0.4, 0.2, 0.7, 1.0])\nlam_max = np.array([0.1, 0.3])\nt = np.array([[1.0, 0.0, 0.0, 0.0],\n              [2.0, 1.0, 0.0, 0.0]])\nassert np.allclose(interface_crossing_totals(t, lam_max, interfaces, 4), target)",
+        "import numpy as np\ninterfaces = np.array([-1.0, -0.4, 0.2, 1.0])\nlam_max = np.array([0.1, 0.3])\nt = np.ones((2, 3))\ndef run(f):\n    try:\n        f(t, lam_max, interfaces, 9); return 0     # level out of range\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run(interface_crossing_totals), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-37.6",
+      "test_cases": [
+        "import numpy as np\ncrossing_totals = np.array([[21.0,  0.0,  0.0,  0.0],\n                            [14.5, 11.5,  0.0,  0.0],\n                            [ 7.5,  6.0,  7.5,  0.0],\n                            [ 2.5,  2.0,  2.5,  3.0]])\nensemble_totals = np.array([24.0, 18.0, 9.0, 4.0])\nassert np.allclose(crossing_probabilities(crossing_totals, ensemble_totals), target)",
+        "import numpy as np\n# boundary: every trajectory clears every interface, so the ladder stays at one\ncrossing_totals = np.array([[4.0, 0.0, 0.0],\n                            [4.0, 3.0, 0.0],\n                            [4.0, 3.0, 2.0]])\nensemble_totals = np.array([4.0, 3.0, 2.0])\nassert np.allclose(crossing_probabilities(crossing_totals, ensemble_totals), target)",
+        "import numpy as np\n# edge: a single ensemble, so the ladder has one non-trivial entry\ncrossing_totals = np.array([[5.0]])\nensemble_totals = np.array([8.0])\nassert np.allclose(crossing_probabilities(crossing_totals, ensemble_totals), target)",
+        "import numpy as np\ncrossing_totals = np.zeros((3, 3))\nensemble_totals = np.array([6.0, 4.0, 2.0])\ndef run(f):\n    try:\n        f(crossing_totals, ensemble_totals); return 0   # probability vanishes early\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run(crossing_probabilities), target)",
+        "import numpy as np\ncrossing_totals = np.array([[1.0, 0.0], [1.0, 1.0]])\nensemble_totals = np.array([0.0, 2.0])\ndef run(f):\n    try:\n        f(crossing_totals, ensemble_totals); return 0   # empty lowest ensemble\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run(crossing_probabilities), target)",
+        "import numpy as np\ncrossing_totals = np.array([[1.0, 0.0, 0.0], [1.0, 1.0, 0.0]])\nensemble_totals = np.array([3.0, 2.0, 1.0])\ndef run(f):\n    try:\n        f(crossing_totals, ensemble_totals); return 0   # not one row per interface\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run(crossing_probabilities), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-37.7",
+      "test_cases": [
+        "import numpy as np\neta = np.array([24.0, 18.0, 9.0, 4.0])\ncrossing_probs = np.array([1.0, 0.65, 0.4, 0.18, 0.05])\nassert np.allclose(wham_normalisers(eta, crossing_probs), target)",
+        "import numpy as np\n# boundary: probabilities all unity reduce the normaliser to a plain running reciprocal\neta = np.array([4.0, 6.0, 10.0])\ncrossing_probs = np.ones(4)\nassert np.allclose(wham_normalisers(eta, crossing_probs), target)",
+        "import numpy as np\n# edge: a single ensemble\neta = np.array([12.5])\ncrossing_probs = np.array([1.0, 0.25])\nassert np.allclose(wham_normalisers(eta, crossing_probs), target)",
+        "import numpy as np\neta = np.array([10.0, 5.0])\ncrossing_probs = np.array([1.0, 0.0, 0.1])      # a vanishing crossing probability\ndef run(f):\n    try:\n        f(eta, crossing_probs); return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run(wham_normalisers), target)",
+        "import numpy as np\neta = np.array([10.0, 5.0])\ncrossing_probs = np.array([1.0, 0.5])           # wrong length\ndef run(f):\n    try:\n        f(eta, crossing_probs); return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run(wham_normalisers), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-37.8",
+      "test_cases": [
+        "import numpy as np\nt = np.array([[2.0, 0.0, 0.0, 0.0],\n              [1.0, 3.0, 0.0, 0.0],\n              [4.0, 2.0, 4.0, 0.0],\n              [1.0, 3.0, 1.0, 3.0]])\nensemble_index = np.array([0, 1, 2, 3])\nnormalisers = np.array([0.05, 0.025, 0.0125, 0.00625])\nassert np.allclose(plus_path_weights(t, ensemble_index, normalisers), target)",
+        "import numpy as np\n# boundary: every trajectory sits in the lowest ensemble\nt = np.array([[2.0, 0.0],\n              [3.0, 0.0]])\nensemble_index = np.array([0, 0])\nnormalisers = np.array([0.2, 0.1])\nassert np.allclose(plus_path_weights(t, ensemble_index, normalisers), target)",
+        "import numpy as np\n# edge: a trajectory carrying no weight at all\nt = np.array([[0.0, 0.0],\n              [4.0, 1.0]])\nensemble_index = np.array([0, 1])\nnormalisers = np.array([0.25, 0.125])\nassert np.allclose(plus_path_weights(t, ensemble_index, normalisers), target)",
+        "import numpy as np\nt = np.ones((2, 3))\nensemble_index = np.array([0, 3])        # index beyond the last ensemble\nnormalisers = np.array([0.5, 0.25, 0.125])\ndef run(f):\n    try:\n        f(t, ensemble_index, normalisers); return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run(plus_path_weights), target)",
+        "import numpy as np\nt = np.ones((2, 3))\nensemble_index = np.array([0.0, 1.0])    # not integers\nnormalisers = np.array([0.5, 0.25, 0.125])\ndef run(f):\n    try:\n        f(t, ensemble_index, normalisers); return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run(plus_path_weights), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-37.9",
+      "test_cases": [
+        "import numpy as np\nminus_multiplicities = np.array([1.0, 2.0, 3.0, 1.0, 2.0, 3.0])\nassert np.allclose(minus_path_weights(minus_multiplicities), target)",
+        "import numpy as np\n# boundary: equal multiplicities give a flat distribution\nminus_multiplicities = np.array([4.0, 4.0, 4.0, 4.0])\nassert np.allclose(minus_path_weights(minus_multiplicities), target)",
+        "import numpy as np\n# edge: a single trajectory carries the whole ensemble\nminus_multiplicities = np.array([9.0])\nassert np.allclose(minus_path_weights(minus_multiplicities), target)",
+        "import numpy as np\nminus_multiplicities = np.zeros(4)      # ensemble carries no weight\ndef run(f):\n    try:\n        f(minus_multiplicities); return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run(minus_path_weights), target)",
+        "import numpy as np\nminus_multiplicities = np.array([[1.0, 2.0]])   # 2D input\ndef run(f):\n    try:\n        f(minus_multiplicities); return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run(minus_path_weights), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-37.10",
+      "test_cases": [
+        "import numpy as np\nminus_weights = np.array([1.0, 2.0, 3.0, 1.0, 2.0, 3.0]) / 12.0\nends_at_first_interface = np.array([True, True, False, True, False, True])\nassert np.allclose(end_interface_fraction(minus_weights, ends_at_first_interface), target)",
+        "import numpy as np\n# boundary: every trajectory ends at the inner interface, recovering the bounded case\nminus_weights = np.array([0.25, 0.25, 0.5])\nends_at_first_interface = np.array([True, True, True])\nassert np.allclose(end_interface_fraction(minus_weights, ends_at_first_interface), target)",
+        "import numpy as np\n# edge: none of them do\nminus_weights = np.array([0.4, 0.6])\nends_at_first_interface = np.array([False, False])\nassert np.allclose(end_interface_fraction(minus_weights, ends_at_first_interface), target)",
+        "import numpy as np\nminus_weights = np.array([0.5, 0.5])\nends_at_first_interface = np.array([True])      # length mismatch\ndef run(f):\n    try:\n        f(minus_weights, ends_at_first_interface); return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run(end_interface_fraction), target)",
+        "import numpy as np\nminus_weights = np.array([0.5, -0.5])           # negative weight\nends_at_first_interface = np.array([True, True])\ndef run(f):\n    try:\n        f(minus_weights, ends_at_first_interface); return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run(end_interface_fraction), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-37.11",
+      "test_cases": [
+        "import numpy as np\ninterfaces = np.array([-1.0, -0.4, 0.2, 0.7, 1.0])\nassert np.allclose(path_slice_values(0.70, 7, interfaces), target)",
+        "import numpy as np\n# boundary: a trajectory that reaches the product state rises monotonically\ninterfaces = np.array([-1.0, -0.4, 0.2, 0.7, 1.0])\nassert np.allclose(path_slice_values(1.12, 9, interfaces), target)",
+        "import numpy as np\n# boundary: a reactant-side trajectory turning at the outer interface\ninterfaces = np.array([-1.0, -0.4, 0.2, 0.7, 1.0])\nassert np.allclose(path_slice_values(-1.0, 8, interfaces, lower_turning_point=-1.6), target)",
+        "import numpy as np\n# edge: the shortest admissible trajectory\ninterfaces = np.array([-1.0, -0.4, 0.2, 1.0])\nassert np.allclose(path_slice_values(0.3, 3, interfaces), target)",
+        "import numpy as np\ninterfaces = np.array([-1.0, -0.4, 0.2, 1.0])\ndef run(f):\n    try:\n        f(0.3, 2, interfaces); return 0        # too short to have an interior\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run(path_slice_values), target)",
+        "import numpy as np\ninterfaces = np.array([-1.0, -0.4, 0.2, 1.0])\ndef run(f):\n    try:\n        f(0.3, 7.5, interfaces); return 0      # non-integer length\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run(path_slice_values), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-37.12",
+      "test_cases": [
+        "import numpy as np\nplus_values = np.array([-0.6, -0.1, 0.35, 0.8, 0.95])\nplus_weights = np.array([0.20, 0.20, 0.35, 0.35, 0.10])\nminus_values = np.array([-1.5, -1.2, -1.05])\nminus_weights = np.array([0.5, 0.25, 0.25])\nend_fraction = 0.45\nassert np.allclose(conditional_density_histogram(plus_values, plus_weights, minus_values, minus_weights, end_fraction, -1.6, 1.0, 8), target)",
+        "import numpy as np\n# boundary: a bounded coordinate, where the two families enter on equal footing\nplus_values = np.array([-0.5, 0.0, 0.5])\nplus_weights = np.array([1.0, 1.0, 2.0])\nminus_values = np.array([-1.2, -1.1])\nminus_weights = np.array([1.5, 0.5])\nend_fraction = 1.0\nassert np.allclose(conditional_density_histogram(plus_values, plus_weights, minus_values, minus_weights, end_fraction, -1.4, 1.0, 4), target)",
+        "import numpy as np\n# edge: points sitting exactly on shared edges go to the upper bin\nplus_values = np.array([-0.35, 0.30])\nplus_weights = np.array([1.0, 1.0])\nminus_values = np.array([-1.0])\nminus_weights = np.array([2.0])\nend_fraction = 0.5\nassert np.allclose(conditional_density_histogram(plus_values, plus_weights, minus_values, minus_weights, end_fraction, -1.0, 1.0, 4), target)",
+        "import numpy as np\n# edge: one wide bin collects every phase point of both families\nplus_values = np.array([0.1, 0.4]); plus_weights = np.array([1.0, 1.0])\nminus_values = np.array([-1.2]); minus_weights = np.array([3.0])\nend_fraction = 0.75\nassert np.allclose(conditional_density_histogram(plus_values, plus_weights, minus_values, minus_weights, end_fraction, -1.5, 1.0, 1), target)",
+        "import numpy as np\npv = np.array([0.1, 0.4]); pw = np.array([1.0])\nmv = np.array([-1.2]); mw = np.array([3.0])\ndef run(f):\n    try:\n        f(pv, pw, mv, mw, 0.5, -1.5, 1.0, 4); return 0   # mismatched barrier-side lengths\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run(conditional_density_histogram), target)",
+        "import numpy as np\npv = np.array([0.1]); pw = np.array([1.0])\nmv = np.array([-1.2]); mw = np.array([3.0])\ndef run(f):\n    try:\n        f(pv, pw, mv, mw, 0.5, 1.0, -1.5, 4); return 0   # bounds the wrong way round\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run(conditional_density_histogram), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-37.13",
+      "test_cases": [
+        "import numpy as np\ninterfaces = np.array([-1.0, -0.4, 0.2, 0.7, 1.0])\nlower_bound = -1.6\nlam_max = np.array([-0.95, -0.72, -0.40, -0.18, 0.05, 0.20,\n                    0.36, 0.52, 0.70, 0.84, 0.97, 1.12])\nplus_lengths = np.array([11, 7, 10, 6, 9, 12, 8, 11, 7, 10, 6, 9])\nminus_lengths = np.array([8, 5, 7, 9, 6, 8])\nminus_multiplicities = np.array([1.0, 2.0, 3.0, 1.0, 2.0, 3.0])\nends_at_first_interface = np.array([True, True, False, True, False, True])\nassert np.allclose(conditional_free_energy_barrier(interfaces, lower_bound, lam_max, plus_lengths, minus_lengths, minus_multiplicities, ends_at_first_interface, 8), target)",
+        "import numpy as np\n# boundary: a bounded coordinate, every reactant-side trajectory ending at the inner interface\ninterfaces = np.array([-1.0, -0.4, 0.2, 0.7, 1.0])\nlower_bound = -1.6\nlam_max = np.array([-0.95, -0.72, -0.40, -0.18, 0.05, 0.20,\n                    0.36, 0.52, 0.70, 0.84, 0.97, 1.12])\nplus_lengths = np.array([11, 7, 10, 6, 9, 12, 8, 11, 7, 10, 6, 9])\nminus_lengths = np.array([8, 5, 7, 9, 6, 8])\nminus_multiplicities = np.array([1.0, 2.0, 3.0, 1.0, 2.0, 3.0])\nends_at_first_interface = np.ones(6, dtype=bool)\nassert np.allclose(conditional_free_energy_barrier(interfaces, lower_bound, lam_max, plus_lengths, minus_lengths, minus_multiplicities, ends_at_first_interface, 8), target)",
+        "import numpy as np\n# edge: a coarser histogram over the same record\ninterfaces = np.array([-1.0, -0.4, 0.2, 0.7, 1.0])\nlower_bound = -1.6\nlam_max = np.array([-0.95, -0.72, -0.40, -0.18, 0.05, 0.20,\n                    0.36, 0.52, 0.70, 0.84, 0.97, 1.12])\nplus_lengths = np.array([11, 7, 10, 6, 9, 12, 8, 11, 7, 10, 6, 9])\nminus_lengths = np.array([8, 5, 7, 9, 6, 8])\nminus_multiplicities = np.array([1.0, 2.0, 3.0, 1.0, 2.0, 3.0])\nends_at_first_interface = np.array([True, True, False, True, False, True])\nassert np.allclose(conditional_free_energy_barrier(interfaces, lower_bound, lam_max, plus_lengths, minus_lengths, minus_multiplicities, ends_at_first_interface, 4), target)",
+        "import numpy as np\n# edge: a three-interface record with a shorter ensemble ladder\ninterfaces = np.array([-1.0, -0.2, 0.4, 1.0])\nlower_bound = -1.5\nlam_max = np.array([-0.5, -0.2, 0.1, 0.4, 0.7, 1.3])\nplus_lengths = np.array([7, 9, 11, 6, 8, 10])\nminus_lengths = np.array([5, 7, 9])\nminus_multiplicities = np.array([2.0, 1.0, 3.0])\nends_at_first_interface = np.array([True, False, True])\nassert np.allclose(conditional_free_energy_barrier(interfaces, lower_bound, lam_max, plus_lengths, minus_lengths, minus_multiplicities, ends_at_first_interface, 5), target)",
+        "import numpy as np\ninterfaces = np.array([-1.0, -0.4, 0.2, 1.0])\nlam_max = np.array([-1.0, 0.5])          # a trajectory sitting on the reactant boundary\nplus_lengths = np.array([7, 9])\nminus_lengths = np.array([5, 7])\nminus_multiplicities = np.array([1.0, 2.0])\nends = np.array([True, False])\ndef run(f):\n    try:\n        f(interfaces, -1.5, lam_max, plus_lengths, minus_lengths,\n          minus_multiplicities, ends, 4); return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run(conditional_free_energy_barrier), target)",
+        "import numpy as np\ninterfaces = np.array([-1.0, -0.4, 0.2, 1.0])\nlam_max = np.array([0.3, 0.5])\nplus_lengths = np.array([7, 9])\nminus_lengths = np.array([5, 7])\nminus_multiplicities = np.array([1.0, 2.0])\nends = np.array([True, False])\ndef run(f):\n    try:\n        f(interfaces, -0.5, lam_max, plus_lengths, minus_lengths,\n          minus_multiplicities, ends, 4); return 0   # lower_bound above the first interface\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run(conditional_free_energy_barrier), target)"
+      ]
+    }
+  ]
+}

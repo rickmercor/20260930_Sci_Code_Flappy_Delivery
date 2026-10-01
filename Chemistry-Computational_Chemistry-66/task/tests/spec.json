@@ -1,0 +1,85 @@
+{
+  "problem_id": "Chemistry-Computational_Chemistry-66",
+  "sub_steps": [
+    {
+      "step_number": "Chemistry-Computational_Chemistry-66.1",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(electrostatic_scales(78.5, 298.15, 5.00, 0.0325), target)",
+        "import numpy as np\nassert np.allclose(electrostatic_scales(78.5, 298.15, 3.107, 0.020), target)",
+        "import numpy as np\nassert np.allclose(electrostatic_scales(78.5, 298.15, 5.00, 0.0), target)",
+        "import numpy as np\nassert np.allclose(electrostatic_scales(2.0, 400.0, 7.5, -0.055), target)",
+        "import numpy as np\ndef _raises(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(_raises(lambda: electrostatic_scales(0.0, 298.15, 5.0, 0.01)), target)",
+        "import numpy as np\ndef _raises(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(_raises(lambda: electrostatic_scales(78.5, 298.15, -5.0, 0.01)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-66.2",
+      "test_cases": [
+        "import numpy as np\nZ = np.array([-1.0, -2.0, -3.0, 1.0])\nV = np.array([0.5, 2.0, 8.0, 1.0])\nF = np.array([2.0e-3, 1.0e-3, 5.0e-4])\nassert np.allclose(reservoir_composition(Z, V, F), target)",
+        "import numpy as np\nZ = np.array([2.0, 1.0, -1.0])\nV = np.array([3.0, 0.4, 1.5])\nF = np.array([1.0e-3, 2.0e-3])\nassert np.allclose(reservoir_composition(Z, V, F), target)",
+        "import numpy as np\nZ = np.array([-1.0, 1.0])\nV = np.array([1.0, 1.0])\nF = np.array([0.01])\nassert np.allclose(reservoir_composition(Z, V, F), target)",
+        "import numpy as np\nZ = np.array([-4.0, 1.0])\nV = np.array([40.0, 0.2])\nF = np.array([0.02])\nassert np.allclose(reservoir_composition(Z, V, F), target)",
+        "import numpy as np\ndef _raises(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(_raises(lambda: reservoir_composition(np.array([-1.0, -2.0]), np.array([1.0, 1.0]), np.array([0.01]))), target)",
+        "import numpy as np\ndef _raises(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(_raises(lambda: reservoir_composition(np.array([-1.0, 1.0]), np.array([1.0, 1.0]), np.array([0.6]))), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-66.3",
+      "test_cases": [
+        "import numpy as np\nZ = np.array([-1.0, -2.0, -3.0, 1.0])\nV = np.array([0.5, 2.0, 8.0, 1.0])\nPB = np.array([2.0e-3, 1.0e-3, 5.0e-4, 5.1875e-3])\ndef _positive_log_state(value):\n    value = np.asarray(value, dtype=float)\n    fractions = value[:-1]\n    flags = (fractions > 0.0).astype(float)\n    safe = np.maximum(fractions, np.finfo(float).tiny)\n    return np.concatenate((flags, np.log(safe), value[-1:]))\ndef _signed_log_response(value, base, potential):\n    response = (np.asarray(value, dtype=float) - np.asarray(base, dtype=float)) / potential\n    flags = (response != 0.0).astype(float)\n    signs = np.sign(response)\n    safe = np.maximum(np.abs(response), np.finfo(float).tiny)\n    return np.concatenate((flags, signs, np.log(safe)))\nassert np.allclose(_positive_log_state(local_composition(Z, V, PB, 1.0)), target)",
+        "import numpy as np\nZ = np.array([-1.0, -2.0, -3.0, 1.0])\nV = np.array([0.5, 2.0, 8.0, 1.0])\nPB = np.array([2.0e-3, 1.0e-3, 5.0e-4, 5.1875e-3])\ndef _positive_log_state(value):\n    value = np.asarray(value, dtype=float)\n    fractions = value[:-1]\n    flags = (fractions > 0.0).astype(float)\n    safe = np.maximum(fractions, np.finfo(float).tiny)\n    return np.concatenate((flags, np.log(safe), value[-1:]))\ndef _signed_log_response(value, base, potential):\n    response = (np.asarray(value, dtype=float) - np.asarray(base, dtype=float)) / potential\n    flags = (response != 0.0).astype(float)\n    signs = np.sign(response)\n    safe = np.maximum(np.abs(response), np.finfo(float).tiny)\n    return np.concatenate((flags, signs, np.log(safe)))\nassert np.allclose(_positive_log_state(local_composition(Z, V, PB, 8.5)), target)",
+        "import numpy as np\nZ = np.array([-1.0, -2.0, -3.0, 1.0])\nV = np.array([0.5, 2.0, 8.0, 1.0])\nPB = np.array([2.0e-3, 1.0e-3, 5.0e-4, 5.1875e-3])\ndef _positive_log_state(value):\n    value = np.asarray(value, dtype=float)\n    fractions = value[:-1]\n    flags = (fractions > 0.0).astype(float)\n    safe = np.maximum(fractions, np.finfo(float).tiny)\n    return np.concatenate((flags, np.log(safe), value[-1:]))\ndef _signed_log_response(value, base, potential):\n    response = (np.asarray(value, dtype=float) - np.asarray(base, dtype=float)) / potential\n    flags = (response != 0.0).astype(float)\n    signs = np.sign(response)\n    safe = np.maximum(np.abs(response), np.finfo(float).tiny)\n    return np.concatenate((flags, signs, np.log(safe)))\nassert np.allclose(local_composition(Z, V, PB, 0.0), target)",
+        "import numpy as np\nZ = np.array([-1.0, -2.0, -3.0, 1.0])\nV = np.array([0.5, 2.0, 8.0, 1.0])\nPB = np.array([2.0e-3, 1.0e-3, 5.0e-4, 5.1875e-3])\ndef _positive_log_state(value):\n    value = np.asarray(value, dtype=float)\n    fractions = value[:-1]\n    flags = (fractions > 0.0).astype(float)\n    safe = np.maximum(fractions, np.finfo(float).tiny)\n    return np.concatenate((flags, np.log(safe), value[-1:]))\ndef _signed_log_response(value, base, potential):\n    response = (np.asarray(value, dtype=float) - np.asarray(base, dtype=float)) / potential\n    flags = (response != 0.0).astype(float)\n    signs = np.sign(response)\n    safe = np.maximum(np.abs(response), np.finfo(float).tiny)\n    return np.concatenate((flags, signs, np.log(safe)))\nassert np.allclose(_signed_log_response(local_composition(Z, V, PB, 1e-9), np.r_[PB, 0.0], 1e-9), target)",
+        "import numpy as np\nZ = np.array([-1.0, -2.0, -3.0, 1.0])\nV = np.array([0.5, 2.0, 8.0, 1.0])\nPB = np.array([2.0e-3, 1.0e-3, 5.0e-4, 5.1875e-3])\ndef _positive_log_state(value):\n    value = np.asarray(value, dtype=float)\n    fractions = value[:-1]\n    flags = (fractions > 0.0).astype(float)\n    safe = np.maximum(fractions, np.finfo(float).tiny)\n    return np.concatenate((flags, np.log(safe), value[-1:]))\ndef _signed_log_response(value, base, potential):\n    response = (np.asarray(value, dtype=float) - np.asarray(base, dtype=float)) / potential\n    flags = (response != 0.0).astype(float)\n    signs = np.sign(response)\n    safe = np.maximum(np.abs(response), np.finfo(float).tiny)\n    return np.concatenate((flags, signs, np.log(safe)))\nassert np.allclose(_positive_log_state(local_composition(Z, V, PB, -6.0)), target)",
+        "import numpy as np\nZ = np.array([-2.0, 1.0])\nV = np.array([30.0, 0.25])\nPB = np.array([0.03, 5.0e-4])\ndef _positive_log_state(value):\n    value = np.asarray(value, dtype=float)\n    fractions = value[:-1]\n    flags = (fractions > 0.0).astype(float)\n    safe = np.maximum(fractions, np.finfo(float).tiny)\n    return np.concatenate((flags, np.log(safe), value[-1:]))\nassert np.allclose(_positive_log_state(local_composition(Z, V, PB, 25.0)), target)",
+        "import numpy as np\ndef _raises(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(_raises(lambda: local_composition(np.array([-1.0, 1.0]), np.array([1.0, 1.0]), np.array([0.7, 0.7]), 1.0)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-66.4",
+      "test_cases": [
+        "import numpy as np\nZ = np.array([-1.0, -2.0, -3.0, 1.0])\nV = np.array([0.5, 2.0, 8.0, 1.0])\nPB = np.array([2.0e-3, 1.0e-3, 5.0e-4, 5.1875e-3])\nassert np.allclose(wall_state(Z, V, PB, 5.9), target)",
+        "import numpy as np\nZ = np.array([-1.0, -2.0, -3.0, 1.0])\nV = np.array([0.5, 2.0, 8.0, 1.0])\nPB = np.array([2.0e-3, 1.0e-3, 5.0e-4, 5.1875e-3])\nassert np.allclose(wall_state(Z, V, PB, 0.28), target)",
+        "import numpy as np\nZ = np.array([-1.0, -2.0, -3.0, 1.0])\nV = np.array([0.5, 2.0, 8.0, 1.0])\nPB = np.array([2.0e-3, 1.0e-3, 5.0e-4, 5.1875e-3])\nassert np.allclose(wall_state(Z, V, PB, 0.0), target)",
+        "import numpy as np\nZ = np.array([-1.0, -2.0, -3.0, 1.0])\nV = np.array([0.5, 2.0, 8.0, 1.0])\nPB = np.array([2.0e-3, 1.0e-3, 5.0e-4, 5.1875e-3])\nassert np.allclose(wall_state(Z, V, PB, 100.0), target)",
+        "import numpy as np\nZ = np.array([-1.0, 1.0])\nV = np.array([2.0, 1.0])\nPB = np.array([2.0e-9, 1.0e-9])\nassert np.allclose(wall_state(Z, V, PB, 2.0), target)",
+        "import numpy as np\nZ = np.array([-2.0, 1.0, -1.0])\nV = np.array([6.0, 0.3, 0.8])\nPB = np.array([4.0e-3, 1.6e-3, 3.2e-3])\nassert np.allclose(wall_state(Z, V, PB, 15.0), target)",
+        "import numpy as np\nZ = np.array([-1.0, -2.0, -3.0, 1.0])\nV = np.array([0.5, 2.0, 8.0, 1.0])\nPB = np.array([2.0e-3, 1.0e-3, 5.0e-4, 5.1875e-3])\nassert np.allclose(float(wall_state(Z, V, PB, 5.9)[0]), target)",
+        "import numpy as np\nZ = np.array([-1.0, -2.0, -3.0, 1.0])\nV = np.array([0.5, 2.0, 8.0, 1.0])\nPB = np.array([2.0e-3, 1.0e-3, 5.0e-4, 5.1875e-3])\nassert np.allclose(float(wall_state(Z, V, PB, 0.28)[0]), target)",
+        "import numpy as np\nZ = np.array([-1.0, -2.0, -3.0, 1.0])\nV = np.array([0.5, 2.0, 8.0, 1.0])\nPB = np.array([2.0e-3, 1.0e-3, 5.0e-4, 5.1875e-3])\nassert np.allclose(float(wall_state(Z, V, PB, 100.0)[0]), target)",
+        "import numpy as np\ndef _raises(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nZ = np.array([-1.0, 1.0])\nV = np.array([1.0, 1.0])\nPB = np.array([0.005, 0.005])\nassert np.allclose(_raises(lambda: wall_state(Z, V, PB, -1.0)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-66.5",
+      "test_cases": [
+        "import numpy as np\ndef _relative_vector(value):\n    value = np.asarray(value, dtype=float)\n    flags = (value != 0.0).astype(float)\n    signs = np.sign(value)\n    safe = np.maximum(np.abs(value), np.finfo(float).tiny)\n    return np.concatenate((flags, signs, np.log(safe)))\nZ = np.array([-1.0, -2.0, -3.0, 1.0])\nV = np.array([0.5, 2.0, 8.0, 1.0])\nPB = np.array([2.0e-3, 1.0e-3, 5.0e-4, 5.1875e-3])\nassert np.allclose(_relative_vector(adsorption_moments(78.5, 298.15, 5.00, 0.0325, Z, V, PB)), target)",
+        "import numpy as np\ndef _relative_vector(value):\n    value = np.asarray(value, dtype=float)\n    flags = (value != 0.0).astype(float)\n    signs = np.sign(value)\n    safe = np.maximum(np.abs(value), np.finfo(float).tiny)\n    return np.concatenate((flags, signs, np.log(safe)))\nZ = np.array([-1.0, -2.0, -3.0, 1.0])\nV = np.array([0.5, 2.0, 8.0, 1.0])\nPB = np.array([2.0e-3, 1.0e-3, 5.0e-4, 5.1875e-3])\nassert np.allclose(_relative_vector(adsorption_moments(78.5, 298.15, 5.00, 0.10, Z, V, PB)), target)",
+        "import numpy as np\ndef _relative_vector(value):\n    value = np.asarray(value, dtype=float)\n    flags = (value != 0.0).astype(float)\n    signs = np.sign(value)\n    safe = np.maximum(np.abs(value), np.finfo(float).tiny)\n    return np.concatenate((flags, signs, np.log(safe)))\nZ = np.array([-1.0, -2.0, -3.0, 1.0])\nV = np.array([0.5, 2.0, 8.0, 1.0])\nPB = np.array([2.0e-5, 1.0e-5, 5.0e-6, 5.1875e-5])\nassert np.allclose(_relative_vector(adsorption_moments(78.5, 298.15, 5.00, 0.010, Z, V, PB)), target)",
+        "import numpy as np\ndef _relative_vector(value):\n    value = np.asarray(value, dtype=float)\n    flags = (value != 0.0).astype(float)\n    signs = np.sign(value)\n    safe = np.maximum(np.abs(value), np.finfo(float).tiny)\n    return np.concatenate((flags, signs, np.log(safe)))\nZ = np.array([-1.0, 1.0])\nV = np.array([1.0, 1.0])\nPB = np.array([0.005, 0.005])\nassert np.allclose(_relative_vector(adsorption_moments(78.5, 298.15, 4.00, 0.025, Z, V, PB)), target)",
+        "import numpy as np\ndef _relative_vector(value):\n    value = np.asarray(value, dtype=float)\n    flags = (value != 0.0).astype(float)\n    signs = np.sign(value)\n    safe = np.maximum(np.abs(value), np.finfo(float).tiny)\n    return np.concatenate((flags, signs, np.log(safe)))\nZ = np.array([-2.0, 1.0, -1.0])\nV = np.array([6.0, 0.3, 0.8])\nPB = np.array([4.0e-3, 1.6e-3, 3.2e-3])\nassert np.allclose(_relative_vector(adsorption_moments(40.0, 330.0, 4.50, 0.030, Z, V, PB)), target)",
+        "import numpy as np\ndef _raises(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nZ = np.array([-1.0, 1.0])\nV = np.array([1.0, 1.0])\nPB = np.array([0.005, 0.005])\nassert np.allclose(_raises(lambda: adsorption_moments(78.5, 298.15, 4.00, 0.0, Z, V, PB)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-66.6",
+      "test_cases": [
+        "import numpy as np\nZ = np.array([-1.0, -2.0, -3.0, 1.0])\nV = np.array([0.5, 2.0, 8.0, 1.0])\nPB = np.array([2.0e-3, 1.0e-3, 5.0e-4, 5.1875e-3])\nassert np.allclose(np.log(exchange_charge(78.5, 298.15, 5.00, Z, V, PB, 0, 1, 0.025, 0.040)), target)",
+        "import numpy as np\nZ = np.array([-1.0, -2.0, -3.0, 1.0])\nV = np.array([0.5, 2.0, 8.0, 1.0])\nPB = np.array([2.0e-3, 1.0e-3, 5.0e-4, 5.1875e-3])\nassert np.allclose(np.log(exchange_charge(78.5, 298.15, 5.00, Z, V, PB, 2, 1, 0.004, 0.012)), target)",
+        "import numpy as np\nZ = np.array([-1.0, -2.0, -3.0, 1.0])\nV = np.array([0.5, 2.0, 8.0, 1.0])\nPB = np.array([2.0e-3, 1.0e-3, 5.0e-4, 5.1875e-3])\nassert np.allclose(np.log(exchange_charge(78.5, 298.15, 5.00, Z, V, PB, 0, 1, 0.0318, 0.060)), target)",
+        "import numpy as np\nZ = np.array([-2.0, 1.0, -1.0])\nV = np.array([6.0, 0.3, 0.8])\nPB = np.array([4.0e-3, 1.6e-3, 3.2e-3])\nassert np.allclose(np.log(exchange_charge(40.0, 330.0, 4.50, Z, V, PB, 2, 0, 0.002, 0.030)), target)",
+        "import numpy as np\ndef _raises(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nZ = np.array([-1.0, -2.0, -3.0, 1.0])\nV = np.array([0.5, 2.0, 8.0, 1.0])\nPB = np.array([2.0e-3, 1.0e-3, 5.0e-4, 5.1875e-3])\nassert np.allclose(_raises(lambda: exchange_charge(78.5, 298.15, 5.00, Z, V, PB, 0, 1, 0.040, 0.060)), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Computational_Chemistry-66.7",
+      "test_cases": [
+        "import numpy as np\nZ = np.array([-1.0, -2.0, -3.0, 1.0])\nV = np.array([0.5, 2.0, 8.0, 1.0])\nF = np.array([2.0e-3, 1.0e-3, 5.0e-4])\nassert np.allclose(np.log(stratification_onset(78.5, 298.15, 5.00, Z, V, F, 2.0, 5.0)), target)",
+        "import numpy as np\nZ = np.array([-1.0, -2.0, -3.0, 1.0])\nV = np.array([0.5, 2.0, 8.0, 1.0])\nF = np.array([2.0e-3, 1.0e-3, 5.0e-4])\nassert np.allclose(np.log(stratification_onset(78.5, 298.15, 5.00, Z, V, F, 4.0, 10.0)), target)",
+        "import numpy as np\nZ = np.array([-1.0, -2.0, -3.0, 1.0])\nV = np.array([0.5, 2.0, 8.0, 1.0])\nF = np.array([2.0e-3, 1.0e-3, 5.0e-4])\nassert np.allclose(np.log(stratification_onset(157.0, 149.075, 5.00, Z, V, F, 2.0, 5.0)), target)",
+        "import numpy as np\nZ = np.array([-2.0, 1.0, -1.0])\nV = np.array([6.0, 0.3, 0.8])\nF = np.array([4.0e-3, 1.6e-3])\nassert np.allclose(np.log(stratification_onset(40.0, 330.0, 4.50, Z, V, F, 0.2, 3.0)), target)",
+        "import numpy as np\ndef _raises(fn):\n    try:\n        fn()\n    except ValueError:\n        return 1.0\n    return 0.0\nZ = np.array([-1.0, -2.0, -3.0, 1.0])\nV = np.array([0.5, 2.0, 8.0, 1.0])\nF = np.array([2.0e-3, 1.0e-3, 5.0e-4])\nassert np.allclose(_raises(lambda: stratification_onset(78.5, 298.15, 5.00, Z, V, F, 0.5, 2.0)), target)"
+      ]
+    }
+  ]
+}

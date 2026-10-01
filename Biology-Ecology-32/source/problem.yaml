@@ -1,0 +1,36 @@
+problem_id: "Biology-Ecology-32"
+subject: "biology"
+subject_area: "Ecology"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1007/s00285-026-02402-5"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_net_reproductive_number"
+    description: "Compute the expected lifetime offspring of one newborn predator when the prey population is held fixed, in an age-structured predator-prey model with role reversal."
+    orchestrator: false
+  - number: 2
+    name: "02_coexistence_steady_states"
+    description: "Find every steady state of the age-structured role-reversal model in which prey and predators coexist."
+    orchestrator: false
+  - number: 3
+    name: "03_rightmost_characteristic_root"
+    description: "Determine the leading growth rate of small perturbations around a coexistence steady state of the age-structured role-reversal model."
+    orchestrator: false
+  - number: 4
+    name: "04_invasion_threshold"
+    description: "Find the juvenile-consumption rate above which predators can no longer invade a prey-only community."
+    orchestrator: false
+  - number: 5
+    name: "05_fold_threshold"
+    description: "Find the juvenile-consumption rate beyond which prey and predators can no longer coexist in any steady state."
+    orchestrator: false
+  - number: 6
+    name: "06_stability_switch_threshold"
+    description: "Find the juvenile-consumption rate at which the low-prey coexistence steady state switches from oscillatory instability to stability."
+    orchestrator: false
+  - number: 7
+    name: "07_bistability_width"
+    description: "Measure the range of juvenile-consumption rates over which the role-reversal system has two alternative stable outcomes."
+    orchestrator: true

@@ -1,0 +1,79 @@
+{
+  "problem_id": "Mathematics-Computational_Finance-33",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Computational_Finance-33.1",
+      "test_cases": [
+        "import numpy as np\np = np.array([0.6, 0.4])\nk = np.array([2.0, 6.0])\nb = np.array([4.0, 2.5])\ntheta = 0.2\nassert np.allclose(tilt_mark_distribution(p.copy(), k.copy(), b.copy(), theta), target)",
+        "import numpy as np\np = np.array([1.0])\nk = np.array([1.0])\nb = np.array([2.0])\ntheta = 0.0\nassert np.allclose(tilt_mark_distribution(p.copy(), k.copy(), b.copy(), theta), target)",
+        "import numpy as np\np = np.array([0.25, 0.75])\nk = np.array([0.5, 3.0])\nb = np.array([1.0, 5.0])\ntheta = -0.4\nassert np.allclose(tilt_mark_distribution(p.copy(), k.copy(), b.copy(), theta), target)",
+        "import numpy as np\np = np.array([0.6, 0.4])\nk = np.array([2.0, 6.0])\nb = np.array([4.0, 2.5])\ntheta = 2.5\n\ndef _model_exception():\n    try:\n        tilt_mark_distribution(p.copy(), k.copy(), b.copy(), theta)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(_model_exception(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-33.2",
+      "test_cases": [
+        "import numpy as np\nfrom scipy.optimize import brentq\np = np.array([0.6, 0.4])\nk = np.array([2.0, 6.0])\nb = np.array([4.0, 2.5])\nmarket = np.array([8.0, 2.0, 2.7, 1.1, 0.02])\nq = 2.2\nT = 0.5\nbracket = np.array([0.0, 0.35])\nassert np.allclose(calibrate_mark_tilt(p.copy(), k.copy(), b.copy(), market.copy(), T, q, bracket.copy()), target)",
+        "import numpy as np\nfrom scipy.optimize import brentq\np = np.array([1.0])\nk = np.array([1.0])\nb = np.array([2.0])\nmarket = np.array([2.0, 1.0, 1.0, 0.0, 0.0])\nq = 0.25\nT = 0.5\nbracket = np.array([0.0, 0.5])\nassert np.allclose(calibrate_mark_tilt(p.copy(), k.copy(), b.copy(), market.copy(), T, q, bracket.copy()), target)",
+        "import numpy as np\nfrom scipy.optimize import brentq\np = np.array([1.0])\nk = np.array([1.0])\nb = np.array([2.0])\nmarket = np.array([2.0, 1.0, 1.0, 0.0, 0.0])\nq = 1 / 3\nT = 0.5\nbracket = np.array([0.0, 0.5])\nassert np.allclose(calibrate_mark_tilt(p.copy(), k.copy(), b.copy(), market.copy(), T, q, bracket.copy()), target)",
+        "import numpy as np\nfrom scipy.optimize import brentq\np = np.array([0.3, 0.7])\nk = np.array([1.0, 2.0])\nb = np.array([2.0, 4.0])\nmarket = np.array([3.0, 1.0, 2.0, 0.5, 0.01])\nq = 0.3\nT = 0.4\nbracket = np.array([-0.5, 0.8])\nassert np.allclose(calibrate_mark_tilt(p.copy(), k.copy(), b.copy(), market.copy(), T, q, bracket.copy()), target)",
+        "import numpy as np\nfrom scipy.optimize import brentq\np = np.array([1.0])\nk = np.array([1.0])\nb = np.array([2.0])\nmarket = np.array([2.0, 1.0, 1.0, 0.0, 0.0])\nq = 20.0\nT = 0.5\nbracket = np.array([0.0, 0.5])\n\ndef _model_exception():\n    try:\n        calibrate_mark_tilt(p.copy(), k.copy(), b.copy(), market.copy(), T, q, bracket.copy())\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(_model_exception(), target)",
+        "import numpy as np\nfrom scipy.optimize import brentq\np = np.array([1.0])\nk = np.array([1.0])\nb = np.array([2.0])\nmarket = np.array([2.0, 0.0, 0.0, 0.0, 0.0])\nq = 0.0\nT = 0.5\nbracket = np.array([0.0, 0.5])\n\ndef _model_exception():\n    try:\n        calibrate_mark_tilt(p.copy(), k.copy(), b.copy(), market.copy(), T, q, bracket.copy())\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(_model_exception(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-33.3",
+      "test_cases": [
+        "import numpy as np\nfrom scipy.special import gammaln, roots_genlaguerre\nmix = np.array([[0.6, 2.0, 3.8], [0.4, 6.0, 2.3]])\nn = 8\nassert np.allclose(build_mark_quadrature(mix.copy(), n), target)",
+        "import numpy as np\nfrom scipy.special import gammaln, roots_genlaguerre\nmix = np.array([[1.0, 1.0, 2.0]])\nn = 1\nassert np.allclose(build_mark_quadrature(mix.copy(), n), target)",
+        "import numpy as np\nfrom scipy.special import gammaln, roots_genlaguerre\nmix = np.array([[0.2, 0.5, 0.7], [0.8, 3.0, 4.0]])\nn = 12\nassert np.allclose(build_mark_quadrature(mix.copy(), n), target)",
+        "import numpy as np\nfrom scipy.special import gammaln, roots_genlaguerre\nmix = np.array([[1.0, 1.0, 2.0]])\nn = 0\n\ndef _model_exception():\n    try:\n        build_mark_quadrature(mix.copy(), n)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(_model_exception(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-33.4",
+      "test_cases": [
+        "import numpy as np\ngrid = np.linspace(0, 4, 9)\nmarket = np.array([8.0, 2.0, 2.7, 1.1, 0.02])\ndt = 0.01\nassert np.allclose(build_backward_drift(grid.copy(), market.copy(), dt), target)",
+        "import numpy as np\ngrid = np.array([0.0, 1.0, 2.0])\nmarket = np.array([1.0, 0.0, 0.0, 0.0, 0.0])\ndt = 0.1\nassert np.allclose(build_backward_drift(grid.copy(), market.copy(), dt), target)",
+        "import numpy as np\ngrid = np.array([0.0, 0.5, 1.0])\nmarket = np.array([3.0, 1.0, 0.5, 0.2, 0.1])\ndt = 0.02\nassert np.allclose(build_backward_drift(grid.copy(), market.copy(), dt), target)",
+        "import numpy as np\ngrid = np.array([0.0, 0.5, 1.2])\nmarket = np.array([3.0, 1.0, 0.5, 0.2, 0.1])\ndt = 0.02\n\ndef _model_exception():\n    try:\n        build_backward_drift(grid.copy(), market.copy(), dt)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(_model_exception(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-33.5",
+      "test_cases": [
+        "import numpy as np\ngrid = np.linspace(0, 3, 7)\nrule = np.array([[[0.4, 0.3], [1.3, 0.7]]])\nbeta = 0.8\ny = np.array([0.0, 0.7, 2.0])\ndelta = 0.2\nassert np.allclose(build_jump_transfer(grid.copy(), rule.copy(), beta, y.copy(), delta), target)",
+        "import numpy as np\ngrid = np.array([0.0, 1.0, 2.0])\nrule = np.array([[[0.5, 1.0]]])\nbeta = 0.0\ny = np.array([0.0])\ndelta = 0.0\nassert np.allclose(build_jump_transfer(grid.copy(), rule.copy(), beta, y.copy(), delta), target)",
+        "import numpy as np\ngrid = np.array([0.0, 1.0, 2.0])\nrule = np.array([[[3.0, 1.0]]])\nbeta = 2.0\ny = np.array([0.0, 1.0])\ndelta = 0.1\nassert np.allclose(build_jump_transfer(grid.copy(), rule.copy(), beta, y.copy(), delta), target)",
+        "import numpy as np\ngrid = np.array([0.0, 1.0, 2.0])\nrule = np.array([[[0.5, 1.0]]])\nbeta = -1.0\ny = np.array([0.0])\ndelta = 0.1\n\ndef _model_exception():\n    try:\n        build_jump_transfer(grid.copy(), rule.copy(), beta, y.copy(), delta)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(_model_exception(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-33.6",
+      "test_cases": [
+        "import numpy as np\nfrom scipy.linalg import solve_banded\ngrid = np.array([0.0, 1.0, 2.0])\ndt = 0.03\nbands = np.array([[0.0, -0.03, 0.0], [1.03, 1.0, 1.03], [0.0, -0.03, 0.0]])\ntransfer = np.array([np.eye(3) * 1.2, np.eye(3) * (0.9 + 0.2j)])\nsteps = 3\nassert np.allclose(evolve_modal_values(grid.copy(), bands.copy(), transfer.copy(), dt, steps), target)",
+        "import numpy as np\nfrom scipy.linalg import solve_banded\ngrid = np.array([0.0, 1.0, 2.0])\ndt = 0.1\nbands = np.zeros((3, 3))\nbands[1] = 1.02\ntransfer = np.eye(3)[None, :, :].astype(complex)\nsteps = 4\nassert np.allclose(evolve_modal_values(grid.copy(), bands.copy(), transfer.copy(), dt, steps), target)",
+        "import numpy as np\nfrom scipy.linalg import solve_banded\ngrid = np.array([0.0, 0.5, 1.0])\ndt = 0.01\nbands = np.zeros((3, 3))\nbands[1] = 1.0\ntransfer = np.array([[[0.0, 0.2, 1.1], [0.0, 0.0, 1.3], [0.0, 0.0, 1.3]]], complex)\nsteps = 1\nassert np.allclose(evolve_modal_values(grid.copy(), bands.copy(), transfer.copy(), dt, steps), target)",
+        "import numpy as np\nfrom scipy.linalg import solve_banded\ngrid = np.array([0.0, 1.0, 2.0])\ndt = 1.0\nbands = np.zeros((3, 3))\nbands[1] = 1.0\ntransfer = np.eye(3)[None, :, :]\nsteps = 1\n\ndef _model_exception():\n    try:\n        evolve_modal_values(grid.copy(), bands.copy(), transfer.copy(), dt, steps)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(_model_exception(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-33.7",
+      "test_cases": [
+        "import numpy as np\ngrid = np.array([0.0, 1.0, 2.0])\ny = np.linspace(0, 4, 9)\nmodes = np.exp(-0.1 * y ** 2)[None, :] * np.array([[1.0], [1.2], [1.5]])\ndelta = 0.3\ninitial = 0.7\nloss = 0.2\nstrike = 1.0\ncap = 2.0\nassert np.allclose(invert_capped_payoff(grid.copy(), modes.copy(), y.copy(), delta, initial, loss, strike, cap), target)",
+        "import numpy as np\ngrid = np.array([0.0, 1.0, 2.0])\ny = np.array([0.0, 0.5, 1.0])\nmodes = np.ones((3, 3), complex)\ndelta = 0.5\ninitial = 2.0\nloss = 0.0\nstrike = 0.0\ncap = 0.5\nassert np.allclose(invert_capped_payoff(grid.copy(), modes.copy(), y.copy(), delta, initial, loss, strike, cap), target)",
+        "import numpy as np\ngrid = np.array([0.0, 1.0, 2.0])\ny = np.linspace(0, 6, 13)\nmodes = np.exp(-0.2 * y ** 2 + 0.1j * y)[None, :] * np.ones((3, 1))\ndelta = 0.2\ninitial = 0.0\nloss = 1.0\nstrike = 0.5\ncap = 3.0\nassert np.allclose(invert_capped_payoff(grid.copy(), modes.copy(), y.copy(), delta, initial, loss, strike, cap), target)",
+        "import numpy as np\ngrid = np.array([0.0, 1.0, 2.0])\ny = np.linspace(0, 4, 8)\nmodes = np.ones((3, 8))\ndelta = 0.3\ninitial = 0.7\nloss = 0.2\nstrike = 1.0\ncap = 2.0\n\ndef _model_exception():\n    try:\n        invert_capped_payoff(grid.copy(), modes.copy(), y.copy(), delta, initial, loss, strike, cap)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(_model_exception(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-33.8",
+      "test_cases": [
+        "from scipy.optimize import brentq\nfrom scipy.special import gammaln, roots_genlaguerre\nfrom scipy.linalg import solve_banded\nimport numpy as np\np = np.array([0.6, 0.4])\nk = np.array([2.0, 6.0])\nb = np.array([4.0, 2.5])\nmarket = np.array([8.0, 2.0, 2.7, 1.1, 0.02])\nswap = np.array([0.5, 2.2, 0.0, 0.35])\ncontract = np.array([150 / 365, 0.15, 1.2, 3.0])\nresolution = np.array([24.0, 96, 256, 48, 0.3, 24.0, 192])\nassert np.allclose(price_calibrated_claim(p.copy(), k.copy(), b.copy(), market.copy(), swap.copy(), contract.copy(), resolution.copy()), target)",
+        "from scipy.optimize import brentq\nfrom scipy.special import gammaln, roots_genlaguerre\nfrom scipy.linalg import solve_banded\nimport numpy as np\np = np.array([0.6, 0.4])\nk = np.array([2.0, 6.0])\nb = np.array([4.0, 2.5])\nmarket = np.array([8.0, 2.0, 2.7, 1.1, 0.02])\nswap = np.array([0.5, 2.2, 0.0, 0.35])\ncontract = np.array([150 / 365, 0.15, 1.2, 3.0])\nresolution = np.array([24.0, 96, 256, 48, 0.3, 24.0, 192])\nswap[1] = 1.8\ncontract = np.array([0.2, 0.0, 0.8, 2.0])\nresolution = np.array([16.0, 32, 96, 16, 0.25, 12.0, 48])\nassert np.allclose(price_calibrated_claim(p.copy(), k.copy(), b.copy(), market.copy(), swap.copy(), contract.copy(), resolution.copy()), target)",
+        "from scipy.optimize import brentq\nfrom scipy.special import gammaln, roots_genlaguerre\nfrom scipy.linalg import solve_banded\nimport numpy as np\np = np.array([0.6, 0.4])\nk = np.array([2.0, 6.0])\nb = np.array([4.0, 2.5])\nmarket = np.array([8.0, 2.0, 2.7, 1.1, 0.02])\nswap = np.array([0.5, 2.2, 0.0, 0.35])\ncontract = np.array([150 / 365, 0.15, 1.2, 3.0])\nresolution = np.array([24.0, 96, 256, 48, 0.3, 24.0, 192])\nmarket = np.array([6.0, 1.5, 2.0, 0.4, 0.03])\nswap = np.array([0.3, 0.75, -0.2, 0.6])\ncontract = np.array([0.25, 0.3, 1.0, 1.5])\nresolution = np.array([16.0, 32, 128, 20, 0.2, 16.0, 64])\nassert np.allclose(price_calibrated_claim(p.copy(), k.copy(), b.copy(), market.copy(), swap.copy(), contract.copy(), resolution.copy()), target)",
+        "from scipy.optimize import brentq\nfrom scipy.special import gammaln, roots_genlaguerre\nfrom scipy.linalg import solve_banded\nimport numpy as np\np = np.array([0.6, 0.4])\nk = np.array([2.0, 6.0])\nb = np.array([4.0, 2.5])\nmarket = np.array([8.0, 2.0, 2.7, 1.1, 0.02])\nswap = np.array([0.5, 2.2, 0.0, 0.35])\ncontract = np.array([150 / 365, 0.15, 1.2, 3.0])\nresolution = np.array([24.0, 96, 256, 48, 0.3, 24.0, 192])\nresolution[6] = 47\n\ndef _model_exception():\n    try:\n        price_calibrated_claim(p.copy(), k.copy(), b.copy(), market.copy(), swap.copy(), contract.copy(), resolution.copy())\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(_model_exception(), target)"
+      ]
+    }
+  ]
+}

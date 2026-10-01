@@ -1,0 +1,95 @@
+{
+  "problem_id": "Mathematics-Computational_Mechanics-34",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Computational_Mechanics-34.1",
+      "test_cases": [
+        "import numpy as np\nE = 200.0\nnu = 0.3\nassert np.allclose(elastic_operator(E, nu), target)",
+        "import numpy as np\nE = 70.0\nnu = 0.22\nassert np.allclose(elastic_operator(E, nu), target)",
+        "import numpy as np\nE = 350.0\nnu = 0.42\nassert np.allclose(elastic_operator(E, nu), target)",
+        "import numpy as np\n# invalid input: a Poisson ratio of 0.5 lies outside (-1, 0.5) and must raise ValueError\nE = 200.0\nnu = 0.5\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: elastic_operator(E, nu)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-34.2",
+      "test_cases": [
+        "import numpy as np\nphi = 0.0\nkappa = 1.0e-3\nassert np.allclose(degradation_state(phi, kappa), target)",
+        "import numpy as np\nphi = 0.37\nkappa = 1.0e-3\nassert np.allclose(degradation_state(phi, kappa), target)",
+        "import numpy as np\nphi = 0.91\nkappa = 5.0e-2\nassert np.allclose(degradation_state(phi, kappa), target)",
+        "import numpy as np\n# invalid input: a phase-field parameter above one lies outside [0, 1] and must raise ValueError\nphi = 1.2\nkappa = 1.0e-3\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: degradation_state(phi, kappa)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-34.3",
+      "test_cases": [
+        "import numpy as np\neps = np.array([6.0e-4, -2.0e-4, 0.0, 0.0, 0.0, 9.0e-4])\nassert np.allclose(faceted_directions(eps), target)",
+        "import numpy as np\neps = np.array([-1.2e-3, -1.3e-3, 0.0, 4.0e-4, 0.0, 2.0e-4])\nassert np.allclose(faceted_directions(eps), target)",
+        "import numpy as np\neps = np.array([8.0e-4, -8.0e-4, 0.0, 0.0, 0.0, 1.5e-3])\nassert np.allclose(faceted_directions(eps), target)",
+        "import numpy as np\n# invalid input: a five-component strain is not in the six-component layout and must raise ValueError\neps = np.array([6.0e-4, -2.0e-4, 0.0, 0.0, 9.0e-4])\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: faceted_directions(eps)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-34.4",
+      "test_cases": [
+        "import numpy as np\neta = np.array([3.0e-4, 1.0e-4, 0.0, 0.0, 0.0, 2.0e-4])\nft = 0.15\nfs = 0.15\nassert np.allclose(faceted_potential_gradients(eta, ft, fs), target)",
+        "import numpy as np\neta = np.array([-4.0e-4, -2.0e-4, 0.0, 0.0, 0.0, 1.0e-4])\nft = 0.15\nfs = 0.15\nassert np.allclose(faceted_potential_gradients(eta, ft, fs), target)",
+        "import numpy as np\neta = np.zeros(6)\nft = 0.2\nfs = 0.09\nassert np.allclose(faceted_potential_gradients(eta, ft, fs), target)",
+        "import numpy as np\n# invalid input: a zero tensile strength is not positive and must raise ValueError\neta = np.array([3.0e-4, 1.0e-4, 0.0, 0.0, 0.0, 2.0e-4])\nft = 0.0\nfs = 0.15\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: faceted_potential_gradients(eta, ft, fs)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-34.5",
+      "test_cases": [
+        "import numpy as np\neps = np.array([6.0e-4, -2.0e-4, 0.0, 0.0, 0.0, 9.0e-4])\neta = np.array([2.0e-4, 5.0e-5, 0.0, 0.0, 0.0, 3.0e-4])\nft = 0.15\nfs = 0.15\neps_ref = 0.01\nassert np.allclose(smooth_direction_gradient(eps, eta, ft, fs, eps_ref), target)",
+        "import numpy as np\neps = np.array([-1.2e-3, -1.3e-3, 0.0, 4.0e-4, 0.0, 2.0e-4])\neta = np.array([1.0e-4, -3.0e-4, 0.0, 0.0, 0.0, 2.5e-4])\nft = 0.15\nfs = 0.15\neps_ref = 0.01\nassert np.allclose(smooth_direction_gradient(eps, eta, ft, fs, eps_ref), target)",
+        "import numpy as np\neps = np.array([-8.0e-4, -5.0e-4, 0.0, 0.0, 0.0, 1.1e-3])\neta = np.zeros(6)\nft = 0.2\nfs = 0.1\neps_ref = 0.004\nassert np.allclose(smooth_direction_gradient(eps, eta, ft, fs, eps_ref), target)",
+        "import numpy as np\n# invalid input: a zero reference strain is not positive and must raise ValueError\neps = np.array([6.0e-4, -2.0e-4, 0.0, 0.0, 0.0, 9.0e-4])\neta = np.zeros(6)\nft = 0.15\nfs = 0.15\neps_ref = 0.0\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: smooth_direction_gradient(eps, eta, ft, fs, eps_ref)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-34.6",
+      "test_cases": [
+        "import numpy as np\neps = np.array([6.0e-4, -2.0e-4, 0.0, 0.0, 0.0, 9.0e-4])\nphi = 0.0\nE = 200.0\nnu = 0.3\nft = 0.15\nfs = 0.15\neps_ref = 0.01\nkappa = 1.0e-3\nkappa_t = 1.0e-9\nassert np.allclose(smooth_return_map(eps, phi, E, nu, ft, fs, eps_ref, kappa, kappa_t), target)",
+        "import numpy as np\neps = np.array([-1.2e-3, -1.3e-3, 0.0, 4.0e-4, 0.0, 2.1e-3])\nphi = 0.35\nE = 200.0\nnu = 0.3\nft = 0.15\nfs = 0.15\neps_ref = 0.01\nkappa = 1.0e-3\nkappa_t = 1.0e-9\nassert np.allclose(smooth_return_map(eps, phi, E, nu, ft, fs, eps_ref, kappa, kappa_t), target)",
+        "import numpy as np\neps = np.array([1.0e-5, 2.0e-5, 0.0, 0.0, 0.0, 1.0e-5])\nphi = 0.1\nE = 200.0\nnu = 0.3\nft = 0.15\nfs = 0.15\neps_ref = 0.01\nkappa = 1.0e-3\nkappa_t = 1.0e-9\nassert np.allclose(smooth_return_map(eps, phi, E, nu, ft, fs, eps_ref, kappa, kappa_t), target)",
+        "import numpy as np\n# invalid input: a negative stabilising modulus factor must raise ValueError\neps = np.array([6.0e-4, -2.0e-4, 0.0, 0.0, 0.0, 9.0e-4])\nphi = 0.0\nE = 200.0\nnu = 0.3\nft = 0.15\nfs = 0.15\neps_ref = 0.01\nkappa = 1.0e-3\nkappa_t = -1.0e-9\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: smooth_return_map(eps, phi, E, nu, ft, fs, eps_ref, kappa, kappa_t)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-34.7",
+      "test_cases": [
+        "import numpy as np\neps = np.array([6.0e-4, -2.0e-4, 0.0, 0.0, 0.0, 9.0e-4])\nphi = 0.0\nE = 200.0\nnu = 0.3\nft = 0.15\nfs = 0.15\nkappa = 1.0e-3\nkappa_t = 1.0e-9\nassert np.allclose(faceted_return_map(eps, phi, E, nu, ft, fs, kappa, kappa_t), target)",
+        "import numpy as np\neps = np.array([2.6e-3, 1.9e-3, 0.0, 3.0e-4, 0.0, 8.0e-4])\nphi = 0.3\nE = 200.0\nnu = 0.3\nft = 0.15\nfs = 0.15\nkappa = 1.0e-3\nkappa_t = 1.0e-9\nassert np.allclose(faceted_return_map(eps, phi, E, nu, ft, fs, kappa, kappa_t), target)",
+        "import numpy as np\neps = np.array([-2.0e-3, -1.5e-3, 0.0, 0.0, 0.0, 1.4e-3])\nphi = 0.55\nE = 200.0\nnu = 0.3\nft = 0.15\nfs = 0.15\nkappa = 1.0e-3\nkappa_t = 1.0e-9\nassert np.allclose(faceted_return_map(eps, phi, E, nu, ft, fs, kappa, kappa_t), target)",
+        "import numpy as np\n# invalid input: a seven-component strain is not in the six-component layout and must raise ValueError\neps = np.array([6.0e-4, -2.0e-4, 0.0, 0.0, 0.0, 9.0e-4, 0.0])\nphi = 0.0\nE = 200.0\nnu = 0.3\nft = 0.15\nfs = 0.15\nkappa = 1.0e-3\nkappa_t = 1.0e-9\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: faceted_return_map(eps, phi, E, nu, ft, fs, kappa, kappa_t)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-34.8",
+      "test_cases": [
+        "import numpy as np\ndirs = np.array([[0.3333333333333333, 0.3333333333333333, 0.3333333333333333, 0.0, 0.0, 0.0], [0.4, -0.3, -0.1, 0.0, 0.0, 0.8602325267042627]])\nactive = np.array([1.0, 1.0])\nE = 200.0\nnu = 0.3\nkappa_t = 1.0e-9\nassert np.allclose(consistent_tangent(dirs, active, E, nu, kappa_t), target)",
+        "import numpy as np\ndirs = np.array([[-0.3333333333333333, -0.3333333333333333, -0.3333333333333333, 0.0, 0.0, 0.0], [0.1, -0.5, 0.4, 0.0, 0.0, 0.7615773105863909]])\nactive = np.array([0.0, 1.0])\nE = 200.0\nnu = 0.3\nkappa_t = 1.0e-9\nassert np.allclose(consistent_tangent(dirs, active, E, nu, kappa_t), target)",
+        "import numpy as np\ndirs = np.array([[0.5, 0.4, 0.1, 0.2, 0.0, 0.7416198487095663], [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]])\nactive = np.array([1.0, 0.0])\nE = 70.0\nnu = 0.22\nkappa_t = 1.0e-6\nassert np.allclose(consistent_tangent(dirs, active, E, nu, kappa_t), target)",
+        "import numpy as np\n# invalid input: three activity flags for two directions must raise ValueError\ndirs = np.array([[0.3333333333333333, 0.3333333333333333, 0.3333333333333333, 0.0, 0.0, 0.0], [0.4, -0.3, -0.1, 0.0, 0.0, 0.8602325267042627]])\nactive = np.array([1.0, 1.0, 0.0])\nE = 200.0\nnu = 0.3\nkappa_t = 1.0e-9\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: consistent_tangent(dirs, active, E, nu, kappa_t)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-34.9",
+      "test_cases": [
+        "import numpy as np\nF_hist = 2.5e-4\nGc = 1.0e-4\nell = 0.05\nsource_coeff = 1.998\nlap_phi = 0.0\nassert np.allclose(phase_field_update(F_hist, Gc, ell, source_coeff, lap_phi), target)",
+        "import numpy as np\nF_hist = 6.0e-4\nGc = 1.0e-4\nell = 0.05\nsource_coeff = 1.998\nlap_phi = 40.0\nassert np.allclose(phase_field_update(F_hist, Gc, ell, source_coeff, lap_phi), target)",
+        "import numpy as np\nF_hist = 0.0\nGc = 2.5e-4\nell = 0.02\nsource_coeff = 1.9\nlap_phi = 12.0\nassert np.allclose(phase_field_update(F_hist, Gc, ell, source_coeff, lap_phi), target)",
+        "import numpy as np\n# invalid input: a zero fracture energy release rate is not positive and must raise ValueError\nF_hist = 2.5e-4\nGc = 0.0\nell = 0.05\nsource_coeff = 1.998\nlap_phi = 0.0\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: phase_field_update(F_hist, Gc, ell, source_coeff, lap_phi)), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-34.10",
+      "test_cases": [
+        "import numpy as np\nload_scale = 1.0\nassert np.allclose(cohesive_audit(load_scale), target)",
+        "import numpy as np\nload_scale = 0.5\nassert np.allclose(cohesive_audit(load_scale), target)",
+        "import numpy as np\nload_scale = 1.5\nassert np.allclose(cohesive_audit(load_scale), target)",
+        "import numpy as np\n# invalid input: a zero load scale is not positive and must raise ValueError\nload_scale = 0.0\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: cohesive_audit(load_scale)), target)"
+      ]
+    }
+  ]
+}

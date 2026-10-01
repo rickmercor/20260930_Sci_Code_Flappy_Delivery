@@ -1,0 +1,36 @@
+problem_id: "Mathematics-Computational_Mechanics-53"
+subject: "mathematics"
+subject_area: "Computational Mechanics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1007/s00466-026-02811-9"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_transform_orthotropic_ply.py"
+    description: "Transform the reduced orthotropic stiffness and thermal-expansion data of one lamina from its material axes to the global plate axes.\n\nUse the engineering-shear convention for the in-plane strain vector and preserve the sign of the angle-dependent coupling terms.\n\nReturn the transformed in-plane reduced stiffness, transformed transverse-shear stiffness, and transformed thermal-expansion vector.\n\nAngles are supplied in degrees. Do not round intermediate values."
+    orchestrator: false
+  - number: 2
+    name: "02_build_symmetric_laminate.py"
+    description: "Construct the laminate stiffness and thermal-resultant data for an equal-thickness symmetric stacking sequence.\n\nTransform each orthotropic ply to the global plate axes using the preceding step and integrate its contribution through the laminate thickness.\n\nReturn the extensional, extension-bending, bending, and transverse-shear stiffness matrices together with the thermal membrane and thermal moment resultants.\n\nThe stacking sequence is supplied from the bottom surface to the top surface. Do not round intermediate values."
+    orchestrator: false
+  - number: 3
+    name: "03_bw_basis_derivatives.py"
+    description: "Evaluate the transverse-deflection polynomial basis used by the cited Bergan-Wang element together with the derivatives required by the equilibrium-reduced interpolation.\n\n\n\nReturn one array whose rows are ordered as\n\n\n\nH,\n\nH_x,\n\nH_y,\n\nH_xx,\n\nH_xy,\n\nH_yy,\n\nH_xxx,\n\nH_xxy,\n\nH_xyy,\n\nH_yyy,\n\nH_xxxx,\n\nH_xxxy,\n\nH_xxyy,\n\nH_xyyy,\n\nH_yyyy.\n\n\n\nEach row must preserve the source ordering of the twelve polynomial coefficients. Evaluate all derivatives analytically."
+    orchestrator: false
+  - number: 4
+    name: "04_q4bw_bending_shapes.py"
+    description: "Construct the source Q4BW bending interpolation at one point of a rectangular element centered at the origin.\n\n\n\nUse the preceding polynomial derivative table, the supplied laminate bending and transverse-shear stiffness matrices, and the equilibrium-reduced rotation interpolation of the cited method.\n\nBuild the twelve-by-twelve nodal basis using the four element nodes in the prescribed counter-clockwise order.\n\nReturn the transverse displacement interpolation, its x and y derivatives, the two rotation interpolations, the curvature operator, and the transverse-shear operator.\n\nUse linear solves for the nodal interpolation transformation. Do not round intermediate values."
+    orchestrator: false
+  - number: 5
+    name: "05_q4bw_point_kinematics.py"
+    description: "Evaluate the nonlinear plate kinematics at one point of the Q4BW element.\n\n\n\nUse the source bending interpolation from the preceding step and standard bilinear interpolation for the in-plane nodal displacements.\n\nThe generalized displacement vector is ordered as twelve bending parameters followed by the eight node-wise in-plane parameters.\n\nEvaluate the von K\u00e1rm\u00e1n membrane strain, bending curvature, and transverse-shear strain together with their first-variation operators with respect to the complete twenty-component generalized displacement vector.\n\nDo not round intermediate quantities."
+    orchestrator: false
+  - number: 6
+    name: "06_assemble_q4bw_tangent.py"
+    description: "Assemble the generalized internal residual and exact current-state tangent of one symmetric-laminate Q4BW element.\n\nUse the source numerical integration rule and the nonlinear strain operators from the preceding step.\n\nInclude the extensional, bending, transverse-shear, thermal, and von K\u00e1rm\u00e1n geometric contributions consistently.\n\nThe tangent must be the analytical first derivative of the generalized internal residual with respect to the twenty generalized element variables.\n\nReturn the generalized residual, tangent, and current internal potential. Do not estimate the tangent by finite differences."
+    orchestrator: false
+  - number: 7
+    name: "07_solve_q4bw_increment.py"
+    description: "Compute the constrained generalized displacement increment produced by an incremental generalized load about a prescribed nonlinear Q4BW state.\n\nConstruct the consistent tangent at the supplied current state using the preceding step.\n\nImpose zero increments at the supplied constrained zero-based generalized coordinates, solve the reduced tangent system for the remaining free increments, and restore the complete twenty-component incremental vector with zeros at all constrained coordinates.\n\nReturn the signed increment associated with target_dof.\n\nUse a direct linear solve and do not round intermediate values."
+    orchestrator: true

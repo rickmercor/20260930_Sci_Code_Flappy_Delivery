@@ -1,0 +1,36 @@
+problem_id: "Chemistry-Computational_Chemistry-4"
+subject: "chemistry"
+subject_area: "Computational Chemistry"
+difficulty: "medium"
+answer_type: "single_numeric"
+paper_doi: " https://doi.org/10.48550/arXiv.2609.10519"
+dependencies: ""
+steps:
+  - number: 1
+    name: "glauber_transition_matrix"
+    description: "Builds the single-time-step Glauber transition matrix for a linear chain of m states, as defined by the source method's Eqs. 6-8. Given the Hamiltonian values H(x, tau+1) governing the jump out of time step tau, this step computes the row-stochastic, tridiagonal transition matrix pi(tau) with nearest-neighbor proposal probability g(x->y)=1/2 and Glauber acceptance probability f(dE)=1/(1+exp(dE)). This matrix is the core primitive reused, unmodified, by every later step in the pipeline: the equilibrium-distribution propagator, the exponentially tilted matrices used to evaluate the exact work average <exp(-alpha*W)>, and ultimately the MSE' objective that is minimized over the intermediate Hamiltonians."
+    orchestrator: false
+  - number: 2
+    name: "work_increments"
+    description: "Computes delta_W(x, tau) = H(x, tau+1) - H(x, tau) for every state x andevery time step tau = 0, ..., N (source method's Eq. 11), the elementary work performed on the system when the Hamiltonian is updated immediately before each stochastic transition. This is the quantity summed over tau to obtain the total trajectory work (Eq. 12), and its per-step values are what Step 4 uses to tilt the initial equilibrium vector."
+    orchestrator: false
+  - number: 3
+    name: "tilted_transition_matrix"
+    description: "Builds the exponentially \"tilted\" version of a single-time-step Glauber transition matrix, as used in the tilted master-equation representation of the source method's Eqs. 16-17. Given the Hamiltonian values at two consecutive time steps, this step reuses the untilted transition matrix from Step 1 (evaluated at the earlier time step) andreweights each column by exp(-alpha * delta_W(y, s)), where delta_W is the per-state work increment between the two time steps (Step 2). Chaining these tilted matrices together (one per time step) is what allows the exact, noise-free evaluation of the generalized work average <exp(-alpha*W)> that Step 4 builds the MSE' optimization objective from."
+    orchestrator: false
+  - number: 4
+    name: "exponential_work_average"
+    description: "Chains the per-time-step tilted Glauber transition matrices from Step 3 into the full tilted master-equation product (source method's Eq. 17) to compute the exact generalized work average <exp(-alpha*W)> for a complete Hamiltonian trajectory H(x, tau), tau = 0, ..., N+1. Combines the equilibrium distribution of the initial Hamiltonian (beta = 1) with the initial work increment from Step 2 and the product of N tilted transition matrices from Step 3, contracted against the all-ones vector. This is the core quantity minimized (with alpha = 2) over the free intermediate Hamiltonians in Steps 6-7 to obtain the MSE'-optimal switching protocol."
+    orchestrator: false
+  - number: 5
+    name: "linear_interpolation_mse"
+    description: "Evaluates the MSE' error proxy (Step 4, alpha=2) for the naive linear interpolation of the intermediate Hamiltonians between the boundary energies, H(2,tau) = Ei + (Ef-Ei)*tau/(N+1) (the source method's Eq. 18). This is the reference baseline against which the source method's optimal intermediates are compared (Fig. 3a): it reports that optimal intermediates reduce the MSE by up to an order of magnitude relative to this baseline for large changes in the energy landscape."
+    orchestrator: false
+  - number: 6
+    name: "optimal_intermediate_energies"
+    description: "Runs a deterministic multi-start gradient-based search (following the source method's Sec. II C, minimized ten times from different random initial guesses to guard against spurious local minima) over the free intermediate energies H(2,1), ..., H(2,N) of a two-state Glauber chain, and returns the best (argmin) vector found. This exposes the recovered optimal protocol itself, whose boundary behavior -- a finite jump at the initial step and a much larger jump at the final step -- is the qualitative signature reported for large changes in the energy landscape (Fig. 2)."
+    orchestrator: false
+  - number: 7
+    name: "orchestrator"
+    description: "Evaluates the MSE' objective (Step 4) at the MSE'-optimal intermediate energies recovered by Step 6, and cross-checks the result against the linear-interpolation baseline (Step 5), returning the single deterministic scalar that is the source method's central numerical result for a given two-state model instance (Eq. 15). This step exercises the full pipeline: Step 1 (transition matrix) through Step 6 (optimal intermediates) and Step 5 (baseline), matching every stage of the reference derivation. For the source method's own large-DeltaE example (N=10, Ei=-8, Ef=8, alpha=2), the optimized value is approximately an order of magnitude smaller than the linear-interpolation baseline."
+    orchestrator: true

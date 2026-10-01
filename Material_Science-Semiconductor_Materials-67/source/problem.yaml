@@ -1,0 +1,36 @@
+problem_id: "Material_Science-Semiconductor_Materials-67"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1103/kkth-j4wx"
+dependencies: ""
+steps:
+  - number: 1
+    name: "local_plasmon_wavenumber"
+    description: "Local wave number of a two-dimensional plasma wave under an ideal metal plane, from its nonlocal screened dispersion."
+    orchestrator: false
+  - number: 2
+    name: "bloch_phase_cosine"
+    description: "Cosine of the Bloch phase of a plasma wave in a two-strip lateral plasmonic crystal at a given frequency."
+    orchestrator: false
+  - number: 3
+    name: "zone_center_modes"
+    description: "Frequencies of the lowest bright and dark zone-centre plasma modes of the two-strip plasmonic crystal."
+    orchestrator: false
+  - number: 4
+    name: "plasmon_effective_mass"
+    description: "Effective mass of the fundamental bright or dark plasmon of the two-strip plasmonic crystal."
+    orchestrator: false
+  - number: 5
+    name: "degeneracy_point"
+    description: "Largest filling factor, and the common frequency there, at which the fundamental bright and dark zone-centre plasmons of the crystal coincide."
+    orchestrator: false
+  - number: 6
+    name: "degeneracy_linear_velocity"
+    description: "Speed of the linearly dispersing plasmon branches at the largest bright-dark coincidence of the crystal."
+    orchestrator: false
+  - number: 7
+    name: "bright_mass_slope_at_degeneracy"
+    description: "Rate at which the effective mass of the fundamental bright plasmon changes with filling factor at the largest bright-dark coincidence."
+    orchestrator: true

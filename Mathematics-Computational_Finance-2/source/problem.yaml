@@ -1,0 +1,36 @@
+problem_id: "Mathematics-Computational_Finance-2"
+subject: "mathematics"
+subject_area: "Computational Finance"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2608.07032"
+dependencies: ""
+steps:
+  - number: 1
+    name: "attainable_return_range"
+    description: "Return the problem statement's interval [y_lo, y_hi] for the return box [xmin, xmax] and per-asset cap `cap`."
+    orchestrator: false
+  - number: 2
+    name: "tangent_coefficients"
+    description: "Return the surrogate utility's affine pieces for M tangent points placed on y_range as in the problem statement."
+    orchestrator: false
+  - number: 3
+    name: "surrogate_worst_case"
+    description: "Return the worst-case expected surrogate utility of the portfolio `weights`."
+    orchestrator: false
+  - number: 4
+    name: "surrogate_portfolio"
+    description: "Return the admissible portfolio with per-asset cap `cap` that maximises the value returned by surrogate_worst_case."
+    orchestrator: false
+  - number: 5
+    name: "inner_worst_case"
+    description: "Return each row's inner minimisation value in the strong dual of the worst-case expected utility of `weights`, at transport multiplier `lam`."
+    orchestrator: false
+  - number: 6
+    name: "delivered_value"
+    description: "Return the worst-case expected utility of the portfolio `weights`."
+    orchestrator: false
+  - number: 7
+    name: "surrogate_shortfall"
+    description: "Return the surrogate value minus the delivered value."
+    orchestrator: true

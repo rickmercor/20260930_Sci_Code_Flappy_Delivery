@@ -1,0 +1,78 @@
+{
+  "problem_id": "Biology-Genetics-24",
+  "sub_steps": [
+    {
+      "step_number": "Biology-Genetics-24.1",
+      "test_cases": [
+        "import numpy as np\nX = np.array([[0., 1., 2.], [2., 0., 1.]])\nW = np.array([[[1., 0.], [0.5, -1.], [0., 2.]], [[-1., 1.], [1., 0.], [0.5, 0.5]]])\nalpha = np.array([[0.2, -0.1], [0., 0.3]])\nassert np.allclose(impute_predicted_expression(X, W, alpha).tolist(), target)",
+        "import numpy as np\nX = np.array([[2.]])\nW = np.array([[[0.25]]])\nalpha = np.array([[-0.5]])\nassert np.allclose(impute_predicted_expression(X, W, alpha).tolist(), target)",
+        "import numpy as np\nX = np.array([[0., 2.5]])\nW = np.ones((1, 2, 1))\nalpha = np.zeros((1, 1))\ndef run_model():\n    try:\n        impute_predicted_expression(X, W, alpha)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-24.2",
+      "test_cases": [
+        "import numpy as np\nE = np.array([[[1., 3.]], [[2., 5.]], [[4., 9.]], [[7., 15.]]])\nC = np.array([[0.], [1.], [2.], [3.]])\ntrain = np.array([1, 1, 1, 0])\nassert np.allclose(residualize_training_covariates(E, C, train).tolist(), target)",
+        "import numpy as np\nE = np.array([[[2.]], [[4.]]])\nC = np.empty((2, 0))\ntrain = np.array([1, 1])\nassert np.allclose(residualize_training_covariates(E, C, train).tolist(), target)",
+        "import numpy as np\nE = np.ones((3, 1, 1))\nC = np.array([[1.], [1.], [1.]])\ntrain = np.array([1, 1, 1])\ndef run_model():\n    try:\n        residualize_training_covariates(E, C, train)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-24.3",
+      "test_cases": [
+        "import numpy as np\nE = np.array([[[0., 1.]], [[2., 0.]], [[1., 2.]], [[3., 1.]], [[0., 2.]], [[2., 0.]], [[1., 3.]], [[4., 1.]]])\ny = np.array([0, 1, 0, 1, 0, 1, 0, 1])\nsplit = np.array([0, 0, 0, 0, 1, 1, 1, 1])\nassert np.allclose([x.tolist() for x in compute_split_associations(E, y, split, 31, 7)], target)",
+        "import numpy as np\nE = np.array([0., 1., 9., 2., 4., 5., 1., 3., 8., 2., 6., 7.]).reshape(12, 1, 1)\ny = np.tile([0, 0, 0, 1, 1, 1], 2)\nsplit = np.repeat([0, 1], 6)\nassert np.allclose([x.tolist() for x in compute_split_associations(E, y, split, 31, 7)], target)",
+        "import numpy as np\nE = np.array([[[0.]], [[1.]], [[2.]], [[3.]]])\ny = np.array([0, 1, 0, 1])\nsplit = np.array([0, 0, 1, 1])\nassert np.allclose([x.tolist() for x in compute_split_associations(E, y, split, 1, 0)], target)",
+        "import numpy as np\nE = np.ones((4, 1, 1))\ny = np.array([0, 0, 0, 1])\nsplit = np.array([0, 0, 1, 1])\ndef run_model():\n    try:\n        compute_split_associations(E, y, split, 7, 0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-24.4",
+      "test_cases": [
+        "import numpy as np\neffects = np.array([[[[1.2, 0.6, 0.4, -2.0]]]])\np_values = np.array([[[[0.01, 0.04, 0.03, 0.2]]]])\nassert np.allclose([x.tolist() for x in adjust_discovery_records(effects, p_values, 0.1, 0.5)], target)",
+        "import numpy as np\neffects = np.array([[[[0.0]]]])\np_values = np.array([[[[0.0]]]])\nassert np.allclose([x.tolist() for x in adjust_discovery_records(effects, p_values, 1.0, 0.0)], target)",
+        "import numpy as np\neffects = np.zeros((1, 1, 1, 2))\np_values = np.array([[[[0.2, 1.1]]]])\ndef run_model():\n    try:\n        adjust_discovery_records(effects, p_values, 0.1, 0.5)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-24.5",
+      "test_cases": [
+        "import numpy as np\neffects = np.array([[[[1.0, -2.0, 0.1], [1.5, -1.0, 0.2]], [[2.0, -0.5, 0.3], [2.5, -1.5, 0.4]]], [[[0.8, -2.2, 0.0], [1.2, -0.8, 0.0]], [[1.8, -0.4, 0.0], [2.2, -1.2, 0.0]]]])\nfdr = np.full_like(effects, 0.05)\nsig = np.zeros_like(effects, dtype=np.uint8)\nsig[:, :, :, 0] = 1\nsig[0, 0, :, 1] = 1\nassert np.allclose(score_reproducible_genes(effects, fdr, sig, 2.0, 0.5, 3.0, 0.4).tolist(), target)",
+        "import numpy as np\neffects = np.array([[[[2.0]]]])\nfdr = np.array([[[[0.0]]]])\nsig = np.array([[[[1]]]], dtype=np.uint8)\nassert np.allclose(score_reproducible_genes(effects, fdr, sig, 0.0, 1.0, 0.0, 1.0).tolist(), target)",
+        "import numpy as np\neffects = np.zeros((1, 1, 1, 2))\nfdr = np.ones_like(effects)\nsig = np.zeros_like(effects, dtype=np.uint8)\ndef run_model():\n    try:\n        score_reproducible_genes(effects, fdr, sig, 2.0, 0.5, 3.0, 0.4)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-24.6",
+      "test_cases": [
+        "import numpy as np\nterm_fdr = np.array([[0.01, 0.04, 0.2], [0.2, 0.3, 0.4]])\nmembership = np.array([[1, 0, 1], [0, 1, 1]])\n\ndef _pack_pathway_result(result):\n    packed = []\n    for value in result:\n        array = np.asarray(value, dtype=float)\n        packed.extend([array.ndim, *array.shape])\n        packed.extend(array.ravel().tolist())\n    return np.asarray(packed, dtype=float)\nassert np.allclose(_pack_pathway_result(propagate_pathway_support(term_fdr, membership, 0.1)), target)",
+        "import numpy as np\nterm_fdr = np.array([[1.0]])\nmembership = np.array([[1]])\n\ndef _pack_pathway_result(result):\n    packed = []\n    for value in result:\n        array = np.asarray(value, dtype=float)\n        packed.extend([array.ndim, *array.shape])\n        packed.extend(array.ravel().tolist())\n    return np.asarray(packed, dtype=float)\nassert np.allclose(_pack_pathway_result(propagate_pathway_support(term_fdr, membership, 0.1)), target)",
+        "import numpy as np\nterm_fdr = np.array([[0.01, 0.2]])\nmembership = np.array([[1, 2]])\ndef run_model():\n    try:\n        propagate_pathway_support(term_fdr, membership, 0.1)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-24.7",
+      "test_cases": [
+        "import numpy as np\nde = np.array([0.2, 0.8, 0.5, 0.0])\npath = np.array([3.0, 1.0, 3.0, 9.0])\ndrug = np.array([0.1, 0.9, 0.5, 1.0])\nhub = np.array([0.7, 0.2, 0.4, 0.9])\nassert np.allclose(integrate_target_evidence(de, path, drug, hub).tolist(), target)",
+        "import numpy as np\nde = np.array([1.0])\npath = np.array([0.0])\ndrug = np.array([0.0])\nhub = np.array([0.0])\nassert np.allclose(integrate_target_evidence(de, path, drug, hub).tolist(), target)",
+        "import numpy as np\nde = np.array([0.2, -0.1])\npath = np.ones(2)\ndrug = np.ones(2)\nhub = np.ones(2)\ndef run_model():\n    try:\n        integrate_target_evidence(de, path, drug, hub)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-24.8",
+      "test_cases": [
+        "import numpy as np\ncore = np.array([0.4, 0.7, 0.4, 0.0])\nrows = np.array([[0, 0, 6.0], [0, 2, 0.8], [1, 1, 4.0], [1, 2, 3.0], [2, 0, 1.0], [2, 2, 2.0], [3, 1, 1.2], [3, 0, 0.5]])\nassert np.allclose(aggregate_drug_evidence(core, rows).tolist(), target)",
+        "import numpy as np\ncore = np.array([1.0])\nrows = np.array([[0, 0, 5.0]])\nassert np.allclose(aggregate_drug_evidence(core, rows).tolist(), target)",
+        "import numpy as np\ncore = np.array([1.0, 0.0])\nrows = np.array([[0, 1, 2.0]])\ndef run_model():\n    try:\n        aggregate_drug_evidence(core, rows)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-24.9",
+      "test_cases": [
+        "cohort_seed = 20260328\nassociation_seed = 271828\nn_permutations = 255\nassert np.allclose(float(run_full_pipeline(cohort_seed, association_seed, n_permutations)), target)",
+        "cohort_seed = 20260328\nassociation_seed = 0\nn_permutations = 63\nassert np.allclose(float(run_full_pipeline(cohort_seed, association_seed, n_permutations)), target)",
+        "def run_model():\n    try:\n        run_full_pipeline(cohort_seed=\"bad\")\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

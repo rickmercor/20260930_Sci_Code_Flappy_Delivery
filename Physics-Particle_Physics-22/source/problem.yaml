@@ -1,0 +1,40 @@
+problem_id: "Physics-Particle_Physics-22"
+subject: "physics"
+subject_area: "Particle Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1103/jgw1-lnrl"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_trace_shell_segments"
+    description: "Trace a directed neutrino path through concentric spherical shells."
+    orchestrator: false
+  - number: 2
+    name: "02_average_segment_densities"
+    description: "Compute path-averaged electron densities inside the traced shell pieces."
+    orchestrator: false
+  - number: 3
+    name: "03_compute_matter_spectrum"
+    description: "Compute matter eigenvalue estimates together with reusable cofactor coefficients."
+    orchestrator: false
+  - number: 4
+    name: "04_compute_eigenprojectors"
+    description: "Construct the two real spectral matrices from electron-row cofactors."
+    orchestrator: false
+  - number: 5
+    name: "05_propagate_spectral_pair"
+    description: "Propagate an unrefined spectral approximation and an exact reference through the same layers."
+    orchestrator: false
+  - number: 6
+    name: "06_compute_error_harmonics"
+    description: "Extract the continuous CP-phase harmonics of appearance and survival probability errors."
+    orchestrator: false
+  - number: 7
+    name: "07_maximize_phase_error"
+    description: "Find the global absolute extremum of a second-harmonic CP-phase error."
+    orchestrator: false
+  - number: 8
+    name: "08_compute_worst_spectral_error"
+    description: "Return the worst continuous-phase error of the unrefined matter-spectrum propagation."
+    orchestrator: true

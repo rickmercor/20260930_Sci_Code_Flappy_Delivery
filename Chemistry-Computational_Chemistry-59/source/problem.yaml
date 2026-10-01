@@ -1,0 +1,44 @@
+problem_id: "Chemistry-Computational_Chemistry-59"
+subject: "chemistry"
+subject_area: "Computational Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1038/s41524-026-02298-1"
+dependencies: ""
+steps:
+  - number: 1
+    name: "surface_calculator"
+    description: "Return the total potential energy of an adsorbate-on-slab configuration and the forces on the adsorbate atoms, for the surrogate calculator that stands in this task for a machine-learned interatomic potential. Two contributions are summed. The first is a pairwise Morse interaction, tapered smoothly to zero between an inner and an outer radius so that the periodic minimum-image sum is continuous everywhere inside the cell. The second is a bond-order over-coordination penalty that charges an energy whenever the smoothly counted number of bonds at an adsorbate atom exceeds the valence of its element; without it a purely pairwise model has no valence, the reactant and the product of a hydrogen transfer relax into the same structure, and there is no barrier between them. The slab is frozen, so pairs whose two atoms both belong to the slab are omitted and no force is returned for them, and the coordination sum runs over adsorbate neighbours only. The two in-plane directions are periodic, the surface normal is not, and a leading image axis is accepted so that a whole band of images is evaluated in one call."
+    orchestrator: false
+  - number: 2
+    name: "pbc_displacements"
+    description: "Return, for every adsorbate atom, the displacement vector that carries it from the initial state to the final state through the periodic image that the workflow's periodic-boundary-aware interpolation assigns to it, together with the index of that image. Atoms that the reaction leaves bonded together are grouped into moieties, and the assignment must keep each moiety intact across the periodic boundary."
+    orchestrator: false
+  - number: 3
+    name: "idpp_band"
+    description: "Return a band of images between an initial state and the final state reached by the supplied displacements, refined on the image-dependent pair potential, together with the value of that potential at every image."
+    orchestrator: false
+  - number: 4
+    name: "reaction_metrics"
+    description: "Return the two reaction-distance metrics by which the workflow ranks candidate interpolations before any band optimisation is attempted: the ranking metric $\\\\mu$ built from the interpolation-potential profile of the band, and the transfer-specific metric $\\\\tau$ for a reaction in which one atom moves from a donor centre to an acceptor centre."
+    orchestrator: false
+  - number: 5
+    name: "pareto_selection"
+    description: "Return the indices of the candidate geometries that the workflow's two-objective geometry-selection stage keeps, given one energy and one reactive separation per candidate."
+    orchestrator: false
+  - number: 6
+    name: "align_final_state"
+    description: "Return the translation with which the workflow aligns a final state to an initial state on a periodic slab, the registration operation that must be composed with that translation to restore an equivalent adsorption site, and the set of symmetry-equivalent aligned final states, one for each supplied point-group operation."
+    orchestrator: false
+  - number: 7
+    name: "variable_springs"
+    description: "Return the energy-scaled spring constant of every adjacent pair of images of a band, following the workflow's variable-spring scheme for its nudged elastic bands. There is one spring per adjacent pair, so a band of $M$ images yields $M-1$ constants."
+    orchestrator: false
+  - number: 8
+    name: "neb_band_forces"
+    description: "Return the nudged-elastic-band force on every image of a band, given the image coordinates, the image energies, the true forces of the calculator and one spring constant per adjacent pair, with an optional climbing image. The tangent is the energy-weighted upwind tangent of Henkelman and Jonsson (J. Chem. Phys. 113, 9978, 2000) and the climbing image is that of Henkelman, Uberuaga and Jonsson (J. Chem. Phys. 113, 9901, 2000)."
+    orchestrator: false
+  - number: 9
+    name: "nebscape_barrier"
+    description: "Run the whole automated transition-state workflow on the benchmark surface reaction and return the forward barrier of the pathway it selects. The slab, the two adsorbate ensembles and the reaction are those of the benchmark: a hydrogen transfer from a methyl group to a hydroxyl group on a square-lattice (100) surface, with the atom order carbon, three hydrogens, oxygen, hydrogen and the third hydrogen transferring. The stages are, in order: enumerate both ensembles by placing the two fragments on the four in-cell site types with the fragment geometries, heights and in-plane rotation given; relax them all with the supplied calculator; discard structures that have changed their bonding pattern, sunk below the top layer or desorbed; run the two-objective geometry selection on energy and donor-acceptor separation; remove structural duplicates and keep the lowest-energy representatives; align every final state to every initial state and augment it by the point-group operations of the slab; assign the periodic images, build the coarse interpolation of every pairing and rank the pairings by the ranking metric; re-rank the best of those by the transfer metric; relax the modified final states and apply the energy window; recompute both metrics on the dense interpolation and take the best; and finally optimise that band with variable springs and a climbing image. The returned value is the largest image energy of the optimised band minus the energy of its first image."
+    orchestrator: true

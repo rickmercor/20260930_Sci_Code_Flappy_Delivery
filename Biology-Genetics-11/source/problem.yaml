@@ -1,0 +1,48 @@
+problem_id: "Biology-Genetics-11"
+subject: "biology"
+subject_area: "Genetics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1038/s41588-025-02486-7"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_estimate_residual_correlation"
+    description: "Obtain the source method's weak-association residual correlation estimate from aligned, marginally standardized Z scores, with the supplied weak-association cutoff."
+    orchestrator: false
+  - number: 2
+    name: "02_update_covariance_mixture"
+    description: "Carry out one simultaneous expectation/maximization update of the zero-centered prior mixture under the source's noisy lead-score training model."
+    orchestrator: false
+  - number: 3
+    name: "03_learn_covariance_prior"
+    description: "Fit the source's zero-centered noisy training mixture for exactly iterations updates, then apply the supplied terminal covariance ridge."
+    orchestrator: false
+  - number: 4
+    name: "04_fit_single_effect"
+    description: "Determine the fixed-scale single-effect posterior, retaining SNP, covariance-pattern, and trait-sign uncertainty."
+    orchestrator: false
+  - number: 5
+    name: "05_select_effect_scale"
+    description: "Select the component scale by the source's marginal-evidence objective over a supplied finite grid and return its posterior."
+    orchestrator: false
+  - number: 6
+    name: "06_fit_additive_effects"
+    description: "Fit the source model with effects latent single-effect components using the supplied exact sufficient statistics and fixed learned prior."
+    orchestrator: false
+  - number: 7
+    name: "07_resolve_credible_sets"
+    description: "Determine source-style per-component credible sets and retain those meeting the supplied scale, purity, and deduplication policy."
+    orchestrator: false
+  - number: 8
+    name: "08_average_trait_sign_uncertainty"
+    description: "Compute the source-defined component average local false sign rate for each trait."
+    orchestrator: false
+  - number: 9
+    name: "09_prioritize_variant"
+    description: "Select a follow-up SNP under the declared credible-set and trait-sign policy and report its overall probability of a nonzero effect in any trait"
+    orchestrator: false
+  - number: 10
+    name: "10_compute_prioritized_pip"
+    description: "Orchestrate the complete source-grounded training, regional fit, uncertainty summary, and follow-up policy; return the one requested probability."
+    orchestrator: true

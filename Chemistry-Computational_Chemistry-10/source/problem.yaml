@@ -1,0 +1,48 @@
+problem_id: "Chemistry-Computational_Chemistry-10"
+subject: "chemistry"
+subject_area: "Computational Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1063/5.0324661"
+dependencies: ""
+steps:
+  - number: 1
+    name: "reduce_polyelectrolyte_pair"
+    description: "Reduce the two-species mixture to its one-component description."
+    orchestrator: false
+  - number: 2
+    name: "free_energy_density"
+    description: "One-component free-energy density."
+    orchestrator: false
+  - number: 3
+    name: "coexistence_potentials"
+    description: "Exchange chemical potential and osmotic pressure."
+    orchestrator: false
+  - number: 4
+    name: "critical_point"
+    description: "Critical fraction and critical interaction parameter."
+    orchestrator: false
+  - number: 5
+    name: "landau_seed"
+    description: "Near-critical expansion and its estimate of the coexisting fractions."
+    orchestrator: false
+  - number: 6
+    name: "fixed_point_operators"
+    description: "Scalar combinations that carry the coexistence conditions."
+    orchestrator: false
+  - number: 7
+    name: "seed_operators"
+    description: "Derived arguments evaluated on the near-critical seed."
+    orchestrator: false
+  - number: 8
+    name: "advance_fixed_point"
+    description: "One iteration of the fixed-point map."
+    orchestrator: false
+  - number: 9
+    name: "interphase_potential"
+    description: "Electric potential difference between the coexisting phases."
+    orchestrator: false
+  - number: 10
+    name: "coacervate_potential_drop"
+    description: "Orchestrator: potential drop on the self-consistent binodal."
+    orchestrator: true

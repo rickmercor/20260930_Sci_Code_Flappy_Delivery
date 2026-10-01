@@ -1,0 +1,69 @@
+{
+  "problem_id": "Mathematics-Numerical_Linear_Algebra-33",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-33.1",
+      "test_cases": [
+        "import numpy as np\nA = np.array([[0.0, 1.0], [1.0, 0.0]])\nE = np.ones((2, 2))\nb = np.array([1.0, 0.0])\nk = 1\nassert np.allclose(sep_orth_R_lead_entry(A, E, b, k), target)",
+        "import numpy as np\nA = np.array([[0.0, 2.0, 0.5], [0.1, 0.0, 1.0], [0.0, 1.5, 0.0]])\nE = np.array([[1.0, 0.0, 1.0], [0.0, 2.0, 0.0], [1.0, 0.0, 1.0]])\nb = np.array([0.0, 1.0, 0.0])\nk = 2\nassert np.allclose(sep_orth_R_lead_entry(A, E, b, k), target)",
+        "import numpy as np\nA = np.array([[1.0, 0.2], [0.3, 1.5]])\nE = np.array([[0.0, 1.0], [1.0, 0.0]])\nb = np.array([1.0, 0.0])\nk = 1\nassert np.allclose(sep_orth_R_lead_entry(A, E, b, k), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-33.2",
+      "test_cases": [
+        "import numpy as np\nA = np.array([[0.0, 1.0], [1.0, 0.0]])\nE = np.ones((2, 2))\nb = np.array([1.0, 0.0])\nk = 1\nassert np.allclose(compressed_offdiag_energy(A, E, b, k), target)",
+        "import numpy as np\nA = np.array([[0.0, 2.0, 0.5], [0.1, 0.0, 1.0], [0.0, 1.5, 0.0]])\nE = np.array([[1.0, 0.0, 1.0], [0.0, 2.0, 0.0], [1.0, 0.0, 1.0]])\nb = np.array([0.0, 1.0, 0.0])\nk = 2\nassert np.allclose(compressed_offdiag_energy(A, E, b, k), target)",
+        "import numpy as np\nA = np.array([[0.0, 1.0], [0.5, 0.0]])\nE = np.eye(2)\nb = np.array([1.0, 0.0])\nk = 1\nassert np.allclose(compressed_offdiag_energy(A, E, b, k), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-33.3",
+      "test_cases": [
+        "import numpy as np\nA = np.array([[0.0, 1.0], [0.5, 0.0]])\nE = np.eye(2)\nb = np.array([1.0, 0.0])\nk = 1\nassert np.allclose(frechet_action_start_overlap(A, E, b, k), target)",
+        "import numpy as np\nA = np.array([[0.0, 2.0, 0.5], [0.1, 0.0, 1.0], [0.0, 1.5, 0.0]])\nE = np.array([[1.0, 0.0, 1.0], [0.0, 2.0, 0.0], [1.0, 0.0, 1.0]])\nb = np.array([0.0, 1.0, 0.0])\nk = 2\nassert np.allclose(frechet_action_start_overlap(A, E, b, k), target)",
+        "import numpy as np\nA = np.array([[0.0, 1.0], [1.0, 0.0]])\nE = np.ones((2, 2))\nb = np.array([1.0, 0.0])\nk = 1\nassert np.allclose(frechet_action_start_overlap(A, E, b, k), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-33.4",
+      "test_cases": [
+        "import numpy as np\nA = np.array([[0.5, 0.0], [0.0, 1.0]])\nE = np.array([[0.0, 1.0], [0.0, 0.0]])\nb = np.array([1.0, 0.0])\nassert np.allclose(exact_frechet_action_start_overlap(A, E, b), target)",
+        "import numpy as np\nA = np.array([[0.0, 1.0], [0.5, 0.0]])\nE = np.eye(2)\nb = np.array([1.0, 0.0])\nassert np.allclose(exact_frechet_action_start_overlap(A, E, b), target)",
+        "import numpy as np\nA = np.zeros((2, 2))\nE = np.eye(2)\nb = np.array([1.0, -1.0])\nassert np.allclose(exact_frechet_action_start_overlap(A, E, b), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-33.5",
+      "test_cases": [
+        "import numpy as np\nA = np.array([[0.0, 1.0], [0.5, 0.0]])\ni, j, k = 0, 1, 1\nassert np.allclose(approximate_total_network_sensitivity(A, i, j, k), target)",
+        "import numpy as np\nA = np.array([[1.0, 0.5, 0.0], [0.0, 1.0, 0.4], [0.2, 0.0, 1.2]])\ni, j, k = 1, 0, 2\nassert np.allclose(approximate_total_network_sensitivity(A, i, j, k), target)",
+        "import numpy as np\nA = np.array([[0.0, 1.3, 0.0, 0.4, 0.0, 0.2], [0.0, 0.0, 0.9, 0.0, 0.5, 0.0], [0.6, 0.0, 0.0, 1.1, 0.0, 0.3], [0.0, 0.7, 0.0, 0.0, 0.8, 0.0], [0.2, 0.0, 0.5, 0.0, 0.0, 1.4], [0.0, 0.3, 0.0, 0.6, 0.0, 0.0]])\ni, j, k = 2, 5, 2\nassert np.allclose(approximate_total_network_sensitivity(A, i, j, k), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-33.6",
+      "test_cases": [
+        "import numpy as np\nA = np.array([[0.0, 1.0], [0.0, 0.0]])\ni, j = 0, 1\nassert np.allclose(exact_total_network_sensitivity(A, i, j), target)",
+        "import numpy as np\nA = np.array([[0.0, 1.0, 1.0], [1.0, 0.0, 0.0], [0.0, 1.0, 0.0]])\ni, j = 2, 0\nassert np.allclose(exact_total_network_sensitivity(A, i, j), target)",
+        "import numpy as np\nA = np.array([[0.0, 1.3, 0.0, 0.4, 0.0, 0.2], [0.0, 0.0, 0.9, 0.0, 0.5, 0.0], [0.6, 0.0, 0.0, 1.1, 0.0, 0.3], [0.0, 0.7, 0.0, 0.0, 0.8, 0.0], [0.2, 0.0, 0.5, 0.0, 0.0, 1.4], [0.0, 0.3, 0.0, 0.6, 0.0, 0.0]])\ni, j = 2, 5\nassert np.allclose(exact_total_network_sensitivity(A, i, j), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-33.7",
+      "test_cases": [
+        "import numpy as np\nA = np.array([[0.0, 1.0], [1.0, 0.0]])\ni, j = 0, 1\nassert np.allclose(estrada_edge_sensitivity(A, i, j), target)",
+        "import numpy as np\nA = np.zeros((3, 3))\ni, j = 1, 1\nassert np.allclose(estrada_edge_sensitivity(A, i, j), target)",
+        "import numpy as np\nA = np.array([[0.0, 1.3, 0.0, 0.4, 0.0, 0.2], [0.0, 0.0, 0.9, 0.0, 0.5, 0.0], [0.6, 0.0, 0.0, 1.1, 0.0, 0.3], [0.0, 0.7, 0.0, 0.0, 0.8, 0.0], [0.2, 0.0, 0.5, 0.0, 0.0, 1.4], [0.0, 0.3, 0.0, 0.6, 0.0, 0.0]])\ni, j = 2, 5\nassert np.allclose(estrada_edge_sensitivity(A, i, j), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-33.8",
+      "test_cases": [
+        "import numpy as np\nA = np.array([[0.0, 1.3, 0.0, 0.4, 0.0, 0.2], [0.0, 0.0, 0.9, 0.0, 0.5, 0.0], [0.6, 0.0, 0.0, 1.1, 0.0, 0.3], [0.0, 0.7, 0.0, 0.0, 0.8, 0.0], [0.2, 0.0, 0.5, 0.0, 0.0, 1.4], [0.0, 0.3, 0.0, 0.6, 0.0, 0.0]])\ni, j, k = 2, 5, 2\nassert np.allclose(sensitivity_ratio_pipeline(A, i, j, k), target)",
+        "import numpy as np\nA = np.array([[1.0, 0.5, 0.0], [0.0, 1.0, 0.4], [0.2, 0.0, 1.2]])\ni, j, k = 1, 0, 2\nassert np.allclose(sensitivity_ratio_pipeline(A, i, j, k), target)",
+        "import numpy as np\nA = np.array([[0.0, 1.0], [0.5, 0.0]])\ni, j, k = 0, 1, 1\nassert np.allclose(sensitivity_ratio_pipeline(A, i, j, k), target)"
+      ]
+    }
+  ]
+}

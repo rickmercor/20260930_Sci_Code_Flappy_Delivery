@@ -1,0 +1,40 @@
+problem_id: "Mathematics-Computational_Finance-30"
+subject: "mathematics"
+subject_area: "Computational Finance"
+difficulty: "difficult"
+answer_type: "numeric"
+paper_doi: "10.48550/arXiv.2601.11209"
+dependencies: ""
+steps:
+  - number: 1
+    name: "bs_call_price"
+    description: "Evaluate the European call pricing function that the source states in its Section 2 preliminaries, in exactly the parameterisation given there. The third argument is the dispersion parameter as that section defines it; do not re-scale it. Inputs broadcast against one another. The zero-dispersion and zero-strike limits must return the correct limiting value rather than a division error."
+    orchestrator: false
+  - number: 2
+    name: "model_price_matrix"
+    description: "Build the matrix that sends a marginal density on the strike ladder to model prices at the ladder's quoted strikes for a single expiry, as the source assembles it around its Eq. (31). Each entry is the step 1 pricing function evaluated with the row's strike, the column's strike, and the expiry dispersion after the source's scaling by the third argument. The row set is the one Eq. (31) specifies, which is not every strike on the ladder."
+    orchestrator: false
+  - number: 3
+    name: "payoff_matrix"
+    description: "Build the square map the source uses in Section 4.1 to read a marginal density's own discrete call values off the strike ladder. Row index is the strike being valued, column index the ladder point carrying mass. Section 4.1 states which valuation this map applies, and it is not the one step 2 uses."
+    orchestrator: false
+  - number: 4
+    name: "marginal_constraints"
+    description: "Return the equality constraint block, as coefficient matrix and right-hand side, that the source requires of every per-expiry marginal in its program (SMP) in Section 4.1. Rows in the order the source lists them. This block is the same for every expiry, so build it once for the ladder."
+    orchestrator: false
+  - number: 5
+    name: "solve_marginals"
+    description: "Assemble and solve the fitting program (SMP) that Section 4.1 of the source writes down, returning one marginal per expiry. The three maps are handed in: the per-expiry price maps from step 2 stacked along the first axis, the ordering map from step 3, and the per-expiry equality block from step 4 as a pair. The source states which discrepancy measure the objective minimises and how the quote weights enter it; that choice is what keeps the program in the class Section 4.1 names. Impose the cross-expiry ordering the source lists under 'Constraints', stated there in terms of step 3's output rather than of the marginals themselves. Non-negativity applies to every marginal. If the program does not solve, return an all-zero array of the correct shape rather than raising."
+    orchestrator: false
+  - number: 6
+    name: "smooth_surface_price"
+    description: "Value a single option at an arbitrary expiry and strike from the fitted marginals, following the source's Eq. (2). Between two expiry nodes the value is the source's weight-function blend of the two bracketing marginals; the source states in Eq. (2) which dispersion each of the two terms is priced at, and the answer is not 'each at its own node'. Use the linear weight function the source gives as its example directly below Eq. (2), the convention the task statement declares. Outside the node range, fall back on the nearest node's marginal priced at that node's own dispersion. Price through step 1."
+    orchestrator: false
+  - number: 7
+    name: "discrete_local_variance"
+    description: "Read the local variance off the fitted smooth surface at the queried point, using the ratio the source recalls in its Section 3 discussion of continuous local volatility. Take the strike curvature by a centred difference with the step given as a fraction of the queried strike. Take the expiry sensitivity as a one-sided difference running forward from the queried expiry to the next expiry node, the convention the task statement declares; the backward alternative gives a materially different number. Value every point through step 6. A query lying exactly on an expiry node has an empty expiry step. Return 0.0 when the expiry step is empty or the strike curvature is not strictly positive, rather than raising or returning a non-finite value."
+    orchestrator: false
+  - number: 8
+    name: "sanos_surface_audit"
+    description: "Run the whole pipeline for the given scenario index and report the audit table. Build the scenario's quoted mids exactly as the problem statement specifies, build the three maps with steps 2, 3 and 4, hand them to step 5 to fit the marginals, then for each of the four probe points listed in the problem statement report the model value from step 6 and the local variance from step 7, in that column order and in the probe order given. Report only computed quantities; the probe coordinates are inputs. This step must call the earlier step functions; do not re-implement any of them here."
+    orchestrator: true

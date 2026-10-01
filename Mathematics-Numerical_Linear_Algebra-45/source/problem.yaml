@@ -1,0 +1,44 @@
+problem_id: "Mathematics-Numerical_Linear_Algebra-45"
+subject: "mathematics"
+subject_area: "Numerical Linear Algebra"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2606.24701"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_sp8_family_coefficients"
+    description: "Return the monomial coefficients of one member of the eight-member family of degree-eight component polynomials used by the recursive expansion when no acceleration is applied."
+    orchestrator: false
+  - number: 2
+    name: "02_select_family_member"
+    description: "Choose the component polynomial applied at one iteration of the non-accelerated recursion and return the images of the two interior eigenvalues under it."
+    orchestrator: false
+  - number: 3
+    name: "03_degree_eight_evaluation_coefficients"
+    description: "Solve for the ten evaluation coefficients that let an arbitrary degree-eight matrix polynomial be assembled from three non-scalar multiplications."
+    orchestrator: false
+  - number: 4
+    name: "04_workspace_rearrangement_scalars"
+    description: "Compute the four auxiliary scalars that let the three-multiplication evaluation be carried out inside a workspace of only three matrices."
+    orchestrator: false
+  - number: 5
+    name: "05_apply_degree_eight_polynomial"
+    description: "Apply a degree-eight matrix polynomial to a square matrix using exactly three non-scalar multiplications and three matrix-sized workspace slots."
+    orchestrator: false
+  - number: 6
+    name: "06_equidistant_step_spectrum"
+    description: "Build the eigenvalue list of a normalised test problem with a prescribed step location and a prescribed gap around it."
+    orchestrator: false
+  - number: 7
+    name: "07_symmetric_matrix_from_spectrum"
+    description: "Turn a list of eigenvalues into a dense symmetric matrix by conjugating it with a fixed orthogonal transform."
+    orchestrator: false
+  - number: 8
+    name: "08_idempotency_trace"
+    description: "Measure how far a symmetric iterate is from a projector by evaluating the trace of the difference between the matrix and its square."
+    orchestrator: false
+  - number: 9
+    name: "09_critical_initial_gap"
+    description: "Chain the sub-problem functions 01-08 end to end and return the idempotency measure of the iterate reached once a given multiplication budget has been spent."
+    orchestrator: true

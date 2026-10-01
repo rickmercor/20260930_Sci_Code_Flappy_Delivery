@@ -1,0 +1,68 @@
+{
+  "problem_id": "Physics-Astrophysics-17",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Astrophysics-17.1",
+      "test_cases": [
+        "import numpy as np\nimport math\nfrom scipy.special import i0e, j1\nassert np.allclose(plasma_reference_scales(180.0, 90.0, 92.0), target)",
+        "import numpy as np\nimport math\nfrom scipy.special import i0e, j1\nassert np.allclose(plasma_reference_scales(5.0, 5.0, 40.0), target)",
+        "import numpy as np\nimport math\nfrom scipy.special import i0e, j1\nassert np.allclose(plasma_reference_scales(2.0e5, 1.0e9, 1.5e3), target)",
+        "import numpy as np\nimport math\nfrom scipy.special import i0e, j1\ndef _probe_call():\n    try:\n        plasma_reference_scales(180.0, 0.0, 92.0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_probe_call(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-17.2",
+      "test_cases": [
+        "import numpy as np\nimport math\nfrom scipy.special import i0e, j1\nk = np.array([1.0e-3, 2.0e-2, 0.15, 0.28, 2.0])\nassert np.allclose(perpendicular_velocity_amplitude(k.copy(), 180.0, 413.854256, 12.0, 1.0e-3, 0.15, 1.0 / 3.0, 0.7), target)",
+        "import numpy as np\nimport math\nfrom scipy.special import i0e, j1\nk = np.array([[5.0e-4, 5.0e-3], [5.0e-2, 0.5]])\nassert np.allclose(perpendicular_velocity_amplitude(k.copy(), 6.0, 55.0, 2.0, 5.0e-3, 0.08, 0.25, 0.25), target)",
+        "import numpy as np\nimport math\nfrom scipy.special import i0e, j1\nk = np.array([1.0e-6, 1.0e2])\nassert np.allclose(perpendicular_velocity_amplitude(k.copy(), 30.0, 120.0, 4.0, 1.0e-2, 1.0, 0.3, 2.8), target)",
+        "import numpy as np\nimport math\nfrom scipy.special import i0e, j1\nk = np.array([0.1, 0.0, 0.3])\ndef _probe_call():\n    try:\n        perpendicular_velocity_amplitude(k.copy(), 180.0, 413.9, 12.0, 1.0e-3, 0.15, 1.0 / 3.0, 0.7)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_probe_call(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-17.3",
+      "test_cases": [
+        "import numpy as np\nimport math\nfrom scipy.special import i0e, j1\nkr = np.array([0.05, 0.3, 1.0, 1.494, 3.0, 10.0])\nassert np.allclose(electron_flow_factor(kr.copy(), 2.0), target)",
+        "import numpy as np\nimport math\nfrom scipy.special import i0e, j1\nkr = np.array([[0.2, 0.8], [2.5, 6.0]])\nassert np.allclose(electron_flow_factor(kr.copy(), 0.0), target)",
+        "import numpy as np\nimport math\nfrom scipy.special import i0e, j1\nkr = np.array([0.08, 25.0, 80.0])\nassert np.allclose(electron_flow_factor(kr.copy(), 15.0), target)",
+        "import numpy as np\nimport math\nfrom scipy.special import i0e, j1\ndef _probe_call():\n    try:\n        electron_flow_factor(np.array([0.5, 1.5]), -0.5)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_probe_call(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-17.4",
+      "test_cases": [
+        "import numpy as np\nimport math\nfrom scipy.special import i0e, j1\nkr = np.array([0.1, 0.8, 1.494035, 4.0])\ndb = np.array([6.1, 3.58, 3.203, 1.2])\nassert np.allclose(electric_amplitude_parameter(kr.copy(), db.copy(), 92.0, 2.0), target)",
+        "import numpy as np\nimport math\nfrom scipy.special import i0e, j1\nkr = np.array([[0.3], [1.0], [3.0]])\ndb = np.array([25.0])\nassert np.allclose(electric_amplitude_parameter(kr.copy(), db.copy(), 40.0, 0.0), target)",
+        "import numpy as np\nimport math\nfrom scipy.special import i0e, j1\nkr = np.array([12.0, 40.0])\ndb = np.array([80.0, 30.0])\nassert np.allclose(electric_amplitude_parameter(kr.copy(), db.copy(), 150.0, 6.0), target)",
+        "import numpy as np\nimport math\nfrom scipy.special import i0e, j1\nkr = np.array([0.5, 1.0, 2.0])\ndb = np.array([3.0, 2.0])\ndef _probe_call():\n    try:\n        electric_amplitude_parameter(kr.copy(), db.copy(), 92.0, 2.0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_probe_call(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-17.5",
+      "test_cases": [
+        "import numpy as np\nimport math\nfrom scipy.special import i0e, j1\nk = np.array([0.05, 0.15, 0.28, 0.6])\ndb = np.array([5.6, 3.6, 3.2, 2.0])\nassert np.allclose(fluctuation_frequency_ratio(k.copy(), db.copy(), 17.2419, 5.33584, 2.0), target)",
+        "import numpy as np\nimport math\nfrom scipy.special import i0e, j1\nk = np.array([[1.0e-4], [1.0e-3]])\ndb = np.array([[20.0, 10.0]])\nassert np.allclose(fluctuation_frequency_ratio(k.copy(), db.copy(), 0.4789, 83.5, 1.0), target)",
+        "import numpy as np\nimport math\nfrom scipy.special import i0e, j1\nk = np.array([2.0, 9.0])\ndb = np.array([15.0, 6.0])\nassert np.allclose(fluctuation_frequency_ratio(k.copy(), db.copy(), 9.58, 1.2, 0.0), target)",
+        "import numpy as np\nimport math\nfrom scipy.special import i0e, j1\ndef _probe_call():\n    try:\n        fluctuation_frequency_ratio(np.array([0.28]), np.array([3.2]), 0.0, 5.3, 2.0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_probe_call(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-17.6",
+      "test_cases": [
+        "import numpy as np\nimport math\nfrom scipy.special import i0e, j1\nx = np.array([1.0e-3, 0.3, 1.0, 1.494035, 2.5])\nassert np.allclose(gyroaveraging_weight(x.copy()), target)",
+        "import numpy as np\nimport math\nfrom scipy.special import i0e, j1\nx = np.array([[3.6, 3.8317], [4.0, 5.1356]])\nassert np.allclose(gyroaveraging_weight(x.copy()), target)",
+        "import numpy as np\nimport math\nfrom scipy.special import i0e, j1\nx = np.array([7.0156, 12.0, 30.0])\nassert np.allclose(gyroaveraging_weight(x.copy()), target)",
+        "import numpy as np\nimport math\nfrom scipy.special import i0e, j1\ndef _probe_call():\n    try:\n        gyroaveraging_weight(np.array([1.0, np.nan]))\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_probe_call(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Astrophysics-17.7",
+      "test_cases": [
+        "import numpy as np\nimport math\nfrom scipy.special import i0e, j1\nassert np.allclose(proton_perpendicular_heating_rate(), target)",
+        "import numpy as np\nimport math\nfrom scipy.special import i0e, j1\nassert np.allclose(proton_perpendicular_heating_rate(k_perp=0.45, te_over_tp=0.5), target)",
+        "import numpy as np\nimport math\nfrom scipy.special import i0e, j1\nassert np.allclose(proton_perpendicular_heating_rate(k_perp=0.05, B0_nT=50.0, n_p_cm3=10.0, v_thp_kms=50.0, te_over_tp=1.0, dB_ref_nT=3.0, k_ref=1.0e-3, k_break=0.03, slope_large=0.25, slope_small=0.8), target)",
+        "import numpy as np\nimport math\nfrom scipy.special import i0e, j1\ndef _probe_call():\n    try:\n        proton_perpendicular_heating_rate(k_perp=0.28, c2=0.0)\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\n    return 0\nassert np.allclose(_probe_call(), target)"
+      ]
+    }
+  ]
+}

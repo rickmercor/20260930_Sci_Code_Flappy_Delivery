@@ -1,0 +1,36 @@
+problem_id: "Chemistry-Quantum_Chemistry-43"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2606.19471"
+dependencies: ""
+steps:
+  - number: 1
+    name: "external_potential"
+    description: "Return the optical-lattice potential of the source's periodic Gross-Pitaevskii example sampled on the uniform periodic grid x_j = j a / M for j = 0, ..., M-1 of the cell [0, a): v_ext(x) = -sin^2(pi x / a). Raise ValueError if a is not positive or M is below 8."
+    orchestrator: false
+  - number: 2
+    name: "duality_map"
+    description: "Given the grid values f of a real periodic function on the uniform grid of the cell [0, a), return the grid values of its image under the duality mapping of the source's density space, i.e. the map that sends an element of the density space to the element of the potential space that represents it (the source's Definition 1 applied to its periodic Sobolev setting), using Fourier-space (spectral) arithmetic. Raise ValueError if f is not a one-dimensional array with at least 8 points or a is not positive."
+    orchestrator: false
+  - number: 3
+    name: "density_norm"
+    description: "Given the grid values f of a real periodic function on the uniform grid of the cell [0, a), return its norm in the source's density space for periodic systems, evaluated with Fourier-space (spectral) arithmetic. Raise ValueError if f is not a one-dimensional array with at least 8 points or a is not positive."
+    orchestrator: false
+  - number: 4
+    name: "potential_norm"
+    description: "Given the grid values v of a real periodic potential on the uniform grid of the cell [0, a), return its norm in the source's potential space for periodic systems, evaluated with Fourier-space (spectral) arithmetic. Raise ValueError if v is not a one-dimensional array with at least 8 points or a is not positive."
+    orchestrator: false
+  - number: 5
+    name: "gpe_ground_state"
+    description: "Given the grid values vext of the external potential on the uniform periodic grid of the cell [0, a) and the coupling constant g, return the ground-state density rho = |phi|^2 of the periodic Gross-Pitaevskii equation (-1/2 d^2/dx^2 + vext + g rho) phi = E phi with unit normalisation (integral of rho over the cell equal to 1), computed with spectral derivatives and converged to at least 1e-10 in the density. Raise ValueError if vext is not a one-dimensional array with at least 8 points, if a is not positive, if g is negative, or if the numerical solve does not converge."
+    orchestrator: false
+  - number: 6
+    name: "proximal_density"
+    description: "Given a reference ground-state density rho_gs and the external potential vext on the uniform periodic grid of the cell [0, a), and a regularisation parameter eps, return the proximal density of the source's Moreau-Yosida-regularised inversion scheme for this Gross-Pitaevskii model: the unit-mass density that minimises the source's guiding functional for this model plus the Moreau-Yosida term with parameter eps, measured in the norm of the source's density space. Converge the minimiser to at least 1e-10 in the density (the source notes that a plain self-consistent-field iteration can fail here). Raise ValueError if rho_gs and vext are not one-dimensional arrays of one length of at least 8 points, if a or eps is not positive, if rho_gs is negative somewhere or does not integrate to 1, or if the numerical solve does not converge."
+    orchestrator: false
+  - number: 7
+    name: "inversion_error"
+    description: "Orchestrator. On the uniform periodic grid of M points of the cell [0, a), build the external potential, compute the Gross-Pitaevskii ground-state density for coupling g, compute the proximal density for the regularisation parameter eps, form the potential that the source's inversion scheme determines at this finite eps from the two densities, and return the error of that potential against the potential the inversion is meant to recover for this model, measured in the norm of the source's potential space. Call the earlier step functions rather than reimplementing any of them. Raise ValueError if a, g or eps is out of range, if M is below 8, if an upstream solve does not converge, or if the proximal-density displacement is not finite."
+    orchestrator: true

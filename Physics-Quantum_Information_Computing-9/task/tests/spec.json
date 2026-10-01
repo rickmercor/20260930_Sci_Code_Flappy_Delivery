@@ -1,0 +1,103 @@
+{
+  "problem_id": "Physics-Quantum_Information_Computing-9",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Quantum_Information_Computing-9.1",
+      "test_cases": [
+        "assert np.allclose(werner_parameter(0.25), target)",
+        "assert np.allclose(werner_parameter(0.5), target)",
+        "assert np.allclose(werner_parameter(0.68), target)",
+        "assert np.allclose(werner_parameter(0.8), target)",
+        "assert np.allclose(werner_parameter(0.917), target)",
+        "assert np.allclose(werner_parameter(0.999), target)",
+        "assert np.allclose(werner_parameter(1.0), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-9.2",
+      "test_cases": [
+        "assert np.allclose(hardware_initial_fidelity(0.2), target)",
+        "assert np.allclose(hardware_initial_fidelity(0.5), target)",
+        "assert np.allclose(hardware_initial_fidelity(1.0), target)",
+        "assert np.allclose(hardware_initial_fidelity(4.0), target)",
+        "assert np.allclose(hardware_initial_fidelity(8.0), target)",
+        "assert np.allclose(hardware_initial_fidelity(20.0), target)",
+        "assert np.allclose(hardware_initial_fidelity(100.0), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-9.3",
+      "test_cases": [
+        "assert np.allclose(bbpssw_after_rounds(0.91,0), target)",
+        "assert np.allclose(bbpssw_after_rounds(0.91,1), target)",
+        "assert np.allclose(bbpssw_after_rounds(0.84,2), target)",
+        "assert np.allclose(bbpssw_after_rounds(0.73,4), target)",
+        "assert np.allclose(bbpssw_after_rounds(0.501,3), target)",
+        "assert np.allclose(bbpssw_after_rounds(0.985,5), target)",
+        "assert np.allclose(bbpssw_after_rounds(1.0,7), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-9.4",
+      "test_cases": [
+        "assert np.allclose(segment_budgets(.8,[5.2,9,4.8,11.5,6,10,7.5],[2,3]), target)",
+        "assert np.allclose(segment_budgets(.75,[8,8,8,8],[0]), target)",
+        "assert np.allclose(segment_budgets(.9,[4,20,20,20],[0]), target)",
+        "assert np.allclose(segment_budgets(.7,[20,4,20,4],[1,3]), target)",
+        "assert np.allclose(segment_budgets(.85,[6,7,8,9,10],[0,4]), target)",
+        "assert np.allclose(segment_budgets(.6,[3,30,9],[0,1,2]), target)",
+        "assert np.allclose(segment_budgets(1.0,[5,10],[1]), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-9.5",
+      "test_cases": [
+        "assert np.allclose(equal_split_plan([.99],.8,4,8), target)",
+        "assert np.allclose(equal_split_plan([.96,.94],.88,4,16), target)",
+        "assert np.allclose(equal_split_plan([.84,.92,.95],.82,5,32), target)",
+        "assert np.allclose(equal_split_plan([.73,.76],.96,2,8), target)",
+        "assert np.allclose(equal_split_plan([.91,.93],.90,5,2), target)",
+        "assert np.allclose(equal_split_plan([.951,.926],.915197221965416,4,20), target)",
+        "assert np.allclose(equal_split_plan([.94,.97,.91,.95],.86,4,16), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-9.6",
+      "test_cases": [
+        "assert np.allclose(weighted_split_plan([15,15],.75,4,16), target)",
+        "assert np.allclose(weighted_split_plan([14.68,12.63],.9123751497822746,4,20), target)",
+        "assert np.allclose(weighted_split_plan([6,18,10],.84,5,32), target)",
+        "assert np.allclose(weighted_split_plan([4,5],.98,2,8), target)",
+        "assert np.allclose(weighted_split_plan([12,9,15],.90,5,4), target)",
+        "assert np.allclose(weighted_split_plan([20],.7,0,1), target)",
+        "assert np.allclose(weighted_split_plan([7,11,16,9],.78,5,32), target)",
+        "assert np.allclose(weighted_split_plan([.5,10],.70,4,16), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-9.7",
+      "test_cases": [
+        "assert np.allclose(recovery_exg(10,.9,[0],.8), target)",
+        "assert np.allclose(recovery_exg(20,.91,[1,2],.784), target)",
+        "assert np.allclose(recovery_exg(28,.91,[4,1,2,3],.738), target)",
+        "assert np.allclose(recovery_exg(16,0.0,[1,1],.9), target)",
+        "assert np.allclose(recovery_exg(16,.8,[1,1],0.0), target)",
+        "assert np.allclose(recovery_exg(8,1.0,[3,0,1],1.0), target)",
+        "assert np.allclose(recovery_exg(32,.77,[2,4,1,3,2],.66), target)",
+        "assert np.allclose(recovery_exg(20,.91,[1,2],.784)-recovery_exg(28,.91,[2,3],.859), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-9.8",
+      "test_cases": [
+        "assert np.allclose(qguard_ws_benchmark(), target)",
+        "fidelity_threshold = 0.80\nmajor_qualities = [5.2, 9.0, 4.8, 11.5, 6.0, 10.0, 7.5]\nreplaced_indices = [2, 3]\nswap_probability = 0.91\nr_max = 4\ncandidates = [\n    {\"width\":20, \"availability\":0.623,\n     \"fidelities\":[0.963,0.927,0.911,0.900],\n     \"qualities\":[14.56,12.46,6.22,8.94]},\n    {\"width\":28, \"availability\":0.738,\n     \"fidelities\":[0.933,0.979,0.969,0.962],\n     \"qualities\":[9.47,16.68,14.42,14.78]},\n    {\"width\":20, \"availability\":0.784,\n     \"fidelities\":[0.951,0.926],\n     \"qualities\":[14.68,12.63]},\n    {\"width\":28, \"availability\":0.859,\n     \"fidelities\":[0.951,0.912],\n     \"qualities\":[10.51,7.96]},\n]\nswap_probability=1.0\nassert np.allclose(qguard_ws_benchmark(fidelity_threshold,major_qualities,replaced_indices,swap_probability,r_max,candidates), target)",
+        "fidelity_threshold = 0.80\nmajor_qualities = [5.2, 9.0, 4.8, 11.5, 6.0, 10.0, 7.5]\nreplaced_indices = [2, 3]\nswap_probability = 0.91\nr_max = 4\ncandidates = [\n    {\"width\":20, \"availability\":0.623,\n     \"fidelities\":[0.963,0.927,0.911,0.900],\n     \"qualities\":[14.56,12.46,6.22,8.94]},\n    {\"width\":28, \"availability\":0.738,\n     \"fidelities\":[0.933,0.979,0.969,0.962],\n     \"qualities\":[9.47,16.68,14.42,14.78]},\n    {\"width\":20, \"availability\":0.784,\n     \"fidelities\":[0.951,0.926],\n     \"qualities\":[14.68,12.63]},\n    {\"width\":28, \"availability\":0.859,\n     \"fidelities\":[0.951,0.912],\n     \"qualities\":[10.51,7.96]},\n]\nswap_probability=0.83\nassert np.allclose(qguard_ws_benchmark(fidelity_threshold,major_qualities,replaced_indices,swap_probability,r_max,candidates), target)",
+        "fidelity_threshold = 0.80\nmajor_qualities = [5.2, 9.0, 4.8, 11.5, 6.0, 10.0, 7.5]\nreplaced_indices = [2, 3]\nswap_probability = 0.91\nr_max = 4\ncandidates = [\n    {\"width\":20, \"availability\":0.623,\n     \"fidelities\":[0.963,0.927,0.911,0.900],\n     \"qualities\":[14.56,12.46,6.22,8.94]},\n    {\"width\":28, \"availability\":0.738,\n     \"fidelities\":[0.933,0.979,0.969,0.962],\n     \"qualities\":[9.47,16.68,14.42,14.78]},\n    {\"width\":20, \"availability\":0.784,\n     \"fidelities\":[0.951,0.926],\n     \"qualities\":[14.68,12.63]},\n    {\"width\":28, \"availability\":0.859,\n     \"fidelities\":[0.951,0.912],\n     \"qualities\":[10.51,7.96]},\n]\ncandidates[1]['availability']=0.55\nassert np.allclose(qguard_ws_benchmark(fidelity_threshold,major_qualities,replaced_indices,swap_probability,r_max,candidates), target)",
+        "fidelity_threshold = 0.80\nmajor_qualities = [5.2, 9.0, 4.8, 11.5, 6.0, 10.0, 7.5]\nreplaced_indices = [2, 3]\nswap_probability = 0.91\nr_max = 4\ncandidates = [\n    {\"width\":20, \"availability\":0.623,\n     \"fidelities\":[0.963,0.927,0.911,0.900],\n     \"qualities\":[14.56,12.46,6.22,8.94]},\n    {\"width\":28, \"availability\":0.738,\n     \"fidelities\":[0.933,0.979,0.969,0.962],\n     \"qualities\":[9.47,16.68,14.42,14.78]},\n    {\"width\":20, \"availability\":0.784,\n     \"fidelities\":[0.951,0.926],\n     \"qualities\":[14.68,12.63]},\n    {\"width\":28, \"availability\":0.859,\n     \"fidelities\":[0.951,0.912],\n     \"qualities\":[10.51,7.96]},\n]\nfidelity_threshold=0.78\nassert np.allclose(qguard_ws_benchmark(fidelity_threshold,major_qualities,replaced_indices,swap_probability,r_max,candidates), target)",
+        "fidelity_threshold = 0.80\nmajor_qualities = [5.2, 9.0, 4.8, 11.5, 6.0, 10.0, 7.5]\nreplaced_indices = [2, 3]\nswap_probability = 0.91\nr_max = 4\ncandidates = [\n    {\"width\":20, \"availability\":0.623,\n     \"fidelities\":[0.963,0.927,0.911,0.900],\n     \"qualities\":[14.56,12.46,6.22,8.94]},\n    {\"width\":28, \"availability\":0.738,\n     \"fidelities\":[0.933,0.979,0.969,0.962],\n     \"qualities\":[9.47,16.68,14.42,14.78]},\n    {\"width\":20, \"availability\":0.784,\n     \"fidelities\":[0.951,0.926],\n     \"qualities\":[14.68,12.63]},\n    {\"width\":28, \"availability\":0.859,\n     \"fidelities\":[0.951,0.912],\n     \"qualities\":[10.51,7.96]},\n]\nreplaced_indices=[0,1]\nassert np.allclose(qguard_ws_benchmark(fidelity_threshold,major_qualities,replaced_indices,swap_probability,r_max,candidates), target)",
+        "fidelity_threshold = 0.80\nmajor_qualities = [5.2, 9.0, 4.8, 11.5, 6.0, 10.0, 7.5]\nreplaced_indices = [2, 3]\nswap_probability = 0.91\nr_max = 4\ncandidates = [\n    {\"width\":20, \"availability\":0.623,\n     \"fidelities\":[0.963,0.927,0.911,0.900],\n     \"qualities\":[14.56,12.46,6.22,8.94]},\n    {\"width\":28, \"availability\":0.738,\n     \"fidelities\":[0.933,0.979,0.969,0.962],\n     \"qualities\":[9.47,16.68,14.42,14.78]},\n    {\"width\":20, \"availability\":0.784,\n     \"fidelities\":[0.951,0.926],\n     \"qualities\":[14.68,12.63]},\n    {\"width\":28, \"availability\":0.859,\n     \"fidelities\":[0.951,0.912],\n     \"qualities\":[10.51,7.96]},\n]\nmajor_qualities=[8.0]*7\nassert np.allclose(qguard_ws_benchmark(fidelity_threshold,major_qualities,replaced_indices,swap_probability,r_max,candidates), target)"
+      ]
+    }
+  ]
+}

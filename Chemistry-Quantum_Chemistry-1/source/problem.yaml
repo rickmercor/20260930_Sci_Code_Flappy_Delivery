@@ -1,0 +1,40 @@
+problem_id: "Chemistry-Quantum_Chemistry-1"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1021/acs.jctc.6c00749"
+dependencies: ""
+steps:
+  - number: 1
+    name: "reconstruct_ithc_eri"
+    description: "Recover a physical ERI tensor from an isometric THC representation."
+    orchestrator: false
+  - number: 2
+    name: "extended_mixed_green"
+    description: "Build the mixed one-body Green matrix in the ITHC enlarged basis."
+    orchestrator: false
+  - number: 3
+    name: "ithc_force_bias"
+    description: "Evaluate the enlarged-basis importance-sampling force bias."
+    orchestrator: false
+  - number: 4
+    name: "propagate_ithc_walker"
+    description: "Apply the diagonal ITHC field and finish a projected walker step."
+    orchestrator: false
+  - number: 5
+    name: "phaseless_importance"
+    description: "Convert a complex walker overlap change into a phaseless multiplier."
+    orchestrator: false
+  - number: 6
+    name: "ithc_local_energy"
+    description: "Contract physical and enlarged Green matrices into an ITHC local energy."
+    orchestrator: false
+  - number: 7
+    name: "phaseless_mixed_energy"
+    description: "Reduce weighted phaseless walker energies to a real mixed estimate."
+    orchestrator: false
+  - number: 8
+    name: "ithc_afqmc_projected_energy"
+    description: "Orchestrate one certified deterministic ITHC-AFQMC projection block."
+    orchestrator: true

@@ -1,0 +1,36 @@
+problem_id: "Physics-Particle_Physics-14"
+subject: "physics"
+subject_area: "Particle Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1007/JHEP02(2026)004"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_triangle_normalized_baikov.py"
+    description: "Build the normalized one-mass-triangle Baikov polynomial."
+    orchestrator: false
+  - number: 2
+    name: "02_triangle_source_nonprincipal_syzygy.py"
+    description: "Construct the paper's explicit non-principal one-mass-triangle syzygy."
+    orchestrator: false
+  - number: 3
+    name: "03_triangle_syzygy_matrix.py"
+    description: "Convert the degree-bounded triangle syzygy ansatz to coefficient matching."
+    orchestrator: false
+  - number: 4
+    name: "04_triangle_minimum_norm_lift.py"
+    description: "Lift the source critical class into the degree-bounded benchmark system."
+    orchestrator: false
+  - number: 5
+    name: "05_triangle_surface_polynomial.py"
+    description: "Map the reconstructed critical-syzygy lift to the source surface term."
+    orchestrator: false
+  - number: 6
+    name: "06_triangle_surface_path_table.py"
+    description: "Evaluate the source surface polynomial on an ordered kinematic probe path."
+    orchestrator: false
+  - number: 7
+    name: "07_cumulative_triangle_surface_path.py"
+    description: "Accumulate the Euclidean arc length of the ordered surface-response path."
+    orchestrator: true

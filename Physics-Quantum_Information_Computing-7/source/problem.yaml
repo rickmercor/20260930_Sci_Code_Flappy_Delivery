@@ -1,0 +1,40 @@
+problem_id: "Physics-Quantum_Information_Computing-7"
+subject: "physics"
+subject_area: "Quantum Information / Computing"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.48550/arXiv.2601.14400"
+dependencies: ""
+steps:
+  - number: 1
+    name: "build_open_tfim_pauli_terms"
+    description: "Construct the ordered Pauli decomposition of an open transverse-field Ising chain."
+    orchestrator: false
+  - number: 2
+    name: "propagate_itpp_scale_free"
+    description: "Apply one globally scale-free imaginary-time Pauli-propagation update."
+    orchestrator: false
+  - number: 3
+    name: "merge_pauli_terms"
+    description: "Merge duplicate Pauli strings with deterministic ordering and stable real summation."
+    orchestrator: false
+  - number: 4
+    name: "truncate_pauli_terms"
+    description: "Apply deterministic fixed-cardinality truncation to a sparse Pauli expansion."
+    orchestrator: false
+  - number: 5
+    name: "normalize_pauli_trace"
+    description: "Normalize a sparse Pauli expansion by its unique identity coefficient."
+    orchestrator: false
+  - number: 6
+    name: "pauli_coefficient_overlap"
+    description: "Evaluate a cancellation-stable normalized Hilbert--Schmidt overlap of two sparse Pauli expansions."
+    orchestrator: false
+  - number: 7
+    name: "observable_state_overlap"
+    description: "Evaluate the phase-aware real overlap entering a squared-state observable numerator."
+    orchestrator: false
+  - number: 8
+    name: "run_itpp_squared_energy"
+    description: "Run the complete sequential sparse imaginary-time Pauli-propagation pipeline and return the squared-state energy."
+    orchestrator: true

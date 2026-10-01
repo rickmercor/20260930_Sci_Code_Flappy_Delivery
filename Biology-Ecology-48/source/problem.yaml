@@ -1,0 +1,40 @@
+problem_id: "Biology-Ecology-48"
+subject: "biology"
+subject_area: "Ecology"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1111/2041-210x.70385"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_construct_event_steps.py"
+    description: "Convert supplied turning points into irregular event-indexed observations"
+    orchestrator: false
+  - number: 2
+    name: "02_carved_turn_log_density.py"
+    description: "Evaluate normalized carved von Mises density and its concentration score."
+    orchestrator: false
+  - number: 3
+    name: "03_gamma_step_log_density.py"
+    description: "Evaluate independent gamma time and speed emissions in event coordinates."
+    orchestrator: false
+  - number: 4
+    name: "04_event_transition_matrices.py"
+    description: "Evaluate arrival-event multinomial-logit transitions and a cyclic coefficient derivative."
+    orchestrator: false
+  - number: 5
+    name: "05_joint_event_emissions.py"
+    description: "Combine carved angle and gamma time-speed log emissions."
+    orchestrator: false
+  - number: 6
+    name: "06_scaled_event_forward.py"
+    description: "Compute the stable event HMM log likelihood and filtering probabilities."
+    orchestrator: false
+  - number: 7
+    name: "07_mixed_event_curvature.py"
+    description: "Differentiate the scaled hidden state forward recursion jointly in two parameters."
+    orchestrator: false
+  - number: 8
+    name: "08_evaluate_event_curvature.py"
+    description: "Orchestrate all model components for the benchmark mixed curvature."
+    orchestrator: true

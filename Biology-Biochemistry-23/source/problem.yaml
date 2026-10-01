@@ -1,0 +1,40 @@
+problem_id: "Biology-Biochemistry-23"
+subject: "biology"
+subject_area: "Biochemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2606.10955"
+dependencies: ""
+steps:
+  - number: 1
+    name: "helical_end_to_end_distance"
+    description: "Return the end-to-end distance in nm of an n_bp base-pair B-DNA duplex measured between its two force-bearing termini under shear, i.e. the 5' terminus of one strand and the 5' terminus of the other strand, which lie at opposite ends of the duplex on the two different backbones. Use the source's explicit three-dimensional parametrisation of the two backbone helices with the standard B-DNA parameters 2 nm diameter, 0.34 nm rise per base pair and 10.5 base pairs per turn, and the source's convention for where on the two helices the two termini sit; do not return the contour length along the helix axis."
+    orchestrator: false
+  - number: 2
+    name: "rod_extension"
+    description: "Return the mean extension in nm along the force of a rigid rod of the given length (nm) under a constant force f (pN) at thermal energy k_B T (pN nm): the rotational (Langevin) average L [coth(f L / k_B T) - k_B T / (f L)]; a rod of zero length has zero extension."
+    orchestrator: false
+  - number: 3
+    name: "ssdna_extension"
+    description: "Return the mean extension in nm of a single strand of n_nt nucleotides under force f (pN) at thermal energy k_B T (pN nm), modelled as a worm-like chain of contour length l_ss n_nt with persistence length lambda_ss through the Marko-Siggia interpolation formula f lambda_ss / k_B T = 1 / (4 (1 - u)^2) - 1/4 + u, u = <z>/L, solved for u on (0, 1); zero nucleotides give zero extension."
+    orchestrator: false
+  - number: 4
+    name: "mechanical_work"
+    description: "Return the mechanical work W_n(F) in pN nm associated with the formation of the n-th base pair (the n_closed - 1 -> n_closed transition) of an n_bp duplex under shear at temperature T (K): the integral from 0 to F of the change in construct length dx_n(f), where dx_n(f) is the extension of the n_closed-pair duplex rod (helical length, previous steps) minus that of the (n_closed - 1)-pair rod (a zero-pair duplex has zero length) plus the extension of the released strand with n_bp - n_closed nucleotides minus that with n_bp - n_closed + 1 nucleotides. Use k_B = 1.380649e-23 J/K."
+    orchestrator: false
+  - number: 5
+    name: "transition_rates"
+    description: "Return the single-base transition rates of the force-dependent nucleation-zipper model in units of the attempt rate k_a, as the array [k_ot, k_o(2), ..., k_o(n_bp), k_c(2), ..., k_c(n_bp)]: k_ot is the terminal opening rate of the last base pair, k_a exp(dG_non / RT), set by the non-stacking free energy dG_non = dH_non - T dS_non (initiation plus terminal penalties); k_o(n) is the opening rate of the n-th base pair (n -> n - 1 closed pairs) and k_c(n) the closing rate of the (n - 1) -> n transition. At zero force every closing rate equals k_a and every internal opening rate equals k_a exp(dG_s / RT) with the stacking free energy dG_s = dH_s - T dS_s. Under force the ratio k_c(n) / k_o(n) must equal the force-dependent equilibrium constant exp(-dG_s / RT) exp(W_n(F) / k_B T), with W_n the mechanical work of the previous step; how the factor exp(W_n / k_B T) is apportioned between k_c(n) and k_o(n) is fixed by the source's placement of the transition state along the extension coordinate, and the source's placement must be used. Enthalpies in kJ/mol, entropies in kJ/(mol K), R = k_B N_A with N_A = 6.02214076e23."
+    orchestrator: false
+  - number: 6
+    name: "master_equation_generator"
+    description: "Assemble the generator matrix T of the master equation dP/dt = T P for the nucleation-zipper rupture of an n_bp duplex from the rate array [k_ot, k_o(2), ..., k_o(n_bp), k_c(2), ..., k_c(n_bp)] of the previous step. States are the pairs (i, j) with i ruptured pairs counted from the left end and j from the right end, i + j <= n_bp - 1, ordered lexicographically by (i, j), followed by the fully ruptured single-strand state as the last index; n = n_bp - i - j closed pairs remain. From a state with n > 1 each end opens one pair at rate k_o(n); with n = 1 the last pair opens into the ruptured state at rate k_ot; an end with i > 0 (or j > 0) re-closes one pair at rate k_c(n + 1); the ruptured state is absorbing; bulges, internal loops and sliding are neglected. Column k of T holds the outflow of state k on the diagonal and the inflows to the other states off the diagonal."
+    orchestrator: false
+  - number: 7
+    name: "rupture_off_rate"
+    description: "Return the rupture off-rate k (units of k_a) of a duplex whose master-equation generator T is given: propagate the probability vector from the fully closed duplex (index 0) as P(t) = exp(T t) P(0), sample the probability of the absorbing ruptured state (last index) at n_points equally spaced times from 0 to t_end inclusive, and fit the single-exponential law P_ss(t) = 1 - exp(-k t) by unweighted nonlinear least squares in k (initial guess 1 / t_end), iterating the fit to convergence with relative tolerances of 1e-14 on the parameter, the residual and the gradient (library defaults of about 1e-8 leave the last digits unconverged)."
+    orchestrator: false
+  - number: 8
+    name: "apparent_transition_state_distance"
+    description: "Orchestrate the pipeline: for each shear force build the transition rates and the master-equation generator, obtain the off-rate k(F) by the single-exponential fit over the thermal dissociation window t_end = exp(-(dG_non + (n_bp - 1) dG_s) / RT) in units of 1 / k_a with n_points samples, and return the apparent transition-state distance d = k_B T times the slope of the least-squares straight line of ln k(F) against F (Bell's relation), in nm. Call the earlier step functions rather than reimplementing them."
+    orchestrator: true

@@ -1,0 +1,78 @@
+{
+  "problem_id": "Physics-Quantum_Information_Computing-31",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Quantum_Information_Computing-31.1",
+      "test_cases": [
+        "import numpy as np\nZ = np.array([[0.3+0.1j, -0.2+0.4j, 0.1-0.1j, 0.5+0.0j, -0.3+0.2j],\n              [0.1-0.2j, 0.4+0.1j, -0.2+0.3j, 0.0-0.4j, 0.2+0.1j]])\nK = 5\nN = 10\nrng = np.random.default_rng(7)\nAraw = rng.standard_normal((4,4)) + 1j*rng.standard_normal((4,4))\nQm, _ = np.linalg.qr(Araw)\nV_perp = Qm[:, :2]\nassert np.allclose(pi_perp_error_block(np.array(Z, copy=True), K, N, np.array(V_perp, copy=True)), target)",
+        "import numpy as np\nZ = np.zeros((2,4), dtype=complex)\nK = 4\nN = 8\nrng = np.random.default_rng(11)\nAraw = rng.standard_normal((4,4)) + 1j*rng.standard_normal((4,4))\nQm, _ = np.linalg.qr(Araw)\nV_perp = Qm[:, :2]\nassert np.allclose(pi_perp_error_block(np.array(Z, copy=True), K, N, np.array(V_perp, copy=True)), target)",
+        "import numpy as np\nrng0 = np.random.default_rng(31)\neigvals = np.array([0.6, 0.4, 0.0, 0.0])\nAraw = rng0.standard_normal((4,4)) + 1j*rng0.standard_normal((4,4))\nQ, _ = np.linalg.qr(Araw)\nV_perp = Q[:, 2:]\nrng1 = np.random.default_rng(4100)\nZ = (rng1.standard_normal((2,6)) + 1j*rng1.standard_normal((2,6)))/np.sqrt(2)\nK = 6\nN = 12\nassert np.allclose(pi_perp_error_block(np.array(Z, copy=True), K, N, np.array(V_perp, copy=True)), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-31.2",
+      "test_cases": [
+        "import numpy as np\nrng = np.random.default_rng(3)\nA = rng.standard_normal((3,3)) + 1j*rng.standard_normal((3,3))\nQ, _ = np.linalg.qr(A)\nYbar = (Q * np.array([0.9, 0.3, -0.2])) @ Q.conj().T\nYbar = (Ybar + Ybar.conj().T)/2\nr = 2\nassert np.allclose(project_rank_r_density_matrix(np.array(Ybar, copy=True), r), target)",
+        "import numpy as np\nrng = np.random.default_rng(9)\nA = rng.standard_normal((3,3)) + 1j*rng.standard_normal((3,3))\nQ, _ = np.linalg.qr(A)\nYbar = (Q * np.array([0.8, 0.5, -0.3])) @ Q.conj().T\nYbar = (Ybar + Ybar.conj().T)/2\nr = 3\nassert np.allclose(project_rank_r_density_matrix(np.array(Ybar, copy=True), r), target)",
+        "import numpy as np\nrng0 = np.random.default_rng(31)\neigvals = np.array([0.6, 0.4, 0.0, 0.0])\nAraw = rng0.standard_normal((4,4)) + 1j*rng0.standard_normal((4,4))\nQ, _ = np.linalg.qr(Araw)\nrho_star = (Q * eigvals) @ Q.conj().T\nrho_star = (rho_star + rho_star.conj().T)/2\nV_perp = Q[:, 2:]\nrng1 = np.random.default_rng(4100)\nZ = (rng1.standard_normal((2,6)) + 1j*rng1.standard_normal((2,6)))/np.sqrt(2)\nK, N = 6, 12\nE_coords = (Z @ Z.conj().T - K*np.eye(2))/N\nYbar = rho_star + V_perp @ E_coords @ V_perp.conj().T\nr = 2\nassert np.allclose(project_rank_r_density_matrix(np.array(Ybar, copy=True), r), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-31.3",
+      "test_cases": [
+        "import numpy as np\nA_ops=np.array([[[1,0],[0,0]],[[0,0],[0,2]],[[0,1j],[-1j,0]]],complex)\nF=np.array([[0.8+0.2j],[0.3-0.4j]]); y=np.array([0.7,0.2,0.1]); lam=0.012\nassert np.allclose(regularized_backtrack_step(F.copy(),A_ops.copy(),y.copy(),lam), target)",
+        "import numpy as np\nA_ops=np.array([[[1,0],[0,0]],[[0,0],[0,2]],[[0,1j],[-1j,0]]],complex)\nF=np.zeros((2,1),complex); y=np.array([0.7,0.2,0.1]); lam=0.3\nassert np.allclose(regularized_backtrack_step(F.copy(),A_ops.copy(),y.copy(),lam), target)",
+        "import numpy as np\nA_ops=np.array([[[1,0],[0,0]],[[0,0],[0,2]],[[0,1j],[-1j,0]]],complex)\nF=np.array([[2.0+1j],[1.5-0.5j]]); y=np.array([0.1,0.2,-0.2]); lam=0.0\nassert np.allclose(regularized_backtrack_step(F.copy(),A_ops.copy(),y.copy(),lam), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-31.4",
+      "test_cases": [
+        "import numpy as np\nA_ops=np.array([[[1,0],[0,0]],[[0,0],[0,2]],[[0,1j],[-1j,0]],[[0,1],[1,0]]],complex)\ny=np.array([0.6,0.8,0.05,0.1])\nrho=np.array([[0.7,0.1j],[-0.1j,0.3]],complex)\nr=2; n=35; lam=0.012\nassert np.allclose(regularized_recovery(rho.copy(),r,A_ops.copy(),y.copy(),n,lam), target)",
+        "import numpy as np\nA_ops=np.array([[[1,0],[0,0]],[[0,0],[0,2]],[[0,1j],[-1j,0]],[[0,1],[1,0]]],complex)\ny=np.array([0.6,0.8,0.05,0.1])\nrho=np.array([[0.7,0.1j],[-0.1j,0.3]],complex)\nr=2; n=0; lam=0.0\nassert np.allclose(regularized_recovery(rho.copy(),r,A_ops.copy(),y.copy(),n,lam), target)",
+        "import numpy as np\nA_ops=np.array([[[1,0],[0,0]],[[0,0],[0,2]],[[0,1j],[-1j,0]],[[0,1],[1,0]]],complex)\ny=np.array([0.6,0.8,0.05,0.1])\nrho=np.array([[0.7,0.1j],[-0.1j,0.3]],complex)\nr=1; n=12; lam=0.08\nassert np.allclose(regularized_recovery(rho.copy(),r,A_ops.copy(),y.copy(),n,lam), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-31.5",
+      "test_cases": [
+        "import numpy as np\nrng = np.random.default_rng(4)\nvecs = (rng.standard_normal((3,2)) + 1j*rng.standard_normal((3,2)))\nA_ops = np.array([np.outer(v, v.conj()) for v in vecs])\nxi = np.array([0.02, -0.03, 0.01])\nassert np.allclose(adjoint_operator_norm(np.array(xi, copy=True), np.array(A_ops, copy=True)), target)",
+        "import numpy as np\nrng = np.random.default_rng(6)\nvecs = (rng.standard_normal((3,2)) + 1j*rng.standard_normal((3,2)))\nA_ops = np.array([np.outer(v, v.conj()) for v in vecs])\nxi = np.zeros(3)\nassert np.allclose(adjoint_operator_norm(np.array(xi, copy=True), np.array(A_ops, copy=True)), target)",
+        "import numpy as np\nrng0 = np.random.default_rng(31)\neigvals = np.array([0.6, 0.4, 0.0, 0.0])\nAraw = rng0.standard_normal((4,4)) + 1j*rng0.standard_normal((4,4))\nQ, _ = np.linalg.qr(Araw)\nrho_star = (Q * eigvals) @ Q.conj().T\nrho_star = (rho_star + rho_star.conj().T)/2\n\ndef _basis(d):\n    b = []\n    for i in range(d):\n        E = np.zeros((d,d), dtype=complex); E[i,i]=1.0\n        b.append(E)\n    for i in range(d):\n        for j in range(i+1,d):\n            E1 = np.zeros((d,d), dtype=complex); E1[i,j]=1/np.sqrt(2); E1[j,i]=1/np.sqrt(2)\n            b.append(E1)\n            E2 = np.zeros((d,d), dtype=complex); E2[i,j]=1j/np.sqrt(2); E2[j,i]=-1j/np.sqrt(2)\n            b.append(E2)\n    return np.array(b)\n\nA_ops = _basis(4)\nrng_noise = np.random.default_rng(2026)\nxi = rng_noise.normal(scale=0.01, size=16)\nassert np.allclose(adjoint_operator_norm(np.array(xi, copy=True), np.array(A_ops, copy=True)), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-31.6",
+      "test_cases": [
+        "import numpy as np\nB=np.array([[[1,0],[0,0]],[[0,0],[0,1]],[[0,1],[1,0]],[[0,1j],[-1j,0]]],complex)\nB[2:]/=np.sqrt(2)\nA=B*np.sqrt(np.array([1.0,9.0,1.1,1.2]))[:,None,None]; V=np.array([[1.0],[0.0]],complex)\nassert np.allclose(sensing_isometry_constants(A.copy(),V.copy()), target)",
+        "import numpy as np\nB=np.array([[[1,0],[0,0]],[[0,0],[0,1]],[[0,1],[1,0]],[[0,1j],[-1j,0]]],complex)\nB[2:]/=np.sqrt(2)\nA=B; V=np.eye(2,dtype=complex)\nassert np.allclose(sensing_isometry_constants(A.copy(),V.copy()), target)",
+        "import numpy as np\nB=np.array([[[1,0],[0,0]],[[0,0],[0,1]],[[0,1],[1,0]],[[0,1j],[-1j,0]]],complex)\nB[2:]/=np.sqrt(2)\nQ=np.array([[1,1j],[1j,1]],complex)/np.sqrt(2); A=np.array([Q@b@Q.conj().T for b in B])*np.sqrt(np.array([0.7,4.0,0.8,0.9]))[:,None,None]; V=Q[:,:1]\nassert np.allclose(sensing_isometry_constants(A.copy(),V.copy()), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-31.7",
+      "test_cases": [
+        "op_norm = 0.05\nr_star = 1\nr = 2\nalpha = 3.0\nbeta = 3.2\nlam = 0.01\nassert np.allclose(certification_bound(op_norm, r_star, r, alpha, beta, lam), target)",
+        "op_norm = 0.04\nr_star = 2\nr = 3\nalpha = 2.2\nbeta = 2.4\nlam = 0.04\nassert np.allclose(certification_bound(op_norm, r_star, r, alpha, beta, lam), target)",
+        "op_norm = 0.06\nr_star = 2\nr = 2\nalpha = 1.0\nbeta = 1.2\nlam = 0.012\nassert np.allclose(certification_bound(op_norm, r_star, r, alpha, beta, lam), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-31.8",
+      "test_cases": [
+        "import numpy as np\neta=0.02; r_star=2; r=2; alpha=1.0; beta=1.2\nden=6*alpha-(np.sqrt(5)+2)*beta\nbudget=((36*0.007+12*eta)*np.sqrt(2)+20*(eta-0.007))/den\nassert np.allclose(regularization_from_budget(eta,r_star,r,alpha,beta,budget), target)",
+        "import numpy as np\neta=0.02; r_star=2; r=2; alpha=1.0; beta=1.2\nden=6*alpha-(np.sqrt(5)+2)*beta\nbudget=48*eta*np.sqrt(2)/den\nassert np.allclose(regularization_from_budget(eta,r_star,r,alpha,beta,budget), target)",
+        "import numpy as np\neta=0.02; r_star=2; r=2; alpha=1.0; beta=1.2\nden=6*alpha-(np.sqrt(5)+2)*beta\nbudget=(36*0.05+12*eta)*np.sqrt(2)/den\nassert np.allclose(regularization_from_budget(eta,r_star,r,alpha,beta,budget), target)",
+        "import numpy as np\neta=0.02; r_star=2; r=2; alpha=1.0; beta=1.2\nden=6*alpha-(np.sqrt(5)+2)*beta\nbudget=0.0\ndef catches(fn):\n    try:\n        fn(eta,r_star,r,alpha,beta,budget)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(catches(regularization_from_budget), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Quantum_Information_Computing-31.9",
+      "test_cases": [
+        "import numpy as np\neigs=np.array([0.6,0.4]); J=np.array([2,2,2]); N=12\nw=np.array([1.00,1.08,9.0,6.0,1.12,1.20,1.04,1.10,1.16,1.06,1.14,1.18,1.02,1.09,7.0,8.0])\nseed=31; noise=0.001; n=50; budget_fraction=0.5\nassert np.allclose(recovery_bound_utilization(seed,eigs.copy(),4100,J.copy(),N,w.copy(),2026,noise,n,budget_fraction), target)",
+        "import numpy as np\neigs=np.array([0.6,0.4]); J=np.array([2,2,2]); N=12\nw=np.array([1.00,1.08,9.0,6.0,1.12,1.20,1.04,1.10,1.16,1.06,1.14,1.18,1.02,1.09,7.0,8.0])\nseed=32; noise=0.0; n=0; budget_fraction=0.5\nassert np.allclose(recovery_bound_utilization(seed,eigs.copy(),4100,J.copy(),N,w.copy(),2026,noise,n,budget_fraction), target)",
+        "import numpy as np\neigs=np.array([0.6,0.4]); J=np.array([2,2,2]); N=12\nw=np.array([1.00,1.08,9.0,6.0,1.12,1.20,1.04,1.10,1.16,1.06,1.14,1.18,1.02,1.09,7.0,8.0])\nseed=33; noise=0.0002; n=100; budget_fraction=0.8\nassert np.allclose(recovery_bound_utilization(seed,eigs.copy(),4100,J.copy(),N,w.copy(),2026,noise,n,budget_fraction), target)"
+      ]
+    }
+  ]
+}

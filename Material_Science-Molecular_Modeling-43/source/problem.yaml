@@ -1,0 +1,36 @@
+problem_id: "Material_Science-Molecular_Modeling-43"
+subject: "materials"
+subject_area: "Molecular Modeling"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1038/s41524-026-02023-y"
+dependencies: ""
+steps:
+  - number: 1
+    name: "framework_msd_screen"
+    description: "Screen a candidate high-temperature trajectory for abnormal migration of non-Li framework atoms."
+    orchestrator: false
+  - number: 2
+    name: "feature_coverage"
+    description: "Measure how much of the AIMD pretrained-feature space is represented by a model-MD trajectory."
+    orchestrator: false
+  - number: 3
+    name: "relative_rmse"
+    description: "Compute the source's relative root mean squared error on a held-out reference panel."
+    orchestrator: false
+  - number: 4
+    name: "radial_distribution"
+    description: "Compute a frame-averaged radial distribution function from periodically imaged pair distances."
+    orchestrator: false
+  - number: 5
+    name: "rdf_stability"
+    description: "Detect when model-MD structure deviates from the AIMD RDF reference."
+    orchestrator: false
+  - number: 6
+    name: "diatomic_turning_point"
+    description: "Find the short-range Li\u2013Li force reversal used in the paper's stability diagnosis."
+    orchestrator: false
+  - number: 7
+    name: "compute_source_method_audit"
+    description: "Apply the source-defined diagnostics to three deterministic synthetic systems and return their per-system audit record with J equal to the arithmetic mean of each system's complete-window RDF threshold-excess burden. For each system, average max(D \u2212 0.2, 0) over its 27 complete one-picosecond windows, where D is the paper-defined integrated RDF discrepancy. The synthetic fixture and compact ridge student are disclosed stand-ins, not actual MACE, ELoRA, NEP or DFT results. The public orchestrator calls all six preceding public functions. Keep both maximum RDF deviations and held-out transition-energy RRMSEs in the native three-row record as separate diagnostics."
+    orchestrator: true

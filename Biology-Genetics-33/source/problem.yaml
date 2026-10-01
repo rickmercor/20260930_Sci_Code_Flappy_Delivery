@@ -1,0 +1,48 @@
+problem_id: "Biology-Genetics-33"
+subject: "biology"
+subject_area: "Genetics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2608.01590"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_enumerate_noncrossing_pairings"
+    description: "Enumerate every non-crossing pair partition of an even number of ordered points and return each of them as the involution that sends a point to its partner."
+    orchestrator: false
+  - number: 2
+    name: "02_compute_kreweras_block_table"
+    description: "Turn each non-crossing pairing into the block structure of its Kreweras complement, labelling every point by the block of the complement it falls in."
+    orchestrator: false
+  - number: 3
+    name: "03_build_nested_design_projectors"
+    description: "Build, for a two-level family design with unequal family sizes, the pair of symmetric matrices that isolate the between-family and the within-family variation while annihilating the population mean."
+    orchestrator: false
+  - number: 4
+    name: "04_evaluate_design_functionals"
+    description: "Reduce a level-increment matrix and the two design matrices of the nested model to the normalised traces of every ordered product of the associated design operators, up to a given word length."
+    orchestrator: false
+  - number: 5
+    name: "05_build_variance_components"
+    description: "Assemble the two trait-space covariance components of the mixed model from a step eigenvalue profile for each, with the family-level component expressed in a rotated eigenbasis."
+    orchestrator: false
+  - number: 6
+    name: "06_evaluate_spectral_functionals"
+    description: "Reduce the two covariance components to the normalised traces of every ordered product of them, up to a given word length."
+    orchestrator: false
+  - number: 7
+    name: "07_evaluate_moment_expansion"
+    description: "Combine the tabulated design and covariance functionals over every non-crossing pairing and every assignment of levels to produce the almost-sure limit of one trace moment of a sum-of-squares matrix."
+    orchestrator: false
+  - number: 8
+    name: "08_build_surrogate_spectral_functionals"
+    description: "Tabulate the covariance functionals that a candidate parameter triple implies under the working model in which both components are step spectra expressed in one shared eigenbasis."
+    orchestrator: false
+  - number: 9
+    name: "09_solve_joint_moment_equations"
+    description: "Fit all three working-model parameters jointly from the first three limiting trace moments of the between-family sum-of-squares matrix, selecting the unique admissible root of the resulting system."
+    orchestrator: false
+  - number: 10
+    name: "10_run_genetic_spectrum_bias_pipeline"
+    description: "Chain the sub-problem functions 01-09 end to end on the full-sibling testbed and return the value the moment-matching estimator assigns to the requested quantity when the two variance components do not share an eigenbasis."
+    orchestrator: true

@@ -1,0 +1,48 @@
+problem_id: "Material_Science-Semiconductor_Materials-46"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1016/j.ijheatmasstransfer.2026.128356"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_compute_axial_modes"
+    description: "Return the axial separation eigenvalues of the via, together with the norm of each axial eigenfunction and its integral over the via height, for a via that is insulated on its bottom face and held at the ambient temperature on its top face."
+    orchestrator: false
+  - number: 2
+    name: "02_solve_radial_eigenvalues"
+    description: "Return the slowest decay rates of the layered via for one axial mode, obtained as the eigenvalues of the radial problem that couples all material layers through the interface conditions."
+    orchestrator: false
+  - number: 3
+    name: "03_build_radial_eigenfunction"
+    description: "Return, for one decay rate of one axial mode, each layer's radial parameter and the two amplitudes that define its radial eigenfunction, normalised so that the amplitude of the regular solution on the axis is unity."
+    orchestrator: false
+  - number: 4
+    name: "4_compute_expansion_coefficient"
+    description: "Return the amplitude with which one product eigenmode enters the expansion of a via that starts at a spatially uniform temperature above ambient."
+    orchestrator: false
+  - number: 5
+    name: "05_evaluate_temperature_rise"
+    description: "Sum the double eigenmode series to return the transient temperature of the via above ambient at one position and one instant."
+    orchestrator: false
+  - number: 6
+    name: "06_compute_thermal_source_terms"
+    description: "Return the displacement and stress contributions that the temperature field alone produces in one layer for one axial mode, before any boundary or interface condition is enforced."
+    orchestrator: false
+  - number: 7
+    name: "07_assemble_love_system"
+    description: "Assemble the linear system whose solution is the set of complementary-solution amplitudes that restore interface continuity and a traction-free outer surface for one axial mode."
+    orchestrator: false
+  - number: 8
+    name: "08_solve_love_coefficients"
+    description: "Solve the assembled interface system and return, for every layer, the four amplitudes of the biharmonic complementary solution in a fixed order."
+    orchestrator: false
+  - number: 9
+    name: "09_evaluate_stress_components"
+    description: "Combine the complementary amplitudes of one layer with the thermally generated contributions at the same point to return the four axisymmetric stress components of one axial mode."
+    orchestrator: false
+  - number: 10
+    name: "10_run_tsv_thermal_stress_pipeline"
+    description: "Chain the sub-problem functions 01-09 end to end on the layered via and return the largest von Mises stress found on the requested cross-section at the requested instant, expressed in megapascals."
+    orchestrator: true

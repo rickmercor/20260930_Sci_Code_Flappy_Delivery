@@ -1,0 +1,36 @@
+problem_id: "Chemistry-Computational_Chemistry-46"
+subject: "chemistry"
+subject_area: "Computational Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.48550/arXiv.2605.09752"
+dependencies: ""
+steps:
+  - number: 1
+    name: "Isotropic qmmm damping"
+    description: "Compute the isotropic real-space damping factor S^G for one or more QM-site--MM-site centre-of-mass separations, given the damping parameter beta.  The result is a dimensionless scalar in [0, 1] for each separation; downstream it multiplies the bare QM--MM multipole interaction (and the field / field gradient it produces) for every near-field QM--MM pair, including periodic images."
+    orchestrator: false
+  - number: 2
+    name: "Gaussian tensor damping kernels"
+    description: "Build the Gaussian-damped Cartesian multipole interaction tensors of ranks 0 through 4 for a given displacement between two MM centres of mass and a Gaussian width g.  These are used for every near-field MM--MM pair by the multipole potential calculator"
+    orchestrator: false
+  - number: 3
+    name: "Multipole potential calculator"
+    description: "Compute the electrostatic potential (rank 0), field (rank 1) and field gradient (rank 2)produced at a target point by a source carrying a permanent charge q, dipole mu and traceless quadrupole Theta (Buckingham normalisation, Theta_ab = 1/2 sum q (3 r_a r_b - r^2 delta_ab))"
+    orchestrator: false
+  - number: 4
+    name: "Multipole origin translation"
+    description: "Re-express a site's permanent dipole and quadrupole about a new origin, given the shift vector R = R_new - R_i (new origin minus the site's own origin) and the site charge q."
+    orchestrator: false
+  - number: 5
+    name: "K-means far-field centre compression "
+    description: "Partition the pooled far-field periodic image sites, by their in-plane (x, y) coordinates only, into K expansion centres by K-means with k-means++ initialisation and Lloyd iteration, implemented with numpy alone so the step is self-contained.  The reference runs a fixed floor of 64 random restarts and keeps the lowest-inertia clustering.  The prompt states the clustering parameters as K = 3, n_init = 10, random_state = 0, tol = 1e-6 (the scikit-learn ``KMeans`` convention); this reference uses `$random_state$` to seed the restarts and ``tol`$to bound the per-step centre shift as stated, but treats$$n_init$` only as a lower bound on the restart count -- not the exact restart budget -- because plain k-means++ needs more restarts than scikit-learn's greedy variant to reach the same optimum.  At the benchmark K = 3 the 64-restart clustering equals the global optimum ``sklearn.cluster.KMeans(n_init=10)`` finds; at other K the two implementations may settle on different local optima.  Each centre's z coordinate is the mean z of the sites assigned to it.  This step produces only the clustering; the orchestrator then origin-shifts each image's permanent moments onto its assigned centre and sums them."
+    orchestrator: false
+  - number: 6
+    name: "MM inner SCF loop "
+    description: "Solve self-consistently for the induced dipole and induced quadrupole at each of the three MM sites (the QM site is a fixed point multipole and does not respond), then return the converged total electrostatic-plus-induction energy of the coupled system."
+    orchestrator: false
+  - number: 7
+    name: "End-to-end coupled QM/MM polarizable-embedding energy"
+    description: "It assembles the concrete system, converts all lengths to Bohr, performs the near/far lattice split, compresses the far field with K-means and runs the MM induced-moment SCF to the converged coupled electrostatic-plus-induction energy, it returns that single scalar, in Hartree."
+    orchestrator: true

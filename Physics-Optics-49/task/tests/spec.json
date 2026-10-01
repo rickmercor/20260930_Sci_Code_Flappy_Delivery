@@ -1,0 +1,84 @@
+{
+  "problem_id": "Physics-Optics-49",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Optics-49.1",
+      "test_cases": [
+        "import numpy as np\nv = hbn_uniaxial_permittivities(1409.3543485)\nassert np.allclose(np.round(v, 8), target)",
+        "import numpy as np\nv = hbn_uniaxial_permittivities(1500.0)\nassert np.allclose(np.round(v, 8), target)",
+        "import numpy as np\nv = hbn_uniaxial_permittivities(1000.0)\nassert np.allclose(np.round(v, 8), target)",
+        "def run_model():\n    try:\n        hbn_uniaxial_permittivities(1360.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "def run_model():\n    try:\n        hbn_uniaxial_permittivities(-5.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-49.2",
+      "test_cases": [
+        "v = thin_film_effective_permittivity(12.0, 41.0, 3.9)\nassert np.allclose(round(v, 8), target)",
+        "v = thin_film_effective_permittivity(5.0, 41.0, 6.7)\nassert np.allclose(round(v, 8), target)",
+        "v = thin_film_effective_permittivity(40.0, 41.0, 9.4)\nassert np.allclose(round(v, 8), target)",
+        "def run_model():\n    try:\n        thin_film_effective_permittivity(0.0, 41.0, 3.9)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "def run_model():\n    try:\n        thin_film_effective_permittivity(150.0, 41.0, 3.9)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "def run_model():\n    try:\n        thin_film_effective_permittivity(10.0, 41.0, -1.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-49.3",
+      "test_cases": [
+        "v = finite_coupling_band_edge(4.87, 1360.0, 1614.0, 8.352, 7.2973525693e-3)\nassert np.allclose(round(v, 6), target)",
+        "v = finite_coupling_band_edge(4.87, 1360.0, 1614.0, 41.0, 7.2973525693e-3)\nassert np.allclose(round(v, 6), target)",
+        "v = finite_coupling_band_edge(4.0, 820.0, 972.0, 41.0, 0.05)\nassert np.allclose(round(v, 6), target)",
+        "def run_model():\n    try:\n        finite_coupling_band_edge(4.87, 1614.0, 1360.0, 8.0, 0.007)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "def run_model():\n    try:\n        finite_coupling_band_edge(4.87, 1360.0, 1614.0, 8.0, -0.1)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-49.4",
+      "test_cases": [
+        "v = surface_wave_bandwidth_fraction(4.87, 1360.0, 1614.0, 8.352, 7.2973525693e-3)\nassert np.allclose(round(v, 8), target)",
+        "v = surface_wave_bandwidth_fraction(4.87, 1360.0, 1614.0, 5.755, 7.2973525693e-3)\nassert np.allclose(round(v, 8), target)",
+        "v = surface_wave_bandwidth_fraction(6.6, 797.0, 973.0, 41.0, 7.2973525693e-3)\nassert np.allclose(round(v, 8), target)",
+        "def run_model():\n    try:\n        surface_wave_bandwidth_fraction(4.87, 1360.0, 1360.0, 8.0, 0.007)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-49.5",
+      "test_cases": [
+        "v = axion_dispersion_mismatch(3.2, 1409.3543485, 8.352, 7.2973525693e-3)\nassert np.allclose(round(v, 8), target)",
+        "v = axion_dispersion_mismatch(5.0, 1409.3543485, 8.352, 7.2973525693e-3)\nassert np.allclose(round(v, 8), target)",
+        "v = axion_dispersion_mismatch(9.0, 1374.5862171, 41.0, 0.0)\nassert np.allclose(round(v, 8), target)",
+        "def run_model():\n    try:\n        axion_dispersion_mismatch(3.0, 1409.3543485, 41.0, 0.007)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "def run_model():\n    try:\n        axion_dispersion_mismatch(5.0, 1700.0, 8.0, 0.007)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-49.6",
+      "test_cases": [
+        "v = surface_wave_effective_index(1409.3543485, 8.352, 7.2973525693e-3)\nassert np.allclose(round(v, 7), target)",
+        "v = surface_wave_effective_index(1374.5862171, 41.0, 7.2973525693e-3)\nassert np.allclose(round(v, 7), target)",
+        "v = surface_wave_effective_index(1420.9178616, 5.755, 7.2973525693e-3)\nassert np.allclose(round(v, 7), target)",
+        "def run_model():\n    try:\n        surface_wave_effective_index(1500.0, 41.0, 0.007)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "def run_model():\n    try:\n        surface_wave_effective_index(1700.0, 8.0, 0.007)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-49.7",
+      "test_cases": [
+        "import numpy as np\nv = surface_wave_penetration_depths(3.6669037851, 1409.3543485, 8.352)\nassert np.allclose(np.round(v, 4), target)",
+        "import numpy as np\nv = surface_wave_penetration_depths(8.78978, 1374.5862171, 41.0)\nassert np.allclose(np.round(v, 4), target)",
+        "import numpy as np\nv = surface_wave_penetration_depths(3.0, 1450.0, 5.0)\nassert np.allclose(np.round(v, 4), target)",
+        "def run_model():\n    try:\n        surface_wave_penetration_depths(2.0, 1409.3543485, 8.352)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Optics-49.8",
+      "test_cases": [
+        "v = run_hm_ti_surface_wave_pipeline(12.0, 3.9, 41.0, 0.5)\nassert np.allclose(round(v, 5), target)",
+        "v = run_hm_ti_surface_wave_pipeline(5.0, 3.9, 41.0, 0.5)\nassert np.allclose(round(v, 5), target)",
+        "v = run_hm_ti_surface_wave_pipeline(20.0, 6.7, 41.0, 0.3)\nassert np.allclose(round(v, 5), target)",
+        "def run_model():\n    try:\n        run_hm_ti_surface_wave_pipeline(12.0, 3.9, 41.0, 1.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "def run_model():\n    try:\n        run_hm_ti_surface_wave_pipeline(120.0, 3.9, 41.0, 0.5)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

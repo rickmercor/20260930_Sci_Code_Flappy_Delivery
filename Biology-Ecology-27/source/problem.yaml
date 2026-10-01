@@ -1,0 +1,44 @@
+problem_id: "Biology-Ecology-27"
+subject: "biology"
+subject_area: "Ecology"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2609.09343"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_single_pest_orbit"
+    description: "Post-spray density of the single-strain tau-periodic orbit.\n\nBetween sprays a lone pest strain follows dN/dt = N (a - b N); at every spray its density is multiplied by (1 + h), h > -1. This step returns the density N(0+) immediately after a spray on the unique positive tau-periodic orbit of that pulsed logistic population, in closed form. It validates positivity of a, b, tau, the constraint h > -1 and the existence condition a tau + ln(1+h) > 0 (a ValueError is raised otherwise). Deliberately excluded: any interaction with other species and any numerical time stepping."
+    orchestrator: false
+  - number: 2
+    name: "02_stroboscopic_map"
+    description: "One-interval (stroboscopic) map of the sprayed four-species community.\n\nGiven a post-spray state z0 = (NA, NB, NC, NP), this step integrates the between-spray Kolmogorov system over one interval of length tau with DOP853 (rtol 1e-13, atol 1e-16), applies the spray z -> (1+h) z, and returns either one component of the resulting post-spray state (which = 0..3) or the time integral over [0, tau] of one per-capita rate f(i) along the trajectory (which = 4..7), the latter obtained from an augmented state so that no separate quadrature is needed. It validates the parameter dictionary, the non-negativity of z0, tau > 0 and the range of which. Deliberately excluded: locating fixed points and the spray term ln(1+h) of the growth rates (added in step 6)."
+    orchestrator: false
+  - number: 3
+    name: "03_pest_face_mean_density"
+    description: "Period-averaged densities on a pest-only face orbit from the averages identity.\n\nOn any face that contains pest strains only, a tau-periodic orbit must satisfy, for every present strain i, a(i) tau + ln(1 + h(i)) = sum over present j of b(ij) times the integral of N(j) over one interval. This step solves that linear system for the period averages (1/tau) int N(j) dt of the present strains and returns the average of strain which. A non-positive solution component means that the face carries no positive tau-periodic orbit, and a ValueError is raised; it is also raised when which is not present or the parasitoid is listed. Deliberately excluded: the orbit itself (its post-spray state needs shooting, step 4) and any face containing the parasitoid (its saturating response has no such identity)."
+    orchestrator: false
+  - number: 4
+    name: "04_face_orbit_post_pulse"
+    description: "Newton shooting for the tau-periodic orbit of a boundary face.\n\nGiven the list of present species, a positive starting guess for their post-spray densities and tau, this step solves pi(z) = z on that face by a damped Newton iteration that uses the Jacobian of the one-interval map obtained from the variational equations integrated together with the flow (DOP853, rtol 1e-13, atol 1e-16); the iteration stops when the fixed-point residual is at most 1e-12 in the maximum norm and the post-spray density of species which on the located orbit is returned. Absent species are held at zero, the iterate is kept positive, and a ValueError is raised for invalid inputs or non-convergence. Deliberately excluded: any statement about stability (step 5) or invasibility (step 6)."
+    orchestrator: false
+  - number: 5
+    name: "05_stroboscopic_floquet_radius"
+    description: "Largest Floquet multiplier modulus of a face orbit within its face.\n\nFor a tau-periodic orbit given by its post-spray state (zero for absent species), this step checks the fixed-point condition of the one-interval map to 1e-8, restricts the Jacobian of that map to the present species and returns the largest modulus of its eigenvalues. A value below one means that the orbit attracts within its face (it is the face attractor when it is the only candidate), a value above one that it does not. Deliberately excluded: the transverse (invasion) directions, which are handled by the growth rates of step 6 and not by eigenvalues."
+    orchestrator: false
+  - number: 6
+    name: "06_pulsed_invasion_rate"
+    description: "Pulse-adjusted long-term growth rate of one species along a boundary orbit.\n\nFor the tau-periodic orbit through a post-spray state z0 (checked to be a fixed point of the one-interval map to 1e-8) and a species index i, this step returns r(i) = (1/tau) [ int over [0, tau] of f(i) along the orbit + ln(1 + h(i)) ]: the between-spray integral of the per-capita rate of species i evaluated along the orbit plus the logarithm of its own spray factor, divided by the spray interval. For a species present on the orbit the value is zero to round-off. Deliberately excluded: any combination of the rates across species or orbits (steps 8 and 9)."
+    orchestrator: false
+  - number: 7
+    name: "07_boundary_census"
+    description: "Census of the boundary tau-periodic orbits.\n\nThis step enumerates the fifteen proper non-empty subsets of the four species and decides which of them carry a positive tau-periodic orbit: a pest-only face carries one exactly when the averages identity of step 3 has a positive solution (the orbit is then shot as in step 4 and verified); a face with one strain and the parasitoid carries one when the parasitoid's rate on that strain's orbit is positive (the orbit is shot from the unsprayed face equilibrium); a face with two strains and the parasitoid is examined only when each strain can invade the orbit of the face without it, and the shot fixed point is accepted only if it is positive. It returns the number of orbits found (the origin is not counted) and raises a ValueError on inconsistency. Deliberately excluded: the grouping of the orbits into pieces (step 8)."
+    orchestrator: false
+  - number: 8
+    name: "08_permanence_margin"
+    description: "Permanence margin of the sprayed community.\n\nThis step builds the census of step 7 with the rates of step 6 along every orbit, constructs the invasion graph (from each orbit, every species with positive rate is introduced at density 1e-4 and the one-interval map is iterated until a known boundary orbit is reached), takes its strongly connected components together with the origin as the pieces of the finest Morse decomposition of the boundary attractor, and evaluates for each piece mu = max over probability vectors p supported on the species absent from at least one orbit of the piece of min over the orbits of the piece of sum p(i) r(i): a small linear programme whose optimal vertex is re-solved exactly. The origin piece uses the largest single-species rate. It returns m(tau) = min over pieces of mu. Deliberately excluded: the root search in tau (step 9)."
+    orchestrator: false
+  - number: 9
+    name: "09_critical_spray_interval"
+    description: "Critical spray interval of the sprayed four-species community (orchestrator).\n\nThis final step assembles the whole pipeline. At the reference interval tau-zero and at both bracket ends it builds the census from the earlier steps (closed-form single-strain orbits checked against the stroboscopic map, averages identity on the pest faces checked against the quadrature, Newton-shot face orbits, within-face multipliers of the strain-parasitoid orbits, pulse-adjusted rates with the resident-zero identity, census cross-check), determines the Morse pieces, verifies that the decomposition is the same at tau-lo, tau-zero and tau-hi, and evaluates the margin through the weighted piece values; the same chain with the orbits re-shot at every tau is used inside a bracketing root search (brentq, absolute tolerance 1e-12) on [tau-lo, tau-hi], where m(tau-lo) and m(tau-hi) must have opposite signs, and the located zero tau-star is returned. The margin step is used only as an independent cross-check at tau-zero and at tau-star; a ValueError is raised on any inconsistency. Deliberately excluded: anything beyond the sufficient criterion (a negative margin is not a proof of extinction)."
+    orchestrator: true

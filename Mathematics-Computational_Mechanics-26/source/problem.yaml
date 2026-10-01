@@ -1,0 +1,40 @@
+problem_id: "Mathematics-Computational_Mechanics-26"
+subject: "mathematics"
+subject_area: "Computational Mechanics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: " https://doi.org/10.48550/arXiv.2608.02117"
+dependencies: ""
+steps:
+  - number: 1
+    name: "Build the Cook's membrane mesh"
+    description: "Produce the nodal coordinates of an n x n bilinear quadrilateral mesh of Cook's membrane. The domain is the quadrilateral with corners (0,0), (480,440), (480,600) and (0,440), and the mesh is its bilinear image: node (i, j) sits at parameter values xi = i/n and eta = j/n, and carries the id j*(n+1)+i. Everything downstream indexes into this array, so the node ordering is part of the contract rather than an implementation detail. The clamped boundary is identified later by the nodes whose first coordinate vanishes, and the loaded edge by the last node in each row, both of which only work if the ids follow the stated ordering."
+    orchestrator: false
+  - number: 2
+    name: "Bilinear shape function gradients"
+    description: "Given the four node coordinates of one element and a point in the parent square, return the determinant of the isoparametric Jacobian together with the gradients of the four shape functions taken with respect to the reference coordinates. Node ordering is counter-clockwise, matching the parent corners (-1,-1), (1,-1), (1,1) and (-1,1), which is the same order the connectivity produced by the previous step uses. The determinant is returned alongside the gradients because both are needed at every quadrature point and computing them together avoids inverting the Jacobian twice."
+    orchestrator: false
+  - number: 3
+    name: "Constitutive response and viscous driving force"
+    description: "Evaluate the second Piola-Kirchhoff stress and the mixed driving force at one material point, given the right Cauchy-Green tensor and the current internal variable. The free energy splits into an equilibrium part evaluated at C and a non-equilibrium part evaluated at the elastic measure C_e = C C_i^-1; both parts use the same Simo-Taylor form and, in this task, the same pair of constants. The stress is the sum of the two contributions. The driving force is the non-equilibrium stress post-multiplied by C, and it is deliberately returned unsymmetrised."
+    orchestrator: false
+  - number: 4
+    name: "Viscous flow term"
+    description: "Apply the inverse viscosity operator to the transpose of the driving force and pre-multiply by twice the internal variable. This is the whole right-hand side of the internal evolution law at a single material point. The viscosity operator is isotropic and built from the volumetric and deviatoric projectors with separate coefficients, so inverting it is a matter of dividing each projection by its own coefficient rather than inverting any matrix. The volumetric projector uses a factor of one third, corresponding to three dimensions, even in the plane-strain setting."
+    orchestrator: false
+  - number: 5
+    name: "Midpoint evolution residual"
+    description: "Form the discrete residual of the internal evolution law at one quadrature point over one time step. The internal variable is supplied at both ends of the step in packed six-component form; its rate is the backward difference quotient, and the constitutive quantities are evaluated at the arithmetic midpoint of the two endpoint values. The residual is the rate minus the flow term, projected onto symmetric tensors before being packed back into six components."
+    orchestrator: false
+  - number: 6
+    name: "Assemble the global momentum residual"
+    description: "Loop the elements and their quadrature points, evaluate the midpoint deformation gradient from the averaged displacement field, obtain the stress from the constitutive step, and scatter the internal force contributions into a global vector; then subtract the external contribution of the dead traction on the right edge. The residual is returned for every degree of freedom, before any Dirichlet reduction, so that the caller decides which rows to keep. Inertia and body forces are absent, so what remains is the quasi-static balance."
+    orchestrator: false
+  - number: 7
+    name: "Schur-condensed Newton correction"
+    description: "Given the four blocks of the monolithic tangent and the two residuals, eliminate the internal-variable increment at the level of the linearised system and return the displacement increment. The elimination requires one solve against the internal block with the coupling matrix and the internal residual as simultaneous right-hand sides, followed by one solve of the reduced system. The internal increment itself is recovered afterwards by the caller from the same two factors."
+    orchestrator: false
+  - number: 8
+    name: "Run the monolithic pipeline"
+    description: "Chain the seven earlier steps into the full calculation and return the requested scalar. Build the mesh and cache the shape-function data, initialise the internal variable to the identity at every quadrature point, and march the load in equal time steps. Within each step, run a fixed number of Newton iterations with no stopping test: assemble both residuals, build all four tangent blocks by central finite differences of those residuals with respect to the packed unknowns, take the condensed correction, and update both fields. Capture the norm of the first correction of the final step and return it. This is the orchestrator step: its reference implementation calls the earlier public functions by name rather than reproducing their contents."
+    orchestrator: true
