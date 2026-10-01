@@ -1,0 +1,40 @@
+problem_id: "Biology-Biochemistry-15"
+subject: "biology"
+subject_area: "Biochemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2606.22452"
+dependencies: ""
+steps:
+  - number: 1
+    name: "reduced_transition_rates"
+    description: "Build the transition rates of the reduced two-state scheme of the polymerase, in which the rapid nucleotide binding/unbinding step is at quasi-equilibrium and the remaining transitions are the open-to-closed change of the polymerase holding a bound nucleotide, its reverse, the polymerization that releases pyrophosphate and reopens the polymerase, and the reverse depolymerization that binds pyrophosphate and closes it. Return rates[m, n, nn, :] = (w_EF, w_FE, w_pol, w_depol) for a copy unit m opposite template unit n when the template unit that follows the pair is nn. The quasi-equilibrium of the binding step enters through the competitive Michaelis-Menten denominator Q_n = 1 + [dATP]/K_An + [dTTP]/K_Tn of a template unit n: the closing rate is k_EF [mP] / (K_mn Q_n) with the denominator of the pair's own template unit, the reopening rate is k_FE and the polymerization rate is k_pol with no denominator, and the depolymerization rate is (k_pol / K_P) [PPi] / Q_nn with the denominator of the template unit that follows the pair, because the reverse step starts from the quasi-equilibrated binding state of the next site. Nucleotide index 0 = A and 1 = T; a pair (m, n) is copy unit m opposite template unit n, so (0, 1) and (1, 0) are correct and (0, 0) and (1, 1) incorrect. kin[m, n] = (K_mn in M, k_EF in 1/s, k_FE in 1/s, k_pol in 1/s) are the dissociation constant of the quasi-equilibrated nucleotide binding, the open-to-closed and closed-to-open conformational rate constants, and the polymerization rate constant of that pair. conc = ([dATP], [dTTP]) in M, ppi = [PPi] in M, kp_const = K_P in M, the pyrophosphorolysis constant relating the depolymerization and polymerization rate constants of every pair. template holds the units of one period of the template in the order in which they are copied; the template is its infinite periodic repetition."
+    orchestrator: false
+  - number: 2
+    name: "backward_map_parameters"
+    description: "From the reduced transition rates, form the two effective parameters per pair that govern the source's scalar iterated map for the copy: for each copy unit m opposite template unit n with following unit nn, an effective rate of completed incorporation and an effective rate of completed removal, both obtained by eliminating the closed state exactly. Return params[m, n, nn, :] = (alpha_mn, beta_mnnn) with the same index convention as the rates."
+    orchestrator: false
+  - number: 3
+    name: "backward_iteration"
+    description: "Run the source's backward iterated map for the growth regime around the periodic template until its fixed cycle has converged: starting from unit value at the end of a period, step backward site by site through one period, close the period by identifying x_0 with x_L, and repeat loop after loop until the whole cycle changes by less than 1e-13 relatively (at most 100000 loops). Return x[0..L] with x[0] == x[L]; site l (1-based) copies template[l-1] and is followed by template[l % L]."
+    orchestrator: false
+  - number: 4
+    name: "site_transfer_factors"
+    description: "Compute, for every site l of the period and every copy unit m, the two entries of the source's reduced site transfer matrix: the open-state entry that weights the composition of the copy and the closed-state entry that weights the time spent closed, both from the converged cycle x, the effective parameters and the reduced rates. Return Y[l-1, m, s] with s = 0 for the open-state entry and s = 1 for the closed-state entry; the sums over m give the two forward factors of the site."
+    orchestrator: false
+  - number: 5
+    name: "mean_growth_velocity"
+    description: "Compute the long-time mean growth velocity of the copy, in nucleotides per second, from the converged cycle x and the site transfer entries Y: form the source's mean dwell time of the polymerase at each site of the period, which accounts for the time spent in both structural states, average it over the period and invert."
+    orchestrator: false
+  - number: 6
+    name: "error_probability"
+    description: "Compute the replication error probability: the long-time mean, over the sites of the period, of the probability that the copy unit at a site is the incorrect one (the same unit as the template unit), from the site transfer entries Y and the template; the local probability of each copy unit at a site follows from the open-state entries of that site."
+    orchestrator: false
+  - number: 7
+    name: "onset_of_growth_scale"
+    description: "Find the onset of steady growth for the periodic template: the factor s by which both nucleotide concentrations must be multiplied for the copy to stop growing, i.e. the point where the long-time mean length changes from bounded to linearly increasing. Use the source's criterion for the onset, which compares site-wise effective backward and forward rates of the copy length evaluated at the onset itself; bracket the sign change by scanning s over decades from s = 1 and refine by bisection on log10(s) to 1e-12. The scale can be above 1 when the given concentrations already stall."
+    orchestrator: false
+  - number: 8
+    name: "steady_growth_velocity"
+    description: "Orchestrate the whole pipeline: build the reduced rates and the effective parameters, check with the onset step that the configuration grows (return 0.0 if the onset scale is at or above 1), run the backward iteration around the period, form the site transfer entries, verify that the error probability is a valid probability, and return the mean growth velocity in nucleotides per second. Call the earlier step functions rather than reimplementing them."
+    orchestrator: true

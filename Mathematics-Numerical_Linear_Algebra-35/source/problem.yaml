@@ -1,0 +1,40 @@
+problem_id: "Mathematics-Numerical_Linear_Algebra-35"
+subject: "mathematics"
+subject_area: "Numerical Linear Algebra"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2604.23104"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_build_axis_constraint_matrix"
+    description: "Build the pairwise homogeneous constraint matrix that a sparse, partially observed, multiplicatively separable N-way array imposes on the factor pattern of the axes complementary to one removed axis."
+    orchestrator: false
+  - number: 2
+    name: "02_select_recursion_axis"
+    description: "Select which axis of a sparsely observed, multiplicatively separable N-way array is resolved next in the recursive completion, from the observed cells alone."
+    orchestrator: false
+  - number: 3
+    name: "03_extract_complementary_pattern"
+    description: "Extract, up to scale, the factor pattern shared by the axes complementary to one removed axis of a sparsely observed, multiplicatively separable N-way array: one value per distinct complementary index tuple, in the column order of build_axis_constraint_matrix."
+    orchestrator: false
+  - number: 4
+    name: "04_fit_resolved_factor"
+    description: "Recover the factor vector of one resolved axis of a sparsely observed, multiplicatively separable N-way array, given the factor vectors of all the other axes, as the vector that best reproduces the observed cells."
+    orchestrator: false
+  - number: 5
+    name: "05_complete_separable_landscape"
+    description: "Complete a sparsely observed, multiplicatively separable N-way array from exact, noiseless observations, returning the full array."
+    orchestrator: false
+  - number: 6
+    name: "06_recover_coupled_matrices"
+    description: "Jointly recover a partially observed matrix that shares its row axis with a completed N-way landscape, by iterating a proximal block-coordinate scheme to a critical point of one penalized objective, and return the recovered matrix."
+    orchestrator: false
+  - number: 7
+    name: "07_solve_training_schedule"
+    description: "Compute the minimum total training hours, summed over every worker, skill and shift, that keeps every worker certified in every skill from the mandate start through the last shift, under per-shift skill decay, additive training gains, level bounds and both capacity limits."
+    orchestrator: false
+  - number: 8
+    name: "08_compute_minimum_training_hours"
+    description: "Orchestrator: run the full three-stage pipeline end to end and report the minimum total training hours."
+    orchestrator: true

@@ -1,0 +1,61 @@
+{
+  "problem_id": "Mathematics-Computational_Mechanics-30",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Computational_Mechanics-30.1",
+      "test_cases": [
+        "import numpy as np\nX, Y = np.meshgrid(np.arange(9) * 0.25, np.arange(9) * 0.25, indexing='ij')\ncoords = np.column_stack([X.ravel(), Y.ravel()])\ni, delta, dx = 40, 0.75, 0.25\nassert np.allclose(neighbor_family(coords, i, delta, dx), target)",
+        "import numpy as np\nX, Y = np.meshgrid(np.arange(9) * 0.25, np.arange(9) * 0.25, indexing='ij')\ncoords = np.column_stack([X.ravel(), Y.ravel()])\ni, delta, dx = 0, 0.75, 0.25\nassert np.allclose(neighbor_family(coords, i, delta, dx), target)",
+        "import numpy as np\nX, Y = np.meshgrid(np.arange(11) * 0.125, np.arange(11) * 0.125, indexing='ij')\ncoords = np.column_stack([X.ravel(), Y.ravel()])\ni, delta, dx = 0, 0.625, 0.125\nassert np.allclose(neighbor_family(coords, i, delta, dx), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-30.2",
+      "test_cases": [
+        "import numpy as np\nxi = np.array([[0.25, 0.0], [0.0, -0.25], [0.125, 0.125]])\ndelta = 0.5\nassert np.allclose(scaled_monomial_basis(xi, delta), target)",
+        "import numpy as np\nxi = np.zeros((1, 2))\ndelta = 0.3\nassert np.allclose(scaled_monomial_basis(xi, delta), target)",
+        "import numpy as np\nxi = np.array([[0.75, -0.5], [-0.25, 0.625]])\ndelta = 1.25\nassert np.allclose(scaled_monomial_basis(xi, delta), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-30.3",
+      "test_cases": [
+        "import numpy as np\nfamily = np.array([[1.0, 0.25, 0.0, 0.25, 0.0625], [2.0, 0.0, 0.25, 0.25, 0.0625], [3.0, 0.25, 0.25, 0.3535533905932738, 0.0625], [4.0, -0.25, 0.0, 0.25, 0.0625]])\ndelta, q = 0.5, 3\nbasis = np.array([[1.0, 0.5, 0.0, 0.25, 0.0, 0.0], [1.0, 0.0, 0.5, 0.0, 0.0, 0.25], [1.0, 0.5, 0.5, 0.25, 0.25, 0.25], [1.0, -0.5, 0.0, 0.25, -0.0, 0.0]], dtype=np.float64)\nbasis0 = np.array([1.0, 0.0, 0.0, 0.0, 0.0, 0.0], dtype=np.float64)\nassert np.allclose(derivative_block(family, basis, basis0, delta, q), target)",
+        "import numpy as np\nfamily = np.array([[7.0, 0.125, 0.0, 0.125, 0.015625]])\ndelta, q = 0.25, 3\nbasis = np.array([[1.0, 0.5, 0.0, 0.25, 0.0, 0.0]], dtype=np.float64)\nbasis0 = np.array([1.0, 0.0, 0.0, 0.0, 0.0, 0.0], dtype=np.float64)\nassert np.allclose(derivative_block(family, basis, basis0, delta, q), target)",
+        "import numpy as np\nfamily = np.array([[0.0, 0.375, 0.5, 0.625, 0.0625], [1.0, -0.375, 0.5, 0.625, 0.0625], [2.0, 0.0, -0.625, 0.625, 0.0625]])\ndelta, q = 0.625, 2\nbasis = np.array([[1.0, 0.6, 0.8, 0.36, 0.48, 0.6400000000000001], [1.0, -0.6, 0.8, 0.36, -0.48, 0.6400000000000001], [1.0, 0.0, -1.0, 0.0, -0.0, 1.0]], dtype=np.float64)\nbasis0 = np.array([1.0, 0.0, 0.0, 0.0, 0.0, 0.0], dtype=np.float64)\nassert np.allclose(derivative_block(family, basis, basis0, delta, q), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-30.4",
+      "test_cases": [
+        "import numpy as np\nfamily = np.array([[1.0, 0.25, 0.0, 0.25, 0.0625], [2.0, 0.0, 0.25, 0.25, 0.0625], [3.0, 0.25, 0.25, 0.3535533905932738, 0.0625], [4.0, -0.25, 0.0, 0.25, 0.0625]])\ndelta, q = 0.5, 3\nbasis = np.array([[1.0, 0.5, 0.0, 0.25, 0.0, 0.0], [1.0, 0.0, 0.5, 0.0, 0.0, 0.25], [1.0, 0.5, 0.5, 0.25, 0.25, 0.25], [1.0, -0.5, 0.0, 0.25, -0.0, 0.0]], dtype=np.float64)\nbasis0 = np.array([1.0, 0.0, 0.0, 0.0, 0.0, 0.0], dtype=np.float64)\nassert np.allclose(energy_block(family, basis, basis0, delta, q), target)",
+        "import numpy as np\nfamily = np.array([[7.0, 0.125, 0.0, 0.125, 0.015625]])\ndelta, q = 0.25, 3\nbasis = np.array([[1.0, 0.5, 0.0, 0.25, 0.0, 0.0]], dtype=np.float64)\nbasis0 = np.array([1.0, 0.0, 0.0, 0.0, 0.0, 0.0], dtype=np.float64)\nassert np.allclose(energy_block(family, basis, basis0, delta, q), target)",
+        "import numpy as np\nfamily = np.array([[0.0, 0.375, 0.5, 0.625, 0.0625], [1.0, -0.375, 0.5, 0.625, 0.0625], [2.0, 0.0, -0.625, 0.625, 0.0625]])\ndelta, q = 0.625, 2\nbasis = np.array([[1.0, 0.6, 0.8, 0.36, 0.48, 0.6400000000000001], [1.0, -0.6, 0.8, 0.36, -0.48, 0.6400000000000001], [1.0, 0.0, -1.0, 0.0, -0.0, 1.0]], dtype=np.float64)\nbasis0 = np.array([1.0, 0.0, 0.0, 0.0, 0.0, 0.0], dtype=np.float64)\nassert np.allclose(energy_block(family, basis, basis0, delta, q), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-30.5",
+      "test_cases": [
+        "delta, q = 0.25, 3\nassert np.allclose(full_ball_targets(delta, q), target)",
+        "delta, q = 1.0, 3\nassert np.allclose(full_ball_targets(delta, q), target)",
+        "delta, q = 0.5, 2\nassert np.allclose(full_ball_targets(delta, q), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-30.6",
+      "test_cases": [
+        "basis = np.array([[1.0, 0.5, 0.0, 0.25, 0.0, 0.0], [1.0, 0.0, 0.5, 0.0, 0.0, 0.25], [1.0, -0.5, 0.0, 0.25, 0.0, 0.0], [1.0, 0.0, -0.5, 0.0, 0.0, 0.25], [1.0, 0.5, 0.5, 0.25, 0.25, 0.25], [1.0, -0.5, 0.5, 0.25, -0.25, 0.25], [1.0, 0.5, -0.5, 0.25, -0.25, 0.25]])\nm_deriv = np.eye(10, 6)\nm_energy = 0.5 * np.eye(10, 6) + 0.1\ntargets = np.linspace(0.1, 2.0, 20)\nlam = 0.0\nassert np.allclose(local_coupling_row(basis, m_deriv, m_energy, targets, lam), target)",
+        "basis = np.ones((1, 6))\nm_deriv = np.zeros((10, 6))\nm_energy = np.zeros((10, 6))\ntargets = np.zeros(20)\nlam = 1e-6\nassert np.allclose(local_coupling_row(basis, m_deriv, m_energy, targets, lam), target)",
+        "basis = np.array([[1.0, 1.0, 0.0, 1.0, 0.0, 0.0], [1.0, 0.0, 1.0, 0.0, 0.0, 1.0], [1.0, -1.0, 0.0, 1.0, 0.0, 0.0]])\nm_deriv = np.tile(np.array([1.0, 2.0, 3.0, 4.0, 5.0, 6.0]), (10, 1))\nm_energy = np.tile(np.array([6.0, 5.0, 4.0, 3.0, 2.0, 1.0]), (10, 1)) * np.arange(1, 11)[:, None]\ntargets = np.ones(20)\nlam = 0.01\nassert np.allclose(local_coupling_row(basis, m_deriv, m_energy, targets, lam), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-30.7",
+      "test_cases": [
+        "nx, ny, dx, m, q, lam = 21, 11, 0.0625, 4, 3, 0.0\nassert np.allclose(corner_influence_weight(nx, ny, dx, m, q, lam), target)",
+        "nx, ny, dx, m, q, lam = 9, 9, 0.125, 2, 3, 0.0\nassert np.allclose(corner_influence_weight(nx, ny, dx, m, q, lam), target)",
+        "nx, ny, dx, m, q, lam = 15, 15, 0.03125, 6, 3, 1e-8\nassert np.allclose(corner_influence_weight(nx, ny, dx, m, q, lam), target)"
+      ]
+    }
+  ]
+}

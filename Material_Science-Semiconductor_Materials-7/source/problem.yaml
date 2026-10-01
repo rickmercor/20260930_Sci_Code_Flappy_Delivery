@@ -1,0 +1,44 @@
+problem_id: "Material_Science-Semiconductor_Materials-7"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1039/D6TC00828C"
+dependencies: ""
+steps:
+  - number: 1
+    name: "Charge-state formation energies"
+    description: "Compute the formation energy of every listed charge state of one point defect at a Fermi level of zero, from the neutral-state formation energy and the thermodynamic transition levels."
+    orchestrator: false
+  - number: 2
+    name: "Band edges and densities of states"
+    description: "Return the conduction- and valence-band edge energies and the effective densities of states of the host at a given temperature, on the fixed electron-energy scale used by the defect calculation."
+    orchestrator: false
+  - number: 3
+    name: "Vibrational free-energy shift"
+    description: "Return the vibrational free-energy contribution to the formation free energy of each defect at a given temperature, from the net number of atoms the defect adds to or removes from the crystal."
+    orchestrator: false
+  - number: 4
+    name: "Open charge-state concentrations"
+    description: "Compute the equilibrium concentration of every charge state of every defect at a given temperature, Fermi level and dopant chemical potential, for defects that are free to exchange atoms with their surroundings."
+    orchestrator: false
+  - number: 5
+    name: "Remaining diffusion length"
+    description: "Return the diffusion length a defect can still accumulate while the sample cools at a constant rate from a given temperature down to the end of the cooling path."
+    orchestrator: false
+  - number: 6
+    name: "Freeze-in temperature"
+    description: "Return the temperature at which a defect species stops equilibrating during linear cooling of a polycrystalline film, given its migration energy, its diffusion prefactor, the cooling rate and the grain size."
+    orchestrator: false
+  - number: 7
+    name: "Partial-equilibrium state"
+    description: "Solve for the Fermi level, free-carrier densities and defect totals of a doped semiconductor in partial equilibrium at one temperature, where some defect species are frozen at fixed total concentrations and the rest are still free to equilibrate."
+    orchestrator: false
+  - number: 8
+    name: "Sequential freeze-in totals"
+    description: "Return the total concentration of every defect species retained after a doped polycrystalline film is cooled at a constant rate, when each species freezes in at its own temperature."
+    orchestrator: false
+  - number: 9
+    name: "Dopant activation ratio (orchestrator)"
+    description: "Return the room-temperature dopant activation ratio, the hole density divided by the total dopant concentration, of an acceptor-doped polycrystalline film after linear cooling with species-by-species defect freeze-in."
+    orchestrator: true

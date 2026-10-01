@@ -1,47 +1,50 @@
-# Delivery manifest — 2026-09-30 SciCode Flappy delivery (582/600 tasks)
+# Delivery manifest — 2026-09-30 SciCode Flappy delivery (600/600 tasks)
 
-Target distribution comes from the "600" tab of the delivery planning sheet. Every task
-here passed a REAL `harbor run -a oracle` (reward 1.000) and `harbor run -a nop` (reward
-0.000) check - not just packaging + crosscheck agreement, which was found to miss real
-grading failures during this delivery (see below). This is a second, expanded pass: the
-first pass landed 561/600; an additional pool-expansion sweep (re-verifying previously-
-unconfirmed `recompute_failed` tasks and a handful of oddly-named tasks outside the
-standard naming convention, all restricted to the 7 short subfields) found 21 more
-verified-good tasks, bringing the total to 582.
+Target distribution comes from the "600" tab of the delivery planning sheet. Every
+task here passed a REAL `harbor run -a oracle` (reward 1.000) and `harbor run -a nop`
+(reward 0.000) check.
+
+**5 subfields ran out of real-verified tasks** (18 total short of their individual
+targets) even after an expansion pass. Per explicit instruction, the shortfall was
+filled with extra, over-target tasks from 8 subfields that had surplus beyond their
+own target, so the delivery totals exactly 600 — but the per-subfield SPLIT no longer
+exactly matches the sheet for those 13 subfields. The 5 genuinely-short subfields
+(listed below) could not be fixed this way, since no amount of surplus elsewhere
+substitutes for a task that has to belong to that specific subfield.
 
 ## Per-subfield counts
 
-| Field | Subfield | Target | Delivered | Status |
+| Field | Subfield | Sheet target | Delivered | Note |
 |---|---|---|---|---|
-| Physics | Condensed Matter Physics | 37 | 35 | **SHORT by 2** |
-| Physics | Optics | 37 | 37 | OK |
-| Physics | Quantum Information / Computing | 30 | 30 | OK |
-| Physics | Computational Physics | 26 | 26 | OK |
-| Physics | Astrophysics | 26 | 26 | OK |
-| Physics | Particle Physics | 26 | 26 | OK |
-| Mathematics | Numerical Linear Algebra | 41 | 41 | OK |
-| Mathematics | Computational Mechanics | 37 | 37 | OK |
-| Mathematics | Computational Finance | 30 | 30 | OK |
-| Chemistry | Quantum Chemistry | 55 | 54 | **SHORT by 1** |
-| Chemistry | Computational Chemistry | 53 | 48 | **SHORT by 5** |
-| Biology | Ecology | 37 | 35 | **SHORT by 2** |
-| Biology | Biochemistry | 33 | 33 | OK |
-| Biology | Genetics | 32 | 32 | OK |
-| Material Science | Semiconductor Materials | 50 | 50 | OK |
-| Material Science | Molecular Modeling | 50 | 42 | **SHORT by 8** |
-| **Total** | **16 subfields** | **600** | **582** | **short 18** |
+| Physics | Condensed Matter Physics | 37 | 35 | **short 2 — pool exhausted** |
+| Physics | Optics | 37 | 37 | exact |
+| Physics | Quantum Information / Computing | 30 | 30 | exact |
+| Physics | Computational Physics | 26 | 27 | filled to 27 (+1 over target, used to backfill the 5 short subfields) |
+| Physics | Astrophysics | 26 | 28 | filled to 28 (+2 over target, used to backfill the 5 short subfields) |
+| Physics | Particle Physics | 26 | 26 | exact |
+| Mathematics | Numerical Linear Algebra | 41 | 45 | filled to 45 (+4 over target, used to backfill the 5 short subfields) |
+| Mathematics | Computational Mechanics | 37 | 39 | filled to 39 (+2 over target, used to backfill the 5 short subfields) |
+| Mathematics | Computational Finance | 30 | 32 | filled to 32 (+2 over target, used to backfill the 5 short subfields) |
+| Chemistry | Quantum Chemistry | 55 | 54 | **short 1 — pool exhausted** |
+| Chemistry | Computational Chemistry | 53 | 48 | **short 5 — pool exhausted** |
+| Biology | Ecology | 37 | 35 | **short 2 — pool exhausted** |
+| Biology | Biochemistry | 33 | 35 | filled to 35 (+2 over target, used to backfill the 5 short subfields) |
+| Biology | Genetics | 32 | 34 | filled to 34 (+2 over target, used to backfill the 5 short subfields) |
+| Material Science | Semiconductor Materials | 50 | 53 | filled to 53 (+3 over target, used to backfill the 5 short subfields) |
+| Material Science | Molecular Modeling | 50 | 42 | **short 8 — pool exhausted** |
+| **Total** | **16 subfields** | **600** | **600** | |
 
-## Remaining shortfall subfields
+## The 5 subfields still short against their own sheet target
 
-- **Physics — Condensed Matter Physics**: 35/37 (short 2). No more real-harbor-verified tasks available in this subfield's pool as of 2026-09-30.
-- **Chemistry — Quantum Chemistry**: 54/55 (short 1). No more real-harbor-verified tasks available in this subfield's pool as of 2026-09-30.
-- **Chemistry — Computational Chemistry**: 48/53 (short 5). No more real-harbor-verified tasks available in this subfield's pool as of 2026-09-30.
-- **Biology — Ecology**: 35/37 (short 2). No more real-harbor-verified tasks available in this subfield's pool as of 2026-09-30. A candidate fix (`Biology-Ecology-30`, a non-standard gold-leak shape) was in progress at delivery time and may close 1 of this gap if it lands clean.
-- **Material Science — Molecular Modeling**: 42/50 (short 8). No more real-harbor-verified tasks available in this subfield's pool as of 2026-09-30.
+- **Physics — Condensed Matter Physics**: 35/37 (short 2). No more real-harbor-verified tasks available in this subfield's pool as of 2026-10-01. 19 fix attempts for a newly-identified defect class ("freeze stops at an earlier step") were in flight at delivery time targeting exactly these subfields; closing the gap fully depends on how many land.
+- **Chemistry — Quantum Chemistry**: 54/55 (short 1). No more real-harbor-verified tasks available in this subfield's pool as of 2026-10-01. 19 fix attempts for a newly-identified defect class ("freeze stops at an earlier step") were in flight at delivery time targeting exactly these subfields; closing the gap fully depends on how many land.
+- **Chemistry — Computational Chemistry**: 48/53 (short 5). No more real-harbor-verified tasks available in this subfield's pool as of 2026-10-01. 19 fix attempts for a newly-identified defect class ("freeze stops at an earlier step") were in flight at delivery time targeting exactly these subfields; closing the gap fully depends on how many land.
+- **Biology — Ecology**: 35/37 (short 2). No more real-harbor-verified tasks available in this subfield's pool as of 2026-10-01. 19 fix attempts for a newly-identified defect class ("freeze stops at an earlier step") were in flight at delivery time targeting exactly these subfields; closing the gap fully depends on how many land.
+- **Material Science — Molecular Modeling**: 42/50 (short 8). No more real-harbor-verified tasks available in this subfield's pool as of 2026-10-01. 19 fix attempts for a newly-identified defect class ("freeze stops at an earlier step") were in flight at delivery time targeting exactly these subfields; closing the gap fully depends on how many land.
 
 ## Task list by subfield
 
-### Physics — Condensed Matter Physics (35/37)
+### Physics — Condensed Matter Physics (35, sheet target 37)
 
 - `Physics-Condensed_Matter_Physics-10`
 - `Physics-Condensed_Matter_Physics-11`
@@ -79,7 +82,7 @@ verified-good tasks, bringing the total to 582.
 - `Physics-Condensed_Matter_Physics-8`
 - `Physics__Condensed_Matter_Physics__nlce_one_magnon_energy`
 
-### Physics — Optics (37/37)
+### Physics — Optics (37, sheet target 37)
 
 - `Physics-Optics-1`
 - `Physics-Optics-10`
@@ -119,7 +122,7 @@ verified-good tasks, bringing the total to 582.
 - `Physics-Optics-9`
 - `Physics__Optics__taguchi_mixed_robust_20260827`
 
-### Physics — Quantum Information / Computing (30/30)
+### Physics — Quantum Information / Computing (30, sheet target 30)
 
 - `Physics-Quantum_Information_Computing-1`
 - `Physics-Quantum_Information_Computing-12`
@@ -152,7 +155,7 @@ verified-good tasks, bringing the total to 582.
 - `Physics-Quantum_Information_Computing-7`
 - `Physics-Quantum_Information_Computing-9`
 
-### Physics — Computational Physics (26/26)
+### Physics — Computational Physics (27, sheet target 26) [includes over-target backfill]
 
 - `Physics-Computational_Physics-1`
 - `Physics-Computational_Physics-10`
@@ -168,6 +171,7 @@ verified-good tasks, bringing the total to 582.
 - `Physics-Computational_Physics-24`
 - `Physics-Computational_Physics-25`
 - `Physics-Computational_Physics-26`
+- `Physics-Computational_Physics-27`  *(over-target backfill)*
 - `Physics-Computational_Physics-29`
 - `Physics-Computational_Physics-3`
 - `Physics-Computational_Physics-30`
@@ -181,7 +185,7 @@ verified-good tasks, bringing the total to 582.
 - `Physics-Computational_Physics-7`
 - `Physics-Computational_Physics-9`
 
-### Physics — Astrophysics (26/26)
+### Physics — Astrophysics (28, sheet target 26) [includes over-target backfill]
 
 - `Physics-Astrophysics-1`
 - `Physics-Astrophysics-10`
@@ -199,8 +203,10 @@ verified-good tasks, bringing the total to 582.
 - `Physics-Astrophysics-28`
 - `Physics-Astrophysics-3`
 - `Physics-Astrophysics-30`
+- `Physics-Astrophysics-31`  *(over-target backfill)*
 - `Physics-Astrophysics-32`
 - `Physics-Astrophysics-33`
+- `Physics-Astrophysics-35`  *(over-target backfill)*
 - `Physics-Astrophysics-36`
 - `Physics-Astrophysics-37`
 - `Physics-Astrophysics-40`
@@ -210,7 +216,7 @@ verified-good tasks, bringing the total to 582.
 - `Physics-Astrophysics-8`
 - `Physics-Astrophysics-9`
 
-### Physics — Particle Physics (26/26)
+### Physics — Particle Physics (26, sheet target 26)
 
 - `Physics-Particle_Physics-10`
 - `Physics-Particle_Physics-11`
@@ -239,7 +245,7 @@ verified-good tasks, bringing the total to 582.
 - `Physics-Particle_Physics-8`
 - `Physics-Particle_Physics-9`
 
-### Mathematics — Numerical Linear Algebra (41/41)
+### Mathematics — Numerical Linear Algebra (45, sheet target 41) [includes over-target backfill]
 
 - `Mathematics-Numerical_Linear_Algebra-1`
 - `Mathematics-Numerical_Linear_Algebra-10`
@@ -250,8 +256,10 @@ verified-good tasks, bringing the total to 582.
 - `Mathematics-Numerical_Linear_Algebra-19`
 - `Mathematics-Numerical_Linear_Algebra-2`
 - `Mathematics-Numerical_Linear_Algebra-20`
+- `Mathematics-Numerical_Linear_Algebra-22`  *(over-target backfill)*
 - `Mathematics-Numerical_Linear_Algebra-24`
 - `Mathematics-Numerical_Linear_Algebra-26`
+- `Mathematics-Numerical_Linear_Algebra-27`  *(over-target backfill)*
 - `Mathematics-Numerical_Linear_Algebra-28`
 - `Mathematics-Numerical_Linear_Algebra-3`
 - `Mathematics-Numerical_Linear_Algebra-30`
@@ -259,6 +267,7 @@ verified-good tasks, bringing the total to 582.
 - `Mathematics-Numerical_Linear_Algebra-32`
 - `Mathematics-Numerical_Linear_Algebra-33`
 - `Mathematics-Numerical_Linear_Algebra-34`
+- `Mathematics-Numerical_Linear_Algebra-35`  *(over-target backfill)*
 - `Mathematics-Numerical_Linear_Algebra-37`
 - `Mathematics-Numerical_Linear_Algebra-39`
 - `Mathematics-Numerical_Linear_Algebra-4`
@@ -266,6 +275,7 @@ verified-good tasks, bringing the total to 582.
 - `Mathematics-Numerical_Linear_Algebra-42`
 - `Mathematics-Numerical_Linear_Algebra-44`
 - `Mathematics-Numerical_Linear_Algebra-45`
+- `Mathematics-Numerical_Linear_Algebra-46`  *(over-target backfill)*
 - `Mathematics-Numerical_Linear_Algebra-47`
 - `Mathematics-Numerical_Linear_Algebra-48`
 - `Mathematics-Numerical_Linear_Algebra-5`
@@ -283,7 +293,7 @@ verified-good tasks, bringing the total to 582.
 - `Mathematics-Numerical_Linear_Algebra-62`
 - `Mathematics-Numerical_Linear_Algebra-7`
 
-### Mathematics — Computational Mechanics (37/37)
+### Mathematics — Computational Mechanics (39, sheet target 37) [includes over-target backfill]
 
 - `Mathematics-Computational_Mechanics-1`
 - `Mathematics-Computational_Mechanics-10`
@@ -301,7 +311,9 @@ verified-good tasks, bringing the total to 582.
 - `Mathematics-Computational_Mechanics-26`
 - `Mathematics-Computational_Mechanics-27`
 - `Mathematics-Computational_Mechanics-28`
+- `Mathematics-Computational_Mechanics-30`  *(over-target backfill)*
 - `Mathematics-Computational_Mechanics-31`
+- `Mathematics-Computational_Mechanics-32`  *(over-target backfill)*
 - `Mathematics-Computational_Mechanics-33`
 - `Mathematics-Computational_Mechanics-34`
 - `Mathematics-Computational_Mechanics-37`
@@ -323,7 +335,7 @@ verified-good tasks, bringing the total to 582.
 - `Mathematics-Computational_Mechanics-7`
 - `Mathematics-Computational_Mechanics-9`
 
-### Mathematics — Computational Finance (30/30)
+### Mathematics — Computational Finance (32, sheet target 30) [includes over-target backfill]
 
 - `Mathematics-Computational_Finance-1`
 - `Mathematics-Computational_Finance-12`
@@ -344,19 +356,21 @@ verified-good tasks, bringing the total to 582.
 - `Mathematics-Computational_Finance-30`
 - `Mathematics-Computational_Finance-31`
 - `Mathematics-Computational_Finance-32`
+- `Mathematics-Computational_Finance-33`  *(over-target backfill)*
 - `Mathematics-Computational_Finance-36`
 - `Mathematics-Computational_Finance-37`
 - `Mathematics-Computational_Finance-39`
 - `Mathematics-Computational_Finance-4`
 - `Mathematics-Computational_Finance-41`
 - `Mathematics-Computational_Finance-42`
+- `Mathematics-Computational_Finance-43`  *(over-target backfill)*
 - `Mathematics-Computational_Finance-44`
 - `Mathematics-Computational_Finance-5`
 - `Mathematics-Computational_Finance-6`
 - `Mathematics-Computational_Finance-8`
 - `Mathematics-Computational_Finance-9`
 
-### Chemistry — Quantum Chemistry (54/55)
+### Chemistry — Quantum Chemistry (54, sheet target 55)
 
 - `Chemistry-Quantum_Chemistry-1`
 - `Chemistry-Quantum_Chemistry-12`
@@ -413,7 +427,7 @@ verified-good tasks, bringing the total to 582.
 - `Chemistry-Quantum_Chemistry-82`
 - `Chemistry-Quantum_Chemistry-9`
 
-### Chemistry — Computational Chemistry (48/53)
+### Chemistry — Computational Chemistry (48, sheet target 53)
 
 - `Chemistry-Computational_Chemistry-1`
 - `Chemistry-Computational_Chemistry-10`
@@ -464,7 +478,7 @@ verified-good tasks, bringing the total to 582.
 - `Chemistry__Computational_Chemistry__debye_huckel_mean_activity_coefficient`
 - `Chemistry__Computational_Chemistry__task_tbkmae0e`
 
-### Biology — Ecology (35/37)
+### Biology — Ecology (35, sheet target 37)
 
 - `Biology-Ecology-1`
 - `Biology-Ecology-10`
@@ -502,12 +516,13 @@ verified-good tasks, bringing the total to 582.
 - `Biology-Ecology-8`
 - `Biology-Ecology-9`
 
-### Biology — Biochemistry (33/33)
+### Biology — Biochemistry (35, sheet target 33) [includes over-target backfill]
 
 - `Biology-Biochemistry-1`
 - `Biology-Biochemistry-11`
 - `Biology-Biochemistry-13`
 - `Biology-Biochemistry-14`
+- `Biology-Biochemistry-15`  *(over-target backfill)*
 - `Biology-Biochemistry-18`
 - `Biology-Biochemistry-20`
 - `Biology-Biochemistry-21`
@@ -528,6 +543,7 @@ verified-good tasks, bringing the total to 582.
 - `Biology-Biochemistry-39`
 - `Biology-Biochemistry-4`
 - `Biology-Biochemistry-40`
+- `Biology-Biochemistry-42`  *(over-target backfill)*
 - `Biology-Biochemistry-44`
 - `Biology-Biochemistry-45`
 - `Biology-Biochemistry-47`
@@ -538,7 +554,7 @@ verified-good tasks, bringing the total to 582.
 - `Biology-Biochemistry-8`
 - `Biology-Biochemistry-9`
 
-### Biology — Genetics (32/32)
+### Biology — Genetics (34, sheet target 32) [includes over-target backfill]
 
 - `Biology-Genetics-1`
 - `Biology-Genetics-10`
@@ -550,6 +566,7 @@ verified-good tasks, bringing the total to 582.
 - `Biology-Genetics-16`
 - `Biology-Genetics-18`
 - `Biology-Genetics-19`
+- `Biology-Genetics-2`  *(over-target backfill)*
 - `Biology-Genetics-24`
 - `Biology-Genetics-25`
 - `Biology-Genetics-26`
@@ -560,6 +577,7 @@ verified-good tasks, bringing the total to 582.
 - `Biology-Genetics-33`
 - `Biology-Genetics-34`
 - `Biology-Genetics-35`
+- `Biology-Genetics-36`  *(over-target backfill)*
 - `Biology-Genetics-39`
 - `Biology-Genetics-40`
 - `Biology-Genetics-42`
@@ -573,15 +591,17 @@ verified-good tasks, bringing the total to 582.
 - `Biology-Genetics-7`
 - `Biology-Genetics-8`
 
-### Material Science — Semiconductor Materials (50/50)
+### Material Science — Semiconductor Materials (53, sheet target 50) [includes over-target backfill]
 
 - `Material_Science-Semiconductor_Materials-1`
+- `Material_Science-Semiconductor_Materials-11`  *(over-target backfill)*
 - `Material_Science-Semiconductor_Materials-12`
 - `Material_Science-Semiconductor_Materials-13`
 - `Material_Science-Semiconductor_Materials-14`
 - `Material_Science-Semiconductor_Materials-15`
 - `Material_Science-Semiconductor_Materials-16`
 - `Material_Science-Semiconductor_Materials-18`
+- `Material_Science-Semiconductor_Materials-19`  *(over-target backfill)*
 - `Material_Science-Semiconductor_Materials-2`
 - `Material_Science-Semiconductor_Materials-20`
 - `Material_Science-Semiconductor_Materials-21`
@@ -616,6 +636,7 @@ verified-good tasks, bringing the total to 582.
 - `Material_Science-Semiconductor_Materials-63`
 - `Material_Science-Semiconductor_Materials-66`
 - `Material_Science-Semiconductor_Materials-67`
+- `Material_Science-Semiconductor_Materials-7`  *(over-target backfill)*
 - `Material_Science-Semiconductor_Materials-70`
 - `Material_Science-Semiconductor_Materials-71`
 - `Material_Science-Semiconductor_Materials-72`
@@ -626,7 +647,7 @@ verified-good tasks, bringing the total to 582.
 - `Materials__Semiconductor_Materials__cryo_fet_band_tail_carrier_statistics`
 - `Materials__Semiconductor_Materials__osc`
 
-### Material Science — Molecular Modeling (42/50)
+### Material Science — Molecular Modeling (42, sheet target 50)
 
 - `Material_Science-Molecular_Modeling-11`
 - `Material_Science-Molecular_Modeling-12`

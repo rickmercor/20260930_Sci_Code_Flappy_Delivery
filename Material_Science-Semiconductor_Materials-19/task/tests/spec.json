@@ -1,0 +1,105 @@
+{
+  "problem_id": "Material_Science-Semiconductor_Materials-19",
+  "sub_steps": [
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-19.1",
+      "test_cases": [
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.18, 5.5, 2.2, 0.12, 12.0])\ns_eval = np.array([2.0, 4.0, 8.0, 12.0])\nassert np.allclose(seb_response(params.copy(), 0.70, s_eval.copy()), target)",
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.18, 5.5, 2.2, 0.12, 12.0])\ns_eval = np.array([3.0, 6.0, 9.0, 12.0])\nassert np.allclose(seb_response(params.copy(), 0.85, s_eval.copy()), target)",
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.25, 0.35, 1.0, 0.15, 0.25, 5.2, 2.2, 0.12, 12.0])\ns_eval = np.array([1.0, 2.5, 5.0, 10.0])\nassert np.allclose(seb_response(params.copy(), 0.9, s_eval.copy()), target)",
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.0, 1.0, 0.16, 0.18, 5.5, 2.2, 0.12, 12.0])\n# boundary: the fixed-field limit, in which carrier-induced field redistribution is switched off\ns_eval = np.array([2.0, 6.0, 12.0])\nassert np.allclose(seb_response(params.copy(), 0.8, s_eval.copy()), target)",
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.18, 5.5, 2.2, 0.12, 12.0])\n# invalid input: an evaluation time beyond the observation window must raise ValueError\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: seb_response(params.copy(), 0.7, np.array([2.0, 13.0]))), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-19.2",
+      "test_cases": [
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.18, 5.5, 2.2, 0.12, 12.0])\nassert np.allclose(seb_indicators(params.copy(), 0.70), target)",
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.18, 5.5, 2.2, 0.12, 12.0])\nassert np.allclose(seb_indicators(params.copy(), 0.85), target)",
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.18, 5.5, 2.2, 0.12, 20.0])\n# the temperature peaks inside this window, so the time of the maximum is compared at 1e-6\nassert np.allclose(seb_indicators(params.copy(), 0.72), target)",
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.18, 5.5, 2.2, 0.12, 12.0])\n# boundary: no strike at all, so nothing is deposited and the temperature never leaves the ambient value\nassert np.allclose(seb_indicators(params.copy(), 0.0), target)",
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.18, 5.5, 2.2, 0.12, 12.0])\n# invalid input: a negative ionisation strength is not a carrier source and must raise ValueError\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: seb_indicators(params.copy(), -0.2)), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-19.3",
+      "test_cases": [
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.18, 5.5, 2.2, 0.12, 12.0])\nassert np.allclose(seb_threshold(params.copy()), target)",
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.28, 5.5, 2.2, 0.12, 12.0])\nassert np.allclose(seb_threshold(params.copy()), target)",
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.25, 0.35, 1.0, 0.15, 0.25, 5.2, 2.2, 0.12, 12.0])\nassert np.allclose(seb_threshold(params.copy()), target)",
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.18, 5.5, 2.2, 0.12, 20.0])\n# boundary: a window long enough to contain the temperature peak, where the two thresholds coincide\nassert np.allclose(seb_threshold(params.copy()), target)",
+        "import numpy as np\n# invalid input: an observation window that closes before the ionisation pulse must raise ValueError\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.18, 5.5, 2.2, 0.12, 1.5])\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: seb_threshold(params.copy())), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-19.4",
+      "test_cases": [
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.18, 5.5, 2.2, 0.12, 12.0])\nassert np.allclose(seb_feedback_boundary(params.copy(), 0.85, 0.18), target)",
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.18, 5.5, 2.2, 0.12, 12.0])\nassert np.allclose(seb_feedback_boundary(params.copy(), 0.85, 0.30), target)",
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.25, 0.35, 1.0, 0.15, 0.25, 5.2, 2.2, 0.12, 12.0])\nassert np.allclose(seb_feedback_boundary(params.copy(), 0.9, 0.15), target)",
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.18, 5.5, 2.2, 0.12, 12.0])\n# boundary: the fixed-field limit with no carrier-induced field redistribution\nparams[3] = 0.0\nassert np.allclose(seb_feedback_boundary(params.copy(), 0.85, 0.18), target)",
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.18, 5.5, 2.2, 0.12, 12.0])\n# invalid input: a vanishing relaxation strength is outside the model and must raise ValueError\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: seb_feedback_boundary(params.copy(), 0.85, 0.0)), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-19.5",
+      "test_cases": [
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.18, 5.5, 2.2, 0.12, 12.0])\ns_eval = np.array([2.0, 4.0, 8.0, 12.0])\nassert np.allclose(seb_linear_noise(params.copy(), 0.70, s_eval.copy()), target)",
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.18, 5.5, 2.2, 0.12, 12.0])\ns_eval = np.array([6.0, 12.0])\nassert np.allclose(seb_linear_noise(params.copy(), 0.85, s_eval.copy()), target)",
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.25, 0.35, 1.0, 0.15, 0.25, 5.2, 2.2, 0.12, 12.0])\ns_eval = np.array([3.0, 7.0, 12.0])\nassert np.allclose(seb_linear_noise(params.copy(), 0.9, s_eval.copy()), target)",
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.18, 5.5, 2.2, 0.12, 12.0])\n# boundary: before the pulse only the additive thermal noise acts, so the carrier covariance stays zero\ns_eval = np.array([0.5, 1.0])\nassert np.allclose(seb_linear_noise(params.copy(), 0.70, s_eval.copy()), target)",
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.18, 5.5, 2.2, 0.12, 12.0])\n# invalid input: a negative evaluation time precedes the strike protocol and must raise ValueError\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: seb_linear_noise(params.copy(), 0.70, np.array([-1.0, 4.0]))), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-19.6",
+      "test_cases": [
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.18, 5.5, 2.2, 0.12, 12.0])\nassert np.allclose(seb_gaussian_burnout(params.copy(), 0.70, 0.08), target)",
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.18, 5.5, 2.2, 0.12, 12.0])\n# a runaway strike: the standardised margin peaks inside the window, so its time is compared at 1e-6\nassert np.allclose(seb_gaussian_burnout(params.copy(), 1.0, 0.08), target)",
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.28, 5.5, 2.2, 0.12, 12.0])\nassert np.allclose(seb_gaussian_burnout(params.copy(), 0.9, 0.12), target)",
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.18, 5.5, 2.2, 0.12, 20.0])\n# boundary: a window that contains the temperature peak, so the maximising time is interior and, being the location of a smooth maximum, is compared at 1e-6\nassert np.allclose(seb_gaussian_burnout(params.copy(), 0.72, 0.05), target)",
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.18, 5.5, 2.2, 0.12, 12.0])\n# invalid input: a vanishing noise amplitude has no Gaussian estimate and must raise ValueError\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: seb_gaussian_burnout(params.copy(), 0.70, 0.0)), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-19.7",
+      "test_cases": [
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.18, 5.5, 2.2, 0.12, 12.0])\nassert np.allclose(seb_gaussian_width(params.copy(), 0.08), target)",
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.18, 5.5, 2.2, 0.12, 12.0])\nassert np.allclose(seb_gaussian_width(params.copy(), 0.16), target)",
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.28, 5.5, 2.2, 0.12, 12.0])\nassert np.allclose(seb_gaussian_width(params.copy(), 0.10), target)",
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.18, 5.5, 2.2, 0.12, 12.0])\n# boundary: very weak noise, where the band shrinks onto the deterministic threshold\nassert np.allclose(seb_gaussian_width(params.copy(), 0.01), target)",
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.18, 5.5, 2.2, 0.12, 12.0])\n# invalid input: a negative noise amplitude must raise ValueError\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: seb_gaussian_width(params.copy(), -0.08)), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-19.8",
+      "test_cases": [
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.18, 5.5, 2.2, 0.12, 12.0])\nassert np.allclose(seb_instanton_action(params.copy(), 0.70, 12.0), target)",
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.18, 5.5, 2.2, 0.12, 12.0])\nassert np.allclose(seb_instanton_action(params.copy(), 0.70, 10.0), target)",
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.18, 5.5, 2.2, 0.12, 20.0])\nassert np.allclose(seb_instanton_action(params.copy(), 0.72, 15.0), target)",
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.18, 5.5, 2.2, 0.12, 12.0])\n# boundary: a strike above the deterministic threshold, where the boundary is reached with no fluctuation cost at the deterministic crossing time and the action is positive only because the crossing is forced earlier\nassert np.allclose(seb_instanton_action(params.copy(), 0.85, 8.0), target)",
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.18, 5.5, 2.2, 0.12, 12.0])\n# invalid input: a crossing time before the pulse centre must raise ValueError\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: seb_instanton_action(params.copy(), 0.70, 1.0)), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-19.9",
+      "test_cases": [
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.18, 5.5, 2.2, 0.12, 12.0])\nassert np.allclose(seb_subthreshold_rate(params.copy(), 0.70), target)",
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.18, 5.5, 2.2, 0.12, 12.0])\nassert np.allclose(seb_subthreshold_rate(params.copy(), 0.65), target)",
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.28, 5.5, 2.2, 0.12, 12.0])\nassert np.allclose(seb_subthreshold_rate(params.copy(), 0.80), target)",
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.18, 5.5, 2.2, 0.12, 20.0])\n# boundary: a window that contains the temperature peak, so the optimal crossing time is interior and fixed by the vanishing terminal Hamiltonian\nassert np.allclose(seb_subthreshold_rate(params.copy(), 0.68), target)",
+        "import numpy as np\n# invalid input: twelve parameters do not form the model's parameter vector and must raise ValueError\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.18, 5.5, 2.2, 0.12, 12.0, 0.0])\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: seb_subthreshold_rate(params.copy(), 0.70)), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-19.10",
+      "test_cases": [
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.18, 5.5, 2.2, 0.12, 12.0])\nassert np.allclose(seb_audit(params.copy(), 0.70, 0.08), target)",
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.28, 5.5, 2.2, 0.12, 12.0])\nassert np.allclose(seb_audit(params.copy(), 0.80, 0.10), target)",
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.25, 0.35, 1.0, 0.15, 0.25, 5.2, 2.2, 0.12, 12.0])\nassert np.allclose(seb_audit(params.copy(), 0.65, 0.06), target)",
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.18, 5.5, 2.2, 0.12, 20.0])\n# boundary: a window that contains the temperature peak, so the crossing-time optimum is interior\nassert np.allclose(seb_audit(params.copy(), 0.68, 0.05), target)",
+        "import numpy as np\nparams = np.array([2.0, 0.18, 1.20, 0.35, 1.0, 0.16, 0.18, 5.5, 2.2, 0.12, 12.0])\n# invalid input: a negative noise amplitude must raise ValueError\ndef _catches_value_error(fn):\n    try:\n        fn()\n    except ValueError:\n        return np.array([1.0])\n    return np.array([0.0])\nassert np.allclose(_catches_value_error(lambda: seb_audit(params.copy(), 0.70, -0.08)), target)"
+      ]
+    }
+  ]
+}
