@@ -1,0 +1,40 @@
+problem_id: "Mathematics-Numerical_Linear_Algebra-44"
+subject: "mathematics"
+subject_area: "Numerical Linear Algebra"
+difficulty: "medium"
+answer_type: "single_numeric"
+paper_doi: "10.1007/s10543-025-01101-9"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_construct_kernel_matrix"
+    description: "The tall Gaussian RBF data matrix A."
+    orchestrator: false
+  - number: 2
+    name: "02_build_sketch_operator"
+    description: "the deterministic subsampled trigonometric sketch operator."
+    orchestrator: false
+  - number: 3
+    name: "03_compute_sts_singular_values"
+    description: "the S^T S-singular values of A."
+    orchestrator: false
+  - number: 4
+    name: "04_compute_sts_right_factor"
+    description: "the right orthogonal factor V of the S^T S-SVD."
+    orchestrator: false
+  - number: 5
+    name: "05_form_nearest_sts_orthogonal"
+    description: "the nearest S^T S-orthogonal matrix P = W V^T."
+    orchestrator: false
+  - number: 6
+    name: "06_form_nearest_euclidean_orthogonal"
+    description: "the nearest Euclidean orthogonal matrix T (thin polar factor)"
+    orchestrator: false
+  - number: 7
+    name: "07_realized_embedding_distortion"
+    description: "the realized subspace-embedding distortion of S on Range(A)."
+    orchestrator: false
+  - number: 8
+    name: "08_orchestrate_sketched_polar_audit"
+    description: "the sketched-polar scaled gap ratio Xi."
+    orchestrator: true

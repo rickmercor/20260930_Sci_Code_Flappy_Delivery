@@ -1,0 +1,36 @@
+problem_id: "Material_Science-Semiconductor_Materials-44"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1103/1yqx-syzy"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_spin_orbit_hamiltonian"
+    description: "Build the spin-orbit part of the hole Hamiltonian in the coupled quasispin and hole-spin space."
+    orchestrator: false
+  - number: 2
+    name: "02_luttinger_kohn_matrices"
+    description: "Build the internal-space matrices of the Luttinger-Kohn kinetic energy, grouped by momentum dependence."
+    orchestrator: false
+  - number: 3
+    name: "03_momentum_matrix_elements"
+    description: "Assemble the matrix of the growth-direction momentum in the hard-wall envelope basis."
+    orchestrator: false
+  - number: 4
+    name: "04_hole_hamiltonian"
+    description: "Assemble the full confined-hole Hamiltonian for an arbitrary in-plane direction."
+    orchestrator: false
+  - number: 5
+    name: "05_topmost_subband_energy"
+    description: "Track the topmost Kramers subspace continuously along an in-plane momentum path."
+    orchestrator: false
+  - number: 6
+    name: "06_mixing_crossover_wavevector"
+    description: "Locate the nonzero recrossing on the continuously tracked Kramers branch."
+    orchestrator: false
+  - number: 7
+    name: "07_green_admixture_at_crossover"
+    description: "Report the gauge-invariant green content of the tracked Kramers branch at its recrossing."
+    orchestrator: true

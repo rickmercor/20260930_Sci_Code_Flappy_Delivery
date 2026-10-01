@@ -1,0 +1,36 @@
+problem_id: "Mathematics-Computational_Mechanics-24"
+subject: "mathematics"
+subject_area: "Computational Mechanics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2608.05881"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_arm_ratio_sum"
+    description: "Reduce one arm of the joint to the single dimensionless number it contributes to the interfacial compliance of the mid-plane cohesive element for a given fracture mode."
+    orchestrator: false
+  - number: 2
+    name: "02_resin_rich_penalty_stiffness"
+    description: "Convert the summed interface stress ratios of the two arms into the penalty stiffness of the structural cohesive element between them."
+    orchestrator: false
+  - number: 3
+    name: "03_mixed_mode_onset_separation"
+    description: "Locate damage onset along a proportional mixed-mode separation path through the quadratic interaction of the two interfacial strengths."
+    orchestrator: false
+  - number: 4
+    name: "04_mixed_mode_energy_ratio"
+    description: "Express the local mode ratio of the interface as the shear share of the interfacial energy along a proportional separation path."
+    orchestrator: false
+  - number: 5
+    name: "05_benzeggagh_kenane_toughness"
+    description: "Interpolate the two pure-mode interlaminar toughnesses to the mixed-mode toughness at the local mode ratio of the interface."
+    orchestrator: false
+  - number: 6
+    name: "06_bilinear_failure_separation"
+    description: "Close the bilinear traction-separation law by locating the effective separation at which the cohesive element loses all load-carrying capacity."
+    orchestrator: false
+  - number: 7
+    name: "07_optimal_reinforcement_failure_separation"
+    description: "Search all integer allocations of a fixed reinforcement-ply budget between the two outer faces of an asymmetric joint and return the largest complete-decohesion separation."
+    orchestrator: true

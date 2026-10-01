@@ -1,0 +1,97 @@
+{
+  "problem_id": "Chemistry-Quantum_Chemistry-27",
+  "sub_steps": [
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-27.1",
+      "test_cases": [
+        "import numpy as np\nrng = np.random.default_rng(0)\nx = rng.normal(size=28)\ny = rng.normal(size=6)\nassert np.allclose(unrestricted_orbitals(x.copy(), y.copy(), 8, 4), target)",
+        "import numpy as np\nrng = np.random.default_rng(1)\nx = 0.3 * rng.normal(size=15)\ny = 0.7 * rng.normal(size=15)\nassert np.allclose(unrestricted_orbitals(x.copy(), y.copy(), 6, 6), target)",
+        "import numpy as np\nx = np.linspace(-0.5, 0.5, 10)\ny = np.zeros(0)\nassert np.allclose(unrestricted_orbitals(x.copy(), y.copy(), 5, 1), target)",
+        "import numpy as np\nx = np.zeros(6)\ny = np.zeros(3)\nassert np.allclose(unrestricted_orbitals(x.copy(), y.copy(), 4, 3), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        unrestricted_orbitals(np.zeros(6), np.zeros(2), 4, 3)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-27.2",
+      "test_cases": [
+        "import numpy as np\nfrom scipy.linalg import expm\ndef ring(m, t):\n    h = np.zeros((m, m))\n    for i in range(m):\n        h[i, (i + 1) % m] = h[(i + 1) % m, i] = -t\n    return h\ndef rot(seed, m, scale):\n    a = np.random.default_rng(seed).normal(scale=scale, size=(m, m))\n    return expm(a - a.T)\nh = ring(8, 1.0)\ncu = rot(0, 8, 0.6)\ncd = cu @ rot(1, 8, 0.4)\norb = np.stack([cu, cd])\nassert np.allclose(seniority_coefficients(h.copy(), 4.0, orb.copy()), target)",
+        "import numpy as np\nfrom scipy.linalg import expm\ndef ring(m, t):\n    h = np.zeros((m, m))\n    for i in range(m):\n        h[i, (i + 1) % m] = h[(i + 1) % m, i] = -t\n    return h\ndef rot(seed, m, scale):\n    a = np.random.default_rng(seed).normal(scale=scale, size=(m, m))\n    return expm(a - a.T)\nh = np.diag([0.3, -0.2, 0.1, 0.0, 0.2, -0.1]) - np.diag([1.0, 0.8, 1.2, 0.9, 1.1], 1) - np.diag([1.0, 0.8, 1.2, 0.9, 1.1], -1)\norb = np.stack([rot(2, 6, 0.8), rot(3, 6, 0.8)])\nassert np.allclose(seniority_coefficients(h.copy(), 2.5, orb.copy()), target)",
+        "import numpy as np\nfrom scipy.linalg import expm\ndef ring(m, t):\n    h = np.zeros((m, m))\n    for i in range(m):\n        h[i, (i + 1) % m] = h[(i + 1) % m, i] = -t\n    return h\ndef rot(seed, m, scale):\n    a = np.random.default_rng(seed).normal(scale=scale, size=(m, m))\n    return expm(a - a.T)\nh = ring(6, 1.0)\nc = rot(4, 6, 0.9)\norb = np.stack([c, c])\nassert np.allclose(seniority_coefficients(h.copy(), 4.0, orb.copy()), target)",
+        "import numpy as np\nfrom scipy.linalg import expm\ndef ring(m, t):\n    h = np.zeros((m, m))\n    for i in range(m):\n        h[i, (i + 1) % m] = h[(i + 1) % m, i] = -t\n    return h\ndef rot(seed, m, scale):\n    a = np.random.default_rng(seed).normal(scale=scale, size=(m, m))\n    return expm(a - a.T)\nh = ring(4, 1.0)\norb = np.stack([np.eye(4), np.eye(4)])\nassert np.allclose(seniority_coefficients(h.copy(), 3.0, orb.copy()), target)",
+        "import numpy as np\nfrom scipy.linalg import expm\ndef ring(m, t):\n    h = np.zeros((m, m))\n    for i in range(m):\n        h[i, (i + 1) % m] = h[(i + 1) % m, i] = -t\n    return h\ndef rot(seed, m, scale):\n    a = np.random.default_rng(seed).normal(scale=scale, size=(m, m))\n    return expm(a - a.T)\nrng = np.random.default_rng(51)\na = rng.normal(scale=0.45, size=(5, 5))\nh = 0.5 * (a + a.T)\norb = np.stack([rot(52, 5, 0.55), rot(53, 5, 0.75)])\nassert np.allclose(seniority_coefficients(h.copy(), 1.7, orb.copy()), target)",
+        "import numpy as np\nfrom scipy.linalg import expm\ndef ring(m, t):\n    h = np.zeros((m, m))\n    for i in range(m):\n        h[i, (i + 1) % m] = h[(i + 1) % m, i] = -t\n    return h\ndef rot(seed, m, scale):\n    a = np.random.default_rng(seed).normal(scale=scale, size=(m, m))\n    return expm(a - a.T)\nrng = np.random.default_rng(61)\na = rng.normal(scale=0.35, size=(7, 7))\nh = 0.5 * (a + a.T)\norb = np.stack([rot(62, 7, 0.35), rot(63, 7, 0.95)])\nassert np.allclose(seniority_coefficients(h.copy(), 3.3, orb.copy()), target)",
+        "import numpy as np\nfrom scipy.linalg import expm\ndef ring(m, t):\n    h = np.zeros((m, m))\n    for i in range(m):\n        h[i, (i + 1) % m] = h[(i + 1) % m, i] = -t\n    return h\ndef rot(seed, m, scale):\n    a = np.random.default_rng(seed).normal(scale=scale, size=(m, m))\n    return expm(a - a.T)\nrng = np.random.default_rng(71)\na = rng.normal(scale=0.4, size=(5, 5))\nh = 0.5 * (a + a.T)\norb = np.stack([rot(72, 5, 0.6), rot(73, 5, 0.4)])\nassert np.allclose(seniority_coefficients(h.copy(), 0.0, orb.copy()), target)",
+        "import numpy as np\nh = np.array([[0.0, -1.0], [-0.5, 0.0]])\norb = np.stack([np.eye(2), np.eye(2)])\ndef run_model():\n    try:\n        seniority_coefficients(h.copy(), 1.0, orb.copy())\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-27.3",
+      "test_cases": [
+        "assert np.allclose(seniority_sector_basis(4, 1, 4, 2), target)",
+        "assert np.allclose(seniority_sector_basis(0, 0, 6, 3), target)",
+        "assert np.allclose(seniority_sector_basis(6, 3, 0, 0), target)",
+        "assert np.allclose(seniority_sector_basis(2, 2, 4, 3), target)",
+        "def run_model():\n    try:\n        seniority_sector_basis(2, 3, 2, 1)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-27.4",
+      "test_cases": [
+        "import numpy as np\nimport itertools\ndef sector(p, npair, k, nup):\n    rows = []\n    for occ in itertools.combinations(range(p), npair):\n        for ups in itertools.combinations(range(k), nup):\n            r = np.zeros(p + k, dtype=int); r[list(occ)] = 2\n            s = -np.ones(k, dtype=int); s[list(ups)] = 1; r[p:] = s\n            rows.append(r)\n    return np.array(rows, dtype=int).reshape(-1, p + k)\ndef coefs(seed, m):\n    rng = np.random.default_rng(seed)\n    sym = lambda a: 0.5 * (a + a.T)\n    off = 1.0 - np.eye(m)\n    return np.stack([np.diag(rng.normal(size=m)), np.diag(rng.normal(size=m)), sym(rng.normal(size=(m, m))),\n                     sym(rng.normal(size=(m, m))) * off, sym(rng.normal(size=(m, m))) * off,\n                     sym(rng.normal(size=(m, m))) * off, rng.normal(size=(m, m)) * off])\nc = coefs(0, 8)\nb = sector(4, 1, 4, 2)\nassert np.allclose(seci_hamiltonian(c.copy(), b.copy()), target)",
+        "import numpy as np\nimport itertools\ndef sector(p, npair, k, nup):\n    rows = []\n    for occ in itertools.combinations(range(p), npair):\n        for ups in itertools.combinations(range(k), nup):\n            r = np.zeros(p + k, dtype=int); r[list(occ)] = 2\n            s = -np.ones(k, dtype=int); s[list(ups)] = 1; r[p:] = s\n            rows.append(r)\n    return np.array(rows, dtype=int).reshape(-1, p + k)\ndef coefs(seed, m):\n    rng = np.random.default_rng(seed)\n    sym = lambda a: 0.5 * (a + a.T)\n    off = 1.0 - np.eye(m)\n    return np.stack([np.diag(rng.normal(size=m)), np.diag(rng.normal(size=m)), sym(rng.normal(size=(m, m))),\n                     sym(rng.normal(size=(m, m))) * off, sym(rng.normal(size=(m, m))) * off,\n                     sym(rng.normal(size=(m, m))) * off, rng.normal(size=(m, m)) * off])\nc = coefs(1, 6)\nb = sector(0, 0, 6, 3)\nassert np.allclose(seci_hamiltonian(c.copy(), b.copy()), target)",
+        "import numpy as np\nimport itertools\ndef sector(p, npair, k, nup):\n    rows = []\n    for occ in itertools.combinations(range(p), npair):\n        for ups in itertools.combinations(range(k), nup):\n            r = np.zeros(p + k, dtype=int); r[list(occ)] = 2\n            s = -np.ones(k, dtype=int); s[list(ups)] = 1; r[p:] = s\n            rows.append(r)\n    return np.array(rows, dtype=int).reshape(-1, p + k)\ndef coefs(seed, m):\n    rng = np.random.default_rng(seed)\n    sym = lambda a: 0.5 * (a + a.T)\n    off = 1.0 - np.eye(m)\n    return np.stack([np.diag(rng.normal(size=m)), np.diag(rng.normal(size=m)), sym(rng.normal(size=(m, m))),\n                     sym(rng.normal(size=(m, m))) * off, sym(rng.normal(size=(m, m))) * off,\n                     sym(rng.normal(size=(m, m))) * off, rng.normal(size=(m, m)) * off])\nc = coefs(2, 5)\nb = sector(5, 2, 0, 0)\nassert np.allclose(seci_hamiltonian(c.copy(), b.copy()), target)",
+        "import numpy as np\nimport itertools\ndef sector(p, npair, k, nup):\n    rows = []\n    for occ in itertools.combinations(range(p), npair):\n        for ups in itertools.combinations(range(k), nup):\n            r = np.zeros(p + k, dtype=int); r[list(occ)] = 2\n            s = -np.ones(k, dtype=int); s[list(ups)] = 1; r[p:] = s\n            rows.append(r)\n    return np.array(rows, dtype=int).reshape(-1, p + k)\ndef coefs(seed, m):\n    rng = np.random.default_rng(seed)\n    sym = lambda a: 0.5 * (a + a.T)\n    off = 1.0 - np.eye(m)\n    return np.stack([np.diag(rng.normal(size=m)), np.diag(rng.normal(size=m)), sym(rng.normal(size=(m, m))),\n                     sym(rng.normal(size=(m, m))) * off, sym(rng.normal(size=(m, m))) * off,\n                     sym(rng.normal(size=(m, m))) * off, rng.normal(size=(m, m)) * off])\nc = coefs(3, 6)\nb = sector(2, 2, 4, 3)\nassert np.allclose(seci_hamiltonian(c.copy(), b.copy()), target)",
+        "import numpy as np\nimport itertools\ndef sector(p, npair, k, nup):\n    rows = []\n    for occ in itertools.combinations(range(p), npair):\n        for ups in itertools.combinations(range(k), nup):\n            r = np.zeros(p + k, dtype=int); r[list(occ)] = 2\n            s = -np.ones(k, dtype=int); s[list(ups)] = 1; r[p:] = s\n            rows.append(r)\n    return np.array(rows, dtype=int).reshape(-1, p + k)\ndef coefs(seed, m):\n    rng = np.random.default_rng(seed)\n    sym = lambda a: 0.5 * (a + a.T)\n    off = 1.0 - np.eye(m)\n    return np.stack([np.diag(rng.normal(size=m)), np.diag(rng.normal(size=m)), sym(rng.normal(size=(m, m))),\n                     sym(rng.normal(size=(m, m))) * off, sym(rng.normal(size=(m, m))) * off,\n                     sym(rng.normal(size=(m, m))) * off, rng.normal(size=(m, m)) * off])\nc = coefs(4, 4)\nb = sector(0, 0, 4, 2)[:3]\ndef run_model():\n    try:\n        seci_hamiltonian(c.copy(), b.copy())\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-27.5",
+      "test_cases": [
+        "import numpy as np\ndef ring(m, t):\n    h = np.zeros((m, m))\n    for i in range(m):\n        h[i, (i + 1) % m] = h[(i + 1) % m, i] = -t\n    return h\nrng = np.random.default_rng(0)\nx = rng.normal(size=28)\ny = rng.normal(size=6)\nh = ring(8, 1.0)\nassert np.allclose(seci_energy_gradient(x.copy(), y.copy(), h.copy(), 4.0, 1, 4), target)",
+        "import numpy as np\ndef ring(m, t):\n    h = np.zeros((m, m))\n    for i in range(m):\n        h[i, (i + 1) % m] = h[(i + 1) % m, i] = -t\n    return h\nrng = np.random.default_rng(1)\nx = rng.normal(size=15)\ny = rng.normal(size=15)\nh = ring(6, 1.0)\nassert np.allclose(seci_energy_gradient(x.copy(), y.copy(), h.copy(), 4.0, 0, 6), target)",
+        "import numpy as np\ndef ring(m, t):\n    h = np.zeros((m, m))\n    for i in range(m):\n        h[i, (i + 1) % m] = h[(i + 1) % m, i] = -t\n    return h\nrng = np.random.default_rng(2)\nx = 0.5 * rng.normal(size=15)\ny = np.zeros(0)\nh = ring(6, 1.0)\nassert np.allclose(seci_energy_gradient(x.copy(), y.copy(), h.copy(), 4.0, 3, 0), target)",
+        "import numpy as np\nh = -np.diag(np.ones(3), 1) - np.diag(np.ones(3), -1)\nx = np.array([0.3, -0.2, 0.1, 0.25, -0.15, 0.05])\ny = np.array([0.3])\nassert np.allclose(seci_energy_gradient(x.copy(), y.copy(), h.copy(), 2.0, 1, 2), target)",
+        "import numpy as np\nrng = np.random.default_rng(55)\na = rng.normal(scale=0.6, size=(5, 5))\nh = 0.5 * (a + a.T)\nx = rng.normal(scale=0.35, size=10)\ny = rng.normal(scale=0.25, size=1)\nassert np.allclose(seci_energy_gradient(x.copy(), y.copy(), h.copy(), 3.2, 1, 2), target)",
+        "import numpy as np\nrng = np.random.default_rng(77)\na = rng.normal(scale=0.4, size=(7, 7))\nh = 0.5 * (a + a.T)\nx = rng.normal(scale=0.2, size=21)\ny = rng.normal(scale=0.2, size=6)\nassert np.allclose(seci_energy_gradient(x.copy(), y.copy(), h.copy(), 2.3, 1, 4), target)",
+        "import numpy as np\nh = -np.eye(4, k=1) - np.eye(4, k=-1)\ndef run_model():\n    try:\n        seci_energy_gradient(np.zeros(6), np.zeros(3), h.copy(), 1.0, 0, 3)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-27.6",
+      "test_cases": [
+        "import numpy as np\ndef ring(m, t):\n    h = np.zeros((m, m))\n    for i in range(m):\n        h[i, (i + 1) % m] = h[(i + 1) % m, i] = -t\n    return h\nh = ring(8, 1.0)\nassert np.allclose(optimize_seci_orbitals(h.copy(), 4.0, 1, 4), target)",
+        "import numpy as np\ndef ring(m, t):\n    h = np.zeros((m, m))\n    for i in range(m):\n        h[i, (i + 1) % m] = h[(i + 1) % m, i] = -t\n    return h\nh = ring(6, 1.0)\nassert np.allclose(optimize_seci_orbitals(h.copy(), 8.0, 1, 4), target)",
+        "import numpy as np\ndef ring(m, t):\n    h = np.zeros((m, m))\n    for i in range(m):\n        h[i, (i + 1) % m] = h[(i + 1) % m, i] = -t\n    return h\nh = ring(6, 1.0)\nassert np.allclose(optimize_seci_orbitals(h.copy(), 4.0, 2, 2, seed=7), target)",
+        "import numpy as np\ndef ring(m, t):\n    h = np.zeros((m, m))\n    for i in range(m):\n        h[i, (i + 1) % m] = h[(i + 1) % m, i] = -t\n    return h\nh = ring(6, 1.0)\nassert np.allclose(optimize_seci_orbitals(h.copy(), 4.0, 2, 2), target)",
+        "import numpy as np\ndef ring(m, t):\n    h = np.zeros((m, m))\n    for i in range(m):\n        h[i, (i + 1) % m] = h[(i + 1) % m, i] = -t\n    return h\nh = -np.array([[0.0, 1.0], [1.0, 0.0]])\nassert np.allclose(optimize_seci_orbitals(h.copy(), 3.0, 0, 2), target)",
+        "import numpy as np\ndef ring(m, t):\n    h = np.zeros((m, m))\n    for i in range(m):\n        h[i, (i + 1) % m] = h[(i + 1) % m, i] = -t\n    return h\nh = ring(6, 1.0)\nassert np.allclose(optimize_seci_orbitals(h.copy(), 4.0, 3, 0), target)",
+        "import numpy as np\nh = np.array([[-0.5]])\nassert np.allclose(optimize_seci_orbitals(h.copy(), 3.0, 1, 0), target)",
+        "import numpy as np\nrng = np.random.default_rng(3133)\na = rng.normal(scale=0.5, size=(3, 3))\nh = 0.5 * (a + a.T)\nassert np.allclose(optimize_seci_orbitals(h.copy(), 2.7, 1, 2), target)",
+        "import numpy as np\nrng = np.random.default_rng(3152)\na = rng.normal(scale=0.5, size=(5, 5))\nh = 0.5 * (a + a.T)\nassert np.allclose(optimize_seci_orbitals(h.copy(), 2.5, 1, 2), target)",
+        "import numpy as np\nrng = np.random.default_rng(3142)\na = rng.normal(scale=0.5, size=(4, 4))\nh = 0.5 * (a + a.T)\nassert np.allclose(optimize_seci_orbitals(h.copy(), 3.2, 1, 2, seed=17), target)",
+        "import numpy as np\ndef ring(m, t):\n    h = np.zeros((m, m))\n    for i in range(m):\n        h[i, (i + 1) % m] = h[(i + 1) % m, i] = -t\n    return h\nh = ring(4, 1.0)\ndef run_model():\n    try:\n        optimize_seci_orbitals(h.copy(), 2.0, 3, 2)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-27.7",
+      "test_cases": [
+        "import numpy as np\ndef ring(m, t):\n    h = np.zeros((m, m))\n    for i in range(m):\n        h[i, (i + 1) % m] = h[(i + 1) % m, i] = -t\n    return h\nh = ring(8, 1.0)\nassert np.allclose(hubbard_fci_energy(h.copy(), 4.0, 3, 3), target)",
+        "import numpy as np\ndef ring(m, t):\n    h = np.zeros((m, m))\n    for i in range(m):\n        h[i, (i + 1) % m] = h[(i + 1) % m, i] = -t\n    return h\nh = ring(6, 1.0)\nassert np.allclose(hubbard_fci_energy(h.copy(), 4.0, 2, 2), target)",
+        "import numpy as np\ndef ring(m, t):\n    h = np.zeros((m, m))\n    for i in range(m):\n        h[i, (i + 1) % m] = h[(i + 1) % m, i] = -t\n    return h\nrng = np.random.default_rng(3)\na = rng.normal(size=(5, 5))\nh = 0.5 * (a + a.T)\nassert np.allclose(hubbard_fci_energy(h.copy(), 6.0, 3, 2), target)",
+        "import numpy as np\ndef ring(m, t):\n    h = np.zeros((m, m))\n    for i in range(m):\n        h[i, (i + 1) % m] = h[(i + 1) % m, i] = -t\n    return h\nh = -np.array([[0.0, 1.0], [1.0, 0.0]])\nassert np.allclose(hubbard_fci_energy(h.copy(), 3.0, 1, 1), target)",
+        "import numpy as np\nh = -np.eye(3, k=1) - np.eye(3, k=-1)\ndef run_model():\n    try:\n        hubbard_fci_energy(h.copy(), 1.0, 4, 1)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-27.8",
+      "test_cases": [
+        "assert np.allclose(seci_correlation_fraction(8, 1.0, 4.0, 6, 4), target)",
+        "assert np.allclose(seci_correlation_fraction(6, 1.0, 4.0, 6, 2), target)",
+        "assert np.allclose(seci_correlation_fraction(6, 1.0, 4.0, 6, 0), target)",
+        "assert np.allclose(seci_correlation_fraction(3, 1.0, 2.0, 2, 2), target)",
+        "def run_model():\n    try:\n        seci_correlation_fraction(4, 1.0, 4.0, 8, 0)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)",
+        "def run_model():\n    try:\n        seci_correlation_fraction(6, 1.0, 4.0, 4, 2)\n        return 0\n    except ValueError:\n        return 1\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

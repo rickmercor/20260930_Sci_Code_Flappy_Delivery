@@ -1,0 +1,40 @@
+problem_id: "Biology-Biochemistry-27"
+subject: "biology"
+subject_area: "Biochemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1016/j.isci.2026.115822"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_compute_steady_state_residuals.py"
+    description: "Compute mass-balance residuals for aligned steady-state flux vectors."
+    orchestrator: false
+  - number: 2
+    name: "02_compute_paired_component_differences.py"
+    description: "Compute signed differences between aligned pairs of numerical components."
+    orchestrator: false
+  - number: 3
+    name: "03_compute_activity_mask.py"
+    description: "Classify aligned signed values as active or inactive relative to a supplied magnitude threshold."
+    orchestrator: false
+  - number: 4
+    name: "04_evaluate_signed_constraint_violations.py"
+    description: "Evaluate aligned violations of linear balance, fixed-value, and one-way signed constraints."
+    orchestrator: false
+  - number: 5
+    name: "05_resolve_source_component_state.py"
+    description: "Resolve the unique source-matched paired component state under aligned steady-state, fixed-value, and one-way signed constraints."
+    orchestrator: false
+  - number: 6
+    name: "06_compute_scaled_log_ratios.py"
+    description: "Compute aligned scaled logarithmic ratios from strictly positive paired components."
+    orchestrator: false
+  - number: 7
+    name: "07_classify_active_interval_states.py"
+    description: "Classify aligned states using active-only inclusive interval requirements."
+    orchestrator: false
+  - number: 8
+    name: "08_resolve_condition_panel_scalar.py"
+    description: "Resolve the source-matched state for each condition, apply active physiological validation, and return the largest positive target value from the surviving conditions."
+    orchestrator: true

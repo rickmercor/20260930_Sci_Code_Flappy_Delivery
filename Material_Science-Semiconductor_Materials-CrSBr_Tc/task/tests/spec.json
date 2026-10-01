@@ -1,0 +1,95 @@
+{
+  "problem_id": "Material_Science-Semiconductor_Materials-CrSBr_Tc",
+  "sub_steps": [
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-CrSBr_Tc.1",
+      "test_cases": [
+        "assert np.allclose(neighbour_bond_vectors(1, 0, 0), target)",
+        "assert np.allclose(neighbour_bond_vectors(2, 0, 1), target)",
+        "assert np.allclose(neighbour_bond_vectors(7, 0, 0), target)",
+        "assert np.allclose(neighbour_bond_vectors(8, 1, 0), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-CrSBr_Tc.2",
+      "test_cases": [
+        "assert np.allclose(exchange_structure_factor(1, 0, 0, 0.0, 0.0), target)",
+        "assert np.allclose(exchange_structure_factor(2, 0, 1, 0.9, -0.4), target)",
+        "assert np.allclose(exchange_structure_factor(1, 0, 0, 0.8975979010256552, 0.0), target)",
+        "assert np.allclose(exchange_structure_factor(8, 0, 1, 1.1, -0.7), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-CrSBr_Tc.3",
+      "test_cases": [
+        "assert np.allclose(exchange_at_q(0, 0, 0.0, 0.0), target)",
+        "assert np.allclose(exchange_at_q(0, 1, 0.0, 0.0), target)",
+        "assert np.allclose(exchange_at_q(0, 1, 0.9, -0.4), target)",
+        "assert np.allclose(exchange_at_q(1, 1, 0.8975979010256552, 0.6600444097822498), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-CrSBr_Tc.4",
+      "test_cases": [
+        "assert np.allclose(molecular_field(1.5), target)",
+        "assert np.allclose(molecular_field(1.0), target)",
+        "assert np.allclose(molecular_field(0.0), target)",
+        "assert np.allclose(molecular_field(0.1388530302), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-CrSBr_Tc.5",
+      "test_cases": [
+        "assert np.allclose(anisotropy_contractions(1.5), target)",
+        "assert np.allclose(anisotropy_contractions(1.0), target)",
+        "assert np.allclose(anisotropy_contractions(0.0), target)",
+        "assert np.allclose(anisotropy_contractions(0.1388530302), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-CrSBr_Tc.6",
+      "test_cases": [
+        "assert np.allclose(callen_factor(1.5, 0.0), target)",
+        "assert np.allclose(callen_factor(1.0, 0.5), target)",
+        "assert np.allclose(callen_factor(0.0, 0.0), target)",
+        "assert np.allclose(callen_factor(0.1388530302, 8.4800470), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-CrSBr_Tc.7",
+      "test_cases": [
+        "assert np.allclose(magnon_energies(0.0, 0.0, 1.5, 0.0), target)",
+        "assert np.allclose(magnon_energies(0.9, -0.4, 1.5, 0.0), target)",
+        "assert np.allclose(magnon_energies(0.0, 0.0, 1.0, 0.5), target)",
+        "assert np.allclose(magnon_energies(0.8975979010256552, 0.6600444097822498, 0.4, 2.5), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-CrSBr_Tc.8",
+      "test_cases": [
+        "assert np.allclose(magnon_occupation(100.0, 1.5, 0.0, 48), target)",
+        "assert np.allclose(magnon_occupation(100.0, 1.0, 0.5, 96), target)",
+        "assert np.allclose(magnon_occupation(5.0, 1.5, 0.0, 48), target)",
+        "assert np.allclose(magnon_occupation(140.0, 0.4, 2.5, 96), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-CrSBr_Tc.9",
+      "test_cases": [
+        "assert np.allclose(sublattice_magnetisation(0.0), target)",
+        "assert np.allclose(sublattice_magnetisation(0.3089500000), target)",
+        "assert np.allclose(sublattice_magnetisation(2.8062300000), target)",
+        "assert np.allclose(sublattice_magnetisation(8.4800470000), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-CrSBr_Tc.10",
+      "test_cases": [
+        "assert np.allclose(curie_temperature(96), target)",
+        "assert np.allclose(curie_temperature(192), target)",
+        "assert np.allclose(curie_temperature(48), target)",
+        "assert np.allclose(curie_temperature(144), target)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+problem_id: "debye_huckel_mean_activity_coefficient"
+subject: "chemistry"
+subject_area: "Computational Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1039/D5DD00470E"
+dependencies: "import numpy as np"
+steps:
+  - number: 1
+    name: "estimate_derivatives"
+    description: "Estimate concentration derivatives on a nonuniform time grid."
+    orchestrator: false
+  - number: 2
+    name: "mass_action_features "
+    description: "Build mass-action monomial features from reactant stoichiometry."
+    orchestrator: false
+  - number: 3
+    name: "stoichiometric_design "
+    description: "Convert reaction features into species-balance design columns."
+    orchestrator: false
+  - number: 4
+    name: "fit_rate_constants "
+    description: "Fit nonnegative rate constants in normalized derivative space."
+    orchestrator: false
+  - number: 5
+    name: "concentration_loss "
+    description: "Score a fitted mechanism by integrating its ODE against concentration data."
+    orchestrator: false
+  - number: 6
+    name: "expression_complexity "
+    description: "Measure the symbolic complexity of a candidate reaction mechanism."
+    orchestrator: false
+  - number: 7
+    name: "pareto_front "
+    description: "Identify candidates that are not dominated in loss-complexity space."
+    orchestrator: false
+  - number: 8
+    name: "discover_sisr_mechanism "
+    description: "Run the SISR-style mechanism discovery pipeline and return the selected candidate."
+    orchestrator: true

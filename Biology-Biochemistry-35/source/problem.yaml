@@ -1,0 +1,40 @@
+problem_id: "Biology-Biochemistry-35"
+subject: "biology"
+subject_area: "Biochemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1371/journal.pcbi.1013493"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_compute_indexed_differences"
+    description: "Compute directed column differences for supplied index pairs across aligned numerical profiles."
+    orchestrator: false
+  - number: 2
+    name: "02_transform_directed_differences"
+    description: "Transform directed differences into positive reduced factors at a supplied thermal scale."
+    orchestrator: false
+  - number: 3
+    name: "03_evaluate_factor_observables"
+    description: "Evaluate three row-wise observables from positive five-factor states."
+    orchestrator: false
+  - number: 4
+    name: "04_compute_pair_departure_factors"
+    description: "Compute one departure factor for each supplied pair from aligned positive profile values."
+    orchestrator: false
+  - number: 5
+    name: "05_derive_pair_factor_states"
+    description: "Derive one five-factor state for each supplied member pair."
+    orchestrator: false
+  - number: 6
+    name: "06_compute_aligned_ratio_scores"
+    description: "Compute elementwise ratios for two aligned positive value arrays."
+    orchestrator: false
+  - number: 7
+    name: "07_select_bounded_maximum"
+    description: "Select one candidate using inclusive bounds on one aligned value and a maximum on another."
+    orchestrator: false
+  - number: 8
+    name: "08_resolve_panel_scalar"
+    description: "Apply the complete panel analysis and return the selected scalar."
+    orchestrator: true

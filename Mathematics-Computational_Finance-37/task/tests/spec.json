@@ -1,0 +1,61 @@
+{
+  "problem_id": "Mathematics-Computational_Finance-37",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Computational_Finance-37.1",
+      "test_cases": [
+        "import numpy as np\nimport numpy as np\nS_grid = np.array([0.9, 1.1])\nV_grid = np.array([0.2])\ntau = 30 / 365\ndef run_model():\n    return build_reference_tensor(S_grid, V_grid, tau).ravel()\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nimport numpy as np\nS_grid = np.array([1.0])\nV_grid = np.array([0.2])\ntau = 30 / 365\ndef run_model():\n    return build_reference_tensor(S_grid, V_grid, tau).ravel()\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nimport numpy as np\nS_grid = np.array([0.9, 1.0, 1.1])\nV_grid = np.array([0.2])\ntau = 0.0\ndef run_model():\n    try:\n        build_reference_tensor(S_grid, V_grid, tau)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-37.2",
+      "test_cases": [
+        "import numpy as np\nimport numpy as np\nS_grid = np.array([0.7046880897187134, 0.8394570207692074, 1.0, 1.191246216612358, 1.4190675485932571])\nV_grid = np.array([0.12, 0.22, 0.32])\ntau = 30 / 365\nmuS = np.array([0.06, 0.2, 0.48, 0.2, 0.06])\nmuS = muS / muS.sum()\nmuV = np.array([0.3, 0.45, 0.25])\ndef run_model():\n    pi = spx_vix_calibration(S_grid, V_grid, tau, muS, muV, Kout=6, Kin=40)\n    m1 = pi.sum(axis=(1, 2, 3, 4))\n    mv1 = pi.sum(axis=(0, 2, 3, 4))\n    mv2 = pi.sum(axis=(0, 1, 2, 4))\n    return np.concatenate([m1, mv1, mv2])\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nimport numpy as np\nS_grid = np.array([0.9, 1.1])\nV_grid = np.array([0.25])\ntau = 30 / 365\nmuS = np.array([0.5, 0.5])\nmuV = np.array([1.0])\ndef run_model():\n    pi = spx_vix_calibration(S_grid, V_grid, tau, muS, muV, Kout=4, Kin=20)\n    m1 = pi.sum(axis=(1, 2, 3, 4))\n    mv1 = pi.sum(axis=(0, 2, 3, 4))\n    mv2 = pi.sum(axis=(0, 1, 2, 4))\n    return np.concatenate([m1, mv1, mv2])\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nimport numpy as np\nS_grid = np.array([0.9, 1.0, 1.1])\nV_grid = np.array([0.2])\ntau = 30 / 365\nmuS = np.array([0.5, 0.5, 0.5])\nmuV = np.array([1.0])\ndef run_model():\n    try:\n        spx_vix_calibration(S_grid, V_grid, tau, muS, muV)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-37.3",
+      "test_cases": [
+        "import numpy as np\nimport numpy as np\npi = np.array([0.026875750897640258, 0.06822009068755779, 0.05252544613711316, 0.0429577379949394, 0.011195377757724962, 0.01119364697927388, 0.004167886464797783, 0.06215391397580111, 0.043134010226088614, 0.05080892876539047, 0.0014770747196599795, 0.06959749908793092, 0.05973331006455814, 0.015236747032542896, 0.013047153775323945, 0.01316049649232231, 0.02183140956830895, 0.037654772956993016, 0.030994935224103643, 0.020897632675997223, 0.043904524928236745, 0.010009614623319594, 0.020963326503644797, 0.026288905095302344, 0.03272606236530567, 0.05634161065083038, 0.014327925260964476, 0.036899749784680455, 0.04250969543627922, 0.0033331268361774602, 0.04359539413053129, 0.01223624290065907]).reshape(2, 2, 2, 2, 2)\ndef run_model():\n    return marginalize_to_sss(pi).ravel()\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nimport numpy as np\npi = np.ones((1, 3, 1, 3, 1))\npi = pi / pi.sum()\ndef run_model():\n    return marginalize_to_sss(pi).ravel()\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nimport numpy as np\npi = np.ones((2, 2, 2))\ndef run_model():\n    try:\n        marginalize_to_sss(pi)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-37.4",
+      "test_cases": [
+        "import numpy as np\nimport numpy as np\ndef _combine(omega, dg):\n    return np.array([omega, dg])\nk, sigma = 0.3, 0.35\ntheta = -2.900422093749666\nx0 = -3.101092789211817\ndef run_model():\n    return _combine(*gtfk_selfconsistent(k, sigma, theta, 1.0, x0))\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nimport numpy as np\ndef _combine(omega, dg):\n    return np.array([omega, dg])\nk, sigma = 0.3, 0.35\ntheta = -2.900422093749666\ndef run_model():\n    return _combine(*gtfk_selfconsistent(k, sigma, theta, 2.0, theta))\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nimport numpy as np\nk, sigma, theta, x0 = 0.3, 0.35, -2.9, -3.1\ndef run_model():\n    try:\n        gtfk_selfconsistent(k, sigma, theta, 0.0, x0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-37.5",
+      "test_cases": [
+        "import numpy as np\nimport numpy as np\nk, sigma = 0.3, 0.35\ntheta = -2.900422093749666\nx0 = -3.101092789211817\ndef run_model():\n    return survival_probability(k, sigma, theta, x0, 1.0)\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nimport numpy as np\nk, sigma = 0.3, 0.35\ntheta = -2.900422093749666\nx0 = -3.101092789211817\ndef run_model():\n    return survival_probability(k, sigma, theta, x0, 2.0)\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nimport numpy as np\ntheta, x0 = -2.9, -3.1\ndef run_model():\n    try:\n        survival_probability(0.0, 0.35, theta, x0, 1.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-37.6",
+      "test_cases": [
+        "import numpy as np\nimport numpy as np\njoint123 = np.array([0.11408519359808582, 0.1486707537952537, 0.1253000809216158, 0.11326817393468144, 0.088067694135561, 0.13426592896451614, 0.09096390915257357, 0.18537826549771252]).reshape(2, 2, 2)\nS_grid = np.array([0.8, 1.2])\ndef run_model():\n    return contract_value(joint123, S_grid, 100.0, 0.02, 1.0, 0.9, 0.85)\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nimport numpy as np\njoint123 = np.array([0.11408519359808582, 0.1486707537952537, 0.1253000809216158, 0.11326817393468144, 0.088067694135561, 0.13426592896451614, 0.09096390915257357, 0.18537826549771252]).reshape(2, 2, 2)\nS_grid = np.array([0.8, 1.2])\ndef run_model():\n    return contract_value(joint123, S_grid, 100.0, 0.02, 1.0, 1.0, 1.0)\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nimport numpy as np\njoint123 = np.array([0.11408519359808582, 0.1486707537952537, 0.1253000809216158, 0.11326817393468144, 0.088067694135561, 0.13426592896451614, 0.09096390915257357, 0.18537826549771252]).reshape(2, 2, 2)\nS_grid = np.array([0.8, 1.2])\ndef run_model():\n    try:\n        contract_value(joint123, S_grid, 100.0, 0.02, 1.0, 0.8, 0.9)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-37.7",
+      "test_cases": [
+        "import numpy as np\ndef run_model():\n    return compute_contract_value()\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    a = compute_contract_value()\n    b = compute_contract_value()\n    return abs(a - b)\ndef run_gold():\n    return 0.0\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        compute_contract_value(1)\n        return 0\n    except TypeError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

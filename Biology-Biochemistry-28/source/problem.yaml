@@ -1,0 +1,40 @@
+problem_id: "Biology-Biochemistry-28"
+subject: "biology"
+subject_area: "Biochemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1371/journal.pcbi.1014565"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_solve_stress_free_scale"
+    description: "Find the edge-length scale of the regular hexagonal cell that is stress-free under the area-perimeter cell energy."
+    orchestrator: false
+  - number: 2
+    name: "02_compute_honeycomb_stresses"
+    description: "Evaluate the two nominal stresses of an ordered honeycomb whose cells follow a homogeneous tissue stretch while their remaining vertex freedom relaxes."
+    orchestrator: false
+  - number: 3
+    name: "03_solve_uniaxial_state"
+    description: "Find the lateral stretch and the along-load nominal stress of the honeycomb stripe pulled along the load with free lateral boundaries."
+    orchestrator: false
+  - number: 4
+    name: "04_locate_rearrangement_stretch"
+    description: "Find the stretch at which the load-perpendicular cell edges of the freely contracting stripe shrink to the rearrangement threshold."
+    orchestrator: false
+  - number: 5
+    name: "05_compute_nominal_stress"
+    description: "Evaluate the homogeneous-deformation nominal stress of the stripe on both sides of the collective T1 rearrangement."
+    orchestrator: false
+  - number: 6
+    name: "06_compute_stretching_work"
+    description: "Integrate the stripe's nominal stress over a stretch interval that may straddle the rearrangement."
+    orchestrator: false
+  - number: 7
+    name: "07_solve_propagation_state"
+    description: "Find the nominal stress and the two coexisting stretches at which a neck propagates steadily along the stripe."
+    orchestrator: false
+  - number: 8
+    name: "08_estimate_propagation_ratio"
+    description: "Compose every earlier step to obtain the ratio of the steady necking-propagation stress to the necking-bifurcation stress of the ordered stripe."
+    orchestrator: true

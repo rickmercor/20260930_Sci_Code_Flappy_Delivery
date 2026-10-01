@@ -1,0 +1,48 @@
+problem_id: "Mathematics-Computational_Finance-25"
+subject: "mathematics"
+subject_area: "Computational Finance"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2609.04087"
+dependencies: ""
+steps:
+  - number: 1
+    name: "discrete_gaussian_weights"
+    description: "Return the normalised discrete weight vector that an unnormalised Gaussian kernel induces on a prescribed one-dimensional grid. This supplies the two prescribed marginals of the source's controlled feasibility instance."
+    orchestrator: false
+  - number: 2
+    name: "discrete_second_moment"
+    description: "Return the mass-weighted mean squared deviation of a grid about a given centre, using a weight vector that need not already be normalised."
+    orchestrator: false
+  - number: 3
+    name: "active_state_mask"
+    description: "Return the indicator of the grid states whose marginal mass reaches a prescribed fraction of the largest mass on the grid. Only these states carry a martingale row in the source's thresholded affine system."
+    orchestrator: false
+  - number: 4
+    name: "jensen_feasibility_gap"
+    description: "Return the slack in the conditional-Jensen inequality that any coupling meeting both prescribed marginals and the martingale rows on the active states would have to satisfy. A negative value certifies that the thresholded affine system is infeasible."
+    orchestrator: false
+  - number: 5
+    name: "product_coupling"
+    description: "Return the product coupling of two prescribed marginals, normalised to unit total mass. This is the starting iterate the source prescribes for every scheme it compares."
+    orchestrator: false
+  - number: 6
+    name: "capped_marginal_tilt"
+    description: "Apply the exponential tilt that drives one entry of one marginal of a coupling towards its prescribed mass, with the log-tilt magnitude limited by a cap supplied by the caller. `axis` names the axis that is SUMMED OVER to form the marginal being corrected, exactly as in numpy: axis=1 corrects an entry of P.sum(axis=1), so it rescales the row P[index, :]; axis=0 corrects an entry of P.sum(axis=0), so it rescales the column P[:, index]. A slice carrying no mass is returned unchanged."
+    orchestrator: false
+  - number: 7
+    name: "martingale_soft_gradient"
+    description: "Return the gradient of the quadratic penalty on the martingale rows of the active states, evaluated at the current coupling. Inactive states contribute nothing."
+    orchestrator: false
+  - number: 8
+    name: "hybrid_sweep"
+    description: "Advance the coupling by one sweep of the priority-split calibration scheme the source introduces, in which the two marginal families and the martingale family are given different priorities. The arrangement within a sweep, and how the relaxed family is driven, are fixed by the source."
+    orchestrator: false
+  - number: 9
+    name: "residual_pair"
+    description: "Return the worst absolute violation of the marginal family and the worst absolute violation of the martingale family on the active states, for a given coupling."
+    orchestrator: false
+  - number: 10
+    name: "finite_budget_priority_audit"
+    description: "Run the whole audit on the prescribed instance for the given sweep budget by calling every earlier step function and using its output, and return the reported diagnostics. The instance is the one prescribed in the problem statement (41-node grid 0.25 + 0.0375 j, centre 1.0, source width 0.15, target width 0.15 sqrt(0.70), one percent mass threshold, capped-tilt cap 0.02, soft-update log cap 1.0, median over the final ten percent of sweeps), and the soft update uses the source's quadratic weight and base step. Entry 5, the active source dispersion, is the unnormalised sum over the active states of the source mass times the squared deviation from the centre, the right-hand side of the conditional-Jensen bound. Entry 6, the first tilt's mass shift, is measured on the coupling after one sweep from the product start: the absolute deviation of row 0's mass from its prescribed source mass before, minus after, one capped tilt of row 0 (axis=1, index 0, cap 0.02) applied to that coupling. Entry 7 is the largest absolute entry of the soft-family gradient at the product start."
+    orchestrator: true

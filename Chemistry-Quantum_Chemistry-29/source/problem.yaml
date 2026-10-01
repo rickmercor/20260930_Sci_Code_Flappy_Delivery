@@ -1,0 +1,36 @@
+problem_id: "Chemistry-Quantum_Chemistry-29"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1021/acs.jctc.6c00543"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_lsd_exchange_correlation"
+    description: "Step 01: Spin-polarized LSD exchange-correlation energy and potentials (Slater plus VWN5). Spin-polarized local density approximation for exchange and correlation."
+    orchestrator: false
+  - number: 2
+    name: "02_radial_lsd_spin_densities"
+    description: "Step 02: Basis-free self-consistent LSD spin densities of an s-electron atom by a radial solver. Basis-free self-consistent spin densities of a spherical atom or ion in the local spin density approximation."
+    orchestrator: false
+  - number: 3
+    name: "03_xc_potential_matrices"
+    description: "Step 03: Basis-set matrices of the basis-free spin-resolved exchange-correlation potentials. Matrix representations of the basis-free spin-resolved exchange-correlation potentials in a Gaussian basis."
+    orchestrator: false
+  - number: 4
+    name: "04_product_overlap_matrix"
+    description: "Step 04: Overlap matrix of basis-function products. Overlap matrix of the products of pairs of basis functions."
+    orchestrator: false
+  - number: 5
+    name: "05_importance_selected_products"
+    description: "Step 05: Importance-based selection of basis-function products. Importance-based selection of basis-function products that reproduce a potential matrix."
+    orchestrator: false
+  - number: 6
+    name: "06_reconstructed_potential"
+    description: "Step 06: Reconstructed real-space potential. Real-space potential reconstructed from its matrix with importance-selected products."
+    orchestrator: false
+  - number: 7
+    name: "07_reconstruction_l2_error"
+    description: "Step 07: L2 error of the reconstructed spin-resolved exchange-correlation potential (orchestrator). Real-space L2 error of a spin-resolved exchange-correlation potential reconstructed from its basis-set matrix (orchestrator)."
+    orchestrator: true

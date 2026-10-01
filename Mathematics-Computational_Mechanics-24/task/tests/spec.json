@@ -1,0 +1,90 @@
+{
+  "problem_id": "Mathematics-Computational_Mechanics-24",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Computational_Mechanics-24.1",
+      "test_cases": [
+        "import numpy as np\nn = 12\nEXPECTED = float((n + 1) / 2.0 + 100.0 * (n + 1) / (2.0 * n))\nassert np.allclose(float(arm_ratio_sum('opening', n, n, 0.1875) + 100.0 * arm_ratio_sum('shear', n, n, 0.1875)), target)",
+        "import numpy as np\nu = np.arange(4, dtype=float) / 7.0\nEXPECTED = float(np.sum(2.0 * u ** 3 - 3.0 * u ** 2 + 1.0)\n                 + 100.0 * np.sum(3.0 * u ** 2 - 4.0 * u + 1.0))\nassert np.allclose(float(arm_ratio_sum('opening', 4, 7, 0.25) + 100.0 * arm_ratio_sum('shear', 4, 7, 0.25)), target)",
+        "import numpy as np\nassert np.allclose(arm_ratio_sum('opening', 13, 19, 0.15), target)",
+        "import numpy as np\nassert np.allclose(arm_ratio_sum('shear', 9, 15, 0.15), target)",
+        "import numpy as np\nassert np.allclose(float(arm_ratio_sum('opening', 1, 12, 0.125) + 10.0 * arm_ratio_sum('shear', 1, 1, 0.125)), target)",
+        "import numpy as np\nassert np.allclose(float(arm_ratio_sum('shear', 7, 23, 0.125) + 10.0 * arm_ratio_sum('shear', 7, 23, 1.9)), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        arm_ratio_sum('mixed', 9, 15, 0.15)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        arm_ratio_sum('opening', 9, 4, 0.2)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-24.2",
+      "test_cases": [
+        "import numpy as np\nEXPECTED = 3400.0 / (13.0 * 0.02286)\nassert np.allclose(resin_rich_penalty_stiffness(13.0, 0.02286, 3400.0), target)",
+        "import numpy as np\nratio_sum_total = 16.402518\nh_rr = 0.0254\nmodulus = 4100.0\nassert np.allclose(resin_rich_penalty_stiffness(ratio_sum_total, h_rr, modulus), target)",
+        "import numpy as np\nratio_sum_total = 4.517903\nh_rr = 0.0254\nmodulus = 1490.0\nassert np.allclose(resin_rich_penalty_stiffness(ratio_sum_total, h_rr, modulus), target)",
+        "import numpy as np\nassert np.allclose(resin_rich_penalty_stiffness(2.0, 0.02286, 1850.0), target)",
+        "import numpy as np\nassert np.allclose(resin_rich_penalty_stiffness(0.004, 0.02286, 560.0), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        resin_rich_penalty_stiffness(0.0, 0.02286, 4700.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        resin_rich_penalty_stiffness(13.0, -0.02286, 4700.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-24.3",
+      "test_cases": [
+        "import numpy as np\nEXPECTED = float(30.0 / 12000.0 + 1000.0 * 60.0 / 20000.0)\nassert np.allclose(float(mixed_mode_onset_separation(12000.0, 20000.0, 30.0, 60.0, 0.0) + 1000.0 * mixed_mode_onset_separation(12000.0, 20000.0, 30.0, 60.0, 1.0e8)), target)",
+        "import numpy as np\nk_n = 12406.5\nk_s = 17233.2\nassert np.allclose(mixed_mode_onset_separation(k_n, k_s, 32.6, 98.0, 0.4), target)",
+        "import numpy as np\nassert np.allclose(mixed_mode_onset_separation(1200.0, 900.0, 30.0, 60.0, 2.5), target)",
+        "import numpy as np\nassert np.allclose(mixed_mode_onset_separation(50000.0, 50000.0, 30.0, 60.0, 1.0), target)",
+        "import numpy as np\nassert np.allclose(mixed_mode_onset_separation(15201.4, 61042.8, 30.0, 60.0, 12.0), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        mixed_mode_onset_separation(12000.0, 20000.0, 30.0, 60.0, -0.5)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        mixed_mode_onset_separation(12000.0, 20000.0, 0.0, 60.0, 0.75)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-24.4",
+      "test_cases": [
+        "import numpy as np\nEXPECTED = float(0.0 + 10.0 * 0.5 + 100.0 * 0.75)\nassert np.allclose(float(mixed_mode_energy_ratio(10000.0, 25000.0, 0.0) + 10.0 * mixed_mode_energy_ratio(8000.0, 8000.0, 1.0) + 100.0 * mixed_mode_energy_ratio(8000.0, 24000.0, 1.0)), target)",
+        "import numpy as np\nk_n = 12406.5\nk_s = 17233.2\nassert np.allclose(mixed_mode_energy_ratio(k_n, k_s, 0.4), target)",
+        "import numpy as np\nassert np.allclose(mixed_mode_energy_ratio(15201.4, 61042.8, 0.6), target)",
+        "import numpy as np\nassert np.allclose(mixed_mode_energy_ratio(11000.0, 19000.0, 0.0), target)",
+        "import numpy as np\nassert np.allclose(mixed_mode_energy_ratio(11000.0, 19000.0, 400.0), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        mixed_mode_energy_ratio(11000.0, 19000.0, -1.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        mixed_mode_energy_ratio(0.0, 19000.0, 0.75)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-24.5",
+      "test_cases": [
+        "import numpy as np\nEXPECTED = float(0.212 + 10.0 * 0.774 + 100.0 * 0.493)\nassert np.allclose(float(benzeggagh_kenane_toughness(0.212, 0.774, 2.1, 0.0) + 10.0 * benzeggagh_kenane_toughness(0.212, 0.774, 2.1, 1.0) + 100.0 * benzeggagh_kenane_toughness(0.212, 0.774, 1.0, 0.5)), target)",
+        "import numpy as np\nb_ratio = 0.5617\nassert np.allclose(benzeggagh_kenane_toughness(0.212, 0.774, 2.1, b_ratio), target)",
+        "import numpy as np\nassert np.allclose(benzeggagh_kenane_toughness(0.305, 2.77, 1.62, 0.31), target)",
+        "import numpy as np\nassert np.allclose(benzeggagh_kenane_toughness(0.212, 0.774, 2.1, 0.0), target)",
+        "import numpy as np\nassert np.allclose(benzeggagh_kenane_toughness(0.212, 0.774, 2.1, 0.999999), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        benzeggagh_kenane_toughness(0.212, 0.774, 2.1, 1.4)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        benzeggagh_kenane_toughness(0.212, 0.774, 0.0, 0.5)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-24.6",
+      "test_cases": [
+        "import numpy as np\nEXPECTED = float(2.0 * 0.305 / 32.6 * 1001.0)\nassert np.allclose(float(bilinear_failure_separation(12000.0, 20000.0, 0.0, 32.6 / 12000.0, 0.305) + 1000.0 * bilinear_failure_separation(60000.0, 20000.0, 0.0, 32.6 / 60000.0, 0.305)), target)",
+        "import numpy as np\nk_n = 12406.5\nk_s = 17233.2\ndelta_onset = 0.0024150\ng_c = 0.4471200\nassert np.allclose(bilinear_failure_separation(k_n, k_s, 0.4, delta_onset, g_c), target)",
+        "import numpy as np\nassert np.allclose(bilinear_failure_separation(15201.4, 61042.8, 3.0, 0.00086, 0.7), target)",
+        "import numpy as np\nassert np.allclose(bilinear_failure_separation(25000.0, 25000.0, 1.0, 0.0017, 0.4), target)",
+        "import numpy as np\nassert np.allclose(bilinear_failure_separation(20000.0, 20000.0, 0.5, 0.01, 1.0000005), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        bilinear_failure_separation(20000.0, 20000.0, 0.5, 0.01, 0.5)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        bilinear_failure_separation(12000.0, 20000.0, 0.75, 0.0, 0.3)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-24.7",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(optimal_reinforcement_failure_separation(), target)",
+        "import numpy as np\nassert np.allclose(optimal_reinforcement_failure_separation((13, 9), 0, 0.1875, 0.02286, 4700.0, 1715.0, 30.0, 60.0, 0.212, 0.774, 2.1, 0.75), target)",
+        "import numpy as np\nassert np.allclose(optimal_reinforcement_failure_separation((9, 9), 4, 0.2, 0.02, 4000.0, 1500.0, 30.0, 60.0, 0.212, 0.774, 2.1, 0.75), target)",
+        "import numpy as np\nEXPECTED = 2.0 * 0.305 / 32.6\nassert np.allclose(optimal_reinforcement_failure_separation((7, 12), 5, 0.125, 0.0254, 3400.0, 1300.0, 32.6, 98.0, 0.305, 2.77, 2.05, 0.0), target)",
+        "import numpy as np\nassert np.allclose(optimal_reinforcement_failure_separation((1, 1), 3, 0.25, 0.02286, 1850.0, 560.0, 32.6, 98.0, 0.305, 2.77, 2.05, 0.4), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        optimal_reinforcement_failure_separation((15, 11), -1)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\ndef run_model():\n    try:\n        optimal_reinforcement_failure_separation((15,), 12)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

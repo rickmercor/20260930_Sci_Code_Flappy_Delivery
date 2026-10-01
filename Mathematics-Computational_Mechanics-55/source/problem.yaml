@@ -1,0 +1,40 @@
+problem_id: "Mathematics-Computational_Mechanics-55"
+subject: "mathematics"
+subject_area: "Computational Mechanics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2605.11160"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_prepare_geometry_jet"
+    description: "Construct the value and directional variation of the nodal geometry for the family of angles $\\theta+\\alpha v$ on a fixed triangular mesh.\n\nUse the continuous affine nodal basis and its dimensionless Dirichlet bilinear form without boundary elimination or lumping.\n\nA jet stores a value in layer 0 and its ordinary first derivative with respect to the dimensionless parameter $\\alpha$ in layer 1, without factorial scaling.\n\nThe geometry array has shape $(2,N,N+8)$: the first $N$ columns hold the fixed stiffness matrix and its zero derivative; the remaining pairs hold $n,t,\\nu,\\tau$ and their derivatives, with counterclockwise tangents and $\\nu=(2nn^{\\mathsf T}-I)e_1$."
+    orchestrator: false
+  - number: 2
+    name: "02_build_quadratic_jet"
+    description: "Determine the affine coefficient-space gradients and their directional variations for the magnetic and nematic unnormalized tangent energies.\n\nAt coefficient vector $z$, the respective nodal values are $M_c(n_a+z_at_a)$ and $Q_c(\\nu_a+z_a\\tau_a)$, interpolated affinely; each functional is the integral of its squared spatial gradient without a factor of one half.\n\nRepresent each gradient as $Hz+q$ and differentiate its coefficients with $z$ held fixed.\n\nA jet stores a value in layer 0 and its ordinary first derivative with respect to the dimensionless parameter $\\alpha$ in layer 1, without factorial scaling.\n\nThe geometry array has shape $(2,N,N+8)$: the first $N$ columns hold the fixed stiffness matrix and its zero derivative; the remaining pairs hold $n,t,\\nu,\\tau$ and their derivatives, with counterclockwise tangents and $\\nu=(2nn^{\\mathsf T}-I)e_1$."
+    orchestrator: false
+  - number: 3
+    name: "03_solve_magnetic_jet"
+    description: "Determine the magnetic block minimizer and its total directional derivative for the supplied quadratic and state jets.\n\nUse the Lagrangian with positive multiplier pairing against $p-\\varphi(r)$ and identity-metric quadratic penalty of strength $\\zeta$.\n\nIn this block only, replace compatibility by its first-order affine expansion at the old magnetic coefficients, freeze the supplied auxiliary and multiplier values during minimization, and eliminate boundary magnetic coefficients.\n\nDifferentiate the resulting minimizer with respect to the supplied jet family, including the moving expansion point, rather than freezing the affine model when taking the derivative.\n\nFor a unit magnetic vector $n$, let $R(n)=(2nn^{\\mathsf T}-I)e_1$, let $J$ be counterclockwise quarter-turn rotation, and let $P$ normalize a nonzero vector.\n\nThe exact compatibility is the continuous scalar branch through zero satisfying\n\n$$\n\nR(P(n+rJn))=P(R(n)+\\varphi(r)JR(n)),\\qquad |r|<1.\n\n$$"
+    orchestrator: false
+  - number: 4
+    name: "04_solve_auxiliary_jet"
+    description: "Determine the full-node auxiliary minimizer, subsequent dual-ascent update, and total directional derivatives.\n\nUse the nematic quadratic from the supplied jet, positive multiplier pairing against $p-\\varphi(r)$, and an identity-metric quadratic penalty of strength $\\zeta$.\n\nMinimize over auxiliary coefficients at every node at the supplied magnetic state, then advance the multiplier with step $\\rho$ evaluated at this minimizer.\n\nBoth operations retain exact nonlinear compatibility, including in their directional derivatives.\n\nFor a unit magnetic vector $n$, let $R(n)=(2nn^{\\mathsf T}-I)e_1$, let $J$ be counterclockwise quarter-turn rotation, and let $P$ normalize a nonzero vector.\n\nThe exact compatibility is the continuous scalar branch through zero satisfying\n\n$$\n\nR(P(n+rJn))=P(R(n)+\\varphi(r)JR(n)),\\qquad |r|<1.\n\n$$"
+    orchestrator: false
+  - number: 5
+    name: "05_relax_tangent_jet"
+    description: "Return the terminal inner state and its directional derivative along the executed stopping branch.\n\nEach cycle performs the selectively linearized magnetic minimization, exact nonlinear auxiliary minimization on all nodes, and dual ascent with residual $p-\\varphi(r)$, propagating the supplied jets through those operations.\n\nUse the first completed cycle whose base all-node RMS compatibility residual is at most the tolerance; derivatives do not enter the stopping test, and the base cycle count is held fixed when differentiating.\n\nRetain all state rows and both layers for the next outer update.\n\nThe preceding magnetic and auxiliary contracts define the minimizations, compatibility branch, and boundary treatment."
+    orchestrator: false
+  - number: 6
+    name: "06_project_geometry_jet"
+    description: "Determine the updated geometric jet after nodewise normalization of the magnetic tangent increment.\n\nDifferentiate both the increment and its normalization, then reconstruct the nematic representation and both tangent frames.\n\nA zero magnetic increment at a prescribed node does not set that node's direction derivative to zero.\n\nA jet stores a value in layer 0 and its ordinary first derivative with respect to the dimensionless parameter $\\alpha$ in layer 1, without factorial scaling.\n\nThe geometry array has shape $(2,N,N+8)$: the first $N$ columns hold the fixed stiffness matrix and its zero derivative; the remaining pairs hold $n,t,\\nu,\\tau$ and their derivatives, with counterclockwise tangents and $\\nu=(2nn^{\\mathsf T}-I)e_1$."
+    orchestrator: false
+  - number: 7
+    name: "07_measure_energy_jet"
+    description: "Determine the physical harmonic energy and its directional derivative on the fixed mesh.\n\nThe physical nodal state concatenates the nematic direction scaled by $Q_c$ and magnetic direction scaled by $M_c$.\n\nUse the energy of its four-component affine interpolant with the factor of one half in the Dirichlet integral.\n\nA jet stores a value in layer 0 and its ordinary first derivative with respect to the dimensionless parameter $\\alpha$ in layer 1, without factorial scaling.\n\nThe geometry array has shape $(2,N,N+8)$: the first $N$ columns hold the fixed stiffness matrix and its zero derivative; the remaining pairs hold $n,t,\\nu,\\tau$ and their derivatives, with counterclockwise tangents and $\\nu=(2nn^{\\mathsf T}-I)e_1$."
+    orchestrator: false
+  - number: 8
+    name: "08_compute_boundary_sensitivity"
+    description: "Compute the relative directional response of the finite-budget energy decrease for the initial-angle family $\\theta+\\alpha v$.\n\nThe mask fixes magnetic directions during each individual relaxation, including their prescribed dependence on $\\alpha$.\n\nPropagate both layers of the coupled geometric and inner-state jets through the preceding numerical contracts, initializing both inner layers at zero only once and retaining all terminal state rows across outer updates.\n\nUse the base inner stopping counts for the derivative and execute exactly the given outer budget.\n\nFor $S(\\alpha)=1-E^{J}(\\alpha)/E^0(\\alpha)$, return $S'(0)/S(0)$, including the dependence of the initial energy on $\\alpha$."
+    orchestrator: true

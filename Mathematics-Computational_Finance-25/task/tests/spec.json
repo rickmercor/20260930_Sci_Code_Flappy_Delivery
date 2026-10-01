@@ -1,0 +1,87 @@
+{
+  "problem_id": "Mathematics-Computational_Finance-25",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Computational_Finance-25.1",
+      "test_cases": [
+        "import numpy as np\nx = 0.25 + 0.0375*np.arange(41)\nassert np.allclose(discrete_gaussian_weights(x, 0.15, 1.0), target)",
+        "import numpy as np\nx = np.array([0.0, 1.0])\nassert np.allclose(discrete_gaussian_weights(x, 0.5, 0.5), target)",
+        "import numpy as np\nx = np.linspace(-3.0, 3.0, 7)\nassert np.allclose(discrete_gaussian_weights(x, 0.02, 0.0), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-25.2",
+      "test_cases": [
+        "import numpy as np\nx = 0.25 + 0.0375*np.arange(41)\nw = np.exp(-((x-1.0)**2)/(2*0.15**2))\nassert np.allclose(discrete_second_moment(x, w, 1.0), target)",
+        "import numpy as np\nx = np.array([2.0, 2.0, 2.0])\nw = np.array([1.0, 1.0, 1.0])\nassert np.allclose(discrete_second_moment(x, w, 2.0), target)",
+        "import numpy as np\nx = np.array([0.0, 10.0])\nw = np.array([1.0, 1e-12])\nassert np.allclose(discrete_second_moment(x, w, 0.0), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-25.3",
+      "test_cases": [
+        "import numpy as np\nx = 0.25 + 0.0375*np.arange(41)\nw = np.exp(-((x-1.0)**2)/(2*0.15**2))\nw = w/w.sum()\nassert np.allclose(active_state_mask(w, 0.01), target)",
+        "import numpy as np\nw = np.array([1.0, 0.5, 0.25])\nassert np.allclose(active_state_mask(w, 1.0), target)",
+        "import numpy as np\nw = np.array([1.0, 0.5, 0.25])\nassert np.allclose(active_state_mask(w, 0.0), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-25.4",
+      "test_cases": [
+        "import numpy as np\nx = 0.25 + 0.0375*np.arange(41)\na = np.exp(-((x-1.0)**2)/(2*0.15**2)); a/=a.sum()\nsy = 0.15*np.sqrt(0.70)\nb = np.exp(-((x-1.0)**2)/(2*sy**2)); b/=b.sum()\nm = (a >= 0.01*a.max()).astype(float)\nassert np.allclose(jensen_feasibility_gap(x, a, b, m, 1.0), target)",
+        "import numpy as np\nx = 0.25 + 0.0375*np.arange(41)\na = np.exp(-((x-1.0)**2)/(2*0.15**2)); a/=a.sum()\nsy = 0.15*np.sqrt(1.30)\nb = np.exp(-((x-1.0)**2)/(2*sy**2)); b/=b.sum()\nm = (a >= 0.01*a.max()).astype(float)\nassert np.allclose(jensen_feasibility_gap(x, a, b, m, 1.0), target)",
+        "import numpy as np\nx = np.array([0.0, 1.0, 2.0])\na = np.array([0.25, 0.5, 0.25]); b = np.array([0.25, 0.5, 0.25])\nm = np.zeros(3)\nassert np.allclose(jensen_feasibility_gap(x, a, b, m, 1.0), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-25.5",
+      "test_cases": [
+        "import numpy as np\nx = 0.25 + 0.0375*np.arange(41)\na = np.exp(-((x-1.0)**2)/(2*0.15**2)); a/=a.sum()\nb = np.exp(-((x-1.0)**2)/(2*(0.15*np.sqrt(0.70))**2)); b/=b.sum()\nassert np.allclose(product_coupling(a, b), target)",
+        "import numpy as np\na = np.array([1.0]); b = np.array([1.0, 3.0])\nassert np.allclose(product_coupling(a, b), target)",
+        "import numpy as np\na = np.array([1.0, 0.0, 0.0]); b = np.array([0.0, 1.0, 0.0])\nassert np.allclose(product_coupling(a, b), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-25.6",
+      "test_cases": [
+        "import numpy as np\nrng = np.random.default_rng(0)\nP = np.full((4, 4), 1.0/16.0)\nassert np.allclose(capped_marginal_tilt(P, 1, 2, 0.4, 0.02), target)",
+        "import numpy as np\nP = np.full((4, 4), 1.0/16.0)\nassert np.allclose(capped_marginal_tilt(P, 0, 0, 0.25, 50.0), target)",
+        "import numpy as np\nP = np.zeros((3, 3)); P[0, 0] = 1.0\nassert np.allclose(capped_marginal_tilt(P, 1, 2, 0.5, 0.02), target)",
+        "import numpy as np\nP = np.arange(1.0, 13.0).reshape(3, 4); P = P/P.sum()\nassert np.allclose(capped_marginal_tilt(P, 1, 0, 0.9, 5.0), target)",
+        "import numpy as np\nP = np.arange(1.0, 13.0).reshape(3, 4); P = P/P.sum()\nassert np.allclose(capped_marginal_tilt(P, 0, 3, 0.9, 5.0), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-25.7",
+      "test_cases": [
+        "import numpy as np\nx = 0.25 + 0.0375*np.arange(41)\na = np.exp(-((x-1.0)**2)/(2*0.15**2)); a/=a.sum()\nb = np.exp(-((x-1.0)**2)/(2*(0.15*np.sqrt(0.70))**2)); b/=b.sum()\nP = np.outer(a, b); P/=P.sum()\nm = (a >= 0.01*a.max()).astype(float)\nassert np.allclose(martingale_soft_gradient(P, x, m, 200.0), target)",
+        "import numpy as np\nx = np.array([0.0, 1.0, 2.0])\nP = np.full((3, 3), 1.0/9.0)\nm = np.ones(3)\nassert np.allclose(martingale_soft_gradient(P, x, m, 200.0), target)",
+        "import numpy as np\nx = np.array([0.0, 1.0, 2.0])\nP = np.full((3, 3), 1.0/9.0)\nm = np.zeros(3)\nassert np.allclose(martingale_soft_gradient(P, x, m, 200.0), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-25.8",
+      "test_cases": [
+        "import numpy as np\nx = 0.25 + 0.0375*np.arange(41)\na = np.exp(-((x-1.0)**2)/(2*0.15**2)); a/=a.sum()\nb = np.exp(-((x-1.0)**2)/(2*(0.15*np.sqrt(0.70))**2)); b/=b.sum()\nP = np.outer(a, b); P/=P.sum()\nm = (a >= 0.01*a.max()).astype(float)\nassert np.allclose(hybrid_sweep(P, x, a, b, m, 0.02, 200.0, 0.5, 1.0), target)",
+        "import numpy as np\nx = np.array([0.0, 1.0, 2.0])\na = np.array([0.2, 0.5, 0.3]); b = np.array([0.3, 0.4, 0.3])\nP = np.outer(a, b); P/=P.sum()\nm = np.ones(3)\nassert np.allclose(hybrid_sweep(P, x, a, b, m, 5.0, 1.0, 0.5, 1.0), target)",
+        "import numpy as np\nx = np.array([0.0, 1.0, 2.0])\na = np.array([0.2, 0.5, 0.3]); b = np.array([0.3, 0.4, 0.3])\nP = np.outer(a, b); P/=P.sum()\nm = np.zeros(3)\nassert np.allclose(hybrid_sweep(P, x, a, b, m, 0.02, 200.0, 0.5, 1.0), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-25.9",
+      "test_cases": [
+        "import numpy as np\nx = 0.25 + 0.0375*np.arange(41)\na = np.exp(-((x-1.0)**2)/(2*0.15**2)); a/=a.sum()\nb = np.exp(-((x-1.0)**2)/(2*(0.15*np.sqrt(0.70))**2)); b/=b.sum()\nP = np.outer(a, b); P/=P.sum()\nm = (a >= 0.01*a.max()).astype(float)\nassert np.allclose(residual_pair(P, x, a, b, m), target)",
+        "import numpy as np\nx = np.array([0.0, 1.0])\na = np.array([0.5, 0.5]); b = np.array([0.5, 0.5])\nP = np.array([[0.5, 0.0], [0.0, 0.5]])\nm = np.ones(2)\nassert np.allclose(residual_pair(P, x, a, b, m), target)",
+        "import numpy as np\nx = np.array([0.0, 1.0, 2.0])\na = np.array([0.2, 0.5, 0.3]); b = np.array([0.3, 0.4, 0.3])\nP = np.full((3, 3), 1.0/9.0)\nm = np.zeros(3)\nassert np.allclose(residual_pair(P, x, a, b, m), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Finance-25.10",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(finite_budget_priority_audit(80), target)",
+        "import numpy as np\nassert np.allclose(finite_budget_priority_audit(1), target)",
+        "import numpy as np\nassert np.allclose(finite_budget_priority_audit(160), target)"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+problem_id: "Biology-Genetics-27"
+subject: "biology"
+subject_area: "Genetics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1038/s41588-026-02607-w"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_compute_state_scalar"
+    description: "Compute the target-indexed scalar associated with the supplied matrix state."
+    orchestrator: false
+  - number: 2
+    name: "02_compute_replicate_vector"
+    description: "Compute the numerical vector associated with the supplied matrix state and aligned replicate states."
+    orchestrator: false
+  - number: 3
+    name: "03_construct_replicate_state"
+    description: "Construct the numerical matrix state associated with the aligned replicate coordinates."
+    orchestrator: false
+  - number: 4
+    name: "04_generate_perturbed_states"
+    description: "Generate deterministic retained perturbations of the supplied matrix state."
+    orchestrator: false
+  - number: 5
+    name: "05_construct_state_components"
+    description: "Construct the per-state numerical components required by the subsequent scalar calculation."
+    orchestrator: false
+  - number: 6
+    name: "06_solve_state_scale"
+    description: "Solve the scalar adjustment associated with the supplied per-state numerical components."
+    orchestrator: false
+  - number: 7
+    name: "07_select_state_mask"
+    description: "Select the numerical trait-retention mask for one supplied matrix threshold."
+    orchestrator: false
+  - number: 8
+    name: "08_compute_terminal_scalar"
+    description: "Compose the seven preceding numerical functions across the source-defined state transitions and return the terminal scalar."
+    orchestrator: true

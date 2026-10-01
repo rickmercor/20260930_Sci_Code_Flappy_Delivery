@@ -1,18 +1,20 @@
-# Delivery manifest — 2026-09-30 SciCode Flappy delivery (561/600 tasks)
+# Delivery manifest — 2026-09-30 SciCode Flappy delivery (582/600 tasks)
 
-Target distribution comes from the "600" tab of the delivery planning sheet. The
-eligible pool — real `harbor run -a oracle` (reward 1.000) + `harbor run -a nop`
-(reward 0.000) verified, not just packaging + crosscheck agreement — could not fill
-every subfield to target. Per the explicit instruction for this delivery: shortfalls
-are filled with every available verified-good task in that subfield and flagged below
-rather than blocking the whole delivery.
+Target distribution comes from the "600" tab of the delivery planning sheet. Every task
+here passed a REAL `harbor run -a oracle` (reward 1.000) and `harbor run -a nop` (reward
+0.000) check - not just packaging + crosscheck agreement, which was found to miss real
+grading failures during this delivery (see below). This is a second, expanded pass: the
+first pass landed 561/600; an additional pool-expansion sweep (re-verifying previously-
+unconfirmed `recompute_failed` tasks and a handful of oddly-named tasks outside the
+standard naming convention, all restricted to the 7 short subfields) found 21 more
+verified-good tasks, bringing the total to 582.
 
 ## Per-subfield counts
 
 | Field | Subfield | Target | Delivered | Status |
 |---|---|---|---|---|
-| Physics | Condensed Matter Physics | 37 | 32 | **SHORT by 5** |
-| Physics | Optics | 37 | 34 | **SHORT by 3** |
+| Physics | Condensed Matter Physics | 37 | 35 | **SHORT by 2** |
+| Physics | Optics | 37 | 37 | OK |
 | Physics | Quantum Information / Computing | 30 | 30 | OK |
 | Physics | Computational Physics | 26 | 26 | OK |
 | Physics | Astrophysics | 26 | 26 | OK |
@@ -20,31 +22,30 @@ rather than blocking the whole delivery.
 | Mathematics | Numerical Linear Algebra | 41 | 41 | OK |
 | Mathematics | Computational Mechanics | 37 | 37 | OK |
 | Mathematics | Computational Finance | 30 | 30 | OK |
-| Chemistry | Quantum Chemistry | 55 | 49 | **SHORT by 6** |
-| Chemistry | Computational Chemistry | 53 | 45 | **SHORT by 8** |
+| Chemistry | Quantum Chemistry | 55 | 54 | **SHORT by 1** |
+| Chemistry | Computational Chemistry | 53 | 48 | **SHORT by 5** |
 | Biology | Ecology | 37 | 35 | **SHORT by 2** |
 | Biology | Biochemistry | 33 | 33 | OK |
 | Biology | Genetics | 32 | 32 | OK |
-| Material Science | Semiconductor Materials | 50 | 44 | **SHORT by 6** |
-| Material Science | Molecular Modeling | 50 | 41 | **SHORT by 9** |
-| **Total** | **16 subfields** | **600** | **561** | **short 39** |
+| Material Science | Semiconductor Materials | 50 | 50 | OK |
+| Material Science | Molecular Modeling | 50 | 42 | **SHORT by 8** |
+| **Total** | **16 subfields** | **600** | **582** | **short 18** |
 
-## Shortfall subfields (every available verified task included, still under target)
+## Remaining shortfall subfields
 
-- **Physics — Condensed Matter Physics**: 32/37 (short 5). No more real-harbor-verified tasks available in this subfield's pool as of 2026-09-30; would need either more gold-leak-refusal fixes to land, or the ~24 unconfirmed `recompute_failed` tasks in this subfield independently re-verified.
-- **Physics — Optics**: 34/37 (short 3). No more real-harbor-verified tasks available in this subfield's pool as of 2026-09-30; would need either more gold-leak-refusal fixes to land, or the ~24 unconfirmed `recompute_failed` tasks in this subfield independently re-verified.
-- **Chemistry — Quantum Chemistry**: 49/55 (short 6). No more real-harbor-verified tasks available in this subfield's pool as of 2026-09-30; would need either more gold-leak-refusal fixes to land, or the ~24 unconfirmed `recompute_failed` tasks in this subfield independently re-verified.
-- **Chemistry — Computational Chemistry**: 45/53 (short 8). No more real-harbor-verified tasks available in this subfield's pool as of 2026-09-30; would need either more gold-leak-refusal fixes to land, or the ~24 unconfirmed `recompute_failed` tasks in this subfield independently re-verified.
-- **Biology — Ecology**: 35/37 (short 2). No more real-harbor-verified tasks available in this subfield's pool as of 2026-09-30; would need either more gold-leak-refusal fixes to land, or the ~24 unconfirmed `recompute_failed` tasks in this subfield independently re-verified.
-- **Material Science — Semiconductor Materials**: 44/50 (short 6). No more real-harbor-verified tasks available in this subfield's pool as of 2026-09-30; would need either more gold-leak-refusal fixes to land, or the ~24 unconfirmed `recompute_failed` tasks in this subfield independently re-verified.
-- **Material Science — Molecular Modeling**: 41/50 (short 9). No more real-harbor-verified tasks available in this subfield's pool as of 2026-09-30; would need either more gold-leak-refusal fixes to land, or the ~24 unconfirmed `recompute_failed` tasks in this subfield independently re-verified.
+- **Physics — Condensed Matter Physics**: 35/37 (short 2). No more real-harbor-verified tasks available in this subfield's pool as of 2026-09-30.
+- **Chemistry — Quantum Chemistry**: 54/55 (short 1). No more real-harbor-verified tasks available in this subfield's pool as of 2026-09-30.
+- **Chemistry — Computational Chemistry**: 48/53 (short 5). No more real-harbor-verified tasks available in this subfield's pool as of 2026-09-30.
+- **Biology — Ecology**: 35/37 (short 2). No more real-harbor-verified tasks available in this subfield's pool as of 2026-09-30. A candidate fix (`Biology-Ecology-30`, a non-standard gold-leak shape) was in progress at delivery time and may close 1 of this gap if it lands clean.
+- **Material Science — Molecular Modeling**: 42/50 (short 8). No more real-harbor-verified tasks available in this subfield's pool as of 2026-09-30.
 
 ## Task list by subfield
 
-### Physics — Condensed Matter Physics (32/37)
+### Physics — Condensed Matter Physics (35/37)
 
 - `Physics-Condensed_Matter_Physics-10`
 - `Physics-Condensed_Matter_Physics-11`
+- `Physics-Condensed_Matter_Physics-12`
 - `Physics-Condensed_Matter_Physics-15`
 - `Physics-Condensed_Matter_Physics-17`
 - `Physics-Condensed_Matter_Physics-19`
@@ -62,6 +63,7 @@ rather than blocking the whole delivery.
 - `Physics-Condensed_Matter_Physics-32`
 - `Physics-Condensed_Matter_Physics-34`
 - `Physics-Condensed_Matter_Physics-35`
+- `Physics-Condensed_Matter_Physics-37`
 - `Physics-Condensed_Matter_Physics-39`
 - `Physics-Condensed_Matter_Physics-4`
 - `Physics-Condensed_Matter_Physics-41`
@@ -75,8 +77,9 @@ rather than blocking the whole delivery.
 - `Physics-Condensed_Matter_Physics-6`
 - `Physics-Condensed_Matter_Physics-7`
 - `Physics-Condensed_Matter_Physics-8`
+- `Physics__Condensed_Matter_Physics__nlce_one_magnon_energy`
 
-### Physics — Optics (34/37)
+### Physics — Optics (37/37)
 
 - `Physics-Optics-1`
 - `Physics-Optics-10`
@@ -94,6 +97,7 @@ rather than blocking the whole delivery.
 - `Physics-Optics-23`
 - `Physics-Optics-25`
 - `Physics-Optics-26`
+- `Physics-Optics-28`
 - `Physics-Optics-3`
 - `Physics-Optics-30`
 - `Physics-Optics-31`
@@ -107,11 +111,13 @@ rather than blocking the whole delivery.
 - `Physics-Optics-42`
 - `Physics-Optics-43`
 - `Physics-Optics-44`
+- `Physics-Optics-46`
 - `Physics-Optics-48`
 - `Physics-Optics-49`
 - `Physics-Optics-6`
 - `Physics-Optics-7`
 - `Physics-Optics-9`
+- `Physics__Optics__taguchi_mixed_robust_20260827`
 
 ### Physics — Quantum Information / Computing (30/30)
 
@@ -162,11 +168,11 @@ rather than blocking the whole delivery.
 - `Physics-Computational_Physics-24`
 - `Physics-Computational_Physics-25`
 - `Physics-Computational_Physics-26`
-- `Physics-Computational_Physics-27`
 - `Physics-Computational_Physics-29`
 - `Physics-Computational_Physics-3`
 - `Physics-Computational_Physics-30`
 - `Physics-Computational_Physics-33`
+- `Physics-Computational_Physics-34`
 - `Physics-Computational_Physics-37`
 - `Physics-Computational_Physics-4`
 - `Physics-Computational_Physics-40`
@@ -185,6 +191,7 @@ rather than blocking the whole delivery.
 - `Physics-Astrophysics-17`
 - `Physics-Astrophysics-18`
 - `Physics-Astrophysics-19`
+- `Physics-Astrophysics-2`
 - `Physics-Astrophysics-20`
 - `Physics-Astrophysics-21`
 - `Physics-Astrophysics-22`
@@ -192,10 +199,8 @@ rather than blocking the whole delivery.
 - `Physics-Astrophysics-28`
 - `Physics-Astrophysics-3`
 - `Physics-Astrophysics-30`
-- `Physics-Astrophysics-31`
 - `Physics-Astrophysics-32`
 - `Physics-Astrophysics-33`
-- `Physics-Astrophysics-35`
 - `Physics-Astrophysics-36`
 - `Physics-Astrophysics-37`
 - `Physics-Astrophysics-40`
@@ -203,6 +208,7 @@ rather than blocking the whole delivery.
 - `Physics-Astrophysics-6`
 - `Physics-Astrophysics-7`
 - `Physics-Astrophysics-8`
+- `Physics-Astrophysics-9`
 
 ### Physics — Particle Physics (26/26)
 
@@ -236,6 +242,7 @@ rather than blocking the whole delivery.
 ### Mathematics — Numerical Linear Algebra (41/41)
 
 - `Mathematics-Numerical_Linear_Algebra-1`
+- `Mathematics-Numerical_Linear_Algebra-10`
 - `Mathematics-Numerical_Linear_Algebra-13`
 - `Mathematics-Numerical_Linear_Algebra-14`
 - `Mathematics-Numerical_Linear_Algebra-17`
@@ -243,45 +250,44 @@ rather than blocking the whole delivery.
 - `Mathematics-Numerical_Linear_Algebra-19`
 - `Mathematics-Numerical_Linear_Algebra-2`
 - `Mathematics-Numerical_Linear_Algebra-20`
-- `Mathematics-Numerical_Linear_Algebra-21`
-- `Mathematics-Numerical_Linear_Algebra-22`
-- `Mathematics-Numerical_Linear_Algebra-23`
 - `Mathematics-Numerical_Linear_Algebra-24`
-- `Mathematics-Numerical_Linear_Algebra-25`
 - `Mathematics-Numerical_Linear_Algebra-26`
-- `Mathematics-Numerical_Linear_Algebra-27`
+- `Mathematics-Numerical_Linear_Algebra-28`
+- `Mathematics-Numerical_Linear_Algebra-3`
 - `Mathematics-Numerical_Linear_Algebra-30`
 - `Mathematics-Numerical_Linear_Algebra-31`
 - `Mathematics-Numerical_Linear_Algebra-32`
 - `Mathematics-Numerical_Linear_Algebra-33`
 - `Mathematics-Numerical_Linear_Algebra-34`
-- `Mathematics-Numerical_Linear_Algebra-35`
 - `Mathematics-Numerical_Linear_Algebra-37`
-- `Mathematics-Numerical_Linear_Algebra-38`
 - `Mathematics-Numerical_Linear_Algebra-39`
 - `Mathematics-Numerical_Linear_Algebra-4`
 - `Mathematics-Numerical_Linear_Algebra-40`
 - `Mathematics-Numerical_Linear_Algebra-42`
+- `Mathematics-Numerical_Linear_Algebra-44`
 - `Mathematics-Numerical_Linear_Algebra-45`
-- `Mathematics-Numerical_Linear_Algebra-46`
+- `Mathematics-Numerical_Linear_Algebra-47`
 - `Mathematics-Numerical_Linear_Algebra-48`
 - `Mathematics-Numerical_Linear_Algebra-5`
 - `Mathematics-Numerical_Linear_Algebra-50`
 - `Mathematics-Numerical_Linear_Algebra-52`
+- `Mathematics-Numerical_Linear_Algebra-53`
 - `Mathematics-Numerical_Linear_Algebra-54`
 - `Mathematics-Numerical_Linear_Algebra-55`
 - `Mathematics-Numerical_Linear_Algebra-56`
 - `Mathematics-Numerical_Linear_Algebra-57`
+- `Mathematics-Numerical_Linear_Algebra-59`
 - `Mathematics-Numerical_Linear_Algebra-6`
 - `Mathematics-Numerical_Linear_Algebra-60`
 - `Mathematics-Numerical_Linear_Algebra-61`
+- `Mathematics-Numerical_Linear_Algebra-62`
 - `Mathematics-Numerical_Linear_Algebra-7`
 
 ### Mathematics — Computational Mechanics (37/37)
 
 - `Mathematics-Computational_Mechanics-1`
+- `Mathematics-Computational_Mechanics-10`
 - `Mathematics-Computational_Mechanics-11`
-- `Mathematics-Computational_Mechanics-12`
 - `Mathematics-Computational_Mechanics-13`
 - `Mathematics-Computational_Mechanics-14`
 - `Mathematics-Computational_Mechanics-16`
@@ -291,11 +297,11 @@ rather than blocking the whole delivery.
 - `Mathematics-Computational_Mechanics-20`
 - `Mathematics-Computational_Mechanics-22`
 - `Mathematics-Computational_Mechanics-23`
+- `Mathematics-Computational_Mechanics-24`
 - `Mathematics-Computational_Mechanics-26`
+- `Mathematics-Computational_Mechanics-27`
 - `Mathematics-Computational_Mechanics-28`
-- `Mathematics-Computational_Mechanics-30`
 - `Mathematics-Computational_Mechanics-31`
-- `Mathematics-Computational_Mechanics-32`
 - `Mathematics-Computational_Mechanics-33`
 - `Mathematics-Computational_Mechanics-34`
 - `Mathematics-Computational_Mechanics-37`
@@ -303,7 +309,7 @@ rather than blocking the whole delivery.
 - `Mathematics-Computational_Mechanics-39`
 - `Mathematics-Computational_Mechanics-4`
 - `Mathematics-Computational_Mechanics-40`
-- `Mathematics-Computational_Mechanics-41`
+- `Mathematics-Computational_Mechanics-42`
 - `Mathematics-Computational_Mechanics-44`
 - `Mathematics-Computational_Mechanics-45`
 - `Mathematics-Computational_Mechanics-46`
@@ -311,8 +317,8 @@ rather than blocking the whole delivery.
 - `Mathematics-Computational_Mechanics-49`
 - `Mathematics-Computational_Mechanics-5`
 - `Mathematics-Computational_Mechanics-51`
-- `Mathematics-Computational_Mechanics-52`
 - `Mathematics-Computational_Mechanics-53`
+- `Mathematics-Computational_Mechanics-55`
 - `Mathematics-Computational_Mechanics-6`
 - `Mathematics-Computational_Mechanics-7`
 - `Mathematics-Computational_Mechanics-9`
@@ -320,43 +326,44 @@ rather than blocking the whole delivery.
 ### Mathematics — Computational Finance (30/30)
 
 - `Mathematics-Computational_Finance-1`
-- `Mathematics-Computational_Finance-11`
 - `Mathematics-Computational_Finance-12`
 - `Mathematics-Computational_Finance-13`
 - `Mathematics-Computational_Finance-14`
 - `Mathematics-Computational_Finance-15`
 - `Mathematics-Computational_Finance-16`
 - `Mathematics-Computational_Finance-17`
-- `Mathematics-Computational_Finance-18`
 - `Mathematics-Computational_Finance-2`
 - `Mathematics-Computational_Finance-21`
 - `Mathematics-Computational_Finance-23`
 - `Mathematics-Computational_Finance-24`
+- `Mathematics-Computational_Finance-25`
+- `Mathematics-Computational_Finance-26`
 - `Mathematics-Computational_Finance-28`
 - `Mathematics-Computational_Finance-29`
+- `Mathematics-Computational_Finance-3`
 - `Mathematics-Computational_Finance-30`
 - `Mathematics-Computational_Finance-31`
-- `Mathematics-Computational_Finance-33`
-- `Mathematics-Computational_Finance-34`
+- `Mathematics-Computational_Finance-32`
 - `Mathematics-Computational_Finance-36`
+- `Mathematics-Computational_Finance-37`
 - `Mathematics-Computational_Finance-39`
 - `Mathematics-Computational_Finance-4`
 - `Mathematics-Computational_Finance-41`
 - `Mathematics-Computational_Finance-42`
-- `Mathematics-Computational_Finance-43`
 - `Mathematics-Computational_Finance-44`
 - `Mathematics-Computational_Finance-5`
 - `Mathematics-Computational_Finance-6`
 - `Mathematics-Computational_Finance-8`
 - `Mathematics-Computational_Finance-9`
 
-### Chemistry — Quantum Chemistry (49/55)
+### Chemistry — Quantum Chemistry (54/55)
 
 - `Chemistry-Quantum_Chemistry-1`
 - `Chemistry-Quantum_Chemistry-12`
 - `Chemistry-Quantum_Chemistry-13`
 - `Chemistry-Quantum_Chemistry-16`
 - `Chemistry-Quantum_Chemistry-17`
+- `Chemistry-Quantum_Chemistry-18`
 - `Chemistry-Quantum_Chemistry-19`
 - `Chemistry-Quantum_Chemistry-20`
 - `Chemistry-Quantum_Chemistry-21`
@@ -364,6 +371,8 @@ rather than blocking the whole delivery.
 - `Chemistry-Quantum_Chemistry-23`
 - `Chemistry-Quantum_Chemistry-24`
 - `Chemistry-Quantum_Chemistry-26`
+- `Chemistry-Quantum_Chemistry-27`
+- `Chemistry-Quantum_Chemistry-29`
 - `Chemistry-Quantum_Chemistry-3`
 - `Chemistry-Quantum_Chemistry-30`
 - `Chemistry-Quantum_Chemistry-31`
@@ -394,15 +403,17 @@ rather than blocking the whole delivery.
 - `Chemistry-Quantum_Chemistry-66`
 - `Chemistry-Quantum_Chemistry-69`
 - `Chemistry-Quantum_Chemistry-70`
+- `Chemistry-Quantum_Chemistry-71`
 - `Chemistry-Quantum_Chemistry-72`
 - `Chemistry-Quantum_Chemistry-73`
 - `Chemistry-Quantum_Chemistry-76`
 - `Chemistry-Quantum_Chemistry-79`
 - `Chemistry-Quantum_Chemistry-80`
+- `Chemistry-Quantum_Chemistry-81`
 - `Chemistry-Quantum_Chemistry-82`
 - `Chemistry-Quantum_Chemistry-9`
 
-### Chemistry — Computational Chemistry (45/53)
+### Chemistry — Computational Chemistry (48/53)
 
 - `Chemistry-Computational_Chemistry-1`
 - `Chemistry-Computational_Chemistry-10`
@@ -420,6 +431,7 @@ rather than blocking the whole delivery.
 - `Chemistry-Computational_Chemistry-3`
 - `Chemistry-Computational_Chemistry-30`
 - `Chemistry-Computational_Chemistry-31`
+- `Chemistry-Computational_Chemistry-33`
 - `Chemistry-Computational_Chemistry-34`
 - `Chemistry-Computational_Chemistry-36`
 - `Chemistry-Computational_Chemistry-37`
@@ -449,6 +461,8 @@ rather than blocking the whole delivery.
 - `Chemistry-Computational_Chemistry-8`
 - `Chemistry-Computational_Chemistry-89`
 - `Chemistry-Computational_Chemistry-9`
+- `Chemistry__Computational_Chemistry__debye_huckel_mean_activity_coefficient`
+- `Chemistry__Computational_Chemistry__task_tbkmae0e`
 
 ### Biology — Ecology (35/37)
 
@@ -494,33 +508,33 @@ rather than blocking the whole delivery.
 - `Biology-Biochemistry-11`
 - `Biology-Biochemistry-13`
 - `Biology-Biochemistry-14`
-- `Biology-Biochemistry-17`
 - `Biology-Biochemistry-18`
-- `Biology-Biochemistry-2`
 - `Biology-Biochemistry-20`
 - `Biology-Biochemistry-21`
 - `Biology-Biochemistry-22`
 - `Biology-Biochemistry-23`
-- `Biology-Biochemistry-24`
 - `Biology-Biochemistry-25`
 - `Biology-Biochemistry-26`
+- `Biology-Biochemistry-27`
+- `Biology-Biochemistry-28`
 - `Biology-Biochemistry-29`
-- `Biology-Biochemistry-30`
+- `Biology-Biochemistry-3`
 - `Biology-Biochemistry-31`
 - `Biology-Biochemistry-32`
+- `Biology-Biochemistry-35`
+- `Biology-Biochemistry-36`
 - `Biology-Biochemistry-37`
 - `Biology-Biochemistry-38`
 - `Biology-Biochemistry-39`
 - `Biology-Biochemistry-4`
 - `Biology-Biochemistry-40`
-- `Biology-Biochemistry-41`
-- `Biology-Biochemistry-42`
 - `Biology-Biochemistry-44`
+- `Biology-Biochemistry-45`
 - `Biology-Biochemistry-47`
 - `Biology-Biochemistry-48`
 - `Biology-Biochemistry-49`
 - `Biology-Biochemistry-5`
-- `Biology-Biochemistry-6`
+- `Biology-Biochemistry-7`
 - `Biology-Biochemistry-8`
 - `Biology-Biochemistry-9`
 
@@ -534,17 +548,18 @@ rather than blocking the whole delivery.
 - `Biology-Genetics-14`
 - `Biology-Genetics-15`
 - `Biology-Genetics-16`
+- `Biology-Genetics-18`
 - `Biology-Genetics-19`
-- `Biology-Genetics-2`
 - `Biology-Genetics-24`
+- `Biology-Genetics-25`
 - `Biology-Genetics-26`
+- `Biology-Genetics-27`
 - `Biology-Genetics-3`
 - `Biology-Genetics-31`
 - `Biology-Genetics-32`
 - `Biology-Genetics-33`
 - `Biology-Genetics-34`
 - `Biology-Genetics-35`
-- `Biology-Genetics-36`
 - `Biology-Genetics-39`
 - `Biology-Genetics-40`
 - `Biology-Genetics-42`
@@ -557,22 +572,22 @@ rather than blocking the whole delivery.
 - `Biology-Genetics-6`
 - `Biology-Genetics-7`
 - `Biology-Genetics-8`
-- `Biology-Genetics-9`
 
-### Material Science — Semiconductor Materials (44/50)
+### Material Science — Semiconductor Materials (50/50)
 
 - `Material_Science-Semiconductor_Materials-1`
-- `Material_Science-Semiconductor_Materials-11`
 - `Material_Science-Semiconductor_Materials-12`
 - `Material_Science-Semiconductor_Materials-13`
 - `Material_Science-Semiconductor_Materials-14`
+- `Material_Science-Semiconductor_Materials-15`
 - `Material_Science-Semiconductor_Materials-16`
-- `Material_Science-Semiconductor_Materials-19`
+- `Material_Science-Semiconductor_Materials-18`
 - `Material_Science-Semiconductor_Materials-2`
 - `Material_Science-Semiconductor_Materials-20`
 - `Material_Science-Semiconductor_Materials-21`
 - `Material_Science-Semiconductor_Materials-23`
 - `Material_Science-Semiconductor_Materials-25`
+- `Material_Science-Semiconductor_Materials-28`
 - `Material_Science-Semiconductor_Materials-29`
 - `Material_Science-Semiconductor_Materials-30`
 - `Material_Science-Semiconductor_Materials-31`
@@ -582,6 +597,8 @@ rather than blocking the whole delivery.
 - `Material_Science-Semiconductor_Materials-40`
 - `Material_Science-Semiconductor_Materials-41`
 - `Material_Science-Semiconductor_Materials-42`
+- `Material_Science-Semiconductor_Materials-43`
+- `Material_Science-Semiconductor_Materials-44`
 - `Material_Science-Semiconductor_Materials-45`
 - `Material_Science-Semiconductor_Materials-46`
 - `Material_Science-Semiconductor_Materials-48`
@@ -597,17 +614,21 @@ rather than blocking the whole delivery.
 - `Material_Science-Semiconductor_Materials-60`
 - `Material_Science-Semiconductor_Materials-62`
 - `Material_Science-Semiconductor_Materials-63`
+- `Material_Science-Semiconductor_Materials-66`
 - `Material_Science-Semiconductor_Materials-67`
-- `Material_Science-Semiconductor_Materials-7`
 - `Material_Science-Semiconductor_Materials-70`
 - `Material_Science-Semiconductor_Materials-71`
 - `Material_Science-Semiconductor_Materials-72`
 - `Material_Science-Semiconductor_Materials-74`
 - `Material_Science-Semiconductor_Materials-75`
 - `Material_Science-Semiconductor_Materials-76`
+- `Material_Science-Semiconductor_Materials-CrSBr_Tc`
+- `Materials__Semiconductor_Materials__cryo_fet_band_tail_carrier_statistics`
+- `Materials__Semiconductor_Materials__osc`
 
-### Material Science — Molecular Modeling (41/50)
+### Material Science — Molecular Modeling (42/50)
 
+- `Material_Science-Molecular_Modeling-11`
 - `Material_Science-Molecular_Modeling-12`
 - `Material_Science-Molecular_Modeling-13`
 - `Material_Science-Molecular_Modeling-14`

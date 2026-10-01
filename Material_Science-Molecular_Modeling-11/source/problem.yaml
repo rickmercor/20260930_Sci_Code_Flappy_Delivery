@@ -1,0 +1,40 @@
+problem_id: "Material_Science-Molecular_Modeling-11"
+subject: "materials"
+subject_area: "Molecular Modeling"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2608.12421"
+dependencies: ""
+steps:
+  - number: 1
+    name: "wb_operator"
+    description: "Builds the truncated Fourier-basis matrix of the Bloch-Fokker-Planck operator of an overdamped particle in a tilted cosine potential."
+    orchestrator: false
+  - number: 2
+    name: "wb_bands"
+    description: "Evaluates the lowest band of the Bloch-Fokker-Planck operator across the interior of the Brillouin zone."
+    orchestrator: false
+  - number: 3
+    name: "wb_stationary"
+    description: "Computes the Fourier coefficients of the stationary periodic density of the tilted cosine potential."
+    orchestrator: false
+  - number: 4
+    name: "wb_generalized_isf"
+    description: "Evaluates the generalized intermediate scattering function of two density modes differing by a reciprocal-lattice vector from the propagated stationary vector."
+    orchestrator: false
+  - number: 5
+    name: "wb_transport"
+    description: "Evaluates the drift velocity, the long-time diffusivity and the mobility of the driven particle and their Einstein ratio."
+    orchestrator: false
+  - number: 6
+    name: "wb_cumulants"
+    description: "Evaluates the first four cumulants of the displacement of the driven particle at a given time from the wave-number dependence of the propagator."
+    orchestrator: false
+  - number: 7
+    name: "wb_shape"
+    description: "Evaluates the time-dependent diffusivity, the skewness and the non-Gaussian parameter of the displacement at a given time."
+    orchestrator: false
+  - number: 8
+    name: "wb_audit"
+    description: "Runs the whole chain: operator, lowest band, stationary density, generalized scattering function, transport coefficients, cumulants and shape parameters, with the band and the variance slope as checks, and locates the peak skewness and the peak non-Gaussian parameter."
+    orchestrator: true

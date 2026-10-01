@@ -1,0 +1,109 @@
+{
+  "problem_id": "Physics-Computational_Physics-34",
+  "sub_steps": [
+    {
+      "step_number": "Physics-Computational_Physics-34.1",
+      "test_cases": [
+        "import numpy as np\nN = 64\nL = 32.0 * np.pi\nassert np.allclose(spectral_wavenumbers(N, L), target)",
+        "import numpy as np\nN = 32\nL = 12.0 * np.pi\nassert np.allclose(spectral_wavenumbers(N, L), target)",
+        "import numpy as np\nNv = (24, 32)\nLv = (20.0 * np.pi, 32.0 * np.pi)\nassert np.allclose(spectral_wavenumbers(Nv, Lv), target)",
+        "import numpy as np\nNv = (32, 24)\nLv = (20.0 * np.pi, 32.0 * np.pi)\nassert np.allclose(spectral_wavenumbers(Nv, Lv), target)",
+        "import numpy as np\nNv = (10, 14)\nassert np.allclose(spectral_wavenumbers(Nv, 15.0), target)",
+        "import numpy as np\nNv = (2, 3)\nLv = (1.0, 4.0)\nassert np.allclose(spectral_wavenumbers(Nv, Lv), target)",
+        "import numpy as np\nNv = (7, 9)\nLv = (0.8, 3.3)\nassert np.allclose(spectral_wavenumbers(Nv, Lv), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Computational_Physics-34.2",
+      "test_cases": [
+        "import numpy as np\nN = 64\nL = 32.0 * np.pi\nx = np.arange(N) * (L / N)\ns = (2 * np.pi * x / L)[:, None]\nt = (2 * np.pi * x / L)[None, :]\nphi = (-0.27 + 0.06 * np.cos(16 * s + 0.3) * np.cos(9 * t)\n       + 0.05 * np.sin(11 * s) * np.cos(13 * t + 0.7)\n       + 0.04 * np.cos(7 * s - 14 * t + 1.1)\n       + 0.03 * np.sin(19 * s + 5 * t) * np.sin(6 * t)\n       + 0.02 * np.cos(23 * s) * np.sin(21 * t + 0.4))\nassert np.allclose(pfc_free_energy(phi, L, 0.75), target)",
+        "import numpy as np\nphi = np.full((16, 16), -0.27)\nassert np.allclose(pfc_free_energy(phi, 8.0, 0.75), target)",
+        "import numpy as np\nN = 16\ni = np.arange(N)\nphi = 0.4 * ((-1.0) ** i)[:, None] * ((-1.0) ** i)[None, :] - 0.27\nassert np.allclose(pfc_free_energy(phi, 4.0 * np.pi, 0.9), target)",
+        "import numpy as np\nphi = -0.27 + 0.1 * np.cos(np.linspace(0, 6.0, 20))[:, None] * np.sin(np.linspace(0, 9.0, 28))[None, :]\nLv = (20.0 * np.pi, 32.0 * np.pi)\nassert np.allclose(pfc_free_energy(phi, Lv, 0.6), target)",
+        "import numpy as np\nN = 24\nL = 12.0 * np.pi\nu = np.arange(N) * (2 * np.pi / N)\nphi = 0.3 * np.cos(4 * u)[:, None] + 0.2 * np.sin(3 * u)[None, :]\nassert np.allclose(pfc_free_energy(phi, L, 0.0), target)",
+        "import numpy as np\nu = np.arange(9) * (2 * np.pi / 9)\nv = np.arange(7) * (2 * np.pi / 7)\nphi = 0.5 * np.cos(u)[:, None] * np.cos(2 * v)[None, :] + 0.1\nassert np.allclose(pfc_free_energy(phi, (3.0, 5.0), 1.25), target)",
+        "import numpy as np\nu = np.arange(12) * (2 * np.pi / 12)\nphi = 3.0 * np.cos(u)[:, None] * np.sin(u)[None, :]\nassert np.allclose(pfc_free_energy(phi, 2.0, 0.75), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Computational_Physics-34.3",
+      "test_cases": [
+        "import numpy as np\nN = 32\nL = 8.0\nx = np.arange(N) * (L / N)\nv = 0.7 * np.cos(2 * np.pi * 3 * x / L)[:, None] * np.ones(N)[None, :]\nassert np.allclose(h_minus1_norm_sq(v, L), target)",
+        "import numpy as np\nN = 64\nL = 32.0 * np.pi\nu = np.arange(N) * (2 * np.pi / N)\nv = (0.4 * np.cos(16 * u + 0.3)[:, None] * np.cos(9 * u)[None, :]\n     + 0.2 * np.sin(5 * u)[:, None] * np.sin(11 * u + 0.9)[None, :])\nassert np.allclose(h_minus1_norm_sq(v, L), target)",
+        "import numpy as np\nN = 64\nL = 32.0 * np.pi\nu = np.arange(N) * (2 * np.pi / N)\nv = (0.4 * np.cos(16 * u + 0.3)[:, None] * np.cos(9 * u)[None, :]\n     + 0.2 * np.sin(5 * u)[:, None] * np.sin(11 * u + 0.9)[None, :]\n     - 12.5)\nassert np.allclose(h_minus1_norm_sq(v, L), target)",
+        "import numpy as np\nNv = (20, 28)\nLv = (5.0, 13.0)\na = np.arange(Nv[0]) * (2 * np.pi / Nv[0])\nb = np.arange(Nv[1]) * (2 * np.pi / Nv[1])\nv = np.cos(2 * a)[:, None] * np.sin(3 * b)[None, :]\nassert np.allclose(h_minus1_norm_sq(v, Lv), target)",
+        "import numpy as np\nN = 16\ni = np.arange(N)\nv = ((-1.0) ** i)[:, None] * ((-1.0) ** i)[None, :]\nassert np.allclose(h_minus1_norm_sq(v, 4.0), target)",
+        "import numpy as np\nv = np.full((12, 12), -0.27)\nassert np.allclose(h_minus1_norm_sq(v, 3.0), target)",
+        "import numpy as np\nNv = (7, 9)\nLv = (1.5, 6.0)\na = np.arange(Nv[0]) * (2 * np.pi / Nv[0])\nb = np.arange(Nv[1]) * (2 * np.pi / Nv[1])\nv = np.sin(a)[:, None] + np.cos(2 * b)[None, :]\nassert np.allclose(h_minus1_norm_sq(v, Lv), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Computational_Physics-34.4",
+      "test_cases": [
+        "import numpy as np\nN = 64\nL = 32.0 * np.pi\nu = np.arange(N) * (2 * np.pi / N)\npn = -0.27 + 0.06 * np.cos(16 * u + 0.3)[:, None] * np.cos(9 * u)[None, :]\npm = pn - 0.004 * np.sin(11 * u)[:, None] * np.cos(13 * u)[None, :]\nassert np.allclose(bdf2_decoupled_fields(pn, pm, 1.03, 0.6, L, 0.75, 0.37), target)",
+        "import numpy as np\nN = 32\nL = 16.0 * np.pi\nu = np.arange(N) * (2 * np.pi / N)\npn = -0.27 + 0.1 * np.cos(5 * u)[:, None] * np.sin(3 * u)[None, :]\npm = 7.0 + np.sin(u)[:, None] * np.cos(u)[None, :]\nassert np.allclose(bdf2_decoupled_fields(pn, pm, 0.0, 1e-4, L, 0.75, 0.37), target)",
+        "import numpy as np\nN = 24\nL = 12.0 * np.pi\nu = np.arange(N) * (2 * np.pi / N)\npn = -0.3 + 0.2 * np.cos(4 * u)[:, None] * np.cos(2 * u)[None, :]\npm = -0.3 + 0.19 * np.cos(4 * u)[:, None] * np.cos(2 * u)[None, :]\nassert np.allclose(bdf2_decoupled_fields(pn, pm, 1.0, 0.05, L, 0.75, 0.37), target)",
+        "import numpy as np\nN = 32\nL = 16.0 * np.pi\nu = np.arange(N) * (2 * np.pi / N)\npn = -0.27 + 0.08 * np.sin(7 * u)[:, None] * np.cos(5 * u)[None, :]\npm = -0.27 + 0.05 * np.sin(7 * u)[:, None] * np.cos(5 * u)[None, :]\nassert np.allclose(bdf2_decoupled_fields(pn, pm, 4.86454, 4.86454e-04, L, 0.75, 0.37), target)",
+        "import numpy as np\nNv = (24, 32)\nLv = (20.0 * np.pi, 32.0 * np.pi)\na = np.arange(Nv[0]) * (2 * np.pi / Nv[0])\nb = np.arange(Nv[1]) * (2 * np.pi / Nv[1])\npn = -0.27 + 0.09 * np.cos(3 * a)[:, None] * np.sin(4 * b)[None, :]\npm = -0.27 + 0.07 * np.cos(3 * a)[:, None] * np.sin(4 * b)[None, :]\nassert np.allclose(bdf2_decoupled_fields(pn, pm, 1.4, 0.3, Lv, 0.6, 0.5), target)",
+        "import numpy as np\nN = 16\nL = 8.0 * np.pi\nu = np.arange(N) * (2 * np.pi / N)\npn = -0.27 + 0.3 * np.cos(2 * u)[:, None] * np.cos(u)[None, :]\npm = -0.27 + 0.1 * np.cos(2 * u)[:, None] * np.cos(u)[None, :]\nassert np.allclose(bdf2_decoupled_fields(pn, pm, 2.0, 50.0, L, 0.75, 0.37), target)",
+        "import numpy as np\nN = 16\nL = 2.0 * np.pi\nu = np.arange(N) * (2 * np.pi / N)\npn = 0.5 * np.cos(u)[:, None] * np.sin(2 * u)[None, :]\npm = 0.4 * np.cos(u)[:, None] * np.sin(2 * u)[None, :]\nassert np.allclose(bdf2_decoupled_fields(pn, pm, 0.8, 0.01, L, 1.0, 0.0), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Computational_Physics-34.5",
+      "test_cases": [
+        "import numpy as np\nN = 32\nL = 16.0 * np.pi\nu = np.arange(N) * (2 * np.pi / N)\npn = -0.27 + 0.09 * np.cos(5 * u)[:, None] * np.sin(3 * u)[None, :]\npb = pn + 0.01 * np.cos(2 * u)[:, None]\np = pn + 0.004 * np.sin(4 * u)[None, :]\nq = 0.03 * np.cos(u)[:, None] * np.cos(2 * u)[None, :]\nassert np.allclose(solve_multiplier(p, q, pn, pb, 0.4, 5.0, 1.0, 0.37, L), target)",
+        "import numpy as np\nN = 32\nL = 16.0 * np.pi\nu = np.arange(N) * (2 * np.pi / N)\npn = -0.27 + 0.09 * np.cos(5 * u)[:, None] * np.sin(3 * u)[None, :]\npb = pn + 0.01 * np.cos(2 * u)[:, None]\np = pn + 0.004 * np.sin(4 * u)[None, :]\nq = 0.03 * np.cos(u)[:, None] * np.cos(2 * u)[None, :]\nassert np.allclose(solve_multiplier(p, q, pn, pb, 0.4, 5.0, 0.93, 0.37, L), target)",
+        "import numpy as np\nN = 24\nL = 12.0 * np.pi\nu = np.arange(N) * (2 * np.pi / N)\npn = -0.27 + 0.12 * np.cos(3 * u)[:, None] * np.cos(4 * u)[None, :]\npb = pn + 0.02 * np.sin(u)[:, None]\np = pn + 0.01 * np.cos(3 * u)[None, :]\nq = 0.05 * np.sin(2 * u)[:, None] * np.sin(u)[None, :]\nassert np.allclose(solve_multiplier(p, q, pn, pb, 0.5, 500.0, 1.0, 0.37, L), target)",
+        "import numpy as np\nN = 24\nL = 12.0 * np.pi\nu = np.arange(N) * (2 * np.pi / N)\npn = -0.27 + 0.12 * np.cos(3 * u)[:, None] * np.cos(4 * u)[None, :]\npb = pn + 0.05 * np.sin(u)[:, None]\np = pn + 0.03 * np.cos(3 * u)[None, :]\nq = 0.2 * np.sin(2 * u)[:, None] * np.sin(u)[None, :]\nassert np.allclose(solve_multiplier(p, q, pn, pb, 0.9, 0.2, 1.0, 0.6, L), target)",
+        "import numpy as np\nNv = (20, 28)\nLv = (5.0, 13.0)\na = np.arange(Nv[0]) * (2 * np.pi / Nv[0])\nb = np.arange(Nv[1]) * (2 * np.pi / Nv[1])\npn = -0.27 + 0.1 * np.cos(2 * a)[:, None] * np.sin(3 * b)[None, :]\npb = pn + 0.02 * np.cos(a)[:, None]\np = pn + 0.01 * np.sin(b)[None, :]\nq = 0.04 * np.cos(a)[:, None] * np.cos(b)[None, :]\nassert np.allclose(solve_multiplier(p, q, pn, pb, 0.25, 5.0, 1.0, 0.37, Lv), target)",
+        "import numpy as np\nN = 12\nL = 6.0\nu = np.arange(N) * (2 * np.pi / N)\npn = -0.27 + 0.05 * np.cos(u)[:, None] * np.cos(u)[None, :]\npb = pn.copy()\np = pn.copy()\nq = np.zeros_like(pn)\nassert np.allclose(solve_multiplier(p, q, pn, pb, 0.3, 5.0, 0.97, 0.37, L), target)",
+        "import numpy as np\nN = 16\nL = 8.0 * np.pi\nu = np.arange(N) * (2 * np.pi / N)\npn = -0.27 + 0.08 * np.cos(2 * u)[:, None] * np.sin(u)[None, :]\npb = pn.copy()\np = pn - 1e-5 * np.cos(u)[:, None]\nq = 0.01 * np.sin(u)[:, None] * np.cos(2 * u)[None, :]\nassert np.allclose(solve_multiplier(p, q, pn, pb, 1e-4, 5.0, 1.0, 0.37, L), target)",
+        "import numpy as np\nN = 32\nL = 16.0 * np.pi\nu = np.arange(N) * (2 * np.pi / N)\npn = -0.27 + 0.09 * np.cos(5 * u)[:, None] * np.sin(3 * u)[None, :]\npb = pn + 0.01 * np.cos(2 * u)[:, None]\np = pn + 0.004 * np.sin(4 * u)[None, :]\nq = 0.03 * np.cos(u)[:, None] * np.cos(2 * u)[None, :]\ntau, th, en, Aa = 0.4, 5.0, 1.0, 0.37\nw0 = (L / N) ** 2\nFb = lambda x: 0.25 * x ** 4 - 0.5 * Aa * x ** 2\nFp = lambda x: x ** 3 - Aa * x\ndef is_root(e):\n    s = e * (2.0 - e)\n    w = p + s * tau * q\n    g = (w0 * np.sum(Fb(w)) - w0 * np.sum(Fb(pn))\n         - s * w0 * np.sum(Fp(pb) * (w - pn))\n         + th * (e * e - en * en))\n    return float(abs(g) < 1e-10)\nassert np.allclose(is_root(solve_multiplier(p, q, pn, pb, tau, th, en, Aa, L)), target)",
+        "import numpy as np\nN = 32\nL = 16.0 * np.pi\nu = np.arange(N) * (2 * np.pi / N)\npn = -0.27 + 0.09 * np.cos(5 * u)[:, None] * np.sin(3 * u)[None, :]\npb = pn + 0.01 * np.cos(2 * u)[:, None]\np = pn + 0.004 * np.sin(4 * u)[None, :]\nq = 0.03 * np.cos(u)[:, None] * np.cos(2 * u)[None, :]\ndef trap(f):\n    try:\n        return float(f())\n    except RuntimeError:\n        return -1.0\nassert np.allclose(trap(lambda: solve_multiplier(p, q, pn, pb, 0.4, 5.0, 1.0, 0.37, L, 1e-13, 2)), target)",
+        "import numpy as np\nN = 24\nL = 12.0 * np.pi\nu = np.arange(N) * (2 * np.pi / N)\npn = -0.27 + 0.12 * np.cos(3 * u)[:, None] * np.cos(4 * u)[None, :]\npb = pn + 0.05 * np.sin(u)[:, None]\np = pn + 0.03 * np.cos(3 * u)[None, :]\nq = 0.2 * np.sin(2 * u)[:, None] * np.sin(u)[None, :]\ndef trap(f):\n    try:\n        return float(f())\n    except RuntimeError:\n        return -1.0\nassert np.allclose(trap(lambda: solve_multiplier(p, q, pn, pb, 50.0, 0.05, 1.0, 0.6, L)), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Computational_Physics-34.6",
+      "test_cases": [
+        "import numpy as np\nN = 64\nL = 32.0 * np.pi\nu = np.arange(N) * (2 * np.pi / N)\ns = u[:, None]\nt = u[None, :]\nphi0 = (-0.27 + 0.06 * np.cos(16 * s + 0.3) * np.cos(9 * t)\n        + 0.05 * np.sin(11 * s) * np.cos(13 * t + 0.7)\n        + 0.04 * np.cos(7 * s - 14 * t + 1.1)\n        + 0.03 * np.sin(19 * s + 5 * t) * np.sin(6 * t)\n        + 0.02 * np.cos(23 * s) * np.sin(21 * t + 0.4))\ndef pack(r):\n    return np.concatenate([np.asarray(r[0], float).ravel(), np.asarray([r[1]], float)])\nassert np.allclose(pack(pfc_bdf2_step(phi0, phi0, 1.0, 0.0, 1e-4, L, 0.75, 0.37, 5.0)), target)",
+        "import numpy as np\nN = 32\nL = 16.0 * np.pi\nu = np.arange(N) * (2 * np.pi / N)\npn = -0.27 + 0.1 * np.cos(8 * u)[:, None] * np.sin(5 * u)[None, :]\npm = -0.27 + 0.08 * np.cos(8 * u)[:, None] * np.sin(5 * u)[None, :]\ndef pack(r):\n    return np.concatenate([np.asarray(r[0], float).ravel(), np.asarray([r[1]], float)])\nassert np.allclose(pack(pfc_bdf2_step(pn, pm, 0.94, 1.02, 0.7, L, 0.75, 0.37, 5.0)), target)",
+        "import numpy as np\nN = 32\nL = 16.0 * np.pi\nu = np.arange(N) * (2 * np.pi / N)\npn = -0.27 + 0.1 * np.cos(8 * u)[:, None] * np.sin(5 * u)[None, :]\npm = -0.27 + 0.06 * np.cos(8 * u)[:, None] * np.sin(5 * u)[None, :]\ndef pack(r):\n    return np.concatenate([np.asarray(r[0], float).ravel(), np.asarray([r[1]], float)])\nassert np.allclose(pack(pfc_bdf2_step(pn, pm, 1.0, 4.86454, 0.02, L, 0.75, 0.37, 5.0)), target)",
+        "import numpy as np\nN = 24\nL = 12.0 * np.pi\nu = np.arange(N) * (2 * np.pi / N)\npn = -0.27 + 0.15 * np.cos(4 * u)[:, None] * np.cos(3 * u)[None, :]\npm = -0.27 + 0.10 * np.cos(4 * u)[:, None] * np.cos(3 * u)[None, :]\ndef pack(r):\n    return np.concatenate([np.asarray(r[0], float).ravel(), np.asarray([r[1]], float)])\nassert np.allclose(pack(pfc_bdf2_step(pn, pm, 0.88, 1.3, 0.9, L, 0.75, 0.37, 0.5)), target)",
+        "import numpy as np\nNv = (24, 32)\nLv = (20.0 * np.pi, 32.0 * np.pi)\na = np.arange(Nv[0]) * (2 * np.pi / Nv[0])\nb = np.arange(Nv[1]) * (2 * np.pi / Nv[1])\npn = -0.27 + 0.11 * np.cos(3 * a)[:, None] * np.sin(4 * b)[None, :]\npm = -0.27 + 0.09 * np.cos(3 * a)[:, None] * np.sin(4 * b)[None, :]\ndef pack(r):\n    return np.concatenate([np.asarray(r[0], float).ravel(), np.asarray([r[1]], float)])\nassert np.allclose(pack(pfc_bdf2_step(pn, pm, 1.0, 1.5, 0.35, Lv, 0.6, 0.5, 20.0)), target)",
+        "import numpy as np\nN = 16\nL = 8.0 * np.pi\nu = np.arange(N) * (2 * np.pi / N)\npn = -0.27 + 0.2 * np.cos(2 * u)[:, None] * np.cos(u)[None, :]\ndef pack(r):\n    return np.concatenate([np.asarray(r[0], float).ravel(), np.asarray([r[1]], float)])\nassert np.allclose(pack(pfc_bdf2_step(pn, pn, 1.0, 2.5, 0.1, L, 0.75, 0.37, 50.0)), target)",
+        "import numpy as np\nN = 16\nL = 8.0 * np.pi\nu = np.arange(N) * (2 * np.pi / N)\npn = -0.27 + 0.2 * np.cos(2 * u)[:, None] * np.cos(u)[None, :]\npm = -0.27 + 0.19 * np.cos(2 * u)[:, None] * np.cos(u)[None, :]\ndef pack(r):\n    return np.concatenate([np.asarray(r[0], float).ravel(), np.asarray([r[1]], float)])\nassert np.allclose(pack(pfc_bdf2_step(pn, pm, 1.0, 1.0, 100.0, L, 0.75, 0.37, 5.0)), target)",
+        "import numpy as np\nN = 32\nL = 16.0 * np.pi\nu = np.arange(N) * (2 * np.pi / N)\npn = -0.27 + 0.1 * np.cos(8 * u)[:, None] * np.sin(5 * u)[None, :]\npm = -0.27 + 0.08 * np.cos(8 * u)[:, None] * np.sin(5 * u)[None, :]\ngam, tau, al, Aa, th, e0 = 1.02, 0.7, 0.75, 0.37, 5.0, 0.94\nw0 = (L / N) ** 2\nFb = lambda x: 0.25 * x ** 4 - 0.5 * Aa * x ** 2\nFp = lambda x: x ** 3 - Aa * x\ndef law(res):\n    phi, eta = res\n    phi = np.asarray(phi, float)\n    pb = pn + gam * (pn - pm)\n    S = eta * (2.0 - eta)\n    r = (w0 * np.sum(Fb(phi) - Fb(pn)) + th * (eta * eta - e0 * e0)\n         - S * w0 * np.sum(Fp(pb) * (phi - pn)))\n    m = w0 * np.sum(phi - pn)\n    return float(abs(r) < 1e-10 and abs(m) < 1e-12)\nassert np.allclose(law(pfc_bdf2_step(pn, pm, e0, gam, tau, L, al, Aa, th)), target)",
+        "import numpy as np\nN = 16\nL = 8.0 * np.pi\nu = np.arange(N) * (2 * np.pi / N)\npn = -0.27 + 0.2 * np.cos(2 * u)[:, None] * np.cos(u)[None, :]\npm = -0.27 + 0.1 * np.cos(2 * u)[:, None] * np.cos(u)[None, :]\ndef trap(f):\n    try:\n        return float(f()[1])\n    except RuntimeError:\n        return -1.0\nassert np.allclose(trap(lambda: pfc_bdf2_step(pn, pm, 1.0, 1.0, 200.0, L, 0.75, 0.37, 0.05)), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Computational_Physics-34.7",
+      "test_cases": [
+        "assert np.allclose(adaptive_time_step(0.64, 283.6248, 283.6255, 1e-4, 1.0, 4.0), target)",
+        "assert np.allclose(adaptive_time_step(0.02, 288.14, 290.61, 1e-4, 1.0, 4.0), target)",
+        "assert np.allclose(adaptive_time_step(1e-4, 294.30983833, 294.33292334, 1e-4, 1.0, 4.0), target)",
+        "assert np.allclose(adaptive_time_step(1e-6, 100.0, 1.0e5, 1e-4, 1.0, 4.0), target)",
+        "assert np.allclose(adaptive_time_step(0.9, 276.6007, 276.6007, 1e-4, 1.0, 4.0), target)",
+        "assert np.allclose(adaptive_time_step(1e-6, 500.0, 900.0, 1e-6, 2.0, 0.0), target)",
+        "assert np.allclose(adaptive_time_step(0.05, 1.0, 1.0e6, 0.05, 0.05, 1.0), target)",
+        "assert np.allclose(adaptive_time_step(0.3, 290.0, 283.0, 1e-4, 1.0, 4.0), target)"
+      ]
+    },
+    {
+      "step_number": "Physics-Computational_Physics-34.8",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(penalized_lm_pfc_answer(), target)",
+        "import numpy as np\nassert np.allclose(penalized_lm_pfc_answer(thetas=(5.0, 50.0), N=32, L=16.0 * np.pi, n_steps=8, tau_min=1e-3, tau_max=0.5), target)",
+        "import numpy as np\nassert np.allclose(penalized_lm_pfc_answer(thetas=(5.0,), N=24, L=12.0 * np.pi, n_steps=11, tau_min=1e-3, tau_max=1.0, beta=20.0), target)",
+        "import numpy as np\nassert np.allclose(penalized_lm_pfc_answer(thetas=(5.0,), N=16, L=8.0 * np.pi, n_steps=2, tau_min=1e-4, tau_max=1.0), target)",
+        "import numpy as np\nassert np.allclose(penalized_lm_pfc_answer(thetas=(0.5, 500.0), N=24, L=12.0 * np.pi, n_steps=9, tau_min=0.08, tau_max=0.08), target)",
+        "import numpy as np\nassert np.allclose(penalized_lm_pfc_answer(thetas=(5.0,), N=16, L=8.0 * np.pi, n_steps=10, tau_min=1e-6, tau_max=1.0, beta=0.0), target)",
+        "import numpy as np\nNv = (20, 28)\nLv = (16.0 * np.pi, 24.0 * np.pi)\nassert np.allclose(penalized_lm_pfc_answer(thetas=(2.0, 20.0), N=Nv, L=Lv, alpha=0.6, A=0.5, n_steps=9, tau_min=1e-3, tau_max=0.4, beta=2.0), target)",
+        "import numpy as np\nassert np.allclose(penalized_lm_pfc_answer(thetas=(0.5,), N=24, L=12.0 * np.pi, n_steps=12, tau_min=1e-3, tau_max=0.8, beta=1.0, A=0.6), target)",
+        "import numpy as np\ndef trap(f):\n    try:\n        return float(f())\n    except RuntimeError:\n        return -1.0\nassert np.allclose(trap(lambda: penalized_lm_pfc_answer(thetas=(0.1,), N=16, L=8.0 * np.pi, n_steps=10, tau_min=1e-3, tau_max=1.5, beta=0.5, A=0.6)), target)"
+      ]
+    }
+  ]
+}

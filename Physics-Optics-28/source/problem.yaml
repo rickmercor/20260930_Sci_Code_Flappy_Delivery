@@ -1,0 +1,40 @@
+problem_id: "Physics-Optics-28"
+subject: "physics"
+subject_area: "Optics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1103/jhkz-84dz"
+dependencies: ""
+steps:
+  - number: 1
+    name: "gaussian gate"
+    description: "Construct a finite-Fock squeezing or beam-mixer Gaussian unitary and optionally apply it to amplitude columns."
+    orchestrator: false
+  - number: 2
+    name: "attenuate"
+    description: "Apply quantum-limited vacuum attenuation to one selected mode of a one- or two-mode density matrix."
+    orchestrator: false
+  - number: 3
+    name: "herald"
+    description: "Condition on an inefficient photon-number-resolving count and trace out the detected mode while preserving unnormalized branch weight."
+    orchestrator: false
+  - number: 4
+    name: "retained states"
+    description: "Prepare the squeezed three-mode source, herald the first count, and apply both memory losses to the retained pair."
+    orchestrator: false
+  - number: 5
+    name: "feedforward state"
+    description: "Apply one count-selected two-mode mixer-squeezers-mixer Gaussian controller while preserving branch mass."
+    orchestrator: false
+  - number: 6
+    name: "policy statistics"
+    description: "Compute each labeled record's joint success probability and target overlap after its controller, second herald, and final loss."
+    orchestrator: false
+  - number: 7
+    name: "optimal reward"
+    description: "Optimize the pooled source reward over common or adaptive Gaussian controllers with the supplied inline-squeezer bound."
+    orchestrator: false
+  - number: 8
+    name: "source reward"
+    description: "Return the optimized pooled reward for one declared optical-source configuration."
+    orchestrator: true

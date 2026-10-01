@@ -1,0 +1,152 @@
+{
+  "problem_id": "Material_Science-Semiconductor_Materials-66",
+  "sub_steps": [
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-66.1",
+      "test_cases": [
+        "import numpy as np\ndef run_model():\n    try:\n        log_intrinsic_carrier_density(-1.0, 2.86e19, 2.66e19)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nassert np.allclose(log_intrinsic_carrier_density(12.0, 2.86e19, 2.66e19), target)",
+        "import numpy as np\nassert np.allclose(log_intrinsic_carrier_density(300.0, 2.86e19, 2.66e19), target)",
+        "import numpy as np\nassert np.allclose(log_intrinsic_carrier_density(75.0, 2.86e19, 2.66e19), target)",
+        "import numpy as np\nassert np.allclose(log_intrinsic_carrier_density(1.0, 2.86e19, 2.66e19), target)",
+        "import numpy as np\nassert np.allclose(log_intrinsic_carrier_density(250.0, 3.20e19, 1.80e19), target)",
+        "import numpy as np\nassert np.allclose(log_intrinsic_carrier_density(4.2, 3.20e19, 1.80e19), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-66.2",
+      "test_cases": [
+        "import numpy as np\ndef run_model():\n    try:\n        bulk_potential(-1.0, 3.0e17, 4.0, 0.045)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nassert np.allclose(bulk_potential(12.0, 3.0e17, 4.0, 0.045), target)",
+        "import numpy as np\nassert np.allclose(bulk_potential(300.0, 3.0e17, 4.0, 0.045), target)",
+        "import numpy as np\nassert np.allclose(bulk_potential(4.2, 3.0e17, 4.0, 0.045), target)",
+        "import numpy as np\nassert np.allclose(bulk_potential(12.0, 1.0e15, 4.0, 0.045), target)",
+        "import numpy as np\nassert np.allclose(bulk_potential(75.0, 3.0e17, 2.0, 0.070), target)",
+        "import numpy as np\nassert np.allclose(bulk_potential(4.2, 5.0e18, 4.0, 0.045), target)",
+        "import numpy as np\nassert np.allclose(bulk_potential(250.0, 1.0e15, 4.0, 0.045), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-66.3",
+      "test_cases": [
+        "import numpy as np\ndef run_model():\n    try:\n        work_function_difference(-1.0, 3.0e17, 4.35, 4.05, 4.0, 0.045)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nassert np.allclose(work_function_difference(12.0, 3.0e17, 4.35, 4.05, 4.0, 0.045), target)",
+        "import numpy as np\nassert np.allclose(work_function_difference(300.0, 3.0e17, 4.35, 4.05, 4.0, 0.045), target)",
+        "import numpy as np\nassert np.allclose(work_function_difference(4.2, 3.0e17, 4.35, 4.05, 4.0, 0.045), target)",
+        "import numpy as np\nassert np.allclose(work_function_difference(12.0, 1.0e18, 4.10, 4.05, 4.0, 0.045), target)",
+        "import numpy as np\nassert np.allclose(work_function_difference(150.0, 3.0e17, 4.35, 4.05, 2.0, 0.070), target)",
+        "import numpy as np\nassert np.allclose(work_function_difference(4.2, 1.0e18, 4.10, 4.05, 2.0, 0.070), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-66.4",
+      "test_cases": [
+        "import numpy as np\ndef run_model():\n    try:\n        interface_trap_charge(0.5739, 0.0, -1.0, 1.833e12, 0.2943, 2.0, 400)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nassert np.allclose(interface_trap_charge(0.5739, 0.0, 12.0, 1.833e12, 0.2943, 2.0, 400), target)",
+        "import numpy as np\nassert np.allclose(interface_trap_charge(0.6168, 0.1, 12.0, 1.833e12, 0.2943, 2.0, 400), target)",
+        "import numpy as np\nassert np.allclose(interface_trap_charge(-0.40, 0.0, 12.0, 1.833e12, 0.2943, 2.0, 400), target)",
+        "import numpy as np\nassert np.allclose(interface_trap_charge(0.90, 0.0, 12.0, 1.833e12, 0.2943, 2.0, 400), target)",
+        "import numpy as np\nassert np.allclose(interface_trap_charge(0.55, 0.0, 250.0, 1.833e12, 0.2943, 2.0, 400), target)",
+        "import numpy as np\nassert np.allclose(interface_trap_charge(0.5739, 0.0, 12.0, 5.0e11, 0.1200, 4.0, 200), target)",
+        "import numpy as np\nassert np.allclose(interface_trap_charge(0.5739, 0.0, 12.0, 1.833e12, 0.2943, 2.0, 16), target)",
+        "import numpy as np\nassert np.allclose(interface_trap_charge(0.62, 0.0, 77.0, 5.0e12, 0.1200, 2.0, 400), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-66.5",
+      "test_cases": [
+        "import numpy as np\ndef run_model():\n    try:\n        band_tail_carrier_density(0.5739, 0.0, -1.0, 0.0291, 0.0998, 0.004088, 400)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nassert np.allclose(band_tail_carrier_density(0.5739, 0.0, 12.0, 0.0291, 0.0998, 0.004088, 400), target)",
+        "import numpy as np\nP = np.array([-0.40, 0.0, 0.30, 0.5890, 0.65])\nassert np.allclose(band_tail_carrier_density(P, 0.0, 12.0, 0.0291, 0.0998, 0.004088, 400), target)",
+        "import numpy as np\nassert np.allclose(band_tail_carrier_density(0.5890354444444444, 0.0, 12.0, 0.0291, 0.0998, 0.004088, 400), target)",
+        "import numpy as np\nassert np.allclose(band_tail_carrier_density(0.6168, 0.1, 12.0, 0.0291, 0.0998, 0.004088, 400), target)",
+        "import numpy as np\nassert np.allclose(band_tail_carrier_density(0.55, 0.0, 250.0, 0.0291, 0.0998, 0.004088, 400), target)",
+        "import numpy as np\nP = np.array([0.20, 0.45])\nassert np.allclose(band_tail_carrier_density(P, 0.0, 12.0, 0.0120, 0.0400, -0.010, 200), target)",
+        "import numpy as np\nassert np.allclose(band_tail_carrier_density(np.array([0.45, 0.55, 0.60, 0.65]), 0.0, 12.0, 0.08, 0.02, -0.02, 400), target)",
+        "import numpy as np\nassert np.allclose(band_tail_carrier_density(0.50, 0.0, 77.0, 0.0291, 0.0998, 0.004088, 400), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-66.6",
+      "test_cases": [
+        "import numpy as np\ndef run_model():\n    try:\n        depletion_charge_density(0.5739, 0.0, -1.0, 3.0e17, 4.0, 0.045)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nassert np.allclose(depletion_charge_density(0.5739, 0.0, 12.0, 3.0e17, 4.0, 0.045), target)",
+        "import numpy as np\nassert np.allclose(depletion_charge_density(0.6168, 0.1, 12.0, 3.0e17, 4.0, 0.045), target)",
+        "import numpy as np\nassert np.allclose(depletion_charge_density(-0.5618895001762898, 0.0, 12.0, 3.0e17, 4.0, 0.045), target)",
+        "import numpy as np\nassert np.allclose(depletion_charge_density(0.90, 0.0, 12.0, 3.0e17, 4.0, 0.045), target)",
+        "import numpy as np\nassert np.allclose(depletion_charge_density(0.55, 0.0, 300.0, 3.0e17, 4.0, 0.045), target)",
+        "import numpy as np\nassert np.allclose(depletion_charge_density(0.40, 0.0, 12.0, 1.0e18, 2.0, 0.070), target)",
+        "import numpy as np\nassert np.allclose(depletion_charge_density(0.50, 0.0, 12.0, 5.0e18, 4.0, 0.045), target)",
+        "import numpy as np\nassert np.allclose(depletion_charge_density(0.60, 0.0, 4.2, 3.0e17, 4.0, 0.045), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-66.7",
+      "test_cases": [
+        "import numpy as np\ndef run_model():\n    try:\n        mobile_charge_density(0.5739, 0.0, -1.0, 3.0e17, 0.0291, 0.0998, 0.004088, 4.0, 0.045, 400)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nassert np.allclose(mobile_charge_density(0.5739, 0.0, 12.0, 3.0e17, 0.0291, 0.0998, 0.004088, 4.0, 0.045, 400), target)",
+        "import numpy as np\nassert np.allclose(mobile_charge_density(0.6168, 0.1, 12.0, 3.0e17, 0.0291, 0.0998, 0.004088, 4.0, 0.045, 400), target)",
+        "import numpy as np\nassert np.allclose(mobile_charge_density(0.30, 0.0, 12.0, 3.0e17, 0.0291, 0.0998, 0.004088, 4.0, 0.045, 400), target)",
+        "import numpy as np\nassert np.allclose(mobile_charge_density(-0.5618895001762898, 0.0, 12.0, 3.0e17, 0.0291, 0.0998, 0.004088, 4.0, 0.045, 400), target)",
+        "import numpy as np\nassert np.allclose(mobile_charge_density(0.68, 0.0, 12.0, 3.0e17, 0.0291, 0.0998, 0.004088, 4.0, 0.045, 400), target)",
+        "import numpy as np\nassert np.allclose(mobile_charge_density(0.55, 0.0, 250.0, 3.0e17, 0.0291, 0.0998, 0.004088, 4.0, 0.045, 200), target)",
+        "import numpy as np\nassert np.allclose(mobile_charge_density(0.70, 0.0, 12.0, 1.0e18, 0.0291, 0.0998, 0.004088, 4.0, 0.045, 400), target)",
+        "import numpy as np\nassert np.allclose(mobile_charge_density(0.55, 0.0, 77.0, 3.0e17, 0.0291, 0.0998, 0.004088, 4.0, 0.045, 400), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-66.8",
+      "test_cases": [
+        "import numpy as np\nCOX = 3.9 * 8.8541878128e-14 / 2.6e-7\nPMS = -0.8468369446207342\ndef run_model():\n    try:\n        surface_potential(0.62, 0.0, -1.0, 3.0e17, COX, PMS, 1.833e12, 0.2943, 0.0291, 0.0998, 0.004088, 2.0, 4.0, 0.045, 400, 1e-14)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nCOX = 3.9 * 8.8541878128e-14 / 2.6e-7\nPMS = -0.8468369446207342\nassert np.allclose(surface_potential(0.62, 0.0, 12.0, 3.0e17, COX, PMS, 1.833e12, 0.2943, 0.0291, 0.0998, 0.004088, 2.0, 4.0, 0.045, 400, 1e-14), target)",
+        "import numpy as np\nCOX = 3.9 * 8.8541878128e-14 / 2.6e-7\nPMS = -0.8468369446207342\nassert np.allclose(surface_potential(0.62, 0.1, 12.0, 3.0e17, COX, PMS, 1.833e12, 0.2943, 0.0291, 0.0998, 0.004088, 2.0, 4.0, 0.045, 400, 1e-14), target)",
+        "import numpy as np\nCOX = 3.9 * 8.8541878128e-14 / 2.6e-7\nPMS = -0.8468369446207342\nassert np.allclose(surface_potential(0.20, 0.0, 12.0, 3.0e17, COX, PMS, 1.833e12, 0.2943, 0.0291, 0.0998, 0.004088, 2.0, 4.0, 0.045, 400, 1e-14), target)",
+        "import numpy as np\nCOX = 3.9 * 8.8541878128e-14 / 2.6e-7\nPMS = -0.8468369446207342\nassert np.allclose(surface_potential(1.00, 0.0, 12.0, 3.0e17, COX, PMS, 1.833e12, 0.2943, 0.0291, 0.0998, 0.004088, 2.0, 4.0, 0.045, 400, 1e-14), target)",
+        "import numpy as np\nCOX = 3.9 * 8.8541878128e-14 / 2.6e-7\nassert np.allclose(surface_potential(0.62, 0.0, 250.0, 3.0e17, COX, -0.90, 1.833e12, 0.2943, 0.0291, 0.0998, 0.004088, 2.0, 4.0, 0.045, 200, 1e-12), target)",
+        "import numpy as np\nCOX = 3.9 * 8.8541878128e-14 / 2.6e-7\nPMS = -0.8468369446207342\nassert np.allclose(surface_potential(1.50, 0.0, 12.0, 3.0e17, COX, PMS, 1.833e12, 0.2943, 0.0291, 0.0998, 0.004088, 2.0, 4.0, 0.045, 400, 1e-14), target)",
+        "import numpy as np\nCOX = 3.9 * 8.8541878128e-14 / 2.6e-7\nPMS = -0.8468369446207342\nassert np.allclose(surface_potential(0.05, 0.0, 12.0, 3.0e17, COX, PMS, 1.833e12, 0.2943, 0.0291, 0.0998, 0.004088, 2.0, 4.0, 0.045, 400, 1e-14), target)",
+        "import numpy as np\nCOX = 3.9 * 8.8541878128e-14 / 2.6e-7\nPMS = -0.8468369446207342\nassert np.allclose(surface_potential(0.62, 0.0, 4.2, 3.0e17, COX, PMS, 1.833e12, 0.2943, 0.0291, 0.0998, 0.004088, 2.0, 4.0, 0.045, 64, 1e-12), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-66.9",
+      "test_cases": [
+        "import numpy as np\ndef run_model():\n    try:\n        effective_mobility(-3.2833e-07, -3.5651e-08, -1.0, 0.55428, 0.10007, 0.5)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nassert np.allclose(effective_mobility(-3.2833e-07, -3.5651e-08, 395.655, 0.55428, 0.10007, 0.5), target)",
+        "import numpy as np\nassert np.allclose(effective_mobility(-3.2833e-07, 0.0, 395.655, 0.55428, 0.10007, 0.5), target)",
+        "import numpy as np\nassert np.allclose(effective_mobility(-3.5821e-07, -9.7498e-04, 395.655, 0.55428, 0.10007, 0.5), target)",
+        "import numpy as np\nassert np.allclose(effective_mobility(0.0, 0.0, 395.655, 0.55428, 0.10007, 0.5), target)",
+        "import numpy as np\nassert np.allclose(effective_mobility(-3.2833e-07, -3.5651e-08, 314.822, 0.37306, 0.57612, 0.5), target)",
+        "import numpy as np\nassert np.allclose(effective_mobility(-3.2833e-07, -3.5651e-08, 395.655, 0.0, 0.0, 1.0), target)",
+        "import numpy as np\nassert np.allclose(effective_mobility(-1.312891e-06, -2.753406e-05, 395.655, 0.55428, 0.10007, 0.5), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-66.10",
+      "test_cases": [
+        "import numpy as np\nCOX = 3.9 * 8.8541878128e-14 / 2.6e-7\ndef run_model():\n    try:\n        coupling_factor(0.5739, 0.0, -1.0, 3.0e17, COX, 1.833e12, 0.2943, 2.0, 4.0, 0.045, 400)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nCOX = 3.9 * 8.8541878128e-14 / 2.6e-7\nassert np.allclose(coupling_factor(0.5739, 0.0, 12.0, 3.0e17, COX, 1.833e12, 0.2943, 2.0, 4.0, 0.045, 400), target)",
+        "import numpy as np\nCOX = 3.9 * 8.8541878128e-14 / 2.6e-7\nassert np.allclose(coupling_factor(0.6168, 0.1, 12.0, 3.0e17, COX, 1.833e12, 0.2943, 2.0, 4.0, 0.045, 400), target)",
+        "import numpy as np\nCOX = 3.9 * 8.8541878128e-14 / 2.6e-7\nassert np.allclose(coupling_factor(0.90, 0.0, 12.0, 3.0e17, COX, 1.833e12, 0.2943, 2.0, 4.0, 0.045, 400), target)",
+        "import numpy as np\nCOX = 3.9 * 8.8541878128e-14 / 2.6e-7\nassert np.allclose(coupling_factor(0.20, 0.0, 12.0, 3.0e17, COX, 1.833e12, 0.2943, 2.0, 4.0, 0.045, 400), target)",
+        "import numpy as np\nCOX = 3.9 * 8.8541878128e-14 / 2.6e-7\nassert np.allclose(coupling_factor(0.55, 0.0, 250.0, 3.0e17, COX, 1.833e12, 0.2943, 2.0, 4.0, 0.045, 200), target)",
+        "import numpy as np\nCOX = 3.9 * 8.8541878128e-14 / 1.5e-7\nassert np.allclose(coupling_factor(0.5739, 0.0, 12.0, 1.0e18, COX, 5.0e11, 0.1200, 4.0, 2.0, 0.070, 200), target)",
+        "import numpy as np\nCOX = 3.9 * 8.8541878128e-14 / 2.6e-7\nassert np.allclose(coupling_factor(0.5739, 0.0, 12.0, 3.0e17, COX, 5.0e12, 0.4000, 2.0, 4.0, 0.045, 400), target)",
+        "import numpy as np\nCOX = 3.9 * 8.8541878128e-14 / 2.6e-7\nassert np.allclose(coupling_factor(0.70, 0.0, 12.0, 1.0e18, COX, 1.833e12, 0.2943, 2.0, 4.0, 0.045, 400), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-66.11",
+      "test_cases": [
+        "import numpy as np\ndef run_model():\n    try:\n        drain_current_microamp(-1.0, 3.0e17, 2.6e-7, 2.0e-4, 6.5e-6, 0.62, 0.1, 4.35, 4.05, 1.833e12, 0.2943, 0.0291, 0.0998, 0.004088, 395.655, 0.55428, 0.10007, 0.5, 2.0, 4.0, 0.045, 400, 1e-14)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nassert np.allclose(drain_current_microamp(12.0, 3.0e17, 2.6e-7, 2.0e-4, 6.5e-6, 0.62, 0.1, 4.35, 4.05, 1.833e12, 0.2943, 0.0291, 0.0998, 0.004088, 395.655, 0.55428, 0.10007, 0.5, 2.0, 4.0, 0.045, 400, 1e-14), target)",
+        "import numpy as np\nassert np.allclose(drain_current_microamp(12.0, 3.0e17, 2.6e-7, 2.0e-4, 6.5e-6, 0.90, 0.1, 4.35, 4.05, 1.833e12, 0.2943, 0.0291, 0.0998, 0.004088, 395.655, 0.55428, 0.10007, 0.5, 2.0, 4.0, 0.045, 400, 1e-14), target)",
+        "import numpy as np\nassert np.allclose(drain_current_microamp(12.0, 3.0e17, 2.6e-7, 2.0e-4, 6.5e-6, 0.62, 0.0, 4.35, 4.05, 1.833e12, 0.2943, 0.0291, 0.0998, 0.004088, 395.655, 0.55428, 0.10007, 0.5, 2.0, 4.0, 0.045, 400, 1e-14), target)",
+        "import numpy as np\nassert np.allclose(drain_current_microamp(250.0, 3.0e17, 2.6e-7, 2.0e-4, 6.5e-6, 0.62, 0.1, 4.35, 4.05, 1.833e12, 0.2943, 0.0291, 0.0998, 0.004088, 314.822, 0.37306, 0.57612, 0.5, 2.0, 4.0, 0.045, 200, 1e-12), target)",
+        "import numpy as np\nassert np.allclose(drain_current_microamp(12.0, 3.0e17, 2.6e-7, 2.0e-4, 6.5e-6, 0.40, 0.1, 4.35, 4.05, 1.833e12, 0.2943, 0.0291, 0.0998, 0.004088, 395.655, 0.55428, 0.10007, 0.5, 2.0, 4.0, 0.045, 400, 1e-14), target)",
+        "import numpy as np\nassert np.allclose(drain_current_microamp(4.2, 3.0e17, 2.6e-7, 2.0e-4, 6.5e-6, 0.62, 0.1, 4.35, 4.05, 1.833e12, 0.2943, 0.0291, 0.0998, 0.004088, 395.655, 0.55428, 0.10007, 0.5, 2.0, 4.0, 0.045, 400, 1e-14), target)",
+        "import numpy as np\nassert np.allclose(drain_current_microamp(12.0, 3.0e17, 2.6e-7, 2.0e-4, 6.5e-6, 1.20, 0.3, 4.35, 4.05, 1.833e12, 0.2943, 0.0291, 0.0998, 0.004088, 395.655, 0.55428, 0.10007, 0.5, 2.0, 4.0, 0.045, 400, 1e-14), target)"
+      ]
+    }
+  ]
+}

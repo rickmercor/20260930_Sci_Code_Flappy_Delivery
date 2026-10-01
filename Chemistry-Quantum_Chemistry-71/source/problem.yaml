@@ -1,0 +1,36 @@
+problem_id: "Chemistry-Quantum_Chemistry-71"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1021/acs.jpca.6c04534"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_pi_hamiltonian"
+    description: "Step 01: Pi Hamiltonian along a conrotatory or disrotatory ring closure. One-electron pi Hamiltonian of a linear polyene closing to a ring along a symmetry-constrained electrocyclic path."
+    orchestrator: false
+  - number: 2
+    name: "02_singlet_ground_state"
+    description: "Step 02: Lowest singlet and natural occupations of a half-filled Hubbard model. Lowest singlet state of a Hubbard-type pi-electron model at half filling, with its natural orbital occupations."
+    orchestrator: false
+  - number: 3
+    name: "03_frontier_mixing_descriptors"
+    description: "Step 03: Frontier orbital mixing angle and ionic and covalent weights. Orbital mixing angle of the frontier bond and the ionic and covalent weights it implies."
+    orchestrator: false
+  - number: 4
+    name: "04_path_transition_state"
+    description: "Step 04: Transition state and rise of the mixing angle along a constrained path. Highest point of the correlated pi energy along a symmetry-constrained electrocyclic path and the change of the frontier mixing angle."
+    orchestrator: false
+  - number: 5
+    name: "05_yamaguchi_mixing_angle"
+    description: "Step 05: Yamaguchi spin-projected mixing angle from unrestricted Hartree-Fock. Spin-projected unrestricted Hartree-Fock estimate of diradical character and the mixing angle it implies."
+    orchestrator: false
+  - number: 6
+    name: "06_calibrate_model"
+    description: "Step 06: Two-parameter calibration on the rises of the mixing angle. Two-parameter calibration of a correlated pi model against the mixing-angle changes of a forbidden and an allowed pathway."
+    orchestrator: false
+  - number: 7
+    name: "07_calibrated_puhf_angle"
+    description: "Step 07: Spin-projected angle at the calibrated transition state (orchestrator). Mean-field diradical angle at the forbidden transition state of a pi model calibrated on two reported angle changes."
+    orchestrator: true

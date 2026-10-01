@@ -1,0 +1,40 @@
+problem_id: "Biology-Biochemistry-3"
+subject: "biology"
+subject_area: "Biochemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.64898/2026.01.23.701437"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_solve_kernel_range"
+    description: "Fix the range parameter of the adhesion distance kernel so that the kernel is minimal at a prescribed centre-to-centre distance."
+    orchestrator: false
+  - number: 2
+    name: "02_compute_adhesion_velocities"
+    description: "Evaluate the overdamped velocity of every cell under polarity-dependent pairwise adhesion with a finite interaction range."
+    orchestrator: false
+  - number: 3
+    name: "03_compute_polarity_rotation_rates"
+    description: "Evaluate the rotation rate of every cell's polarity under adhesion torques and adhesion-driven polarity regulation."
+    orchestrator: false
+  - number: 4
+    name: "04_solve_stacked_triad"
+    description: "Find the stable non-collinear equilibrium of three adhering cells whose polarities are frozen, parallel and of a given magnitude."
+    orchestrator: false
+  - number: 5
+    name: "05_locate_monolayer_threshold"
+    description: "Locate the polarity magnitude above which three adhering cells can no longer rest in a stable stacked arrangement."
+    orchestrator: false
+  - number: 6
+    name: "06_compute_pair_splay_angle"
+    description: "Find the stationary splay of the polarities of an isolated adhering cell pair arranged mirror-symmetrically."
+    orchestrator: false
+  - number: 7
+    name: "07_solve_wraparound_boundary"
+    description: "Locate the polarity-regulation constant at which a three-cell arc of relaxed cell pairs first brings its end cells into interaction range."
+    orchestrator: false
+  - number: 8
+    name: "08_estimate_inflation_onset"
+    description: "Compose every earlier step to obtain the smallest polarity-regulation constant at which the few-cell analyses allow monolayer inflation."
+    orchestrator: true

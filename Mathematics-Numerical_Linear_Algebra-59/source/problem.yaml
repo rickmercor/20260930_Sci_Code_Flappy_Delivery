@@ -1,0 +1,44 @@
+problem_id: "Mathematics-Numerical_Linear_Algebra-59"
+subject: "mathematics"
+subject_area: "Numerical Linear Algebra"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2608.28545"
+dependencies: ""
+steps:
+  - number: 1
+    name: "extract_bse_eigenvector"
+    description: "Extracts the target eigenpair of the definite Bethe-Salpeter matrix H = [[R, C], [-C, -R]] and reduces it to a real 32-vector v."
+    orchestrator: false
+  - number: 2
+    name: "build_perturbed_matrix"
+    description: "Builds the 32x32 non-normal matrix A = 3*v*v^T + I + N from the extracted eigenvector v and the fixed skew-symmetric perturbation matrix N."
+    orchestrator: false
+  - number: 3
+    name: "closest_normal_diagonal"
+    description: "Runs a fixed 40-restart Riemannian optimization procedure over U(32) minimizing the off-diagonal Frobenius norm of Q*AQ, and returns the real parts of the best restart's diagonal of Q*AQ, sorted into decreasing order."
+    orchestrator: false
+  - number: 4
+    name: "build_base_matrix"
+    description: "Shifts the sorted spectrum from the previous step so its minimum equals 0.5, then builds the symmetric positive definite matrix A0 = U diag(s1,...,s32) U^T using the fixed orthogonal matrix U."
+    orchestrator: false
+  - number: 5
+    name: "build_matrix_A1"
+    description: "Builds the positive definite coefficient matrix A1 (32x32) from A0 (the previous step's output) and the fixed perturbation matrix M1, by symmetrizing a linear combination and shifting by just enough of the identity to guarantee positive definiteness."
+    orchestrator: false
+  - number: 6
+    name: "build_matrix_A3"
+    description: "Builds the positive definite coefficient matrix A3 (32x32) from a fixed base (0.3I) and the fixed perturbation matrix M2, by symmetrizing a linear combination and shifting by just enough of the identity to guarantee positive definiteness."
+    orchestrator: false
+  - number: 7
+    name: "build_matrix_A2"
+    description: "Builds the fourth coefficient matrix A2 (32x32) from A3 (a previous step's output) and the fixed perturbation matrix M3, applying a correction only when needed so that A2 - A3 ends up positive semidefinite."
+    orchestrator: false
+  - number: 8
+    name: "generalized_eigenvalue_definite_pencil"
+    description: "Computes the largest generalized eigenvalue lambda solving det(X - lambda*Y) = 0 for two real symmetric positive definite (32,32) matrices X and Y, via a Cholesky congruence transform reducing the problem to an ordinary symmetric eigenvalue problem."
+    orchestrator: false
+  - number: 9
+    name: "compute_stability_product"
+    description: "Orchestrates the full nine-step chain: extract the target Bethe-Salpeter eigenvector, perturb it into a non-normal matrix, find the diagonal of its closest normal matrix, build the base matrix and its two positive definite perturbations A1 and A3/A2, and evaluate the product of two generalized eigenvalues lambda_max(A1,A0) and lambda_max(A2,A3). The available step functions are extract_bse_eigenvector, build_perturbed_matrix, closest_normal_diagonal, build_base_matrix, build_matrix_A1, build_matrix_A3, build_matrix_A2, and generalized_eigenvalue_definite_pencil; determining the correct arguments and composition order for each is part of this step."
+    orchestrator: true

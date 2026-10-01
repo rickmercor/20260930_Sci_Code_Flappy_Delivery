@@ -1,0 +1,86 @@
+{
+  "problem_id": "Material_Science-Semiconductor_Materials-28",
+  "sub_steps": [
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-28.1",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(hd_hamiltonian(0.5,0.5,30), target)",
+        "import numpy as np\nassert np.allclose(hd_hamiltonian(0.3,0.8,12), target)",
+        "import numpy as np\nassert np.allclose(hd_hamiltonian(1.0,0.5,20), target)",
+        "import numpy as np\n# boundary: no coupling, where the electrons and the phonon decouple\nassert np.allclose(hd_hamiltonian(0.0,0.5,6), target)",
+        "import numpy as np\n# invalid input: a negative coupling must raise ValueError\ndef _probe(func, *args):\n    try:\n        func(*args)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(hd_hamiltonian, -0.5, 0.5, 30), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-28.2",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(hd_ground_state(0.5,0.5,30), target)",
+        "import numpy as np\nassert np.allclose(hd_ground_state(0.3,0.8,30), target)",
+        "import numpy as np\nassert np.allclose(hd_ground_state(1.0,0.5,40), target)",
+        "import numpy as np\n# boundary: no coupling, where the ground state is the doubly occupied bonding orbital with an empty phonon\nassert np.allclose(hd_ground_state(0.0,0.5,10), target)",
+        "import numpy as np\n# invalid input: a non-integral phonon cutoff must raise ValueError\ndef _probe(func, *args):\n    try:\n        func(*args)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(hd_ground_state, 0.5, 0.5, 30.5), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-28.3",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(hd_exact_dynamics(0.5,0.5,30,1.0,30.0), target)",
+        "import numpy as np\nassert np.allclose(hd_exact_dynamics(0.3,0.8,30,1.0,12.0), target)",
+        "import numpy as np\nassert np.allclose(hd_exact_dynamics(1.0,0.5,40,0.5,20.0), target)",
+        "import numpy as np\n# boundary: no drive, where the ground state is stationary\nassert np.allclose(hd_exact_dynamics(0.5,0.5,30,0.0,10.0), target)",
+        "import numpy as np\n# invalid input: a negative final time must raise ValueError\ndef _probe(func, *args):\n    try:\n        func(*args)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(hd_exact_dynamics, 0.5, 0.5, 30, 1.0, -1.0), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-28.4",
+      "test_cases": [
+        "import numpy as np\nz=np.array([0.52,0.48,0.47,0.03,0.04,0.13,-0.01,-0.065,-0.05,0.05,0.065,0.002,0.001,-0.001,-0.002,-0.2,0.05])\nassert np.allclose(hd_eom_rhs(1.3,z,0.5,0.5,1.0,1), target)",
+        "import numpy as np\nz=np.array([0.52,0.48,0.47,0.03,0.04,0.13,-0.01,-0.065,-0.05,0.05,0.065,0.002,0.001,-0.001,-0.002,-0.2,0.05])\nassert np.allclose(hd_eom_rhs(1.3,z,0.5,0.5,1.0,0), target)",
+        "import numpy as np\nz=np.array([0.3,0.7,-0.2,0.35,0.08,-0.05,0.02,0.01,-0.03,0.03,-0.01,0.004,-0.002,0.002,-0.004,0.1,-0.3])\nassert np.allclose(hd_eom_rhs(0.4,z,0.8,0.6,0.7,1), target)",
+        "import numpy as np\n# adversarial complex state: exercises index ordering, conjugations, anomalous terms and spin factors\nz=np.array([0.61,0.39,-0.27,0.31,0.11,-0.08,0.17,0.04,-0.07,0.09,-0.02,0.03,-0.05,0.06,0.08,-0.14,0.22])\nassert np.allclose(hd_eom_rhs(2.35,z,0.9,0.37,1.25,1), target)",
+        "import numpy as np\n# boundary: the exact ground state's reduced quantities at zero field, where only the correlation equation has a non-zero rate\nz=np.array([0.5,0.5,0.48674558970257115,0.0,0.04215622934600437,0.13102229592343673,0.0,-0.0655111479617183,-0.04960665148469338,0.04960665148469338,0.0655111479617183,0.0,0.0,0.0,0.0,0.0,0.0])\nassert np.allclose(hd_eom_rhs(0.0,z,0.5,0.5,0.0,1), target)",
+        "import numpy as np\nz=np.zeros(17)\n# invalid input: a flag other than 0 or 1 must raise ValueError\ndef _probe(func, *args):\n    try:\n        func(*args)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(hd_eom_rhs, 0.0, z, 0.5, 0.5, 1.0, 2), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-28.5",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(hd_initial_state(0.5,0.5,30,1), target)",
+        "import numpy as np\nassert np.allclose(hd_initial_state(0.5,0.5,30,0), target)",
+        "import numpy as np\nassert np.allclose(hd_initial_state(1.0,0.5,40,1), target)",
+        "import numpy as np\n# boundary: no coupling, where every correlation vanishes and the density matrix is the bonding projector\nassert np.allclose(hd_initial_state(0.0,0.5,10,1), target)",
+        "import numpy as np\n# invalid input: a non-positive phonon frequency ratio must raise ValueError\ndef _probe(func, *args):\n    try:\n        func(*args)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(hd_initial_state, 0.5, 0.0, 30, 1), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-28.6",
+      "test_cases": [
+        "import numpy as np\nz=np.array([0.52,0.48,0.47,0.03,0.04,0.13,-0.01,-0.065,-0.05,0.05,0.065,0.002,0.001,-0.001,-0.002,-0.2,0.05])\nassert np.allclose(hd_energy(z,0.5,0.5), target)",
+        "import numpy as np\nz=np.array([0.3,0.7,-0.2,0.35,0.08,-0.05,0.02,0.01,-0.03,0.03,-0.01,0.004,-0.002,0.002,-0.004,0.1,-0.3])\nassert np.allclose(hd_energy(z,0.8,0.6), target)",
+        "import numpy as np\nz=np.array([0.5,0.5,0.48674558970257115,0.0,0.04215622934600437,0.13102229592343673,0.0,-0.0655111479617183,-0.04960665148469338,0.04960665148469338,0.0655111479617183,0.0,0.0,0.0,0.0,0.0,0.0])\nassert np.allclose(hd_energy(z,0.5,0.5), target)",
+        "import numpy as np\n# boundary: the uncorrelated bonding state, whose energy is minus two hopping energies\nz=np.array([0.5,0.5,0.5,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0])\nassert np.allclose(hd_energy(z,0.5,0.5), target)",
+        "import numpy as np\n# invalid input: a state of the wrong length must raise ValueError\ndef _probe(func, *args):\n    try:\n        func(*args)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(hd_energy, np.zeros(16), 0.5, 0.5), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-28.7",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(hd_eom_dynamics(0.5,0.5,30,1.0,30.0,1), target)",
+        "import numpy as np\nassert np.allclose(hd_eom_dynamics(0.5,0.5,30,1.0,30.0,0), target)",
+        "import numpy as np\nassert np.allclose(hd_eom_dynamics(0.3,0.8,30,1.0,12.0,1), target)",
+        "import numpy as np\n# boundary: no drive, where the coherent level stays exactly in the bonding state\nassert np.allclose(hd_eom_dynamics(0.5,0.5,30,0.0,10.0,0), target)",
+        "import numpy as np\n# invalid input: a negative drive amplitude must raise ValueError\ndef _probe(func, *args):\n    try:\n        func(*args)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(hd_eom_dynamics, 0.5, 0.5, 30, -1.0, 30.0, 1), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-28.8",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(hd_audit(0.5,0.5,30,1.0,30.0), target)",
+        "import numpy as np\nassert np.allclose(hd_audit(0.3,0.8,30,1.0,12.0), target)",
+        "import numpy as np\nassert np.allclose(hd_audit(1.0,0.5,40,0.5,20.0), target)",
+        "import numpy as np\n# boundary: no drive, where every level keeps the occupation at one half\nassert np.allclose(hd_audit(0.5,0.5,30,0.0,10.0), target)",
+        "import numpy as np\n# invalid input: a final time before the drive has decayed must raise ValueError\ndef _probe(func, *args):\n    try:\n        func(*args)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(hd_audit, 0.5, 0.5, 30, 1.0, 5.0), target)"
+      ]
+    }
+  ]
+}

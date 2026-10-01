@@ -1,0 +1,40 @@
+problem_id: "Biology-Genetics-25"
+subject: "biology"
+subject_area: "Genetics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1038/s41588-026-02578-y"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_infer_feature_count"
+    description: "Determine the number of genetic features represented by a complete coalition-value table."
+    orchestrator: false
+  - number: 2
+    name: "02_compute_pair_coalition_contrast"
+    description: "Calculate the coalition-level contrast required for a specified pair of genetic features."
+    orchestrator: false
+  - number: 3
+    name: "03_compute_interaction_coalition_weight"
+    description: "Determine the coefficient assigned to an eligible coalition in the exact pairwise feature-interaction calculation."
+    orchestrator: false
+  - number: 4
+    name: "04_compute_pair_shap_interaction"
+    description: "Compute the mean exact pairwise interaction value for a specified feature pair across one or more individuals represented by concatenated complete coalition tables."
+    orchestrator: false
+  - number: 5
+    name: "05_compute_pair_raw_significance"
+    description: "Determine the raw statistical significance assigned to one observed pairwise interaction relative to its supplied background interaction distribution."
+    orchestrator: false
+  - number: 6
+    name: "06_locate_pair_background"
+    description: "Determine which lexicographically ordered background-distribution row corresponds to a requested unordered feature pair."
+    orchestrator: false
+  - number: 7
+    name: "07_compute_joint_interaction_significance"
+    description: "Evaluate the complete unordered feature-pair interaction set and return the multiple-testing-adjusted significance assigned to one requested target pair."
+    orchestrator: false
+  - number: 8
+    name: "08_compute_target_interaction_adjusted_significance"
+    description: "Apply the source study's interaction-analysis convention to the supplied coalition outputs and pair-specific background distributions and return the adjusted significance assigned to the requested target interaction."
+    orchestrator: true

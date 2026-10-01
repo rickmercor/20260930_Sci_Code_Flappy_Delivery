@@ -1,0 +1,40 @@
+problem_id: "Biology-Biochemistry-45"
+subject: "biology"
+subject_area: "Biochemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.1371/journal.pcbi.1014565"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_build_stress_free_stripe"
+    description: "Build the vertex mesh of an ordered epithelial stripe, periodic along the load, made of regular hexagonal cells at the stress-free size of the area-perimeter cell energy."
+    orchestrator: false
+  - number: 2
+    name: "02_compute_cell_geometry"
+    description: "Evaluate the areas, perimeters and edge lengths of every cell of a periodic vertex mesh and flag the edges that lie on a free boundary of the tissue."
+    orchestrator: false
+  - number: 3
+    name: "03_compute_stripe_energy"
+    description: "Evaluate the total vertex-model energy of a periodic stripe whose free edges carry a constant line tension, together with its gradient with respect to every vertex position."
+    orchestrator: false
+  - number: 4
+    name: "04_compute_virial_stresses"
+    description: "Evaluate the Virial stress tensor of every cell of the stripe from the vertex forces of the cell's own energy, including the line tension on its free edges."
+    orchestrator: false
+  - number: 5
+    name: "05_relax_stripe"
+    description: "Relax every vertex of the periodic stripe at fixed period to the mechanical equilibrium reached from the supplied configuration."
+    orchestrator: false
+  - number: 6
+    name: "06_compute_row_loads"
+    description: "Resolve the tensile load that the periodic stripe transmits along the load into the contributions of its cell rows, using the cells' Virial stresses."
+    orchestrator: false
+  - number: 7
+    name: "07_locate_bifurcation_stretch"
+    description: "Find the stretch at which the shortest load-perpendicular junction of the relaxed stripe first shrinks to the neighbour-exchange threshold."
+    orchestrator: false
+  - number: 8
+    name: "08_estimate_tension_load_ratio"
+    description: "Compose every earlier step to obtain the ratio of the stripe's tensile load at necking bifurcation with a free-edge line tension to the bifurcation load of the same stripe without it."
+    orchestrator: true

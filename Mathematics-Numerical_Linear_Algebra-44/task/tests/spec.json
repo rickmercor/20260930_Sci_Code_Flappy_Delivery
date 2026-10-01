@@ -1,0 +1,155 @@
+{
+  "problem_id": "Mathematics-Numerical_Linear_Algebra-44",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-44.1",
+      "test_cases": [
+        "import numpy as np\nm, n = 128, 8\nassert np.allclose(construct_kernel_matrix(m, n), target)",
+        "import numpy as np\nm, n, h = 4, 4, 0.5\nassert np.allclose(construct_kernel_matrix(m, n, h), target)",
+        "import numpy as np\nm, n = 5, 1\nassert np.allclose(construct_kernel_matrix(m, n), target)",
+        "import numpy as np\nA = construct_kernel_matrix(128, 8)\nassert np.allclose(float(A[0, 0]), target)",
+        "import numpy as np\nA = construct_kernel_matrix(128, 8)\nassert np.allclose(float(np.linalg.norm(A)), target)",
+        "import numpy as np\nimport numpy as np\nA = construct_kernel_matrix(128, 8)\nt = (np.arange(128) + 0.5) / 128.0\nc = (np.arange(8) + 0.5) / 8.0\nh = 1.0 / 7.0\nA_mid = np.exp(-((t[:, None] - c[None, :]) ** 2) / (2.0 * h * h)) / np.sqrt(128.0)\nassert np.allclose(float(np.linalg.norm(A - A_mid) > 0.05), target)",
+        "import numpy as np\nm, n, h = 64, 6, 0.3\nassert np.allclose(construct_kernel_matrix(m, n, h), target)",
+        "import numpy as np\nm, n = 96, 5\nassert np.allclose(construct_kernel_matrix(m, n), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-44.2",
+      "test_cases": [
+        "import numpy as np\nm, s, p, q = 128, 64, 131, 79\nassert np.allclose(build_sketch_operator(m, s, p, q), target)",
+        "import numpy as np\nm, s, p, q = 32, 32, 37, 5\nassert np.allclose(build_sketch_operator(m, s, p, q), target)",
+        "import numpy as np\nm, s, p, q = 16, 4, 17, 3\nassert np.allclose(build_sketch_operator(m, s, p, q), target)",
+        "import numpy as np\nm, s, p, q = 64, 16, 67, 11\nassert np.allclose(build_sketch_operator(m, s, p, q), target)",
+        "import numpy as np\nm, s, p, q = 48, 12, 53, 7\nassert np.allclose(build_sketch_operator(m, s, p, q), target)",
+        "import numpy as np\nm, s, p, q = 96, 24, 97, 13\nassert np.allclose(build_sketch_operator(m, s, p, q), target)",
+        "import numpy as np\nm, s, p, q = 80, 20, 83, 17\nassert np.allclose(build_sketch_operator(m, s, p, q), target)",
+        "import numpy as np\nm, s, p, q = 40, 10, 41, 9\nassert np.allclose(build_sketch_operator(m, s, p, q), target)",
+        "import numpy as np\nm, s, p, q = 72, 18, 73, 11\nassert np.allclose(build_sketch_operator(m, s, p, q), target)",
+        "import numpy as np\nm, s, p, q = 60, 15, 61, 7\nassert np.allclose(build_sketch_operator(m, s, p, q), target)",
+        "import numpy as np\nS = build_sketch_operator(96, 24, 97, 13)\nassert np.allclose(float(S[0, 0]), target)",
+        "import numpy as np\nS = build_sketch_operator(96, 24, 97, 13)\nassert np.allclose(float(np.linalg.norm(S)), target)",
+        "import numpy as np\nfrom scipy.fft import dct\nimport numpy as np\nm, s, p, q = 96, 24, 97, 13\nS = build_sketch_operator(m, s, p, q)\nresidues = {(k * k) % p for k in range(1, p)}\nsigns0 = np.array([1.0 if (i % p) in residues else -1.0 for i in range(m)], dtype=np.float64)\nrows = np.array([(q * k) % m for k in range(s)], dtype=int)\nF = dct(np.eye(m, dtype=np.float64), type=2, axis=0, norm=\"ortho\")\nS0 = np.sqrt(m / s) * (F[rows, :] * signs0[None, :])\nassert np.allclose(float(np.linalg.norm(S - S0) > 1.0), target)",
+        "import numpy as np\nfrom scipy.fft import dct\nimport numpy as np\nm, s, p, q = 96, 24, 97, 13\nS = build_sketch_operator(m, s, p, q)\nresidues = {(k * k) % p for k in range(1, p)}\nsigns1 = np.array([1.0 if (i % p) in residues else -1.0 for i in range(1, m + 1)], dtype=np.float64)\nrows = np.sort(np.array([(q * k) % m for k in range(s)], dtype=int))\nF = dct(np.eye(m, dtype=np.float64), type=2, axis=0, norm=\"ortho\")\nSs = np.sqrt(m / s) * (F[rows, :] * signs1[None, :])\nassert np.allclose(float(np.linalg.norm(S - Ss) > 1.0), target)",
+        "import numpy as np\nm, s, p, q = 104, 26, 107, 19\nassert np.allclose(build_sketch_operator(m, s, p, q), target)",
+        "import numpy as np\nm, s, p, q = 120, 30, 127, 23\nassert np.allclose(build_sketch_operator(m, s, p, q), target)",
+        "import numpy as np\nfrom scipy.fft import dct\nimport numpy as np\nm, s, p, q = 96, 24, 97, 13\nS = build_sketch_operator(m, s, p, q)\nresidues = {(k * k) % p for k in range(1, p)}\nsigns1 = np.array([1.0 if (i % p) in residues else -1.0 for i in range(1, m + 1)], dtype=np.float64)\nrows = np.array([(q * k) % m for k in range(s)], dtype=int)\nF = dct(np.eye(m, dtype=np.float64), type=2, axis=0, norm=None)\nSn = np.sqrt(m / s) * (F[rows, :] * signs1[None, :])\nassert np.allclose(float(np.linalg.norm(S - Sn) > 10.0), target)",
+        "import numpy as np\nS = build_sketch_operator(128, 64, 131, 79)\nassert np.allclose(float(S[0, 0]), target)",
+        "import numpy as np\nfrom scipy.fft import dct\nimport numpy as np\nm, s, p, q = 128, 64, 131, 79\nS = build_sketch_operator(m, s, p, q)\nresidues = {(k * k) % p for k in range(1, p)}\nsigns0 = np.array([1.0 if (i % p) in residues else -1.0 for i in range(m)], dtype=np.float64)\nrows = np.array([(q * k) % m for k in range(s)], dtype=int)\nF = dct(np.eye(m, dtype=np.float64), type=2, axis=0, norm=\"ortho\")\nS0 = np.sqrt(m / s) * (F[rows, :] * signs0[None, :])\nassert np.allclose(float(np.linalg.norm(S - S0) > 1.0), target)",
+        "import numpy as np\nfrom scipy.fft import dct\nimport numpy as np\nm, s, p, q = 128, 64, 131, 79\nS = build_sketch_operator(m, s, p, q)\nresidues = {(k * k) % p for k in range(1, p)}\nsigns1 = np.array([1.0 if (i % p) in residues else -1.0 for i in range(1, m + 1)], dtype=np.float64)\nrows = np.sort(np.array([(q * k) % m for k in range(s)], dtype=int))\nF = dct(np.eye(m, dtype=np.float64), type=2, axis=0, norm=\"ortho\")\nSs = np.sqrt(m / s) * (F[rows, :] * signs1[None, :])\nassert np.allclose(float(np.linalg.norm(S - Ss) > 1.0), target)",
+        "import numpy as np\nfrom scipy.fft import dct\nimport numpy as np\nm, s, p, q = 128, 64, 131, 79\nS = build_sketch_operator(m, s, p, q)\nresidues = {(k * k) % p for k in range(1, p)}\nsigns1 = np.array([1.0 if (i % p) in residues else -1.0 for i in range(1, m + 1)], dtype=np.float64)\nrows = np.array([(q * k) % m for k in range(s)], dtype=int)\nF = dct(np.eye(m, dtype=np.float64), type=3, axis=0, norm=\"ortho\")\nS3 = np.sqrt(m / s) * (F[rows, :] * signs1[None, :])\nassert np.allclose(float(np.linalg.norm(S - S3) > 1.0), target)",
+        "import numpy as np\nm, s, p, q = 112, 28, 113, 15\nassert np.allclose(build_sketch_operator(m, s, p, q), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-44.3",
+      "test_cases": [
+        "import numpy as np\nA = construct_kernel_matrix(128, 8)\nS = build_sketch_operator(128, 64, 131, 79)\nassert np.allclose(compute_sts_singular_values(A, S), target)",
+        "import numpy as np\nA = construct_kernel_matrix(32, 4)\nS = build_sketch_operator(32, 4, 37, 5)\nassert np.allclose(compute_sts_singular_values(A, S), target)",
+        "import numpy as np\nA = construct_kernel_matrix(16, 2)\nS = build_sketch_operator(16, 8, 17, 3)\nassert np.allclose(compute_sts_singular_values(A, S), target)",
+        "import numpy as np\nA = construct_kernel_matrix(96, 6)\nS = build_sketch_operator(96, 24, 97, 13)\nassert np.allclose(compute_sts_singular_values(A, S), target)",
+        "import numpy as np\nA = construct_kernel_matrix(80, 5)\nS = build_sketch_operator(80, 20, 83, 17)\nassert np.allclose(compute_sts_singular_values(A, S), target)",
+        "import numpy as np\nA = construct_kernel_matrix(128, 8)\nS = build_sketch_operator(128, 64, 131, 79)\ntheta = compute_sts_singular_values(A, S)\nsigma = np.linalg.svd(A, compute_uv=False)\nassert np.allclose(float(abs(theta[0] - sigma[0]) > 1e-3), target)",
+        "import numpy as np\nA = construct_kernel_matrix(128, 8)\nS = build_sketch_operator(128, 64, 131, 79)\ntheta = compute_sts_singular_values(A, S)\nassert np.allclose(float(theta[0]), target)",
+        "import numpy as np\nA = construct_kernel_matrix(64, 6)\nS = build_sketch_operator(64, 16, 67, 11)\nassert np.allclose(compute_sts_singular_values(A, S), target)",
+        "import numpy as np\nA = construct_kernel_matrix(112, 7)\nS = build_sketch_operator(112, 28, 113, 15)\nassert np.allclose(compute_sts_singular_values(A, S), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-44.4",
+      "test_cases": [
+        "import numpy as nP\nA = construct_kernel_matrix(128, 8)\nS = build_sketch_operator(128, 64, 131, 79)\nassert np.allclose(compute_sts_right_factor(A, S), target)",
+        "import numpy as nP\nA = construct_kernel_matrix(32, 4)\nS = build_sketch_operator(32, 4, 37, 5)\nassert np.allclose(compute_sts_right_factor(A, S), target)",
+        "import numpy as nP\nA = construct_kernel_matrix(16, 2)\nS = build_sketch_operator(16, 8, 17, 3)\nassert np.allclose(compute_sts_right_factor(A, S), target)",
+        "import numpy as nP\nA = construct_kernel_matrix(64, 6)\nS = build_sketch_operator(64, 16, 67, 11)\nassert np.allclose(compute_sts_right_factor(A, S), target)",
+        "import numpy as nP\nA = construct_kernel_matrix(48, 3)\nS = build_sketch_operator(48, 12, 53, 7)\nassert np.allclose(compute_sts_right_factor(A, S), target)",
+        "import numpy as nP\nA = construct_kernel_matrix(96, 6)\nS = build_sketch_operator(96, 24, 97, 13)\nassert np.allclose(compute_sts_right_factor(A, S), target)",
+        "import numpy as nP\nA = construct_kernel_matrix(80, 5)\nS = build_sketch_operator(80, 20, 83, 17)\nassert np.allclose(compute_sts_right_factor(A, S), target)",
+        "import numpy as nP\nA = construct_kernel_matrix(72, 5)\nS = build_sketch_operator(72, 18, 73, 11)\nassert np.allclose(compute_sts_right_factor(A, S), target)",
+        "import numpy as nP\nA = construct_kernel_matrix(56, 4)\nS = build_sketch_operator(56, 14, 59, 5)\nassert np.allclose(compute_sts_right_factor(A, S), target)",
+        "import numpy as nP\nA = construct_kernel_matrix(40, 4)\nS = build_sketch_operator(40, 10, 41, 9)\nassert np.allclose(compute_sts_right_factor(A, S), target)",
+        "import numpy as nP\nA = construct_kernel_matrix(128, 8)\nS = build_sketch_operator(128, 64, 131, 79)\nV = compute_sts_right_factor(A, S)\nassert np.allclose(float(np.linalg.det(V)), target)",
+        "import numpy as nP\nA = construct_kernel_matrix(128, 8)\nS = build_sketch_operator(128, 64, 131, 79)\nV = compute_sts_right_factor(A, S)\n_,_,Vt = np.linalg.svd(S @ A, full_matrices=False)\nV_max = np.array(Vt.T[:, :8], dtype=np.float64)\nfor j in range(8):\n    col = V_max[:, j]\n    k = int(np.argmax(np.abs(col)))\n    if col[k] < 0.0:\n        V_max[:, j] = -col\nassert np.allclose(float(np.linalg.norm(V - V_max) > 0.1), target)",
+        "import numpy as nP\nA = construct_kernel_matrix(96, 6)\nS = build_sketch_operator(96, 24, 97, 13)\nV = compute_sts_right_factor(A, S)\n_,_,Vt = np.linalg.svd(S @ A, full_matrices=False)\nV_first = np.array(Vt.T[:, :6], dtype=np.float64)\nfor j in range(6):\n    if V_first[0, j] < 0.0:\n        V_first[:, j] *= -1.0\nassert np.allclose(float(np.linalg.norm(V - V_first) > 0.1), target)",
+        "import numpy as nP\nA = construct_kernel_matrix(112, 7)\nS = build_sketch_operator(112, 28, 113, 15)\nassert np.allclose(compute_sts_right_factor(A, S), target)",
+        "import numpy as nP\nA = construct_kernel_matrix(88, 5)\nS = build_sketch_operator(88, 22, 89, 9)\nassert np.allclose(compute_sts_right_factor(A, S), target)",
+        "import numpy as nP\nA = construct_kernel_matrix(128, 8)\nS = build_sketch_operator(128, 64, 131, 79)\nV = compute_sts_right_factor(A, S)\n_,_,VtA = np.linalg.svd(A, full_matrices=False)\nVA = VtA.T\nassert np.allclose(float(np.linalg.norm(V - VA) > 1.0), target)",
+        "import numpy as nP\nA = construct_kernel_matrix(128, 8)\nS = build_sketch_operator(128, 64, 131, 79)\nV = compute_sts_right_factor(A, S)\n_,_,Vt = np.linalg.svd(S @ A, full_matrices=False)\nV_diag = np.array(Vt.T[:, :8], dtype=np.float64)\neps = np.finfo(np.float64).eps\nfor j in range(8):\n    col = V_diag[:, j]\n    thr = 10.0 * eps * max(np.linalg.norm(col), 1.0)\n    if abs(col[j]) > thr:\n        if col[j] < 0.0:\n            V_diag[:, j] = -col\n    else:\n        k = int(np.argmax(np.abs(col)))\n        if col[k] < 0.0:\n            V_diag[:, j] = -col\nassert np.allclose(float(np.linalg.norm(V - V_diag) > 0.1), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-44.5",
+      "test_cases": [
+        "import numpy as np\nA = construct_kernel_matrix(128, 8)\nS = build_sketch_operator(128, 64, 131, 79)\nV = compute_sts_right_factor(A, S)\nassert np.allclose(form_nearest_sts_orthogonal(A, S, V), target)",
+        "import numpy as np\nA = construct_kernel_matrix(32, 4)\nS = build_sketch_operator(32, 4, 37, 5)\nV = compute_sts_right_factor(A, S)\nassert np.allclose(form_nearest_sts_orthogonal(A, S, V), target)",
+        "import numpy as np\nA = construct_kernel_matrix(16, 2)\nS = build_sketch_operator(16, 8, 17, 3)\nV = compute_sts_right_factor(A, S)\nassert np.allclose(form_nearest_sts_orthogonal(A, S, V), target)",
+        "import numpy as np\nA = construct_kernel_matrix(64, 6)\nS = build_sketch_operator(64, 32, 67, 11)\nV = compute_sts_right_factor(A, S)\nassert np.allclose(form_nearest_sts_orthogonal(A, S, V), target)",
+        "import numpy as np\nA = construct_kernel_matrix(48, 5)\nS = build_sketch_operator(48, 24, 53, 7)\nV = compute_sts_right_factor(A, S)\nassert np.allclose(form_nearest_sts_orthogonal(A, S, V), target)",
+        "import numpy as np\nA = construct_kernel_matrix(96, 6)\nS = build_sketch_operator(96, 24, 97, 13)\nV = compute_sts_right_factor(A, S)\nassert np.allclose(form_nearest_sts_orthogonal(A, S, V), target)",
+        "import numpy as np\nA = construct_kernel_matrix(80, 5)\nS = build_sketch_operator(80, 20, 83, 17)\nV = compute_sts_right_factor(A, S)\nassert np.allclose(form_nearest_sts_orthogonal(A, S, V), target)",
+        "import numpy as np\nA = construct_kernel_matrix(56, 4)\nS = build_sketch_operator(56, 14, 59, 5)\nV = compute_sts_right_factor(A, S)\nassert np.allclose(form_nearest_sts_orthogonal(A, S, V), target)",
+        "import numpy as np\nA = construct_kernel_matrix(128, 8)\nS = build_sketch_operator(128, 64, 131, 79)\nV = compute_sts_right_factor(A, S)\nP = form_nearest_sts_orthogonal(A, S, V)\nU, _, Yt = np.linalg.svd(A, full_matrices=False)\nT = U @ Yt\nassert np.allclose(float(np.linalg.norm(P - T)), target)",
+        "import numpy as np\nA = construct_kernel_matrix(128, 8)\nS = build_sketch_operator(128, 64, 131, 79)\n_,_,Vt = np.linalg.svd(S @ A, full_matrices=False)\nV_max = np.array(Vt.T[:, :8], dtype=np.float64)\nfor j in range(8):\n    col = V_max[:, j]\n    k = int(np.argmax(np.abs(col)))\n    if col[k] < 0.0:\n        V_max[:, j] = -col\ndef _check_maxmag_only():\n    try:\n        form_nearest_sts_orthogonal(A, S, V_max)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_check_maxmag_only(), target)",
+        "import numpy as np\nA = construct_kernel_matrix(96, 6)\nS = build_sketch_operator(96, 24, 97, 13)\nV = compute_sts_right_factor(A, S)\nV_bad = V.copy()\nV_bad[:, 0] *= -1.0\ndef _check_bad_signs():\n    try:\n        form_nearest_sts_orthogonal(A, S, V_bad)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_check_bad_signs(), target)",
+        "import numpy as np\nA = construct_kernel_matrix(80, 5)\nS = build_sketch_operator(80, 20, 83, 17)\nV = compute_sts_right_factor(A, S)\nV_bad = V.copy()\nV_bad[:, -1] *= -1.0\ndef _check_bad_signs2():\n    try:\n        form_nearest_sts_orthogonal(A, S, V_bad)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_check_bad_signs2(), target)",
+        "import numpy as np\nA = construct_kernel_matrix(128, 8)\nS = build_sketch_operator(128, 64, 131, 79)\nV = compute_sts_right_factor(A, S)\nP = form_nearest_sts_orthogonal(A, S, V)\nSP = S @ P\nassert np.allclose(float(np.linalg.norm(SP.T @ SP - np.eye(8))), target)",
+        "import numpy as np\nA = construct_kernel_matrix(128, 8)\nS = build_sketch_operator(128, 64, 131, 79)\nV = compute_sts_right_factor(A, S)\nP = form_nearest_sts_orthogonal(A, S, V)\nG = A.T @ (S.T @ S) @ A\nevals, evecs = np.linalg.eigh(G)\nP2 = A @ (evecs @ np.diag(1.0 / np.sqrt(evals)) @ evecs.T)\nassert np.allclose(float(np.linalg.norm(P - P2)), target)",
+        "import numpy as np\nA = construct_kernel_matrix(128, 8)\nS = build_sketch_operator(128, 64, 131, 79)\nV = compute_sts_right_factor(A, S)\nP = form_nearest_sts_orthogonal(A, S, V)\nU1, _, Vt = np.linalg.svd(S @ A, full_matrices=False)\nP_lift = S.T @ (U1 @ Vt)\nassert np.allclose(float(np.linalg.norm(P - P_lift) > 1.0), target)",
+        "import numpy as np\nA = construct_kernel_matrix(128, 8)\nS = build_sketch_operator(128, 64, 131, 79)\nV = compute_sts_right_factor(A, S)\nP = form_nearest_sts_orthogonal(A, S, V)\nP_raw = A @ V @ V.T\nassert np.allclose(float(np.linalg.norm(P - P_raw) > 0.05), target)",
+        "import numpy as np\nA = construct_kernel_matrix(112, 7)\nS = build_sketch_operator(112, 28, 113, 15)\nV = compute_sts_right_factor(A, S)\nassert np.allclose(form_nearest_sts_orthogonal(A, S, V), target)",
+        "import numpy as np\nA = construct_kernel_matrix(88, 5)\nS = build_sketch_operator(88, 22, 89, 9)\nV = compute_sts_right_factor(A, S)\nassert np.allclose(form_nearest_sts_orthogonal(A, S, V), target)",
+        "import numpy as np\nA = construct_kernel_matrix(128, 8)\nS = build_sketch_operator(128, 64, 131, 79)\nV = compute_sts_right_factor(A, S)\nP = form_nearest_sts_orthogonal(A, S, V)\nU1, th, Vt = np.linalg.svd(S @ A, full_matrices=False)\nP_u1 = U1 @ Vt\nassert np.allclose(float(P_u1.shape[0] != P.shape[0] or np.linalg.norm(P - P_u1) > 1.0), target)",
+        "import numpy as np\nA = construct_kernel_matrix(128, 8)\nS = build_sketch_operator(128, 64, 131, 79)\nV = compute_sts_right_factor(A, S)\nP = form_nearest_sts_orthogonal(A, S, V)\nU1, _, Vt = np.linalg.svd(S @ A, full_matrices=False)\nP_sa = U1 @ Vt\nassert np.allclose(float(P_sa.shape != P.shape or np.linalg.norm(P[:64] - P_sa) > 0.5), target)",
+        "import numpy as np\nA = construct_kernel_matrix(128, 8)\nS = build_sketch_operator(128, 64, 131, 79)\nV = compute_sts_right_factor(A, S)\nP = form_nearest_sts_orthogonal(A, S, V)\nZ = np.random.default_rng(0).normal(size=P.shape)\nZ = Z - S.T @ np.linalg.lstsq(S @ S.T, S @ Z, rcond=None)[0]\nP_free = P + 0.1 * Z\nassert np.allclose(float(np.linalg.norm(P - P_free) > 0.05), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-44.6",
+      "test_cases": [
+        "A = construct_kernel_matrix(128, 8)\nassert np.allclose(form_nearest_euclidean_orthogonal(A), target)",
+        "A = construct_kernel_matrix(6, 6, 0.5)\nassert np.allclose(form_nearest_euclidean_orthogonal(A), target)",
+        "A = construct_kernel_matrix(5, 1)\nassert np.allclose(form_nearest_euclidean_orthogonal(A), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-44.7",
+      "test_cases": [
+        "A = construct_kernel_matrix(144, 8)\nS = build_sketch_operator(144, 72, 149, 23)\nassert np.allclose(realized_embedding_distortion(A, S), target)",
+        "A = construct_kernel_matrix(32, 4)\nS = build_sketch_operator(32, 32, 37, 5)\nassert np.allclose(realized_embedding_distortion(A, S), target)",
+        "A = construct_kernel_matrix(16, 2)\nS = build_sketch_operator(16, 8, 17, 3)\nassert np.allclose(realized_embedding_distortion(A, S), target)",
+        "A = construct_kernel_matrix(64, 6)\nS = build_sketch_operator(64, 32, 67, 11)\nassert np.allclose(realized_embedding_distortion(A, S), target)",
+        "A = construct_kernel_matrix(48, 5)\nS = build_sketch_operator(48, 24, 53, 7)\nassert np.allclose(realized_embedding_distortion(A, S), target)",
+        "A = construct_kernel_matrix(96, 6)\nS = build_sketch_operator(96, 24, 97, 13)\nassert np.allclose(realized_embedding_distortion(A, S), target)",
+        "A = construct_kernel_matrix(80, 5)\nS = build_sketch_operator(80, 20, 83, 17)\nassert np.allclose(realized_embedding_distortion(A, S), target)",
+        "A = construct_kernel_matrix(144, 8)\nS = build_sketch_operator(144, 72, 149, 23)\nassert np.allclose(realized_embedding_distortion(A, S), target)",
+        "A = construct_kernel_matrix(144, 8)\nS = build_sketch_operator(144, 72, 149, 23)\nQ, _ = np.linalg.qr(A)\neps = realized_embedding_distortion(A, S)\ncoord = max(abs(np.linalg.norm(S @ Q[:, k]) ** 2 - 1.0) for k in range(8))\nassert np.allclose(float(abs(eps - coord) > 0.1), target)",
+        "A = construct_kernel_matrix(144, 8)\nS = build_sketch_operator(144, 72, 149, 23)\neps = realized_embedding_distortion(A, S)\nambient = float(np.linalg.norm(S.T @ S - np.eye(144), 2))\nassert np.allclose(float(abs(eps - ambient) > 0.2), target)",
+        "A = construct_kernel_matrix(112, 7)\nS = build_sketch_operator(112, 28, 113, 15)\nassert np.allclose(realized_embedding_distortion(A, S), target)",
+        "A = construct_kernel_matrix(88, 5)\nS = build_sketch_operator(88, 22, 89, 9)\nassert np.allclose(realized_embedding_distortion(A, S), target)",
+        "A = construct_kernel_matrix(144, 8)\nS = build_sketch_operator(144, 72, 149, 23)\neps = realized_embedding_distortion(A, S)\ncert = eps / (1.0 - eps)\nassert np.allclose(float(abs(eps - cert) > 0.2), target)",
+        "A = construct_kernel_matrix(144, 8)\nS = build_sketch_operator(144, 72, 149, 23)\nQ, _ = np.linalg.qr(A)\neps = realized_embedding_distortion(A, S)\nunsquared = max(abs(np.linalg.norm(S @ Q[:, k]) - 1.0) for k in range(8))\nassert np.allclose(float(abs(eps - unsquared) > 0.2), target)",
+        "A = construct_kernel_matrix(144, 8)\nS = build_sketch_operator(144, 72, 149, 23)\nQ, _ = np.linalg.qr(A)\neps = realized_embedding_distortion(A, S)\nfrob = float(np.linalg.norm(Q.T @ (S.T @ S) @ Q - np.eye(8), \"fro\"))\nassert np.allclose(float(abs(eps - frob) > 0.05), target)",
+        "A = construct_kernel_matrix(144, 8)\nS = build_sketch_operator(144, 72, 149, 23)\neps = realized_embedding_distortion(A, S)\nsig = np.linalg.svd(A, compute_uv=False)\nth = np.linalg.svd(S @ A, compute_uv=False)\nratio = float(np.max(np.abs(th / sig - 1.0)))\nassert np.allclose(float(abs(eps - ratio) > 0.05), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-44.8",
+      "test_cases": [
+        "m, n, s, p, q = 128, 8, 64, 131, 79\nh = None\nassert np.allclose(orchestrate_sketched_polar_audit(m, n, s, p, q, h), target)",
+        "m, n, s, p, q = 64, 6, 32, 67, 11\nh = None\nassert np.allclose(orchestrate_sketched_polar_audit(m, n, s, p, q, h), target)",
+        "m, n, s, p, q = 24, 3, 12, 29, 5\nh = 0.4\nassert np.allclose(orchestrate_sketched_polar_audit(m, n, s, p, q, h), target)",
+        "m, n, s, p, q = 96, 6, 24, 97, 13\nh = None\nassert np.allclose(orchestrate_sketched_polar_audit(m, n, s, p, q, h), target)",
+        "m, n, s, p, q = 80, 5, 20, 83, 17\nh = None\nassert np.allclose(orchestrate_sketched_polar_audit(m, n, s, p, q, h), target)",
+        "m, n, s, p, q = 56, 4, 14, 59, 5\nh = 0.35\nassert np.allclose(orchestrate_sketched_polar_audit(m, n, s, p, q, h), target)",
+        "m, n, s, p, q = 128, 8, 64, 131, 79\nh = None\nassert np.allclose(orchestrate_sketched_polar_audit(m, n, s, p, q, h), target)",
+        "m, n, s, p, q = 112, 7, 28, 113, 15\nh = None\nassert np.allclose(orchestrate_sketched_polar_audit(m, n, s, p, q, h), target)",
+        "m, n, s, p, q = 88, 5, 22, 89, 9\nh = None\nassert np.allclose(orchestrate_sketched_polar_audit(m, n, s, p, q, h), target)",
+        "A = construct_kernel_matrix(128, 8)\nS = build_sketch_operator(128, 64, 131, 79)\nV = compute_sts_right_factor(A, S)\nP = form_nearest_sts_orthogonal(A, S, V)\nT = form_nearest_euclidean_orthogonal(A)\neps = realized_embedding_distortion(A, S)\ngap = float(np.linalg.norm(P - T, 2))\nxi = orchestrate_sketched_polar_audit(128, 8, 64, 131, 79, None)\nassert np.allclose(float(abs(xi - gap * (1.0 - eps) / eps) > 0.2), target)",
+        "A = construct_kernel_matrix(128, 8)\nS = build_sketch_operator(128, 64, 131, 79)\nV = compute_sts_right_factor(A, S)\nP = form_nearest_sts_orthogonal(A, S, V)\nT = form_nearest_euclidean_orthogonal(A)\nQp = form_nearest_euclidean_orthogonal(P)\neps = realized_embedding_distortion(A, S)\ngap = float(np.linalg.norm(P - T, 2))\nown = float(np.linalg.norm(P - Qp, 2))\nxi = orchestrate_sketched_polar_audit(128, 8, 64, 131, 79, None)\nassert np.allclose(float(abs(xi - (gap / own) * eps / (1.0 - eps)) > 0.05), target)",
+        "A = construct_kernel_matrix(128, 8)\nS = build_sketch_operator(128, 64, 131, 79)\nV = compute_sts_right_factor(A, S)\nP = form_nearest_sts_orthogonal(A, S, V)\nQp = form_nearest_euclidean_orthogonal(P)\neps = realized_embedding_distortion(A, S)\nown = float(np.linalg.norm(P - Qp, 2))\nxi = orchestrate_sketched_polar_audit(128, 8, 64, 131, 79, None)\nassert np.allclose(float(abs(xi - own * (1.0 - eps) / eps) > 0.2), target)",
+        "A = construct_kernel_matrix(128, 8)\nS = build_sketch_operator(128, 64, 131, 79)\nV = compute_sts_right_factor(A, S)\nP = form_nearest_sts_orthogonal(A, S, V)\nT = form_nearest_euclidean_orthogonal(A)\neps = realized_embedding_distortion(A, S)\ngap = float(np.linalg.norm(P - T, 2))\nxi = orchestrate_sketched_polar_audit(128, 8, 64, 131, 79, None)\nassert np.allclose(float(abs(xi - gap / eps) > 0.2), target)",
+        "A = construct_kernel_matrix(128, 8)\nS = build_sketch_operator(128, 64, 131, 79)\nV = compute_sts_right_factor(A, S)\nP = form_nearest_sts_orthogonal(A, S, V)\nT = form_nearest_euclidean_orthogonal(A)\nQp = form_nearest_euclidean_orthogonal(P)\ngap = float(np.linalg.norm(P - T, 2))\nown = float(np.linalg.norm(P - Qp, 2))\nxi = orchestrate_sketched_polar_audit(128, 8, 64, 131, 79, None)\nassert np.allclose(float(abs(xi - gap / own) > 0.02), target)"
+      ]
+    }
+  ]
+}

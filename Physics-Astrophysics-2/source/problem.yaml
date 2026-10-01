@@ -1,0 +1,48 @@
+problem_id: "Physics-Astrophysics-2"
+subject: "physics"
+subject_area: "Astrophysics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2603.20031"
+dependencies: ""
+steps:
+  - number: 1
+    name: "binary_invariants"
+    description: "Mass parameters, reduced spins, and conserved invariants."
+    orchestrator: false
+  - number: 2
+    name: "quasi_keplerian_elements"
+    description: "1PN quasi-Keplerian orbital elements and the averaging radius"
+    orchestrator: false
+  - number: 3
+    name: "nutation_cubic_roots"
+    description: "Nutation cubic and its ordered roots."
+    orchestrator: false
+  - number: 4
+    name: "kepler_eccentric_anomaly"
+    description: "Eccentric anomaly of the 1PN quasi-Keplerian orbit"
+    orchestrator: false
+  - number: 5
+    name: "angular_anomaly"
+    description: "Continuous angular anomaly of the 1PN quasi-Keplerian orbit"
+    orchestrator: false
+  - number: 6
+    name: "nutation_angle"
+    description: "Jacobi-elliptic nutation angle under the hybrid evolution"
+    orchestrator: false
+  - number: 7
+    name: "companion_angles"
+    description: "Companion angles from the conserved linear combinations"
+    orchestrator: false
+  - number: 8
+    name: "azimuthal_coefficients"
+    description: "Coefficients of the azimuthal precession equations"
+    orchestrator: false
+  - number: 9
+    name: "azimuthal_phase"
+    description: "Accumulated azimuthal phase under the hybrid evolution"
+    orchestrator: false
+  - number: 10
+    name: "run_hybrid_precession"
+    description: "Orchestrator: end-to-end hybrid 2PN precession solution"
+    orchestrator: true

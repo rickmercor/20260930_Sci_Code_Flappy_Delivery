@@ -1,0 +1,48 @@
+problem_id: "Mathematics-Numerical_Linear_Algebra-62"
+subject: "mathematics"
+subject_area: "Numerical Linear Algebra"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2607.12430"
+dependencies: ""
+steps:
+  - number: 1
+    name: "step_01_triangular_principal_sqrt"
+    description: "Compute the deterministic binary32 principal square root of an upper-triangular matrix."
+    orchestrator: false
+  - number: 2
+    name: "step_02_reconstruct_initial_sqrt"
+    description: "Reconstruct the lower-precision initial square-root approximation."
+    orchestrator: false
+  - number: 3
+    name: "step_03_working_residual_backward_error"
+    description: "Evaluate the square-root residual and normalized backward error in working precision."
+    orchestrator: false
+  - number: 4
+    name: "step_04_schur_residual_transform"
+    description: "Transform the working residual to the supplied Schur coordinates."
+    orchestrator: false
+  - number: 5
+    name: "step_05_block_recursive_sylvester"
+    description: "Solve the triangular Fr\u00e9chet correction by real-Schur block recursion."
+    orchestrator: false
+  - number: 6
+    name: "step_06_lift_validate_correction"
+    description: "Lift the structured correction and evaluate refinement diagnostics."
+    orchestrator: false
+  - number: 7
+    name: "step_07_working_precision_update"
+    description: "Apply a correction in binary64 and evaluate the next residual."
+    orchestrator: false
+  - number: 8
+    name: "step_08_halley_newton_direction"
+    description: "Return the binary64 Newton direction for a matrix-power residual."
+    orchestrator: false
+  - number: 9
+    name: "step_09_matrix_halley_schwarzian"
+    description: "Return a matrix-Halley correction and matrix-Schwarzian diagnostics."
+    orchestrator: false
+  - number: 10
+    name: "step_10_integrated_halley_advantage"
+    description: "Run the complete pipeline and return the final comparison diagnostics."
+    orchestrator: true

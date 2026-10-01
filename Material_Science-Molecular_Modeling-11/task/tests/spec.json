@@ -1,0 +1,88 @@
+{
+  "problem_id": "Material_Science-Molecular_Modeling-11",
+  "sub_steps": [
+    {
+      "step_number": "Material_Science-Molecular_Modeling-11.1",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(wb_operator(1.0,0.6,0.3,3), target)",
+        "import numpy as np\nassert np.allclose(wb_operator(10.0,9.0,-1.2,4), target)",
+        "import numpy as np\nassert np.allclose(wb_operator(3.0,0.0,np.pi,2), target)",
+        "import numpy as np\n# boundary: no corrugation, where the operator is diagonal with the free drift-diffusion eigenvalues\nassert np.allclose(wb_operator(0.0,0.5,0.7,2), target)",
+        "import numpy as np\n# invalid input: a negative corrugation amplitude must raise ValueError\ndef _probe(fn, *args):\n    try:\n        fn(*args)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(wb_operator,-1.0,0.5,0.0,3), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-11.2",
+      "test_cases": [
+        "import numpy as np\nqs = np.array([-0.9*np.pi,-2.0,-0.5,0.0,0.3,1.0,2.5,0.9*np.pi])\nassert np.allclose(wb_bands(1.0,0.1,qs,10), target)",
+        "import numpy as np\nqs = np.array([-0.9*np.pi,-2.0,-0.5,0.0,0.3,1.0,2.5,0.9*np.pi])\nassert np.allclose(wb_bands(1.0,0.6,qs,10), target)",
+        "import numpy as np\nqs = np.array([-2.5,-1.0,0.0,0.25,1.5,2.8])\nassert np.allclose(wb_bands(10.0,9.0,qs,20), target)",
+        "import numpy as np\n# boundary: no tilt, where the lowest band is real and even in q\nqs = np.array([-2.0,-1.0,0.0,1.0,2.0])\nassert np.allclose(wb_bands(5.0,0.0,qs,14), target)",
+        "import numpy as np\n# invalid input: a wave number on the zone edge must raise ValueError\ndef _probe(fn, *args):\n    try:\n        fn(*args)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(wb_bands,1.0,0.6,np.array([0.0,np.pi]),10), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-11.3",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(wb_stationary(10.0,9.0,30), target)",
+        "import numpy as np\nassert np.allclose(wb_stationary(1.0,0.6,16), target)",
+        "import numpy as np\nassert np.allclose(wb_stationary(5.0,2.0,20), target)",
+        "import numpy as np\n# boundary: no tilt, where the coefficients are the real Bessel ratios of the Boltzmann density\nassert np.allclose(wb_stationary(4.0,0.0,16), target)",
+        "import numpy as np\n# invalid input: a non-integer truncation must raise ValueError\ndef _probe(fn, *args):\n    try:\n        fn(*args)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(wb_stationary,1.0,0.6,2.5), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-11.4",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(wb_generalized_isf(10.0,9.0,np.pi,1,0,0.005,24), target)",
+        "import numpy as np\nassert np.allclose(wb_generalized_isf(10.0,9.0,np.pi,1,1,0.005,24), target)",
+        "import numpy as np\nassert np.allclose(wb_generalized_isf(1.0,0.6,2.0,2,1,0.02,14), target)",
+        "import numpy as np\n# boundary: zero time, where the function reduces to a stationary Fourier coefficient\nassert np.allclose(wb_generalized_isf(5.0,4.0,-np.pi,-1,2,0.0,20), target)",
+        "import numpy as np\n# invalid input: a negative time must raise ValueError\ndef _probe(fn, *args):\n    try:\n        fn(*args)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(wb_generalized_isf,10.0,9.0,np.pi,1,0,-0.1,24), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-11.5",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(wb_transport(10.0,9.0,20), target)",
+        "import numpy as np\nassert np.allclose(wb_transport(1.0,0.6,12), target)",
+        "import numpy as np\nassert np.allclose(wb_transport(5.0,4.0,16), target)",
+        "import numpy as np\n# boundary: a negative tilt, where the drift reverses while the diffusivity and mobility keep their values\nassert np.allclose(wb_transport(2.0,-1.0,12), target)",
+        "import numpy as np\n# invalid input: a truncation of zero must raise ValueError\ndef _probe(fn, *args):\n    try:\n        fn(*args)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(wb_transport,1.0,0.6,0), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-11.6",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(wb_cumulants(10.0,9.0,0.005,20), target)",
+        "import numpy as np\nassert np.allclose(wb_cumulants(10.0,9.0,0.05,20), target)",
+        "import numpy as np\nassert np.allclose(wb_cumulants(1.0,0.6,0.1,12), target)",
+        "import numpy as np\n# boundary: no tilt, where the odd cumulants vanish by symmetry\nassert np.allclose(wb_cumulants(10.0,0.0,0.01,20), target)",
+        "import numpy as np\n# edge: a long time inside the orchestrator's search window, where the drift-centred moments matter\nassert np.allclose(wb_cumulants(10.0,9.0,1.0,20), target)",
+        "import numpy as np\n# invalid input: a zero time must raise ValueError\ndef _probe(fn, *args):\n    try:\n        fn(*args)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(wb_cumulants,10.0,9.0,0.0,20), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-11.7",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(wb_shape(10.0,9.0,0.005,20), target)",
+        "import numpy as np\nassert np.allclose(wb_shape(10.0,9.0,0.03,20), target)",
+        "import numpy as np\nassert np.allclose(wb_shape(1.0,0.6,0.1,12), target)",
+        "import numpy as np\n# boundary: no corrugation, where the displacement is Gaussian with the bare diffusivity\nassert np.allclose(wb_shape(0.0,0.5,0.2,6), target)",
+        "import numpy as np\n# edge: the short-time end of the orchestrator's search window\nassert np.allclose(wb_shape(10.0,9.0,1e-4,20), target)",
+        "import numpy as np\n# edge: the long-time end of the orchestrator's search window, where both shape parameters have decayed\nassert np.allclose(wb_shape(10.0,9.0,10.0,20), target)",
+        "import numpy as np\n# invalid input: a negative time must raise ValueError\ndef _probe(fn, *args):\n    try:\n        fn(*args)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(wb_shape,10.0,9.0,-0.01,20), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Molecular_Modeling-11.8",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(wb_audit(10.0,0.9,20), target)",
+        "import numpy as np\nassert np.allclose(wb_audit(10.0,0.8,20), target)",
+        "import numpy as np\nassert np.allclose(wb_audit(5.0,0.9,16), target)",
+        "import numpy as np\n# boundary: the critical tilt, where the minima and maxima of the potential merge\nassert np.allclose(wb_audit(10.0,1.0,20), target)",
+        "import numpy as np\n# invalid input: a truncation below 12 must raise ValueError\ndef _probe(fn, *args):\n    try:\n        fn(*args)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(wb_audit,10.0,0.9,8), target)"
+      ]
+    }
+  ]
+}

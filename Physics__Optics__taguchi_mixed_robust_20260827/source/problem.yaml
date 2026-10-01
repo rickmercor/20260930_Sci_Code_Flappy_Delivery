@@ -1,0 +1,48 @@
+problem_id: "taguchi_mixed_robust_20260827"
+subject: "physics"
+subject_area: "Optics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2603.07573"
+dependencies: "import numpy as np"
+steps:
+  - number: 1
+    name: "taguchi_initial_levels"
+    description: "Construct interior factor levels and their common difference."
+    orchestrator: false
+  - number: 2
+    name: "prime_strength2_oa"
+    description: "Construct the canonical prime-level strength-two orthogonal array."
+    orchestrator: false
+  - number: 3
+    name: "sech_soliton_peak_power_mw"
+    description: "Evaluate first-order intensity-sech-squared peak-power normalization."
+    orchestrator: false
+  - number: 4
+    name: "guiding_center_theory_candidates"
+    description: "Evaluate four archived guiding-center launch-state conventions."
+    orchestrator: false
+  - number: 5
+    name: "guiding_center_response_candidates"
+    description: "Evaluate four archived guiding-center response conventions."
+    orchestrator: false
+  - number: 6
+    name: "dispersion_profile_candidates"
+    description: "Evaluate four archived cubic DDF-profile conventions."
+    orchestrator: false
+  - number: 7
+    name: "taguchi_protocol_candidates"
+    description: "Evaluate four archived factor-level selection protocols."
+    orchestrator: false
+  - number: 8
+    name: "ddf_truncation_selector"
+    description: "Compare nested DDF profiles across folds and reference losses."
+    orchestrator: false
+  - number: 9
+    name: "cross_example_closure_score"
+    description: "Assemble the normalized shared-loss closure score."
+    orchestrator: false
+  - number: 10
+    name: "cross_example_taguchi_gap"
+    description: "Resolve the joint design and its runner-up score gap by composing every earlier public subproblem."
+    orchestrator: true

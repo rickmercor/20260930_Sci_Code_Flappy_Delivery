@@ -1,0 +1,40 @@
+problem_id: "Mathematics-Computational_Finance-3"
+subject: "mathematics"
+subject_area: "Computational Finance"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2608.13748"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_compute_scenario_gap"
+    description: "Compute the discrete confidence-gap quantity associated with a finite scenario probability vector. "
+    orchestrator: false
+  - number: 2
+    name: "02_compute_loss_vector"
+    description: "Compute the scenario loss vector induced by a portfolio weight vector and a scenario-return matrix. "
+    orchestrator: false
+  - number: 3
+    name: "03_compute_cvar"
+    description: "Compute a probability-weighted upper-tail conditional risk value from finite scenario losses. "
+    orchestrator: false
+  - number: 4
+    name: "04_build_dc_risk_terms"
+    description: "Combine two conditional risk values and the supplied splitting controls into the scalar risk terms used by the penalized model. "
+    orchestrator: false
+  - number: 5
+    name: "05_compute_cvar_subgradient"
+    description: "Compute a valid scenario-based subgradient of the finite-scenario upper-tail risk at one portfolio allocation."
+    orchestrator: false
+  - number: 6
+    name: "06_solve_regularized_subproblem"
+    description: "Solve the strongly convex allocation subproblem associated with one expansion point of the penalized portfolio objective. "
+    orchestrator: false
+  - number: 7
+    name: "07_take_ibdca_iteration"
+    description: "Perform one safeguarded boosted portfolio-allocation iteration from two consecutive iterates."
+    orchestrator: false
+  - number: 8
+    name: "08_run_ibdca_target"
+    description: "Run the full deterministic portfolio-allocation procedure for the requested number of outer iterations and extract the final target component."
+    orchestrator: true

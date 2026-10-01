@@ -1,0 +1,78 @@
+{
+  "problem_id": "Material_Science-Semiconductor_Materials-15",
+  "sub_steps": [
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-15.1",
+      "test_cases": [
+        "m_e=0.18\nomega_t=11.10\neps=1.0\nassert np.allclose(characteristic_lengths(m_e, omega_t, eps), target)",
+        "m_e=0.83\nomega_t=172.3\neps=1.0\nassert np.allclose(characteristic_lengths(m_e, omega_t, eps), target)",
+        "m_e=0.31\nomega_t=29.82\neps=2.0\nassert np.allclose(characteristic_lengths(m_e, omega_t, eps), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-15.2",
+      "test_cases": [
+        "m_e=0.18\nomega_t=11.10\nr0=21.75\nrinf=4.246\neps=1.0\nassert np.allclose(coupling_constant(m_e, omega_t, r0, rinf, eps), target)",
+        "m_e=0.83\nomega_t=172.3\nr0=1.076\nrinf=0.780\neps=1.0\nassert np.allclose(coupling_constant(m_e, omega_t, r0, rinf, eps), target)",
+        "m_e=0.24\nomega_t=17.81\nr0=13.98\nrinf=2.974\neps=1.0\nassert np.allclose(coupling_constant(m_e, omega_t, r0, rinf, eps), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-15.3",
+      "test_cases": [
+        "m_e=0.18\nomega_t=11.10\nr0=21.75\nrinf=4.246\nassert np.allclose(dimensionless_ratios(m_e, omega_t, r0, rinf), target)",
+        "m_e=0.83\nomega_t=172.3\nr0=1.076\nrinf=0.780\nassert np.allclose(dimensionless_ratios(m_e, omega_t, r0, rinf), target)",
+        "m_e=0.51\nomega_t=74.15\nr0=0.763\nrinf=0.466\nassert np.allclose(dimensionless_ratios(m_e, omega_t, r0, rinf), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-15.4",
+      "test_cases": [
+        "sigma_0=5.1225\nsigma_t=1.0285\nassert np.allclose(weak_coupling_integral(sigma_0, sigma_t), target)",
+        "sigma_0=1.3795\nsigma_t=0.6617\nassert np.allclose(weak_coupling_integral(sigma_0, sigma_t), target)",
+        "sigma_0=4.700\nsigma_t=2.150\nassert np.allclose(weak_coupling_integral(sigma_0, sigma_t), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-15.5",
+      "test_cases": [
+        "sigma_0=5.1225\nsigma_t=1.0285\nassert np.allclose(weak_coupling_mass_integral(sigma_0, sigma_t), target)",
+        "sigma_0=1.3795\nsigma_t=0.6617\nassert np.allclose(weak_coupling_mass_integral(sigma_0, sigma_t), target)",
+        "sigma_0=4.700\nsigma_t=2.150\nassert np.allclose(weak_coupling_mass_integral(sigma_0, sigma_t), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-15.6",
+      "test_cases": [
+        "m_e=0.18\nomega_t=11.10\nr0=21.75\nrinf=4.246\neps=1.0\nassert np.allclose(weak_coupling_observables(m_e, omega_t, r0, rinf, eps), target)",
+        "m_e=0.83\nomega_t=172.3\nr0=1.076\nrinf=0.780\neps=1.0\nassert np.allclose(weak_coupling_observables(m_e, omega_t, r0, rinf, eps), target)",
+        "m_e=0.24\nomega_t=17.81\nr0=13.98\nrinf=2.974\neps=1.0\nassert np.allclose(weak_coupling_observables(m_e, omega_t, r0, rinf, eps), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-15.7",
+      "test_cases": [
+        "sigma_0=5.1225\nsigma_t=1.0285\nv=7.559\nw=2.978\nassert np.allclose(feynman_integral(sigma_0, sigma_t, v, w), target)",
+        "sigma_0=1.3795\nsigma_t=0.6617\nv=2.862\nw=2.581\nassert np.allclose(feynman_integral(sigma_0, sigma_t, v, w), target)",
+        "sigma_0=4.700\nsigma_t=2.150\nv=5.0\nw=3.0\nassert np.allclose(feynman_integral(sigma_0, sigma_t, v, w), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-15.8",
+      "test_cases": [
+        "sigma_0=5.1225\nsigma_t=1.0285\nv=7.559\nw=2.978\nassert np.allclose(feynman_mass_integral(sigma_0, sigma_t, v, w), target)",
+        "sigma_0=1.3795\nsigma_t=0.6617\nv=2.862\nw=2.581\nassert np.allclose(feynman_mass_integral(sigma_0, sigma_t, v, w), target)",
+        "sigma_0=4.700\nsigma_t=2.150\nv=5.0\nw=3.0\nassert np.allclose(feynman_mass_integral(sigma_0, sigma_t, v, w), target)"
+      ]
+    },
+    {
+      "step_number": "Material_Science-Semiconductor_Materials-15.9",
+      "test_cases": [
+        "m_e=0.32\nomega_t=18.2\nr0=25.9\nrinf=4.82\neps=1.0\nassert np.allclose(polaron_effective_mass(m_e, omega_t, r0, rinf, eps), target)",
+        "m_e=0.18\nomega_t=11.10\nr0=21.75\nrinf=4.246\neps=1.0\nassert np.allclose(polaron_effective_mass(m_e, omega_t, r0, rinf, eps), target)",
+        "m_e=0.31\nomega_t=29.82\nr0=10.62\nrinf=2.826\neps=1.0\nassert np.allclose(polaron_effective_mass(m_e, omega_t, r0, rinf, eps), target)",
+        "m_e=0.83\nomega_t=172.3\nr0=1.076\nrinf=0.780\neps=1.0\nassert np.allclose(polaron_effective_mass(m_e, omega_t, r0, rinf, eps), target)"
+      ]
+    }
+  ]
+}

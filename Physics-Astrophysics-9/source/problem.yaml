@@ -1,0 +1,40 @@
+problem_id: "Physics-Astrophysics-9"
+subject: "physics"
+subject_area: "Astrophysics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: " https://doi.org/10.48550/arXiv.2604.16731"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_solve_universal_anomaly"
+    description: "Solve the universal Kepler equation for the anomaly a two-body orbit of any conic type reaches a given time after its epoch."
+    orchestrator: false
+  - number: 2
+    name: "02_propagate_two_body_state"
+    description: "Advance a position and velocity along its two-body orbit by a given time with universal-variable Lagrange coefficients."
+    orchestrator: false
+  - number: 3
+    name: "03_evaluate_radial_track"
+    description: "Evaluate the barycentric distance and its rate of change at an arbitrary epoch for every two-body orbit that shares an asserted distance, radial velocity and tangential speed at the reference epoch."
+    orchestrator: false
+  - number: 4
+    name: "04_solve_light_time_range"
+    description: "Find the range along a pixel's line of sight at which the source meets an asserted barycentric distance history at the moment the observed light left it."
+    orchestrator: false
+  - number: 5
+    name: "05_construct_emission_state"
+    description: "Build the barycentric position and velocity, at the moment its light left it, of the source placed along a pixel's line of sight on the orbit that carries a prescribed radial velocity, angular-momentum magnitude, inclination and sense of latitude motion."
+    orchestrator: false
+  - number: 6
+    name: "06_register_detection"
+    description: "Map one pixel of one exposure onto the barycentric ecliptic canvas at the reference epoch under an asserted initial condition."
+    orchestrator: false
+  - number: 7
+    name: "07_maximize_stacked_significance"
+    description: "Evaluate the expected significance of an inverse-variance-weighted PSF-matched-filter stack of registered exposures at its maximum, where it lies, and how far the worst-registered exposure sits from it."
+    orchestrator: false
+  - number: 8
+    name: "08_estimate_detection_headroom"
+    description: "Register every exposure of a faint object under one trial initial condition, stack them, and return how many magnitudes fainter the object could be while its stack maximum still reaches a candidate threshold."
+    orchestrator: true

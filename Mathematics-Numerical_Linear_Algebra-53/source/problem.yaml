@@ -1,0 +1,36 @@
+problem_id: "Mathematics-Numerical_Linear_Algebra-53"
+subject: "mathematics"
+subject_area: "Numerical Linear Algebra"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2510.16473"
+dependencies: ""
+steps:
+  - number: 1
+    name: "reconstruct_gamma"
+    description: "Reconstruct the compatible parameter matrix Gamma for the standard pair (X, J): the symmetric matrix commuting with J and satisfying X Gamma X^T = 0, normalized to unit Frobenius norm with trace(Gamma @ J) < 0. J and X are given as rounded decimals, so X Gamma X^T = 0 holds only approximately for the true rank-deficient direction: an exact null vector need not exist, and the required Gamma is the direction that comes closest to satisfying the constraint, not an exact solution of it."
+    orchestrator: false
+  - number: 2
+    name: "leading_coefficient_A2"
+    description: "Compute the leading coefficient matrix A2 of the quadratic structured matrix polynomial admitting (X, J) as a standard pair with compatible parameter matrix Gamma, via the reconstruction theorem for degree-2 structured matrix polynomials."
+    orchestrator: false
+  - number: 3
+    name: "linear_coefficient_A1"
+    description: "Compute the linear coefficient matrix A1 of the quadratic structured matrix polynomial, continuing the degree-2 standard-pair reconstruction from A2, Gamma, and the standard pair (X, J) via the reconstruction theorem for degree-2 structured matrix polynomials."
+    orchestrator: false
+  - number: 4
+    name: "constant_coefficient_A0"
+    description: "Compute the constant coefficient matrix A0 of the quadratic structured matrix polynomial, completing the degree-2 standard-pair reconstruction from A1, A2, Gamma, and the standard pair (X, J) via the reconstruction theorem for degree-2 structured matrix polynomials."
+    orchestrator: false
+  - number: 5
+    name: "build_conditioned_pencil"
+    description: "Build a positive definite matrix A from A2's eigenvector structure, with nine prescribed eigenvalues logarithmically spaced from 1 to condition_number (condition_number^(i/8) for i = 0, ..., 8)."
+    orchestrator: false
+  - number: 6
+    name: "pencil_matrix_function"
+    description: "Compute A f(A^{-1} B) for f = natural log and B = A0 @ A0, using a method that remains numerically accurate even though A is severely ill-conditioned."
+    orchestrator: false
+  - number: 7
+    name: "compute_pencil_entry"
+    description: "Run the full pipeline and return the (1,1) entry (index [0, 0]) of A f(A^{-1} B), f = natural log, B = A0 @ A0."
+    orchestrator: true

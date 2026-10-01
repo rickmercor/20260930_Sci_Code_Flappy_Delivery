@@ -1,0 +1,40 @@
+problem_id: "Biology-Biochemistry-36"
+subject: "biology"
+subject_area: "Biochemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2607.09872"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_compute_stacked_inside_weights"
+    description: "Compute the total and pair-class-resolved inside weights of every subsequence of an RNA under a five-rule stochastic grammar with a minimum enclosed loop and nearest-neighbour stacking."
+    orchestrator: false
+  - number: 2
+    name: "02_build_mutation_profile_polynomials"
+    description: "Lift an independent RNA substitution library into a multivariate affine probability profile whose variables label disjoint position groups."
+    orchestrator: false
+  - number: 3
+    name: "03_compute_profile_partition_polynomial"
+    description: "Compute the exact multivariate mutation-rate polynomial of a stacked RNA grammar averaged over a grouped independent substitution profile."
+    orchestrator: false
+  - number: 4
+    name: "04_normalize_order_coefficients"
+    description: "Restrict a grouped mutation polynomial to a common mutation rate and normalize it by the independently computed reference partition function."
+    orchestrator: false
+  - number: 5
+    name: "05_compute_log_series_coefficients"
+    description: "Transform an exact normalized partition polynomial into the Taylor coefficients of its log observable."
+    orchestrator: false
+  - number: 6
+    name: "06_evaluate_log_remainder_share"
+    description: "Evaluate how much of a log partition-function change is omitted by a finite substitution-order series."
+    orchestrator: false
+  - number: 7
+    name: "07_locate_log_remainder_threshold"
+    description: "Locate a mutation rate at which omitted log-partition substitution orders reach a prescribed share."
+    orchestrator: false
+  - number: 8
+    name: "08_run_log_nonadditivity_threshold"
+    description: "Compose class-resolved fixed-sequence, grouped profile-polynomial and nonlinear-series calculations into a mutation-rate design threshold."
+    orchestrator: true

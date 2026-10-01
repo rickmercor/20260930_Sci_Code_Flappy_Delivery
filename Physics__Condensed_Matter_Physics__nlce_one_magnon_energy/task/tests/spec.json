@@ -1,0 +1,74 @@
+{
+  "problem_id": "nlce_one_magnon_energy",
+  "sub_steps": [
+    {
+      "step_number": "nlce_one_magnon_energy.1",
+      "test_cases": [
+        "import numpy as np; dev = _nlce_default_device()\nassert np.allclose(hamiltonian_element(0, 0, 6, dev), target)",
+        "import numpy as np; dev = _nlce_default_device()\nassert np.allclose(hamiltonian_element(0, 48, 6, dev), target)",
+        "import numpy as np; dev = _nlce_default_device()\nassert np.allclose(hamiltonian_element(0, 32, 6, dev), target)",
+        "import numpy as np; dev = dict(_nlce_default_device(), J=0.6)\nassert np.allclose(hamiltonian_element(4, 4, 6, dev), target)",
+        "import numpy as np; dev = _nlce_default_device()\nassert np.allclose(hamiltonian_element(0, 33, 6, dev), target)"
+      ]
+    },
+    {
+      "step_number": "nlce_one_magnon_energy.2",
+      "test_cases": [
+        "import numpy as np; dev = _nlce_default_device()\nassert np.allclose(selection_deviation(8, dev), target)",
+        "import numpy as np; dev = _nlce_default_device()\nassert np.allclose(selection_deviation(3, dev), target)",
+        "import numpy as np; dev = dict(_nlce_default_device(), J=0.2)\nassert np.allclose(selection_deviation(6, dev), target)",
+        "import numpy as np; dev = dict(_nlce_default_device(), J=0.95)\nassert np.allclose(selection_deviation(6, dev), target)",
+        "import numpy as np; dev = dict(_nlce_default_device(), J=1.5)\nassert np.allclose(selection_deviation(6, dev), target)",
+        "import numpy as np; dev = dict(_nlce_default_device(), J=1.3)\nassert np.allclose(selection_deviation(8, dev), target)",
+        "import numpy as np; dev = dict(_nlce_default_device(), J=0.95)\nassert np.allclose(selection_deviation(8, dev), target)"
+      ]
+    },
+    {
+      "step_number": "nlce_one_magnon_energy.3",
+      "test_cases": [
+        "import numpy as np; dev = _nlce_default_device()\nassert np.allclose(effective_element(3, 3, 8, dev), target)",
+        "import numpy as np; dev = _nlce_default_device()\nassert np.allclose(effective_element(3, 4, 8, dev), target)",
+        "import numpy as np; dev = _nlce_default_device()\nassert np.allclose(effective_element(2, 5, 8, dev), target)",
+        "import numpy as np; dev = _nlce_default_device()\nassert np.allclose(effective_element(0, 1, 2, dev), target)"
+      ]
+    },
+    {
+      "step_number": "nlce_one_magnon_energy.4",
+      "test_cases": [
+        "import numpy as np; dev = _nlce_default_device()\nassert np.allclose(cluster_quantity(8, 1, dev), target)",
+        "import numpy as np; dev = _nlce_default_device()\nassert np.allclose(cluster_quantity(8, 0, dev), target)",
+        "import numpy as np; dev = _nlce_default_device()\nassert np.allclose(cluster_quantity(6, 3, dev), target)",
+        "import numpy as np; dev = _nlce_default_device()\nassert np.allclose(cluster_quantity(4, 4, dev), target)"
+      ]
+    },
+    {
+      "step_number": "nlce_one_magnon_energy.5",
+      "test_cases": [
+        "import numpy as np; dev = _nlce_default_device()\nassert np.allclose(cluster_weight(5, 2, dev), target)",
+        "import numpy as np; dev = _nlce_default_device()\nassert np.allclose(cluster_weight(4, 3, dev), target)",
+        "import numpy as np; dev = _nlce_default_device()\nassert np.allclose(cluster_weight(4, 0, dev), target)",
+        "import numpy as np; dev = _nlce_default_device()\nassert np.allclose(cluster_weight(1, 0, dev), target)"
+      ]
+    },
+    {
+      "step_number": "nlce_one_magnon_energy.6",
+      "test_cases": [
+        "import numpy as np; dev = dict(_nlce_default_device(), n_max=6)\nassert np.allclose(nlce_hopping(1, dev), target)",
+        "import numpy as np; dev = dict(_nlce_default_device(), n_max=7)\nassert np.allclose(nlce_hopping(0, dev), target)",
+        "import numpy as np; dev = dict(_nlce_default_device(), n_max=6)\nassert np.allclose(nlce_hopping(3, dev), target)",
+        "import numpy as np; dev = dict(_nlce_default_device(), n_max=5)\nassert np.allclose(nlce_hopping(3, dev), target)"
+      ]
+    },
+    {
+      "step_number": "nlce_one_magnon_energy.7",
+      "test_cases": [
+        "import numpy as np; dev = dict(_nlce_default_device(), n_max=7)\nassert np.allclose(one_magnon_energy(dev), target)",
+        "import numpy as np; dev = dict(_nlce_default_device(), J=0.4, n_max=6)\nassert np.allclose(one_magnon_energy(dev), target)",
+        "import numpy as np; dev = dict(_nlce_default_device(), k=3.141592653589793, n_max=6)\nassert np.allclose(one_magnon_energy(dev), target)",
+        "import numpy as np; dev = dict(_nlce_default_device(), J=0.0, n_max=6)\nassert np.allclose(one_magnon_energy(dev), target)",
+        "import numpy as np; dev = dict(_nlce_default_device(), n_max=1)\nassert np.allclose(one_magnon_energy(dev), target)",
+        "import numpy as np; dev = dict(_nlce_default_device(), J=0.6, n_max=2)\nassert np.allclose(one_magnon_energy(dev), target)"
+      ]
+    }
+  ]
+}

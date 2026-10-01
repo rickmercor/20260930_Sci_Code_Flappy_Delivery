@@ -1,0 +1,40 @@
+problem_id: "Mathematics-Numerical_Linear_Algebra-3"
+subject: "mathematics"
+subject_area: "Numerical Linear Algebra"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: " 10.1007/s44379-025-00039-7"
+dependencies: ""
+steps:
+  - number: 1
+    name: "construct_rs_deflation"
+    description: "Transform the supplied operator-learning data into the deterministic basis representation required by the downstream numerical solver."
+    orchestrator: false
+  - number: 2
+    name: "split_deflation_blocks"
+    description: "Validate the supplied degree-of-freedom groups while preserving the tentative deflation representation in its original global row ordering and numerical values."
+    orchestrator: false
+  - number: 3
+    name: "build_block_deflation_operator"
+    description: "Generate the global structured deflation basis by applying a reduced QR factorization independently to the restricted tentative deflation block for each supplied degree-of-freedom group, using numpy.linalg.qr with mode=\"reduced\", and place each resulting orthonormal block on its original global degree-of-freedom indices."
+    orchestrator: false
+  - number: 4
+    name: "build_coarse_operators"
+    description: "Construct the reduced-space operators required by the iterative solver from the system matrix and the assembled global deflation basis, and return them in the prescribed packed representation. The packed output is the concatenation $$ [\\operatorname{ravel}(R,\\mathrm{order}=\"C\"),\\, \\operatorname{ravel}(A_c,\\mathrm{order}=\"C\"),\\, \\operatorname{ravel}(C,\\mathrm{order}=\"C\")]. $$ For \\(A\\in\\mathbb{R}^{n\\times n}\\) and \\(P\\in\\mathbb{R}^{n\\times k_S}\\), the three matrices have shapes $$ R\\in\\mathbb{R}^{k_S\\times n}, \\qquad A_c\\in\\mathbb{R}^{k_S\\times k_S}, \\qquad C\\in\\mathbb{R}^{n\\times n}.$$"
+    orchestrator: false
+  - number: 5
+    name: "initialize_dpcg"
+    description: "Initialize the DPCG state from the supplied problem data and previously constructed coarse-space representation. The result must preserve the interface required by the next solver stage: the packed state contains the current iterate, residual, preconditioned residual, search direction, and coarse coefficients in the order $$ [u_0,r_0,z_0,p_0,\\mu_0], $$ with the vector blocks retaining their natural dimensions."
+    orchestrator: false
+  - number: 6
+    name: "dpcg_update"
+    description: "Advance the packed DPCG state by one complete iteration and return the updated state together with the two scalar quantities required to continue the recurrence. The output consists of the updated state in the Step 5 layout, followed by alpha and then beta."
+    orchestrator: false
+  - number: 7
+    name: "run_three_dpcg_updates"
+    description: "Propagate the initialized DPCG state through exactly three complete updates and return only the final iterate u3 of length n, after the third update."
+    orchestrator: false
+  - number: 8
+    name: "compute_final_component"
+    description: "Combine the outputs of the preceding numerical stages and extract the scalar required by the task specification."
+    orchestrator: true

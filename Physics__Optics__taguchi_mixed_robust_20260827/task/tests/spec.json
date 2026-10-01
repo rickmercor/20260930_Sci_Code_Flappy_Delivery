@@ -1,0 +1,152 @@
+{
+  "problem_id": "taguchi_mixed_robust_20260827",
+  "sub_steps": [
+    {
+      "step_number": "taguchi_mixed_robust_20260827.1",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(taguchi_initial_levels(1.0, 10.0, 3), target)",
+        "import numpy as np\nassert np.allclose(taguchi_initial_levels(-10.0, 10.0, 3), target)",
+        "import numpy as np\nassert np.allclose(taguchi_initial_levels(2.0, 6.0, 1), target)",
+        "import numpy as np\nassert np.allclose(taguchi_initial_levels(-2.0, 7.0, 4), target)",
+        "import numpy as np\nassert np.allclose(taguchi_initial_levels(1e-9, 5e-9, 3), target)",
+        "import numpy as np\nassert np.allclose(taguchi_initial_levels(-1e6, 2e6, 5), target)",
+        "import numpy as np\nassert np.allclose(taguchi_initial_levels(-1.25, -0.75, 2), target)",
+        "import numpy as np\nassert np.allclose(taguchi_initial_levels(-0.125, 0.875, 7), target)",
+        "import numpy as np\nassert np.allclose(taguchi_initial_levels(-1e308,1e308,3)/1e308, target)",
+        "import numpy as np\nassert np.allclose(taguchi_initial_levels(-8.,12.,4), target)"
+      ]
+    },
+    {
+      "step_number": "taguchi_mixed_robust_20260827.2",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(prime_strength2_oa(3, 2), target)",
+        "import numpy as np\nassert np.allclose(prime_strength2_oa(3, 4), target)",
+        "import numpy as np\nassert np.allclose(prime_strength2_oa(2, 3), target)",
+        "import numpy as np\nassert np.allclose(prime_strength2_oa(5, 6), target)",
+        "import numpy as np\nassert np.allclose(prime_strength2_oa(5, 2), target)",
+        "import numpy as np\nassert np.allclose(prime_strength2_oa(7, 5), target)",
+        "import numpy as np\nassert np.allclose(prime_strength2_oa(11, 12), target)",
+        "import numpy as np\nassert np.allclose(prime_strength2_oa(13, 7), target)"
+      ]
+    },
+    {
+      "step_number": "taguchi_mixed_robust_20260827.3",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(sech_soliton_peak_power_mw(-6800.0, 1.45, 42.0), target)",
+        "import numpy as np\nassert np.allclose(sech_soliton_peak_power_mw(13600.0, 1.45, 42.0), target)",
+        "import numpy as np\nassert np.allclose(sech_soliton_peak_power_mw(-6800.0, 1.45, 21.0), target)",
+        "import numpy as np\nassert np.allclose(sech_soliton_peak_power_mw(6800.0, 2.9, 42.0), target)",
+        "import numpy as np\nassert np.allclose(sech_soliton_peak_power_mw(-5000.0, 2.0, 1.0), target)",
+        "import numpy as np\nassert np.allclose(sech_soliton_peak_power_mw(-1.0, 1e-3, 1000.0), target)",
+        "import numpy as np\nassert np.allclose(sech_soliton_peak_power_mw(-9000.0, 0.9, 37.5), target)",
+        "import numpy as np\nassert np.allclose(sech_soliton_peak_power_mw(4200.0, 3.7, 12.25), target)",
+        "import numpy as np\ndef _raises_value_error(function, *args, **kwargs):\n    try:\n        function(*args, **kwargs)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(_raises_value_error(sech_soliton_peak_power_mw,-7650.,1.3,1e-300), target)",
+        "import numpy as np\nassert np.allclose(sech_soliton_peak_power_mw(0.,1.3,1e-300), target)"
+      ]
+    },
+    {
+      "step_number": "taguchi_mixed_robust_20260827.4",
+      "test_cases": [
+        "import numpy as np\nassert np.allclose(guiding_center_theory_candidates(0.19,17.0,4.2), target)",
+        "import numpy as np\nassert np.allclose(guiding_center_theory_candidates(0.0,23.0,5.0), target)",
+        "import numpy as np\nassert np.allclose(guiding_center_theory_candidates(1e-12,1e-3,2.0), target)",
+        "import numpy as np\nassert np.allclose(guiding_center_theory_candidates(0.4,10.0,25.0), target)",
+        "import numpy as np\nassert np.allclose(guiding_center_theory_candidates(0.31,0.0,6.4), target)",
+        "import numpy as np\nassert np.allclose(guiding_center_theory_candidates(1.2,50.0,0.5), target)",
+        "import numpy as np\nassert np.allclose(guiding_center_theory_candidates(0.05,250.0,100.0), target)",
+        "import numpy as np\nassert np.allclose(guiding_center_theory_candidates(0.175,31.75,3.2), target)",
+        "import numpy as np\ndef _raises_value_error(function, *args, **kwargs):\n    try:\n        function(*args, **kwargs)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(_raises_value_error(guiding_center_theory_candidates,.2611,20.,1e308), target)"
+      ]
+    },
+    {
+      "step_number": "taguchi_mixed_robust_20260827.5",
+      "test_cases": [
+        "import numpy as np\nr=np.zeros(4)\nassert np.allclose(guiding_center_response_candidates(r,0.0,0.0), target)",
+        "import numpy as np\nr=np.array([1.,-1.,1.,-1.])\nassert np.allclose(guiding_center_response_candidates(r,0.0,0.0), target)",
+        "import numpy as np\nr=np.zeros(3)\nassert np.allclose(guiding_center_response_candidates(r,0.3,-0.4), target)",
+        "import numpy as np\nr=np.array([-0.2,0.1,0.4])\nassert np.allclose(guiding_center_response_candidates(r,-0.25,0.15), target)",
+        "import numpy as np\nr=np.array([1e-9,-2e-9])\nassert np.allclose(guiding_center_response_candidates(r,3e-9,-4e-9), target)",
+        "import numpy as np\nr=np.linspace(-0.5,0.5,11)\nassert np.allclose(guiding_center_response_candidates(r,0.125,0.25), target)",
+        "import numpy as np\nr=np.array([0.03,-0.025,0.02,-0.015])\nassert np.allclose(guiding_center_response_candidates(r,0.012,-0.009), target)",
+        "import numpy as np\nr=np.array([0.,0.,.75,0.,0.,-.25])\nassert np.allclose(guiding_center_response_candidates(r,-.125,.375), target)",
+        "import numpy as np\nassert np.allclose(guiding_center_response_candidates(np.array([1e200]),0.,0.)/1e200, target)",
+        "import numpy as np\ndef _raises_value_error(function, *args, **kwargs):\n    try:\n        function(*args, **kwargs)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(_raises_value_error(guiding_center_response_candidates,np.array([1e308]),1.7e308,1.7e308), target)"
+      ]
+    },
+    {
+      "step_number": "taguchi_mixed_robust_20260827.6",
+      "test_cases": [
+        "import numpy as np\na=np.array([-1.,-1.,-1.]);z=np.array([0.])\nassert np.allclose(dispersion_profile_candidates(a,-1.0,z), target)",
+        "import numpy as np\na=np.array([-1.2,-1.3,-1.4]);z=np.array([1.,3.,5.])\nassert np.allclose(dispersion_profile_candidates(a,-1.0,z), target)",
+        "import numpy as np\na=np.array([-2.,-2.,-2.]);z=np.array([0.,2.,4.,6.])\nassert np.allclose(dispersion_profile_candidates(a,-0.8,z), target)",
+        "import numpy as np\na=np.array([-1.5,-1.1,-1.8]);z=np.array([2.,4.,8.,10.])\nassert np.allclose(dispersion_profile_candidates(a,-1.2,z), target)",
+        "import numpy as np\na=np.array([-3.,-2.5,-2.]);z=np.array([0.5,1.5])\nassert np.allclose(dispersion_profile_candidates(a,0.5,z), target)",
+        "import numpy as np\na=np.array([0.,-3.,-6.]);z=np.array([0.01,0.1,1.])\nassert np.allclose(dispersion_profile_candidates(a,-0.05,z), target)",
+        "import numpy as np\na=np.array([-1.47,-1.82,-1.63]);z=np.linspace(.15,8.65,19)\nassert np.allclose(dispersion_profile_candidates(a,-.97,z), target)",
+        "import numpy as np\na=np.array([-.83,-1.31,-1.69]);z=np.array([.35,2.7,7.1,9.4])\nassert np.allclose(dispersion_profile_candidates(a,-.89,z), target)",
+        "import numpy as np\nassert np.allclose(dispersion_profile_candidates(np.array([400.,400.,400.]),0.,np.array([0.,1.])), target)",
+        "import numpy as np\nassert np.allclose(dispersion_profile_candidates(np.array([400.,400.,400.]),-1.,np.array([0.])), target)"
+      ]
+    },
+    {
+      "step_number": "taguchi_mixed_robust_20260827.7",
+      "test_cases": [
+        "import numpy as np\nl=np.array([[1.,2.],[10.,20.]]);o=np.array([[0,0],[0,1],[1,0],[1,1]]);f=np.array([1.,.1,.01,.001]);d=np.array([1.,10.])\nassert np.allclose(taguchi_protocol_candidates(l,o,f,d,0.5), target)",
+        "import numpy as np\nl=np.array([[0.,2.,4.]]);o=np.array([[0],[1],[2],[0],[1],[2]]);f=np.array([2.,4.,8.,1.,2.,4.]);d=np.array([2.])\nassert np.allclose(taguchi_protocol_candidates(l,o,f,d,0.25), target)",
+        "import numpy as np\nl=np.array([[1.,2.,3.],[4.,5.,6.]]);o=np.array([[a,b] for a in range(3) for b in range(3)]);f=np.linspace(.2,1.,9);d=np.array([1.,1.])\nassert np.allclose(taguchi_protocol_candidates(l,o,f,d,0.8), target)",
+        "import numpy as np\nl=np.array([[-1.,0.,1.],[2.,3.,4.]]);o=np.array([[a,b] for a in range(3) for b in range(3)]);f=np.array([1e-8,1.,2.,3.,4.,5.,6.,7.,8.]);d=np.array([1.,1.])\nassert np.allclose(taguchi_protocol_candidates(l,o,f,d,0.4), target)",
+        "import numpy as np\nl=np.array([[1.,2.,3.]]);o=np.array([[0],[1],[2]]);f=np.ones(3);d=np.array([1.])\nassert np.allclose(taguchi_protocol_candidates(l,o,f,d,0.5), target)",
+        "import numpy as np\nl=np.tile(np.array([1.,2.,3.]),(4,1));o=np.array([[a,b,(a+b)%3,(a+2*b)%3] for a in range(3) for b in range(3)]);f=np.array([.7,.4,.9,.2,.8,.6,.5,.3,1.]);d=np.ones(4)\nassert np.allclose(taguchi_protocol_candidates(l,o,f,d,0.6), target)",
+        "import numpy as np\nl=np.array([[-8.,-2.,4.],[.1,.2,.3],[10.,20.,30.]]);o=np.array([[a,b,(a+b)%3] for a in range(3) for b in range(3)]);f=np.array([9.,1.,7.,3.,2.,8.,6.,4.,5.]);d=np.array([6.,.1,10.])\nassert np.allclose(taguchi_protocol_candidates(l,o,f,d,0.2), target)",
+        "import numpy as np\nl=np.array([[.25,.5,.75],[2.,4.,8.]]);o=np.array([[a,b] for a in range(3) for b in range(3)]);f=np.array([.4,.6,.3,.9,.2,.7,.8,.5,.1]);d=np.array([.25,2.])\nassert np.allclose(taguchi_protocol_candidates(l,o,f,d,0.95), target)",
+        "import numpy as np\nassert np.allclose(taguchi_protocol_candidates(np.array([[1.,2.,3.]]),np.arange(3)[:,None],np.zeros(3),np.ones(1),.5), target)",
+        "import numpy as np\nassert np.allclose(taguchi_protocol_candidates(np.array([[1.,2.,3.]]),np.arange(3)[:,None],np.array([1.,0.,2.]),np.ones(1),.5), target)"
+      ]
+    },
+    {
+      "step_number": "taguchi_mixed_robust_20260827.8",
+      "test_cases": [
+        "import numpy as np\nz=np.array([[1.,2.,3.]]);a=np.array([-1.,-2.,-3.]);c=-1.;r=np.exp(-.043*z)[:,None,:];d=np.linspace(0.,3.,31)\nassert np.allclose(ddf_truncation_selector(a,c,z,r,d,0.), target)",
+        "import numpy as np\nz=np.array([[1.,3.,5.],[2.,4.,6.]]);a=np.array([-1.3,-1.5,-3.]);c=-.9;r=np.exp(-.052*z)[:,None,:];d=np.linspace(0.,8.,81)\nassert np.allclose(ddf_truncation_selector(a,c,z,r,d,.001), target)",
+        "import numpy as np\nz=np.array([[2.,5.,8.],[1.,4.,9.]]);a=np.array([-1.4,-1.7,-1.2]);c=-.8;r=np.stack((np.exp(-.038*z),np.exp(-.061*z)),axis=1);d=np.linspace(0.,10.,101)\nassert np.allclose(ddf_truncation_selector(a,c,z,r,d,0.), target)",
+        "import numpy as np\nz=np.array([[4.,8.,10.]]);a=np.array([-.7,-.8,-2.]);c=-1.1;r=np.exp(-.071*z)[:,None,:];d=np.linspace(0.,10.,201)\nassert np.allclose(ddf_truncation_selector(a,c,z,r,d,.05), target)",
+        "import numpy as np\nz=np.array([[1.,2.,3.],[1.5,2.5,3.5]]);a=np.array([-1.2,-2.,-2.5]);c=-.7;r=np.stack((np.exp(-.027*z),np.exp(-.049*z)),axis=1);d=np.linspace(0.,4.,41)\nassert np.allclose(ddf_truncation_selector(a,c,z,r,d,.2), target)",
+        "import numpy as np\nz=np.array([[.6,2.4,6.8],[1.2,4.2,8.6]]);a=np.array([-1.44,-1.79,-1.61]);c=-.96;al=np.array([.219,.267])*np.log(10)/10;r=np.exp(-al[None,:,None]*z[:,None,:]);d=np.linspace(.05,9.55,191)\nassert np.allclose(ddf_truncation_selector(a,c,z,r,d,.027), target)",
+        "import numpy as np\nz=np.array([[8.7,5.8,2.9],[7.2,4.3,1.4]]);a=np.array([-1.51,-1.73,-1.46]);c=-1.02;al=np.array([.273,.231])*np.log(10)/10;r=np.exp(-al[None,:,None]*z[:,None,:]);d=np.linspace(9.6,.1,191)\nassert np.allclose(ddf_truncation_selector(a,c,z,r,d,.041), target)",
+        "import numpy as np\nz=np.array([[.1,1.,10.],[.2,2.,8.],[.5,5.,9.]]);a=np.array([-2.5,-1.6,-1.4]);c=-1.2;r=np.stack((np.exp(-.034*z),np.exp(-.057*z)),axis=1);d=np.linspace(0.,10.,401)\nassert np.allclose(ddf_truncation_selector(a,c,z,r,d,.002), target)",
+        "import numpy as np\ndef _raises_value_error(function, *args, **kwargs):\n    try:\n        function(*args, **kwargs)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(_raises_value_error(ddf_truncation_selector,np.array([0.,-10.,-10.]),-2.,np.array([[1.,2.]]),np.ones((1,1,2)),np.array([1.,2.])), target)",
+        "import numpy as np\nassert np.allclose(ddf_truncation_selector(np.array([400.,400.,400.]),-1.,np.array([[0.]]),np.array([[[1.]]]),np.array([0.])), target)",
+        "import numpy as np\nscale=np.array([1e154,1e154,1e154,1.,1.,1.,1.,1e154])\nassert np.allclose(ddf_truncation_selector(np.array([-1.,-200.,-200.]),-1.,np.array([[9.]]),np.array([[[1e308]]]),np.array([0.]))/scale, target)"
+      ]
+    },
+    {
+      "step_number": "taguchi_mixed_robust_20260827.9",
+      "test_cases": [
+        "import numpy as np\ne=np.array([.02,-.03]);t=np.array([.1,.2,.05,.01,.08])\nassert np.allclose(cross_example_closure_score(.04,.12,.03,.021,.024,e,t), target)",
+        "import numpy as np\ne=np.zeros(3);t=np.ones(5)\nassert np.allclose(cross_example_closure_score(0.,0.,0.,.02,.02,e,t), target)",
+        "import numpy as np\ne=np.array([-.4,.1,.2]);t=np.array([2.,2.,2.,.5,.25])\nassert np.allclose(cross_example_closure_score(1.5,.3,.2,.7,.2,e,t), target)",
+        "import numpy as np\ne=np.array([1e-12]);t=np.array([1e-9,1e-8,1e-7,1e-6,1e-5])\nassert np.allclose(cross_example_closure_score(1e-10,2e-10,3e-10,4e-5,4.01e-5,e,t), target)",
+        "import numpy as np\ne=np.linspace(-.06,.09,7);t=np.array([.04,.25,.07,.003,.12])\nassert np.allclose(cross_example_closure_score(.018,.19,.055,.043,.041,e,t), target)",
+        "import numpy as np\ne=np.array([-.01,.3]);t=np.array([.5,.4,.3,.2,.1])\nassert np.allclose(cross_example_closure_score(.11,.12,.13,.04,.15,e,t), target)",
+        "import numpy as np\ne=np.array([.013,-.017,.019,-.023]);t=np.array([.031,.17,.044,.0022,.075])\nassert np.allclose(cross_example_closure_score(.029,.141,.038,.027,.0261,e,t), target)",
+        "import numpy as np\ne=np.array([-.7]);t=np.array([.2,.3,.4,.5,.6])\nassert np.allclose(cross_example_closure_score(.19,.28,.37,1.2,.08,e,t), target)",
+        "import numpy as np\nassert np.allclose(cross_example_closure_score(.1,.2,.3,-.01,.02,np.zeros(1),np.ones(5)), target)",
+        "import numpy as np\nassert np.allclose(cross_example_closure_score(0.,0.,0.,-1e308,1e308,np.zeros(1),np.array([1.,1.,1.,1e308,1.])), target)"
+      ]
+    },
+    {
+      "step_number": "taguchi_mixed_robust_20260827.10",
+      "test_cases": [
+        "import numpy as np\nb=_archive_tensor()\nassert np.allclose(cross_example_taguchi_gap(np.array([.46,.62,.79]),b,np.array([.052,.235,.064,.0022,.11]),3,4), target)",
+        "import numpy as np\nb=_archive_tensor();b[0,1,:]*=1.08\nassert np.allclose(cross_example_taguchi_gap(np.array([.54,.69,.83]),b,np.array([.047,.252,.057,.0018,.095]),4,4), target)",
+        "import numpy as np\nb=_archive_tensor();b[1,2,:]*=.91\nassert np.allclose(cross_example_taguchi_gap(np.array([.43,.58,.72]),b,np.array([.061,.221,.071,.0025,.13]),3,5), target)",
+        "import numpy as np\nb=_archive_tensor();b[:,0,:]+=np.array([.004,-.003,.002,-.001,.003,-.002])\nassert np.allclose(cross_example_taguchi_gap(np.array([.57,.71,.86]),b,np.array([.044,.265,.053,.0017,.087]),5,4), target)",
+        "import numpy as np\nb=_archive_tensor();b[0,4,:]*=1.17\nassert np.allclose(cross_example_taguchi_gap(np.array([.39,.63,.81]),b,np.array([.056,.229,.068,.0028,.118]),4,6), target)",
+        "import numpy as np\nb=_archive_tensor();b[1,5,:]*=1.14\nassert np.allclose(cross_example_taguchi_gap(np.array([.51,.67,.77]),b,np.array([.049,.244,.062,.0021,.104]),5,5), target)",
+        "import numpy as np\nb=_archive_tensor();b[:,3,:]*=.88\nassert np.allclose(cross_example_taguchi_gap(np.array([.48,.73,.89]),b,np.array([.058,.216,.075,.0031,.142]),3,6), target)",
+        "import numpy as np\nb=_archive_tensor();b[0,2,:]*=1.09;b[1,1,:]*=.93\nassert np.allclose(cross_example_taguchi_gap(np.array([.42,.66,.84]),b,np.array([.046,.273,.051,.0016,.082]),5,6), target)",
+        "import numpy as np\ndef _raises_value_error(function, *args, **kwargs):\n    try:\n        function(*args, **kwargs)\n    except ValueError:\n        return 1.0\n    return 0.0\nassert np.allclose(_raises_value_error(cross_example_taguchi_gap,surrogate_tensor=np.zeros((2,6,6))), target)"
+      ]
+    }
+  ]
+}

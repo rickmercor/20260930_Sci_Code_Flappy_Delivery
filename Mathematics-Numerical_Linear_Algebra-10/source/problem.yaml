@@ -1,0 +1,44 @@
+problem_id: "Mathematics-Numerical_Linear_Algebra-10"
+subject: "mathematics"
+subject_area: "Numerical Linear Algebra"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2605.19096"
+dependencies: ""
+steps:
+  - number: 1
+    name: "step1_construct_krylov_operator"
+    description: "Construct the deterministic nonsymmetric banded operator."
+    orchestrator: false
+  - number: 2
+    name: "step2_truncated_arnoldi_basis"
+    description: "Generate a truncated-Arnoldi basis and its matrix image."
+    orchestrator: false
+  - number: 3
+    name: "step3_qdeim_indices"
+    description: "Determine the Q-DEIM row indices for a basis matrix."
+    orchestrator: false
+  - number: 4
+    name: "step4_gappypod_e_oversample"
+    description: "Extend a Q-DEIM row set using GappyPOD+E oversampling."
+    orchestrator: false
+  - number: 5
+    name: "step5_deterministic_sgmres_solve"
+    description: "Solve the deterministically sketched GMRES least-squares problem."
+    orchestrator: false
+  - number: 6
+    name: "step6_deterministic_residual_inflation"
+    description: "Compute residual inflation relative to the best reduced-space solve."
+    orchestrator: false
+  - number: 7
+    name: "step7_random_orthonormal_benchmark"
+    description: "Evaluate the exact random-orthonormal residual-inflation benchmark."
+    orchestrator: false
+  - number: 8
+    name: "step8_fractional_sphere_maximum"
+    description: "Compute a globally maximal fractional quadratic on a sphere."
+    orchestrator: false
+  - number: 9
+    name: "step9_deterministic_random_benchmark_ratio"
+    description: "Run the complete deterministic-versus-random benchmark pipeline."
+    orchestrator: true

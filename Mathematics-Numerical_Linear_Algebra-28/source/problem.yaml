@@ -1,0 +1,40 @@
+problem_id: "Mathematics-Numerical_Linear_Algebra-28"
+subject: "mathematics"
+subject_area: "Numerical Linear Algebra"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2608.24529"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_build_instance"
+    description: "Construct the complete deterministic instance used by the benchmark computation: the sparse symmetric operator, the prescribed three-column initial block and the fixed sparse-sign sketch. The operator is real, symmetric and tridiagonal with entries fixed by the benchmark specification, the initial block contains three deterministic, mutually orthonormal directions, and the sketch is generated from the supplied seed as one continuous random stream. The three objects are returned together so that the next step can consume the complete numerical state directly."
+    orchestrator: false
+  - number: 2
+    name: "02_rcgs_initial"
+    description: "Sketch-orthonormalize the prescribed initial search block for the randomized eigensolver representation used by subsequent spectral computations. The operation must preserve the dimensionality of the initial block while producing a basis together with its corresponding lower-dimensional sketch representation. The operator and sketch are carried forward unchanged so that later stages can consume the complete numerical state directly."
+    orchestrator: false
+  - number: 3
+    name: "03_generalized_ritz"
+    description: "Use the current search-space state (from Step 02 or from an expansion in Step 05) to perform the source study's exact full-space generalized Rayleigh-Ritz extraction and obtain the selected approximate spectral states of the benchmark operator. The extraction operates on the reduced representation associated with the current basis and returns the selected states together with the quantities required for the next expansion stage. The operator, sketch, basis, and auxiliary representation are carried forward unchanged as part of the numerical chain."
+    orchestrator: false
+  - number: 4
+    name: "04_davidson_correction"
+    description: "Generate the numerical block of new search directions from the spectral information produced by Step 03. The new directions are constructed in the original problem space and preserve the ordering and number of retained states from the preceding stage. The resulting block is returned appended to the Step 03 state; the next search-space construction stage receives it as (A, S, Vt, Q, W, T)."
+    orchestrator: false
+  - number: 5
+    name: "05_sketched_block_expansion"
+    description: "Append one block of correction directions to the first-cycle search space using the source study's randomized sketch-orthogonalization. The input state holds the operator, the fixed sketch, the current full-space basis together with its stored sketch and its operator image, and the correction block produced by Step 04. The current basis is the sketch-orthonormal basis maintained during the first cycle. The output is the expanded basis with its expanded stored sketch and operator image."
+    orchestrator: false
+  - number: 6
+    name: "06_restart_rotation"
+    description: "Restart the search space onto the retained Ritz states as the source study prescribes. The input is the generalized Ritz state of Step 03 at the maximal search-space dimension; the output is the restarted three-column basis together with its stored sketch and its operator image, which begin the next cycle. The fixed sketch is carried forward unchanged and no new sketch is drawn."
+    orchestrator: false
+  - number: 7
+    name: "07_post_restart_expansion"
+    description: "Apply one sketched correction expansion to the second-cycle search state that begins at the restart. The input is the current second-cycle basis (the restarted three-column basis from Step 06, followed by any correction blocks already appended in this cycle), its stored sketch and operator image, together with one active correction block. The output appends that block and returns the updated basis, stored sketch and operator image for the next second-cycle extraction."
+    orchestrator: false
+  - number: 8
+    name: "08_final_orchestrator"
+    description: "Complete the deterministic numerical computation and return the spectral condition number of the final full-space Gram matrix."
+    orchestrator: true

@@ -1,0 +1,82 @@
+{
+  "problem_id": "Chemistry-Quantum_Chemistry-71",
+  "sub_steps": [
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-71.1",
+      "test_cases": [
+        "import numpy as np\nP = {'beta_double': -2.8, 'beta_single': -2.2, 'r_open': 3.0, 'r_closed': 1.54, 'tau_pi': -2.0, 'zeta_pi': 1.4, 'tau_sigma': 3.2, 'zeta_sigma': 1.2}\ndef _spec(h):\n    h = np.asarray(h, dtype=float)\n    return np.sort(np.linalg.eigvalsh(0.5 * (h + h.T)))\nassert np.allclose(_spec(pi_hamiltonian(6, 0.68, 'con', dict(P))), target)",
+        "import numpy as np\nP = {'beta_double': -2.8, 'beta_single': -2.2, 'r_open': 3.0, 'r_closed': 1.54, 'tau_pi': -2.0, 'zeta_pi': 1.4, 'tau_sigma': 3.2, 'zeta_sigma': 1.2}\ndef _spec(h):\n    h = np.asarray(h, dtype=float)\n    return np.sort(np.linalg.eigvalsh(0.5 * (h + h.T)))\nassert np.allclose(_spec(pi_hamiltonian(6, 0.68, 'dis', dict(P))), target)",
+        "import numpy as np\nP = {'beta_double': -2.8, 'beta_single': -2.2, 'r_open': 3.0, 'r_closed': 1.54, 'tau_pi': -2.0, 'zeta_pi': 1.4, 'tau_sigma': 3.2, 'zeta_sigma': 1.2}\ndef _spec(h):\n    h = np.asarray(h, dtype=float)\n    return np.sort(np.linalg.eigvalsh(0.5 * (h + h.T)))\nQ = dict(P, beta_double=-2.6, tau_sigma=2.9, zeta_pi=1.1)\nassert np.allclose(_spec(pi_hamiltonian(8, 0.37, 'dis', dict(Q))), target)",
+        "import numpy as np\nP = {'beta_double': -2.8, 'beta_single': -2.2, 'r_open': 3.0, 'r_closed': 1.54, 'tau_pi': -2.0, 'zeta_pi': 1.4, 'tau_sigma': 3.2, 'zeta_sigma': 1.2}\ndef _spec(h):\n    h = np.asarray(h, dtype=float)\n    return np.sort(np.linalg.eigvalsh(0.5 * (h + h.T)))\nassert np.allclose(_spec(pi_hamiltonian(4, 0.0, 'con', dict(P))), target)",
+        "import numpy as np\nP = {'beta_double': -2.8, 'beta_single': -2.2, 'r_open': 3.0, 'r_closed': 1.54, 'tau_pi': -2.0, 'zeta_pi': 1.4, 'tau_sigma': 3.2, 'zeta_sigma': 1.2}\ndef _spec(h):\n    h = np.asarray(h, dtype=float)\n    return np.sort(np.linalg.eigvalsh(0.5 * (h + h.T)))\nassert np.allclose(_spec(pi_hamiltonian(6, 1.0, 'dis', dict(P))), target)",
+        "import numpy as np\nP = {'beta_double': -2.8, 'beta_single': -2.2, 'r_open': 3.0, 'r_closed': 1.54, 'tau_pi': -2.0, 'zeta_pi': 1.4, 'tau_sigma': 3.2, 'zeta_sigma': 1.2}\ndef _spec(h):\n    h = np.asarray(h, dtype=float)\n    return np.sort(np.linalg.eigvalsh(0.5 * (h + h.T)))\nassert np.allclose(_spec(pi_hamiltonian(4, 0.5, 'con', dict(P))), target)",
+        "import numpy as np\nP = {'beta_double': -2.8, 'beta_single': -2.2, 'r_open': 3.0, 'r_closed': 1.54, 'tau_pi': -2.0, 'zeta_pi': 1.4, 'tau_sigma': 3.2, 'zeta_sigma': 1.2}\ndef _spec(h):\n    h = np.asarray(h, dtype=float)\n    return np.sort(np.linalg.eigvalsh(0.5 * (h + h.T)))\ndef _probe(fn):\n    try:\n        fn(5, 0.5, 'con', dict(P))\n    except ValueError:\n        return 1\n    return 0\nassert np.allclose(_probe(pi_hamiltonian), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-71.2",
+      "test_cases": [
+        "import numpy as np\ndef _ring(n, t, tn):\n    h = np.zeros((n, n))\n    for i in range(n - 1):\n        h[i, i + 1] = h[i + 1, i] = t[i % len(t)]\n    h[0, n - 1] = h[n - 1, 0] = tn\n    return h\nassert np.allclose(np.asarray(singlet_ground_state(_ring(6, [-1.9, -2.2], 0.9), 4.0), dtype=float), target)",
+        "import numpy as np\ndef _ring(n, t, tn):\n    h = np.zeros((n, n))\n    for i in range(n - 1):\n        h[i, i + 1] = h[i + 1, i] = t[i % len(t)]\n    h[0, n - 1] = h[n - 1, 0] = tn\n    return h\nH = _ring(6, [-1.9, -2.2], -0.9)\nH[0, 0] = 0.4\nH[5, 5] = -0.3\nassert np.allclose(np.asarray(singlet_ground_state(H, 3.0), dtype=float), target)",
+        "import numpy as np\ndef _ring(n, t, tn):\n    h = np.zeros((n, n))\n    for i in range(n - 1):\n        h[i, i + 1] = h[i + 1, i] = t[i % len(t)]\n    h[0, n - 1] = h[n - 1, 0] = tn\n    return h\nassert np.allclose(np.asarray(singlet_ground_state(_ring(4, [-2.8, -2.2], -0.3), 7.5), dtype=float), target)",
+        "import numpy as np\ndef _ring(n, t, tn):\n    h = np.zeros((n, n))\n    for i in range(n - 1):\n        h[i, i + 1] = h[i + 1, i] = t[i % len(t)]\n    h[0, n - 1] = h[n - 1, 0] = tn\n    return h\nassert np.allclose(np.asarray(singlet_ground_state(_ring(6, [-2.4, -2.0], -0.5), 0.0), dtype=float), target)",
+        "import numpy as np\ndef _ring(n, t, tn):\n    h = np.zeros((n, n))\n    for i in range(n - 1):\n        h[i, i + 1] = h[i + 1, i] = t[i % len(t)]\n    h[0, n - 1] = h[n - 1, 0] = tn\n    return h\nH = _ring(6, [-2.5, -2.1], 0.4)\nH[0, 2] = H[2, 0] = 0.35\nH[1, 1] = 0.6\nH[4, 4] = -0.2\nassert np.allclose(np.asarray(singlet_ground_state(H, 3.5), dtype=float), target)",
+        "import numpy as np\ndef _ring(n, t, tn):\n    h = np.zeros((n, n))\n    for i in range(n - 1):\n        h[i, i + 1] = h[i + 1, i] = t[i % len(t)]\n    h[0, n - 1] = h[n - 1, 0] = tn\n    return h\nassert np.allclose(np.asarray(singlet_ground_state(np.array([[0.0, -1.5], [-1.5, 0.0]]), 5.0), dtype=float), target)",
+        "import numpy as np\ndef _ring(n, t, tn):\n    h = np.zeros((n, n))\n    for i in range(n - 1):\n        h[i, i + 1] = h[i + 1, i] = t[i % len(t)]\n    h[0, n - 1] = h[n - 1, 0] = tn\n    return h\nH = np.zeros((4, 4))\nfor j, t in ((1, -2.4), (2, -2.1), (3, -2.7)):\n    H[0, j] = H[j, 0] = t\nassert np.allclose(np.asarray(singlet_ground_state(H, 3.0), dtype=float), target)",
+        "import numpy as np\ndef _ring(n, t, tn):\n    h = np.zeros((n, n))\n    for i in range(n - 1):\n        h[i, i + 1] = h[i + 1, i] = t[i % len(t)]\n    h[0, n - 1] = h[n - 1, 0] = tn\n    return h\ndef _probe(fn):\n    try:\n        fn(np.zeros((3, 3)), 1.0)\n    except ValueError:\n        return 1\n    return 0\nassert np.allclose(_probe(singlet_ground_state), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-71.3",
+      "test_cases": [
+        "import numpy as np\ndef _ring(n, t, tn):\n    h = np.zeros((n, n))\n    for i in range(n - 1):\n        h[i, i + 1] = h[i + 1, i] = t[i % len(t)]\n    h[0, n - 1] = h[n - 1, 0] = tn\n    return h\nassert np.allclose(np.asarray(frontier_mixing_descriptors(_ring(6, [-1.9, -2.2], 0.9), 4.0), dtype=float), target)",
+        "import numpy as np\ndef _ring(n, t, tn):\n    h = np.zeros((n, n))\n    for i in range(n - 1):\n        h[i, i + 1] = h[i + 1, i] = t[i % len(t)]\n    h[0, n - 1] = h[n - 1, 0] = tn\n    return h\nassert np.allclose(np.asarray(frontier_mixing_descriptors(_ring(6, [-1.9, -2.2], -0.9), 4.0), dtype=float), target)",
+        "import numpy as np\ndef _ring(n, t, tn):\n    h = np.zeros((n, n))\n    for i in range(n - 1):\n        h[i, i + 1] = h[i + 1, i] = t[i % len(t)]\n    h[0, n - 1] = h[n - 1, 0] = tn\n    return h\nassert np.allclose(np.asarray(frontier_mixing_descriptors(np.array([[0.0, -1.5], [-1.5, 0.0]]), 5.0), dtype=float), target)",
+        "import numpy as np\ndef _ring(n, t, tn):\n    h = np.zeros((n, n))\n    for i in range(n - 1):\n        h[i, i + 1] = h[i + 1, i] = t[i % len(t)]\n    h[0, n - 1] = h[n - 1, 0] = tn\n    return h\nassert np.allclose(np.asarray(frontier_mixing_descriptors(_ring(6, [-2.8, -2.2], -0.3), 0.3), dtype=float), target)",
+        "import numpy as np\ndef _ring(n, t, tn):\n    h = np.zeros((n, n))\n    for i in range(n - 1):\n        h[i, i + 1] = h[i + 1, i] = t[i % len(t)]\n    h[0, n - 1] = h[n - 1, 0] = tn\n    return h\nassert np.allclose(np.asarray(frontier_mixing_descriptors(np.array([[0.0, -0.2], [-0.2, 0.0]]), 12.0), dtype=float), target)",
+        "import numpy as np\ndef _ring(n, t, tn):\n    h = np.zeros((n, n))\n    for i in range(n - 1):\n        h[i, i + 1] = h[i + 1, i] = t[i % len(t)]\n    h[0, n - 1] = h[n - 1, 0] = tn\n    return h\ndef _probe(fn):\n    try:\n        fn(np.array([[0.0, -1.0], [-1.0, 0.0]]), -1.0)\n    except ValueError:\n        return 1\n    return 0\nassert np.allclose(_probe(frontier_mixing_descriptors), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-71.4",
+      "test_cases": [
+        "import numpy as np\nP = {'beta_double': -2.8, 'beta_single': -2.2, 'r_open': 3.0, 'r_closed': 1.54, 'tau_pi': -2.0, 'zeta_pi': 1.4, 'tau_sigma': 3.2, 'zeta_sigma': 1.2}\nassert np.allclose(np.asarray(path_transition_state(6, 'con', 3.6, dict(P)), dtype=float), target)",
+        "import numpy as np\nP = {'beta_double': -2.8, 'beta_single': -2.2, 'r_open': 3.0, 'r_closed': 1.54, 'tau_pi': -2.0, 'zeta_pi': 1.4, 'tau_sigma': 3.2, 'zeta_sigma': 1.2}\nassert np.allclose(np.asarray(path_transition_state(6, 'dis', 3.6, dict(P)), dtype=float), target)",
+        "import numpy as np\nP = {'beta_double': -2.8, 'beta_single': -2.2, 'r_open': 3.0, 'r_closed': 1.54, 'tau_pi': -2.0, 'zeta_pi': 1.4, 'tau_sigma': 3.2, 'zeta_sigma': 1.2}\nQ = dict(P, beta_double=-2.6, tau_sigma=2.9, zeta_pi=1.1)\nassert np.allclose(np.asarray(path_transition_state(4, 'dis', 2.5, dict(Q)), dtype=float), target)",
+        "import numpy as np\nP = {'beta_double': -2.8, 'beta_single': -2.2, 'r_open': 3.0, 'r_closed': 1.54, 'tau_pi': -2.0, 'zeta_pi': 1.4, 'tau_sigma': 3.2, 'zeta_sigma': 1.2}\nassert np.allclose(np.asarray(path_transition_state(4, 'con', 0.8, dict(P)), dtype=float), target)",
+        "import numpy as np\nP = {'beta_double': -2.8, 'beta_single': -2.2, 'r_open': 3.0, 'r_closed': 1.54, 'tau_pi': -2.0, 'zeta_pi': 1.4, 'tau_sigma': 3.2, 'zeta_sigma': 1.2}\nQ = dict(P, zeta_sigma=0.9, r_open=3.3)\nassert np.allclose(np.asarray(path_transition_state(6, 'con', 7.0, dict(Q)), dtype=float), target)",
+        "import numpy as np\nP = {'beta_double': -2.8, 'beta_single': -2.2, 'r_open': 3.0, 'r_closed': 1.54, 'tau_pi': -2.0, 'zeta_pi': 1.4, 'tau_sigma': 3.2, 'zeta_sigma': 1.2}\nQ = dict(P, tau_sigma=40.0, zeta_sigma=0.1, tau_pi=-8.0, zeta_pi=0.1)\ndef _probe(fn):\n    try:\n        fn(6, 'dis', 3.0, dict(Q))\n    except ValueError:\n        return 1\n    return 0\nassert np.allclose(_probe(path_transition_state), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-71.5",
+      "test_cases": [
+        "import numpy as np\ndef _ring(n, t, tn):\n    h = np.zeros((n, n))\n    for i in range(n - 1):\n        h[i, i + 1] = h[i + 1, i] = t[i % len(t)]\n    h[0, n - 1] = h[n - 1, 0] = tn\n    return h\nassert np.allclose(np.asarray(yamaguchi_mixing_angle(_ring(6, [-1.9, -2.2], 0.9), 4.0), dtype=float), target)",
+        "import numpy as np\ndef _ring(n, t, tn):\n    h = np.zeros((n, n))\n    for i in range(n - 1):\n        h[i, i + 1] = h[i + 1, i] = t[i % len(t)]\n    h[0, n - 1] = h[n - 1, 0] = tn\n    return h\nassert np.allclose(np.asarray(yamaguchi_mixing_angle(np.array([[0.0, -1.0], [-1.0, 0.0]]), 3.0), dtype=float), target)",
+        "import numpy as np\ndef _ring(n, t, tn):\n    h = np.zeros((n, n))\n    for i in range(n - 1):\n        h[i, i + 1] = h[i + 1, i] = t[i % len(t)]\n    h[0, n - 1] = h[n - 1, 0] = tn\n    return h\nassert np.allclose(np.asarray(yamaguchi_mixing_angle(_ring(8, [-2.4, -2.0], 0.5), 4.5), dtype=float), target)",
+        "import numpy as np\ndef _ring(n, t, tn):\n    h = np.zeros((n, n))\n    for i in range(n - 1):\n        h[i, i + 1] = h[i + 1, i] = t[i % len(t)]\n    h[0, n - 1] = h[n - 1, 0] = tn\n    return h\nassert np.allclose(np.asarray(yamaguchi_mixing_angle(np.array([[0.0, -1.0], [-1.0, 0.0]]), 1.5), dtype=float), target)",
+        "import numpy as np\ndef _ring(n, t, tn):\n    h = np.zeros((n, n))\n    for i in range(n - 1):\n        h[i, i + 1] = h[i + 1, i] = t[i % len(t)]\n    h[0, n - 1] = h[n - 1, 0] = tn\n    return h\nassert np.allclose(np.asarray(yamaguchi_mixing_angle(_ring(6, [-2.4, -2.4], -2.4), 3.0), dtype=float), target)",
+        "import numpy as np\ndef _ring(n, t, tn):\n    h = np.zeros((n, n))\n    for i in range(n - 1):\n        h[i, i + 1] = h[i + 1, i] = t[i % len(t)]\n    h[0, n - 1] = h[n - 1, 0] = tn\n    return h\nassert np.allclose(np.asarray(yamaguchi_mixing_angle(_ring(4, [-1.0, -1.0], 0.2), 20.0), dtype=float), target)",
+        "import numpy as np\ndef _ring(n, t, tn):\n    h = np.zeros((n, n))\n    for i in range(n - 1):\n        h[i, i + 1] = h[i + 1, i] = t[i % len(t)]\n    h[0, n - 1] = h[n - 1, 0] = tn\n    return h\ndef _probe(fn):\n    try:\n        fn(np.array([[0.0, -1.0], [-0.5, 0.0]]), 2.0)\n    except ValueError:\n        return 1\n    return 0\nassert np.allclose(_probe(yamaguchi_mixing_angle), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-71.6",
+      "test_cases": [
+        "import numpy as np\nP = {'beta_double': -2.8, 'beta_single': -2.2, 'r_open': 3.0, 'r_closed': 1.54, 'tau_pi': -2.0, 'zeta_pi': 1.4, 'tau_sigma': 3.2, 'zeta_sigma': 1.2}\nassert np.allclose(np.asarray(calibrate_model(6, 27.0, 5.0, dict(P), (3.0, 8.0), (-2.4, -1.2)), dtype=float), target)",
+        "import numpy as np\nP = {'beta_double': -2.8, 'beta_single': -2.2, 'r_open': 3.0, 'r_closed': 1.54, 'tau_pi': -2.0, 'zeta_pi': 1.4, 'tau_sigma': 3.2, 'zeta_sigma': 1.2}\nassert np.allclose(np.asarray(calibrate_model(4, 3.0, 24.0, dict(P), (2.0, 7.0), (-2.6, -1.4)), dtype=float), target)",
+        "import numpy as np\nP = {'beta_double': -2.8, 'beta_single': -2.2, 'r_open': 3.0, 'r_closed': 1.54, 'tau_pi': -2.0, 'zeta_pi': 1.4, 'tau_sigma': 3.2, 'zeta_sigma': 1.2}\nQ = dict(P, zeta_sigma=0.9, r_open=3.3)\nassert np.allclose(np.asarray(calibrate_model(4, 3.5, 22.0, dict(Q), (2.0, 7.0), (-2.6, -1.4)), dtype=float), target)",
+        "import numpy as np\nP = {'beta_double': -2.8, 'beta_single': -2.2, 'r_open': 3.0, 'r_closed': 1.54, 'tau_pi': -2.0, 'zeta_pi': 1.4, 'tau_sigma': 3.2, 'zeta_sigma': 1.2}\ndef _probe(fn):\n    try:\n        fn(6, 27.0, 5.0, dict(P), (3.0, 8.0), (-2.4, 0.5))\n    except ValueError:\n        return 1\n    return 0\nassert np.allclose(_probe(calibrate_model), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-71.7",
+      "test_cases": [
+        "import numpy as np\nP = {'beta_double': -2.8, 'beta_single': -2.2, 'r_open': 3.0, 'r_closed': 1.54, 'tau_pi': -2.0, 'zeta_pi': 1.4, 'tau_sigma': 3.2, 'zeta_sigma': 1.2}\nassert np.allclose(float(calibrated_puhf_angle(6, 'con', 27.0, 5.0, dict(P), (3.0, 8.0), (-2.4, -1.2))), target)",
+        "import numpy as np\nP = {'beta_double': -2.8, 'beta_single': -2.2, 'r_open': 3.0, 'r_closed': 1.54, 'tau_pi': -2.0, 'zeta_pi': 1.4, 'tau_sigma': 3.2, 'zeta_sigma': 1.2}\nassert np.allclose(float(calibrated_puhf_angle(4, 'con', 3.0, 24.0, dict(P), (2.0, 7.0), (-2.6, -1.4))), target)",
+        "import numpy as np\nP = {'beta_double': -2.8, 'beta_single': -2.2, 'r_open': 3.0, 'r_closed': 1.54, 'tau_pi': -2.0, 'zeta_pi': 1.4, 'tau_sigma': 3.2, 'zeta_sigma': 1.2}\nassert np.allclose(float(calibrated_puhf_angle(4, 'dis', 3.0, 24.0, dict(P), (2.0, 7.0), (-2.6, -1.4))), target)",
+        "import numpy as np\nP = {'beta_double': -2.8, 'beta_single': -2.2, 'r_open': 3.0, 'r_closed': 1.54, 'tau_pi': -2.0, 'zeta_pi': 1.4, 'tau_sigma': 3.2, 'zeta_sigma': 1.2}\ndef _probe(fn):\n    try:\n        fn(6, 'mix', 27.0, 5.0, dict(P), (3.0, 8.0), (-2.4, -1.2))\n    except ValueError:\n        return 1\n    return 0\nassert np.allclose(_probe(calibrated_puhf_angle), target)"
+      ]
+    }
+  ]
+}

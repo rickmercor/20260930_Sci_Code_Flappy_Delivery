@@ -1,0 +1,40 @@
+problem_id: "Mathematics-Computational_Finance-32"
+subject: "mathematics"
+subject_area: "Computational Finance"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.3390/math14030564"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_variance_riccati"
+    description: "Evaluate, in closed form, the coefficient that multiplies a Heston variance in the exponent of the log-price characteristic function."
+    orchestrator: false
+  - number: 2
+    name: "02_liquidity_coefficients"
+    description: "Evaluate the coefficients through which the stochastic market-liquidity factor enters the characteristic function, and the part of the constant term they generate."
+    orchestrator: false
+  - number: 3
+    name: "03_regime_factor"
+    description: "Compute the regime-switching factor of the characteristic function: the conditional expectation, given the initial regime, of the exponential of the regime-dependent part of the constant term."
+    orchestrator: false
+  - number: 4
+    name: "04_characteristic_function"
+    description: "Assemble the characteristic function of the log price ratio ln(S1(T)/S2(T)) under the measure that takes the second asset as numeraire, at the initial state and regime."
+    orchestrator: false
+  - number: 5
+    name: "05_exercise_probabilities"
+    description: "Recover from the characteristic function the two probabilities that price the unit-strike call on the price ratio, together with the normalisation phi(-i)."
+    orchestrator: false
+  - number: 6
+    name: "06_margrabe_price"
+    description: "Compute the Margrabe price of the option to exchange asset 2 for asset 1 when the log price ratio is Gaussian with constant variance rate."
+    orchestrator: false
+  - number: 7
+    name: "07_price_comparisons"
+    description: "Price the exchange option under the full model and under three reduced versions that isolate its channels."
+    orchestrator: false
+  - number: 8
+    name: "08_exchange_option_price"
+    description: "Chain the sub-problem functions 01-07 and return the time-0 value of the European option to exchange asset 2 for asset 1 under the regime-switching model with Heston variances and stochastic market liquidity. Orchestrator: yes - this is the final step; it integrates the earlier sub-problems (variance_riccati, liquidity_coefficients, regime_factor, characteristic_function, exercise_probabilities, margrabe_price, price_comparisons) rather than reimplementing them."
+    orchestrator: true

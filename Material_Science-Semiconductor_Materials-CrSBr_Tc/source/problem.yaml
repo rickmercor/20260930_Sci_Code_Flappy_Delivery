@@ -1,0 +1,48 @@
+problem_id: "Material_Science-Semiconductor_Materials-CrSBr_Tc"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1088/2053-1583/ae9779"
+dependencies: "import functools\nimport numpy as np"
+steps:
+  - number: 1
+    name: "neighbour_bond_vectors"
+    description: "Assemble the in-plane bond vectors of one neighbour shell of monolayer CrSBr. Returns a real array of bond vectors."
+    orchestrator: false
+  - number: 2
+    name: "exchange_structure_factor"
+    description: "Sum the Bloch phases of one neighbour shell. Returns the real and imaginary parts of the structure factor as a two-element array."
+    orchestrator: false
+  - number: 3
+    name: "exchange_at_q"
+    description: "Sum every neighbour shell that carries an exchange constant. Returns the real and imaginary parts of J_ab(q) as a two-element array."
+    orchestrator: false
+  - number: 4
+    name: "molecular_field"
+    description: "Compute the on-site molecular field of the RPA Hamiltonian. Returns a real scalar in meV."
+    orchestrator: false
+  - number: 5
+    name: "anisotropy_contractions"
+    description: "Contract the single-ion anisotropy tensor into the local frame. Returns the three RPA anisotropy components as a three-element array."
+    orchestrator: false
+  - number: 6
+    name: "callen_factor"
+    description: "Compute the Callen-decoupling renormalisation of the single-ion anisotropy. Returns a dimensionless real scalar."
+    orchestrator: false
+  - number: 7
+    name: "magnon_energies"
+    description: "Assemble the magnon Hamiltonian and diagonalise it. Returns the four magnon energies in meV, ascending."
+    orchestrator: false
+  - number: 8
+    name: "magnon_occupation"
+    description: "Average the magnon occupation over the Brillouin zone. Returns the dimensionless site-resolved occupation of sublattice 0."
+    orchestrator: false
+  - number: 9
+    name: "sublattice_magnetisation"
+    description: "Evaluate Callen's expression for the sublattice magnetisation. Returns a dimensionless real scalar."
+    orchestrator: false
+  - number: 10
+    name: "curie_temperature"
+    description: "Evaluate the RPA+CD Curie temperature of monolayer CrSBr. Returns the critical temperature in K."
+    orchestrator: true

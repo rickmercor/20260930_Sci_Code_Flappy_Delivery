@@ -1,0 +1,48 @@
+problem_id: "Biology-Biochemistry-7"
+subject: "biology"
+subject_area: "Biochemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "https://doi.org/10.48550/arXiv.2512.02478"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_pack_gene_parameters"
+    description: "Validate and pack the delayed auto-inhibition parameters."
+    orchestrator: false
+  - number: 2
+    name: "02_gene_channel_propensities"
+    description: "Evaluate initiation, translation, and degradation rates."
+    orchestrator: false
+  - number: 3
+    name: "03_completion_hazard_increment"
+    description: "Integrate pending completion hazards over a fixed-state interval."
+    orchestrator: false
+  - number: 4
+    name: "04_invert_completion_waits"
+    description: "Convert residual unit clocks into physical completion waits."
+    orchestrator: false
+  - number: 5
+    name: "05_advance_remaining_clocks"
+    description: "Advance all residual clocks to the next exact event."
+    orchestrator: false
+  - number: 6
+    name: "06_simulate_exact_gene_path"
+    description: "Simulate one exact remaining clock gene-expression path."
+    orchestrator: false
+  - number: 7
+    name: "07_compute_group_completion_means"
+    description: "Compute aggregate completion means for existing delay groups."
+    orchestrator: false
+  - number: 8
+    name: "08_simulate_tau_gene_path"
+    description: "Simulate one grouped-delay non-Markovian tau-leap path."
+    orchestrator: false
+  - number: 9
+    name: "09_estimate_endpoint_means"
+    description: "Estimate endpoint protein means for both simulator laws."
+    orchestrator: false
+  - number: 10
+    name: "10_run_nonmarkovian_gene_pipeline"
+    description: "Chain steps 01-09 and return the signed protein-mean bias.\n\nOrchestrator: yes - packs the parameters (pack_gene_parameters), then evaluates the channel rates (gene_channel_propensities), the integrated completion hazard (completion_hazard_increment), its inversion (invert_completion_waits), the clock advance (advance_remaining_clocks) and the delay-group means (compute_group_completion_means) on the initial state, before running both ensembles (estimate_endpoint_means, which drives simulate_exact_gene_path and simulate_tau_gene_path) and forming the signed ratio; it consumes each step's output rather than reimplementing any of them."
+    orchestrator: true

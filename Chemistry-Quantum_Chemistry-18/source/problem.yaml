@@ -1,0 +1,40 @@
+problem_id: "Chemistry-Quantum_Chemistry-18"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1021/acs.jctc.6c00413"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_pair_partial_wave"
+    description: "Step 01: Legendre coefficients of the correlation factor. Legendre coefficient of order l of the correlation factor p(r12) of a two-electron pair function, as a function of the two radii."
+    orchestrator: false
+  - number: 2
+    name: "02_pair_normalization"
+    description: "Step 02: Normalization of the pair function. Normalization constant C of the singlet pair function Psi = C p(r12) exp[-omega (r1^2 + r2^2) / 2] with p(s) = 1 + s/2 + c s^2."
+    orchestrator: false
+  - number: 3
+    name: "03_weak_orbital_asymptotics"
+    description: "Step 03: Constants of the weak natural-orbital asymptotics. Constants of the weak natural-orbital asymptotics of a two-electron singlet, from its on-top density."
+    orchestrator: false
+  - number: 4
+    name: "04_radial_densities"
+    description: "Step 04: Exact densities at a given radius. On-top two-electron density, one-electron density and reduced on-top density at distance r from the trap centre for the pair function Psi."
+    orchestrator: false
+  - number: 5
+    name: "05_natural_amplitudes"
+    description: "Step 05: Natural amplitudes of one angular momentum channel. Natural amplitudes of one angular momentum channel of the pair function Psi, normalized with respect to the whole function."
+    orchestrator: false
+  - number: 6
+    name: "06_shell_orbital_densities"
+    description: "Step 06: Shell densities of natural orbitals at a given radius. Natural amplitudes of angular momentum l paired with the summed squares of their natural orbitals at distance r from the centre."
+    orchestrator: false
+  - number: 7
+    name: "07_truncated_reduced_ontop"
+    description: "Step 07: Thresholded truncated reduced on-top density. Reduced on-top density at distance r from the centre estimated from the natural orbitals whose occupation numbers reach a threshold."
+    orchestrator: false
+  - number: 8
+    name: "08_overestimation_at_density_maximum"
+    description: "Step 08: Overestimation at the radial density maximum and its large-N coefficient (orchestrator). Orchestrator: overestimation of the reduced on-top density by a thresholded natural-orbital expansion at the maximum of the radial electron density, at a finite threshold and in the large-N limit."
+    orchestrator: true

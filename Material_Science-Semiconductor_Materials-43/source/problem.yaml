@@ -1,0 +1,40 @@
+problem_id: "Material_Science-Semiconductor_Materials-43"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2603.02051"
+dependencies: ""
+steps:
+  - number: 1
+    name: "mx_parameters"
+    description: "Derives the reduced and center-of-mass masses, the exact-separation coefficients and the atomic-unit conversions from the material and field parameters."
+    orchestrator: false
+  - number: 2
+    name: "mx_keldysh"
+    description: "Evaluates the Rytova-Keldysh electron-hole potential of a two-dimensional semiconductor in atomic units."
+    orchestrator: false
+  - number: 3
+    name: "mx_radial_basis"
+    description: "Builds the orthonormal generalized-Laguerre radial basis of one angular channel with its first two derivatives."
+    orchestrator: false
+  - number: 4
+    name: "mx_quadrature"
+    description: "Builds the scaled Gauss-Laguerre rule that evaluates every radial matrix element of the basis."
+    orchestrator: false
+  - number: 5
+    name: "mx_hamiltonian"
+    description: "Assembles the relative-motion Hamiltonian of the anisotropic magnetoexciton at finite pseudomomentum in the coupled angular-channel Laguerre basis."
+    orchestrator: false
+  - number: 6
+    name: "mx_spectrum"
+    description: "Diagonalizes the magnetoexciton Hamiltonian and returns the lowest energies in meV."
+    orchestrator: false
+  - number: 7
+    name: "mx_magnetopolarizability"
+    description: "Computes the exact-within-basis static polarizabilities of the lowest magnetoexciton state along both principal axes."
+    orchestrator: false
+  - number: 8
+    name: "mx_audit"
+    description: "Runs the whole chain: the magnetoexciton energies, the exact and factorized magnetic shifts, the polarizabilities and the mass enhancements of the moving magnetoexciton, with a direct finite-pseudomomentum check."
+    orchestrator: true

@@ -1,0 +1,44 @@
+problem_id: "Mathematics-Computational_Mechanics-27"
+subject: "mathematics"
+subject_area: "Computational Mechanics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1002/nme.70342"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_derive_neutral_inclusion_radius"
+    description: "This step fixes the geometry of the benchmark before any discretisation is considered. From the three bulk moduli, the shared Poisson ratio and the outer coating radius it returns the inclusion volume fraction that renders the coated sphere neutral, the inclusion radius that fraction implies, and the equivalent bulk modulus evaluated at that fraction.\n\nThe third quantity is not consumed downstream. It is returned because neutrality requires it to reproduce the matrix bulk modulus to machine precision, so it is the cheapest available evidence that the closed form and the neutrality condition have been paired correctly rather than merely being plausible."
+    orchestrator: false
+  - number: 2
+    name: "02_solve_coated_sphere_exact_field"
+    description: "This step solves the three-by-three interface system for the shell coefficients of the exact radial field, and evaluates the fourth, unused, interface condition as a residual. The coefficients are the reference solution against which the discrete strain field is measured at the end of the chain, so they must be obtained from the interface conditions themselves rather than from any approximation of them.\n\nThe residual is reported alongside them. It is not an error estimate of this step: it is a consistency test on the pair of steps that precede the mesh, because it can vanish only when the inclusion radius handed in really does make the coated sphere neutral."
+    orchestrator: false
+  - number: 3
+    name: "03_build_three_phase_periodic_mesh"
+    description: "This step builds the periodic tetrahedral mesh, evaluates the nodal level set on it, and derives from those two the bookkeeping that every later step reads: which elements are cut, which phase lies on the positive side of each cut, which nodes carry enrichment and how many degrees of freedom the enriched system therefore has.\n\nThe single-interface assumption is enforced rather than assumed. An element whose nodes include both a matrix node and an inclusion node would need two interfaces inside one tetrahedron, which the subdivision of the next step cannot represent, so such a configuration is rejected as invalid. The smallest absolute nodal level set value is returned as well, because an interface that passes very close to a node is what degrades the conditioning that the internal scaling is later designed to repair."
+    orchestrator: false
+  - number: 4
+    name: "04_build_interface_subcell_quadrature"
+    description: "This step returns the quadrature of one tetrahedron: the barycentric coordinates of its points, their weights, and the side of the discrete interface on which each point lies. The points are reported in barycentric rather than Cartesian coordinates because the shape functions and the enrichment are both evaluated from them, and because the caller already holds the vertices.\n\nThe side label is the reason the rule is built at all. It is what allows the later assembly to give a point the coating stiffness or the positive-side stiffness without ever asking for the true spherical radius, so the material data seen by the quadrature is consistent with the linearised interface that the subdivision has just resolved.\n\nA vanishing nodal level set value is rejected. It leaves a sub-tetrahedron of zero volume and a crossing point that coincides with a vertex, so the decomposition is degenerate rather than merely awkward."
+    orchestrator: false
+  - number: 5
+    name: "05_evaluate_modified_abs_enrichment"
+    description: "This step evaluates the modified enrichment and its gradient at a supplied set of points of one element, from the nodal level set values and the constant gradients of the four linear shape functions.\n\nBoth quantities are returned because the enriched strain operator needs both: the value multiplies the shape function gradient and the gradient multiplies the shape function, and the two terms are of comparable size on a barely cut element. The gradient is evaluated phasewise, from the sign of the interpolated level set at each point, rather than by differentiating a smoothed surrogate, so the jump across the interface is represented exactly and not spread over a layer of points."
+    orchestrator: false
+  - number: 6
+    name: "06_assemble_scaled_three_phase_system"
+    description: "This step turns the mesh and the three phase stiffnesses into the element operators the solver will use, and into the single global array of quadrature points, weights and phases that the error functional will later read.\n\nIt performs two passes over the elements, and the order matters. The first pass evaluates the unscaled enriched columns and accumulates the reference energy of each enriched node and direction, because a scaling factor is an integral over every element that shares the node and cannot be known from one element alone. The second pass rebuilds the columns with the factors applied and forms the element stiffness and stress map.\n\nThe step calls the interface quadrature step and the enrichment step for every element rather than repeating their logic. Inactive columns, those of enriched slots on uncut elements, are zeroed and directed at a discard index, so the later matrix-free product may sum over all twenty-four local entries without testing whether each one exists."
+    orchestrator: false
+  - number: 7
+    name: "07_build_fourier_green_operator"
+    description: "This step builds the multiplier once, for a given voxel count and cell edge, so that the solver can apply the inverse of the constant-coefficient operator by a forward transform, a pointwise product and an inverse transform.\n\nOnly one voxel is assembled. Every voxel of the periodic mesh is a translate of that reference voxel, which is what makes the operator a convolution, so the whole preconditioner is determined by a matrix of twenty-four rows and twenty-four columns together with the corner offsets. The multiplier carries no material data: it is a preconditioner, so its quality but not the solution it converges to depends on how well it resembles the real operator."
+    orchestrator: false
+  - number: 8
+    name: "08_solve_scaled_xfft_system"
+    description: "This step solves the equilibrium system for one prescribed macroscopic strain and returns the converged fluctuation together with the diagnostics that certify the solve: the iteration count, the history of the preconditioned residual, the threshold in force at the end, the volume-averaged Mandel stress and a convergence flag.\n\nThe stopping threshold is not a constant of the run. It is recomputed from the current volume-averaged stress at every iteration, so the test measures the residual against the quantity the calculation exists to produce rather than against the initial residual, and a configuration whose macroscopic stress is small is not thereby granted a looser solve.\n\nThe averaged stress is assembled from the integrated stiffness acting on the macroscopic strain plus the element stress maps acting on the fluctuation, and divided by the cell volume. It is therefore available at every iteration at the cost of one pass over the elements, which is what makes the running threshold affordable."
+    orchestrator: false
+  - number: 9
+    name: "09_compute_relative_l2_strain_error"
+    description: "This step is the orchestrator. It runs the whole chain in sequence: step 1 supplies the inclusion radius from the neutrality condition, step 2 the exact shell coefficients, step 3 the periodic three-phase mesh and its level set, steps 4 and 5 the interface quadrature and the modified enrichment that step 6 uses to assemble the internally scaled element operators, step 7 the Fourier multiplier of the preconditioner and step 8 the conjugate-gradient solution of the equilibrium system. It then compares the discrete and exact strain fields at every quadrature point of the assembled rule and forms the relative error.\n\nIt returns the error together with the intermediate quantities a reader needs to judge it: the simulated effective bulk modulus, which neutrality requires to return the matrix value, the derived inclusion radius, the shell coefficients and the residual of the interface condition that was not used to determine them, the mesh and quadrature counts, the quadrature-weighted volume of each phase and the iteration count of the solve."
+    orchestrator: true

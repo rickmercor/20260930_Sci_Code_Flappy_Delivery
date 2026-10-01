@@ -1,0 +1,36 @@
+problem_id: "Mathematics-Computational_Finance-37"
+subject: "mathematics"
+subject_area: "Computational Finance"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2609.01323"
+dependencies: ""
+steps:
+  - number: 1
+    name: "reference_tensor"
+    description: "Build the reference (prior) joint law over (S1, V1, S2, V2, S3) by interleaving independent lognormal transition kernels."
+    orchestrator: false
+  - number: 2
+    name: "spx_vix_calibration"
+    description: "Run the augmented-Bregman mirror-descent SPX-VIX calibration (Algorithm 1) to reconcile a reference tensor toward the given target marginals and (approximately) the conditional martingale/dispersion constraints."
+    orchestrator: false
+  - number: 3
+    name: "marginalize_to_sss"
+    description: "Marginalize the calibrated (S1,V1,S2,V2,S3) joint law over V1 and V2 to obtain the (S1,S2,S3) joint law the downstream contract valuation step consumes."
+    orchestrator: false
+  - number: 4
+    name: "gtfk_selfconsistent"
+    description: "Solve for the GTFK trial-potential's self-consistent parameters (omega, delta_gamma) at a given path-average state xbar, for a Black-Karasinski intensity process with mean-reversion k, volatility sigma, long-run log-intensity theta, over horizon T."
+    orchestrator: false
+  - number: 5
+    name: "survival_probability"
+    description: "Compute the survival probability Q(x0, T) = E[exp(-integral_0^T exp(X_t) dt)] for a Black-Karasinski intensity process dX_t = k(theta - X_t)dt + sigma dW_t started at X_0 = x0, using the GTFK path-integral semi-analytical approximation."
+    orchestrator: false
+  - number: 6
+    name: "contract_value"
+    description: "Compute the fair initial value of the 3-year surrenderable equity-linked contract via backward obstacle recursion."
+    orchestrator: false
+  - number: 7
+    name: "orchestrator_contract_value"
+    description: "Orchestrates the full four-stage chain: calibrate the SPX-VIX joint law (the equity-index process driving the fund), marginalize it over the volatility coordinates to obtain the (S1,S2,S3) law the contract actually uses, compute the survival probability at one and two years (the mortality process governing the death-benefit weighting), and combine both into the surrenderable contract's backward obstacle recursion. The available step functions are spx_vix_calibration, marginalize_to_sss, survival_probability, and contract_value; determining the correct arguments and composition order for each is part of this step."
+    orchestrator: true

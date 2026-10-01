@@ -1,0 +1,94 @@
+{
+  "problem_id": "Chemistry-Quantum_Chemistry-81",
+  "sub_steps": [
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-81.1",
+      "test_cases": [
+        "import numpy as np\nN = 8\nU = 8.0\neps = 2.0\nt0 = 2.4\ndelta = 1.0 / 12.0\nr_double = 1.35\nr_single = 1.45\nangle_deg = 120.0\nn_states = 100\nassert np.allclose(coulomb_matrix(N, U, eps, r_double, r_single, angle_deg), target)",
+        "import numpy as np\nN = 6\nU = 4.0\neps = 1.0\nt0 = 2.5\ndelta = 0.1\nr_double = 1.4\nr_single = 1.4\nangle_deg = 180.0\nn_states = 40\nassert np.allclose(coulomb_matrix(N, U, eps, r_double, r_single, angle_deg), target)",
+        "import numpy as np\nN = 4\nU = 14.0\neps = 2.0\nt0 = 2.4\ndelta = 1.0 / 12.0\nr_double = 1.34\nr_single = 1.46\nangle_deg = 125.0\nn_states = 36\nassert np.allclose(coulomb_matrix(N, U, eps, r_double, r_single, angle_deg), target)",
+        "import numpy as np\nN = 10\nU = 11.0\neps = 1.5\nr_double = 1.36\nr_single = 1.44\nangle_deg = 116.0\nassert np.allclose(coulomb_matrix(N, U, eps, r_double, r_single, angle_deg), target)",
+        "import numpy as np\n# invalid input: an odd number of sites must raise ValueError\ndef _probe(fn):\n    try:\n        fn(7, 8.0, 2.0, 1.35, 1.45, 120.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(coulomb_matrix), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-81.2",
+      "test_cases": [
+        "import numpy as np\nN = 4\nU = 14.0\neps = 2.0\nt0 = 2.4\ndelta = 1.0 / 12.0\nr_double = 1.34\nr_single = 1.46\nangle_deg = 125.0\nn_states = 36\nn_up = 2\nn_down = 2\nassert np.allclose(ppp_hamiltonian(N, U, eps, t0, delta, r_double, r_single, angle_deg, n_up, n_down), target)",
+        "import numpy as np\nN = 6\nU = 4.0\neps = 1.0\nt0 = 2.5\ndelta = 0.1\nr_double = 1.4\nr_single = 1.4\nangle_deg = 180.0\nn_states = 40\nn_up = 3\nn_down = 3\nassert np.allclose(ppp_hamiltonian(N, U, eps, t0, delta, r_double, r_single, angle_deg, n_up, n_down), target)",
+        "import numpy as np\nN = 4\nU = 14.0\neps = 2.0\nt0 = 2.4\ndelta = 1.0 / 12.0\nr_double = 1.34\nr_single = 1.46\nangle_deg = 125.0\nn_states = 36\nn_up = 3\nn_down = 1\nassert np.allclose(ppp_hamiltonian(N, U, eps, t0, delta, r_double, r_single, angle_deg, n_up, n_down), target)",
+        "import numpy as np\nN = 6\nU = 8.0\neps = 2.0\nt0 = 2.4\ndelta = 1.0 / 12.0\nr_double = 1.35\nr_single = 1.45\nangle_deg = 120.0\nn_up = 4\nn_down = 2\nassert np.allclose(ppp_hamiltonian(N, U, eps, t0, delta, r_double, r_single, angle_deg, n_up, n_down), target)",
+        "import numpy as np\n# invalid input: more up electrons than sites must raise ValueError\ndef _probe(fn):\n    try:\n        fn(8, 8.0, 2.0, 2.4, 1.0 / 12.0, 1.35, 1.45, 120.0, 9, 4)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(ppp_hamiltonian), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-81.3",
+      "test_cases": [
+        "import numpy as np\nN = 4\nU = 14.0\neps = 2.0\nt0 = 2.4\ndelta = 1.0 / 12.0\nr_double = 1.34\nr_single = 1.46\nangle_deg = 125.0\nn_states = 36\nassert np.allclose(symmetry_labels(N, U, eps, t0, delta, r_double, r_single, angle_deg, n_states), target)",
+        "import numpy as np\nN = 6\nU = 4.0\neps = 1.0\nt0 = 2.5\ndelta = 0.1\nr_double = 1.4\nr_single = 1.4\nangle_deg = 180.0\nn_states = 40\nassert np.allclose(symmetry_labels(N, U, eps, t0, delta, r_double, r_single, angle_deg, n_states), target)",
+        "import numpy as np\nN = 8\nU = 8.0\neps = 2.0\nt0 = 2.4\ndelta = 1.0 / 12.0\nr_double = 1.35\nr_single = 1.45\nangle_deg = 120.0\nn_states = 30\nassert np.allclose(symmetry_labels(N, U, eps, t0, delta, r_double, r_single, angle_deg, n_states), target)",
+        "import numpy as np\nN = 4\nU = 1.0e-6\neps = 2.0\nt0 = 2.4\ndelta = 1.0 / 12.0\nr_double = 1.35\nr_single = 1.45\nangle_deg = 120.0\nn_states = 36\nassert np.allclose(symmetry_labels(N, U, eps, t0, delta, r_double, r_single, angle_deg, n_states), target)",
+        "import numpy as np\n# invalid input: a bond angle above 180 degrees must raise ValueError\ndef _probe(fn):\n    try:\n        fn(8, 8.0, 2.0, 2.4, 1.0 / 12.0, 1.35, 1.45, 200.0, 100)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(symmetry_labels), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-81.4",
+      "test_cases": [
+        "import numpy as np\nN = 8\nU = 8.0\neps = 2.0\nt0 = 2.4\ndelta = 1.0 / 12.0\nr_double = 1.35\nr_single = 1.45\nangle_deg = 120.0\nn_states = 100\nassert np.allclose(dark_state_energies(N, U, eps, t0, delta, r_double, r_single, angle_deg, n_states), target)",
+        "import numpy as np\nN = 6\nU = 4.0\neps = 1.0\nt0 = 2.5\ndelta = 0.1\nr_double = 1.4\nr_single = 1.4\nangle_deg = 180.0\nn_states = 40\nassert np.allclose(dark_state_energies(N, U, eps, t0, delta, r_double, r_single, angle_deg, n_states), target)",
+        "import numpy as np\nN = 4\nU = 14.0\neps = 2.0\nt0 = 2.4\ndelta = 1.0 / 12.0\nr_double = 1.34\nr_single = 1.46\nangle_deg = 125.0\nn_states = 36\nassert np.allclose(dark_state_energies(N, U, eps, t0, delta, r_double, r_single, angle_deg, n_states), target)",
+        "import numpy as np\nN = 8\nU = 4.0\neps = 2.0\nt0 = 2.4\ndelta = 1.0 / 12.0\nr_double = 1.35\nr_single = 1.45\nangle_deg = 120.0\nn_states = 100\nassert np.allclose(dark_state_energies(N, U, eps, t0, delta, r_double, r_single, angle_deg, n_states), target)",
+        "import numpy as np\n# invalid input: a bond alternation outside (-1, 1) must raise ValueError\ndef _probe(fn):\n    try:\n        fn(8, 8.0, 2.0, 2.4, 1.5, 1.35, 1.45, 120.0, 100)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(dark_state_energies), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-81.5",
+      "test_cases": [
+        "import numpy as np\nm = 3\nU = 8.0\neps = 2.0\nt0 = 2.4\ndelta = 1.0 / 12.0\nr_double = 1.35\nr_single = 1.45\nangle_deg = 120.0\nassert np.allclose(triplet_family(m, U, eps, t0, delta, r_double, r_single, angle_deg), target)",
+        "import numpy as np\nm = 2\nU = 4.0\neps = 1.0\nt0 = 2.5\ndelta = 0.1\nr_double = 1.4\nr_single = 1.4\nangle_deg = 180.0\nassert np.allclose(triplet_family(m, U, eps, t0, delta, r_double, r_single, angle_deg), target)",
+        "import numpy as np\nm = 1\nU = 14.0\neps = 2.0\nt0 = 2.4\ndelta = 1.0 / 12.0\nr_double = 1.34\nr_single = 1.46\nangle_deg = 125.0\nassert np.allclose(triplet_family(m, U, eps, t0, delta, r_double, r_single, angle_deg), target)",
+        "import numpy as np\nm = 3\nU = 4.0\neps = 2.0\nt0 = 2.4\ndelta = 1.0 / 12.0\nr_double = 1.35\nr_single = 1.45\nangle_deg = 120.0\nassert np.allclose(triplet_family(m, U, eps, t0, delta, r_double, r_single, angle_deg), target)",
+        "import numpy as np\n# invalid input: a negative permittivity must raise ValueError\ndef _probe(fn):\n    try:\n        fn(2, 8.0, -2.0, 2.4, 1.0 / 12.0, 1.35, 1.45, 120.0)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(triplet_family), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-81.6",
+      "test_cases": [
+        "import numpy as np\nN = 8\nU = 8.0\neps = 2.0\nt0 = 2.4\ndelta = 1.0 / 12.0\nr_double = 1.35\nr_single = 1.45\nangle_deg = 120.0\nn_states = 100\nm = 2\nj = 1\nk = 0\nassert np.allclose(triplet_pair_product(N, U, eps, t0, delta, r_double, r_single, angle_deg, n_states, m, j, k), target)",
+        "import numpy as np\nN = 6\nU = 4.0\neps = 1.0\nt0 = 2.5\ndelta = 0.1\nr_double = 1.4\nr_single = 1.4\nangle_deg = 180.0\nn_states = 40\nm = 1\nj = 0\nk = 1\nassert np.allclose(triplet_pair_product(N, U, eps, t0, delta, r_double, r_single, angle_deg, n_states, m, j, k), target)",
+        "import numpy as np\nN = 4\nU = 14.0\neps = 2.0\nt0 = 2.4\ndelta = 1.0 / 12.0\nr_double = 1.34\nr_single = 1.46\nangle_deg = 125.0\nn_states = 36\nm = 1\nj = 0\nk = 0\nassert np.allclose(triplet_pair_product(N, U, eps, t0, delta, r_double, r_single, angle_deg, n_states, m, j, k), target)",
+        "import numpy as np\nN = 8\nU = 4.0\neps = 2.0\nt0 = 2.4\ndelta = 1.0 / 12.0\nr_double = 1.35\nr_single = 1.45\nangle_deg = 120.0\nn_states = 100\nm = 3\nj = 2\nk = 0\nassert np.allclose(triplet_pair_product(N, U, eps, t0, delta, r_double, r_single, angle_deg, n_states, m, j, k), target)",
+        "import numpy as np\n# invalid input: a zero hopping integral must raise ValueError\ndef _probe(fn):\n    try:\n        fn(8, 8.0, 2.0, 0.0, 1.0 / 12.0, 1.35, 1.45, 120.0, 100, 1, 1, 1)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(triplet_pair_product), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-81.7",
+      "test_cases": [
+        "import numpy as np\nN = 8\nU = 8.0\neps = 2.0\nt0 = 2.4\ndelta = 1.0 / 12.0\nr_double = 1.35\nr_single = 1.45\nangle_deg = 120.0\nn_states = 100\nbasis_kind = 'paper'\nassert np.allclose(pair_basis_gram(N, U, eps, t0, delta, r_double, r_single, angle_deg, basis_kind), target)",
+        "import numpy as np\nN = 8\nU = 8.0\neps = 2.0\nt0 = 2.4\ndelta = 1.0 / 12.0\nr_double = 1.35\nr_single = 1.45\nangle_deg = 120.0\nn_states = 100\nbasis_kind = 'family'\nassert np.allclose(pair_basis_gram(N, U, eps, t0, delta, r_double, r_single, angle_deg, basis_kind), target)",
+        "import numpy as np\nN = 6\nU = 4.0\neps = 1.0\nt0 = 2.5\ndelta = 0.1\nr_double = 1.4\nr_single = 1.4\nangle_deg = 180.0\nn_states = 40\nbasis_kind = 'covalent'\nassert np.allclose(pair_basis_gram(N, U, eps, t0, delta, r_double, r_single, angle_deg, basis_kind), target)",
+        "import numpy as np\nN = 4\nU = 14.0\neps = 2.0\nt0 = 2.4\ndelta = 1.0 / 12.0\nr_double = 1.34\nr_single = 1.46\nangle_deg = 125.0\nn_states = 36\nbasis_kind = 'family'\nassert np.allclose(pair_basis_gram(N, U, eps, t0, delta, r_double, r_single, angle_deg, basis_kind), target)",
+        "import numpy as np\n# invalid input: a negative bond length must raise ValueError\ndef _probe(fn):\n    try:\n        fn(8, 8.0, 2.0, 2.4, 1.0 / 12.0, -1.35, 1.45, 120.0, 'paper')\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(pair_basis_gram), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-81.8",
+      "test_cases": [
+        "import numpy as np\nN = 8\nU = 8.0\neps = 2.0\nt0 = 2.4\ndelta = 1.0 / 12.0\nr_double = 1.35\nr_single = 1.45\nangle_deg = 120.0\nn_states = 100\nbasis_kind = 'covalent'\nassert np.allclose(triplet_pair_populations(N, U, eps, t0, delta, r_double, r_single, angle_deg, n_states, basis_kind), target)",
+        "import numpy as np\nN = 8\nU = 8.0\neps = 2.0\nt0 = 2.4\ndelta = 1.0 / 12.0\nr_double = 1.35\nr_single = 1.45\nangle_deg = 120.0\nn_states = 100\nbasis_kind = 'paper'\nassert np.allclose(triplet_pair_populations(N, U, eps, t0, delta, r_double, r_single, angle_deg, n_states, basis_kind), target)",
+        "import numpy as np\nN = 6\nU = 4.0\neps = 1.0\nt0 = 2.5\ndelta = 0.1\nr_double = 1.4\nr_single = 1.4\nangle_deg = 180.0\nn_states = 40\nbasis_kind = 'family'\nassert np.allclose(triplet_pair_populations(N, U, eps, t0, delta, r_double, r_single, angle_deg, n_states, basis_kind), target)",
+        "import numpy as np\nN = 4\nU = 14.0\neps = 2.0\nt0 = 2.4\ndelta = 1.0 / 12.0\nr_double = 1.34\nr_single = 1.46\nangle_deg = 125.0\nn_states = 36\nbasis_kind = 'covalent'\nassert np.allclose(triplet_pair_populations(N, U, eps, t0, delta, r_double, r_single, angle_deg, n_states, basis_kind), target)",
+        "import numpy as np\n# invalid input: a non-finite Coulomb parameter must raise ValueError\ndef _probe(fn):\n    try:\n        fn(8, float('nan'), 2.0, 2.4, 1.0 / 12.0, 1.35, 1.45, 120.0, 100, 'paper')\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(triplet_pair_populations), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-81.9",
+      "test_cases": [
+        "import numpy as np\nN = 8\nU_list = [8.0, 4.0, 14.0]\neps = 2.0\nt0 = 2.4\ndelta = 1.0 / 12.0\nr_double = 1.35\nr_single = 1.45\nangle_deg = 120.0\nn_states = 100\nU_model = list(U_list)\nU_gold = list(U_list)\nassert np.allclose(triplet_pair_audit(N, U_model, eps, t0, delta, r_double, r_single, angle_deg, n_states), target)",
+        "import numpy as np\nN = 6\nU_list = [4.0]\neps = 1.0\nt0 = 2.5\ndelta = 0.1\nr_double = 1.4\nr_single = 1.4\nangle_deg = 180.0\nn_states = 40\nU_model = list(U_list)\nU_gold = list(U_list)\nassert np.allclose(triplet_pair_audit(N, U_model, eps, t0, delta, r_double, r_single, angle_deg, n_states), target)",
+        "import numpy as np\nN = 4\nU_list = [14.0]\neps = 2.0\nt0 = 2.4\ndelta = 1.0 / 12.0\nr_double = 1.34\nr_single = 1.46\nangle_deg = 125.0\nn_states = 36\nU_model = list(U_list)\nU_gold = list(U_list)\nassert np.allclose(float(np.asarray(triplet_pair_audit(N, U_model, eps, t0, delta, r_double, r_single, angle_deg, n_states))[0, 0]), target)",
+        "import numpy as np\n# invalid input: an empty list of Coulomb parameters must raise ValueError\ndef _probe(fn):\n    try:\n        fn(8, [], 2.0, 2.4, 1.0 / 12.0, 1.35, 1.45, 120.0, 100)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(_probe(triplet_pair_audit), target)"
+      ]
+    }
+  ]
+}

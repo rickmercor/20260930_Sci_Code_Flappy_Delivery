@@ -1,0 +1,69 @@
+{
+  "problem_id": "debye_huckel_mean_activity_coefficient",
+  "sub_steps": [
+    {
+      "step_number": "debye_huckel_mean_activity_coefficient.1",
+      "test_cases": [
+        "import numpy as np\ntimes = np.array([0.0, 0.4, 1.1, 2.0])\nconcentrations = np.column_stack((times**2, 2.0 * times + 1.0))\nassert np.allclose(estimate_derivatives(times, concentrations), target)",
+        "import numpy as np\ntimes = np.array([0.0, 0.1, 0.9])\nconcentrations = np.array([[1.0], [0.8], [0.2]])\nassert np.allclose(estimate_derivatives(times, concentrations), target)",
+        "import numpy as np\ntimes = np.array([2.0, 2.3, 2.9, 4.2, 7.0])\nconcentrations = np.column_stack((np.exp(-times), np.sin(times), np.ones_like(times)))\nassert np.allclose(estimate_derivatives(times, concentrations), target)"
+      ]
+    },
+    {
+      "step_number": "debye_huckel_mean_activity_coefficient.2",
+      "test_cases": [
+        "import numpy as np\nconcentrations = np.array([[2.0, 3.0], [4.0, 0.5]])\nreactions = np.array([[1, 1, 0, 2], [2, 0, 0, 1]])\nassert np.allclose(mass_action_features(concentrations, reactions), target)",
+        "import numpy as np\nconcentrations = np.array([[0.0, 1.5, 2.0], [0.3, 0.0, 4.0]])\nreactions = np.array([[0, 1, 0, 1, 0, 0], [1, 0, 1, 0, 1, 0]])\nassert np.allclose(mass_action_features(concentrations, reactions), target)",
+        "import numpy as np\nconcentrations = np.array([[0.2, 0.4], [0.8, 0.1], [1.0, 1.0]])\nreactions = np.array([[0, 0, 1, 0], [0, 2, 1, 0], [3, 0, 0, 1]])\nassert np.allclose(mass_action_features(concentrations, reactions), target)"
+      ]
+    },
+    {
+      "step_number": "debye_huckel_mean_activity_coefficient.3",
+      "test_cases": [
+        "import numpy as np\nfeatures = np.array([[2.0, 1.0], [3.0, 4.0]])\nreactions = np.array([[1, 0, 0, 1], [0, 1, 1, 0]])\nderivative_scales = np.array([2.0, 4.0])\nassert np.allclose(stoichiometric_design(features, reactions, derivative_scales), target)",
+        "import numpy as np\nfeatures = np.array([[0.0], [1.5], [2.5]])\nreactions = np.array([[2, 0, 0, 1]])\nderivative_scales = np.array([3.0, 1.0])\nassert np.allclose(stoichiometric_design(features, reactions, derivative_scales), target)",
+        "import numpy as np\nfeatures = np.array([[1.0, 2.0, 0.5]])\nreactions = np.array([[1,0,0, 0,1,0], [0,1,0, 0,0,1], [0,0,1, 1,0,0]])\nderivative_scales = np.array([1.0, 2.0, 5.0])\nassert np.allclose(stoichiometric_design(features, reactions, derivative_scales), target)"
+      ]
+    },
+    {
+      "step_number": "debye_huckel_mean_activity_coefficient.4",
+      "test_cases": [
+        "import numpy as np\nderivatives = np.array([[2.0, -1.0], [4.0, -2.0]])\nderivative_scales = np.array([4.0, 2.0])\ndesign = np.array([[0.25], [-0.25], [0.50], [-0.50]])\nassert np.allclose(fit_rate_constants(design, derivatives, derivative_scales), target)",
+        "import numpy as np\nderivatives = np.array([[1.0], [-1.0], [2.0]])\nderivative_scales = np.array([2.0])\ndesign = np.array([[1.0, 0.0], [0.0, 1.0], [1.0, 1.0]])\nassert np.allclose(fit_rate_constants(design, derivatives, derivative_scales), target)",
+        "import numpy as np\nderivatives = np.zeros((3, 2))\nderivative_scales = np.ones(2)\ndesign = np.array([[1.0], [-1.0], [2.0], [-2.0], [0.5], [-0.5]])\nassert np.allclose(fit_rate_constants(design, derivatives, derivative_scales), target)"
+      ]
+    },
+    {
+      "step_number": "debye_huckel_mean_activity_coefficient.5",
+      "test_cases": [
+        "import numpy as np\ntimes = np.array([0.0, 0.5, 1.0])\ninitial_concentrations = np.array([1.0, 0.0])\nobserved_concentrations = np.array([[1.0, 0.0], [0.60653066, 0.39346934], [0.36787944, 0.63212056]])\nreactions = np.array([[1, 0, 0, 1]])\nrates = np.array([1.0])\nconcentration_scales = np.array([1.0, 1.0])\nassert np.allclose(concentration_loss(times, initial_concentrations, observed_concentrations, reactions, rates, concentration_scales), target)",
+        "import numpy as np\ntimes = np.array([0.0, 0.25, 0.75])\ninitial_concentrations = np.array([2.0, 0.0])\nobserved_concentrations = np.array([[2.0, 0.0], [1.5576, 0.4424], [0.9447, 1.0553]])\nreactions = np.array([[1, 0, 0, 1]])\nrates = np.array([1.0])\nconcentration_scales = np.array([2.0, 2.0])\nassert np.allclose(concentration_loss(times, initial_concentrations, observed_concentrations, reactions, rates, concentration_scales), target)",
+        "import numpy as np\ntimes = np.array([0.0, 0.2, 0.4, 0.8])\ninitial_concentrations = np.array([1.0, 1.0, 0.0])\nobserved_concentrations = np.array([[1.0, 1.0, 0.0], [0.84, 0.84, 0.16], [0.72, 0.72, 0.28], [0.56, 0.56, 0.44]])\nreactions = np.array([[1, 1, 0, 0, 0, 1]])\nrates = np.array([0.9])\nconcentration_scales = np.array([1.0, 1.0, 1.0])\nassert np.allclose(concentration_loss(times, initial_concentrations, observed_concentrations, reactions, rates, concentration_scales), target)"
+      ]
+    },
+    {
+      "step_number": "debye_huckel_mean_activity_coefficient.6",
+      "test_cases": [
+        "import numpy as np\nreactions = np.array([[1, 0, 0, 1]])\nassert np.allclose(expression_complexity(reactions), target)",
+        "import numpy as np\nreactions = np.array([[1, 1, 0, 0, 0, 1], [1, 0, 0, 0, 1, 0]])\nassert np.allclose(expression_complexity(reactions), target)",
+        "import numpy as np\nreactions = np.array([[2, 0, 0, 1], [0, 1, 1, 0], [1, 1, 0, 2]])\nassert np.allclose(expression_complexity(reactions), target)"
+      ]
+    },
+    {
+      "step_number": "debye_huckel_mean_activity_coefficient.7",
+      "test_cases": [
+        "import numpy as np\nlosses = np.array([0.40, 0.22, 0.18, 0.18])\ncomplexities = np.array([3.0, 4.0, 7.0, 9.0])\nassert np.allclose(pareto_front(losses, complexities), target)",
+        "import numpy as np\nlosses = np.array([0.1, 0.2, 0.3])\ncomplexities = np.array([5.0, 4.0, 3.0])\nassert np.allclose(pareto_front(losses, complexities), target)",
+        "import numpy as np\nlosses = np.array([0.5, 0.5, 0.4, 0.7])\ncomplexities = np.array([2.0, 3.0, 4.0, 1.0])\nassert np.allclose(pareto_front(losses, complexities), target)"
+      ]
+    },
+    {
+      "step_number": "debye_huckel_mean_activity_coefficient.8",
+      "test_cases": [
+        "import numpy as np\ntimes = np.array([\n    0.00, 0.07, 0.16, 0.31, 0.52, 0.80, 1.15, 1.58,\n    2.10, 2.75, 3.55, 4.55, 5.80, 7.40, 9.40, 12.00,\n])\nconcentrations = np.array([\n    [1.20000000, 0.08000000, 0.03000000, 0.00000000],\n    [1.19680873, 0.08504694, 0.03235152, 0.00034691],\n    [1.17638285, 0.09311654, 0.03517167, 0.00083757],\n    [1.16569019, 0.10653083, 0.04093369, 0.00174251],\n    [1.12434706, 0.12663981, 0.05090539, 0.00329966],\n    [1.08242928, 0.15862843, 0.06644897, 0.00592546], \n    [0.99813266, 0.20541817, 0.09329393, 0.01029542],\n    [0.89449655, 0.26208953, 0.13680727, 0.01812513],\n    [0.74625165, 0.32244038, 0.20655167, 0.03241652],\n    [0.58036819, 0.35342079, 0.31732050, 0.05953419],\n    [0.42378397, 0.31233118, 0.46467954, 0.10945823],\n    [0.31666019, 0.20448149, 0.59276695, 0.19600106],\n    [0.25529348, 0.09801058, 0.63728962, 0.32122890],\n    [0.22857335, 0.03643595, 0.56993106, 0.47468379],\n    [0.21591196, 0.01192926, 0.44379018, 0.63892659],\n    [0.21277023, 0.00358169, 0.30327429, 0.78970170],\n])\nreaction_library = np.array([\n    [1,1,0,0, 0,2,0,0],\n    [0,1,0,0, 0,0,1,0],\n    [0,1,1,0, 0,0,2,0],\n    [0,0,1,0, 0,0,0,1],\n    [1,0,0,0, 0,1,0,0],\n    [1,1,0,0, 0,1,1,0],\n    [0,1,0,0, 0,0,0,1],\n    [1,0,0,0, 0,0,0,1],\n    [0,0,2,0, 0,0,1,1],\n    [0,1,0,1, 0,0,1,0],\n])\ncandidate_reactions = [\n    reaction_library[[0,1,3]],\n    reaction_library[[0,1,2,3]],\n    reaction_library[[0,1,2,3,9]],\n    reaction_library[[4,1,2,3]],\n    reaction_library[[5,1,3]],\n    reaction_library[[0,2,3]],\n    reaction_library[[0,1,2,8]],\n    reaction_library[[0,1,2,3,6]],\n]\nassert np.allclose(discover_sisr_mechanism(times, concentrations, candidate_reactions), target)",
+        "import numpy as np\ntimes = np.array([\n    0.00, 0.07, 0.16, 0.31, 0.52, 0.80, 1.15, 1.58,\n    2.10, 2.75, 3.55, 4.55, 5.80, 7.40, 9.40, 12.00,\n])\nconcentrations = np.array([\n    [1.20000000, 0.08000000, 0.03000000, 0.00000000],\n    [1.19680873, 0.08504694, 0.03235152, 0.00034691],\n    [1.17638285, 0.09311654, 0.03517167, 0.00083757],\n    [1.16569019, 0.10653083, 0.04093369, 0.00174251],\n    [1.12434706, 0.12663981, 0.05090539, 0.00329966],\n    [1.08242928, 0.15862843, 0.06644897, 0.00592546], \n    [0.99813266, 0.20541817, 0.09329393, 0.01029542],\n    [0.89449655, 0.26208953, 0.13680727, 0.01812513],\n    [0.74625165, 0.32244038, 0.20655167, 0.03241652],\n    [0.58036819, 0.35342079, 0.31732050, 0.05953419],\n    [0.42378397, 0.31233118, 0.46467954, 0.10945823],\n    [0.31666019, 0.20448149, 0.59276695, 0.19600106],\n    [0.25529348, 0.09801058, 0.63728962, 0.32122890],\n    [0.22857335, 0.03643595, 0.56993106, 0.47468379],\n    [0.21591196, 0.01192926, 0.44379018, 0.63892659],\n    [0.21277023, 0.00358169, 0.30327429, 0.78970170],\n])\nreaction_library = np.array([\n    [1,1,0,0, 0,2,0,0],\n    [0,1,0,0, 0,0,1,0],\n    [0,1,1,0, 0,0,2,0],\n    [0,0,1,0, 0,0,0,1],\n    [1,0,0,0, 0,1,0,0],\n    [1,1,0,0, 0,1,1,0],\n    [0,1,0,0, 0,0,0,1],\n    [1,0,0,0, 0,0,0,1],\n    [0,0,2,0, 0,0,1,1],\n    [0,1,0,1, 0,0,1,0],\n])\ncandidate_reactions = [\n    reaction_library[[0,1,3]],\n    reaction_library[[0,1,2,3]],\n    reaction_library[[0,1,2,3,9]],\n    reaction_library[[4,1,2,3]],\n    reaction_library[[5,1,3]],\n    reaction_library[[0,2,3]],\n    reaction_library[[0,1,2,8]],\n    reaction_library[[0,1,2,3,6]],\n]\ncandidate_reactions = [\n    candidate_reactions[index]\n    for index in [2,5,1,0,6,7,3,4]\n]\nassert np.allclose(discover_sisr_mechanism(times, concentrations, candidate_reactions), target)",
+        "import numpy as np\ntimes = np.array([\n    0.00, 0.07, 0.16, 0.31, 0.52, 0.80, 1.15, 1.58,\n    2.10, 2.75, 3.55, 4.55, 5.80, 7.40, 9.40, 12.00,\n])\nconcentrations = np.array([\n    [1.20000000, 0.08000000, 0.03000000, 0.00000000],\n    [1.19680873, 0.08504694, 0.03235152, 0.00034691],\n    [1.17638285, 0.09311654, 0.03517167, 0.00083757],\n    [1.16569019, 0.10653083, 0.04093369, 0.00174251],\n    [1.12434706, 0.12663981, 0.05090539, 0.00329966],\n    [1.08242928, 0.15862843, 0.06644897, 0.00592546], \n    [0.99813266, 0.20541817, 0.09329393, 0.01029542],\n    [0.89449655, 0.26208953, 0.13680727, 0.01812513],\n    [0.74625165, 0.32244038, 0.20655167, 0.03241652],\n    [0.58036819, 0.35342079, 0.31732050, 0.05953419],\n    [0.42378397, 0.31233118, 0.46467954, 0.10945823],\n    [0.31666019, 0.20448149, 0.59276695, 0.19600106],\n    [0.25529348, 0.09801058, 0.63728962, 0.32122890],\n    [0.22857335, 0.03643595, 0.56993106, 0.47468379],\n    [0.21591196, 0.01192926, 0.44379018, 0.63892659],\n    [0.21277023, 0.00358169, 0.30327429, 0.78970170],\n])\nreaction_library = np.array([\n    [1,1,0,0, 0,2,0,0],\n    [0,1,0,0, 0,0,1,0],\n    [0,1,1,0, 0,0,2,0],\n    [0,0,1,0, 0,0,0,1],\n    [1,0,0,0, 0,1,0,0],\n    [1,1,0,0, 0,1,1,0],\n    [0,1,0,0, 0,0,0,1],\n    [1,0,0,0, 0,0,0,1],\n    [0,0,2,0, 0,0,1,1],\n    [0,1,0,1, 0,0,1,0],\n])\ncandidate_reactions = [\n    reaction_library[[0,1,3]],\n    reaction_library[[0,1,2,3]],\n    reaction_library[[0,1,2,3,9]],\n    reaction_library[[4,1,2,3]],\n    reaction_library[[5,1,3]],\n    reaction_library[[0,2,3]],\n    reaction_library[[0,1,2,8]],\n    reaction_library[[0,1,2,3,6]],\n]\ncandidate_reactions = [\n    candidate_reactions[0],\n    candidate_reactions[1],\n]\nassert np.allclose(discover_sisr_mechanism(times, concentrations, candidate_reactions), target)"
+      ]
+    }
+  ]
+}

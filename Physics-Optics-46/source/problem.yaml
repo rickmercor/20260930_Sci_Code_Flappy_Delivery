@@ -1,0 +1,48 @@
+problem_id: "Physics-Optics-46"
+subject: "physics"
+subject_area: "Optics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1103/yffp-wgsh"
+dependencies: ""
+steps:
+  - number: 1
+    name: "cavity_realization"
+    description: "Construct the fixed Hamiltonian and channel-coupling realization of an open optical cavity."
+    orchestrator: false
+  - number: 2
+    name: "scattering_jet"
+    description: "Evaluate the scattering matrix and its first and second derivatives in the two design parameters."
+    orchestrator: false
+  - number: 3
+    name: "transmission_jet"
+    description: "Convert the two-parameter scattering jet into the intensity-transmission jet seen by the measured ports."
+    orchestrator: false
+  - number: 4
+    name: "inverse_gram_jet"
+    description: "Evaluate a channel-weighted inverse-Gram variance and its gradient and Hessian in the two design parameters."
+    orchestrator: false
+  - number: 5
+    name: "spectral_correlation"
+    description: "Measure throughput and a lag-dependent spectral correlation from a finite transmission matrix."
+    orchestrator: false
+  - number: 6
+    name: "fit_lorentzian"
+    description: "Fit a normalized Lorentzian half-width to a measured finite-record correlation profile."
+    orchestrator: false
+  - number: 7
+    name: "asymptotic_trace"
+    description: "Evaluate the literature's underdetermined inverse-trace prediction for a fitted Lorentzian correlation."
+    orchestrator: false
+  - number: 8
+    name: "stationary_design"
+    description: "Select the least-noise admissible design over the two-parameter coupling and detuning rectangle."
+    orchestrator: false
+  - number: 9
+    name: "constrained_sensitivity"
+    description: "Evaluate the throughput multiplier, the limit response and the constrained curvature of the selected two-parameter design."
+    orchestrator: false
+  - number: 10
+    name: "optimized_bound_comparison"
+    description: "Compose the two-parameter throughput-limited optimization and the empirical in-band bound comparison into the complete benchmark."
+    orchestrator: true

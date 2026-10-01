@@ -1,0 +1,79 @@
+{
+  "problem_id": "Chemistry-Quantum_Chemistry-29",
+  "sub_steps": [
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-29.1",
+      "test_cases": [
+        "import numpy as np\nru = np.array([20.0, 1.9, 0.20, 0.018, 1.1e-3, 3.0e-5])\nrd = np.array([18.5, 1.2, 0.05, 0.002, 4.0e-5, 1.0e-8])\nassert np.allclose(lsd_exchange_correlation(ru.copy(), rd.copy()), target)",
+        "import numpy as np\nru = np.array([[0.9, 0.3, 0.02], [0.1, 0.6, 5.0]])\nrd = np.array([[0.1, 0.6, 5.0], [0.9, 0.3, 0.02]])\nassert np.allclose(lsd_exchange_correlation(ru.copy(), rd.copy()), target)",
+        "import numpy as np\nru = np.array([2.5, 0.04, 7.0e-6])\nrd = ru.copy()\nassert np.allclose(lsd_exchange_correlation(ru.copy(), rd.copy()), target)",
+        "import numpy as np\nru = np.array([0.7, 0.0, 1e-12, 1e-40])\nrd = np.array([0.0, 0.3, 0.0, 1e-44])\nassert np.allclose(lsd_exchange_correlation(ru.copy(), rd.copy()), target)",
+        "import numpy as np\nru = np.array([0.0, 0.4])\nrd = np.array([0.0, 0.0])\nassert np.allclose(lsd_exchange_correlation(ru.copy(), rd.copy()), target)",
+        "import numpy as np\ndef _probe(fn):\n    try:\n        fn(np.array([0.2, 0.1]), np.array([0.1, -1e-9]))\n    except ValueError:\n        return 1\n    return 0\nassert np.allclose(_probe(lsd_exchange_correlation), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-29.2",
+      "test_cases": [
+        "import numpy as np\nrr = np.array([0.01, 0.1, 0.5, 1.0, 2.5, 5.0, 9.0])\nassert np.allclose(radial_lsd_spin_densities(3.0, 2, 1, rr.copy()), target)",
+        "import numpy as np\nrr = np.array([0.02, 0.2, 0.7, 1.5, 3.0, 6.0])\nassert np.allclose(radial_lsd_spin_densities(4.0, 2, 1, rr.copy()), target)",
+        "import numpy as np\nrr = np.array([0.05, 0.4, 1.2, 3.0, 5.0])\nassert np.allclose(radial_lsd_spin_densities(2.0, 1, 1, rr.copy()), target)",
+        "import numpy as np\nrr = np.array([0.1, 1.0, 3.0, 6.0, 10.0])\nassert np.allclose(radial_lsd_spin_densities(1.0, 1, 0, rr.copy()), target)",
+        "import numpy as np\nrr = np.array([1e-4, 1e-3, 0.03])\nassert np.allclose(radial_lsd_spin_densities(3.0, 1, 1, rr.copy()), target)",
+        "import numpy as np\ndef _probe(fn):\n    try:\n        fn(3.0, 1, 2, np.array([1.0]))\n    except ValueError:\n        return 1\n    return 0\nassert np.allclose(_probe(radial_lsd_spin_densities), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-29.3",
+      "test_cases": [
+        "import numpy as np\nex = 0.03 * 2.35 ** np.arange(14)\nassert np.allclose(xc_potential_matrices(3.0, 2, 1, ex.copy()), target)",
+        "import numpy as np\nex = 0.05 * 2.4 ** np.arange(13)\nassert np.allclose(xc_potential_matrices(4.0, 2, 1, ex.copy()), target)",
+        "import numpy as np\nex = 0.02 * 3.0 ** np.arange(10)\nassert np.allclose(xc_potential_matrices(2.0, 1, 1, ex.copy()), target)",
+        "import numpy as np\nex = np.array([0.3])\nassert np.allclose(xc_potential_matrices(1.0, 1, 0, ex.copy()), target)",
+        "import numpy as np\ndef _probe(fn):\n    try:\n        fn(3.0, 2, 1, np.array([0.5, 0.0, 4.0]))\n    except ValueError:\n        return 1\n    return 0\nassert np.allclose(_probe(xc_potential_matrices), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-29.4",
+      "test_cases": [
+        "import numpy as np\nex = 0.03 * 2.1 ** np.arange(8)\nassert np.allclose(product_overlap_matrix(ex.copy()), target)",
+        "import numpy as np\nex = np.array([1.0, 2.0, 3.0, 4.0])\nassert np.allclose(product_overlap_matrix(ex.copy()), target)",
+        "import numpy as np\nex = np.array([2.0e-3, 0.7, 5.0e4])\nassert np.allclose(product_overlap_matrix(ex.copy()), target)",
+        "import numpy as np\nex = np.array([0.8])\nassert np.allclose(product_overlap_matrix(ex.copy()), target)",
+        "import numpy as np\ndef _probe(fn):\n    try:\n        fn(np.array([0.5, -2.0]))\n    except ValueError:\n        return 1\n    return 0\nassert np.allclose(_probe(product_overlap_matrix), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-29.5",
+      "test_cases": [
+        "import numpy as np\ndef vmat_gauss(ex, cs, gs):\n    n = (2 * ex / np.pi) ** 0.75\n    p = ex[:, None] + ex[None, :]\n    return sum(c * np.outer(n, n) * (np.pi / (p + g)) ** 1.5 for c, g in zip(cs, gs))\ndef vmat_erf(ex, q, mu):\n    n = (2 * ex / np.pi) ** 0.75\n    p = ex[:, None] + ex[None, :]\n    return -q * np.outer(n, n) * 2 * np.pi / p * np.sqrt(mu / (p + mu))\nex = 0.03 * 2.1 ** np.arange(12)\nV = vmat_erf(ex, 4.0, 2.5)\nassert np.allclose(importance_selected_products(V.copy(), ex.copy(), 0.0001), target)",
+        "import numpy as np\ndef vmat_gauss(ex, cs, gs):\n    n = (2 * ex / np.pi) ** 0.75\n    p = ex[:, None] + ex[None, :]\n    return sum(c * np.outer(n, n) * (np.pi / (p + g)) ** 1.5 for c, g in zip(cs, gs))\ndef vmat_erf(ex, q, mu):\n    n = (2 * ex / np.pi) ** 0.75\n    p = ex[:, None] + ex[None, :]\n    return -q * np.outer(n, n) * 2 * np.pi / p * np.sqrt(mu / (p + mu))\nex = 0.05 * 2.5 ** np.arange(10)\nV = vmat_gauss(ex, [-2.0, -0.7], [0.9, 0.12])\nassert np.allclose(importance_selected_products(V.copy(), ex.copy(), 0.0001), target)",
+        "import numpy as np\ndef vmat_gauss(ex, cs, gs):\n    n = (2 * ex / np.pi) ** 0.75\n    p = ex[:, None] + ex[None, :]\n    return sum(c * np.outer(n, n) * (np.pi / (p + g)) ** 1.5 for c, g in zip(cs, gs))\ndef vmat_erf(ex, q, mu):\n    n = (2 * ex / np.pi) ** 0.75\n    p = ex[:, None] + ex[None, :]\n    return -q * np.outer(n, n) * 2 * np.pi / p * np.sqrt(mu / (p + mu))\nex = np.array([0.5, 1.0, 1.5, 2.0, 2.5])\nV = vmat_gauss(ex, [-1.3, 0.4], [0.35, 3.0])\nassert np.allclose(importance_selected_products(V.copy(), ex.copy(), 1e-06), target)",
+        "import numpy as np\ndef vmat_gauss(ex, cs, gs):\n    n = (2 * ex / np.pi) ** 0.75\n    p = ex[:, None] + ex[None, :]\n    return sum(c * np.outer(n, n) * (np.pi / (p + g)) ** 1.5 for c, g in zip(cs, gs))\ndef vmat_erf(ex, q, mu):\n    n = (2 * ex / np.pi) ** 0.75\n    p = ex[:, None] + ex[None, :]\n    return -q * np.outer(n, n) * 2 * np.pi / p * np.sqrt(mu / (p + mu))\nex = 0.02 * 2.0 ** np.arange(26)\nV = vmat_gauss(ex, [-2.0, -0.7], [0.9, 0.12])\nassert np.allclose(importance_selected_products(V.copy(), ex.copy(), 0.0001), target)",
+        "import numpy as np\ndef vmat_gauss(ex, cs, gs):\n    n = (2 * ex / np.pi) ** 0.75\n    p = ex[:, None] + ex[None, :]\n    return sum(c * np.outer(n, n) * (np.pi / (p + g)) ** 1.5 for c, g in zip(cs, gs))\ndef vmat_erf(ex, q, mu):\n    n = (2 * ex / np.pi) ** 0.75\n    p = ex[:, None] + ex[None, :]\n    return -q * np.outer(n, n) * 2 * np.pi / p * np.sqrt(mu / (p + mu))\nex = np.array([0.4, 3.0])\nV = vmat_gauss(ex, [-1.0], [1.0])\nt = 0.999 * np.sort(np.abs(V[np.triu_indices(2)]))[-2]\nassert np.allclose(importance_selected_products(V.copy(), ex.copy(), t), target)",
+        "import numpy as np\ndef vmat_gauss(ex, cs, gs):\n    n = (2 * ex / np.pi) ** 0.75\n    p = ex[:, None] + ex[None, :]\n    return sum(c * np.outer(n, n) * (np.pi / (p + g)) ** 1.5 for c, g in zip(cs, gs))\ndef vmat_erf(ex, q, mu):\n    n = (2 * ex / np.pi) ** 0.75\n    p = ex[:, None] + ex[None, :]\n    return -q * np.outer(n, n) * 2 * np.pi / p * np.sqrt(mu / (p + mu))\nex = np.array([0.4, 3.0])\nV = vmat_gauss(ex, [-1.0], [1.0])\ndef _probe(fn):\n    try:\n        fn(V.copy(), ex.copy(), 0.0)\n    except ValueError:\n        return 1\n    return 0\nassert np.allclose(_probe(importance_selected_products), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-29.6",
+      "test_cases": [
+        "import numpy as np\ndef vmat_gauss(ex, cs, gs):\n    n = (2 * ex / np.pi) ** 0.75\n    p = ex[:, None] + ex[None, :]\n    return sum(c * np.outer(n, n) * (np.pi / (p + g)) ** 1.5 for c, g in zip(cs, gs))\ndef vmat_erf(ex, q, mu):\n    n = (2 * ex / np.pi) ** 0.75\n    p = ex[:, None] + ex[None, :]\n    return -q * np.outer(n, n) * 2 * np.pi / p * np.sqrt(mu / (p + mu))\nrr = np.array([0.0, 0.05, 0.3, 0.8, 1.5, 2.5, 4.0, 6.0])\nex = 0.03 * 2.1 ** np.arange(12)\nV = vmat_erf(ex, 4.0, 2.5)\nassert np.allclose(reconstructed_potential(V.copy(), ex.copy(), 0.001, rr.copy()), target)",
+        "import numpy as np\ndef vmat_gauss(ex, cs, gs):\n    n = (2 * ex / np.pi) ** 0.75\n    p = ex[:, None] + ex[None, :]\n    return sum(c * np.outer(n, n) * (np.pi / (p + g)) ** 1.5 for c, g in zip(cs, gs))\ndef vmat_erf(ex, q, mu):\n    n = (2 * ex / np.pi) ** 0.75\n    p = ex[:, None] + ex[None, :]\n    return -q * np.outer(n, n) * 2 * np.pi / p * np.sqrt(mu / (p + mu))\nrr = np.array([0.0, 0.05, 0.3, 0.8, 1.5, 2.5, 4.0, 6.0])\nex = np.array([0.5, 1.0, 1.5, 2.0, 2.5])\nV = vmat_gauss(ex, [-1.3, 0.4], [2.0, 3.0])\nassert np.allclose(reconstructed_potential(V.copy(), ex.copy(), 1e-07, rr.copy()), target)",
+        "import numpy as np\ndef vmat_gauss(ex, cs, gs):\n    n = (2 * ex / np.pi) ** 0.75\n    p = ex[:, None] + ex[None, :]\n    return sum(c * np.outer(n, n) * (np.pi / (p + g)) ** 1.5 for c, g in zip(cs, gs))\ndef vmat_erf(ex, q, mu):\n    n = (2 * ex / np.pi) ** 0.75\n    p = ex[:, None] + ex[None, :]\n    return -q * np.outer(n, n) * 2 * np.pi / p * np.sqrt(mu / (p + mu))\nrr = np.array([0.0, 0.05, 0.3, 0.8, 1.5, 2.5, 4.0, 6.0])\nex = 0.03 * 2.1 ** np.arange(20)\nV = vmat_gauss(ex, [-2.0, -0.7], [0.9, 0.12])\nassert np.allclose(reconstructed_potential(V.copy(), ex.copy(), 0.0001, rr.copy()), target)",
+        "import numpy as np\ndef vmat_gauss(ex, cs, gs):\n    n = (2 * ex / np.pi) ** 0.75\n    p = ex[:, None] + ex[None, :]\n    return sum(c * np.outer(n, n) * (np.pi / (p + g)) ** 1.5 for c, g in zip(cs, gs))\ndef vmat_erf(ex, q, mu):\n    n = (2 * ex / np.pi) ** 0.75\n    p = ex[:, None] + ex[None, :]\n    return -q * np.outer(n, n) * 2 * np.pi / p * np.sqrt(mu / (p + mu))\nrr = np.array([0.0, 0.05, 0.3, 0.8, 1.5, 2.5, 4.0, 6.0])\nex = 0.08 * 2.6 ** np.arange(9)\nV = vmat_gauss(ex, [-2.0, -0.7], [0.9, 0.12])\nassert np.allclose(reconstructed_potential(V.copy(), ex.copy(), 0.03, rr.copy()), target)",
+        "import numpy as np\ndef vmat_gauss(ex, cs, gs):\n    n = (2 * ex / np.pi) ** 0.75\n    p = ex[:, None] + ex[None, :]\n    return sum(c * np.outer(n, n) * (np.pi / (p + g)) ** 1.5 for c, g in zip(cs, gs))\ndef vmat_erf(ex, q, mu):\n    n = (2 * ex / np.pi) ** 0.75\n    p = ex[:, None] + ex[None, :]\n    return -q * np.outer(n, n) * 2 * np.pi / p * np.sqrt(mu / (p + mu))\nrr = np.array([0.0, 0.05, 0.3, 0.8, 1.5, 2.5, 4.0, 6.0])\nex = np.array([0.4, 3.0])\nV = vmat_gauss(ex, [-1.0], [1.0])\nassert np.allclose(reconstructed_potential(V.copy(), ex.copy(), 10.0, rr.copy()), target)",
+        "import numpy as np\ndef vmat_gauss(ex, cs, gs):\n    n = (2 * ex / np.pi) ** 0.75\n    p = ex[:, None] + ex[None, :]\n    return sum(c * np.outer(n, n) * (np.pi / (p + g)) ** 1.5 for c, g in zip(cs, gs))\ndef vmat_erf(ex, q, mu):\n    n = (2 * ex / np.pi) ** 0.75\n    p = ex[:, None] + ex[None, :]\n    return -q * np.outer(n, n) * 2 * np.pi / p * np.sqrt(mu / (p + mu))\nrr = np.array([0.0, 0.05, 0.3, 0.8, 1.5, 2.5, 4.0, 6.0])\nex = np.array([0.4, 3.0])\nV = vmat_gauss(ex, [-1.0], [1.0])\ndef _probe(fn):\n    try:\n        fn(V.copy(), ex.copy(), 1e-6, np.array([1.0, -0.1]))\n    except ValueError:\n        return 1\n    return 0\nassert np.allclose(_probe(reconstructed_potential), target)"
+      ]
+    },
+    {
+      "step_number": "Chemistry-Quantum_Chemistry-29.7",
+      "test_cases": [
+        "import numpy as np\nex = 0.03 * 2.35 ** np.arange(14)\nassert np.allclose(reconstruction_l2_error(3.0, 2, 1, ex.copy(), 1, 1e-5), target)",
+        "import numpy as np\nex = 0.05 * 2.4 ** np.arange(13)\nassert np.allclose(reconstruction_l2_error(4.0, 2, 1, ex.copy(), 0, 1e-5), target)",
+        "import numpy as np\nex = 0.02 * 3.0 ** np.arange(10)\nassert np.allclose(reconstruction_l2_error(2.0, 1, 1, ex.copy(), 1, 1e-5), target)",
+        "import numpy as np\nex = np.array([0.3, 1.0, 3.5, 12.0, 45.0])\nassert np.allclose(reconstruction_l2_error(3.0, 2, 1, ex.copy(), 1, 50.0), target)",
+        "import numpy as np\ndef _probe(fn):\n    try:\n        fn(3.0, 2, 1, 0.05 * 2.2 ** np.arange(8), 2, 1e-6)\n    except ValueError:\n        return 1\n    return 0\nassert np.allclose(_probe(reconstruction_l2_error), target)"
+      ]
+    }
+  ]
+}

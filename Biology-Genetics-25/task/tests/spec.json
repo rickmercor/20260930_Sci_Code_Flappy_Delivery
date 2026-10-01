@@ -1,0 +1,77 @@
+{
+  "problem_id": "Biology-Genetics-25",
+  "sub_steps": [
+    {
+      "step_number": "Biology-Genetics-25.1",
+      "test_cases": [
+        "coalition_values = [0.0, 0.1, 0.2, 0.3]\nassert np.allclose(infer_feature_count(coalition_values), target)",
+        "coalition_values = [\n    0.0, 0.1, 0.2, 0.3,\n    0.4, 0.5, 0.6, 0.7\n]\nassert np.allclose(infer_feature_count(coalition_values), target)",
+        "coalition_values = [float(i) / 10.0 for i in range(16)]\nassert np.allclose(infer_feature_count(coalition_values), target)",
+        "def _captures_value_error(fn, values):\n    try:\n        fn(values)\n    except ValueError:\n        return 1.0\n    return 0.0\n\ncoalition_values = [float(i) for i in range(12)]\nassert np.allclose(_captures_value_error(infer_feature_count, coalition_values), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-25.2",
+      "test_cases": [
+        "coalition_values = [0.0, 0.2, 0.1, 0.7]\nfeature_i = 0\nfeature_j = 1\ncoalition_mask = 0\nassert np.allclose(compute_pair_coalition_contrast(coalition_values, feature_i, feature_j, coalition_mask), target)",
+        "coalition_values = [\n    0.10, 0.30, 0.00, 1.00,\n    0.40, 0.30, 0.55, 1.85,\n    0.15, 0.45, -0.10, 0.80,\n    0.65, 1.05, 0.55, 2.65\n]\nfeature_i = 0\nfeature_j = 1\ncoalition_mask = 4\nassert np.allclose(compute_pair_coalition_contrast(coalition_values, feature_i, feature_j, coalition_mask), target)",
+        "coalition_values = [\n    float(i * i + 3 * i) / 17.0\n    for i in range(32)\n]\nfeature_i = 1\nfeature_j = 4\ncoalition_mask = 5\nassert np.allclose(compute_pair_coalition_contrast(coalition_values, feature_i, feature_j, coalition_mask), target)",
+        "def _captures_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\n\ncoalition_values = [\n    0.10, 0.30, 0.00, 1.00,\n    0.40, 0.30, 0.55, 1.85,\n    0.15, 0.45, -0.10, 0.80,\n    0.65, 1.05, 0.55, 2.65\n]\nfeature_i = 0\nfeature_j = 1\ncoalition_mask = 1\nassert np.allclose(_captures_value_error(compute_pair_coalition_contrast, coalition_values, feature_i, feature_j, coalition_mask), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-25.3",
+      "test_cases": [
+        "num_features = 4\ncoalition_size = 0\nassert np.allclose(compute_interaction_coalition_weight(num_features, coalition_size), target)",
+        "num_features = 4\ncoalition_size = 1\nassert np.allclose(compute_interaction_coalition_weight(num_features, coalition_size), target)",
+        "num_features = 7\ncoalition_size = 3\nassert np.allclose(compute_interaction_coalition_weight(num_features, coalition_size), target)",
+        "def _captures_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\n\nnum_features = 4\ncoalition_size = 3\nassert np.allclose(_captures_value_error(compute_interaction_coalition_weight, num_features, coalition_size), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-25.4",
+      "test_cases": [
+        "coalition_values = [0.0, 0.2, 0.1, 0.7]\nnum_features = 2\nfeature_i = 0\nfeature_j = 1\nassert np.allclose(compute_pair_shap_interaction(coalition_values, num_features, feature_i, feature_j), target)",
+        "num_features = 4\nfeature_i = 0\nfeature_j = 2\n\ncoalition_values = []\n\nfor pair_strength in [0.40, -0.25, 1.10]:\n    for mask in range(1 << num_features):\n        x0 = 1.0 if mask & (1 << 0) else 0.0\n        x1 = 1.0 if mask & (1 << 1) else 0.0\n        x2 = 1.0 if mask & (1 << 2) else 0.0\n        x3 = 1.0 if mask & (1 << 3) else 0.0\n\n        value = (\n            0.15\n            + 0.20 * x0\n            - 0.10 * x1\n            + 0.35 * x2\n            + 0.05 * x3\n            + pair_strength * x0 * x2\n            + 0.60 * x0 * x2 * x3\n            - 0.30 * x0 * x1 * x2\n            + 0.25 * x0 * x1 * x2 * x3\n        )\n\n        coalition_values.append(value)\nassert np.allclose(compute_pair_shap_interaction(coalition_values, num_features, feature_i, feature_j), target)",
+        "num_features = 5\nfeature_i = 1\nfeature_j = 4\n\ncoalition_values = []\n\nfor pair_strength in [0.15, 0.55, -0.35, 0.95]:\n    for mask in range(1 << num_features):\n        x = [\n            1.0 if mask & (1 << k) else 0.0\n            for k in range(num_features)\n        ]\n\n        value = (\n            0.10\n            + 0.12 * x[0]\n            - 0.08 * x[1]\n            + 0.18 * x[2]\n            + 0.07 * x[3]\n            + 0.21 * x[4]\n            + pair_strength * x[1] * x[4]\n            + 0.45 * x[0] * x[1] * x[4]\n            - 0.35 * x[1] * x[2] * x[4]\n            + 0.30 * x[1] * x[3] * x[4]\n            + 0.50 * x[0] * x[1] * x[2] * x[4]\n            - 0.25 * x[1] * x[2] * x[3] * x[4]\n            + 0.20 * x[0] * x[1] * x[2] * x[3] * x[4]\n        )\n\n        coalition_values.append(value)\nassert np.allclose(compute_pair_shap_interaction(coalition_values, num_features, feature_i, feature_j), target)",
+        "def _captures_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\n\ncoalition_values = [0.1, 0.2, 0.3, 0.4, 0.5]\nnum_features = 3\nfeature_i = 0\nfeature_j = 2\nassert np.allclose(_captures_value_error(compute_pair_shap_interaction, coalition_values, num_features, feature_i, feature_j), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-25.5",
+      "test_cases": [
+        "observed_interaction = 0.5833333333333333\n\nbackground_interactions = [\n    -0.15, 0.35, -0.05, 0.25,\n     0.00, 0.20, -0.10, 0.30,\n     0.05, 0.15, -0.20, 0.40\n]\nassert np.allclose(compute_pair_raw_significance(observed_interaction, background_interactions), target)",
+        "observed_interaction = 0.1833333333333333\n\nbackground_interactions = [\n    -0.60, -0.10, -0.50, -0.20,\n    -0.45, -0.25, -0.55, -0.15,\n    -0.40, -0.30, -0.65, -0.05\n]\nassert np.allclose(compute_pair_raw_significance(observed_interaction, background_interactions), target)",
+        "observed_interaction = -0.0666666666666667\n\nbackground_interactions = [\n    -0.45, 0.05, -0.35, -0.05,\n    -0.30, -0.10, -0.40, 0.00,\n    -0.25, -0.15, -0.50, 0.10\n]\nassert np.allclose(compute_pair_raw_significance(observed_interaction, background_interactions), target)",
+        "def _captures_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\n\nobserved_interaction = 0.5\nbackground_interactions = [0.2, 0.2, 0.2, 0.2]\nassert np.allclose(_captures_value_error(compute_pair_raw_significance, observed_interaction, background_interactions), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-25.6",
+      "test_cases": [
+        "num_features = 4\nfeature_i = 0\nfeature_j = 1\nassert np.allclose(locate_pair_background(num_features, feature_i, feature_j), target)",
+        "num_features = 4\nfeature_i = 3\nfeature_j = 1\nassert np.allclose(locate_pair_background(num_features, feature_i, feature_j), target)",
+        "num_features = 6\nfeature_i = 2\nfeature_j = 5\nassert np.allclose(locate_pair_background(num_features, feature_i, feature_j), target)",
+        "def _captures_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\n\nnum_features = 5\nfeature_i = 3\nfeature_j = 3\nassert np.allclose(_captures_value_error(locate_pair_background, num_features, feature_i, feature_j), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-25.7",
+      "test_cases": [
+        "coalition_values = [\n    0.10, 0.30, 0.00, 1.00,\n    0.40, 0.30, 0.55, 1.85,\n    0.15, 0.45, -0.10, 0.80,\n    0.65, 1.05, 0.55, 2.65\n]\n\nnum_features = 4\nfeature_i = 0\nfeature_j = 1\n\nbackground_interactions_by_pair = [\n    [-0.15,0.35,-0.05,0.25,0.00,0.20,-0.10,0.30,0.05,0.15,-0.20,0.40],\n    [-0.60,-0.10,-0.50,-0.20,-0.45,-0.25,-0.55,-0.15,-0.40,-0.30,-0.65,-0.05],\n    [-0.37,0.13,-0.27,0.03,-0.22,-0.02,-0.32,0.08,-0.17,-0.07,-0.42,0.18],\n    [-0.15,0.35,-0.05,0.25,0.00,0.20,-0.10,0.30,0.05,0.15,-0.20,0.40],\n    [-0.45,0.05,-0.35,-0.05,-0.30,-0.10,-0.40,0.00,-0.25,-0.15,-0.50,0.10],\n    [0.00,0.50,0.10,0.40,0.15,0.35,0.05,0.45,0.20,0.30,-0.05,0.55]\n]\nassert np.allclose(compute_joint_interaction_significance(coalition_values, num_features, feature_i, feature_j, background_interactions_by_pair), target)",
+        "coalition_values = [\n    0.0, 0.2, 0.1, 0.7,\n    0.3, 0.8, 0.5, 1.6\n]\n\nnum_features = 3\nfeature_i = 1\nfeature_j = 0\n\nbackground_interactions_by_pair = [\n    [-0.1,0.0,0.1,0.2,0.3],\n    [-0.3,-0.2,-0.1,0.0,0.1],\n    [0.0,0.1,0.2,0.3,0.4]\n]\nassert np.allclose(compute_joint_interaction_significance(coalition_values, num_features, feature_i, feature_j, background_interactions_by_pair), target)",
+        "num_features = 5\nfeature_i = 4\nfeature_j = 1\n\ncoalition_values = []\n\nfor mask in range(1 << num_features):\n    x = [\n        1.0 if mask & (1 << k) else 0.0\n        for k in range(num_features)\n    ]\n\n    coalition_values.append(\n        0.1\n        + 0.2*x[0]\n        - 0.1*x[1]\n        + 0.3*x[2]\n        + 0.15*x[3]\n        + 0.25*x[4]\n        + 0.55*x[0]*x[1]\n        - 0.35*x[0]*x[3]\n        + 0.40*x[1]*x[4]\n        + 0.65*x[1]*x[2]*x[4]\n        - 0.30*x[0]*x[1]*x[3]*x[4]\n    )\n\nbackground_interactions_by_pair = []\n\nfor row in range(\n    num_features * (num_features - 1) // 2\n):\n    center = -0.30 + 0.07 * row\n\n    background_interactions_by_pair.append(\n        [\n            center - 0.20,\n            center + 0.10,\n            center - 0.10,\n            center + 0.20,\n            center - 0.05,\n            center + 0.05\n        ]\n    )\nassert np.allclose(compute_joint_interaction_significance(coalition_values, num_features, feature_i, feature_j, background_interactions_by_pair), target)",
+        "def _captures_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\n\ncoalition_values = [\n    0.0, 0.2, 0.1, 0.7,\n    0.3, 0.8, 0.5, 1.6\n]\n\nnum_features = 3\nfeature_i = 0\nfeature_j = 1\n\nbackground_interactions_by_pair = [\n    [-0.1,0.0,0.1,0.2],\n    [-0.3,-0.2,-0.1,0.0]\n]\nassert np.allclose(_captures_value_error(compute_joint_interaction_significance, coalition_values, num_features, feature_i, feature_j, background_interactions_by_pair), target)"
+      ]
+    },
+    {
+      "step_number": "Biology-Genetics-25.8",
+      "test_cases": [
+        "coalition_values = [\n    0.10, 0.30, 0.00, 1.00,\n    0.40, 0.30, 0.55, 1.85,\n    0.15, 0.45, -0.10, 0.80,\n    0.65, 1.05, 0.55, 2.65\n]\n\nfeature_i = 0\nfeature_j = 1\n\nbackground_interactions_by_pair = [\n    [-0.15,0.35,-0.05,0.25,0.00,0.20,-0.10,0.30,0.05,0.15,-0.20,0.40],\n    [-0.60,-0.10,-0.50,-0.20,-0.45,-0.25,-0.55,-0.15,-0.40,-0.30,-0.65,-0.05],\n    [-0.37,0.13,-0.27,0.03,-0.22,-0.02,-0.32,0.08,-0.17,-0.07,-0.42,0.18],\n    [-0.15,0.35,-0.05,0.25,0.00,0.20,-0.10,0.30,0.05,0.15,-0.20,0.40],\n    [-0.45,0.05,-0.35,-0.05,-0.30,-0.10,-0.40,0.00,-0.25,-0.15,-0.50,0.10],\n    [0.00,0.50,0.10,0.40,0.15,0.35,0.05,0.45,0.20,0.30,-0.05,0.55]\n]\nassert np.allclose(compute_target_interaction_adjusted_significance(coalition_values, feature_i, feature_j, background_interactions_by_pair), target)",
+        "coalition_values = [\n    0.0, 0.2, 0.1, 0.7,\n    0.3, 0.8, 0.5, 1.6\n]\n\nfeature_i = 1\nfeature_j = 0\n\nbackground_interactions_by_pair = [\n    [-0.1,0.0,0.1,0.2,0.3],\n    [-0.3,-0.2,-0.1,0.0,0.1],\n    [0.0,0.1,0.2,0.3,0.4]\n]\nassert np.allclose(compute_target_interaction_adjusted_significance(coalition_values, feature_i, feature_j, background_interactions_by_pair), target)",
+        "coalition_values = [\n    0.0, 0.2, 0.1, 0.7,\n    0.3, 0.8, 0.5, 1.6\n]\n\nfeature_i = 0\nfeature_j = 2\n\nbackground_interactions_by_pair = [\n    [-0.1,0.0,0.1,0.2,0.3],\n    [-0.3,-0.2,-0.1,0.0,0.1],\n    [0.0,0.1,0.2,0.3,0.4]\n]\nassert np.allclose(compute_target_interaction_adjusted_significance(coalition_values, feature_i, feature_j, background_interactions_by_pair), target)",
+        "def _captures_value_error(fn, *args):\n    try:\n        fn(*args)\n    except ValueError:\n        return 1.0\n    return 0.0\n\ncoalition_values = [\n    0.0, 0.2, 0.1,\n    0.7, 0.3\n]\n\nfeature_i = 0\nfeature_j = 1\n\nbackground_interactions_by_pair = [\n    [-0.1,0.0,0.1,0.2,0.3]\n]\nassert np.allclose(_captures_value_error(compute_target_interaction_adjusted_significance, coalition_values, feature_i, feature_j, background_interactions_by_pair), target)"
+      ]
+    }
+  ]
+}

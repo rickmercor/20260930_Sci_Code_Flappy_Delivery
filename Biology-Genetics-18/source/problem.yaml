@@ -1,0 +1,40 @@
+problem_id: "Biology-Genetics-18"
+subject: "biology"
+subject_area: "Genetics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.64898/2026.04.09.717519"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_occupancy_rate_matrix.py"
+    description: "Build the survival-weighted rate matrix of the exact first-coalescence calculation for m lineages in d demes."
+    orchestrator: false
+  - number: 2
+    name: "02_pulse_occupancy_kernel.py"
+    description: "Build the transition matrix that an admixture pulse applies to the occupancy distribution of m lineages."
+    orchestrator: false
+  - number: 3
+    name: "03_first_coalescence_curve.py"
+    description: "Compute the exact first-coalescence hazard ICR_k(t) and log-survival log S_k(t) for a structured sample under a pulse-then-split demography."
+    orchestrator: false
+  - number: 4
+    name: "04_cross_coalescence_rate_matrix.py"
+    description: "Build the survival-weighted rate matrix of the exact cross-coalescence calculation for red and blue lineages in d demes."
+    orchestrator: false
+  - number: 5
+    name: "05_cross_coalescence_curve.py"
+    description: "Compute the exact cross-coalescence rate CCR(t) and log-survival log S_x(t) of red and blue samples under a pulse-then-split demography."
+    orchestrator: false
+  - number: 6
+    name: "06_first_event_density_score.py"
+    description: "Evaluate the density of a first-event time and its score with respect to the pulse proportion."
+    orchestrator: false
+  - number: 7
+    name: "07_pulse_fisher_information.py"
+    description: "Compute the Fisher information about the pulse proportion carried by one observed first-event time."
+    orchestrator: false
+  - number: 8
+    name: "08_pulse_information_ratio.py"
+    description: "Compare how much information about an admixture pulse the first cross-coalescence time and the first coalescence time carry."
+    orchestrator: true

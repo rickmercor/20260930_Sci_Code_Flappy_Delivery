@@ -1,0 +1,48 @@
+problem_id: "osc"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "difficult"
+answer_type: "numeric"
+paper_doi: "10.48550/arXiv.2609.05170"
+dependencies: ""
+steps:
+  - number: 1
+    name: "derived_constants"
+    description: "Return the derived constants the rest of the calculation needs, as a dictionary with keys 'VT', 'Vbi', 'beta_L', 'ni2' and 'eps': the thermal voltage, the built-in voltage, the bimolecular recombination coefficient, the square of the intrinsic density, and the absolute permittivity. Raise ValueError for a non-positive temperature."
+    orchestrator: false
+  - number: 2
+    name: "bernoulli"
+    description: "Evaluate the Bernoulli function that the source's flux discretisation is built on, elementwise and without loss of accuracy near zero or at large magnitude. Raise ValueError for a non-finite argument."
+    orchestrator: false
+  - number: 3
+    name: "contact_densities"
+    description: "Return the equilibrium carrier densities held at the two ohmic contacts, as the four numbers [electrons at the anode, holes at the anode, electrons at the cathode, holes at the cathode]. Raise ValueError if the injection barrier does not lie inside the transport gap."
+    orchestrator: false
+  - number: 4
+    name: "poisson_step"
+    description: "Advance the electrostatic potential by one linearised Poisson solve at fixed carrier densities, on a uniform grid spanning the active layer. Raise ValueError if the three profiles do not share one grid."
+    orchestrator: false
+  - number: 5
+    name: "electron_density"
+    description: "Solve the electron continuity equation on the given potential for the electron density, using the source's flux discretisation, with the recombination term linearised in the electron density at the given hole density. The contact values are held fixed. Raise ValueError if the potential and the hole density do not share one grid, or if the generation rate is negative."
+    orchestrator: false
+  - number: 6
+    name: "hole_density"
+    description: "Solve the hole continuity equation on the given potential for the hole density, using the same flux discretisation as for electrons, with the recombination term linearised in the hole density at the given electron density. The contact values are held fixed. Raise ValueError if the potential and the electron density do not share one grid, or if the generation rate is negative."
+    orchestrator: false
+  - number: 7
+    name: "self_consistent_state"
+    description: "Iterate the potential and the two carrier densities to mutual self-consistency at the given bias and generation rate, and return them as the tuple (psi, n, p). Stop when the largest absolute change in the potential and the largest change in each density relative to that density's own maximum have all fallen below 1e-6, and raise ValueError if that has not happened within 2000 sweeps. Raise ValueError for a grid of fewer than five nodes."
+    orchestrator: false
+  - number: 8
+    name: "terminal_current"
+    description: "Return the terminal current density of the device in amperes per square metre, taking the sign convention in which a current driven out of the device by the built-in field is negative. Raise ValueError if the total current is not independent of position to within one part in a thousand."
+    orchestrator: false
+  - number: 9
+    name: "open_circuit_voltage"
+    description: "Return the bias at which the illuminated device carries no terminal current, in volts. Raise ValueError if no such bias exists below flat band."
+    orchestrator: false
+  - number: 10
+    name: "fill_factor"
+    description: "Return the fill factor of the illuminated device, extrapolated to the continuum from solutions on the two given grids. Raise ValueError if the fine grid is not finer than the coarse one, or if the recombination reduction factor is negative."
+    orchestrator: true

@@ -1,0 +1,127 @@
+{
+  "problem_id": "Mathematics-Numerical_Linear_Algebra-10",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-10.1",
+      "test_cases": [
+        "import numpy as np\nn=14\nassert np.allclose(construct_krylov_operator(n), target)",
+        "import numpy as np\nn=1\nassert np.allclose(construct_krylov_operator(n), target)",
+        "import numpy as np\nn=5\nassert np.allclose(construct_krylov_operator(n), target)",
+        "import numpy as np\nn=0\ndef run_model():\n    try: construct_krylov_operator(n); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nn=3.5\ndef run_model():\n    try: construct_krylov_operator(n); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nn=-2\ndef run_model():\n    try: construct_krylov_operator(n); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-10.2",
+      "test_cases": [
+        "import numpy as np\nA=np.array([[2.,1.,0.,0.],[.1,2.2,.8,0.],[0.,.1,2.4,.7],[0.,0.,.1,2.6]])\nb=np.array([1.,-.3,.7,.4]); m=3; k=1\nassert np.allclose(truncated_arnoldi_basis(A,b,m,k), target)",
+        "import numpy as np\nA=np.diag([1.,2.,4.]); b=np.array([1.,1.,1.]); m=1; k=1\nassert np.allclose(truncated_arnoldi_basis(A,b,m,k), target)",
+        "import numpy as np\nA=np.array([[1.,.7,.2,0.],[.05,1.1,.6,.1],[0,.05,1.2,.5],[0,0,.05,1.3]])\nb=np.array([1.,.2,-.5,.7]); m=4; k=2\nassert np.allclose(truncated_arnoldi_basis(A,b,m,k), target)",
+        "import numpy as np\nA=np.eye(3); b=np.zeros(3); m=2; k=1\ndef run_model():\n    try: truncated_arnoldi_basis(A,b,m,k); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA=np.ones((2,3)); b=np.ones(2); m=2; k=1\ndef run_model():\n    try: truncated_arnoldi_basis(A,b,m,k); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA=np.eye(3); b=np.array([1.,0.,0.]); m=2; k=1\ndef run_model():\n    try: truncated_arnoldi_basis(A,b,m,k); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-10.3",
+      "test_cases": [
+        "import numpy as np\nV=np.array([[1.,0.,.1],[.2,1.,0.],[.7,.1,1.],[.1,.5,.4],[.4,.3,.2]])\nassert np.allclose(qdeim_indices(V), target)",
+        "import numpy as np\nV=np.array([[1.,0.],[1.,0.],[0.,1.]])\ntie_tol=1e-12\nassert np.allclose(qdeim_indices(V,tie_tol), target)",
+        "import numpy as np\nV=np.array([[2.],[1.],[-3.]])\nassert np.allclose(qdeim_indices(V), target)",
+        "import numpy as np\nV=np.array([[1.,0.],[2.,0.],[3.,0.]])\ndef run_model():\n    try: qdeim_indices(V); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nV=np.eye(2); tie_tol=-1.\ndef run_model():\n    try: qdeim_indices(V,tie_tol); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nV=np.array([[1.,np.nan],[0.,1.]])\ndef run_model():\n    try: qdeim_indices(V); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-10.4",
+      "test_cases": [
+        "import numpy as np\nV=np.array([[1.,0.],[0.,1.],[.8,.2],[.2,.9],[.6,.7]])\ninitial_indices=np.array([1,2]); s=4\nassert np.allclose(gappypod_e_oversample(V,initial_indices,s), target)",
+        "import numpy as np\nV=np.array([[1.,0.],[0.,1.],[1.,1.]])\ninitial_indices=np.array([1,2]); s=2\nassert np.allclose(gappypod_e_oversample(V,initial_indices,s), target)",
+        "import numpy as np\nV=np.array([[1.],[2.],[-1.],[.5]])\ninitial_indices=np.array([2]); s=3\nassert np.allclose(gappypod_e_oversample(V,initial_indices,s), target)",
+        "import numpy as np\nV=np.eye(3); initial_indices=np.array([1,2]); s=3\ndef run_model():\n    try: gappypod_e_oversample(V,initial_indices,s); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nV=np.array([[1.,0.],[0.,1.],[1.,1.]])\ninitial_indices=np.array([1,1]); s=3\ndef run_model():\n    try: gappypod_e_oversample(V,initial_indices,s); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nV=np.array([[1.,0.],[0.,1.],[1.,1.]])\ninitial_indices=np.array([1,2]); s=4\ndef run_model():\n    try: gappypod_e_oversample(V,initial_indices,s); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nrng=np.random.default_rng(18)\nV=rng.normal(size=(11,4))@np.diag(np.geomspace(.1,3.,4))\ninitial_indices=np.arange(1,5); s=8\nassert np.allclose(gappypod_e_oversample(V,initial_indices,s), target)",
+        "import numpy as np\nrng=np.random.default_rng(42)\nV=rng.normal(size=(9,3))@np.diag(np.geomspace(.1,3.,3))\ninitial_indices=np.arange(1,4); s=6\nassert np.allclose(gappypod_e_oversample(V,initial_indices,s), target)",
+        "import numpy as np\nrng=np.random.default_rng(71)\nV=rng.normal(size=(13,5))@np.diag(np.geomspace(.1,3.,5))\ninitial_indices=np.arange(1,6); s=9\nassert np.allclose(gappypod_e_oversample(V,initial_indices,s), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-10.5",
+      "test_cases": [
+        "import numpy as np\nV=np.array([[1.,0.],[0.,1.],[1.,1.],[2.,-.5]])\nM=np.array([[2.,.2],[.1,1.8],[2.1,2.],[3.9,-.7]])\nb=np.array([1.,-.3,.8,.2]); indices=np.array([1,2,4])\nassert np.allclose(deterministic_sgmres_solve(V,M,b,indices), target)",
+        "import numpy as np\nV=np.array([[1.],[2.],[3.]])\nM=np.array([[2.],[1.],[4.]])\nb=np.array([1.,0.,2.]); indices=np.array([1])\nassert np.allclose(deterministic_sgmres_solve(V,M,b,indices), target)",
+        "import numpy as np\nV=np.array([[1.,0.],[0.,1.],[1.,1.]])\nM=np.array([[1.,.2],[.3,1.1],[1.4,1.2]])\nb=np.array([.2,.5,-.1]); indices=np.array([1,2,3])\nassert np.allclose(deterministic_sgmres_solve(V,M,b,indices), target)",
+        "import numpy as np\nV=np.eye(2); M=np.eye(2); b=np.ones(2); indices=np.array([1,1])\ndef run_model():\n    try: deterministic_sgmres_solve(V,M,b,indices); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nV=np.eye(2); M=np.array([[1.,0.],[2.,0.]]); b=np.ones(2); indices=np.array([1,2])\ndef run_model():\n    try: deterministic_sgmres_solve(V,M,b,indices); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nV=np.eye(2); M=np.eye(2); b=np.array([1.,np.nan]); indices=np.array([1,2])\ndef run_model():\n    try: deterministic_sgmres_solve(V,M,b,indices); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-10.6",
+      "test_cases": [
+        "import numpy as np\nM=np.array([[1.,0.],[0.,1.],[1.,1.]])\nb=np.array([1.,2.,4.]); residual_sq=2.0\nassert np.allclose(deterministic_residual_inflation(M,b,residual_sq), target)",
+        "import numpy as np\nM=np.array([[1.],[2.],[4.]])\nb=np.array([0.,1.,0.]); residual_sq=.9\nassert np.allclose(deterministic_residual_inflation(M,b,residual_sq), target)",
+        "import numpy as np\nM=np.array([[1.,.2],[.3,1.],[.5,-.4],[.2,.8]])\nb=np.array([.4,-.2,.9,.1]); residual_sq=1.2\nassert np.allclose(deterministic_residual_inflation(M,b,residual_sq), target)",
+        "import numpy as np\nM=np.eye(2); b=np.array([1.,2.]); residual_sq=0.\ndef run_model():\n    try: deterministic_residual_inflation(M,b,residual_sq); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nM=np.array([[1.],[2.]]); b=np.array([0.,1.]); residual_sq=-1.\ndef run_model():\n    try: deterministic_residual_inflation(M,b,residual_sq); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nM=np.array([[1.,0.],[2.,0.],[3.,0.]]); b=np.ones(3); residual_sq=1.\ndef run_model():\n    try: deterministic_residual_inflation(M,b,residual_sq); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-10.7",
+      "test_cases": [
+        "import numpy as np\nn=14; r=5; ell=7; field='real'\nassert np.allclose(random_orthonormal_benchmark(n,r,ell,field), target)",
+        "import numpy as np\nn=14; r=5; ell=7; field='complex'\nassert np.allclose(random_orthonormal_benchmark(n,r,ell,field), target)",
+        "import numpy as np\nn=8; r=2; ell=8; field='real'\nassert np.allclose(random_orthonormal_benchmark(n,r,ell,field), target)",
+        "import numpy as np\nn=6; r=5; ell=6; field='real'\nassert np.allclose(random_orthonormal_benchmark(n,r,ell,field), target)",
+        "import numpy as np\nn=10; r=3; ell=4; field='real'\ndef run_model():\n    try: random_orthonormal_benchmark(n,r,ell,field); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nn=10; r=3; ell=5; field='other'\ndef run_model():\n    try: random_orthonormal_benchmark(n,r,ell,field); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nn=5; r=5; ell=5; field='real'\ndef run_model():\n    try: random_orthonormal_benchmark(n,r,ell,field); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-10.8",
+      "test_cases": [
+        "import numpy as np\nA=np.array([[3.,.7],[.7,-1.]])\nB=np.array([[.2,.1],[.1,2.]])\ng=np.array([.4,-.8]); c=1.7; tau=.65\nassert np.allclose(fractional_sphere_maximum(A,g,c,B,tau), target)",
+        "import numpy as np\nA=np.diag([5.,5.,1.]); B=np.eye(3)*.3\ng=np.array([0.,0.,.5]); c=2.; tau=1.\nassert np.allclose(fractional_sphere_maximum(A,g,c,B,tau), target)",
+        "import numpy as np\nA=np.diag([5.,5.,1.]); B=np.eye(3)*.3\ng=np.array([0.,0.,.5]); c=2.; tau=.125\nassert np.allclose(fractional_sphere_maximum(A,g,c,B,tau), target)",
+        "import numpy as np\nA=np.array([[4.,1.],[1.,2.]]); B=np.diag([4.,.1])\ng=np.zeros(2); c=.3; tau=1.2\nassert np.allclose(fractional_sphere_maximum(A,g,c,B,tau), target)",
+        "import numpy as np\nA=np.diag([-4.,-2.]); B=np.zeros((2,2))\ng=np.zeros(2); c=-3.; tau=.7\nassert np.allclose(fractional_sphere_maximum(A,g,c,B,tau), target)",
+        "import numpy as np\nA=np.array([[2.]]); B=np.array([[.6]])\ng=np.array([-.9]); c=.4; tau=.8\nassert np.allclose(fractional_sphere_maximum(A,g,c,B,tau), target)",
+        "import numpy as np\nA=np.eye(3); B=np.eye(3); g=np.ones(3); c=-2.; tau=0.\nassert np.allclose(fractional_sphere_maximum(A,g,c,B,tau), target)",
+        "import numpy as np\nA=np.diag([5.,5.,1.]); B=np.eye(3)*.3\ng=np.array([1e-6,0.,.5]); c=2.; tau=1.\nassert np.allclose(fractional_sphere_maximum(A,g,c,B,tau), target)",
+        "import numpy as np\nU=np.linalg.qr(np.array([[1.,2.,3.],[2.,-1.,1.],[1.,1.,-2.]]))[0]\nA=U@np.diag([5.,5.,1.])@U.T; B=np.eye(3)*.3\ng=U@np.array([0.,0.,.5]); c=2.; tau=1.\nassert np.allclose(fractional_sphere_maximum(A,g,c,B,tau), target)",
+        "import numpy as np\nA=np.eye(2); B=np.eye(2); g=np.ones(2); c=1.; tau=1.\nA=np.zeros((0,0))\ndef run_model():\n    try:\n        fractional_sphere_maximum(A,g,c,B,tau)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA=np.eye(2); B=np.eye(2); g=np.ones(2); c=1.; tau=1.\ng=np.ones(3)\ndef run_model():\n    try:\n        fractional_sphere_maximum(A,g,c,B,tau)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA=np.eye(2); B=np.eye(2); g=np.ones(2); c=1.; tau=1.\nA[0,1]=1.\ndef run_model():\n    try:\n        fractional_sphere_maximum(A,g,c,B,tau)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA=np.eye(2); B=np.eye(2); g=np.ones(2); c=1.; tau=1.\nB[0,0]=-1.\ndef run_model():\n    try:\n        fractional_sphere_maximum(A,g,c,B,tau)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA=np.eye(2); B=np.eye(2); g=np.ones(2); c=1.; tau=1.\ntau=-1.\ndef run_model():\n    try:\n        fractional_sphere_maximum(A,g,c,B,tau)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA=np.eye(2); B=np.eye(2); g=np.ones(2); c=1.; tau=1.\ng[0]=np.nan\ndef run_model():\n    try:\n        fractional_sphere_maximum(A,g,c,B,tau)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nA=np.eye(2); B=np.eye(2); g=np.ones(2); c=1.; tau=1.\nc=np.inf\ndef run_model():\n    try:\n        fractional_sphere_maximum(A,g,c,B,tau)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Numerical_Linear_Algebra-10.9",
+      "test_cases": [
+        "import numpy as np\nK=np.zeros((14,14))\nfor i1 in range(1,15):\n    i=i1-1; K[i,i]=1+.05*i1\n    if i+1<14: K[i,i+1]=.8; K[i+1,i]=.01\n    if i+2<14: K[i,i+2]=.5\nb=np.array([-1.75034599,-2.39261019,-0.66844122,2.54142790,2.37457273,1.51299239,-0.75570191,-0.83104218,-1.29937175,-1.23666168,0.61959633,1.73510860,-0.25227877,-0.54794458])\nassert np.allclose(deterministic_random_benchmark_ratio(K,b,5,1,7,1e-12), target)",
+        "import numpy as np\nb=np.array([-1.75034599,-2.39261019,-0.66844122,2.54142790,2.37457273,1.51299239,-0.75570191,-0.83104218,-1.29937175,-1.23666168,0.61959633,1.73510860,-0.25227877,-0.54794458])\nassert np.allclose(deterministic_random_benchmark_ratio(14,b,5,1,7,1e-12), target)",
+        "import numpy as np\nK=np.diag(np.linspace(1.,3.,9))+np.diag(np.full(8,.7),1)+np.diag(np.full(7,.15),2)\nb=np.array([1.,-.4,.8,-.2,.6,.3,-.7,.5,-.1])\nassert np.allclose(deterministic_random_benchmark_ratio(K,b,3,1,5,1e-12), target)",
+        "import numpy as np\nK=np.diag(np.linspace(1.,4.,10))+np.diag(np.full(9,.5),1)+np.diag(np.full(8,.2),2)\nb=np.array([.7,-.2,.4,.9,-.6,.3,.8,-.5,.1,.2])\nassert np.allclose(deterministic_random_benchmark_ratio(K,b,4,2,7,0.0), target)",
+        "import numpy as np\nK=np.eye(6); b=np.zeros(6)\ndef run_model():\n    try: deterministic_random_benchmark_ratio(K,b,2,1,4,1e-12); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nK=np.diag(np.linspace(1.,2.5,8))+np.diag(np.full(7,.6),1)+np.diag(np.full(6,.15),2)\nb=np.array([1.,-.4,.7,.2,-.6,.5,-.3,.8])\ndef run_model():\n    try: deterministic_random_benchmark_ratio(K,b,3,1,4,1e-12); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nK=np.ones((3,4)); b=np.ones(3)\ndef run_model():\n    try: deterministic_random_benchmark_ratio(K,b,2,1,3,1e-12); return 0\n    except ValueError: return 1\n    except Exception: return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nb=np.array([.8,-.3,.7,.4,-.6,.9,-.2,.1,.5,-.4])\nassert np.allclose(deterministic_random_benchmark_ratio(10,b,3,1,5,1e-12,tau=0.), target)",
+        "import numpy as np\nb=np.array([.8,-.3,.7,.4,-.6,.9,-.2,.1,.5,-.4])\nassert np.allclose(deterministic_random_benchmark_ratio(10,b,3,1,5,1e-12,tau=.2,weights=np.geomspace(.05,20.,10)), target)",
+        "import numpy as np\nb=np.array([.8,-.3,.7,.4,-.6,.9,-.2,.1,.5,-.4])\nassert np.allclose(deterministic_random_benchmark_ratio(10,b,3,1,5,1e-12,tau=1.4,weights=np.array([2.,1.,4.,.5,3.,7.,.4,2.,1.,5.])), target)",
+        "import numpy as np\nb=np.array([.8,-.3,.7,.4,-.6,.9,-.2,.1,.5,-.4])\nassert np.allclose(deterministic_random_benchmark_ratio(10,b,3,1,10,tau=.8), target)",
+        "import numpy as np\nb=np.array([.8,-.3,.7,.4,-.6,.9,-.2,.1,.5,-.4])\ndef run_model():\n    try:\n        deterministic_random_benchmark_ratio(10,b,3,1,5,tau=-.1)\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nb=np.array([.8,-.3,.7,.4,-.6,.9,-.2,.1,.5,-.4])\ndef run_model():\n    try:\n        deterministic_random_benchmark_ratio(10,b,3,1,5,weights=np.ones(9))\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nb=np.array([.8,-.3,.7,.4,-.6,.9,-.2,.1,.5,-.4])\ndef run_model():\n    try:\n        deterministic_random_benchmark_ratio(10,b,3,1,5,weights=np.zeros(10))\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)",
+        "import numpy as np\nb=np.array([.8,-.3,.7,.4,-.6,.9,-.2,.1,.5,-.4])\ndef run_model():\n    try:\n        deterministic_random_benchmark_ratio(10,b,3,1,5,weights=np.full(10,np.inf))\n        return 0\n    except ValueError:\n        return 1\n    except Exception:\n        return 2\nassert np.allclose(run_model(), target)"
+      ]
+    }
+  ]
+}

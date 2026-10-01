@@ -1,0 +1,40 @@
+problem_id: "Chemistry-Quantum_Chemistry-27"
+subject: "chemistry"
+subject_area: "Quantum Chemistry"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.1063/5.0339766"
+dependencies: ""
+steps:
+  - number: 1
+    name: "01_unrestricted_orbitals.py"
+    description: "Build the restricted-pairing, unrestricted-spin orbital coefficient matrices of a seniority eigenstate configuration interaction wave function from antisymmetric rotation parameters."
+    orchestrator: false
+  - number: 2
+    name: "02_seniority_coefficients.py"
+    description: "Transform a Hubbard Hamiltonian to unrestricted orbitals and extract the coefficients of its local-seniority-conserving part."
+    orchestrator: false
+  - number: 3
+    name: "03_seniority_sector_basis.py"
+    description: "Enumerate the product states of a fixed-local-seniority sector: pair configurations on the pairing levels times spin configurations on the singly occupied levels."
+    orchestrator: false
+  - number: 4
+    name: "04_seci_hamiltonian.py"
+    description: "Build the matrix of the local-seniority-conserving (so(4)) Hamiltonian in a fixed-local-seniority product-state basis."
+    orchestrator: false
+  - number: 5
+    name: "05_seci_energy_gradient.py"
+    description: "Evaluate the seniority eigenstate configuration interaction energy of a Hubbard model for given orbital-rotation parameters, together with its exact gradient with respect to those parameters."
+    orchestrator: false
+  - number: 6
+    name: "06_optimize_seci_orbitals.py"
+    description: "Find the variationally optimal seniority eigenstate configuration interaction energy of a Hubbard model by minimizing over all orbital rotations."
+    orchestrator: false
+  - number: 7
+    name: "07_hubbard_fci_energy.py"
+    description: "Compute the exact (full configuration interaction) ground-state energy of a Hubbard model in a fixed particle-number and spin sector."
+    orchestrator: false
+  - number: 8
+    name: "08_seci_correlation_fraction.py"
+    description: "Compute the fraction of the Hubbard-ring correlation energy recovered by orbital-optimized seniority eigenstate configuration interaction at a chosen local seniority."
+    orchestrator: true

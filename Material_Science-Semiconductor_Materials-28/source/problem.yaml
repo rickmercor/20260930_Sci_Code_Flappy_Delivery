@@ -1,0 +1,40 @@
+problem_id: "Material_Science-Semiconductor_Materials-28"
+subject: "materials"
+subject_area: "Semiconductor Materials"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.48550/arXiv.2606.22233"
+dependencies: ""
+steps:
+  - number: 1
+    name: "hd_hamiltonian"
+    description: "Builds the Hamiltonian and the drive operator of the two-electron Holstein dimer in a truncated phonon Fock space."
+    orchestrator: false
+  - number: 2
+    name: "hd_ground_state"
+    description: "Computes the exact ground state of the dimer and the reduced quantities of the source's hierarchy evaluated in it."
+    orchestrator: false
+  - number: 3
+    name: "hd_exact_dynamics"
+    description: "Propagates the exact ground state of the dimer under the source's Gaussian-damped drive and reports the reduced observables."
+    orchestrator: false
+  - number: 4
+    name: "hd_eom_rhs"
+    description: "Evaluates one time derivative of the source's second-order equal-time electron-phonon hierarchy for the driven spin-symmetric Holstein dimer, or of its coherent restriction."
+    orchestrator: false
+  - number: 5
+    name: "hd_initial_state"
+    description: "Packs the exact ground state's reduced quantities into the initial state of the hierarchy at the chosen level."
+    orchestrator: false
+  - number: 6
+    name: "hd_energy"
+    description: "Evaluates the source's energy functional of the hierarchy, split into electronic, phonon and electron-phonon parts."
+    orchestrator: false
+  - number: 7
+    name: "hd_eom_dynamics"
+    description: "Propagates the hierarchy from the exact ground state's reduced quantities under the drive at the chosen level of theory."
+    orchestrator: false
+  - number: 8
+    name: "hd_audit"
+    description: "Runs the whole chain from the exact ground state through the exact, coherent and full-hierarchy dynamics and reports the observables side by side."
+    orchestrator: true

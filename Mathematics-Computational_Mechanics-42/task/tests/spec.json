@@ -1,0 +1,69 @@
+{
+  "problem_id": "Mathematics-Computational_Mechanics-42",
+  "sub_steps": [
+    {
+      "step_number": "Mathematics-Computational_Mechanics-42.1",
+      "test_cases": [
+        "import numpy as _n\nq_n=_n.array([-4.0e6,-2.0e6,-1.0e6,0.0]);K_n=2.0e11;du_max=5.0e-5;model='Lin'\nassert np.allclose(normal_stiffness(q_n, K_n, du_max, model), target)",
+        "import numpy as _n\nq_n=_n.array([-4.0e6,-2.0e6,-1.0e6,0.0]);K_n=2.0e11;du_max=5.0e-5;model='BB'\nassert np.allclose(normal_stiffness(q_n, K_n, du_max, model), target)",
+        "import numpy as _n\nq_n=_n.array([-7.5e6,-3.3e6,-0.5e6]);K_n=1.5e11;du_max=8.0e-5;model='BB'\nassert np.allclose(normal_stiffness(q_n, K_n, du_max, model), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-42.2",
+      "test_cases": [
+        "import numpy as _n\njump_n=_n.array([1.8e-5,-1.2e-5,-2.4e-5,0.6e-5,-3.0e-5]);K_n=2.0e11;du_max=5.0e-5;model='Lin';contact=False\nassert np.allclose(normal_traction(jump_n, K_n, du_max, model, contact), target)",
+        "import numpy as _n\njump_n=_n.array([1.8e-5,-1.2e-5,-2.4e-5,0.6e-5,-3.0e-5]);K_n=2.0e11;du_max=5.0e-5;model='BB';contact=True\nassert np.allclose(normal_traction(jump_n, K_n, du_max, model, contact), target)",
+        "import numpy as _n\njump_n=_n.array([-0.9e-5,2.2e-5,-3.6e-5,-1.5e-5]);K_n=1.5e11;du_max=8.0e-5;model='BB';contact=False\nassert np.allclose(normal_traction(jump_n, K_n, du_max, model, contact), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-42.3",
+      "test_cases": [
+        "import numpy as _n\nq_n=_n.array([-4.0e6,-2.0e6,0.0,-1.0e6]);F=1.0\nassert np.allclose(friction_bound(q_n, F), target)",
+        "import numpy as _n\nq_n=_n.array([-7.5e6,-3.3e6,-0.5e6]);F=0.6\nassert np.allclose(friction_bound(q_n, F), target)",
+        "import numpy as _n\nq_n=_n.array([0.0,-9.1e6,-2.7e6,-5.5e6]);F=0.85\nassert np.allclose(friction_bound(q_n, F), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-42.4",
+      "test_cases": [
+        "import numpy as _n\nq_tau=_n.array([0.0,0.0,0.0,0.0]);jump_vel_tau=_n.array([0.8,-1.1,1.6,-0.4]);b=_n.array([4.0e6,2.0e6,0.0,1.0e6]);c=1.0e6\nassert np.allclose(coulomb_return(q_tau, jump_vel_tau, b, c), target)",
+        "import numpy as _n\nq_tau=_n.array([1.0e6,-2.0e6,0.5e6]);jump_vel_tau=_n.array([2.5,0.3,-4.0]);b=_n.array([3.0e6,2.5e6,1.2e6]);c=1.0e6\nassert np.allclose(coulomb_return(q_tau, jump_vel_tau, b, c), target)",
+        "import numpy as _n\nq_tau=_n.array([0.0,1.5e6,-0.9e6,0.0]);jump_vel_tau=_n.array([0.0,-3.2,1.1,0.6]);b=_n.array([2.0e6,0.0,5.0e6,-1.0e6]);c=5.0e5\nassert np.allclose(coulomb_return(q_tau, jump_vel_tau, b, c), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-42.5",
+      "test_cases": [
+        "import numpy as _n\njump_n=_n.array([1.8e-5,-1.2e-5,-2.4e-5,-3.0e-5]);q_n=_n.array([0.0,-2.4e6,-4.8e6,-6.0e6]);q_tau=_n.array([0.0,1.0e6,4.8e6,2.0e6]);K_n=2.0e11;du_max=5.0e-5;model='Lin';F=1.0\nassert np.allclose(contact_state(jump_n, q_n, q_tau, K_n, du_max, model, F), target)",
+        "import numpy as _n\njump_n=_n.array([-0.9e-5,2.2e-5,-3.6e-5,-1.5e-5]);q_n=_n.array([-1.8e6,0.0,-7.2e6,-3.0e6]);q_tau=_n.array([1.8e6,0.0,3.0e6,0.5e6]);K_n=2.0e11;du_max=5.0e-5;model='Lin';F=1.0\nassert np.allclose(contact_state(jump_n, q_n, q_tau, K_n, du_max, model, F), target)",
+        "import numpy as _n\njump_n=_n.array([-1.0e-5,-2.0e-5,-0.5e-5]);q_n=_n.array([-2.5e6,-5.5e6,-1.1e6]);q_tau=_n.array([1.2e6,3.3e6,1.1e6]);K_n=1.5e11;du_max=8.0e-5;model='BB';F=0.6\nassert np.allclose(contact_state(jump_n, q_n, q_tau, K_n, du_max, model, F), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-42.6",
+      "test_cases": [
+        "import numpy as _n\nu_new=_n.array([2.0e-7,-1.0e-7,0.5e-7]);u_old=_n.array([0.0,0.0,0.0]);v_old=_n.array([1.0,0.5,-0.25]);a_old=_n.array([0.0,1.0e6,-2.0e6]);dt=1.0e-7;beta=0.25;gamma=0.5\nassert np.allclose(newmark_update(u_new, u_old, v_old, a_old, dt, beta, gamma), target)",
+        "import numpy as _n\nu_new=_n.array([1.1e-6,3.0e-7]);u_old=_n.array([2.0e-7,-1.0e-7]);v_old=_n.array([-0.75,2.0]);a_old=_n.array([5.0e5,-3.0e5]);dt=2.5e-8;beta=0.25;gamma=0.5\nassert np.allclose(newmark_update(u_new, u_old, v_old, a_old, dt, beta, gamma), target)",
+        "import numpy as _n\nu_new=_n.array([4.0e-7,-2.2e-7,1.3e-7,0.0]);u_old=_n.array([1.0e-7,1.0e-7,-1.0e-7,0.0]);v_old=_n.array([0.2,-0.4,0.6,0.0]);a_old=_n.array([1.0e6,0.0,-1.0e6,2.0e6]);dt=5.0e-8;beta=0.3;gamma=0.6\nassert np.allclose(newmark_update(u_new, u_old, v_old, a_old, dt, beta, gamma), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-42.7",
+      "test_cases": [
+        "import numpy as _n\nrho=2600.0;lam=4.0e9;mu=4.0e9;n=_n.array([1.0,0.0])\nassert np.allclose(absorbing_matrix(rho, lam, mu, n), target)",
+        "import numpy as _n\nrho=2600.0;lam=4.0e9;mu=4.0e9;n=_n.array([0.6,0.8])\nassert np.allclose(absorbing_matrix(rho, lam, mu, n), target)",
+        "import numpy as _n\nrho=2200.0;lam=6.0e9;mu=3.0e9;_v=_n.array([1.0,2.0,2.0]);n=_v/_n.linalg.norm(_v)\nassert np.allclose(absorbing_matrix(rho, lam, mu, n), target)"
+      ]
+    },
+    {
+      "step_number": "Mathematics-Computational_Mechanics-42.8",
+      "test_cases": [
+        "load_scale = 1.0\nassert np.allclose(fracture_audit(load_scale), target)",
+        "load_scale = 0.8\nassert np.allclose(fracture_audit(load_scale), target)",
+        "load_scale = 1.25\nassert np.allclose(fracture_audit(load_scale), target)"
+      ]
+    }
+  ]
+}

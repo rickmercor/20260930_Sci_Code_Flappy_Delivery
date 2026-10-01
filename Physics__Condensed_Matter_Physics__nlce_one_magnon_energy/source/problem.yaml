@@ -1,0 +1,36 @@
+problem_id: "nlce_one_magnon_energy"
+subject: "physics"
+subject_area: "Condensed Matter Physics"
+difficulty: "difficult"
+answer_type: "single_numeric"
+paper_doi: "10.21468/SciPostPhys.21.2.030"
+dependencies: "import numpy as np"
+steps:
+  - number: 1
+    name: "hamiltonian_element"
+    description: "Build the transverse-field Ising chain and report one matrix element.\nReturns the element, dimensionless."
+    orchestrator: false
+  - number: 2
+    name: "selection_deviation"
+    description: "Choose the eigenstates that deform the target block least and report that deformation.\nReturns the Frobenius deviation, dimensionless."
+    orchestrator: false
+  - number: 3
+    name: "effective_element"
+    description: "Construct the effective Hamiltonian in the one-magnon sector and report one element.\nReturns the element, dimensionless."
+    orchestrator: false
+  - number: 4
+    name: "cluster_quantity"
+    description: "Sum the effective Hamiltonian over all site pairs a fixed distance apart.\nReturns the pair sum, dimensionless."
+    orchestrator: false
+  - number: 5
+    name: "cluster_weight"
+    description: "Strip the subchain contributions from a chain's pair sum.\nReturns the linked-cluster weight, dimensionless."
+    orchestrator: false
+  - number: 6
+    name: "nlce_hopping"
+    description: "Assemble the linked-cluster weights into the hopping amplitude at one separation.\nReturns the amplitude, dimensionless."
+    orchestrator: false
+  - number: 7
+    name: "one_magnon_energy"
+    description: "Combine the hopping amplitudes into the one-magnon energy at the reported wavevector.\nReturns the energy, dimensionless."
+    orchestrator: true
